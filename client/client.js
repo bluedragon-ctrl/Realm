@@ -1,0 +1,611 @@
+const consoleEl = document.getElementById('console');
+const form = document.getElementById('input-form');
+const input = document.getElementById('input');
+const whoEl = document.getElementById('who');
+const whereEl = document.getElementById('where');
+const quickbar = document.getElementById('quickbar');
+const playerPanel = document.getElementById('player-panel');
+const playerPanelTitle = document.getElementById('player-panel-title');
+const playerStatsEl = document.getElementById('player-stats');
+const inspectPanel = document.getElementById('inspect-panel');
+const inspectTitle = document.getElementById('inspect-title');
+const inspectBody = document.getElementById('inspect-body');
+const backBtn = document.getElementById('back-to-room');
+const popover = document.getElementById('action-popover');
+const tickEl = document.getElementById('tick');
+
+let ws = null;
+let loggedIn = false;
+let lastRoomMsg = null;
+let lastStatsMsg = null;
+let labels = {};
+let socialList = [];
+const history = [];
+let historyIdx = -1;
+
+function appendText(cls, text, extra = '') {
+  const div = document.createElement('div');
+  div.className = `line ${cls}${extra ? ' ' + extra : ''}`;
+  div.textContent = text;
+  consoleEl.appendChild(div);
+  consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+
+function extraClasses(msg) {
+  const parts = [];
+  if (msg.source) parts.push(`source-${msg.source}`);
+  if (msg.tone) parts.push(`tone-${msg.tone}`);
+  return parts.join(' ');
+}
+
+function makeChip(label, cls, onClick) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  btn.className = `chip ${cls}`;
+  btn.textContent = label;
+  btn.addEventListener('click', onClick);
+  return btn;
+}
+
+function sendInput(text) {
+  if (!ws || ws.readyState !== WebSocket.OPEN || !loggedIn) return;
+  ws.send(JSON.stringify({ kind: 'input', text }));
+}
+
+function fillInput(prefix) {
+  input.value = prefix;
+  input.focus();
+  input.setSelectionRange(prefix.length, prefix.length);
+}
+
+function makeBar(label, num, pct, cls) {
+  const wrap = document.createElement('div'); wrap.className = 'bar';
+  const lab = document.createElement('span'); lab.className = 'bar-label'; lab.textContent = label;
+  const track = document.createElement('div'); track.className = 'bar-track';
+  const fill = document.createElement('div'); fill.className = `bar-fill ${cls}`; fill.style.width = `${pct}%`;
+  track.appendChild(fill);
+  const n = document.createElement('span'); n.className = 'bar-num'; n.textContent = num;
+  wrap.appendChild(lab); wrap.appendChild(track); wrap.appendChild(n);
+  return wrap;
+}
+
+function renderStats(msg) {
+  lastStatsMsg = msg;
+  labels = msg.labels ?? labels;
+  if (Array.isArray(msg.socials)) socialList = msg.socials;
+  playerPanelTitle.textContent = labels.panelTitle ?? 'Character';
+  inspectTitle.textContent = labels.inspectTitle ?? 'Inspect';
+  if (labels.backToRoom) backBtn.textContent = labels.backToRoom;
+  // Update quickbar Flee button label per language
+  const fleeBtn = document.getElementById('flee-btn');
+  if (fleeBtn && labels.fleeButton) fleeBtn.textContent = labels.fleeButton;
+  whoEl.textContent = msg.isAdmin ? `${msg.name} (admin)` : msg.name;
+  whereEl.textContent = msg.location ?? '';
+
+  const s = msg.stats ?? {};
+  const hpPct = s.hpMax > 0 ? Math.max(0, Math.min(100, (s.hp / s.hpMax) * 100)) : 0;
+  const mpPct = s.mpMax > 0 ? Math.max(0, Math.min(100, (s.mp / s.mpMax) * 100)) : 0;
+  const hpClass = hpPct < 30 ? 'low' : hpPct < 60 ? 'mid' : '';
+
+  playerStatsEl.innerHTML = '';
+  playerStatsEl.appendChild(makeBar(labels.hp ?? 'HP', `${s.hp}/${s.hpMax}`, hpPct, `hp ${hpClass}`));
+  if (s.mpMax > 0) {
+    playerStatsEl.appendChild(makeBar(labels.mp ?? 'MP', `${s.mp}/${s.mpMax}`, mpPct, 'mp'));
+  }
+  const grid = document.createElement('div');
+  grid.className = 'stat-grid';
+  for (const [key, val] of [
+    [labels.atk ?? 'ATK', s.attack],
+    [labels.def ?? 'DEF', s.defense],
+    [labels.int ?? 'INT', s.int],
+    [labels.spd ?? 'SPD', s.spd],
+  ]) {
+    const k = document.createElement('span'); k.className = 'k'; k.textContent = key;
+    const v = document.createElement('span'); v.className = 'v'; v.textContent = val ?? '?';
+    grid.appendChild(k); grid.appendChild(v);
+  }
+  playerStatsEl.appendChild(grid);
+
+  // Inventory + spellbook (both collapsible)
+  playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
+    if (Array.isArray(msg.inventory) && msg.inventory.length > 0) {
+      msg.inventory.forEach((item, i) => {
+        if (i > 0) body.append(' ');
+        const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+        const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
+        body.appendChild(chip);
+      });
+    } else {
+      const empty = document.createElement('span');
+      empty.className = 'empty';
+      empty.textContent = labels.inventoryEmpty ?? '(empty)';
+      body.appendChild(empty);
+    }
+  }));
+
+  playerStatsEl.appendChild(makeCollapsibleSection('spells', labels.spellbookTitle ?? 'Spells', (body) => {
+    if (Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0) {
+      msg.knownSpells.forEach((spell, i) => {
+        if (i > 0) body.append(' ');
+        const chip = document.createElement('button');
+        chip.type = 'button';
+        chip.className = 'chip spell';
+        chip.textContent = spell.name;
+        const mp = document.createElement('span');
+        mp.className = 'mp-cost';
+        mp.textContent = `${spell.mpCost}MP`;
+        chip.appendChild(mp);
+        chip.addEventListener('click', (ev) => openSpellPopover(chip, spell, ev));
+        body.appendChild(chip);
+      });
+    } else {
+      const empty = document.createElement('span');
+      empty.className = 'empty';
+      empty.textContent = labels.spellbookEmpty ?? '(none)';
+      body.appendChild(empty);
+    }
+  }));
+
+  playerPanel.hidden = false;
+}
+
+function makeCollapsibleSection(key, title, buildBody) {
+  const stateKey = `realm.panel.${key}.collapsed`;
+  const collapsed = localStorage.getItem(stateKey) === 'true';
+
+  const section = document.createElement('div');
+  section.className = 'inventory-section';
+
+  const header = document.createElement('h4');
+  header.className = 'collapsible';
+  if (collapsed) header.classList.add('collapsed');
+  header.appendChild(document.createTextNode(title));
+
+  const body = document.createElement('div');
+  if (collapsed) body.style.display = 'none';
+  buildBody(body);
+
+  header.addEventListener('click', () => {
+    const nowCollapsed = !header.classList.contains('collapsed');
+    header.classList.toggle('collapsed', nowCollapsed);
+    body.style.display = nowCollapsed ? 'none' : '';
+    localStorage.setItem(stateKey, String(nowCollapsed));
+  });
+
+  section.appendChild(header);
+  section.appendChild(body);
+  return section;
+}
+
+function renderRoomInInspect(msg) {
+  inspectPanel.hidden = false;
+  backBtn.hidden = true;
+  inspectBody.innerHTML = '';
+
+  const name = document.createElement('div'); name.className = 'inspect-name'; name.textContent = msg.name;
+  inspectBody.appendChild(name);
+
+  if (msg.long || msg.short) {
+    const desc = document.createElement('div'); desc.className = 'inspect-desc';
+    desc.textContent = msg.long || msg.short;
+    inspectBody.appendChild(desc);
+  }
+
+  if (msg.exits?.length) {
+    const row = document.createElement('div'); row.className = 'inspect-row';
+    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+    lab.textContent = `${msg.exitsLabel ?? 'exits'}: `;
+    row.appendChild(lab);
+    msg.exits.forEach((ex, i) => {
+      if (i > 0) row.append(' ');
+      row.appendChild(makeChip(ex.label, 'exit', () => sendInput(ex.key)));
+    });
+    inspectBody.appendChild(row);
+  }
+
+  if (msg.items?.length) {
+    const row = document.createElement('div'); row.className = 'inspect-row';
+    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+    lab.textContent = `${msg.itemsLabel ?? 'on the ground'}: `;
+    row.appendChild(lab);
+    msg.items.forEach((item, i) => {
+      if (i > 0) row.append(' ');
+      const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+      const cssClass = item.pickable === false ? 'fixture' : 'item';
+      const chip = makeChip(label, cssClass, (ev) => openRoomItemPopover(chip, item, ev));
+      row.appendChild(chip);
+    });
+    inspectBody.appendChild(row);
+  }
+
+  if (msg.npcs?.length) {
+    const row = document.createElement('div'); row.className = 'inspect-row';
+    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+    lab.textContent = `${msg.npcsLabel ?? 'you also see'}: `;
+    row.appendChild(lab);
+    msg.npcs.forEach((n, i) => {
+      if (i > 0) row.append(' ');
+      const name = typeof n === 'string' ? n : n.name;
+      const disposition = typeof n === 'string' ? 'neutral' : (n.disposition ?? 'neutral');
+      const cssClass = disposition === 'hostile' ? 'npc hostile' : 'npc';
+      let chip;
+      if (disposition === 'hostile') {
+        chip = makeChip(name, cssClass, () => sendInput(`attack ${name}`));
+      } else {
+        chip = makeChip(name, cssClass, (ev) => openActorPopover(chip, name, ev, { disposition, kind: 'npc' }));
+      }
+      row.appendChild(chip);
+    });
+    inspectBody.appendChild(row);
+  }
+
+  if (msg.others?.length) {
+    const row = document.createElement('div'); row.className = 'inspect-row';
+    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+    lab.textContent = `${msg.othersLabel ?? 'also here'}: `;
+    row.appendChild(lab);
+    msg.others.forEach((n, i) => {
+      if (i > 0) row.append(' ');
+      const chip = makeChip(n, 'player', (ev) => openActorPopover(chip, n, ev, { disposition: 'friendly', kind: 'player' }));
+      row.appendChild(chip);
+    });
+    inspectBody.appendChild(row);
+  }
+
+  whereEl.textContent = msg.name;
+}
+
+function renderTargetInfo(msg) {
+  inspectPanel.hidden = false;
+  backBtn.hidden = !lastRoomMsg;
+  inspectBody.innerHTML = '';
+
+  const name = document.createElement('div'); name.className = 'inspect-name'; name.textContent = msg.name;
+  inspectBody.appendChild(name);
+
+  if (msg.subtitle) {
+    const sub = document.createElement('div'); sub.className = 'inspect-subtitle'; sub.textContent = msg.subtitle;
+    inspectBody.appendChild(sub);
+  }
+  if (msg.description) {
+    const desc = document.createElement('div'); desc.className = 'inspect-desc';
+    desc.textContent = msg.description;
+    inspectBody.appendChild(desc);
+  }
+  if (msg.stats) {
+    const labels = msg.statLabels ?? {};
+    const s = msg.stats;
+    const block = document.createElement('div');
+    block.className = 'inspect-stats';
+    block.appendChild(makeInspectStatLine(`${labels.hp ?? 'HP'} ${s.hp}/${s.hpMax}`));
+    if (s.mpMax > 0) block.appendChild(makeInspectStatLine(`${labels.mp ?? 'MP'} ${s.mp}/${s.mpMax}`));
+    const grid = document.createElement('div');
+    grid.className = 'inspect-stat-grid';
+    for (const [k, v] of [
+      [labels.atk ?? 'ATK', s.attack],
+      [labels.def ?? 'DEF', s.defense],
+      [labels.int ?? 'INT', s.int],
+      [labels.spd ?? 'SPD', s.spd],
+    ]) {
+      const span = document.createElement('span');
+      span.textContent = `${k} ${v}`;
+      grid.appendChild(span);
+    }
+    block.appendChild(grid);
+    inspectBody.appendChild(block);
+  }
+}
+
+function makeInspectStatLine(text) {
+  const div = document.createElement('div');
+  div.className = 'inspect-stat-line';
+  div.textContent = text;
+  return div;
+}
+
+function handle(msg) {
+  switch (msg.kind) {
+    case 'login-required':
+      appendText('system', msg.text ?? "welcome to Realm. type your character's name and press enter.");
+      input.placeholder = 'character name...';
+      break;
+    case 'login-ok':
+      loggedIn = true;
+      whoEl.textContent = msg.isAdmin ? `${msg.name} (admin)` : msg.name;
+      input.placeholder = "type a command (try 'help')";
+      quickbar.hidden = false;
+      break;
+    case 'login-failed':
+      appendText('error', msg.text);
+      input.placeholder = 'character name...';
+      break;
+    case 'system':     appendText('system', msg.text, extraClasses(msg)); break;
+    case 'error':      appendText('error', msg.text, extraClasses(msg)); break;
+    case 'narration':  appendText('narration', msg.text, extraClasses(msg)); break;
+    case 'say':        appendText('say', msg.text, extraClasses(msg)); break;
+    case 'emote':      appendText('emote', msg.text, extraClasses(msg)); break;
+    case 'room':
+      lastRoomMsg = msg;
+      renderRoomInInspect(msg);
+      break;
+    case 'target-info':
+      renderTargetInfo(msg);
+      break;
+    case 'stats':
+      renderStats(msg);
+      break;
+    case 'tick':
+      tickEl.textContent = `tick ${msg.count}`;
+      break;
+    default:
+      appendText('system', JSON.stringify(msg));
+  }
+}
+
+function connect() {
+  const proto = location.protocol === 'https:' ? 'wss:' : 'ws:';
+  ws = new WebSocket(`${proto}//${location.host}`);
+  ws.addEventListener('open', () => appendText('system', 'connected.'));
+  ws.addEventListener('message', (ev) => {
+    try { handle(JSON.parse(ev.data)); }
+    catch { appendText('error', 'bad message from server'); }
+  });
+  ws.addEventListener('close', () => {
+    appendText('error', 'disconnected. reload to reconnect.');
+    loggedIn = false;
+    whoEl.textContent = 'not connected';
+    quickbar.hidden = true;
+    playerPanel.hidden = true;
+    inspectPanel.hidden = true;
+  });
+  ws.addEventListener('error', () => appendText('error', 'connection error'));
+}
+
+form.addEventListener('submit', (ev) => {
+  ev.preventDefault();
+  const text = input.value;
+  if (!text.trim()) return;
+  input.value = '';
+  history.push(text);
+  if (history.length > 200) history.shift();
+  historyIdx = history.length;
+
+  if (!ws || ws.readyState !== WebSocket.OPEN) {
+    appendText('error', 'not connected.');
+    return;
+  }
+  if (!loggedIn) {
+    ws.send(JSON.stringify({ kind: 'login', name: text.trim() }));
+  } else {
+    appendText('', `> ${text}`);
+    ws.send(JSON.stringify({ kind: 'input', text }));
+  }
+});
+
+input.addEventListener('keydown', (ev) => {
+  if (ev.key === 'ArrowUp') {
+    if (historyIdx > 0) { historyIdx--; input.value = history[historyIdx]; }
+    ev.preventDefault();
+  } else if (ev.key === 'ArrowDown') {
+    if (historyIdx < history.length - 1) { historyIdx++; input.value = history[historyIdx]; }
+    else { historyIdx = history.length; input.value = ''; }
+    ev.preventDefault();
+  }
+});
+
+quickbar.addEventListener('click', (ev) => {
+  const btn = ev.target.closest('button');
+  if (!btn) return;
+  if (btn.dataset.cmd) sendInput(btn.dataset.cmd);
+  else if (btn.dataset.prefix) fillInput(btn.dataset.prefix);
+});
+
+backBtn.addEventListener('click', () => {
+  if (lastRoomMsg) renderRoomInInspect(lastRoomMsg);
+});
+
+// ---- Popover system ----
+
+function closePopover() {
+  popover.hidden = true;
+  popover.innerHTML = '';
+  popover.dataset.anchor = '';
+}
+
+function positionPopover(anchorEl) {
+  const rect = anchorEl.getBoundingClientRect();
+  const popRect = popover.getBoundingClientRect();
+  let top = rect.bottom + 4;
+  if (top + popRect.height > window.innerHeight - 8) {
+    top = rect.top - popRect.height - 4;
+  }
+  let left = rect.left;
+  if (left + popRect.width > window.innerWidth - 8) {
+    left = window.innerWidth - popRect.width - 8;
+  }
+  popover.style.top = `${Math.max(8, top)}px`;
+  popover.style.left = `${Math.max(8, left)}px`;
+}
+
+function startPopover(anchorEl, titleText) {
+  popover.innerHTML = '';
+  popover.hidden = false;
+  popover._anchor = anchorEl;
+  if (titleText) {
+    const title = document.createElement('div');
+    title.className = 'popover-title';
+    title.textContent = titleText;
+    popover.appendChild(title);
+  }
+  return popover;
+}
+
+function popoverButton(label, cls, onClick) {
+  const btn = document.createElement('button');
+  btn.type = 'button';
+  if (cls) btn.className = cls;
+  btn.textContent = label;
+  btn.addEventListener('click', onClick);
+  return btn;
+}
+
+function openActorPopover(anchorEl, targetName, ev, opts = {}) {
+  ev?.stopPropagation();
+  startPopover(anchorEl, targetName);
+  popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
+    sendInput(`look ${targetName}`); closePopover();
+  }));
+  for (const social of socialList) {
+    popover.appendChild(popoverButton(social.label, '', () => {
+      sendInput(`${social.verb} ${targetName}`); closePopover();
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openRoomItemPopover(anchorEl, item, ev) {
+  ev?.stopPropagation();
+  startPopover(anchorEl, item.name);
+  popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
+    sendInput(`look ${item.name}`); closePopover();
+  }));
+  if (item.pickable === false) {
+    popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
+      openUseSubmenu(anchorEl, item);
+    }));
+  } else {
+    popover.appendChild(popoverButton(labels.pickUpButton ?? 'Pick up', '', () => {
+      sendInput(`take ${item.name}`); closePopover();
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openInventoryItemPopover(anchorEl, item, ev) {
+  ev?.stopPropagation();
+  startPopover(anchorEl, item.name);
+  popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
+    sendInput(`look ${item.name}`); closePopover();
+  }));
+  popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
+    openUseSubmenu(anchorEl, item);
+  }));
+  popover.appendChild(popoverButton(labels.dropButton ?? 'Drop', '', () => {
+    sendInput(`drop ${item.name}`); closePopover();
+  }));
+  popover.appendChild(popoverButton(`${labels.giveButton ?? 'Give'} ▶`, '', () => {
+    openGiveSubmenu(anchorEl, item);
+  }));
+  positionPopover(anchorEl);
+}
+
+function openUseSubmenu(anchorEl, item) {
+  startPopover(anchorEl, `${labels.useButton ?? 'Use'}: ${item.name}`);
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
+    openInventoryItemPopover(anchorEl, item);
+  }));
+  popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+    sendInput(`use ${item.name}`); closePopover();
+  }));
+  for (const target of currentRoomTargets()) {
+    popover.appendChild(popoverButton(target, '', () => {
+      sendInput(`use ${item.name} on ${target}`); closePopover();
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openGiveSubmenu(anchorEl, item) {
+  startPopover(anchorEl, `${labels.giveButton ?? 'Give'}: ${item.name}`);
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
+    openInventoryItemPopover(anchorEl, item);
+  }));
+  const targets = currentRoomTargets();
+  if (targets.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.padding = '4px';
+    empty.style.color = 'var(--dim)';
+    empty.style.fontSize = '12px';
+    empty.textContent = '(no one here)';
+    popover.appendChild(empty);
+  } else {
+    for (const target of targets) {
+      popover.appendChild(popoverButton(target, '', () => {
+        sendInput(`give ${item.name} to ${target}`); closePopover();
+      }));
+    }
+  }
+  positionPopover(anchorEl);
+}
+
+function openSpellPopover(anchorEl, spell, ev) {
+  ev?.stopPropagation();
+  const targetKind = spell.target ?? 'any';
+
+  if (targetKind === 'self') {
+    sendInput(`cast ${spell.id}`);
+    return;
+  }
+
+  if (targetKind === 'hostile') {
+    const hostiles = currentRoomTargets({ hostileOnly: true });
+    if (hostiles.length === 0) {
+      sendInput(`cast ${spell.id}`);
+      return;
+    }
+    if (hostiles.length === 1) {
+      sendInput(`cast ${spell.id} on ${hostiles[0]}`);
+      return;
+    }
+    startPopover(anchorEl, `${labels.castButton ?? 'Cast'}: ${spell.name} (${spell.mpCost}MP)`);
+    for (const target of hostiles) {
+      popover.appendChild(popoverButton(target, 'attack', () => {
+        sendInput(`cast ${spell.id} on ${target}`); closePopover();
+      }));
+    }
+    positionPopover(anchorEl);
+    return;
+  }
+
+  const candidates = currentRoomTargets({ excludeHostile: targetKind === 'friendly' });
+  startPopover(anchorEl, `${labels.castButton ?? 'Cast'}: ${spell.name} (${spell.mpCost}MP)`);
+  popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+    sendInput(`cast ${spell.id}`); closePopover();
+  }));
+  for (const target of candidates) {
+    popover.appendChild(popoverButton(target, '', () => {
+      sendInput(`cast ${spell.id} on ${target}`); closePopover();
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function currentRoomTargets(opts = {}) {
+  const out = [];
+  if (lastRoomMsg?.npcs) {
+    for (const n of lastRoomMsg.npcs) {
+      const name = typeof n === 'string' ? n : n.name;
+      const disposition = typeof n === 'string' ? 'neutral' : (n.disposition ?? 'neutral');
+      if (opts.hostileOnly && disposition !== 'hostile') continue;
+      if (opts.excludeHostile && disposition === 'hostile') continue;
+      out.push(name);
+    }
+  }
+  if (!opts.hostileOnly && lastRoomMsg?.others) {
+    out.push(...lastRoomMsg.others);
+  }
+  return out;
+}
+
+popover.addEventListener('click', (ev) => ev.stopPropagation());
+
+document.addEventListener('click', (ev) => {
+  if (popover.hidden) return;
+  if (ev.target.classList?.contains('chip')) return;
+  closePopover();
+});
+document.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Escape') closePopover();
+});
+
+connect();

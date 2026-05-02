@@ -1,0 +1,117 @@
+import { broadcastToRoom, playersInRoom, world, placeActor } from './world.js';
+import { transferItem } from './items.js';
+import { t, s, pickListIndex, tListAt, dirName } from '../i18n.js';
+import { sendStats } from './messages.js';
+import { sourceForActor } from './sources.js';
+import { executeAttack, aggroTargetInRoom } from './combat.js';
+import { describeRoomToAll } from './actions/look.js';
+
+const PRIMITIVES = {
+  say(actor, behavior) {
+    const idx = pickListIndex(behavior.lines);
+    broadcastToRoom(actor.location, (recipient) => {
+      const lang = recipient.lang;
+      const from = t(actor.name, lang);
+      const text = tListAt(behavior.lines, lang, idx);
+      return { kind: 'say', source: sourceForActor(actor, recipient), text: s('say.other', lang, { from, text }) };
+    });
+  },
+  emote(actor, behavior) {
+    const idx = pickListIndex(behavior.lines);
+    broadcastToRoom(actor.location, (recipient) => {
+      const lang = recipient.lang;
+      const from = t(actor.name, lang);
+      const text = tListAt(behavior.lines, lang, idx);
+      return { kind: 'emote', source: sourceForActor(actor, recipient), text: s('emote.line', lang, { from, text }) };
+    });
+  },
+  interact(actor, behavior) {
+    const players = playersInRoom(actor.location);
+    if (players.length === 0) return;
+    const targetPlayer = players[Math.floor(Math.random() * players.length)];
+    const idx = pickListIndex(behavior.templates);
+    broadcastToRoom(actor.location, (recipient) => {
+      const lang = recipient.lang;
+      const from = t(actor.name, lang);
+      const tmpl = tListAt(behavior.templates, lang, idx);
+      const filled = tmpl.replace(/\{target\}/g, targetPlayer.name);
+      return { kind: 'emote', text: s('emote.line', lang, { from, text: filled }) };
+    });
+  },
+  give_item(actor, behavior) {
+    const givable = (actor.inventory ?? []).filter(i => i.def.pickable !== false);
+    if (givable.length === 0) return;
+    const players = playersInRoom(actor.location);
+    if (players.length === 0) return;
+    const inst = givable[Math.floor(Math.random() * givable.length)];
+    const targetPlayer = players[Math.floor(Math.random() * players.length)];
+    const idx = pickListIndex(behavior.templates);
+
+    transferItem(actor.inventory, targetPlayer.inventory, inst);
+    targetPlayer.dirty = true;
+
+    broadcastToRoom(actor.location, (recipient) => {
+      const lang = recipient.lang;
+      const from = t(actor.name, lang);
+      const tmpl = tListAt(behavior.templates, lang, idx);
+      const itemName = t(inst.def.nameAcc ?? inst.def.name, lang);
+      const filled = tmpl
+        .replace(/\{target\}/g, targetPlayer.name)
+        .replace(/\{item\}/g, itemName);
+      return { kind: 'emote', text: s('emote.line', lang, { from, text: filled }) };
+    });
+
+    if (targetPlayer.session) {
+      const itemName = t(inst.def.nameAcc ?? inst.def.name, targetPlayer.lang);
+      targetPlayer.session.send({
+        kind: 'system',
+        text: s('give.you_received', targetPlayer.lang, { item: itemName }),
+      });
+    }
+    sendStats(targetPlayer);
+  },
+  attack(actor, behavior) {
+    const target = aggroTargetInRoom(actor);
+    if (!target) return;
+    executeAttack(actor, behavior, target);
+  },
+  flee(actor, behavior) {
+    if (actor.alive === false) return;
+    const room = world.rooms.get(actor.location);
+    const exitKeys = Object.keys(room?.exits ?? {});
+    if (exitKeys.length === 0) return;
+    const exitKey = exitKeys[Math.floor(Math.random() * exitKeys.length)];
+    const targetId = room.exits[exitKey];
+    if (!targetId) return;
+
+    const sourceRoom = actor.location;
+    const idx = pickListIndex(behavior.templates);
+    broadcastToRoom(sourceRoom, (recipient) => {
+      const lang = recipient.lang;
+      const from = t(actor.name, lang);
+      const dir = dirName(exitKey, lang) || exitKey;
+      const tmpl = tListAt(behavior.templates, lang, idx);
+      const filled = tmpl.replace(/\{actor\}/g, from).replace(/\{direction\}/g, dir);
+      return { kind: 'emote', source: sourceForActor(actor, recipient), text: filled };
+    });
+
+    placeActor(actor, targetId);
+    actor.wasAttacked = false;
+
+    describeRoomToAll(sourceRoom);
+    describeRoomToAll(targetId);
+  },
+  wait() {},
+  move() {},
+  cast() {},
+};
+
+export function runPrimitive(actor, behavior) {
+  const fn = PRIMITIVES[behavior.primitive];
+  if (!fn) return;
+  try {
+    fn(actor, behavior);
+  } catch (err) {
+    console.error(`primitive '${behavior.primitive}' failed:`, err);
+  }
+}

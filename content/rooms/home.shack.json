@@ -1,0 +1,19 @@
+{
+  "id": "home.shack",
+  "name": {
+    "en": "Herb Shed",
+    "cs": "Bylinková kůlna"
+  },
+  "short": {
+    "en": "A little shed with herbs and food.",
+    "cs": "Malá kůlna s bylinkami a jídlem."
+  },
+  "long": {
+    "en": "Bunches of herbs hang from the roof and the air smells fresh and green. Under the small window there is a stone bowl for grinding herbs and a row of clay jars with cork stoppers. A shelf at the back holds bread, cheese and dried fruit.",
+    "cs": "Ze stropu visí svazky bylinek a vzduch krásně voní. Pod malým okénkem leží kamenný hmoždíř na drcení bylinek a řada hliněných džbánků zazátkovaných korkem. Na polici vzadu je chleba, sýr a sušené ovoce."
+  },
+  "exits": {
+    "e": "home.yard"
+  },
+  "tags": ["safe", "indoor", "home"]
+}

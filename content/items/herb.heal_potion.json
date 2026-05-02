@@ -1,0 +1,46 @@
+{
+  "id": "herb.heal_potion",
+  "name": {
+    "en": "a small healing potion",
+    "cs": "malý léčivý lektvar"
+  },
+  "nameAcc": {
+    "en": "the healing potion",
+    "cs": "léčivý lektvar"
+  },
+  "short": {
+    "en": "A small glass vial of pale-green healing potion.",
+    "cs": "Malá skleněná lahvička s bledě zeleným léčivým lektvarem."
+  },
+  "long": {
+    "en": "A glass vial sealed with cork and twine, holding a pale-green liquid that catches the light. It smells faintly of mint and something earthier underneath.",
+    "cs": "Skleněná lahvička zazátkovaná korkem a motouzem obsahuje bledě zelenou tekutinu, která se třpytí ve světle. Slabě páchne mátou a pod tím něčím hutnějším."
+  },
+  "tags": ["potion", "consumable", "heal"],
+  "weight": 1,
+  "spawn": { "location": "home.shack", "count": 3, "respawnTicks": 1000 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you uncork the vial and drink the potion. A warmth spreads through you.",
+        "others": "{actor} uncorks a small vial and drinks a healing potion."
+      },
+      "to_target": {
+        "self": "you tilt the vial to {target}'s lips and pour the potion in.",
+        "others": "{actor} tilts a small vial to {target}'s lips and pours a healing potion in."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "odzátkáš lahvičku a vypiješ lektvar. Tělem se ti rozlije teplo.",
+        "others": "{actor} odzátkává malou lahvičku a vypíjí léčivý lektvar."
+      },
+      "to_target": {
+        "self": "přiložíš lahvičku k ústům {target} a naliješ lektvar dovnitř.",
+        "others": "{actor} přikládá malou lahvičku k ústům {target} a nalévá dovnitř léčivý lektvar."
+      }
+    },
+    "effect": { "type": "heal", "amount": 5 },
+    "consumable": true
+  }
+}

@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Realm</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <div id="app">
+    <header id="topbar">
+      <span id="who">not connected</span>
+      <span id="where"></span>
+      <span id="tick"></span>
+    </header>
+
+    <main id="console" aria-live="polite"></main>
+
+    <aside id="player-panel" hidden>
+      <h3 id="player-panel-title">Character</h3>
+      <div id="player-stats"></div>
+    </aside>
+
+    <aside id="inspect-panel" hidden>
+      <header>
+        <h3 id="inspect-title">Inspect</h3>
+        <button id="back-to-room" type="button" hidden></button>
+      </header>
+      <div id="inspect-body"></div>
+    </aside>
+
+    <nav id="quickbar" hidden>
+      <button type="button" data-cmd="look">Look</button>
+      <button type="button" data-cmd="who">Who</button>
+      <button type="button" data-cmd="help">Help</button>
+      <button type="button" data-prefix="say ">Say…</button>
+      <button type="button" data-prefix="emote ">Emote…</button>
+      <button type="button" data-cmd="flee" id="flee-btn" class="danger">Flee</button>
+    </nav>
+
+    <div id="action-popover" hidden></div>
+
+    <form id="input-form">
+      <span class="prompt">&gt;</span>
+      <input id="input" type="text" autocomplete="off" autofocus spellcheck="false" placeholder="type your name to log in...">
+    </form>
+  </div>
+  <script src="/client.js"></script>
+</body>
+</html>

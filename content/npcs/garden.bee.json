@@ -1,0 +1,64 @@
+{
+  "id": "garden.bee",
+  "name": { "en": "a bee", "cs": "včela" },
+  "nameAcc": { "en": "the bee", "cs": "včelu" },
+  "title": { "en": "bee", "cs": "včela" },
+  "location": "home.garden",
+  "short": {
+    "en": "A small honeybee buzzes lazily among the flowers.",
+    "cs": "Malá včela líně bzučí mezi květy."
+  },
+  "long": {
+    "en": "A small honeybee, fuzzy with yellow and black bands, busy among the herbs and flowers. It pays you no attention so long as you do not bother it.",
+    "cs": "Malá včela, chlupatá se žlutými a černými proužky, pilně létá mezi bylinami a květinami. Dokud ji neprovokuješ, věnuje ti minimum pozornosti."
+  },
+  "disposition": "neutral",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 6, "hpMax": 6,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "spd": 8
+  },
+  "respawn": { "ticks": 500 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "sting", "cs": "bodnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} stings {target}!",
+          "{actor} darts at {target} and stings sharply!"
+        ],
+        "cs": [
+          "{actor} bodne {target}!",
+          "{actor} se vrhne na {target} a ostře bodne!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "buzzes lazily among the flowers.",
+          "lands on a petal and crawls slowly across it.",
+          "drifts in a slow circle, drawing nectar.",
+          "rises briefly, then settles on a leaf."
+        ],
+        "cs": [
+          "líně bzučí mezi květy.",
+          "přistane na okvětním lístku a pomalu po něm leze.",
+          "pomalu krouží a sbírá nektar.",
+          "krátce vyletí a usadí se na listu."
+        ]
+      }
+    }
+  ]
+}

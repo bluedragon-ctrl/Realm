@@ -1,0 +1,24 @@
+{
+  "id": "spell.spark",
+  "name": {
+    "en": "Spark",
+    "cs": "Jiskra"
+  },
+  "mpCost": 3,
+  "target": "hostile",
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you raise a finger and a bright spark leaps toward {target}.",
+        "others": "{actor} raises a finger and a bright spark leaps toward {target}."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "zvedneš prst a jasná jiskra vyletí směrem k {target}.",
+        "others": "{actor} zvedne prst a jasná jiskra vyletí směrem k {target}."
+      }
+    }
+  },
+  "effect": { "type": "damage", "formula": "1d4" }
+}

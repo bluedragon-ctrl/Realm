@@ -1,0 +1,65 @@
+{
+  "id": "field.wasp",
+  "name": { "en": "a wasp", "cs": "vosa" },
+  "nameAcc": { "en": "the wasp", "cs": "vosu" },
+  "title": { "en": "wasp", "cs": "vosa" },
+  "location": "home.field",
+  "count": 2,
+  "short": {
+    "en": "An angry yellow-and-black wasp circles aggressively.",
+    "cs": "Naštvaná žluto-černá vosa agresivně krouží."
+  },
+  "long": {
+    "en": "A wasp the colour of warning, with a slender body, busy wings, and a sting that knows its own purpose. It comes for you the moment it sees you.",
+    "cs": "Vosa v barvě varování, štíhlá, neustále třepotající křídly, se žihadlem, které dobře ví, co umí. Vyrazí po tobě, jakmile tě uvidí."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 4, "hpMax": 4,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "spd": 3
+  },
+  "respawn": { "ticks": 800 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "sting", "cs": "bodnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts at {target} and stings!",
+          "{actor} dives in and stings {target}!",
+          "{actor} jabs its sting at {target}!"
+        ],
+        "cs": [
+          "{actor} se vrhne na {target} a bodne!",
+          "{actor} se snese na {target} a bodne!",
+          "{actor} zabodne žihadlo do {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "buzzes angrily.",
+          "circles low over the dust.",
+          "darts in a sharp angle and pauses mid-air."
+        ],
+        "cs": [
+          "naštvaně bzučí.",
+          "krouží nízko nad prachem.",
+          "ostře změní směr a zastaví ve vzduchu."
+        ]
+      }
+    }
+  ]
+}

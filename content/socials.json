@@ -1,0 +1,100 @@
+{
+  "hug": {
+    "en": {
+      "button": "Hug",
+      "to_target": { "self": "you hug {target}.", "others": "{actor} hugs {target}." },
+      "no_target": { "self": "you hug yourself.", "others": "{actor} hugs themselves." },
+      "missing": "hug whom?"
+    },
+    "cs": {
+      "button": "Obejmout",
+      "to_target": { "self": "objímáš {target}.", "others": "{actor} objímá {target}." },
+      "no_target": { "self": "objímáš se.", "others": "{actor} se objímá." },
+      "missing": "koho objímat?"
+    }
+  },
+
+  "pet": {
+    "en": {
+      "button": "Pet",
+      "to_target": { "self": "you pet {target}.", "others": "{actor} pets {target}." },
+      "missing": "pet whom?"
+    },
+    "cs": {
+      "button": "Pohladit",
+      "to_target": { "self": "hladíš {target}.", "others": "{actor} hladí {target}." },
+      "missing": "koho hladit?"
+    }
+  },
+
+  "pat": {
+    "en": {
+      "button": "Pat",
+      "to_target": { "self": "you pat {target} gently.", "others": "{actor} pats {target} gently." },
+      "missing": "pat whom?"
+    },
+    "cs": {
+      "button": "Poplácat",
+      "to_target": { "self": "jemně poplácáš {target}.", "others": "{actor} jemně poplácává {target}." },
+      "missing": "koho poplácat?"
+    }
+  },
+
+  "wave": {
+    "en": {
+      "button": "Wave",
+      "to_target": { "self": "you wave at {target}.", "others": "{actor} waves at {target}." },
+      "no_target": { "self": "you wave.", "others": "{actor} waves." },
+      "missing": "wave at whom?"
+    },
+    "cs": {
+      "button": "Zamávat",
+      "to_target": { "self": "máváš na {target}.", "others": "{actor} mává na {target}." },
+      "no_target": { "self": "zamáváš.", "others": "{actor} mává." },
+      "missing": "na koho zamávat?"
+    }
+  },
+
+  "scratch": {
+    "en": {
+      "button": "Scratch",
+      "to_target": { "self": "you scratch {target} behind the ears.", "others": "{actor} scratches {target} behind the ears." },
+      "missing": "scratch whom?"
+    },
+    "cs": {
+      "button": "Podrbat",
+      "to_target": { "self": "podrbeš {target} za ušima.", "others": "{actor} drbe {target} za ušima." },
+      "missing": "koho podrbat?"
+    }
+  },
+
+  "smile": {
+    "en": {
+      "button": "Smile",
+      "to_target": { "self": "you smile at {target}.", "others": "{actor} smiles at {target}." },
+      "no_target": { "self": "you smile.", "others": "{actor} smiles." },
+      "missing": "smile at whom?"
+    },
+    "cs": {
+      "button": "Usmát se",
+      "to_target": { "self": "usměješ se na {target}.", "others": "{actor} se usmívá na {target}." },
+      "no_target": { "self": "usměješ se.", "others": "{actor} se usmívá." },
+      "missing": "na koho se usmát?"
+    }
+  },
+
+  "bow": {
+    "en": {
+      "button": "Bow",
+      "to_target": { "self": "you bow to {target}.", "others": "{actor} bows to {target}." },
+      "no_target": { "self": "you bow.", "others": "{actor} bows." },
+      "missing": "bow to whom?"
+    },
+    "cs": {
+      "button": "Uklonit se",
+      "to_target": { "self": "ukloníš se {target}.", "others": "{actor} se uklání {target}." },
+      "no_target": { "self": "ukloníš se.", "others": "{actor} se uklání." },
+      "missing": "komu se uklonit?"
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "id": "home.pot",
+  "name": {
+    "en": "a pot of stew",
+    "cs": "hrnec polévky"
+  },
+  "nameAcc": {
+    "en": "the pot of stew",
+    "cs": "hrnec polévky"
+  },
+  "short": {
+    "en": "A pot of fragrant stew bubbles gently on the stove.",
+    "cs": "Na sporáku tiše bublá hrnec voňavé polévky."
+  },
+  "long": {
+    "en": "A heavy iron pot of bean-and-vegetable stew sits on the warm stove. The smell of bay leaves and slow-cooked carrots is rich enough to make your stomach answer aloud. A wooden ladle leans against the rim.",
+    "cs": "Na teplém sporáku stojí těžký litinový hrnec s fazolovo-zeleninovou polévkou. Vůně bobkového listu a pomalu vařené mrkve je natolik bohatá, že se ti ozve i žaludek. O okraj hrnce se opírá dřevěná naběračka."
+  },
+  "tags": ["fixture", "food"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "home.cottage", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you ladle a steaming bowl of stew from the pot and eat it. Warmth and strength flow back into you.",
+        "others": "{actor} ladles a bowl of stew from the pot on the stove and eats it slowly."
+      },
+      "to_target": {
+        "self": "you ladle a bowl of stew from the pot and offer it to {target}.",
+        "others": "{actor} ladles a bowl of stew from the pot on the stove and offers it to {target}."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "naběračkou si naliješ vroucí misku polévky a sníš ji. Vrací se ti teplo a síla.",
+        "others": "{actor} si nabere misku polévky z hrnce na sporáku a pomalu ji sní."
+      },
+      "to_target": {
+        "self": "naběračkou si naliješ misku polévky a nabídneš ji {target}.",
+        "others": "{actor} nabere misku polévky z hrnce na sporáku a nabídne ji {target}."
+      }
+    },
+    "effect": { "type": "heal", "hp": 5, "mp": 5 },
+    "consumable": false
+  }
+}

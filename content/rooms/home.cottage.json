@@ -1,0 +1,19 @@
+{
+  "id": "home.cottage",
+  "name": {
+    "en": "The House",
+    "cs": "Domek"
+  },
+  "short": {
+    "en": "A small warm room with a fire and two beds.",
+    "cs": "Malá teplá světnice s ohněm a dvěma postelemi."
+  },
+  "long": {
+    "en": "A small room that smells like wood smoke and dried apples. A little fire burns in the fireplace and a kettle hangs above it. Two beds with thick wool blankets stand by the wall. There is a plain wooden table under the window. This is home.",
+    "cs": "Malá světnice, ve které voní kouř ze dřeva a sušená jablka. V krbu hoří malý oheň a nad ním visí kotlík. U stěny stojí dvě postele s teplými vlněnými dekami. Pod oknem je prostý dřevěný stůl. Tady je doma."
+  },
+  "exits": {
+    "w": "home.yard"
+  },
+  "tags": ["safe", "indoor", "home", "respawn"]
+}

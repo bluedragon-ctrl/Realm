@@ -1,0 +1,44 @@
+{
+  "id": "village.ball",
+  "name": {
+    "en": "a leather ball",
+    "cs": "kožený míček"
+  },
+  "nameAcc": {
+    "en": "the ball",
+    "cs": "kožený míček"
+  },
+  "short": {
+    "en": "A scuffed leather ball lies in the dust of the yard.",
+    "cs": "V prachu dvorku leží odřený kožený míček."
+  },
+  "long": {
+    "en": "A small leather ball, scuffed from countless throws and chases. Just the right size to fit in your palm.",
+    "cs": "Malý kožený míček, odřený od nesčetných hodů a honiček. Akorát do dlaně."
+  },
+  "tags": ["toy", "small"],
+  "weight": 1,
+  "spawn": { "location": "home.yard" },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you toss the ball into the air and catch it neatly.",
+        "others": "{actor} tosses a leather ball into the air and catches it."
+      },
+      "to_target": {
+        "self": "you toss the ball to {target}.",
+        "others": "{actor} tosses a leather ball to {target}."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vyhodíš míček do vzduchu a šikovně ho chytíš.",
+        "others": "{actor} vyhazuje kožený míček do vzduchu a šikovně ho chytá."
+      },
+      "to_target": {
+        "self": "házíš míček směrem na {target}.",
+        "others": "{actor} hází kožený míček směrem na {target}."
+      }
+    }
+  }
+}

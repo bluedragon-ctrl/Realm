@@ -1,0 +1,32 @@
+{
+  "id": "spell.heal",
+  "name": {
+    "en": "Heal",
+    "cs": "Uzdravení"
+  },
+  "mpCost": 2,
+  "target": "friendly",
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you murmur a word of healing and a soft warmth flows through you.",
+        "others": "{actor} murmurs a word of healing and a soft glow surrounds them for a moment."
+      },
+      "to_target": {
+        "self": "you murmur a word of healing and a soft warmth flows toward {target}.",
+        "others": "{actor} murmurs a word of healing and a soft glow surrounds {target} for a moment."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zamumláš slovo léčení a tělem se ti rozlije jemné teplo.",
+        "others": "{actor} mumlá slovo léčení a na okamžik je obklopen jemnou září."
+      },
+      "to_target": {
+        "self": "zamumláš slovo léčení a jemné teplo proudí směrem k {target}.",
+        "others": "{actor} mumlá slovo léčení a na okamžik se kolem {target} rozlévá jemná záře."
+      }
+    }
+  },
+  "effect": { "type": "heal", "amount": 4 }
+}
