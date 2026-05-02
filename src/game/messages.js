@@ -1,5 +1,6 @@
 import { s, t } from '../i18n.js';
 import { getRoom, world } from './world.js';
+import { WEARABLE_SLOTS } from './wearables.js';
 
 function stateKey(state) {
   if (!state || Object.keys(state).length === 0) return '';
@@ -23,6 +24,31 @@ function buildInventory(actor) {
     }
   }
   return [...groups.values()];
+}
+
+function buildEquipment(actor) {
+  const lang = actor.lang;
+  const slots = WEARABLE_SLOTS.map(slot => {
+    const defId = actor.record.equipped?.[slot];
+    if (!defId) return { slot, defId: null, name: null };
+    const def = world.itemDefs.get(defId);
+    return {
+      slot,
+      defId,
+      name: def ? t(def.name, lang) : defId,
+    };
+  });
+  const known = [];
+  for (const id of actor.record.knownWearables ?? []) {
+    const def = world.itemDefs.get(id);
+    if (!def?.wearable) continue;
+    known.push({
+      defId: id,
+      name: t(def.name, lang),
+      slot: def.wearable.slot,
+    });
+  }
+  return { slots, known };
 }
 
 function buildKnownSpells(actor) {
@@ -74,10 +100,22 @@ export function buildStatsMsg(actor) {
       castButton: s('panel.cast_button', actor.lang),
       attackButton: s('panel.attack_button', actor.lang),
       fleeButton: s('panel.flee_button', actor.lang),
+      equipmentTitle: s('panel.equipment', actor.lang),
+      equipmentEmpty: s('panel.equipment_empty', actor.lang),
+      wearButton: s('panel.wear_button', actor.lang),
+      removeButton: s('panel.remove_button', actor.lang),
+      slotEmpty: s('panel.slot_empty_label', actor.lang),
+      slotLabels: {
+        body: s('panel.slot_body', actor.lang),
+        head: s('panel.slot_head', actor.lang),
+        weapon: s('panel.slot_weapon', actor.lang),
+        amulet: s('panel.slot_amulet', actor.lang),
+      },
     },
     socials: buildSocialButtons(actor.lang),
     inventory: buildInventory(actor),
     knownSpells: buildKnownSpells(actor),
+    equipment: buildEquipment(actor),
   };
 }
 

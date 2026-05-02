@@ -4,6 +4,7 @@ import { s, t } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { describeRoom, describeRoomToAll } from './look.js';
 import { sourceForActor } from '../sources.js';
+import { isWearableKnown, learnWearable } from '../wearables.js';
 
 export default function take(actor, args) {
   if (!args || args.length === 0) {
@@ -21,6 +22,32 @@ export default function take(actor, args) {
     actor.session.send({ kind: 'error', text: s('take.not_pickable', actor.lang) });
     return;
   }
+
+  if (inst.def.wearable) {
+    if (isWearableKnown(actor, inst.defId)) {
+      const item = t(inst.def.nameAcc ?? inst.def.name, actor.lang);
+      actor.session.send({ kind: 'error', text: s('take.already_known', actor.lang, { item }) });
+      return;
+    }
+    removeItemFromRoom(inst, actor.location);
+    learnWearable(actor, inst.defId);
+    actor.dirty = true;
+    broadcastToRoom(actor.location, (recipient) => {
+      const item = t(inst.def.nameAcc ?? inst.def.name, recipient.lang);
+      if (recipient === actor) {
+        return { kind: 'system', tone: 'good', text: s('wearable.learned', recipient.lang, { item }) };
+      }
+      return {
+        kind: 'narration',
+        source: sourceForActor(actor, recipient),
+        text: s('take.others', recipient.lang, { actor: actor.name, item }),
+      };
+    });
+    sendStats(actor);
+    describeRoomToAll(actor.location);
+    return;
+  }
+
   removeItemFromRoom(inst, actor.location);
   actor.inventory.push(inst);
   actor.dirty = true;

@@ -123,6 +123,28 @@ function renderStats(msg) {
     }
   }));
 
+  playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
+    const eq = msg.equipment ?? { slots: [], known: [] };
+    const slotLabels = labels.slotLabels ?? {};
+    const slotEmpty = labels.slotEmpty ?? '(empty)';
+    const grid = document.createElement('div');
+    grid.className = 'equipment-grid';
+    eq.slots.forEach((slotInfo) => {
+      const row = document.createElement('div');
+      row.className = 'equipment-slot-row';
+      const label = document.createElement('span');
+      label.className = 'equipment-slot-label';
+      label.textContent = `${slotLabels[slotInfo.slot] ?? slotInfo.slot}:`;
+      row.appendChild(label);
+      const chipCls = slotInfo.defId ? 'item' : 'fixture';
+      const chipText = slotInfo.defId ? slotInfo.name : slotEmpty;
+      const chip = makeChip(chipText, chipCls, (ev) => openEquipmentSlotPopover(chip, slotInfo, eq.known, ev));
+      row.appendChild(chip);
+      grid.appendChild(row);
+    });
+    body.appendChild(grid);
+  }));
+
   playerStatsEl.appendChild(makeCollapsibleSection('spells', labels.spellbookTitle ?? 'Spells', (body) => {
     if (Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0) {
       msg.knownSpells.forEach((spell, i) => {
@@ -532,6 +554,42 @@ function openGiveSubmenu(anchorEl, item) {
     for (const target of targets) {
       popover.appendChild(popoverButton(target, '', () => {
         sendInput(`give ${item.name} to ${target}`); closePopover();
+      }));
+    }
+  }
+  positionPopover(anchorEl);
+}
+
+function openEquipmentSlotPopover(anchorEl, slotInfo, known, ev) {
+  ev?.stopPropagation();
+  const slotLabels = labels.slotLabels ?? {};
+  const slotName = slotLabels[slotInfo.slot] ?? slotInfo.slot;
+
+  if (slotInfo.defId) {
+    startPopover(anchorEl, `${slotName}: ${slotInfo.name}`);
+    popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
+      sendInput(`look ${slotInfo.name}`); closePopover();
+    }));
+    popover.appendChild(popoverButton(labels.removeButton ?? 'Remove', '', () => {
+      sendInput(`remove ${slotInfo.name}`); closePopover();
+    }));
+    positionPopover(anchorEl);
+    return;
+  }
+
+  startPopover(anchorEl, `${labels.wearButton ?? 'Wear'}: ${slotName}`);
+  const candidates = (known || []).filter(w => w.slot === slotInfo.slot);
+  if (candidates.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.padding = '4px';
+    empty.style.color = 'var(--dim)';
+    empty.style.fontSize = '12px';
+    empty.textContent = labels.equipmentEmpty ?? '(none)';
+    popover.appendChild(empty);
+  } else {
+    for (const w of candidates) {
+      popover.appendChild(popoverButton(w.name, '', () => {
+        sendInput(`wear ${w.name}`); closePopover();
       }));
     }
   }

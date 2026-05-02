@@ -1,0 +1,26 @@
+{
+  "id": "item.rusty_dagger",
+  "name": {
+    "en": "a rusty dagger",
+    "cs": "rezavá dýka"
+  },
+  "nameAcc": {
+    "en": "the rusty dagger",
+    "cs": "rezavou dýku"
+  },
+  "short": {
+    "en": "An old dagger covered in rust.",
+    "cs": "Stará dýka pokrytá rzí."
+  },
+  "long": {
+    "en": "An old iron dagger. Bits of rust dot the blade. The leather grip is worn smooth. It still has a sharp edge.",
+    "cs": "Stará železná dýka. Po čepeli jsou skvrny rzi. Kožené držadlo je hladké od dlouhého nošení. Ostří je pořád ostré."
+  },
+  "tags": ["weapon"],
+  "weight": 1,
+  "spawn": { "location": "home.garden", "count": 1, "respawnTicks": 200 },
+  "wearable": {
+    "slot": "weapon",
+    "bonus": { "attack": 1 }
+  }
+}
