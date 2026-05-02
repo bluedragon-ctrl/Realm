@@ -76,11 +76,34 @@ function validateNpc(def, file, knownRooms) {
   }
 }
 
+const KNOWN_WEARABLE_SLOTS = new Set(['body', 'head', 'weapon', 'amulet']);
+const KNOWN_BONUS_KEYS = new Set(['attack', 'defense', 'hpMax', 'mpMax', 'int', 'spd']);
+
 function validateItem(def, file, knownRooms) {
   if (!def.id) throw new Error(`item missing id: ${file}`);
   if (!isLocalizedText(def.name)) throw new Error(`item '${def.id}' missing or invalid name (${file})`);
   if (def.spawn?.location && !knownRooms.has(def.spawn.location)) {
     throw new Error(`item '${def.id}' spawn location '${def.spawn.location}' is not a known room (${file})`);
+  }
+  if (def.wearable != null) {
+    if (typeof def.wearable !== 'object') {
+      throw new Error(`item '${def.id}' wearable must be an object (${file})`);
+    }
+    if (!KNOWN_WEARABLE_SLOTS.has(def.wearable.slot)) {
+      throw new Error(`item '${def.id}' wearable.slot must be one of: ${[...KNOWN_WEARABLE_SLOTS].join(', ')} (${file})`);
+    }
+    const bonus = def.wearable.bonus ?? {};
+    if (typeof bonus !== 'object') {
+      throw new Error(`item '${def.id}' wearable.bonus must be an object (${file})`);
+    }
+    for (const [k, v] of Object.entries(bonus)) {
+      if (!KNOWN_BONUS_KEYS.has(k)) {
+        throw new Error(`item '${def.id}' wearable.bonus has unknown stat '${k}' (allowed: ${[...KNOWN_BONUS_KEYS].join(', ')}) (${file})`);
+      }
+      if (typeof v !== 'number') {
+        throw new Error(`item '${def.id}' wearable.bonus.${k} must be a number (${file})`);
+      }
+    }
   }
 }
 

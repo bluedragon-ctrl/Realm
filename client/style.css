@@ -175,6 +175,26 @@ html, body {
   font-style: italic;
 }
 
+.equipment-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+.equipment-slot-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+}
+.equipment-slot-label {
+  color: var(--dim);
+  width: 60px;
+  flex-shrink: 0;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  font-size: 11px;
+}
+
 #inspect-panel {
   grid-area: inspect;
   background: var(--bg-panel-2);
