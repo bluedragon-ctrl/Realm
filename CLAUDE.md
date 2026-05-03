@@ -25,8 +25,8 @@ Discuss the plan and propose options **before** writing code for any change that
 - **Flee:** `flee` / `f` command (and quickbar button with `.danger` class) picks a random exit and routes through the shared `move` handler. If no exits exist (shouldn't happen on the map), returns `flee.no_exits`.
 - **Behavior `requires`** accepts string (`"was_attacked"`, `"aggro_target"`) or object (`{ type: "low_hp", ratio: 0.25 }`). Add new conditions in `checkRequires` in `src/game/tick.js`.
 - **Multi-instance NPCs:** `count: N` on the def. Each instance is independent (HP, aggro, respawn). Spawn cap not yet enforced post-boot; respawn queue is per-kill.
-- **Speed model:** energy/cost (NetHack). `ticks per action = behavior.cost / actor.spd`. Default cost 12, default spd 12 → 1 action/tick. We did not switch to per-behavior cooldown sugar; the energy model is more flexible for varied attacks within an actor.
-- **Combat model (when it lands):** NetHack-style energy/speed scheduler. Already running at 600ms; player commands are immediate today.
+- **Speed model:** energy/cost (NetHack). `ticks per action = behavior.cost / actor.spd`. Tick is 1000 ms. Default cost 12, default spd 6 → 1 action per 2 ticks (~0.5/s). We did not switch to per-behavior cooldown sugar; the energy model is more flexible for varied attacks within an actor.
+- **Combat model (when it lands):** NetHack-style energy/speed scheduler. Already running at 1000ms; player commands are immediate today.
 - **Authorization:** LAN only, no passwords, admin name list in `data/admins.json`.
 
 ## Conventions
