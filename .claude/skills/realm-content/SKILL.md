@@ -74,12 +74,23 @@ Match new NPCs to nearby mobs in HP and ATK. Current baselines:
 
 | NPC         | HP | ATK | SPD | Damage     | Disposition |
 |-------------|----|-----|-----|------------|-------------|
-| wasp        | 4  | 1   | 3   | 1d2+ATK    | hostile     |
+| wasp        | 4  | 1   | 2   | 1d2+ATK    | hostile     |
+| rat         | 5  | 1   | 3   | 1d3+ATK    | hostile     |
+| dog         | 6  | 1   | 6   | —          | friendly    |
 | bee         | 6  | 1   | 8   | 1          | neutral     |
-| dog         | 6  | 1   | 12  | —          | friendly    |
-| rat         | 5  | 1   | 10  | 1d3+ATK    | hostile     |
+| bear        | —  | —   | 8   | —          | hostile     |
+| skeleton    | —  | —   | 10  | —          | hostile     |
 
-Early-zone hostiles should sit in the 4–8 HP range. Damage `1d3+ATK` or `1d4+ATK` is typical. SPD 10–12 is normal pace.
+### Combat pacing — design principle
+
+**Realm is for kids. Fights should feel slow and forgiving, not punishing.** When designing a hostile mob, prefer **slow + tanky** over **fast + hard-hitting**. A long fight gives the player time to read, react, and use abilities; a fast deadly fight just frustrates.
+
+Concretely:
+- **Default actor SPD is 6** (1 action per 2 ticks at 1000 ms tick = ~0.5 actions/sec).
+- Hostile mobs should usually sit **at or below SPD 6**. Only reserve SPD 8–10 for special "fast" creatures (e.g. skeleton).
+- If a mob feels too weak in playtesting, **raise its HP** before raising its damage.
+- Damage `1d2+ATK` to `1d4+ATK` is typical. Avoid flat high damage on early-zone mobs.
+- Early-zone hostiles: 4–8 HP, SPD 2–6, damage `1d2+ATK`–`1d3+ATK`.
 
 ## Behavior primitives
 

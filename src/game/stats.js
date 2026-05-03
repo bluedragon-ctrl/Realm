@@ -4,7 +4,7 @@ export const PLAYER_DEFAULT_STATS = Object.freeze({
   attack: 3,
   defense: 1,
   int: 1,
-  spd: 12,
+  spd: 6,
 });
 
 export const NPC_DEFAULT_STATS = Object.freeze({
@@ -13,7 +13,7 @@ export const NPC_DEFAULT_STATS = Object.freeze({
   attack: 0,
   defense: 0,
   int: 0,
-  spd: 12,
+  spd: 6,
 });
 
 export function normalizeStats(input, defaults) {
