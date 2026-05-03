@@ -13,7 +13,8 @@
     "cs": "Po obou stranách prašné cesty se rozkládá široké pole. Vzduch voní suchou trávou a teplou zemí. Cesta vede na východ a na západ. Oba konce mizí v dalekém tmavém lese. Vrátka dvorku jsou na severu."
   },
   "exits": {
-    "n": "home.yard"
+    "n": "home.yard",
+    "e": "forest.entry"
   },
   "tags": ["outdoor", "home", "border"]
 }

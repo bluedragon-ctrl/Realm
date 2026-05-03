@@ -1,0 +1,26 @@
+{
+  "id": "shack.cauldron",
+  "name": {
+    "en": "a small cauldron",
+    "cs": "malý kotel"
+  },
+  "nameAcc": {
+    "en": "the small cauldron",
+    "cs": "malý kotel"
+  },
+  "short": {
+    "en": "A small iron cauldron sits on a low stand.",
+    "cs": "Na nízkém podstavci stojí malý železný kotel."
+  },
+  "long": {
+    "en": "A small but heavy iron cauldron, blackened on the outside from many fires. The inside is clean and has a faint smell of herbs. It sits on a three-legged iron stand above a cold ash pit. It looks ready to be used for brewing something.",
+    "cs": "Malý, ale těžký železný kotel, zvenku začernalý od mnoha ohňů. Vnitřek je čistý a slabě voní bylinkami. Stojí na třínožce z železa nad studenou jamkou s popelem. Vypadá, že je připravený k vaření něčeho."
+  },
+  "tags": ["fixture", "tool"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "home.shack",
+    "count": 1
+  }
+}

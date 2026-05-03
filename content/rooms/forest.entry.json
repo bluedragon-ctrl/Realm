@@ -1,0 +1,20 @@
+{
+  "id": "forest.entry",
+  "name": {
+    "en": "Forest Edge",
+    "cs": "Okraj lesa"
+  },
+  "short": {
+    "en": "The road ends where the trees begin.",
+    "cs": "Cesta končí tam, kde začínají stromy."
+  },
+  "long": {
+    "en": "The open field gives way to tall old trees. Their roots push up through the ground and the air is cooler here, smelling of bark and soil. A dirt path continues east into the forest. The fields lie to the west.",
+    "cs": "Otevřené pole ustupuje vysokým starým stromům. Jejich kořeny trčí ze země a vzduch je tu chladnější, voní kůrou a hlínou. Prašná stezka pokračuje na východ do lesa. Pole leží na západ."
+  },
+  "exits": {
+    "w": "home.field",
+    "e": "forest.meadow"
+  },
+  "tags": ["outdoor", "forest", "border"]
+}
