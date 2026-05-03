@@ -19,7 +19,22 @@ export const world = {
   actorsByRoom: new Map(),
   itemsByRoom: new Map(),
   npcsByInstance: new Map(),
+  unlockedExits: new Set(),
 };
+
+export function unlockExit(roomId, exitKey) {
+  world.unlockedExits.add(`${roomId}:${exitKey}`);
+}
+
+export function isExitUnlocked(roomId, exitKey) {
+  return world.unlockedExits.has(`${roomId}:${exitKey}`);
+}
+
+export function isExitLocked(room, exitKey) {
+  const locked = room?.lockedExits;
+  if (!locked || !(exitKey in locked)) return false;
+  return !isExitUnlocked(room.id, exitKey);
+}
 
 export async function loadWorld() {
   world.rooms = await loadRooms();

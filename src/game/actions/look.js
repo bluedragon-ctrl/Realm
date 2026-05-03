@@ -1,4 +1,4 @@
-import { getRoom, actorsInRoom, findInRoom, itemsInRoom } from '../world.js';
+import { getRoom, actorsInRoom, findInRoom, itemsInRoom, isExitLocked } from '../world.js';
 import { findItemInList } from '../items.js';
 import { t, s, dirName } from '../../i18n.js';
 
@@ -36,7 +36,7 @@ export function describeRoom(actor) {
       });
     }
   }
-  const exitKeys = Object.keys(room.exits ?? {});
+  const exitKeys = Object.keys(room.exits ?? {}).filter(k => !isExitLocked(room, k));
   const exits = exitKeys.map(k => ({ key: k, label: exitDisplay(k, lang) }));
   const itemGroups = new Map();
   for (const inst of itemsInRoom(room.id)) {

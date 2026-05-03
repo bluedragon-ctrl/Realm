@@ -18,9 +18,9 @@ import { sourceForActor } from './sources.js';
  * targetActor === actor means self-target (no_target form is used).
  * targetActor === null means undirected (no_target form is used).
  */
-export function runVerb({ actor, def, targetActor, params = {} }) {
-  const isSelfOrNone = !targetActor || targetActor === actor;
-  const formKey = isSelfOrNone ? 'no_target' : 'to_target';
+export function runVerb({ actor, def, targetActor, targetName, params = {} }) {
+  const isToTarget = (targetName != null) || (targetActor && targetActor !== actor);
+  const formKey = isToTarget ? 'to_target' : 'no_target';
 
   broadcastToRoom(actor.location, (recipient) => {
     const langDef = def[recipient.lang] ?? def.en;
@@ -30,15 +30,20 @@ export function runVerb({ actor, def, targetActor, params = {} }) {
     const template = isAuthor ? form.self : form.others;
     if (!template) return null;
 
-    const targetName = !targetActor ? actor.name :
-      targetActor === actor ? actor.name :
-      targetActor.kind === 'npc'
-        ? t(targetActor.nameAcc ?? targetActor.name, recipient.lang)
-        : targetActor.name;
+    let resolvedTargetName;
+    if (targetName != null) {
+      resolvedTargetName = (typeof targetName === 'object') ? t(targetName, recipient.lang) : targetName;
+    } else if (!targetActor || targetActor === actor) {
+      resolvedTargetName = actor.name;
+    } else if (targetActor.kind === 'npc') {
+      resolvedTargetName = t(targetActor.nameAcc ?? targetActor.name, recipient.lang);
+    } else {
+      resolvedTargetName = targetActor.name;
+    }
 
     const allParams = {
       actor: actor.name,
-      target: targetName,
+      target: resolvedTargetName,
       ...renderParams(params, recipient.lang),
     };
 

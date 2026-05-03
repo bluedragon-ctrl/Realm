@@ -42,6 +42,16 @@ export async function loadRooms() {
         throw new Error(`room '${room.id}' exit '${exitCmd}' -> unknown room '${targetId}'`);
       }
     }
+    if (room.lockedExits != null) {
+      if (typeof room.lockedExits !== 'object' || Array.isArray(room.lockedExits)) {
+        throw new Error(`room '${room.id}' lockedExits must be an object`);
+      }
+      for (const exitKey of Object.keys(room.lockedExits)) {
+        if (!(exitKey in (room.exits ?? {}))) {
+          throw new Error(`room '${room.id}' lockedExits references unknown exit '${exitKey}'`);
+        }
+      }
+    }
   }
   return rooms;
 }
@@ -116,7 +126,42 @@ export async function loadItems(knownRooms) {
     if (items.has(def.id)) throw new Error(`duplicate item id '${def.id}' in ${file}`);
     items.set(def.id, def);
   }
+  validateItemInteractions(items, knownRooms);
   return items;
+}
+
+function validateItemInteractions(items, knownRooms) {
+  for (const def of items.values()) {
+    if (def.unlocks != null) {
+      const u = def.unlocks;
+      if (typeof u !== 'object') throw new Error(`item '${def.id}' unlocks must be an object`);
+      if (!u.exit || typeof u.exit !== 'string') throw new Error(`item '${def.id}' unlocks.exit must be a string`);
+      if (!u.key || !items.has(u.key)) throw new Error(`item '${def.id}' unlocks.key references unknown item '${u.key}'`);
+      if (!u.verb || typeof u.verb !== 'object') throw new Error(`item '${def.id}' unlocks.verb must be a verb-shaped object`);
+      const roomId = def.spawn?.location;
+      if (roomId) {
+        const room = knownRooms.get(roomId);
+        const declared = room?.lockedExits?.[u.exit];
+        if (declared !== def.id) {
+          throw new Error(`item '${def.id}' unlocks exit '${u.exit}' but room '${roomId}' lockedExits.${u.exit} = ${JSON.stringify(declared ?? null)} (expected '${def.id}')`);
+        }
+      }
+    }
+    if (def.recipes != null) {
+      if (typeof def.recipes !== 'object' || Array.isArray(def.recipes)) {
+        throw new Error(`item '${def.id}' recipes must be an object`);
+      }
+      for (const [reagentId, spec] of Object.entries(def.recipes)) {
+        if (!items.has(reagentId)) throw new Error(`item '${def.id}' recipe references unknown reagent '${reagentId}'`);
+        if (!spec.produces || !items.has(spec.produces)) {
+          throw new Error(`item '${def.id}' recipe[${reagentId}].produces references unknown item '${spec.produces}'`);
+        }
+        if (!spec.verb || typeof spec.verb !== 'object') {
+          throw new Error(`item '${def.id}' recipe[${reagentId}].verb must be a verb-shaped object`);
+        }
+      }
+    }
+  }
 }
 
 export async function loadNpcs(knownRooms) {

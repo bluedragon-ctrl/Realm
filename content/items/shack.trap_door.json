@@ -22,5 +22,24 @@
   "spawn": {
     "location": "home.shack",
     "count": 1
+  },
+  "unlocks": {
+    "exit": "d",
+    "key": "item.small_rusty_key",
+    "consume": true,
+    "verb": {
+      "en": {
+        "to_target": {
+          "self": "you slide the small rusty key into {target} and turn it. The lock clicks open.",
+          "others": "{actor} slides a small rusty key into {target} and turns it. The lock clicks open."
+        }
+      },
+      "cs": {
+        "to_target": {
+          "self": "zasuneš malý rezavý klíč do {target} a otočíš jím. Zámek cvakne a otevře se.",
+          "others": "{actor} zasunuje malý rezavý klíč do {target} a otáčí jím. Zámek cvakne a otevře se."
+        }
+      }
+    }
   }
 }
