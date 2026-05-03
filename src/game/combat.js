@@ -58,7 +58,7 @@ export function applyDamageWithFeedback(actor, target, amount) {
       }),
     });
   }
-  if (target.session) {
+  if (target.session && actor.kind === 'player') {
     target.session.send({
       kind: 'system',
       tone: 'bad',
@@ -140,7 +140,7 @@ function handlePlayerDeath(killer, victim) {
 
   // Move home, restore HP — world state updated immediately so others see the change
   victim.dying = true;
-  placeActor(victim, 'home.yard');
+  placeActor(victim, 'home.cottage');
   victim.stats.hp = Math.ceil(victim.stats.hpMax / 2);
   victim.dirty = true;
 
@@ -151,7 +151,6 @@ function handlePlayerDeath(killer, victim) {
   });
 
   if (oldRoom) describeRoomToAll(oldRoom);
-  describeRoomToAll('home.yard');
 
   // Delay respawn so the player has time to register what happened
   setTimeout(() => {
@@ -163,6 +162,7 @@ function handlePlayerDeath(killer, victim) {
     });
     sendStats(victim);
     describeRoom(victim);
+    describeRoomToAll('home.cottage');
   }, 3000);
 }
 

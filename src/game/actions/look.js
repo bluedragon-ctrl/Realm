@@ -54,7 +54,9 @@ export function describeRoom(actor) {
         name: t(inst.def.name, lang),
         count: 1,
         pickable: inst.def.pickable !== false,
+        usable: !!inst.def.use,
       });
+
     }
   }
   const items = [...itemGroups.values()];

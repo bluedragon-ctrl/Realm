@@ -75,6 +75,7 @@ export default function move(actor, args) {
     text: s('narration.arrives', recipient.lang, { name: actor.name }),
   }), actor);
 
+  actor.session.send({ kind: 'room-transition' });
   describeRoom(actor);
   sendStats(actor);
   const roomName = t(target.name, actor.lang);
