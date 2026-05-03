@@ -23,6 +23,7 @@
     "spd": 3
   },
   "respawn": { "ticks": 600 },
+  "xp": 5,
   "behaviors": [
     {
       "primitive": "attack",

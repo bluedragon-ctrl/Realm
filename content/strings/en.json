@@ -142,6 +142,8 @@
   "panel.give_button": "Give",
   "panel.yourself": "Yourself",
   "panel.back": "← back",
+  "panel.level": "Lv",
+  "panel.xp": "XP",
   "panel.hp": "HP",
   "panel.mp": "MP",
   "panel.atk": "ATK",
@@ -164,6 +166,11 @@
   "effect.tick.heal_both": "{icon} {name} restores {hp} HP and {mp} MP.",
   "effect.tick.damage": "{icon} {name} burns you for {amount} damage.",
   "effect.expired": "{icon} {name} fades.",
+
+  "xp.gained": "you earn {amount} XP.",
+  "xp.level_up": "✨ you reached level {level}!",
+  "xp.level_up_observed": "✨ {name} reached level {level}!",
+
 
   "dir.n": "north",
   "dir.s": "south",

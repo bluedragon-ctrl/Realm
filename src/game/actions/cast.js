@@ -7,6 +7,7 @@ import { roll } from '../dice.js';
 import { splitOnKeyword } from '../items.js';
 import { s } from '../../i18n.js';
 import { sendStats } from '../messages.js';
+import { awardXp } from '../xp.js';
 
 const SELF_TOKENS = new Set(['me', 'self', 'myself']);
 
@@ -80,10 +81,13 @@ export default function cast(actor, args) {
 
   runVerb({ actor, def: spell.verb, targetActor: target });
 
+  const castXp = spell.xp ?? 1;
+
   if (spell.effect?.type === 'damage' && target && target !== actor) {
     const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
     const amount = Math.max(1, roll(formula, { actor, target }));
     applyDamageWithFeedback(actor, target, amount);
+    awardXp(actor, castXp, 'cast');
     return;
   }
 
@@ -92,14 +96,21 @@ export default function cast(actor, args) {
     applyActiveEffect(recipient, spell.effect.effectId, 'spell', actor.name);
     if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
     if (actor !== recipient && actor.kind === 'player') sendStats(actor);
+    awardXp(actor, castXp, 'cast');
     return;
   }
 
   const result = applyEffect(spell.effect, { actor, target });
   if (spell.effect?.type === 'heal') {
     sendHealFeedback(actor, target, result);
+    if (target && target !== actor && (result?.hpRestored ?? 0) > 0) {
+      awardXp(actor, 2, 'heal_friendly');
+    } else {
+      awardXp(actor, castXp, 'cast');
+    }
   } else {
     sendStats(actor);
+    awardXp(actor, castXp, 'cast');
   }
 }
 

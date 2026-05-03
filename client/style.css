@@ -128,6 +128,7 @@ html, body {
 .bar-fill.hp.mid { background: var(--hp-mid); }
 .bar-fill.hp.low { background: var(--hp-low); }
 .bar-fill.mp   { background: var(--mp); }
+.bar-fill.xp   { background: gold; }
 .bar-num { color: var(--fg); font-size: 12px; text-align: right; }
 
 .stat-grid {

@@ -32,6 +32,10 @@ export function makePlayerActor(record, session, isAdmin) {
   }
   record.equipped = normalizeEquipped(record.equipped);
   record.activeEffects = normalizeSavedActiveEffects(record.activeEffects);
+  if (typeof record.xp !== 'number') record.xp = 0;
+  if (typeof record.level !== 'number') record.level = 1;
+  if (!Array.isArray(record.visitedRooms)) record.visitedRooms = [];
+  const visitedRooms = new Set(record.visitedRooms);
   const inventory = [];
   for (const saved of record.inventory) {
     const inst = instanceFromSaved(saved, world.itemDefs);
@@ -48,6 +52,9 @@ export function makePlayerActor(record, session, isAdmin) {
     stats: record.stats,
     energy: 0,
     inventory,
+    visitedRooms,
+    get xp() { return record.xp; },
+    get level() { return record.level; },
     get knownSpells() { return record.knownSpells; },
     get knownWearables() { return record.knownWearables; },
     get equipped() { return record.equipped; },

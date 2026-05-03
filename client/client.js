@@ -136,6 +136,13 @@ function renderStats(msg) {
   const hpClass = hpPct < 30 ? 'low' : hpPct < 60 ? 'mid' : '';
 
   playerStatsEl.innerHTML = '';
+  if (typeof msg.level === 'number') {
+    const xp = msg.xp ?? 0;
+    const xpNext = msg.xpToNext ?? 0;
+    const xpPct = xpNext > 0 ? Math.max(0, Math.min(100, (xp / xpNext) * 100)) : 0;
+    const xpLabel = `${labels.level ?? 'Lv'} ${msg.level}`;
+    playerStatsEl.appendChild(makeBar(xpLabel, `${xp}/${xpNext} ⭐`, xpPct, 'xp'));
+  }
   playerStatsEl.appendChild(makeBar(labels.hp ?? 'HP', `${s.hp}/${s.hpMax}`, hpPct, `hp ${hpClass}`));
   if (s.mpMax > 0) {
     playerStatsEl.appendChild(makeBar(labels.mp ?? 'MP', `${s.mp}/${s.mpMax}`, mpPct, 'mp'));
