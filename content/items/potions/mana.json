@@ -1,0 +1,45 @@
+{
+  "id": "potion.mana",
+  "name": {
+    "en": "a small mana potion",
+    "cs": "malý lektvar many"
+  },
+  "nameAcc": {
+    "en": "the mana potion",
+    "cs": "lektvar many"
+  },
+  "short": {
+    "en": "A small glass vial of deep-blue mana potion.",
+    "cs": "Malá skleněná lahvička s tmavě modrým lektvarem many."
+  },
+  "long": {
+    "en": "A glass vial sealed with cork and twine, holding a deep-blue liquid that seems to glow faintly. It smells of cold air and old books.",
+    "cs": "Skleněná lahvička zazátkovaná korkem a motouzem obsahuje tmavě modrou tekutinu, která slabě svítí. Páchne studeným vzduchem a starými knihami."
+  },
+  "tags": ["potion", "consumable", "mana"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you uncork the vial and drink the potion. Your mind feels sharper.",
+        "others": "{actor} uncorks a small vial and drinks a mana potion."
+      },
+      "to_target": {
+        "self": "you tilt the vial to {target}'s lips and pour the potion in.",
+        "others": "{actor} tilts a small vial to {target}'s lips and pours a mana potion in."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "odzátkáš lahvičku a vypiješ lektvar. Mysl ti zbystří.",
+        "others": "{actor} odzátkává malou lahvičku a vypíjí lektvar many."
+      },
+      "to_target": {
+        "self": "přiložíš lahvičku k ústům {target} a naliješ lektvar dovnitř.",
+        "others": "{actor} přikládá malou lahvičku k ústům {target} a nalévá dovnitř lektvar many."
+      }
+    },
+    "effect": { "type": "heal", "mp": 5 },
+    "consumable": true
+  }
+}
