@@ -1,0 +1,70 @@
+{
+  "id": "forest.skeleton",
+  "name": { "en": "a skeleton warrior", "cs": "kostlivec bojovník" },
+  "nameAcc": { "en": "the skeleton warrior", "cs": "kostlivce bojovníka" },
+  "title": { "en": "skeleton warrior", "cs": "kostlivec bojovník" },
+  "location": "forest.tower_cellar",
+  "count": 1,
+  "short": {
+    "en": "A skeleton warrior stands in the middle of the cellar, sword raised.",
+    "cs": "Uprostřed sklepa stojí kostlivec bojovník se zdviženým mečem."
+  },
+  "long": {
+    "en": "A skeleton in rusted chainmail, still clutching a sword in one bony hand. Its empty eye sockets glow with a faint green light. It moves with surprising speed for something held together by old magic.",
+    "cs": "Kostra v zrezivělé kroužkové zbroji, stále svírající meč v kostnaté ruce. Prázdné oční důlky září slabým zeleným světlem. Pohybuje se překvapivě rychle pro něco, co drží pohromadě jen stará magie."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 15, "hpMax": 15,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 1, "int": 0,
+    "spd": 10
+  },
+  "respawn": { "ticks": 900 },
+  "loot": [
+    { "defId": "forest.iron_sword", "chance": 1.0 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "slash", "cs": "sek" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swings its rusty sword at {target}!",
+          "{actor} slashes at {target} with a bony arm!",
+          "{actor} lunges forward and strikes {target}!"
+        ],
+        "cs": [
+          "{actor} zamíří zrezivělým mečem na {target}!",
+          "{actor} sekne po {target} kostnatou rukou!",
+          "{actor} vyrazí vpřed a zasáhne {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "rattles its bones with a hollow clacking sound.",
+          "turns its skull slowly toward you.",
+          "grinds its jaw open and shut with a dry crack.",
+          "shifts its weight and the chainmail scrapes against old bone."
+        ],
+        "cs": [
+          "zacvakne kostmi dutým klapavým zvukem.",
+          "pomalu otočí lebku k tobě.",
+          "sevře a rozevře čelist se suchým prasknutím.",
+          "přesune váhu a kroužková zbroj se dře o staré kosti."
+        ]
+      }
+    }
+  ]
+}

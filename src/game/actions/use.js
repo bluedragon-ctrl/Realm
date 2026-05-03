@@ -1,4 +1,4 @@
-import { findInRoom, itemsInRoom } from '../world.js';
+import { findInRoom, itemsInRoom, world } from '../world.js';
 import { findItemInList, splitOnKeyword, removeFromList } from '../items.js';
 import { s, t } from '../../i18n.js';
 import { runVerb, hasForm } from '../verbs.js';
@@ -138,6 +138,15 @@ export default function use(actor, args) {
     const result = applyEffect(useDef.effect, { actor, target: targetActor });
     if (useDef.effect?.type === 'heal') {
       sendHealFeedback(actor, targetActor, result);
+    } else if (useDef.effect?.type === 'teach_spell') {
+      if (result?.learned) {
+        const spellDef = world.spellDefs.get(useDef.effect.spell);
+        const name = spellDef ? t(spellDef.name, actor.lang) : useDef.effect.spell;
+        actor.session?.send({ kind: 'system', tone: 'notice', text: s('spell.learned', actor.lang, { spell: name }) });
+        sendStats(actor);
+      } else if (result?.already) {
+        actor.session?.send({ kind: 'system', tone: 'flavor', text: s('spell.already_known', actor.lang) });
+      }
     }
   }
 

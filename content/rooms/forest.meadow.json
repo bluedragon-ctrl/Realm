@@ -13,7 +13,8 @@
     "cs": "Uprostřed lesa se otevírá malá mýtina. Zem hustě pokrývají nízké modré květy, které slabě svítí v tlumeném světle pronikajícím skrz listí. Rostliny mají jemnou sladkou vůni. Stezky vedou na všechny strany hlouběji do lesa, cesta na západ vede zpět k okraji lesa."
   },
   "exits": {
-    "w": "forest.entry"
+    "w": "forest.entry",
+    "e": "forest.deep_forest"
   },
   "tags": ["outdoor", "forest", "clearing"]
 }

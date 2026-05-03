@@ -1,0 +1,21 @@
+{
+  "id": "forest.deep_forest",
+  "name": {
+    "en": "Deep forest",
+    "cs": "Hluboký les"
+  },
+  "short": {
+    "en": "A dark part of the forest where little sunlight reaches.",
+    "cs": "Tmavá část lesa, kam téměř nedoléhá sluneční světlo."
+  },
+  "long": {
+    "en": "The trees here grow close together and the canopy shuts out most of the light. The air is cool and damp. Something large has pushed through the undergrowth from the meadow to the west, leaving a wide trail of broken branches and flattened plants that continues south toward a dark opening in the rock. Scattered bones lie half-buried in the mud near the path.",
+    "cs": "Stromy zde rostou hustě u sebe a koruny zakrývají téměř veškeré světlo. Vzduch je chladný a vlhký. Něco velkého se prodíralo podrostem od louky na západě a zanechalo cestu plnou zlomených větví a ušlapaných rostlin, která pokračuje na jih k temnému otvoru ve skále. U stezky leží v blátě napůl pohřbené roztroušené kosti."
+  },
+  "exits": {
+    "w": "forest.meadow",
+    "s": "forest.cave",
+    "n": "forest.clearing"
+  },
+  "tags": ["outdoor", "forest", "dark"]
+}

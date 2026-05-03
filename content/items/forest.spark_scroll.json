@@ -1,0 +1,45 @@
+{
+  "id": "forest.spark_scroll",
+  "name": {
+    "en": "a rolled scroll",
+    "cs": "svinutý svitek"
+  },
+  "nameAcc": {
+    "en": "the rolled scroll",
+    "cs": "svinutý svitek"
+  },
+  "short": {
+    "en": "A small scroll tied with a red thread sits here.",
+    "cs": "Na zemi leží malý svitek uvázaný červenou nití."
+  },
+  "long": {
+    "en": "A thin scroll of yellowed paper. The writing inside glows faintly with a crackling spark symbol.",
+    "cs": "Tenký svitek ze zežloutlého papíru. Písmo uvnitř slabě svítí a zobrazuje praskající blesk."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "spawn": {
+    "location": "forest.tower_cellar",
+    "count": 1,
+    "respawnTicks": 1200
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The spark symbol flares and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A brief flash of light crackles in the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvinul ses svitek a přečteš slova nahlas. Symbol blesku vzplane a zhasne.",
+        "others": "{actor} rozvinul svitek a přečte ho nahlas. Ve vzduchu přeskočí krátký záblesk světla."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.spark"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "id": "forest.iron_sword",
+  "name": {
+    "en": "an iron sword",
+    "cs": "železný meč"
+  },
+  "nameAcc": {
+    "en": "the iron sword",
+    "cs": "železný meč"
+  },
+  "short": {
+    "en": "A heavy iron sword lies on the ground.",
+    "cs": "Na zemi leží těžký železný meč."
+  },
+  "long": {
+    "en": "A broad iron sword, old but still sharp. The blade is nicked in places but the edge holds.",
+    "cs": "Široký železný meč, starý, ale stále ostrý. Čepel má místy záseky, ale hrot drží."
+  },
+  "tags": ["weapon"],
+  "weight": 3,
+  "wearable": {
+    "slot": "weapon",
+    "stats": { "atk": 2 }
+  }
+}

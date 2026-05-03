@@ -69,6 +69,8 @@
   "cast.bad_target": "tohle na něj seslat nemůžeš.",
   "cast.needs_hostile": "tohle kouzlo potřebuje nepřátelský cíl.",
   "cast.no_hostiles_here": "není zde nikdo nepřátelský.",
+  "spell.learned": "naučil ses {spell}!",
+  "spell.already_known": "toto kouzlo již znáš.",
   "heal.no_effect": "léčivá magie nenachází co léčit.",
   "heal.you_were_healed": "cítíš se obnoven (+{amount} HP).",
   "heal.you_were_refreshed": "cítíš se osvěžen (+{amount} MP).",

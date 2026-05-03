@@ -1,5 +1,6 @@
-import { broadcastToRoom, world, placeActor, queueNpcRespawn } from './world.js';
+import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom } from './world.js';
 import { applyEffect } from './effects.js';
+import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { sourceForActor } from './sources.js';
 import { sendStats } from './messages.js';
@@ -51,14 +52,14 @@ export function applyDamageWithFeedback(actor, target, amount) {
   if (actor.session) {
     actor.session.send({
       kind: 'system',
-      tone: 'good',
+      tone: 'combat',
       text: s('combat.you_hit', actor.lang, {
         target: targetDisplay(target, actor.lang),
         amount: dealt,
       }),
     });
   }
-  if (target.session && actor.kind === 'player') {
+  if (target.session) {
     target.session.send({
       kind: 'system',
       tone: 'bad',
@@ -110,6 +111,16 @@ function handleNpcDeath(killer, npc) {
   world.npcsByInstance.delete(npc.instanceId);
 
   const def = world.npcDefs.get(npc.defId);
+
+  if (room && def?.loot) {
+    for (const entry of def.loot) {
+      if (Math.random() < (entry.chance ?? 1)) {
+        const itemDef = world.itemDefs.get(entry.defId);
+        if (itemDef) placeItemInRoom(makeItemInstance(itemDef), room);
+      }
+    }
+  }
+
   const respawnTicks = def?.respawn?.ticks ?? 0;
   if (respawnTicks > 0 && def) {
     queueNpcRespawn(npc.defId, respawnTicks);

@@ -1,0 +1,45 @@
+{
+  "id": "forest.tower_trap_door",
+  "name": {
+    "en": "a iron trap door",
+    "cs": "železný poklop"
+  },
+  "nameAcc": {
+    "en": "the iron trap door",
+    "cs": "železný poklop"
+  },
+  "short": {
+    "en": "A heavy iron trap door with a copper lock sits in the corner of the floor.",
+    "cs": "V rohu podlahy leží těžký železný poklop s měděným zámkem."
+  },
+  "long": {
+    "en": "A thick iron trap door set flush with the stone floor. It has a copper lock that looks different from the rest — newer, and well made. Someone wanted to keep this shut.",
+    "cs": "Tlustý železný poklop zasazený rovně do kamenné podlahy. Má měděný zámek, který vypadá jinak než zbytek — novější a dobře vyrobený. Někdo to chtěl mít pevně zavřené."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "forest.tower_entry",
+    "count": 1
+  },
+  "unlocks": {
+    "exit": "d",
+    "key": "forest.copper_key",
+    "consume": true,
+    "verb": {
+      "en": {
+        "to_target": {
+          "self": "you push the copper key into {target} and turn it. The lock clicks open.",
+          "others": "{actor} pushes a copper key into {target} and turns it. The lock clicks open."
+        }
+      },
+      "cs": {
+        "to_target": {
+          "self": "zastrčíš měděný klíč do {target} a otočíš jím. Zámek cvakne a otevře se.",
+          "others": "{actor} zastrčí měděný klíč do {target} a otočí jím. Zámek cvakne a otevře se."
+        }
+      }
+    }
+  }
+}
