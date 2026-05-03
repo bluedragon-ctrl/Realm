@@ -1,7 +1,7 @@
 import { world } from './world.js';
 import { applyEffect } from './effects.js';
 import { sendStats } from './messages.js';
-import { t } from '../i18n.js';
+import { t, s } from '../i18n.js';
 
 function makeInstance(defId, source, casterName) {
   const def = world.effectDefs.get(defId);
@@ -72,6 +72,44 @@ export function syncWearableEffects(actor) {
 let damageHandler = null;
 export function setEffectDamageHandler(fn) { damageHandler = fn; }
 
+function tickFeedbackParams(def, lang) {
+  return { icon: def.icon ?? '', name: t(def.name, lang) };
+}
+
+function sendTickFeedback(actor, def, spec, result) {
+  if (actor.kind !== 'player' || !actor.session) return;
+  const lang = actor.lang;
+  const base = tickFeedbackParams(def, lang);
+  if (spec.type === 'heal') {
+    const hp = result?.hpRestored ?? 0;
+    const mp = result?.mpRestored ?? 0;
+    if (hp <= 0 && mp <= 0) return;
+    let text;
+    if (hp > 0 && mp > 0) text = s('effect.tick.heal_both', lang, { ...base, hp, mp });
+    else if (hp > 0) text = s('effect.tick.heal_hp', lang, { ...base, amount: hp });
+    else text = s('effect.tick.heal_mp', lang, { ...base, amount: mp });
+    actor.session.send({ kind: 'system', tone: 'good', text });
+  } else if (spec.type === 'damage') {
+    const dealt = result?.dealt ?? 0;
+    if (dealt <= 0) return;
+    actor.session.send({
+      kind: 'system',
+      tone: 'bad',
+      text: s('effect.tick.damage', lang, { ...base, amount: dealt }),
+    });
+  }
+}
+
+function sendExpiredFeedback(actor, def) {
+  if (actor.kind !== 'player' || !actor.session) return;
+  const lang = actor.lang;
+  actor.session.send({
+    kind: 'system',
+    tone: 'flavor',
+    text: s('effect.expired', lang, tickFeedbackParams(def, lang)),
+  });
+}
+
 function fireTick(actor, inst, def) {
   const spec = def.tick?.effect;
   if (!spec) return;
@@ -82,7 +120,8 @@ function fireTick(actor, inst, def) {
       return;
     }
   }
-  applyEffect(spec, { actor, target: actor });
+  const result = applyEffect(spec, { actor, target: actor });
+  sendTickFeedback(actor, def, spec, result);
   if (actor.kind === 'player' && actor.session) sendStats(actor);
 }
 
@@ -101,7 +140,10 @@ export function tickActiveEffects(actor) {
     changed = true;
     if (inst.pulsesLeft != null) {
       inst.pulsesLeft -= 1;
-      if (inst.pulsesLeft <= 0) continue;
+      if (inst.pulsesLeft <= 0) {
+        sendExpiredFeedback(actor, def);
+        continue;
+      }
     }
     inst.nextTickIn = def.tick.every;
     remaining.push(inst);
