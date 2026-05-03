@@ -135,6 +135,7 @@ export function startWsServer(port) {
           session.send({ kind: 'error', text: s('error.login_first', DEFAULT_LANG) });
           return;
         }
+        if (session.actor.dying) return;
         await runCommand(session.actor, String(msg.text ?? ''));
         return;
       }

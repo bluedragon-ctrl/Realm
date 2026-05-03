@@ -96,7 +96,7 @@ function handleNpcDeath(killer, npc) {
   const room = npc.location;
   broadcastToRoom(room, (recipient) => ({
     kind: 'emote',
-    source: 'ambient',
+    tone: 'death',
     text: s('combat.target_dies_observed', recipient.lang, {
       target: targetDisplay(npc, recipient.lang),
     }),
@@ -123,7 +123,7 @@ function handlePlayerDeath(killer, victim) {
 
   broadcastToRoom(oldRoom, (recipient) => ({
     kind: 'narration',
-    source: 'ambient',
+    tone: 'death',
     text: s('combat.player_died_observed', recipient.lang, { name: victim.name }),
   }), victim);
 
@@ -138,26 +138,32 @@ function handlePlayerDeath(killer, victim) {
     }
   }
 
-  // Move home, restore HP
+  // Move home, restore HP — world state updated immediately so others see the change
+  victim.dying = true;
   placeActor(victim, 'home.yard');
   victim.stats.hp = Math.ceil(victim.stats.hpMax / 2);
   victim.dirty = true;
 
   victim.session?.send({
     kind: 'system',
-    tone: 'notice',
+    tone: 'death',
     text: s('combat.you_died', victim.lang),
   });
-  victim.session?.send({
-    kind: 'system',
-    tone: 'notice',
-    text: s('combat.you_respawn', victim.lang),
-  });
 
-  sendStats(victim);
-  describeRoom(victim);
   if (oldRoom) describeRoomToAll(oldRoom);
   describeRoomToAll('home.yard');
+
+  // Delay respawn so the player has time to register what happened
+  setTimeout(() => {
+    victim.dying = false;
+    victim.session?.send({
+      kind: 'system',
+      tone: 'notice',
+      text: s('combat.you_respawn', victim.lang),
+    });
+    sendStats(victim);
+    describeRoom(victim);
+  }, 3000);
 }
 
 export function applyAggressionOnEnter(player, roomId) {

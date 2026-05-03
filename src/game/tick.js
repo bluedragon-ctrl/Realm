@@ -10,7 +10,7 @@ import { pushTargetInfo } from './actions/look.js';
 
 setEffectDamageHandler(applyDamageWithFeedback);
 
-const TICK_MS = 600;
+const TICK_MS = 1000;
 const FLUSH_EVERY_TICKS = 50;
 
 let tickCount = 0;

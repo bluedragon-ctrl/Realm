@@ -13,6 +13,9 @@ const inspectBody = document.getElementById('inspect-body');
 const backBtn = document.getElementById('back-to-room');
 const popover = document.getElementById('action-popover');
 const tickEl = document.getElementById('tick');
+const scrollBtn = document.getElementById('scroll-btn');
+const deathOverlay = document.getElementById('death-overlay');
+const deathCountEl = document.getElementById('death-count');
 
 let ws = null;
 let loggedIn = false;
@@ -22,13 +25,57 @@ let labels = {};
 let socialList = [];
 const history = [];
 let historyIdx = -1;
+let scrollLocked = false;
+let deathTimer = null;
 
 function appendText(cls, text, extra = '') {
   const div = document.createElement('div');
   div.className = `line ${cls}${extra ? ' ' + extra : ''}`;
   div.textContent = text;
   consoleEl.appendChild(div);
+  if (!scrollLocked) consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+
+function appendRoomSep(roomName) {
+  const div = document.createElement('div');
+  div.className = 'room-sep';
+  div.textContent = roomName;
+  consoleEl.appendChild(div);
+  if (!scrollLocked) consoleEl.scrollTop = consoleEl.scrollHeight;
+}
+
+consoleEl.addEventListener('scroll', () => {
+  const atBottom = consoleEl.scrollHeight - consoleEl.scrollTop - consoleEl.clientHeight < 8;
+  if (atBottom && scrollLocked) {
+    scrollLocked = false;
+    scrollBtn.hidden = true;
+  } else if (!atBottom && !scrollLocked) {
+    scrollLocked = true;
+    scrollBtn.hidden = false;
+  }
+});
+
+scrollBtn.addEventListener('click', () => {
+  scrollLocked = false;
+  scrollBtn.hidden = true;
   consoleEl.scrollTop = consoleEl.scrollHeight;
+});
+
+function showDeathOverlay() {
+  let count = 3;
+  deathCountEl.textContent = count;
+  deathOverlay.hidden = false;
+  if (deathTimer) clearInterval(deathTimer);
+  deathTimer = setInterval(() => {
+    count--;
+    deathCountEl.textContent = Math.max(count, 0);
+    if (count <= 0) { clearInterval(deathTimer); deathTimer = null; }
+  }, 1000);
+}
+
+function dismissDeathOverlay() {
+  if (deathTimer) { clearInterval(deathTimer); deathTimer = null; }
+  deathOverlay.hidden = true;
 }
 
 function extraClasses(msg) {
@@ -277,7 +324,7 @@ function renderRoomInInspect(msg) {
       const cssClass = disposition === 'hostile' ? 'npc hostile' : 'npc';
       let chip;
       if (disposition === 'hostile') {
-        chip = makeChip(name, cssClass, () => sendInput(`attack ${name}`));
+        chip = makeChip(`⚔️ ${name}`, cssClass, () => sendInput(`attack ${name}`));
       } else {
         chip = makeChip(name, cssClass, (ev) => openActorPopover(chip, name, ev, { disposition, kind: 'npc' }));
       }
@@ -381,12 +428,17 @@ function handle(msg) {
       appendText('error', msg.text);
       input.placeholder = 'character name...';
       break;
-    case 'system':     appendText('system', msg.text, extraClasses(msg)); break;
+    case 'system':
+      if (msg.tone === 'death') showDeathOverlay();
+      appendText('system', msg.text, extraClasses(msg));
+      break;
     case 'error':      appendText('error', msg.text, extraClasses(msg)); break;
     case 'narration':  appendText('narration', msg.text, extraClasses(msg)); break;
     case 'say':        appendText('say', msg.text, extraClasses(msg)); break;
     case 'emote':      appendText('emote', msg.text, extraClasses(msg)); break;
     case 'room':
+      dismissDeathOverlay();
+      if (lastRoomMsg) appendRoomSep(msg.name);
       lastRoomMsg = msg;
       renderRoomInInspect(msg);
       break;
@@ -444,7 +496,81 @@ form.addEventListener('submit', (ev) => {
   }
 });
 
+const VERB_LIST = [
+  'look', 'l', 'go', 'say', 'emote', 'who', 'help', 'quit', 'lang',
+  'take', 'get', 'pick', 'drop', 'inventory', 'inv', 'give',
+  'use', 'cast', 'attack', 'kill', 'hit', 'flee',
+  'wear', 'equip', 'remove', 'unwear', 'equipment', 'eq',
+  'n', 's', 'e', 'w', 'u', 'd', 'ne', 'nw', 'se', 'sw',
+  'north', 'south', 'east', 'west', 'up', 'down',
+  'northeast', 'northwest', 'southeast', 'southwest',
+];
+
+let tabCandidates = null;
+let tabIdx = 0;
+
+function buildTabCandidates(val) {
+  const trimmed = val.trimStart();
+  const parts = trimmed.split(/\s+/);
+  const hasTrailingSpace = val.endsWith(' ');
+  const verb = parts[0]?.toLowerCase() ?? '';
+  const argParts = hasTrailingSpace ? parts.slice(1) : parts.slice(1, -1);
+  const argPrefix = (hasTrailingSpace ? '' : (parts[parts.length - 1] ?? '')).toLowerCase();
+
+  if (parts.length === 1 && !hasTrailingSpace) {
+    const socials = (lastStatsMsg?.socials ?? []).map(s => s.verb);
+    const pool = [...VERB_LIST, ...socials];
+    return pool
+      .filter(v => v.startsWith(verb) && v !== verb)
+      .map(v => v + ' ');
+  }
+
+  const npcNames = (lastRoomMsg?.npcs ?? []).map(n => typeof n === 'string' ? n : n.name);
+  const playerNames = lastRoomMsg?.others ?? [];
+  const roomItems = (lastRoomMsg?.items ?? []).map(i => i.name);
+  const invItems = (lastStatsMsg?.inventory ?? []).map(i => i.name);
+  const spellIds = (lastStatsMsg?.knownSpells ?? []).map(s => s.id);
+
+  let pool = [];
+  if (['attack', 'kill', 'hit'].includes(verb)) {
+    pool = [...npcNames, ...playerNames];
+  } else if (['look', 'l'].includes(verb)) {
+    pool = [...npcNames, ...playerNames, ...roomItems];
+  } else if (['take', 'get', 'pick'].includes(verb)) {
+    pool = roomItems;
+  } else if (['drop', 'use', 'wear', 'equip', 'remove', 'unwear'].includes(verb)) {
+    pool = invItems;
+  } else if (['cast', 'c'].includes(verb)) {
+    pool = spellIds;
+  } else if (verb === 'give') {
+    pool = argParts.length === 0 ? invItems : playerNames;
+  }
+
+  return pool
+    .filter(n => n.toLowerCase().startsWith(argPrefix) && n.toLowerCase() !== argPrefix)
+    .map(n => {
+      const base = argParts.length > 0 ? `${verb} ${argParts.join(' ')} ${n}` : `${verb} ${n}`;
+      return base + ' ';
+    });
+}
+
 input.addEventListener('keydown', (ev) => {
+  if (ev.key === 'Tab') {
+    ev.preventDefault();
+    if (!loggedIn) return;
+    if (tabCandidates === null) {
+      tabCandidates = buildTabCandidates(input.value);
+      tabIdx = 0;
+    }
+    if (tabCandidates.length === 0) return;
+    const completed = tabCandidates[tabIdx % tabCandidates.length];
+    tabIdx++;
+    input.value = completed;
+    return;
+  }
+
+  tabCandidates = null;
+
   if (ev.key === 'ArrowUp') {
     if (historyIdx > 0) { historyIdx--; input.value = history[historyIdx]; }
     ev.preventDefault();

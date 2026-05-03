@@ -14,6 +14,12 @@
     </header>
 
     <main id="console" aria-live="polite"></main>
+    <button id="scroll-btn" type="button" hidden>↓ new messages</button>
+
+    <div id="death-overlay" hidden>
+      <div id="death-msg">💀 you have died</div>
+      <div id="death-countdown">respawning in <span id="death-count">3</span>...</div>
+    </div>
 
     <aside id="player-panel" hidden>
       <h3 id="player-panel-title">Character</h3>
