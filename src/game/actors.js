@@ -55,6 +55,7 @@ export function makePlayerActor(record, session, isAdmin) {
     set activeEffects(v) { record.activeEffects = v; },
     get lang() { return record.lang; },
     set lang(v) { record.lang = normalizeLang(v); },
+    inspecting: null,
   };
   recomputeStats(actor);
   syncWearableEffects(actor);
