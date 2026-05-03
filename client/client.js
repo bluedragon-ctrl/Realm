@@ -531,14 +531,37 @@ function openRoomItemPopover(anchorEl, item, ev) {
   popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
     sendInput(`look ${item.name}`); closePopover();
   }));
-  if (item.pickable === false) {
-    popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
-      openUseSubmenu(anchorEl, item);
-    }));
-  } else {
+  if (item.pickable !== false) {
     popover.appendChild(popoverButton(labels.pickUpButton ?? 'Pick up', '', () => {
       sendInput(`take ${item.name}`); closePopover();
     }));
+  }
+  popover.appendChild(popoverButton(`${labels.useItemOnButton ?? 'Use item on this'} ▶`, '', () => {
+    openUseInventoryOnSubmenu(anchorEl, item);
+  }));
+  positionPopover(anchorEl);
+}
+
+function openUseInventoryOnSubmenu(anchorEl, roomItem) {
+  startPopover(anchorEl, `${labels.useItemOnButton ?? 'Use item on'}: ${roomItem.name}`);
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
+    openRoomItemPopover(anchorEl, roomItem);
+  }));
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  if (inv.length === 0) {
+    const empty = document.createElement('div');
+    empty.style.padding = '4px';
+    empty.style.color = 'var(--dim)';
+    empty.style.fontSize = '12px';
+    empty.textContent = labels.noItemsLabel ?? '(no items)';
+    popover.appendChild(empty);
+  } else {
+    for (const invItem of inv) {
+      const label = invItem.count > 1 ? `${invItem.name} ×${invItem.count}` : invItem.name;
+      popover.appendChild(popoverButton(label, '', () => {
+        sendInput(`use ${invItem.name} on ${roomItem.name}`); closePopover();
+      }));
+    }
   }
   positionPopover(anchorEl);
 }

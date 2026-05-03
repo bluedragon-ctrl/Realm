@@ -92,6 +92,8 @@ export function buildStatsMsg(actor) {
       inventoryEmpty: s('panel.inventory_empty', actor.lang),
       pickUpButton: s('panel.pickup_button', actor.lang),
       useButton: s('panel.use_button', actor.lang),
+      useItemOnButton: s('panel.use_item_on_button', actor.lang),
+      noItemsLabel: s('panel.no_items', actor.lang),
       dropButton: s('panel.drop_button', actor.lang),
       giveButton: s('panel.give_button', actor.lang),
       yourselfLabel: s('panel.yourself', actor.lang),
