@@ -1,0 +1,26 @@
+{
+  "id": "forest.blue_flower",
+  "name": {
+    "en": "a blue flower",
+    "cs": "modrý květ"
+  },
+  "nameAcc": {
+    "en": "the blue flower",
+    "cs": "modrý květ"
+  },
+  "short": {
+    "en": "A small blue flower with a faint sweet smell.",
+    "cs": "Malý modrý kvítek s jemnou sladkou vůní."
+  },
+  "long": {
+    "en": "A low plant with round blue petals that seem to glow very slightly in the shade. It smells sweet and a little sharp at the same time. Alchemists say these flowers are useful for making mana potions.",
+    "cs": "Nízká rostlina s kulatými modrými okvětními lístky, které ve stínu mírně svítí. Voní sladce a zároveň trochu ostře. Alchymisté říkají, že tyto květy se hodí na výrobu lektvarů many."
+  },
+  "tags": ["herb", "reagent"],
+  "weight": 0,
+  "spawn": {
+    "location": "forest.meadow",
+    "count": 3,
+    "respawnTicks": 300
+  }
+}

@@ -13,7 +13,8 @@
     "cs": "Ze stropu visí svazky bylinek a vzduch krásně voní. Pod malým okénkem leží kamenný hmoždíř na drcení bylinek a řada hliněných džbánků zazátkovaných korkem. Na polici vzadu je chleba, sýr a sušené ovoce."
   },
   "exits": {
-    "e": "home.yard"
+    "e": "home.yard",
+    "d": "home.basement"
   },
   "tags": ["safe", "indoor", "home"]
 }
