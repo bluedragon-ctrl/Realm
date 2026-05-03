@@ -19,12 +19,12 @@
     },
     "cs": {
       "no_target": {
-        "self": "zamumláš slovo léčení a tělem se ti rozlije jemné teplo.",
-        "others": "{actor} mumlá slovo léčení a na okamžik je obklopen jemnou září."
+        "self": "zamumláš kouzelné slovo a tělem se ti rozlije jemné teplo.",
+        "others": "{actor} mumlá kouzelná slova a na okamžik je obklopen jemnou září."
       },
       "to_target": {
-        "self": "zamumláš slovo léčení a jemné teplo proudí směrem k {target}.",
-        "others": "{actor} mumlá slovo léčení a na okamžik se kolem {target} rozlévá jemná záře."
+        "self": "zamumláš kouzelné slovo a jemné teplo proudí směrem k {target}.",
+        "others": "{actor} mumlá kouzelná slova a na okamžik se kolem {target} rozlévá jemná záře."
       }
     }
   },

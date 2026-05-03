@@ -6,8 +6,8 @@
   "location": "home.basement",
   "count": 1,
   "short": {
-    "en": "A large rat watches you with small black eyes.",
-    "cs": "Velká krysa tě sleduje malýma černýma očima."
+    "en": "A large mean rat watches you with small black eyes.",
+    "cs": "Velká protivná krysa tě sleduje malýma černýma očima."
   },
   "long": {
     "en": "A fat grey rat with a long naked tail and yellow teeth. Its fur is matted with dirt and its small black eyes fix on you with no fear. It has clearly lived in this basement for a very long time and does not intend to leave.",
@@ -17,10 +17,10 @@
   "aggressive": true,
   "mood": "angry",
   "stats": {
-    "hp": 5, "hpMax": 5,
+    "hp": 7, "hpMax": 7,
     "mp": 0, "mpMax": 0,
     "attack": 1, "defense": 0, "int": 0,
-    "spd": 10
+    "spd": 3
   },
   "respawn": { "ticks": 600 },
   "behaviors": [
@@ -40,24 +40,24 @@
         "cs": [
           "{actor} se vrhne a kouše {target}!",
           "{actor} zabodne žluté zuby do {target}!",
-          "{actor} kousne {target} a pouští krev!"
+          "{actor} kousne {target} do krve!"
         ]
       }
     },
     {
       "primitive": "emote",
-      "chance": 0.06,
+      "chance": 0.03,
       "cost": 6,
       "lines": {
         "en": [
           "scratches at the dirt floor with its claws.",
-          "drags something unseen deeper into the dark.",
+          "drags something deeper into the dark.",
           "bares its yellow teeth.",
           "scurries along the wall and stops."
         ],
         "cs": [
           "drápe hliněnou podlahu drápy.",
-          "táhne cosi neviditelného hlouběji do tmy.",
+          "táhne cosi louběji do tmy.",
           "odhalí žluté zuby.",
           "přeběhne podél zdi a zastaví se."
         ]

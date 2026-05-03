@@ -19,12 +19,12 @@
     },
     "cs": {
       "no_target": {
-        "self": "zašeptáš slovo obnovy a kolem tebe se usadí slabý třpyt.",
-        "others": "{actor} zašeptá slovo obnovy a kolem něj se usadí slabý třpyt."
+        "self": "zašeptáš kouzelné slovo a kolem tebe se usadí slabý třpyt.",
+        "others": "{actor} zašeptá kouzelné slovo a kolem něj se usadí slabý třpyt."
       },
       "to_target": {
-        "self": "zašeptáš slovo obnovy a slabý třpyt se snese k {target}.",
-        "others": "{actor} zašeptá slovo obnovy a slabý třpyt se snese k {target}."
+        "self": "zašeptáš kouzelné slovo a slabý třpyt se snese k {target}.",
+        "others": "{actor} zašeptá kouzelné slovo a slabý třpyt se snese k {target}."
       }
     }
   },

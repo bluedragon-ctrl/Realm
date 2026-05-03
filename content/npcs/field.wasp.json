@@ -7,11 +7,11 @@
   "count": 2,
   "short": {
     "en": "An angry yellow-and-black wasp circles aggressively.",
-    "cs": "Naštvaná žluto-černá vosa agresivně krouží."
+    "cs": "Naštvaná žluto-černá vosa naštvaně krouží kolem."
   },
   "long": {
-    "en": "A wasp the colour of warning, with a slender body, busy wings, and a sting that knows its own purpose. It comes for you the moment it sees you.",
-    "cs": "Vosa v barvě varování, štíhlá, neustále třepotající křídly, se žihadlem, které dobře ví, co umí. Vyrazí po tobě, jakmile tě uvidí."
+    "en": "A striped wasp, with a slender body, busy wings, and a sting that knows its own purpose. It comes for you the moment it sees you.",
+    "cs": "Pruhovaná vosa, štíhlá, neustále třepotající křídly, se žihadlem, které dobře ví, co umí. Vyrazí po tobě, jakmile tě uvidí."
   },
   "disposition": "hostile",
   "aggressive": true,
@@ -20,7 +20,7 @@
     "hp": 4, "hpMax": 4,
     "mp": 0, "mpMax": 0,
     "attack": 1, "defense": 0, "int": 0,
-    "spd": 3
+    "spd": 2
   },
   "respawn": { "ticks": 800 },
   "behaviors": [
