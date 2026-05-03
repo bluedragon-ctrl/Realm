@@ -3,6 +3,10 @@ import { normalizeLang } from '../i18n.js';
 import { instanceFromSaved, makeItemInstance } from './items.js';
 import { world } from './world.js';
 import { emptyEquipped, normalizeEquipped, normalizeKnownWearables, recomputeStats } from './wearables.js';
+import { normalizeSavedActiveEffects, syncWearableEffects } from './activeEffects.js';
+
+const ADMIN_GRANTED_SPELLS = ['spell.regen'];
+const ADMIN_GRANTED_WEARABLES = ['item.amulet_regen'];
 
 let nextNpcInstanceId = 1;
 
@@ -14,8 +18,20 @@ export function makePlayerActor(record, session, isAdmin) {
   if (!Array.isArray(record.knownSpells) || record.knownSpells.length === 0) {
     record.knownSpells = ['spell.heal', 'spell.spark'];
   }
+  if (isAdmin) {
+    for (const sid of ADMIN_GRANTED_SPELLS) {
+      if (world.spellDefs.has(sid) && !record.knownSpells.includes(sid)) record.knownSpells.push(sid);
+    }
+  }
   record.knownWearables = normalizeKnownWearables(record.knownWearables);
+  if (isAdmin) {
+    for (const iid of ADMIN_GRANTED_WEARABLES) {
+      const def = world.itemDefs.get(iid);
+      if (def?.wearable && !record.knownWearables.includes(iid)) record.knownWearables.push(iid);
+    }
+  }
   record.equipped = normalizeEquipped(record.equipped);
+  record.activeEffects = normalizeSavedActiveEffects(record.activeEffects);
   const inventory = [];
   for (const saved of record.inventory) {
     const inst = instanceFromSaved(saved, world.itemDefs);
@@ -35,10 +51,13 @@ export function makePlayerActor(record, session, isAdmin) {
     get knownSpells() { return record.knownSpells; },
     get knownWearables() { return record.knownWearables; },
     get equipped() { return record.equipped; },
+    get activeEffects() { return record.activeEffects; },
+    set activeEffects(v) { record.activeEffects = v; },
     get lang() { return record.lang; },
     set lang(v) { record.lang = normalizeLang(v); },
   };
   recomputeStats(actor);
+  syncWearableEffects(actor);
   return actor;
 }
 
@@ -68,5 +87,6 @@ export function makeNpcActor(def) {
     inventory,
     behaviors: def.behaviors ?? [],
     alive: true,
+    activeEffects: [],
   };
 }

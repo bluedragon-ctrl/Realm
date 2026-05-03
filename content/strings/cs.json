@@ -153,6 +153,8 @@
   "panel.slot_weapon": "Zbraň",
   "panel.slot_amulet": "Amulet",
   "panel.slot_empty_label": "(prázdné)",
+  "panel.effects": "Efekty",
+  "panel.effects_empty": "(žádné)",
 
   "dir.n": "na sever",
   "dir.s": "na jih",

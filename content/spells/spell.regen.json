@@ -1,0 +1,32 @@
+{
+  "id": "spell.regen",
+  "name": {
+    "en": "Regeneration",
+    "cs": "Regenerace"
+  },
+  "mpCost": 1,
+  "target": "friendly",
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you whisper a word of renewal and a faint shimmer settles over you.",
+        "others": "{actor} whispers a word of renewal and a faint shimmer settles over them."
+      },
+      "to_target": {
+        "self": "you whisper a word of renewal and a faint shimmer drifts to {target}.",
+        "others": "{actor} whispers a word of renewal and a faint shimmer drifts to {target}."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zašeptáš slovo obnovy a kolem tebe se usadí slabý třpyt.",
+        "others": "{actor} zašeptá slovo obnovy a kolem něj se usadí slabý třpyt."
+      },
+      "to_target": {
+        "self": "zašeptáš slovo obnovy a slabý třpyt se snese k {target}.",
+        "others": "{actor} zašeptá slovo obnovy a slabý třpyt se snese k {target}."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.regen" }
+}

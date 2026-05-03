@@ -1,0 +1,14 @@
+{
+  "id": "effect.regen_aura",
+  "name": {
+    "en": "Regen Aura",
+    "cs": "Aura regenerace"
+  },
+  "kind": "buff",
+  "icon": "💠",
+  "tick": {
+    "every": 5,
+    "effect": { "type": "heal", "mp": 1 }
+  },
+  "stack": "refresh"
+}

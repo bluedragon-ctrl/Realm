@@ -322,6 +322,14 @@ html, body {
 .chip.spell  { color: #ffffff; background: #6e4ea0; border-color: #9b76d0; }
 .chip.spell:hover { background: #876ec0; }
 .chip .mp-cost { color: #cdb4ff; font-size: 0.85em; margin-left: 4px; }
+.chip.effect { cursor: default; }
+.chip.effect.buff    { color: #1c1c1f; background: #a8d8c0; border-color: #6fae90; }
+.chip.effect.buff:hover { background: #a8d8c0; border-color: #6fae90; }
+.chip.effect.debuff  { color: #ffffff; background: #8a4a4a; border-color: #5a2a2a; }
+.chip.effect.debuff:hover { background: #8a4a4a; border-color: #5a2a2a; }
+.chip.effect.neutral { color: #1c1c1f; background: #c4c4c8; border-color: #888; }
+.chip.effect.neutral:hover { background: #c4c4c8; border-color: #888; }
+.chip .effect-counter { color: #444; font-size: 0.85em; margin-left: 4px; }
 
 #action-popover {
   position: fixed;

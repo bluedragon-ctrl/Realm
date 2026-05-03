@@ -1,6 +1,7 @@
 import { broadcastToRoom } from '../world.js';
 import { s, t } from '../../i18n.js';
 import { findKnownWearable, recomputeStats } from '../wearables.js';
+import { syncWearableEffects } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 
@@ -25,6 +26,7 @@ export default function wear(actor, args) {
   }
   actor.record.equipped[slot] = def.id;
   recomputeStats(actor);
+  syncWearableEffects(actor);
   actor.dirty = true;
 
   broadcastToRoom(actor.location, (recipient) => {

@@ -1,6 +1,7 @@
 import { findInRoom, world } from '../world.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
+import { applyActiveEffect } from '../activeEffects.js';
 import { applyDamageWithFeedback } from '../combat.js';
 import { roll } from '../dice.js';
 import { splitOnKeyword } from '../items.js';
@@ -83,6 +84,14 @@ export default function cast(actor, args) {
     const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
     const amount = Math.max(1, roll(formula, { actor, target }));
     applyDamageWithFeedback(actor, target, amount);
+    return;
+  }
+
+  if (spell.effect?.type === 'apply_effect') {
+    const recipient = target ?? actor;
+    applyActiveEffect(recipient, spell.effect.effectId, 'spell', actor.name);
+    if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
+    if (actor !== recipient && actor.kind === 'player') sendStats(actor);
     return;
   }
 

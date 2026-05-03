@@ -153,6 +153,8 @@
   "panel.slot_weapon": "Weapon",
   "panel.slot_amulet": "Amulet",
   "panel.slot_empty_label": "(empty)",
+  "panel.effects": "Effects",
+  "panel.effects_empty": "(none)",
 
   "dir.n": "north",
   "dir.s": "south",

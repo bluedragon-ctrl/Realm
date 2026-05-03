@@ -1,4 +1,4 @@
-import { loadRooms, loadNpcs, loadStrings, loadSocials, loadItems, loadSpells } from '../persist/contentLoader.js';
+import { loadRooms, loadNpcs, loadStrings, loadSocials, loadItems, loadSpells, loadEffects } from '../persist/contentLoader.js';
 import { createPlayer } from '../persist/players.js';
 import { world, START_ROOM, despawnAllNpcs, spawnAllNpcs, spawnAllItems } from '../game/world.js';
 import { parseCommand, executeHandler } from '../game/dispatch.js';
@@ -51,12 +51,14 @@ async function reloadCmd(actor) {
   const rooms = await loadRooms();
   const npcs = await loadNpcs(rooms);
   const socials = await loadSocials();
-  const items = await loadItems(rooms);
-  const spells = await loadSpells();
+  const effects = await loadEffects();
+  const items = await loadItems(rooms, effects);
+  const spells = await loadSpells(effects);
   const strings = await loadStrings();
   world.rooms = rooms;
   world.npcDefs = npcs;
   world.socials = socials;
+  world.effectDefs = effects;
   world.itemDefs = items;
   world.spellDefs = spells;
   setStringTables(strings);

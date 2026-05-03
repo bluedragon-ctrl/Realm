@@ -1,5 +1,5 @@
 import path from 'node:path';
-import { loadRooms, loadAdmins, loadNpcs, loadSocials, loadItems, loadSpells } from '../persist/contentLoader.js';
+import { loadRooms, loadAdmins, loadNpcs, loadSocials, loadItems, loadSpells, loadEffects } from '../persist/contentLoader.js';
 import { playerExists, createPlayer } from '../persist/players.js';
 import { readJson, listJsonFiles } from '../persist/jsonStore.js';
 import { makeNpcActor } from './actors.js';
@@ -14,6 +14,7 @@ export const world = {
   socials: new Map(),
   itemDefs: new Map(),
   spellDefs: new Map(),
+  effectDefs: new Map(),
   admins: new Set(),
   actorsByName: new Map(),
   actorsByRoom: new Map(),
@@ -41,8 +42,9 @@ export async function loadWorld() {
   world.admins = await loadAdmins();
   world.npcDefs = await loadNpcs(world.rooms);
   world.socials = await loadSocials();
-  world.itemDefs = await loadItems(world.rooms);
-  world.spellDefs = await loadSpells();
+  world.effectDefs = await loadEffects();
+  world.itemDefs = await loadItems(world.rooms, world.effectDefs);
+  world.spellDefs = await loadSpells(world.effectDefs);
   if (!world.rooms.has(START_ROOM)) {
     throw new Error(`start room '${START_ROOM}' not found in content/rooms`);
   }

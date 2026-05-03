@@ -1,6 +1,7 @@
 import { s, t } from '../i18n.js';
 import { getRoom, world } from './world.js';
 import { WEARABLE_SLOTS } from './wearables.js';
+import { serializeActiveEffectsForClient } from './activeEffects.js';
 
 function stateKey(state) {
   if (!state || Object.keys(state).length === 0) return '';
@@ -102,6 +103,8 @@ export function buildStatsMsg(actor) {
       fleeButton: s('panel.flee_button', actor.lang),
       equipmentTitle: s('panel.equipment', actor.lang),
       equipmentEmpty: s('panel.equipment_empty', actor.lang),
+      effectsTitle: s('panel.effects', actor.lang),
+      effectsEmpty: s('panel.effects_empty', actor.lang),
       wearButton: s('panel.wear_button', actor.lang),
       removeButton: s('panel.remove_button', actor.lang),
       slotEmpty: s('panel.slot_empty_label', actor.lang),
@@ -116,6 +119,7 @@ export function buildStatsMsg(actor) {
     inventory: buildInventory(actor),
     knownSpells: buildKnownSpells(actor),
     equipment: buildEquipment(actor),
+    activeEffects: serializeActiveEffectsForClient(actor, actor.lang),
   };
 }
 

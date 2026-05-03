@@ -1,6 +1,7 @@
 import { broadcastToRoom } from '../world.js';
 import { s, t } from '../../i18n.js';
 import { findEquippedWearable, recomputeStats } from '../wearables.js';
+import { syncWearableEffects } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 
@@ -18,6 +19,7 @@ export default function removeWearable(actor, args) {
   const { def, slot } = found;
   actor.record.equipped[slot] = null;
   recomputeStats(actor);
+  syncWearableEffects(actor);
   actor.dirty = true;
 
   broadcastToRoom(actor.location, (recipient) => {
