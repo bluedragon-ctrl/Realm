@@ -16,6 +16,7 @@ export function describeRoomToAll(roomId) {
 }
 
 export function describeRoom(actor) {
+  actor.inspecting = null;
   const room = getRoom(actor.location);
   if (!room) {
     actor.session.send({
@@ -74,9 +75,14 @@ export function describeRoom(actor) {
   });
 }
 
+export function pushTargetInfo(actor, target) {
+  return sendTargetInfo(actor, target);
+}
+
 function sendTargetInfo(actor, target) {
   const lang = actor.lang;
   if (target.kind === 'npc') {
+    actor.inspecting = target;
     let subtitle = t(target.title ?? target.name, lang);
     if (target.disposition && target.disposition !== 'neutral') {
       subtitle += ` (${s(`look.disposition_${target.disposition}`, lang)})`;
@@ -103,6 +109,7 @@ function sendTargetInfo(actor, target) {
     return;
   }
   if (target.kind === 'player') {
+    actor.inspecting = null;
     actor.session.send({
       kind: 'target-info',
       name: target.name,
@@ -113,6 +120,7 @@ function sendTargetInfo(actor, target) {
     });
     return;
   }
+  actor.inspecting = null;
   actor.session.send({ kind: 'system', text: s('look.you_see_nothing', lang) });
 }
 

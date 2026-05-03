@@ -1,6 +1,7 @@
 import { SUPPORTED_LANGS, s } from '../../i18n.js';
 import { describeRoom } from './look.js';
 import { sendStats } from '../messages.js';
+import { syncWearableEffects } from '../activeEffects.js';
 
 export default function lang(actor, args) {
   if (!args || args.length === 0) {
@@ -30,6 +31,7 @@ export default function lang(actor, args) {
     kind: 'system',
     text: s('system.lang_set', actor.lang, { lang: actor.lang }),
   });
+  syncWearableEffects(actor);
   sendStats(actor);
   describeRoom(actor);
 }

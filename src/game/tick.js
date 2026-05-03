@@ -1,4 +1,4 @@
-import { world, allActors, countItemsInWorldMemory, placeItemInRoom, processNpcRespawns } from './world.js';
+import { world, allActors, actorsInRoom, countItemsInWorldMemory, placeItemInRoom, processNpcRespawns } from './world.js';
 import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
 import { DEFAULT_COSTS } from './stats.js';
@@ -6,6 +6,7 @@ import { serializeInventory, makeItemInstance } from './items.js';
 import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler } from './activeEffects.js';
 import { applyDamageWithFeedback } from './combat.js';
 import { sendStats } from './messages.js';
+import { pushTargetInfo } from './actions/look.js';
 
 setEffectDamageHandler(applyDamageWithFeedback);
 
@@ -71,6 +72,13 @@ function tickActor(actor) {
 
   const effectsChanged = tickActiveEffects(actor);
   if (effectsChanged && actor.kind === 'player' && actor.session) sendStats(actor);
+  if (effectsChanged && actor.kind === 'npc') {
+    for (const p of actorsInRoom(actor.location)) {
+      if (p.kind === 'player' && p.session && p.inspecting === actor) {
+        pushTargetInfo(p, actor);
+      }
+    }
+  }
 
   if (actor.kind !== 'npc') return;
   actor.energy += actor.stats.spd;

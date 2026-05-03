@@ -8,7 +8,7 @@
   "icon": "💠",
   "tick": {
     "every": 5,
-    "effect": { "type": "heal", "mp": 1 }
+    "effect": { "type": "heal", "hp": 1 }
   },
   "stack": "refresh"
 }
