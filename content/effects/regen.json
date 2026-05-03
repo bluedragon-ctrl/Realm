@@ -9,7 +9,7 @@
   "tick": {
     "every": 5,
     "pulses": 5,
-    "effect": { "type": "heal", "mp": 2 }
+    "effect": { "type": "heal", "hp": 2 }
   },
   "stack": "refresh"
 }

@@ -155,6 +155,11 @@
   "panel.slot_empty_label": "(prázdné)",
   "panel.effects": "Efekty",
   "panel.effects_empty": "(žádné)",
+  "effect.tick.heal_hp": "{icon} {name} ti obnovuje {amount} HP.",
+  "effect.tick.heal_mp": "{icon} {name} ti obnovuje {amount} MP.",
+  "effect.tick.heal_both": "{icon} {name} ti obnovuje {hp} HP a {mp} MP.",
+  "effect.tick.damage": "{icon} {name} tě pálí za {amount} poškození.",
+  "effect.expired": "{icon} {name} odeznívá.",
 
   "dir.n": "na sever",
   "dir.s": "na jih",
