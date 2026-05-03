@@ -106,45 +106,7 @@ function renderStats(msg) {
   }
   playerStatsEl.appendChild(grid);
 
-  // Inventory + spellbook (both collapsible)
-  playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
-    if (Array.isArray(msg.inventory) && msg.inventory.length > 0) {
-      msg.inventory.forEach((item, i) => {
-        if (i > 0) body.append(' ');
-        const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-        const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
-        body.appendChild(chip);
-      });
-    } else {
-      const empty = document.createElement('span');
-      empty.className = 'empty';
-      empty.textContent = labels.inventoryEmpty ?? '(empty)';
-      body.appendChild(empty);
-    }
-  }));
-
-  playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
-    const eq = msg.equipment ?? { slots: [], known: [] };
-    const slotLabels = labels.slotLabels ?? {};
-    const slotEmpty = labels.slotEmpty ?? '(empty)';
-    const grid = document.createElement('div');
-    grid.className = 'equipment-grid';
-    eq.slots.forEach((slotInfo) => {
-      const row = document.createElement('div');
-      row.className = 'equipment-slot-row';
-      const label = document.createElement('span');
-      label.className = 'equipment-slot-label';
-      label.textContent = `${slotLabels[slotInfo.slot] ?? slotInfo.slot}:`;
-      row.appendChild(label);
-      const chipCls = slotInfo.defId ? 'item' : 'fixture';
-      const chipText = slotInfo.defId ? slotInfo.name : slotEmpty;
-      const chip = makeChip(chipText, chipCls, (ev) => openEquipmentSlotPopover(chip, slotInfo, eq.known, ev));
-      row.appendChild(chip);
-      grid.appendChild(row);
-    });
-    body.appendChild(grid);
-  }));
-
+  // Collapsibles in order: effects, spells, inventory, equipment
   playerStatsEl.appendChild(makeCollapsibleSection('effects', labels.effectsTitle ?? 'Effects', (body) => {
     const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
     if (effects.length === 0) {
@@ -191,6 +153,44 @@ function renderStats(msg) {
       empty.textContent = labels.spellbookEmpty ?? '(none)';
       body.appendChild(empty);
     }
+  }));
+
+  playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
+    if (Array.isArray(msg.inventory) && msg.inventory.length > 0) {
+      msg.inventory.forEach((item, i) => {
+        if (i > 0) body.append(' ');
+        const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+        const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
+        body.appendChild(chip);
+      });
+    } else {
+      const empty = document.createElement('span');
+      empty.className = 'empty';
+      empty.textContent = labels.inventoryEmpty ?? '(empty)';
+      body.appendChild(empty);
+    }
+  }));
+
+  playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
+    const eq = msg.equipment ?? { slots: [], known: [] };
+    const slotLabels = labels.slotLabels ?? {};
+    const slotEmpty = labels.slotEmpty ?? '(empty)';
+    const grid = document.createElement('div');
+    grid.className = 'equipment-grid';
+    eq.slots.forEach((slotInfo) => {
+      const row = document.createElement('div');
+      row.className = 'equipment-slot-row';
+      const label = document.createElement('span');
+      label.className = 'equipment-slot-label';
+      label.textContent = `${slotLabels[slotInfo.slot] ?? slotInfo.slot}:`;
+      row.appendChild(label);
+      const chipCls = slotInfo.defId ? 'item' : 'fixture';
+      const chipText = slotInfo.defId ? slotInfo.name : slotEmpty;
+      const chip = makeChip(chipText, chipCls, (ev) => openEquipmentSlotPopover(chip, slotInfo, eq.known, ev));
+      row.appendChild(chip);
+      grid.appendChild(row);
+    });
+    body.appendChild(grid);
   }));
 
   playerPanel.hidden = false;

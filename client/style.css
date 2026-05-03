@@ -33,7 +33,7 @@ html, body {
 #app {
   display: grid;
   height: 100vh;
-  grid-template-columns: 1fr 440px;
+  grid-template-columns: 1fr 510px;
   grid-template-rows: auto 1fr 1fr auto auto;
   grid-template-areas:
     "topbar    topbar"
@@ -130,14 +130,16 @@ html, body {
 .bar-num { color: var(--fg); font-size: 12px; text-align: right; }
 
 .stat-grid {
-  display: grid;
-  grid-template-columns: 1fr 1fr;
-  gap: 4px 12px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 2px 4px;
   margin-top: 8px;
   font-size: 12px;
+  align-items: baseline;
 }
 .stat-grid .k { color: var(--dim); }
-.stat-grid .v { color: var(--fg); text-align: right; }
+.stat-grid .k:not(:first-child) { margin-left: 10px; }
+.stat-grid .v { color: var(--fg); }
 
 .inventory-section {
   margin-top: 10px;
