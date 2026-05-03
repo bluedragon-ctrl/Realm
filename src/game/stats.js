@@ -42,11 +42,11 @@ export const DEFAULT_COSTS = Object.freeze({
 
 export const DEFAULT_PLAYER_ATTACK = Object.freeze({
   primitive: 'attack',
-  name: { en: 'punch', cs: 'rána pěstí' },
+  name: { en: 'attack', cs: 'útok' },
   cost: 12,
   damage: '1d3+ATK',
   templates: {
-    en: ['{actor} hits {target}!', '{actor} strikes {target}!'],
-    cs: ['{actor} udeří {target}!', '{actor} se ožene po {target}!'],
+    en: ['{actor} attacks {target}!'],
+    cs: ['{actor} útočí na {target}!'],
   },
 });
