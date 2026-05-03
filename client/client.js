@@ -27,6 +27,7 @@ const history = [];
 let historyIdx = -1;
 let scrollLocked = false;
 let deathTimer = null;
+let pendingRoomTransition = false;
 
 function appendText(cls, text, extra = '') {
   const div = document.createElement('div');
@@ -436,9 +437,12 @@ function handle(msg) {
     case 'narration':  appendText('narration', msg.text, extraClasses(msg)); break;
     case 'say':        appendText('say', msg.text, extraClasses(msg)); break;
     case 'emote':      appendText('emote', msg.text, extraClasses(msg)); break;
+    case 'room-transition':
+      pendingRoomTransition = true;
+      break;
     case 'room':
       dismissDeathOverlay();
-      if (lastRoomMsg) appendRoomSep(msg.name);
+      if (pendingRoomTransition) { appendRoomSep(msg.name); pendingRoomTransition = false; }
       lastRoomMsg = msg;
       renderRoomInInspect(msg);
       break;
@@ -660,6 +664,11 @@ function openRoomItemPopover(anchorEl, item, ev) {
   if (item.pickable !== false) {
     popover.appendChild(popoverButton(labels.pickUpButton ?? 'Pick up', '', () => {
       sendInput(`take ${item.name}`); closePopover();
+    }));
+  }
+  if (item.usable && item.pickable === false) {
+    popover.appendChild(popoverButton(labels.useButton ?? 'Use', '', () => {
+      sendInput(`use ${item.name}`); closePopover();
     }));
   }
   popover.appendChild(popoverButton(`${labels.useItemOnButton ?? 'Use item on this'} ▶`, '', () => {
