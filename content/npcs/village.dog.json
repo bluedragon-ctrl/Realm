@@ -19,7 +19,7 @@
   },
   "long": {
     "en": "A small fluffy dog with one torn ear and an air of tireless curiosity. It pays you cautious attention, deciding moment by moment whether you are worth begging from.",
-    "cs": "Malý chumlavý pes s jedním roztrženým uchem a výrazem neúnavné zvědavosti. Věnuje ti opatrnou pozornost a každou chvíli zvažuje, jestli za to stojíš, abys ho nakrmil."
+    "cs": "Malý chumlavý pes s jedním roztrženým uchem a výrazem neúnavné zvědavosti. Opatrně si tě prohlíží a zvažuje, co s tebou."
   },
   "disposition": "friendly",
   "aggressive": false,
@@ -28,9 +28,9 @@
     "hp": 6, "hpMax": 6,
     "mp": 0, "mpMax": 0,
     "attack": 1, "defense": 0, "int": 0,
-    "spd": 12
+    "spd": 6
   },
-  "respawn": { "ticks": 500 },
+  "respawn": { "ticks": 800 },
   "behaviors": [
     {
       "primitive": "flee",
@@ -61,9 +61,9 @@
           "noses {item} towards {target} and steps back."
         ],
         "cs": [
-          "pouští {item} k nohám: {target} a vzhlíží s očekáváním.",
-          "přiběhne k {target} a pouští {item}.",
-          "čenichem strčí {item} směrem k {target} a couvne."
+          "pouští {item} k nohám: {target} a čeká.",
+          "přiběhne k {target} a položí {item}.",
+          "čenichem postrčí {item} k {target} a couvne."
         ]
       }
     },
@@ -81,7 +81,7 @@
         ],
         "cs": [
           "zvědavě čenichá u nohou {target}.",
-          "klusá blíž k {target} a vrtí ocasem.",
+          "přiběhne blíž k {target} a vrtí ocasem.",
           "kouká s nadějí na {target}.",
           "opírá hlavu o nohu {target}.",
           "kousek pronásleduje {target}, pak ztratí zájem."
