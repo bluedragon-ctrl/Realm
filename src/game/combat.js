@@ -1,5 +1,6 @@
 import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom } from './world.js';
 import { applyEffect } from './effects.js';
+import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { sourceForActor } from './sources.js';
@@ -111,6 +112,10 @@ function handleNpcDeath(killer, npc) {
   world.npcsByInstance.delete(npc.instanceId);
 
   const def = world.npcDefs.get(npc.defId);
+
+  if (killer?.kind === 'player' && def?.xp) {
+    awardXp(killer, def.xp, 'kill');
+  }
 
   if (room && def?.loot) {
     for (const entry of def.loot) {

@@ -6,6 +6,7 @@ import { applyEffect, sendHealFeedback } from '../effects.js';
 import { applyActiveEffect } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { describeRoomToAll } from './look.js';
+import { awardXp } from '../xp.js';
 
 const SELF_TOKENS = new Set(['me', 'self', 'myself']);
 
@@ -44,6 +45,7 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
       sendStats(actor);
     }
     describeRoomToAll(actor.location);
+    awardXp(actor, spec.xp ?? 2, 'unlock');
     return;
   }
 
@@ -61,6 +63,7 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
     }
     actor.dirty = true;
     sendStats(actor);
+    if (result?.produced) awardXp(actor, spec.xp ?? 2, 'produce');
     return;
   }
 }
@@ -154,5 +157,10 @@ export default function use(actor, args) {
     removeFromList(actor.inventory, inst);
     actor.dirty = true;
     sendStats(actor);
+  }
+
+  if (inst.def.grantsXp) {
+    const amount = typeof inst.def.grantsXp === 'number' ? inst.def.grantsXp : 1;
+    awardXp(actor, amount, 'use_item');
   }
 }

@@ -142,6 +142,8 @@
   "panel.give_button": "Dát",
   "panel.yourself": "Sobě",
   "panel.back": "← zpět",
+  "panel.level": "Úr",
+  "panel.xp": "XP",
   "panel.hp": "HP",
   "panel.mp": "MP",
   "panel.atk": "ÚTK",
@@ -164,6 +166,11 @@
   "effect.tick.heal_both": "{icon} {name} ti obnovuje {hp} HP a {mp} MP.",
   "effect.tick.damage": "{icon} {name} tě pálí za {amount} poškození.",
   "effect.expired": "{icon} {name} odeznívá.",
+
+  "xp.gained": "získáváš {amount} XP.",
+  "xp.level_up": "✨ dosáhl jsi úrovně {level}!",
+  "xp.level_up_observed": "✨ {name} dosáhl úrovně {level}!",
+
 
   "dir.n": "na sever",
   "dir.s": "na jih",

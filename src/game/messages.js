@@ -2,6 +2,7 @@ import { s, t } from '../i18n.js';
 import { getRoom, world } from './world.js';
 import { WEARABLE_SLOTS } from './wearables.js';
 import { serializeActiveEffectsForClient } from './activeEffects.js';
+import { xpToNext } from './xp.js';
 
 function stateKey(state) {
   if (!state || Object.keys(state).length === 0) return '';
@@ -77,7 +78,12 @@ export function buildStatsMsg(actor) {
     location: room ? t(room.name, actor.lang) : actor.location,
     locationId: actor.location,
     stats: { ...actor.stats },
+    level: actor.record.level ?? 1,
+    xp: actor.record.xp ?? 0,
+    xpToNext: xpToNext(actor.record.level ?? 1),
     labels: {
+      level: s('panel.level', actor.lang),
+      xp: s('panel.xp', actor.lang),
       hp: s('panel.hp', actor.lang),
       mp: s('panel.mp', actor.lang),
       atk: s('panel.atk', actor.lang),

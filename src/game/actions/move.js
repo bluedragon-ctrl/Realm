@@ -3,6 +3,7 @@ import { describeRoom, describeRoomToAll } from './look.js';
 import { s, t, dirName } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { clearAggroOnLeave, applyAggressionOnEnter } from '../combat.js';
+import { awardXp, markRoomVisited } from '../xp.js';
 
 const DIR_ALIASES = {
   n: 'n', north: 'n',
@@ -83,4 +84,8 @@ export default function move(actor, args) {
 
   describeRoomToAll(sourceId);
   describeRoomToAll(targetId);
+
+  if (markRoomVisited(actor, targetId)) {
+    awardXp(actor, 2, 'discover_room');
+  }
 }
