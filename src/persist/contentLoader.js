@@ -89,7 +89,7 @@ function validateNpc(def, file, knownRooms) {
 const KNOWN_WEARABLE_SLOTS = new Set(['body', 'head', 'weapon', 'amulet']);
 const KNOWN_BONUS_KEYS = new Set(['attack', 'defense', 'hpMax', 'mpMax', 'int', 'spd']);
 
-function validateItem(def, file, knownRooms) {
+function validateItem(def, file, knownRooms, knownEffects) {
   if (!def.id) throw new Error(`item missing id: ${file}`);
   if (!isLocalizedText(def.name)) throw new Error(`item '${def.id}' missing or invalid name (${file})`);
   if (def.spawn?.location && !knownRooms.has(def.spawn.location)) {
@@ -114,15 +114,32 @@ function validateItem(def, file, knownRooms) {
         throw new Error(`item '${def.id}' wearable.bonus.${k} must be a number (${file})`);
       }
     }
+    if (def.wearable.effects != null) {
+      if (!Array.isArray(def.wearable.effects)) {
+        throw new Error(`item '${def.id}' wearable.effects must be an array (${file})`);
+      }
+      for (const eid of def.wearable.effects) {
+        if (typeof eid !== 'string' || !knownEffects.has(eid)) {
+          throw new Error(`item '${def.id}' wearable.effects references unknown effect '${eid}' (${file})`);
+        }
+      }
+    }
+  }
+  if (def.use?.effect?.type === 'apply_effect') {
+    const eid = def.use.effect.effectId;
+    if (!eid || !knownEffects.has(eid)) {
+      throw new Error(`item '${def.id}' use.effect references unknown effect '${eid}' (${file})`);
+    }
   }
 }
 
-export async function loadItems(knownRooms) {
+export async function loadItems(knownRooms, knownEffects) {
   const files = await listJsonFiles(path.resolve('content/items'));
   const items = new Map();
+  const effects = knownEffects ?? new Map();
   for (const file of files) {
     const def = await readJson(file);
-    validateItem(def, file, knownRooms);
+    validateItem(def, file, knownRooms, effects);
     if (items.has(def.id)) throw new Error(`duplicate item id '${def.id}' in ${file}`);
     items.set(def.id, def);
   }
@@ -178,7 +195,7 @@ export async function loadNpcs(knownRooms) {
 
 const KNOWN_SPELL_TARGETS = new Set(['self', 'friendly', 'hostile', 'any']);
 
-function validateSpell(def, file) {
+function validateSpell(def, file, knownEffects) {
   if (!def.id) throw new Error(`spell missing id: ${file}`);
   if (!isLocalizedText(def.name)) throw new Error(`spell '${def.id}' missing or invalid name (${file})`);
   if (!def.verb || typeof def.verb !== 'object') {
@@ -187,18 +204,73 @@ function validateSpell(def, file) {
   if (def.target != null && !KNOWN_SPELL_TARGETS.has(def.target)) {
     throw new Error(`spell '${def.id}' has unknown target '${def.target}' (must be one of: ${[...KNOWN_SPELL_TARGETS].join(', ')}) (${file})`);
   }
+  if (def.effect?.type === 'apply_effect') {
+    const eid = def.effect.effectId;
+    if (!eid || !knownEffects.has(eid)) {
+      throw new Error(`spell '${def.id}' applies unknown effect '${eid}' (${file})`);
+    }
+  }
 }
 
-export async function loadSpells() {
+export async function loadSpells(knownEffects) {
   const files = await listJsonFiles(path.resolve('content/spells'));
   const spells = new Map();
   for (const file of files) {
     const def = await readJson(file);
-    validateSpell(def, file);
+    validateSpell(def, file, knownEffects ?? new Map());
     if (spells.has(def.id)) throw new Error(`duplicate spell id '${def.id}' in ${file}`);
     spells.set(def.id, def);
   }
   return spells;
+}
+
+const KNOWN_EFFECT_KINDS = new Set(['buff', 'debuff', 'neutral']);
+const KNOWN_EFFECT_STACKS = new Set(['refresh', 'stack', 'ignore']);
+const KNOWN_TICK_EFFECT_TYPES = new Set(['heal', 'damage']);
+
+function validateEffect(def, file) {
+  if (!def.id) throw new Error(`effect missing id: ${file}`);
+  if (!isLocalizedText(def.name)) throw new Error(`effect '${def.id}' missing or invalid name (${file})`);
+  if (def.kind != null && !KNOWN_EFFECT_KINDS.has(def.kind)) {
+    throw new Error(`effect '${def.id}' has unknown kind '${def.kind}' (${file})`);
+  }
+  if (def.stack != null && !KNOWN_EFFECT_STACKS.has(def.stack)) {
+    throw new Error(`effect '${def.id}' has unknown stack '${def.stack}' (${file})`);
+  }
+  if (def.tick != null) {
+    if (typeof def.tick !== 'object') throw new Error(`effect '${def.id}' tick must be an object (${file})`);
+    if (typeof def.tick.every !== 'number' || def.tick.every < 1) {
+      throw new Error(`effect '${def.id}' tick.every must be a positive number (${file})`);
+    }
+    if (def.tick.pulses != null && (typeof def.tick.pulses !== 'number' || def.tick.pulses < 1)) {
+      throw new Error(`effect '${def.id}' tick.pulses must be a positive number when set (${file})`);
+    }
+    if (!def.tick.effect || typeof def.tick.effect !== 'object') {
+      throw new Error(`effect '${def.id}' tick.effect must be an object (${file})`);
+    }
+    if (!KNOWN_TICK_EFFECT_TYPES.has(def.tick.effect.type)) {
+      throw new Error(`effect '${def.id}' tick.effect.type '${def.tick.effect.type}' must be one of: ${[...KNOWN_TICK_EFFECT_TYPES].join(', ')} (${file})`);
+    }
+  }
+}
+
+export async function loadEffects() {
+  const dir = path.resolve('content/effects');
+  let files;
+  try {
+    files = await listJsonFiles(dir);
+  } catch (err) {
+    if (err.code === 'ENOENT') return new Map();
+    throw err;
+  }
+  const effects = new Map();
+  for (const file of files) {
+    const def = await readJson(file);
+    validateEffect(def, file);
+    if (effects.has(def.id)) throw new Error(`duplicate effect id '${def.id}' in ${file}`);
+    effects.set(def.id, def);
+  }
+  return effects;
 }
 
 export async function loadSocials() {

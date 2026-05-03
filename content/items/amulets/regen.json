@@ -1,0 +1,26 @@
+{
+  "id": "item.amulet_regen",
+  "name": {
+    "en": "an amulet of regeneration",
+    "cs": "amulet regenerace"
+  },
+  "nameAcc": {
+    "en": "the amulet of regeneration",
+    "cs": "amulet regenerace"
+  },
+  "short": {
+    "en": "A small silver amulet that hums with a calm light.",
+    "cs": "Malý stříbrný amulet, který zlehka září klidným světlem."
+  },
+  "long": {
+    "en": "A round silver amulet on a thin chain. A pale stone is set in the middle, and it pulses softly, like a slow heartbeat. While you wear it, your mana slowly comes back.",
+    "cs": "Kulatý stříbrný amulet na tenkém řetízku. Uprostřed je vsazený bledý kámen, který tiše tepe, jako pomalý tlukot srdce. Když ho nosíš, mana se ti pomalu vrací."
+  },
+  "tags": ["amulet", "magic"],
+  "weight": 1,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "mpMax": 2 },
+    "effects": ["effect.regen_aura"]
+  }
+}

@@ -3,6 +3,7 @@ import { findItemInList, splitOnKeyword, removeFromList } from '../items.js';
 import { s, t } from '../../i18n.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
+import { applyActiveEffect } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { describeRoomToAll } from './look.js';
 
@@ -128,9 +129,16 @@ export default function use(actor, args) {
 
   runVerb({ actor, def: useDef, targetActor });
 
-  const result = applyEffect(useDef.effect, { actor, target: targetActor });
-  if (useDef.effect?.type === 'heal') {
-    sendHealFeedback(actor, targetActor, result);
+  if (useDef.effect?.type === 'apply_effect') {
+    const recipient = targetActor ?? actor;
+    applyActiveEffect(recipient, useDef.effect.effectId, 'consumable', actor.name);
+    if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
+    if (actor !== recipient && actor.kind === 'player') sendStats(actor);
+  } else {
+    const result = applyEffect(useDef.effect, { actor, target: targetActor });
+    if (useDef.effect?.type === 'heal') {
+      sendHealFeedback(actor, targetActor, result);
+    }
   }
 
   if (useDef.consumable) {

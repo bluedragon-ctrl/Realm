@@ -1,5 +1,6 @@
 import { getRoom, actorsInRoom, findInRoom, itemsInRoom, isExitLocked } from '../world.js';
 import { findItemInList } from '../items.js';
+import { serializeActiveEffectsForClient } from '../activeEffects.js';
 import { t, s, dirName } from '../../i18n.js';
 
 function exitDisplay(exitKey, lang) {
@@ -80,6 +81,8 @@ function sendTargetInfo(actor, target) {
     if (target.disposition && target.disposition !== 'neutral') {
       subtitle += ` (${s(`look.disposition_${target.disposition}`, lang)})`;
     }
+    const effectsForClient = serializeActiveEffectsForClient(target, lang)
+      .map(e => ({ defId: e.defId, name: e.name, icon: e.icon, kind: e.kind }));
     actor.session.send({
       kind: 'target-info',
       name: t(target.name, lang),
@@ -94,6 +97,8 @@ function sendTargetInfo(actor, target) {
         int: s('panel.int', lang),
         spd: s('panel.spd', lang),
       },
+      effects: effectsForClient,
+      effectsLabel: s('panel.effects', lang),
     });
     return;
   }

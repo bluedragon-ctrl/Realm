@@ -145,6 +145,31 @@ function renderStats(msg) {
     body.appendChild(grid);
   }));
 
+  playerStatsEl.appendChild(makeCollapsibleSection('effects', labels.effectsTitle ?? 'Effects', (body) => {
+    const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
+    if (effects.length === 0) {
+      const empty = document.createElement('span');
+      empty.className = 'empty';
+      empty.textContent = labels.effectsEmpty ?? '(none)';
+      body.appendChild(empty);
+      return;
+    }
+    effects.forEach((eff, i) => {
+      if (i > 0) body.append(' ');
+      const chip = document.createElement('span');
+      chip.className = `chip effect ${eff.kind || 'neutral'}`;
+      const iconText = eff.icon ? `${eff.icon} ` : '';
+      chip.textContent = `${iconText}${eff.name}`;
+      if (eff.pulsesLeft != null) {
+        const counter = document.createElement('span');
+        counter.className = 'effect-counter';
+        counter.textContent = `${eff.pulsesLeft}`;
+        chip.appendChild(counter);
+      }
+      body.appendChild(chip);
+    });
+  }));
+
   playerStatsEl.appendChild(makeCollapsibleSection('spells', labels.spellbookTitle ?? 'Spells', (body) => {
     if (Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0) {
       msg.knownSpells.forEach((spell, i) => {
@@ -315,6 +340,21 @@ function renderTargetInfo(msg) {
     }
     block.appendChild(grid);
     inspectBody.appendChild(block);
+  }
+  if (Array.isArray(msg.effects) && msg.effects.length > 0) {
+    const row = document.createElement('div'); row.className = 'inspect-row';
+    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+    lab.textContent = `${msg.effectsLabel ?? 'effects'}: `;
+    row.appendChild(lab);
+    msg.effects.forEach((eff, i) => {
+      if (i > 0) row.append(' ');
+      const chip = document.createElement('span');
+      chip.className = `chip effect ${eff.kind || 'neutral'}`;
+      const iconText = eff.icon ? `${eff.icon} ` : '';
+      chip.textContent = `${iconText}${eff.name}`;
+      row.appendChild(chip);
+    });
+    inspectBody.appendChild(row);
   }
 }
 

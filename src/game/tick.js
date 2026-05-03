@@ -3,6 +3,11 @@ import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
 import { DEFAULT_COSTS } from './stats.js';
 import { serializeInventory, makeItemInstance } from './items.js';
+import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler } from './activeEffects.js';
+import { applyDamageWithFeedback } from './combat.js';
+import { sendStats } from './messages.js';
+
+setEffectDamageHandler(applyDamageWithFeedback);
 
 const TICK_MS = 600;
 const FLUSH_EVERY_TICKS = 50;
@@ -16,6 +21,7 @@ async function flushDirty() {
     actor.record.location = actor.location;
     actor.record.lastSeen = new Date().toISOString();
     actor.record.inventory = serializeInventory(actor.inventory);
+    actor.record.activeEffects = serializeActiveEffectsForSave(actor);
     try {
       await savePlayer(actor.record);
       actor.dirty = false;
@@ -61,8 +67,12 @@ function pickBehavior(actor) {
 }
 
 function tickActor(actor) {
+  if (actor.kind === 'npc' && !actor.alive) return;
+
+  const effectsChanged = tickActiveEffects(actor);
+  if (effectsChanged && actor.kind === 'player' && actor.session) sendStats(actor);
+
   if (actor.kind !== 'npc') return;
-  if (!actor.alive) return;
   actor.energy += actor.stats.spd;
   if (actor.energy < 12) return;
 

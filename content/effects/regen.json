@@ -1,0 +1,15 @@
+{
+  "id": "effect.regen",
+  "name": {
+    "en": "Regeneration",
+    "cs": "Regenerace"
+  },
+  "kind": "buff",
+  "icon": "✨",
+  "tick": {
+    "every": 5,
+    "pulses": 5,
+    "effect": { "type": "heal", "mp": 2 }
+  },
+  "stack": "refresh"
+}
