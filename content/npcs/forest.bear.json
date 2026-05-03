@@ -1,0 +1,67 @@
+{
+  "id": "forest.bear",
+  "name": { "en": "a big brown bear", "cs": "velký hnědý medvěd" },
+  "nameAcc": { "en": "the big brown bear", "cs": "velkého hnědého medvěda" },
+  "title": { "en": "big brown bear", "cs": "velký hnědý medvěd" },
+  "location": "forest.cave",
+  "count": 1,
+  "short": {
+    "en": "A massive brown bear sits in the back of the cave, watching you.",
+    "cs": "Obrovský hnědý medvěd sedí v zadní části jeskyně a sleduje tě."
+  },
+  "long": {
+    "en": "An enormous bear with thick dark-brown fur matted with mud and old blood. Its shoulders are as high as a man's chest. Long curved claws have scored deep marks into the cave floor. Its small dark eyes fix on you the moment you enter.",
+    "cs": "Obrovský medvěd s hustou tmavě hnědou srstí, která je zlepená blátem a starou krví. Jeho ramena sahají muži až k hrudi. Dlouhé zahnuté drápy vyrýly hluboké rýhy do podlahy jeskyně. Malé tmavé oči tě zaměří hned ve chvíli, kdy vstoupíš."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 30, "hpMax": 30,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 2, "int": 0,
+    "spd": 8
+  },
+  "respawn": { "ticks": 1800 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "maul", "cs": "roztrhání" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} rears up and crashes down on {target} with both paws!",
+          "{actor} swipes at {target} with a massive claw!",
+          "{actor} lunges and sinks its teeth into {target}!"
+        ],
+        "cs": [
+          "{actor} se vztyčí a dopadne oběma tlapami na {target}!",
+          "{actor} šmáhne po {target} obrovským drátem!",
+          "{actor} se vrhne a zabodne zuby do {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.04,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lets out a deep rumbling growl.",
+          "scrapes its claws slowly across the cave floor.",
+          "shakes its massive head and sniffs the air.",
+          "rises slightly on its hind legs and huffs."
+        ],
+        "cs": [
+          "vydá hluboké dunivé zahřmění.",
+          "pomalu přejede drápy po podlaze jeskyně.",
+          "zatřese obrovskou hlavou a přičichne ke vzduchu.",
+          "trochu se vztyčí na zadních nohách a odfrkne."
+        ]
+      }
+    }
+  ]
+}

@@ -69,6 +69,8 @@
   "cast.bad_target": "you can't cast that on them.",
   "cast.needs_hostile": "that spell needs a hostile target.",
   "cast.no_hostiles_here": "there is nothing hostile here.",
+  "spell.learned": "you have learned {spell}!",
+  "spell.already_known": "you already know that spell.",
   "heal.no_effect": "the healing magic finds nothing to mend.",
   "heal.you_were_healed": "you feel restored (+{amount} HP).",
   "heal.you_were_refreshed": "you feel refreshed (+{amount} MP).",

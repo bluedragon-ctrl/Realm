@@ -1,0 +1,20 @@
+{
+  "id": "forest.clearing",
+  "name": {
+    "en": "Forest clearing",
+    "cs": "Lesní mýtina"
+  },
+  "short": {
+    "en": "A small clearing where the trees thin out.",
+    "cs": "Malá mýtina, kde se stromy řídí."
+  },
+  "long": {
+    "en": "The trees pull back here, letting in a patch of grey sky. Tall grass and ferns cover the ground. A rough path leads north toward a bare hill where the broken outline of an old tower stands against the sky. The deep forest lies to the south.",
+    "cs": "Stromy se zde rozestupují a propouštějí kousek šedé oblohy. Zem pokrývá vysoká tráva a kapradí. Hrubá stezka vede na sever k holému kopci, kde se proti obloze rýsuje rozpadlý obrys staré věže. Na jihu leží hluboký les."
+  },
+  "exits": {
+    "s": "forest.deep_forest",
+    "n": "forest.hill"
+  },
+  "tags": ["outdoor", "forest", "clearing"]
+}

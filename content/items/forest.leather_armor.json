@@ -1,0 +1,26 @@
+{
+  "id": "forest.leather_armor",
+  "name": {
+    "en": "a leather armor",
+    "cs": "kožená zbroj"
+  },
+  "nameAcc": {
+    "en": "the leather armor",
+    "cs": "kožená zbroj"
+  },
+  "short": {
+    "en": "A battered leather armor lies on the cave floor.",
+    "cs": "Na podlaze jeskyně leží poničená kožená zbroj."
+  },
+  "long": {
+    "en": "A well-worn leather armor with thick stitching and scratches across the chest. It belonged to someone who came here and did not leave. It still offers decent protection.",
+    "cs": "Hodně obnošená kožená zbroj se silným prošíváním a škrábanci přes hrudník. Patřila někomu, kdo sem přišel a neodešel. Stále ale poskytuje slušnou ochranu."
+  },
+  "tags": ["armor"],
+  "weight": 2,
+  "spawn": { "location": "forest.cave", "count": 1, "respawnTicks": 1200 },
+  "wearable": {
+    "slot": "body",
+    "bonus": { "defense": 1 }
+  }
+}

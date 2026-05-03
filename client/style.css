@@ -287,8 +287,9 @@ html, body {
 .line.narration::before { content: '· '; }
 .line.error::before     { content: '! '; }
 .line.system::before              { content: '› '; }
-.line.system.tone-good::before    { content: '⚔️ '; }
+.line.system.tone-good::before    { content: '★ '; }
 .line.system.tone-bad::before     { content: '⚔️ '; }
+.line.system.tone-combat::before  { content: '⚔️ '; }
 .line.system.tone-notice::before  { content: '⭐ '; }
 .line.system.tone-flavor::before  { content: '✨ '; }
 .line.tone-death                  { color: #cc4444; font-style: italic; }
@@ -304,6 +305,7 @@ html, body {
 /* system tone overrides — extra emphasis for tagged system messages */
 .line.system.tone-good     { color: #7ecf7e; font-weight: bold; }
 .line.system.tone-bad      { color: #d6a85a; font-weight: bold; }
+.line.system.tone-combat   { color: #7ecf7e; font-weight: bold; }
 .line.system.tone-notice   { color: var(--accent); font-weight: bold; }
 .line.system.tone-flavor   { color: var(--dim); font-style: italic; }
 

@@ -1,0 +1,19 @@
+{
+  "id": "forest.cave",
+  "name": {
+    "en": "Bear's cave",
+    "cs": "Medvědí jeskyně"
+  },
+  "short": {
+    "en": "A large dark cave that smells of wet fur and old blood.",
+    "cs": "Velká tmavá jeskyně páchnoucí mokrou srstí a starою krví."
+  },
+  "long": {
+    "en": "The cave is wide and low, the walls slick with moisture. The floor is littered with bones — animals, and at least one set that looks human. Scraps of old clothing and a torn leather vest lie in the corner. The whole place reeks of bear. The only way out is north.",
+    "cs": "Jeskyně je široká a nízká, stěny jsou kluzké vlhkostí. Podlaha je pokrytá kostmi — zvířecími i alespoň jednou sadou, která vypadá lidsky. V rohu leží zbytky starého oblečení a roztrhaná kožená vesta. Celé místo páchne medvědem. Jediná cesta ven vede na sever."
+  },
+  "exits": {
+    "n": "forest.deep_forest"
+  },
+  "tags": ["indoor", "forest", "dark", "cave"]
+}

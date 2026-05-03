@@ -1,0 +1,19 @@
+{
+  "id": "forest.tower_upper",
+  "name": {
+    "en": "Tower upper floor",
+    "cs": "Horní patro věže"
+  },
+  "short": {
+    "en": "The ruined upper floor of the tower, open to the sky.",
+    "cs": "Zřícené horní patro věže, otevřené do nebe."
+  },
+  "long": {
+    "en": "Most of the outer walls have collapsed, leaving only a few jagged stubs of stone. The floor is solid but covered in rubble and old leaves. The view is wide open — the forest stretches in every direction, dark and vast, with the hill meadow and distant farmland just visible to the west. A few old shelves are bolted to what remains of the walls.",
+    "cs": "Většina vnějších zdí se zhroutila a zůstalo jen několik zubaté pahýly kamene. Podlaha je pevná, ale pokrytá sutinami a starým listím. Výhled je zcela volný — les se rozkládá na všechny strany, temný a rozlehlý, na západě je sotva vidět kopcová louka a vzdálená pole. Na zbytcích zdí jsou přišroubovány staré police."
+  },
+  "exits": {
+    "d": "forest.tower_entry"
+  },
+  "tags": ["outdoor", "forest", "tower"]
+}

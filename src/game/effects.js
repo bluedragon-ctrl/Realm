@@ -4,6 +4,14 @@ import { world, unlockExit } from './world.js';
 import { makeItemInstance } from './items.js';
 
 const EFFECTS = {
+  teach_spell({ spell }, { actor }) {
+    if (!spell || !actor?.knownSpells) return { learned: false };
+    if (actor.knownSpells.includes(spell)) return { learned: false, already: true };
+    if (!world.spellDefs.has(spell)) return { learned: false };
+    actor.knownSpells.push(spell);
+    actor.dirty = true;
+    return { learned: true, spell };
+  },
   produce({ item }, { actor }) {
     const def = world.itemDefs.get(item);
     if (!def || !actor?.inventory) return { produced: null };

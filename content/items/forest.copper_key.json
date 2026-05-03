@@ -1,0 +1,22 @@
+{
+  "id": "forest.copper_key",
+  "name": {
+    "en": "a copper key",
+    "cs": "měděný klíč"
+  },
+  "nameAcc": {
+    "en": "the copper key",
+    "cs": "měděný klíč"
+  },
+  "short": {
+    "en": "A small copper key sits on an old shelf.",
+    "cs": "Na staré polici leží malý měděný klíč."
+  },
+  "long": {
+    "en": "A small key cast from dull copper. It is old but not rusty. Someone left it up here a long time ago.",
+    "cs": "Malý klíč odlitý z matné mědi. Je starý, ale nerezaví. Někdo ho sem nechal dávno."
+  },
+  "tags": ["key"],
+  "weight": 0,
+  "spawn": { "location": "forest.tower_upper", "count": 1, "respawnTicks": 600 }
+}

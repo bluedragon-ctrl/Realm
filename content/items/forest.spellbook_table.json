@@ -1,0 +1,45 @@
+{
+  "id": "forest.spellbook_table",
+  "name": {
+    "en": "a dusty table",
+    "cs": "zaprášený stůl"
+  },
+  "nameAcc": {
+    "en": "the dusty table",
+    "cs": "zaprášený stůl"
+  },
+  "short": {
+    "en": "A dusty table with an old spellbook lying open on top stands in the corner.",
+    "cs": "V rohu stojí zaprášený stůl s otevřenou starou knihou kouzel."
+  },
+  "long": {
+    "en": "A solid wooden table covered in years of dust. An old spellbook lies open on top, its pages filled with careful drawings of flowing lines and circles. Most of the spells are too faded to read, but one page is still clear.",
+    "cs": "Mohutný dřevěný stůl pokrytý léty prachu. Nahoře leží otevřená stará kniha kouzel, její stránky jsou plné pečlivých kreseb proplétajících se čar a kruhů. Většina kouzel je příliš vybledlá na čtení, ale jedna stránka je stále čitelná."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "forest.tower_upper",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you lean over the book and carefully study the remaining clear page. The words seem to sink into your mind.",
+        "others": "{actor} leans over an old spellbook and reads with great care."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "nakloníš se nad knihu a pečlivě studuješ zbývající čitelnou stránku. Slova se zdají vrývat do tvé mysli.",
+        "others": "{actor} se nakloní nad starou knihu kouzel a pozorně čte."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.regen"
+    }
+  }
+}
