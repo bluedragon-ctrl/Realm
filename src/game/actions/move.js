@@ -1,4 +1,4 @@
-import { getRoom, placeActor, broadcastToRoom } from '../world.js';
+import { getRoom, placeActor, broadcastToRoom, isExitLocked } from '../world.js';
 import { describeRoom, describeRoomToAll } from './look.js';
 import { s, t, dirName } from '../../i18n.js';
 import { sendStats } from '../messages.js';
@@ -40,6 +40,10 @@ export default function move(actor, args) {
   const exitKey = resolveExit(room, exitInput);
   if (!exitKey) {
     actor.session.send({ kind: 'error', text: s('move.unknown_exit', actor.lang, { exit: exitInput }) });
+    return;
+  }
+  if (isExitLocked(room, exitKey)) {
+    actor.session.send({ kind: 'error', text: s('move.locked', actor.lang) });
     return;
   }
   const targetId = room.exits[exitKey];

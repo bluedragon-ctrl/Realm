@@ -1,7 +1,23 @@
 import { sendStats } from './messages.js';
 import { s, t } from '../i18n.js';
+import { world, unlockExit } from './world.js';
+import { makeItemInstance } from './items.js';
 
 const EFFECTS = {
+  produce({ item }, { actor }) {
+    const def = world.itemDefs.get(item);
+    if (!def || !actor?.inventory) return { produced: null };
+    const inst = makeItemInstance(def);
+    actor.inventory.push(inst);
+    actor.dirty = true;
+    return { produced: def.id, name: def.name, instance: inst };
+  },
+  unlock({ room, exit }, { actor }) {
+    const roomId = room ?? actor?.location;
+    if (!roomId || !exit) return { unlocked: false };
+    unlockExit(roomId, exit);
+    return { unlocked: true, room: roomId, exit };
+  },
   damage({ amount }, { actor, target }) {
     const recipient = target ?? actor;
     if (!recipient.stats) return { dealt: 0 };

@@ -25,6 +25,9 @@
   "move.no_arg": "kam?",
   "move.unknown_exit": "odsud nelze jít směrem '{exit}'.",
   "move.broken_exit": "tento východ nikam nevede (přerušené spojení).",
+  "move.locked": "je zamčeno.",
+  "unlock.success": "{target} se s tichým cvaknutím odemyká.",
+  "produce.you_made": "získáváš {item}.",
 
   "say.no_arg": "říct co?",
   "say.self": "říkáš: \"{text}\"",

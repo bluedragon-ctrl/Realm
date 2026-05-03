@@ -25,6 +25,9 @@
   "move.no_arg": "go where?",
   "move.unknown_exit": "you cannot go '{exit}' from here.",
   "move.broken_exit": "that exit leads nowhere (broken link).",
+  "move.locked": "it's locked.",
+  "unlock.success": "{target} unlocks with a soft click.",
+  "produce.you_made": "you receive {item}.",
 
   "say.no_arg": "say what?",
   "say.self": "you say, \"{text}\"",
