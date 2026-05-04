@@ -33,12 +33,12 @@ html, body {
 #app {
   display: grid;
   height: 100vh;
-  grid-template-columns: 1fr 510px;
-  grid-template-rows: auto 1fr 1fr auto auto;
+  grid-template-columns: 1fr 340px;
+  grid-template-rows: auto 1fr 260px auto auto;
   grid-template-areas:
     "topbar    topbar"
     "console   player"
-    "console   inspect"
+    "inspect   player"
     "quickbar  quickbar"
     "input     input";
 }
@@ -50,8 +50,8 @@ html, body {
     grid-template-areas:
       "topbar"
       "console"
-      "player"
       "inspect"
+      "player"
       "quickbar"
       "input";
   }
@@ -90,7 +90,7 @@ html, body {
 #player-panel {
   grid-area: player;
   background: var(--bg-panel);
-  border-bottom: 1px solid var(--border);
+  border-left: 1px solid var(--border);
   padding: 10px 12px;
   overflow-y: auto;
 }
@@ -202,6 +202,8 @@ html, body {
 #inspect-panel {
   grid-area: inspect;
   background: var(--bg-panel-2);
+  border-top: 1px solid var(--border);
+  border-right: 1px solid var(--border);
   padding: 10px 12px;
   overflow-y: auto;
 }

@@ -395,8 +395,13 @@ function renderTargetInfo(msg) {
     const s = msg.stats;
     const block = document.createElement('div');
     block.className = 'inspect-stats';
-    block.appendChild(makeInspectStatLine(`${labels.hp ?? 'HP'} ${s.hp}/${s.hpMax}`));
-    if (s.mpMax > 0) block.appendChild(makeInspectStatLine(`${labels.mp ?? 'MP'} ${s.mp}/${s.mpMax}`));
+    const hpPct = s.hpMax > 0 ? Math.max(0, Math.min(100, (s.hp / s.hpMax) * 100)) : 0;
+    const hpClass = hpPct <= 25 ? 'low' : hpPct <= 50 ? 'mid' : '';
+    block.appendChild(makeBar(labels.hp ?? 'HP', `${s.hp}/${s.hpMax}`, hpPct, `hp ${hpClass}`));
+    if (s.mpMax > 0) {
+      const mpPct = s.mpMax > 0 ? Math.max(0, Math.min(100, (s.mp / s.mpMax) * 100)) : 0;
+      block.appendChild(makeBar(labels.mp ?? 'MP', `${s.mp}/${s.mpMax}`, mpPct, 'mp'));
+    }
     const grid = document.createElement('div');
     grid.className = 'inspect-stat-grid';
     for (const [k, v] of [
@@ -615,6 +620,7 @@ quickbar.addEventListener('click', (ev) => {
   if (!btn) return;
   if (btn.id === 'attack-btn') { openAttackPicker(btn, ev); return; }
   if (btn.id === 'spell-btn') { openSpellPicker(btn, ev); return; }
+  if (btn.id === 'look-btn') { openLookPicker(btn, ev); return; }
   if (btn.id === 'use-fixture-btn') { openUseFixturePicker(btn, ev); return; }
   if (btn.id === 'use-on-btn') { openUseOnPicker(btn, ev); return; }
   if (btn.id === 'consumables-btn') { openConsumablesPicker(btn, ev); return; }
@@ -965,18 +971,25 @@ function renderDirButtons(roomMsg) {
 }
 
 function refreshActionButtons() {
-  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
-  const fixtures = (lastRoomMsg?.items ?? []).filter(it => it.usable && it.pickable === false);
-  const consumables = inv.filter(it => it.consumable);
-  useFixtureBtn.hidden = fixtures.length === 0;
-  useOnBtn.hidden = inv.length === 0;
-  consumablesBtn.hidden = consumables.length === 0;
+}
+
+function openLookPicker(anchorEl, ev) {
+  ev?.stopPropagation();
+  startPopover(anchorEl, 'Look at…');
+  popover.appendChild(popoverButton('Room', 'primary', () => { sendInput('look'); closePopover(); }));
+  for (const n of (lastRoomMsg?.npcs ?? [])) {
+    const name = typeof n === 'string' ? n : n.name;
+    popover.appendChild(popoverButton(name, '', () => { sendInput(`look ${name}`); closePopover(); }));
+  }
+  for (const item of (lastRoomMsg?.items ?? [])) {
+    popover.appendChild(popoverButton(item.name, '', () => { sendInput(`look ${item.name}`); closePopover(); }));
+  }
+  positionPopover(anchorEl);
 }
 
 function openUseFixturePicker(anchorEl, ev) {
   ev?.stopPropagation();
   const fixtures = (lastRoomMsg?.items ?? []).filter(it => it.usable && it.pickable === false);
-  if (fixtures.length === 1) { sendInput(`use ${fixtures[0].name}`); return; }
   startPopover(anchorEl, labels.useFixturePickerTitle ?? 'Use what?');
   if (fixtures.length === 0) {
     const empty = document.createElement('div');
@@ -996,8 +1009,15 @@ function openUseFixturePicker(anchorEl, ev) {
 function openUseOnPicker(anchorEl, ev) {
   ev?.stopPropagation();
   const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
-  if (inv.length === 0) return;
   startPopover(anchorEl, labels.useOnPickerTitle ?? 'Use which item?');
+  if (inv.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'picker-empty';
+    empty.textContent = labels.noItemsLabel ?? '(no items)';
+    popover.appendChild(empty);
+    positionPopover(anchorEl);
+    return;
+  }
   for (const item of inv) {
     const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
     popover.appendChild(popoverButton(label, '', () => {
@@ -1033,14 +1053,19 @@ function openConsumablesPicker(anchorEl, ev) {
   ev?.stopPropagation();
   const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
   const consumables = inv.filter(it => it.consumable);
-  if (consumables.length === 0) return;
-  if (consumables.length === 1) { sendInput(`use ${consumables[0].name}`); return; }
   startPopover(anchorEl, labels.consumablesPickerTitle ?? 'Consume what?');
-  for (const item of consumables) {
-    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-    popover.appendChild(popoverButton(label, '', () => {
-      sendInput(`use ${item.name}`); closePopover();
-    }));
+  if (consumables.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'picker-empty';
+    empty.textContent = labels.noItemsLabel ?? '(no items)';
+    popover.appendChild(empty);
+  } else {
+    for (const item of consumables) {
+      const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+      popover.appendChild(popoverButton(label, '', () => {
+        sendInput(`use ${item.name}`); closePopover();
+      }));
+    }
   }
   positionPopover(anchorEl);
 }

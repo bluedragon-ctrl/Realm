@@ -5,7 +5,7 @@ import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { sourceForActor } from './sources.js';
 import { sendStats } from './messages.js';
-import { describeRoom, describeRoomToAll } from './actions/look.js';
+import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.js';
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
 
 function targetDisplay(target, lang) {
@@ -96,6 +96,9 @@ export function applyDamageWithFeedback(actor, target, amount) {
 
   if (actor.kind === 'player') sendStats(actor);
   if (target.kind === 'player') sendStats(target);
+
+  if (actor.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
+  if (target.kind === 'player' && actor.kind === 'npc') pushTargetInfo(target, actor);
 
   if (target.stats.hp <= 0) {
     handleDeath(actor, target);
