@@ -424,6 +424,18 @@ html, body {
   background: var(--border-2);
   margin: 2px 4px;
 }
+#quickbar #dir-buttons {
+  display: inline-flex;
+  gap: 4px;
+}
+#quickbar #dir-buttons button {
+  min-width: 32px;
+  padding: 4px 6px;
+  font-weight: bold;
+  color: #aac8ff;
+  border-color: #2a4264;
+}
+#quickbar #dir-buttons button:hover { background: #1f2c44; border-color: #4068a0; }
 
 /* spell picker rows (richer than default popover buttons) */
 #action-popover .spell-row {
