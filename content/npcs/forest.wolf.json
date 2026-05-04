@@ -20,7 +20,7 @@
     "hp": 14, "hpMax": 14,
     "mp": 0, "mpMax": 0,
     "attack": 3, "defense": 1, "int": 0,
-    "spd": 7
+    "spd": 6
   },
   "respawn": { "ticks": 1500 },
   "xp": 18,

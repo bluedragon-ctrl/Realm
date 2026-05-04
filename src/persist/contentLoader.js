@@ -9,6 +9,13 @@ function isLocalizedText(v) {
   return typeof v === 'string' || (v && typeof v === 'object' && !Array.isArray(v));
 }
 
+function assertFilenameMatchesId(kind, def, file) {
+  const expected = path.basename(file, '.json');
+  if (def.id !== expected) {
+    throw new Error(`${kind} filename/id mismatch: '${path.basename(file)}' has id '${def.id}' (expected file '${def.id}.json')`);
+  }
+}
+
 function validateLines(lines, ctx) {
   if (Array.isArray(lines)) return;
   if (lines && typeof lines === 'object') {
@@ -33,6 +40,7 @@ export async function loadRooms() {
   for (const file of files) {
     const data = await readJson(file);
     if (!data.id) throw new Error(`room missing id: ${file}`);
+    assertFilenameMatchesId('room', data, file);
     if (rooms.has(data.id)) throw new Error(`duplicate room id '${data.id}' in ${file}`);
     rooms.set(data.id, data);
   }
@@ -140,6 +148,7 @@ export async function loadItems(knownRooms, knownEffects) {
   for (const file of files) {
     const def = await readJson(file);
     validateItem(def, file, knownRooms, effects);
+    assertFilenameMatchesId('item', def, file);
     if (items.has(def.id)) throw new Error(`duplicate item id '${def.id}' in ${file}`);
     items.set(def.id, def);
   }
@@ -187,6 +196,7 @@ export async function loadNpcs(knownRooms) {
   for (const file of files) {
     const def = await readJson(file);
     validateNpc(def, file, knownRooms);
+    assertFilenameMatchesId('npc', def, file);
     if (npcs.has(def.id)) throw new Error(`duplicate npc id '${def.id}' in ${file}`);
     npcs.set(def.id, def);
   }
@@ -218,6 +228,7 @@ export async function loadSpells(knownEffects) {
   for (const file of files) {
     const def = await readJson(file);
     validateSpell(def, file, knownEffects ?? new Map());
+    assertFilenameMatchesId('spell', def, file);
     if (spells.has(def.id)) throw new Error(`duplicate spell id '${def.id}' in ${file}`);
     spells.set(def.id, def);
   }
@@ -267,6 +278,7 @@ export async function loadEffects() {
   for (const file of files) {
     const def = await readJson(file);
     validateEffect(def, file);
+    assertFilenameMatchesId('effect', def, file);
     if (effects.has(def.id)) throw new Error(`duplicate effect id '${def.id}' in ${file}`);
     effects.set(def.id, def);
   }

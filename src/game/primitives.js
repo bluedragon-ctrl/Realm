@@ -3,8 +3,12 @@ import { transferItem } from './items.js';
 import { t, s, pickListIndex, tListAt, dirName } from '../i18n.js';
 import { sendStats } from './messages.js';
 import { sourceForActor } from './sources.js';
-import { executeAttack, aggroTargetInRoom } from './combat.js';
+import { executeAttack, aggroTargetInRoom, applyDamageWithFeedback } from './combat.js';
 import { describeRoomToAll } from './actions/look.js';
+import { runVerb, hasForm } from './verbs.js';
+import { applyEffect } from './effects.js';
+import { applyActiveEffect } from './activeEffects.js';
+import { roll } from './dice.js';
 
 const PRIMITIVES = {
   say(actor, behavior) {
@@ -102,8 +106,67 @@ const PRIMITIVES = {
     describeRoomToAll(targetId);
   },
   wait() {},
-  move() {},
-  cast() {},
+  move(actor, behavior) {
+    if (actor.alive === false) return;
+    const room = world.rooms.get(actor.location);
+    const exitKeys = Object.keys(room?.exits ?? {});
+    if (exitKeys.length === 0) return;
+    const exitKey = exitKeys[Math.floor(Math.random() * exitKeys.length)];
+    const targetId = room.exits[exitKey];
+    if (!targetId) return;
+
+    const sourceRoom = actor.location;
+    if (behavior.templates) {
+      const idx = pickListIndex(behavior.templates);
+      broadcastToRoom(sourceRoom, (recipient) => {
+        const lang = recipient.lang;
+        const from = t(actor.name, lang);
+        const dir = dirName(exitKey, lang) || exitKey;
+        const tmpl = tListAt(behavior.templates, lang, idx);
+        const filled = tmpl.replace(/\{actor\}/g, from).replace(/\{direction\}/g, dir);
+        return { kind: 'emote', source: sourceForActor(actor, recipient), text: filled };
+      });
+    }
+
+    placeActor(actor, targetId);
+    describeRoomToAll(sourceRoom);
+    describeRoomToAll(targetId);
+  },
+  cast(actor, behavior) {
+    const spell = world.spellDefs?.get(behavior.spell);
+    if (!spell) return;
+    const mpCost = spell.mpCost ?? 0;
+    if ((actor.stats?.mp ?? 0) < mpCost) return;
+
+    let target = actor;
+    if (behavior.target === 'aggro_target') {
+      target = aggroTargetInRoom(actor);
+      if (!target) return;
+    }
+
+    const formKey = (target === actor) ? 'no_target' : 'to_target';
+    if (!hasForm(spell.verb, 'en', formKey)) return;
+
+    actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
+
+    runVerb({ actor, def: spell.verb, targetActor: target === actor ? null : target });
+
+    if (spell.effect?.type === 'damage' && target !== actor) {
+      const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
+      const amount = Math.max(1, roll(formula, { actor, target }));
+      applyDamageWithFeedback(actor, target, amount);
+      return;
+    }
+    if (spell.effect?.type === 'apply_effect') {
+      applyActiveEffect(target, spell.effect.effectId, 'spell', actor.name);
+      if (target.kind === 'player' && target.session) sendStats(target);
+      return;
+    }
+    if (spell.effect) {
+      applyEffect(spell.effect, { actor, target });
+      if (target.kind === 'player' && target.session) sendStats(target);
+    }
+  },
 };
 
 export function runPrimitive(actor, behavior) {
