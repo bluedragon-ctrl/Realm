@@ -6,6 +6,10 @@
   },
   "mpCost": 2,
   "target": "friendly",
+  "description": {
+    "en": "Restore a small amount of HP to yourself or an ally.",
+    "cs": "Obnoví trochu HP tobě nebo spojenci."
+  },
   "verb": {
     "en": {
       "no_target": {

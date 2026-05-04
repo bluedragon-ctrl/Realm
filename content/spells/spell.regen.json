@@ -6,6 +6,10 @@
   },
   "mpCost": 1,
   "target": "friendly",
+  "description": {
+    "en": "Slowly restore HP over time.",
+    "cs": "Pomalu obnovuje HP v průběhu času."
+  },
   "verb": {
     "en": {
       "no_target": {
