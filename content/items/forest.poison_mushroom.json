@@ -1,0 +1,50 @@
+{
+  "id": "forest.poison_mushroom",
+  "name": {
+    "en": "a red-capped mushroom",
+    "cs": "červeně klobouková houba"
+  },
+  "nameAcc": {
+    "en": "the red-capped mushroom",
+    "cs": "červeně kloboukovou houbu"
+  },
+  "short": {
+    "en": "A bright red mushroom with white spots.",
+    "cs": "Jasně červená houba s bílými tečkami."
+  },
+  "long": {
+    "en": "A handsome mushroom with a glossy red cap dotted with white flecks and a thick pale stem. It smells faintly sour up close. Anyone with sense would not eat it.",
+    "cs": "Pěkná houba s lesklým červeným kloboukem posetým bílými tečkami a tlustým bledým třeněm. Z blízka slabě páchne nakysle. Nikdo se zdravým rozumem by ji nejedl."
+  },
+  "tags": ["mushroom", "poison"],
+  "weight": 0,
+  "spawn": {
+    "location": "forest.mushroom_hollow",
+    "count": 3,
+    "respawnTicks": 600
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you bite into the red mushroom. It tastes vile and your stomach lurches.",
+        "others": "{actor} bites into a red-capped mushroom and immediately turns pale."
+      },
+      "to_target": {
+        "self": "you offer the red-capped mushroom to {target}, who eats it and immediately gags.",
+        "others": "{actor} offers a red-capped mushroom to {target}, who eats it and immediately gags."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "kousneš do červené houby. Chutná odporně a v žaludku ti zakručí.",
+        "others": "{actor} kousne do červeně kloboukové houby a okamžitě zbledne."
+      },
+      "to_target": {
+        "self": "podáš červeně kloboukovou houbu {target} a ten ji sní a okamžitě se začne dávit.",
+        "others": "{actor} podává červeně kloboukovou houbu {target} a ten ji sní a okamžitě se začne dávit."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "apply_effect", "effectId": "effect.poison" }
+  }
+}

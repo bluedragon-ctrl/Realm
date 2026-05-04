@@ -96,5 +96,6 @@ export function makeNpcActor(def) {
     behaviors: def.behaviors ?? [],
     alive: true,
     activeEffects: [],
+    pack: def.pack ?? null,
   };
 }

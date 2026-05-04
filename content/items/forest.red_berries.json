@@ -1,0 +1,50 @@
+{
+  "id": "forest.red_berries",
+  "name": {
+    "en": "a handful of red berries",
+    "cs": "hrst červených bobulí"
+  },
+  "nameAcc": {
+    "en": "the red berries",
+    "cs": "červené bobule"
+  },
+  "short": {
+    "en": "A small cluster of bright red berries.",
+    "cs": "Malý trs jasně červených bobulí."
+  },
+  "long": {
+    "en": "A clutch of small, glossy red berries on a short stem. They smell faintly tart and sweet at once. Eaten plain they soothe small hurts; brewed in a cauldron they form the base of a healing potion.",
+    "cs": "Trs malých, lesklých červených bobulí na krátké stopce. Voní zároveň trochu trpce a sladce. Jen tak snědené utiší drobné rány; vařené v kotli tvoří základ léčivého lektvaru."
+  },
+  "tags": ["herb", "reagent", "red_berry"],
+  "weight": 0,
+  "spawn": {
+    "location": "forest.berry_patch",
+    "count": 4,
+    "respawnTicks": 400
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you eat a few of the red berries. They are tart and sweet at once.",
+        "others": "{actor} pops a few red berries into their mouth."
+      },
+      "to_target": {
+        "self": "you offer the red berries to {target}, who eats them.",
+        "others": "{actor} offers a handful of red berries to {target}, who eats them."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sníš pár červených bobulí. Chutnají zároveň trpce i sladce.",
+        "others": "{actor} si vhodí pár červených bobulí do úst."
+      },
+      "to_target": {
+        "self": "podáš červené bobule {target} a ten je sní.",
+        "others": "{actor} podává hrst červených bobulí {target} a ten je sní."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "heal", "amount": 2 }
+  }
+}

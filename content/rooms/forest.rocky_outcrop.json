@@ -1,0 +1,20 @@
+{
+  "id": "forest.rocky_outcrop",
+  "name": {
+    "en": "Rocky outcrop",
+    "cs": "Skalní výchoz"
+  },
+  "short": {
+    "en": "A bare shoulder of rock pushing up through the trees.",
+    "cs": "Holé skalní rameno tyčící se mezi stromy."
+  },
+  "long": {
+    "en": "The forest floor breaks open here into a broad shoulder of grey stone, weathered smooth in places and split into loose rocks in others. A few stunted pines cling to the cracks. From here you can see further than anywhere else nearby. The trail back to the glade lies west. To the east, the rock falls into a shadowed gully, and a low growling drifts up from it.",
+    "cs": "Lesní půda se zde otevírá do širokého ramene šedého kamene, místy ohlazeného povětrnostními vlivy a jinde rozlámaného na volné balvany. V puklinách se drží několik zakrslých borovic. Odsud je vidět dál než odkudkoli v okolí. Stezka zpět na mýtinu vede na západ. Na východě skála klesá do zastíněné rokle a z ní stoupá tiché vrčení."
+  },
+  "exits": {
+    "w": "forest.fox_glade",
+    "e": "forest.wolf_den"
+  },
+  "tags": ["outdoor", "forest", "stone"]
+}

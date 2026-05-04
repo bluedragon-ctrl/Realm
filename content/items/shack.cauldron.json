@@ -41,6 +41,24 @@
           }
         }
       }
+    },
+    "forest.red_berries": {
+      "produces": "potion.heal",
+      "consume": true,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you drop the red berries into {target}. The water turns rose-pink and a small healing potion forms.",
+            "others": "{actor} drops a handful of red berries into {target}. The water turns rose-pink."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vhodíš červené bobule do {target}. Voda zrůžoví a vznikne malý léčivý lektvar.",
+            "others": "{actor} vhazuje hrst červených bobulí do {target}. Voda zrůžoví."
+          }
+        }
+      }
     }
   }
 }

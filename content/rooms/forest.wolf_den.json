@@ -1,0 +1,19 @@
+{
+  "id": "forest.wolf_den",
+  "name": {
+    "en": "Wolf den",
+    "cs": "Vlčí doupě"
+  },
+  "short": {
+    "en": "A shadowed gully ringed with old bones.",
+    "cs": "Zastíněná rokle obklopená starými kostmi."
+  },
+  "long": {
+    "en": "A narrow gully cut between two shoulders of rock, half-roofed by the leaning trunks of pines. The ground is packed earth scattered with cracked bones and tufts of grey fur. A musky animal smell hangs in the air. The only way out is back west to the rocks.",
+    "cs": "Úzká rokle mezi dvěma skalními rameny, napůl zastřešená nakloněnými kmeny borovic. Zemi tvoří udupaná hlína posypaná rozlámanými kostmi a chomáči šedé srsti. Ve vzduchu visí pižmový zvířecí pach. Jediná cesta ven vede zpátky na západ ke skalám."
+  },
+  "exits": {
+    "w": "forest.rocky_outcrop"
+  },
+  "tags": ["outdoor", "forest", "dangerous"]
+}

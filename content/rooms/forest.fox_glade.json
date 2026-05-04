@@ -1,0 +1,22 @@
+{
+  "id": "forest.fox_glade",
+  "name": {
+    "en": "Fox glade",
+    "cs": "Liščí mýtina"
+  },
+  "short": {
+    "en": "A small grassy glade ringed by birches.",
+    "cs": "Malá travnatá mýtina obklopená břízami."
+  },
+  "long": {
+    "en": "A round patch of soft grass surrounded by slender birches whose leaves rustle in the breeze. A flat-topped stone sits near the centre of the clearing, marked with old scratches. Narrow trails lead away in every direction: back west toward the sunlit path, north between bright bushes, south into a damp green hollow, and east where the ground turns stony.",
+    "cs": "Kulatý plácek měkké trávy obklopený štíhlými břízami, jejichž listy šustí ve větru. Uprostřed mýtiny stojí plochý kámen pokrytý starými škrábanci. Úzké stezky vedou na všechny strany: zpět na západ ke slunné stezce, na sever mezi jasné keře, na jih do vlhké zelené prohlubně a na východ, kde se země mění v kamenitou."
+  },
+  "exits": {
+    "w": "forest.sunlit_path",
+    "n": "forest.berry_patch",
+    "s": "forest.mushroom_hollow",
+    "e": "forest.rocky_outcrop"
+  },
+  "tags": ["outdoor", "forest", "bright"]
+}

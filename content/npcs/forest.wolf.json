@@ -1,0 +1,68 @@
+{
+  "id": "forest.wolf",
+  "name": { "en": "a grey wolf", "cs": "šedý vlk" },
+  "nameAcc": { "en": "the grey wolf", "cs": "šedého vlka" },
+  "title": { "en": "grey wolf", "cs": "šedý vlk" },
+  "location": "forest.wolf_den",
+  "count": 3,
+  "short": {
+    "en": "A lean grey wolf bares its teeth at you.",
+    "cs": "Štíhlý šedý vlk na tebe cení zuby."
+  },
+  "long": {
+    "en": "A lean wolf with a thick grey-brown coat and yellow eyes that never leave you. Its ribs show under the fur and its lips are drawn back from long, white teeth. It moves low to the ground, half-circling for an opening.",
+    "cs": "Štíhlý vlk s hustou šedohnědou srstí a žlutýma očima, které z tebe nespouští. Pod srstí mu prosvítají žebra a pysky má stažené, takže odhalují dlouhé bílé zuby. Pohybuje se nízko při zemi a opisuje polokruh, čeká na příležitost."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 14, "hpMax": 14,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 1, "int": 0,
+    "spd": 7
+  },
+  "respawn": { "ticks": 1500 },
+  "xp": 18,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "bite", "cs": "kousnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lunges and snaps its jaws shut on {target}!",
+          "{actor} darts in low and bites {target}!",
+          "{actor} springs at {target}, claws and teeth flashing!"
+        ],
+        "cs": [
+          "{actor} se vrhne a sklapne čelisti na {target}!",
+          "{actor} se nízko žene a kousne {target}!",
+          "{actor} skočí na {target}, drápy a zuby se blýskají!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "raises its hackles and snarls low in its throat.",
+          "circles slowly, never taking its eyes off you.",
+          "tilts its head back and lets out a short, sharp howl.",
+          "scrapes the ground with its claws."
+        ],
+        "cs": [
+          "zježí srst na hřbetě a hluboko v hrdle zavrčí.",
+          "pomalu krouží a nespouští z tebe oči.",
+          "zakloní hlavu a krátce, ostře zavyje.",
+          "drápy škrábe o zem."
+        ]
+      }
+    }
+  ]
+}
