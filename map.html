@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Realm Map</title>
+<style>
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{background:#1a1a2e;color:#e0e0e0;font-family:'Segoe UI',sans-serif;display:flex;height:100vh;overflow:hidden}
+  #map-container{flex:1;overflow:hidden;position:relative;cursor:grab}
+  #map-container.dragging{cursor:grabbing}
+  svg{width:100%;height:100%;display:block}
+  .room-node{cursor:pointer}
+  .room-node:hover rect{filter:brightness(1.3)}
+  .edge{stroke:#555;stroke-width:1.5;fill:none}
+  .edge.vertical{stroke-dasharray:4 3;stroke:#444}
+  .room-label{font-size:11px;fill:#fff;text-anchor:middle;dominant-baseline:middle;pointer-events:none;font-weight:600}
+  .room-id-label{font-size:8px;fill:rgba(255,255,255,0.5);text-anchor:middle;dominant-baseline:middle;pointer-events:none}
+  #sidebar{width:300px;background:#16213e;border-left:1px solid #0f3460;display:flex;flex-direction:column;overflow:hidden}
+  #sidebar-header{padding:16px;background:#0f3460;border-bottom:1px solid #1a4a8a}
+  #sidebar-header h2{font-size:11px;color:#a8d8ea;text-transform:uppercase;letter-spacing:1px;margin-bottom:4px}
+  #room-name{font-size:20px;font-weight:700;color:#fff}
+  #room-id{font-size:11px;color:#6a8caf;margin-top:3px}
+  #sidebar-body{padding:16px;overflow-y:auto;flex:1}
+  #room-short{font-size:13px;color:#c0d8f0;font-style:italic;margin-bottom:14px;line-height:1.5}
+  #room-long{font-size:12px;color:#a0b8cc;line-height:1.7;margin-bottom:14px}
+  .section-label{font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#4a7a9b;margin-bottom:6px;margin-top:12px}
+  .tags-row{display:flex;flex-wrap:wrap;gap:5px}
+  .tag{background:#0f3460;border:1px solid #1a4a8a;border-radius:3px;font-size:10px;padding:2px 7px;color:#7ab}
+  .exits-grid{display:grid;grid-template-columns:1fr 1fr;gap:4px}
+  .exit-item{background:#0d2137;border:1px solid #1a3a5a;border-radius:4px;padding:5px 8px;font-size:11px;cursor:pointer;transition:background .15s}
+  .exit-item:hover{background:#1a4070}
+  .exit-dir{color:#6a8caf;font-size:9px;text-transform:uppercase}
+  .exit-name{color:#c0d8f0}
+  .exit-item.unknown{opacity:.5;cursor:default}
+  #empty-state{padding:32px 16px;color:#4a6a8a;font-size:13px;text-align:center;line-height:1.8}
+  #controls{position:absolute;bottom:12px;left:12px;display:flex;gap:6px}
+  .ctrl-btn{background:#16213e;border:1px solid #0f3460;color:#a8d8ea;width:32px;height:32px;border-radius:6px;cursor:pointer;font-size:16px;display:flex;align-items:center;justify-content:center;transition:background .15s}
+  .ctrl-btn:hover{background:#0f3460}
+  #legend{position:absolute;top:12px;left:12px;background:rgba(22,33,62,.9);border:1px solid #0f3460;border-radius:6px;padding:10px 12px;font-size:11px}
+  #legend h3{font-size:10px;color:#6a8caf;text-transform:uppercase;letter-spacing:1px;margin-bottom:8px}
+  .legend-row{display:flex;align-items:center;gap:7px;margin-bottom:4px}
+  .legend-dot{width:12px;height:12px;border-radius:3px;flex-shrink:0}
+  #lang-toggle{position:absolute;top:12px;right:12px;background:#16213e;border:1px solid #0f3460;color:#a8d8ea;padding:5px 12px;border-radius:6px;cursor:pointer;font-size:12px}
+  #lang-toggle:hover{background:#0f3460}
+  #room-count{position:absolute;bottom:12px;right:12px;font-size:11px;color:#4a6a8a}
+</style>
+</head>
+<body>
+<div id="map-container">
+  <svg id="svg">
+    <g id="root-g"></g>
+  </svg>
+  <div id="controls">
+    <button class="ctrl-btn" id="zoom-in" title="Zoom in">+</button>
+    <button class="ctrl-btn" id="zoom-out" title="Zoom out">−</button>
+    <button class="ctrl-btn" id="zoom-reset" title="Reset view">⊙</button>
+  </div>
+  <div id="legend">
+    <h3>Areas</h3>
+    <div class="legend-row"><div class="legend-dot" style="background:#2d6a4f"></div>Home</div>
+    <div class="legend-row"><div class="legend-dot" style="background:#1b4332"></div>Forest</div>
+    <div class="legend-row"><div class="legend-dot" style="background:#4a3728"></div>Cave/Cellar</div>
+    <div class="legend-row"><div class="legend-dot" style="background:#3d2b6e"></div>Tower</div>
+    <hr style="border:none;border-top:1px solid #1a3a5a;margin:7px 0">
+    <div class="legend-row"><span style="color:#555">───</span>&nbsp;Cardinal</div>
+    <div class="legend-row"><span style="color:#444">- - -</span>&nbsp;Up/Down</div>
+  </div>
+  <button id="lang-toggle">CS / EN</button>
+  <div id="room-count"></div>
+</div>
+<div id="sidebar">
+  <div id="sidebar-header">
+    <h2>Room Inspector</h2>
+    <div id="room-name">—</div>
+    <div id="room-id"></div>
+  </div>
+  <div id="sidebar-body">
+    <div id="empty-state">Click any room node to see its details.</div>
+    <div id="room-detail" style="display:none">
+      <div class="section-label">Short</div>
+      <div id="room-short"></div>
+      <div class="section-label">Description</div>
+      <div id="room-long"></div>
+      <div class="section-label">Tags</div>
+      <div class="tags-row" id="room-tags"></div>
+      <div class="section-label">Exits</div>
+      <div class="exits-grid" id="room-exits"></div>
+    </div>
+  </div>
+</div>
+<script>
+const ROOMS = [
+  {
+    "id": "forest.berry_patch",
+    "name": {
+      "en": "Berry patch",
+      "cs": "Borůvčí"
+    },
+    "short": {
+      "en": "Bright bushes heavy with red berries.",
+      "cs": "Jasné keře obtěžkané červenými bobulemi."
+    },
+    "long": {
+      "en": "A sun-warmed clearing thick with low bushes, their leaves shiny and their branches heavy with clusters of small red berries. Bees hum somewhere out of sight and the air smells faintly sweet. The ground between the bushes is well trodden, with little paths worn through the grass by something small and quick. The trail back to the glade lies south.",
+      "cs": "Sluncem zalitá mýtina hustě porostlá nízkými keři s lesklými listy a větvemi obtěžkanými trsy malých červených bobulí. Někde v dálce bzučí včely a vzduch slabě voní sladce. Země mezi keři je udupaná a v trávě jsou prošlapané drobné pěšiny od něčeho malého a rychlého. Stezka zpět na mýtinu vede na jih."
+    },
+    "exits": {
+      "s": "forest.fox_glade"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "bright"
+    ]
+  },
+  {
+    "id": "forest.cave",
+    "name": {
+      "en": "Bear's cave",
+      "cs": "Medvědí jeskyně"
+    },
+    "short": {
+      "en": "A large dark cave that smells of wet fur and old blood.",
+      "cs": "Velká tmavá jeskyně páchnoucí mokrou srstí a starою krví."
+    },
+    "long": {
+      "en": "The cave is wide and low, the walls slick with moisture. The floor is littered with bones — animals, and at least one set that looks human. Scraps of old clothing and a torn leather vest lie in the corner. The whole place reeks of bear. The only way out is north.",
+      "cs": "Jeskyně je široká a nízká, stěny jsou kluzké vlhkostí. Podlaha je pokrytá kostmi — zvířecími i alespoň jednou sadou, která vypadá lidsky. V rohu leží zbytky starého oblečení a roztrhaná kožená vesta. Celé místo páchne medvědem. Jediná cesta ven vede na sever."
+    },
+    "exits": {
+      "n": "forest.deep_forest"
+    },
+    "tags": [
+      "indoor",
+      "forest",
+      "dark",
+      "cave"
+    ]
+  },
+  {
+    "id": "forest.clearing",
+    "name": {
+      "en": "Forest clearing",
+      "cs": "Lesní mýtina"
+    },
+    "short": {
+      "en": "A small clearing where the trees thin out.",
+      "cs": "Malá mýtina, kde se stromy řídí."
+    },
+    "long": {
+      "en": "The trees pull back here, letting in a patch of grey sky. Tall grass and ferns cover the ground. A rough path leads north toward a bare hill where the broken outline of an old tower stands against the sky. The deep forest lies to the south.",
+      "cs": "Stromy se zde rozestupují a propouštějí kousek šedé oblohy. Zem pokrývá vysoká tráva a kapradí. Hrubá stezka vede na sever k holému kopci, kde se proti obloze rýsuje rozpadlý obrys staré věže. Na jihu leží hluboký les."
+    },
+    "exits": {
+      "s": "forest.deep_forest",
+      "n": "forest.hill"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "clearing"
+    ]
+  },
+  {
+    "id": "forest.deep_forest",
+    "name": {
+      "en": "Deep forest",
+      "cs": "Hluboký les"
+    },
+    "short": {
+      "en": "A dark part of the forest where little sunlight reaches.",
+      "cs": "Tmavá část lesa, kam téměř nedoléhá sluneční světlo."
+    },
+    "long": {
+      "en": "The trees here grow close together and the canopy shuts out most of the light. The air is cool and damp. Something large has pushed through the undergrowth from the meadow to the west, leaving a wide trail of broken branches and flattened plants that continues south toward a dark opening in the rock. Scattered bones lie half-buried in the mud near the path. To the east, the trees thin and a band of warmer light filters through.",
+      "cs": "Stromy zde rostou hustě u sebe a koruny zakrývají téměř veškeré světlo. Vzduch je chladný a vlhký. Něco velkého se prodíralo podrostem od louky na západě a zanechalo cestu plnou zlomených větví a ušlapaných rostlin, která pokračuje na jih k temnému otvoru ve skále. U stezky leží v blátě napůl pohřbené roztroušené kosti. Na východě stromy řídnou a mezi nimi prosvítá pruh teplejšího světla."
+    },
+    "exits": {
+      "w": "forest.meadow",
+      "s": "forest.cave",
+      "n": "forest.clearing",
+      "e": "forest.sunlit_path"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "dark"
+    ]
+  },
+  {
+    "id": "forest.entry",
+    "name": {
+      "en": "Forest Edge",
+      "cs": "Okraj lesa"
+    },
+    "short": {
+      "en": "The road ends where the trees begin.",
+      "cs": "Cesta končí tam, kde začínají stromy."
+    },
+    "long": {
+      "en": "The open field gives way to tall old trees. Their roots push up through the ground and the air is cooler here, smelling of bark and soil. A dirt path continues east into the forest. The fields lie to the west.",
+      "cs": "Otevřené pole ustupuje vysokým starým stromům. Jejich kořeny trčí ze země a vzduch je tu chladnější, voní kůrou a hlínou. Prašná stezka pokračuje na východ do lesa. Pole leží na západ."
+    },
+    "exits": {
+      "w": "home.field",
+      "e": "forest.meadow"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "border"
+    ]
+  },
+  {
+    "id": "forest.fox_glade",
+    "name": {
+      "en": "Fox glade",
+      "cs": "Liščí mýtina"
+    },
+    "short": {
+      "en": "A small grassy glade ringed by birches.",
+      "cs": "Malá travnatá mýtina obklopená břízami."
+    },
+    "long": {
+      "en": "A round patch of soft grass surrounded by slender birches whose leaves rustle in the breeze. A flat-topped stone sits near the centre of the clearing, marked with old scratches. Narrow trails lead away in every direction: back west toward the sunlit path, north between bright bushes, south into a damp green hollow, and east where the ground turns stony.",
+      "cs": "Kulatý plácek měkké trávy obklopený štíhlými břízami, jejichž listy šustí ve větru. Uprostřed mýtiny stojí plochý kámen pokrytý starými škrábanci. Úzké stezky vedou na všechny strany: zpět na západ ke slunné stezce, na sever mezi jasné keře, na jih do vlhké zelené prohlubně a na východ, kde se země mění v kamenitou."
+    },
+    "exits": {
+      "w": "forest.sunlit_path",
+      "n": "forest.berry_patch",
+      "s": "forest.mushroom_hollow",
+      "e": "forest.rocky_outcrop"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "bright"
+    ]
+  },
+  {
+    "id": "forest.hill",
+    "name": {
+      "en": "Hilltop",
+      "cs": "Vrchol kopce"
+    },
+    "short": {
+      "en": "A small treeless hill with the ruins of an old tower.",
+      "cs": "Malý holý kopec se zbytky staré věže."
+    },
+    "long": {
+      "en": "The hill is bare and windswept, with short grass and loose stones underfoot. The ruin of a stone tower looms ahead — most of its upper walls have crumbled, but the base looks solid. A dark doorway opens to the north. The forest spreads out in every direction below.",
+      "cs": "Kopec je holý a větrný, pod nohama je krátká tráva a volné kameny. Vpředu se tyčí zřícenina kamenné věže — většina horních zdí se zhroutila, ale základy vypadají pevně. Na sever se otevírá tmavý vchod. Les se rozkládá na všechny strany dolů."
+    },
+    "exits": {
+      "s": "forest.clearing",
+      "n": "forest.tower_entry"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "hill"
+    ]
+  },
+  {
+    "id": "forest.meadow",
+    "name": {
+      "en": "Blue meadow",
+      "cs": "Modrá louka"
+    },
+    "short": {
+      "en": "A quiet clearing full of blue flowers.",
+      "cs": "Tichá mýtina plné modrých květů."
+    },
+    "long": {
+      "en": "A small clearing opens in the middle of the forest. The ground is thick with low blue flowers that glow faintly in the dim light filtering through the leaves. The plants have a faint sweet smell. Paths lead in every direction deeper into the forest, and the way west leads back toward the forest edge.",
+      "cs": "Uprostřed lesa se otevírá malá mýtina. Zem hustě pokrývají nízké modré květy, které slabě svítí v tlumeném světle pronikajícím skrz listí. Rostliny mají jemnou sladkou vůni. Stezky vedou na všechny strany hlouběji do lesa, cesta na západ vede zpět k okraji lesa."
+    },
+    "exits": {
+      "w": "forest.entry",
+      "e": "forest.deep_forest"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "clearing"
+    ]
+  },
+  {
+    "id": "forest.mushroom_hollow",
+    "name": {
+      "en": "Mushroom hollow",
+      "cs": "Houbová prohlubeň"
+    },
+    "short": {
+      "en": "A damp green hollow dotted with bright mushrooms.",
+      "cs": "Vlhká zelená prohlubeň posetá pestrými houbami."
+    },
+    "long": {
+      "en": "The ground sinks into a damp hollow shaded by old ferns. Moss covers everything in a thick green carpet, and bright red mushrooms with white spots push up through the moss in clusters. The air is cool and smells of wet earth. A faint, slightly sour scent hangs over the mushrooms. The path back up to the glade leads north.",
+      "cs": "Země se propadá do vlhké prohlubně zastíněné starými kapradinami. Vše pokrývá hustý zelený koberec mechu a v něm vyrážejí v trsech jasně červené houby s bílými tečkami. Vzduch je chladný a páchne mokrou zemí. Nad houbami se vznáší slabá, lehce nakyslá vůně. Stezka zpět nahoru na mýtinu vede na sever."
+    },
+    "exits": {
+      "n": "forest.fox_glade"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "damp"
+    ]
+  },
+  {
+    "id": "forest.rocky_outcrop",
+    "name": {
+      "en": "Rocky outcrop",
+      "cs": "Skalní výchoz"
+    },
+    "short": {
+      "en": "A bare shoulder of rock pushing up through the trees.",
+      "cs": "Holé skalní rameno tyčící se mezi stromy."
+    },
+    "long": {
+      "en": "The forest floor breaks open here into a broad shoulder of grey stone, weathered smooth in places and split into loose rocks in others. A few stunted pines cling to the cracks. From here you can see further than anywhere else nearby. The trail back to the glade lies west. To the east, the rock falls into a shadowed gully, and a low growling drifts up from it.",
+      "cs": "Lesní půda se zde otevírá do širokého ramene šedého kamene, místy ohlazeného povětrnostními vlivy a jinde rozlámaného na volné balvany. V puklinách se drží několik zakrslých borovic. Odsud je vidět dál než odkudkoli v okolí. Stezka zpět na mýtinu vede na západ. Na východě skála klesá do zastíněné rokle a z ní stoupá tiché vrčení."
+    },
+    "exits": {
+      "w": "forest.fox_glade",
+      "e": "forest.wolf_den"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "stone"
+    ]
+  },
+  {
+    "id": "forest.sunlit_path",
+    "name": {
+      "en": "Sunlit path",
+      "cs": "Slunná stezka"
+    },
+    "short": {
+      "en": "A narrow path where warm sunlight pours between the trees.",
+      "cs": "Úzká stezka, kterou mezi stromy proudí teplé sluneční světlo."
+    },
+    "long": {
+      "en": "The trees here stand farther apart and the canopy opens enough to let broad shafts of sunlight reach the forest floor. Wildflowers grow at the edges of the path and the air feels suddenly warmer. The path leads back into the dark trees to the west, while to the east it opens into a small grassy glade.",
+      "cs": "Stromy zde stojí dál od sebe a koruny se otevírají natolik, aby na lesní půdu dopadaly široké pruhy slunečních paprsků. Na okrajích stezky rostou luční květy a vzduch je najednou teplejší. Stezka se vrací zpět do temných stromů na západě a na východě se otevírá v malou travnatou mýtinu."
+    },
+    "exits": {
+      "w": "forest.deep_forest",
+      "e": "forest.fox_glade"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "bright"
+    ]
+  },
+  {
+    "id": "forest.tower_cellar",
+    "name": {
+      "en": "Tower cellar",
+      "cs": "Sklepení věže"
+    },
+    "short": {
+      "en": "A low stone cellar that was once a mage's laboratory.",
+      "cs": "Nízké kamenné sklepení, které bývalo laboratoří mága."
+    },
+    "long": {
+      "en": "The cellar is low and cramped, the air thick with the smell of old smoke and something sharp that is hard to name. Broken shelves line the walls, still holding a few shattered jars and crumbled books. A large stone table stands in the middle, its surface scorched and cracked. Whatever experiments happened here ended badly.",
+      "cs": "Sklepení je nízké a stísněné, vzduch je těžký zápachem starého kouře a něčeho ostrého, co se těžko pojmenuje. Podél zdí stojí rozpadlé police, na nichž leží pár rozbitých sklenic a rozsypaných knih. Uprostřed stojí velký kamenný stůl, jehož povrch je opálený a popraskany. Ať se zde děly jakékoli pokusy, skončily špatně."
+    },
+    "exits": {
+      "u": "forest.tower_entry"
+    },
+    "tags": [
+      "indoor",
+      "forest",
+      "tower",
+      "dark",
+      "cellar"
+    ]
+  },
+  {
+    "id": "forest.tower_entry",
+    "name": {
+      "en": "Tower entrance",
+      "cs": "Vchod do věže"
+    },
+    "short": {
+      "en": "The ground floor of a ruined stone tower.",
+      "cs": "Přízemí zřícené kamenné věže."
+    },
+    "long": {
+      "en": "The circular stone room is cold and smells of damp and old ash. Cracks run up the walls and tufts of moss grow in the gaps. According to old stories, a mage once lived here. A stone staircase winds upward along the wall. In the corner of the floor there is a heavy iron trap door, locked tight with a copper lock.",
+      "cs": "Kruhová kamenná místnost je chladná a páchne vlhkostí a starým popelem. Po zdech probíhají trhliny a v mezerách roste mech. Podle starých příběhů zde kdysi žil mág. Kamenné schodiště se vine podél zdi vzhůru. V rohu podlahy je těžký železný poklop, pevně zamčený měděným zámkem."
+    },
+    "exits": {
+      "s": "forest.hill",
+      "u": "forest.tower_upper",
+      "d": "forest.tower_cellar"
+    },
+    "lockedExits": {
+      "d": "forest.tower_trap_door"
+    },
+    "tags": [
+      "indoor",
+      "forest",
+      "tower",
+      "dark"
+    ]
+  },
+  {
+    "id": "forest.tower_upper",
+    "name": {
+      "en": "Tower upper floor",
+      "cs": "Horní patro věže"
+    },
+    "short": {
+      "en": "The ruined upper floor of the tower, open to the sky.",
+      "cs": "Zřícené horní patro věže, otevřené do nebe."
+    },
+    "long": {
+      "en": "Most of the outer walls have collapsed, leaving only a few jagged stubs of stone. The floor is solid but covered in rubble and old leaves. The view is wide open — the forest stretches in every direction, dark and vast, with the hill meadow and distant farmland just visible to the west. A few old shelves are bolted to what remains of the walls.",
+      "cs": "Většina vnějších zdí se zhroutila a zůstalo jen několik zubaté pahýly kamene. Podlaha je pevná, ale pokrytá sutinami a starým listím. Výhled je zcela volný — les se rozkládá na všechny strany, temný a rozlehlý, na západě je sotva vidět kopcová louka a vzdálená pole. Na zbytcích zdí jsou přišroubovány staré police."
+    },
+    "exits": {
+      "d": "forest.tower_entry"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "tower"
+    ]
+  },
+  {
+    "id": "forest.wolf_den",
+    "name": {
+      "en": "Wolf den",
+      "cs": "Vlčí doupě"
+    },
+    "short": {
+      "en": "A shadowed gully ringed with old bones.",
+      "cs": "Zastíněná rokle obklopená starými kostmi."
+    },
+    "long": {
+      "en": "A narrow gully cut between two shoulders of rock, half-roofed by the leaning trunks of pines. The ground is packed earth scattered with cracked bones and tufts of grey fur. A musky animal smell hangs in the air. The only way out is back west to the rocks.",
+      "cs": "Úzká rokle mezi dvěma skalními rameny, napůl zastřešená nakloněnými kmeny borovic. Zemi tvoří udupaná hlína posypaná rozlámanými kostmi a chomáči šedé srsti. Ve vzduchu visí pižmový zvířecí pach. Jediná cesta ven vede zpátky na západ ke skalám."
+    },
+    "exits": {
+      "w": "forest.rocky_outcrop"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "dangerous"
+    ]
+  },
+  {
+    "id": "home.basement",
+    "name": {
+      "en": "Basement",
+      "cs": "Sklep"
+    },
+    "short": {
+      "en": "A dark basement crammed with old farm tools.",
+      "cs": "Temný sklep nacpaný starým zemědělským nářadím."
+    },
+    "long": {
+      "en": "A low-ceilinged basement with damp stone walls and a dirt floor. Old farm tools are stacked in every corner — broken rakes, a rusted scythe, rotting rope and sacks. Cobwebs hang thick from the beams. The air smells of mold and old earth. Something is moving in the dark corners.",
+      "cs": "Sklep s nízkým stropem, vlhkými kamennými zdmi a hliněnou podlahou. Ve všech rozích je nastrkané staré zemědělské nářadí — zlomené hrábě, rezavá kosa, shnilé lano a pytle. Z trámů visí husté pavučiny. Vzduch páchne plísní a starou zemí. V tmavých koutech se něco pohybuje."
+    },
+    "exits": {
+      "u": "home.shack"
+    },
+    "tags": [
+      "indoor",
+      "home",
+      "dark"
+    ]
+  },
+  {
+    "id": "home.cottage",
+    "name": {
+      "en": "The House",
+      "cs": "Domek"
+    },
+    "short": {
+      "en": "A small warm room with a fire and two beds.",
+      "cs": "Malá teplá světnice s ohněm a dvěma postelemi."
+    },
+    "long": {
+      "en": "A small room that smells like wood smoke and dried apples. A little fire burns in the fireplace and a kettle hangs above it. Two beds with thick wool blankets stand by the wall. There is a plain wooden table under the window. This is your home.",
+      "cs": "Malá světnice, ve které voní kouř ze dřeva a sušená jablka. V krbu hoří malý oheň a nad ním visí kotlík. U stěny stojí dvě postele s teplými vlněnými dekami. Pod oknem je prostý dřevěný stůl. Tady jsi doma."
+    },
+    "exits": {
+      "w": "home.yard"
+    },
+    "tags": [
+      "safe",
+      "indoor",
+      "home",
+      "respawn"
+    ]
+  },
+  {
+    "id": "home.field",
+    "name": {
+      "en": "Field Crossroads",
+      "cs": "Polní rozcestí"
+    },
+    "short": {
+      "en": "A dirt road across the fields, going east and west.",
+      "cs": "Polní cesta přes pole, vede na východ a na západ."
+    },
+    "long": {
+      "en": "A wide field on both sides of a dusty road. The air smells like dry grass and warm earth. The road goes east and west. Both ends disappear into a dark forest far away. The yard gate is to the north.",
+      "cs": "Po obou stranách prašné cesty se rozkládá široké pole. Vzduch voní suchou trávou a teplou zemí. Cesta vede na východ a na západ. Oba konce mizí v dalekém tmavém lese. Na severu jsou vrátka do dvora."
+    },
+    "exits": {
+      "n": "home.yard",
+      "e": "forest.entry"
+    },
+    "tags": [
+      "outdoor",
+      "home",
+      "border"
+    ]
+  },
+  {
+    "id": "home.garden",
+    "name": {
+      "en": "Garden with Bees",
+      "cs": "Zahrada se včelami"
+    },
+    "short": {
+      "en": "A small garden with a beehive in the corner.",
+      "cs": "Malá zahrada s úlem v rohu."
+    },
+    "long": {
+      "en": "Tidy rows of cabbages, beans and herbs grow behind a low fence. In one corner there is a round straw beehive. Bees buzz quietly around it. A wooden post stands at the edge of the garden. It is full of nicks from practice with a stick and rusty dagger is sticked inside it.",
+      "cs": "Za nízkým plůtkem rostou úhledné řádky zelí, fazolí a bylinek. V jednom rohu stojí kulatý slaměný úl. Včely kolem něj tiše bzučí. Na okraji zahrady stojí dřevěný kůl. Je celý posekaný od cvičení s klackem a je v něm zabodnutá rezavá dýka."
+    },
+    "exits": {
+      "s": "home.yard"
+    },
+    "tags": [
+      "outdoor",
+      "home",
+      "training"
+    ]
+  },
+  {
+    "id": "home.shack",
+    "name": {
+      "en": "Herb Shed",
+      "cs": "Bylinková kůlna"
+    },
+    "short": {
+      "en": "A little shed with herbs and storage.",
+      "cs": "Malá kůlna s bylinkami a zásobami."
+    },
+    "long": {
+      "en": "Bunches of herbs hang from the roof and the air smells fresh and green. Under the small window there is a stone bowl for grinding herbs and a row of clay jars with cork stoppers. A shelf at the back holds bread, cheese and dried fruit.",
+      "cs": "Ze stropu visí svazky bylinek a vzduch krásně voní. Pod malým okénkem leží kamenný hmoždíř na drcení bylinek a řada hliněných džbánků zazátkovaných korkem. Na polici vzadu je chleba, sýr a sušené ovoce."
+    },
+    "exits": {
+      "e": "home.yard",
+      "d": "home.basement"
+    },
+    "lockedExits": {
+      "d": "home.trap_door"
+    },
+    "tags": [
+      "safe",
+      "indoor",
+      "home"
+    ]
+  },
+  {
+    "id": "home.yard",
+    "name": {
+      "en": "Small Friendly Yard",
+      "cs": "Malý dvorek"
+    },
+    "short": {
+      "en": "A small yard between the house, the shed and the garden.",
+      "cs": "Malý dvorek mezi domem, kůlnou a zahradou."
+    },
+    "long": {
+      "en": "A small, sunny yard with a path of flat stones in the middle. A washing line hangs between two posts. The house smells like fresh bread. A little gate leads south to the fields.",
+      "cs": "Malý slunečný dvorek a uprostřed cestička z plochých kamenů. Mezi dvěma kůly visí šňůra na prádlo. U cestičky zobe slepice. Z domu voní čerstvý chleba. Malá vrátka vedou na jih do polí."
+    },
+    "exits": {
+      "n": "home.garden",
+      "e": "home.cottage",
+      "w": "home.shack",
+      "s": "home.field"
+    },
+    "tags": [
+      "safe",
+      "outdoor",
+      "home"
+    ]
+  }
+];
+const GRID_POSITIONS = {
+  "home.cottage": [
+    0,
+    0
+  ],
+  "home.yard": [
+    -1,
+    0
+  ],
+  "home.garden": [
+    -1,
+    -1
+  ],
+  "home.shack": [
+    -2,
+    0
+  ],
+  "home.field": [
+    -1,
+    1
+  ],
+  "home.basement": [
+    -2,
+    1
+  ],
+  "forest.entry": [
+    0,
+    1
+  ],
+  "forest.meadow": [
+    1,
+    1
+  ],
+  "forest.deep_forest": [
+    2,
+    1
+  ],
+  "forest.cave": [
+    2,
+    2
+  ],
+  "forest.clearing": [
+    2,
+    0
+  ],
+  "forest.sunlit_path": [
+    3,
+    1
+  ],
+  "forest.hill": [
+    2,
+    -1
+  ],
+  "forest.fox_glade": [
+    4,
+    1
+  ],
+  "forest.tower_entry": [
+    2,
+    -2
+  ],
+  "forest.berry_patch": [
+    4,
+    0
+  ],
+  "forest.mushroom_hollow": [
+    4,
+    2
+  ],
+  "forest.rocky_outcrop": [
+    5,
+    1
+  ],
+  "forest.tower_upper": [
+    2,
+    -3
+  ],
+  "forest.tower_cellar": [
+    1,
+    -1
+  ],
+  "forest.wolf_den": [
+    6,
+    1
+  ]
+};
+
+const CELL = 110, NODE_W = 90, NODE_H = 36;
+const VERTICAL = new Set(["u","d"]);
+const DIR_NAMES = {n:"North",s:"South",e:"East",w:"West",u:"Up",d:"Down"};
+
+const roomMap = Object.fromEntries(ROOMS.map(r => [r.id, r]));
+let lang = "en", selectedId = null;
+let transform = {x:0, y:0, scale:1};
+
+function t(val) { return typeof val === "string" ? val : (val[lang] ?? val.en ?? ""); }
+
+function nodeColor(room) {
+  const tags = room.tags || [];
+  if (tags.includes("tower")) return "#3d2b6e";
+  if (tags.includes("cave") || tags.includes("cellar")) return "#4a3728";
+  const area = room.id.split(".")[0];
+  return {home:"#2d6a4f", forest:"#1b4332"}[area] ?? "#1b4332";
+}
+
+function getPos(id) {
+  const [gx, gy] = GRID_POSITIONS[id] || [0, 0];
+  return [gx * CELL, gy * CELL];
+}
+
+function buildSVG() {
+  const g = document.getElementById("root-g");
+  g.innerHTML = "";
+  const edgeG = document.createElementNS("http://www.w3.org/2000/svg","g");
+  const nodeG = document.createElementNS("http://www.w3.org/2000/svg","g");
+  g.append(edgeG, nodeG);
+
+  const drawn = new Set();
+  ROOMS.forEach(room => {
+    const [x1,y1] = getPos(room.id);
+    Object.entries(room.exits||{}).forEach(([dir, tid]) => {
+      const key = [room.id, tid].sort().join("|");
+      if (drawn.has(key) || !roomMap[tid]) return;
+      drawn.add(key);
+      const [x2,y2] = getPos(tid);
+      const line = document.createElementNS("http://www.w3.org/2000/svg","line");
+      line.setAttribute("x1",x1); line.setAttribute("y1",y1);
+      line.setAttribute("x2",x2); line.setAttribute("y2",y2);
+      line.setAttribute("class", VERTICAL.has(dir) ? "edge vertical" : "edge");
+      edgeG.appendChild(line);
+    });
+  });
+
+  ROOMS.forEach(room => {
+    const [cx,cy] = getPos(room.id);
+    const sel = room.id === selectedId;
+    const g2 = document.createElementNS("http://www.w3.org/2000/svg","g");
+    g2.setAttribute("class","room-node");
+    g2.setAttribute("data-id",room.id);
+
+    const rect = document.createElementNS("http://www.w3.org/2000/svg","rect");
+    rect.setAttribute("x", cx-NODE_W/2); rect.setAttribute("y", cy-NODE_H/2);
+    rect.setAttribute("width", NODE_W); rect.setAttribute("height", NODE_H);
+    rect.setAttribute("rx", 6);
+    rect.setAttribute("fill", nodeColor(room));
+    rect.setAttribute("stroke", sel ? "#fff" : "rgba(255,255,255,0.15)");
+    rect.setAttribute("stroke-width", sel ? 2.5 : 1);
+
+    const lbl = document.createElementNS("http://www.w3.org/2000/svg","text");
+    lbl.setAttribute("class","room-label");
+    lbl.setAttribute("x",cx); lbl.setAttribute("y",cy-5);
+    lbl.textContent = t(room.name);
+
+    const idl = document.createElementNS("http://www.w3.org/2000/svg","text");
+    idl.setAttribute("class","room-id-label");
+    idl.setAttribute("x",cx); idl.setAttribute("y",cy+10);
+    idl.textContent = room.id;
+
+    g2.append(rect, lbl, idl);
+    g2.addEventListener("click", () => selectRoom(room.id));
+    nodeG.appendChild(g2);
+  });
+
+  document.getElementById("room-count").textContent = ROOMS.length + " rooms";
+}
+
+function applyTransform() {
+  document.getElementById("root-g").setAttribute("transform",
+    `translate(${transform.x},${transform.y}) scale(${transform.scale})`);
+}
+
+function centerView() {
+  const svg = document.getElementById("svg");
+  transform.scale = 1;
+  transform.x = svg.clientWidth / 2 - 1 * CELL;
+  transform.y = svg.clientHeight / 2;
+  applyTransform();
+}
+
+function selectRoom(id) {
+  selectedId = id;
+  buildSVG(); applyTransform();
+  const room = roomMap[id];
+  if (!room) return;
+  document.getElementById("empty-state").style.display = "none";
+  document.getElementById("room-detail").style.display = "block";
+  document.getElementById("room-name").textContent = t(room.name);
+  document.getElementById("room-id").textContent = room.id;
+  document.getElementById("room-short").textContent = t(room.short);
+  document.getElementById("room-long").textContent = t(room.long);
+  document.getElementById("room-tags").innerHTML =
+    (room.tags||[]).map(tag => `<span class="tag">${tag}</span>`).join("");
+  document.getElementById("room-exits").innerHTML =
+    Object.entries(room.exits||{}).map(([dir,tid]) => {
+      const tr = roomMap[tid];
+      const cls = tr ? "" : " unknown";
+      const name = tr ? t(tr.name) : tid;
+      return `<div class="exit-item${cls}" ${tr?'onclick="selectRoom(\''+tid+'\')"':''}>
+        <div class="exit-dir">${DIR_NAMES[dir]||dir}</div>
+        <div class="exit-name">${name}</div>
+      </div>`;
+    }).join("");
+}
+
+let dragging=false, dragStart=null, transformStart=null;
+const container = document.getElementById("map-container");
+container.addEventListener("mousedown", e => {
+  if (e.target.closest(".room-node")) return;
+  dragging=true; dragStart={x:e.clientX,y:e.clientY};
+  transformStart={x:transform.x,y:transform.y};
+  container.classList.add("dragging");
+});
+window.addEventListener("mousemove", e => {
+  if (!dragging) return;
+  transform.x = transformStart.x + (e.clientX - dragStart.x);
+  transform.y = transformStart.y + (e.clientY - dragStart.y);
+  applyTransform();
+});
+window.addEventListener("mouseup", () => { dragging=false; container.classList.remove("dragging"); });
+container.addEventListener("wheel", e => {
+  e.preventDefault();
+  const rect = container.getBoundingClientRect();
+  const mx = e.clientX-rect.left, my = e.clientY-rect.top;
+  const f = e.deltaY < 0 ? 1.12 : 1/1.12;
+  const ns = Math.min(3, Math.max(0.3, transform.scale * f));
+  transform.x = mx - (mx-transform.x)*(ns/transform.scale);
+  transform.y = my - (my-transform.y)*(ns/transform.scale);
+  transform.scale = ns; applyTransform();
+}, {passive:false});
+document.getElementById("zoom-in").onclick  = () => { transform.scale=Math.min(3,transform.scale*1.2); applyTransform(); };
+document.getElementById("zoom-out").onclick = () => { transform.scale=Math.max(0.3,transform.scale/1.2); applyTransform(); };
+document.getElementById("zoom-reset").onclick = centerView;
+document.getElementById("lang-toggle").onclick = () => {
+  lang = lang==="en" ? "cs" : "en";
+  document.getElementById("lang-toggle").textContent = lang==="en" ? "CS / EN" : "EN / CS";
+  buildSVG(); applyTransform();
+  if (selectedId) selectRoom(selectedId);
+};
+
+buildSVG();
+window.addEventListener("load", centerView);
+setTimeout(centerView, 50);
+</script>
+</body>
+</html>
