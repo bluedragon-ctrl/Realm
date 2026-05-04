@@ -17,11 +17,14 @@ function buildInventory(actor) {
     if (existing) {
       existing.count++;
     } else {
+      const use = inst.def.use;
       groups.set(key, {
         instanceId: inst.instanceId,
         defId: inst.defId,
         name: t(inst.def.name, actor.lang),
         count: 1,
+        usable: !!use,
+        consumable: !!(use && use.consumable),
       });
     }
   }
@@ -110,6 +113,14 @@ export function buildStatsMsg(actor) {
       castButton: s('panel.cast_button', actor.lang),
       attackButton: s('panel.attack_button', actor.lang),
       fleeButton: s('panel.flee_button', actor.lang),
+      useFixtureButton: s('panel.use_fixture_button', actor.lang),
+      useOnButton: s('panel.use_on_button', actor.lang),
+      consumablesButton: s('panel.consumables_button', actor.lang),
+      useFixturePickerTitle: s('panel.use_fixture_picker_title', actor.lang),
+      useFixturePickerEmpty: s('panel.use_fixture_picker_empty', actor.lang),
+      useOnPickerTitle: s('panel.use_on_picker_title', actor.lang),
+      useOnTargetTitle: s('panel.use_on_target_title', actor.lang),
+      consumablesPickerTitle: s('panel.consumables_picker_title', actor.lang),
       spellPickerTitle: s('panel.spell_picker_title', actor.lang),
       attackPickerTitle: s('panel.attack_picker_title', actor.lang),
       spellNoMp: s('panel.spell_no_mp', actor.lang),

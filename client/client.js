@@ -16,6 +16,11 @@ const tickEl = document.getElementById('tick');
 const scrollBtn = document.getElementById('scroll-btn');
 const deathOverlay = document.getElementById('death-overlay');
 const deathCountEl = document.getElementById('death-count');
+const dirButtonsEl = document.getElementById('dir-buttons');
+const dirSepEl = document.getElementById('dir-sep');
+const useFixtureBtn = document.getElementById('use-fixture-btn');
+const useOnBtn = document.getElementById('use-on-btn');
+const consumablesBtn = document.getElementById('consumables-btn');
 
 let ws = null;
 let loggedIn = false;
@@ -134,6 +139,10 @@ function renderStats(msg) {
     if (labels.castButton) spellBtn.textContent = `${labels.castButton} ▶`;
     spellBtn.hidden = !(Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0);
   }
+  if (labels.useFixtureButton) useFixtureBtn.textContent = labels.useFixtureButton;
+  if (labels.useOnButton) useOnBtn.textContent = labels.useOnButton;
+  if (labels.consumablesButton) consumablesBtn.textContent = labels.consumablesButton;
+  refreshActionButtons();
   whoEl.textContent = msg.isAdmin ? `${msg.name} (admin)` : msg.name;
   whereEl.textContent = msg.location ?? '';
 
@@ -459,6 +468,8 @@ function handle(msg) {
       if (pendingRoomTransition) { appendRoomSep(msg.name); pendingRoomTransition = false; }
       lastRoomMsg = msg;
       renderRoomInInspect(msg);
+      renderDirButtons(msg);
+      refreshActionButtons();
       break;
     case 'target-info':
       renderTargetInfo(msg);
@@ -604,6 +615,9 @@ quickbar.addEventListener('click', (ev) => {
   if (!btn) return;
   if (btn.id === 'attack-btn') { openAttackPicker(btn, ev); return; }
   if (btn.id === 'spell-btn') { openSpellPicker(btn, ev); return; }
+  if (btn.id === 'use-fixture-btn') { openUseFixturePicker(btn, ev); return; }
+  if (btn.id === 'use-on-btn') { openUseOnPicker(btn, ev); return; }
+  if (btn.id === 'consumables-btn') { openConsumablesPicker(btn, ev); return; }
   if (btn.dataset.cmd) sendInput(btn.dataset.cmd);
   else if (btn.dataset.prefix) fillInput(btn.dataset.prefix);
 });
@@ -855,7 +869,11 @@ function openSpellPopover(anchorEl, spell, ev) {
 function openAttackPicker(anchorEl, ev) {
   ev?.stopPropagation();
   const targets = currentRoomTargets();
-  if (targets.length === 1) { sendInput(`attack ${targets[0]}`); return; }
+  const hostiles = currentRoomTargets({ hostileOnly: true });
+  if (targets.length === 1 && hostiles.length === 1) {
+    sendInput(`attack ${targets[0]}`);
+    return;
+  }
   startPopover(anchorEl, labels.attackPickerTitle ?? 'Attack who?');
   if (targets.length === 0) {
     const empty = document.createElement('div');
@@ -911,6 +929,118 @@ function openSpellPicker(anchorEl, ev) {
       });
     }
     popover.appendChild(row);
+  }
+  positionPopover(anchorEl);
+}
+
+const DIR_LABELS = {
+  n: 'N', s: 'S', e: 'E', w: 'W', u: 'U', d: 'D',
+  ne: 'NE', nw: 'NW', se: 'SE', sw: 'SW',
+  north: 'N', south: 'S', east: 'E', west: 'W', up: 'U', down: 'D',
+  northeast: 'NE', northwest: 'NW', southeast: 'SE', southwest: 'SW',
+};
+
+function dirShortLabel(key) {
+  const lower = (key ?? '').toLowerCase();
+  if (DIR_LABELS[lower]) return DIR_LABELS[lower];
+  return lower ? lower[0].toUpperCase() + lower.slice(1) : '?';
+}
+
+function renderDirButtons(roomMsg) {
+  dirButtonsEl.innerHTML = '';
+  const exits = roomMsg?.exits ?? [];
+  if (exits.length === 0) {
+    dirSepEl.hidden = true;
+    return;
+  }
+  dirSepEl.hidden = false;
+  for (const ex of exits) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.dataset.cmd = ex.key;
+    btn.title = ex.label ?? ex.key;
+    btn.textContent = dirShortLabel(ex.key);
+    dirButtonsEl.appendChild(btn);
+  }
+}
+
+function refreshActionButtons() {
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  const fixtures = (lastRoomMsg?.items ?? []).filter(it => it.usable && it.pickable === false);
+  const consumables = inv.filter(it => it.consumable);
+  useFixtureBtn.hidden = fixtures.length === 0;
+  useOnBtn.hidden = inv.length === 0;
+  consumablesBtn.hidden = consumables.length === 0;
+}
+
+function openUseFixturePicker(anchorEl, ev) {
+  ev?.stopPropagation();
+  const fixtures = (lastRoomMsg?.items ?? []).filter(it => it.usable && it.pickable === false);
+  if (fixtures.length === 1) { sendInput(`use ${fixtures[0].name}`); return; }
+  startPopover(anchorEl, labels.useFixturePickerTitle ?? 'Use what?');
+  if (fixtures.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'picker-empty';
+    empty.textContent = labels.useFixturePickerEmpty ?? '(nothing usable here)';
+    popover.appendChild(empty);
+  } else {
+    for (const f of fixtures) {
+      popover.appendChild(popoverButton(f.name, '', () => {
+        sendInput(`use ${f.name}`); closePopover();
+      }));
+    }
+  }
+  positionPopover(anchorEl);
+}
+
+function openUseOnPicker(anchorEl, ev) {
+  ev?.stopPropagation();
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  if (inv.length === 0) return;
+  startPopover(anchorEl, labels.useOnPickerTitle ?? 'Use which item?');
+  for (const item of inv) {
+    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+    popover.appendChild(popoverButton(label, '', () => {
+      openUseOnTargetPicker(anchorEl, item);
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openUseOnTargetPicker(anchorEl, item) {
+  const tmpl = labels.useOnTargetTitle ?? 'Use {item} on…';
+  startPopover(anchorEl, tmpl.replace('{item}', item.name));
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
+    openUseOnPicker(anchorEl);
+  }));
+  popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+    sendInput(`use ${item.name}`); closePopover();
+  }));
+  for (const target of currentRoomTargets()) {
+    popover.appendChild(popoverButton(target, '', () => {
+      sendInput(`use ${item.name} on ${target}`); closePopover();
+    }));
+  }
+  for (const roomItem of (lastRoomMsg?.items ?? [])) {
+    popover.appendChild(popoverButton(roomItem.name, '', () => {
+      sendInput(`use ${item.name} on ${roomItem.name}`); closePopover();
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openConsumablesPicker(anchorEl, ev) {
+  ev?.stopPropagation();
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  const consumables = inv.filter(it => it.consumable);
+  if (consumables.length === 0) return;
+  if (consumables.length === 1) { sendInput(`use ${consumables[0].name}`); return; }
+  startPopover(anchorEl, labels.consumablesPickerTitle ?? 'Consume what?');
+  for (const item of consumables) {
+    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+    popover.appendChild(popoverButton(label, '', () => {
+      sendInput(`use ${item.name}`); closePopover();
+    }));
   }
   positionPopover(anchorEl);
 }
