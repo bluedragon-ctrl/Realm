@@ -9,7 +9,7 @@ A small fantasy MUD for LAN play. Single-process Node.js server, browser client,
 - Walk between 5 starter rooms (`home.yard` and the surrounding cottage, herb shack, garden and field crossroads)
 - Persistent player position, language, stats, inventory (atomic JSON writes; saved on logout and every ~30s)
 - Per-character language (`en` / `cs`); content text is `{en, cs}`; system messages in `content/strings/<lang>.json`; broadcasts render per-recipient
-- World tick (600ms) with NetHack-style energy/speed scheduler — drives ambient NPCs
+- World tick (1000ms) with NetHack-style energy/speed scheduler — drives ambient NPCs
 - Stat block on every actor (`hp/hpMax, mp/mpMax, attack, defense, int, spd`) — only `spd` is wired so far
 - One ambient NPC (a scruffy dog in the yard) demonstrating the data-driven primitives
 - Social verbs (`hug`, `pet`, `pat`, `wave`, `scratch`, `smile`, `bow`) loaded from `content/socials.json`
@@ -17,7 +17,7 @@ A small fantasy MUD for LAN play. Single-process Node.js server, browser client,
 - Spells with known-spell list and per-spell `target` metadata (`self` / `friendly` / `hostile` / `any`): `cast <spell> [on <target>]`, MP cost, data-driven. Two examples: `spell.heal` (friendly, restores HP) and `spell.spark` (hostile, `1d4` damage)
 - Effect system (`heal`, `damage`) shared between item `use`, spell `effect`, and combat. Damage spells route through the same post-damage path as melee (`applyDamageWithFeedback`)
 - Combat MVP: `attack <target>`, dice-formula damage (`1d3+ATK` etc.), aggro that resets on leaving the room, NPC respawn after death, player respawn at home with half HP. `flee` / `f` picks a random exit
-- NPC primitives: `say`, `emote` (ambient), `interact` (NPC → player emote), `give_item` (NPC → player item transfer), `attack`, `flee`; `wait`/`move`/`cast` reserved
+- NPC primitives: `say`, `emote` (ambient), `interact` (NPC → player emote), `give_item` (NPC → player item transfer), `attack`, `flee`, `wait`, `move`, `cast`
 - Four-region client UI: top bar, console (event log), player panel (stats + HP/MP bars + inventory + spellbook), inspect panel (current room or last-looked target), input + quick bar (with a red `Flee` button)
 - Click-to-interact: chips in the inspect panel open context-appropriate actions. Hostile NPC chips fire `attack` directly. Friendly/neutral NPC chips open a popover (`Look` + socials). Item chips open `Look` + `Pick up`/`Use ▶`/`Drop`/`Give ▶`. Spell chips in the spellbook target smartly per the spell's `target` field (self → cast immediately; hostile → autotarget the lone hostile or pick from a mini-popover; friendly/any → popover with `Yourself` + room targets)
 - Admin: `@create-player <name> [lang]`, `@reload`, `@who`
@@ -139,7 +139,7 @@ Drop a file under `content/npcs/`:
 }
 ```
 
-Available primitives: `say`, `emote`, `wait`, `interact` (uses `templates` with `{target}`), `give_item` (uses `templates` with `{item}` and `{target}`). Reserved: `move`, `attack`, `cast`.
+Available primitives: `say`, `emote`, `wait`, `interact` (uses `templates` with `{target}`), `give_item` (uses `templates` with `{item}` and `{target}`), `attack` (combat), `flee` (move on damage), `move` (wander), `cast` (NPC spellcasting). See the realm-content skill for the full table.
 
 ### Add an item
 
@@ -265,7 +265,7 @@ The verb becomes a command and a popover button automatically. No code change.
 
 - **No build step.** Plain ES modules, Node 20+. Single runtime dep (`ws`).
 - **JSON-only persistence.** Atomic writes via tmp+rename. SQLite migration deferred until the combat phase or first real pain (cross-player queries / transactions / event log). Persistence is already isolated in `src/persist/`.
-- **Tick loop** at 600ms. Each NPC accrues `energy += spd`; when `energy >= cost` the next viable behavior fires. Player commands are immediate today; combat will route through the same scheduler.
+- **Tick loop** at 1000ms. Each NPC accrues `energy += spd`; when `energy >= cost` the next viable behavior fires. Player commands are immediate today; combat will route through the same scheduler.
 - **Per-recipient broadcast** — `broadcastToRoom(roomId, msgOrBuilder, except)` accepts a function that receives the recipient and returns their localized message. Used for narration, say/emote, socials, item use, NPC primitives.
 - **Verb shape** — `{ <lang>: { to_target?: {self, others}, no_target?: {self, others}, missing? } }`. Used by socials and `item.use`. `runVerb` in `src/game/verbs.js` is the shared executor.
 - **Item instance** — `{ defId, instanceId, def, state }`. `state` is empty today, will hold durability/charges later. Saved to player JSON as `{ defId, state }`.
@@ -282,9 +282,9 @@ The verb becomes a command and a popover button automatically. No code change.
 | World tick + ambient NPCs | done |
 | Click-to-interact UI (popover) | done |
 | Items + inventory + simple item interaction loop | done |
-| Second NPC (Marta the innkeeper) | next |
-| Combat (attack verb, HP changes, monster death) | planned |
-| Magic (spells as content, MP costs) | planned |
+| Combat (attack verb, HP changes, monster death) | done |
+| Magic (spells as content, MP costs) | done |
+| Stabilisation, testing, basic gameplay content | in progress |
 | Loot tables, monster spawns, server events | planned |
 | Quests / dialogue trees | planned |
-| SQLite migration | revisit at combat phase |
+| SQLite migration | deferred until performance pain |

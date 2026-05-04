@@ -17,7 +17,7 @@
     "d": "home.basement"
   },
   "lockedExits": {
-    "d": "shack.trap_door"
+    "d": "home.trap_door"
   },
   "tags": ["safe", "indoor", "home"]
 }

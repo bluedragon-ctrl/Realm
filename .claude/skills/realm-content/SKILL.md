@@ -40,13 +40,31 @@ Read each file quickly (just the `id`, `exits`, `stats`, and `spawn.location` fi
 
 ## Step 2 — File naming convention
 
-| Type  | Pattern                  | Example                    |
-|-------|--------------------------|----------------------------|
-| Room  | `<zone>.<place>.json`    | `forest.meadow.json`       |
-| NPC   | `<zone>.<creature>.json` | `basement.rat.json`        |
-| Item  | `<zone>.<item>.json`     | `forest.blue_flower.json`  |
+| Type  | Pattern                                          | Example                    |
+|-------|--------------------------------------------------|----------------------------|
+| Room  | `<region>.<place>.json`                          | `forest.meadow.json`       |
+| NPC   | `<region>.<creature>.json` (region where it lives) | `home.rat.json`          |
+| Item  | `<region>.<item>.json` (zone-tied) **or** `<category>.<item>.json` (generic — `item`, `potion`) | `forest.blue_flower.json`, `potion.heal.json` |
+| Effect | `effect.<name>.json` | `effect.poison.json` |
+| Spell | `spell.<name>.json` | `spell.heal.json` |
 
-IDs inside the JSON match the filename without `.json`.
+IDs inside the JSON always match the filename without `.json`. Lowercase, snake_case, ASCII only. **Enforced at boot** — `contentLoader.js` throws if filename ≠ `id`.
+
+For NPCs the prefix is the **region** the NPC lives in (e.g. `home.rat`, not `basement.rat`), so the prefix matches the room the NPC is bound to. For items, use a region prefix when the item is tied to a specific zone (`forest.iron_sword`); use a category prefix (`item`, `potion`, `amulet`) when the item is generic and could appear anywhere.
+
+**Current regions:** `home`, `forest`. Add a new region only when introducing a meaningfully separate zone with multiple rooms.
+
+**Item subfolder layout** (target — current files don't all follow this yet):
+
+```
+content/items/
+  consumables/   potions, herbs, food, reagents (anything used up)
+  wearables/     weapons, armor, amulets (anything with a `wearable` block)
+  fixtures/      room props (`pickable: false`, `weight: 99`)
+  <flat>         remaining keys, scrolls, toys
+```
+
+The loader recurses, so a file's location does not affect its id; this is purely organisational. New items should land in the right subfolder.
 
 ## Step 3 — Exit keys
 
@@ -70,16 +88,22 @@ Write Czech text naturally — short, plain sentences. Use nominative for `{acto
 
 ## NPC balancing reference
 
-Match new NPCs to nearby mobs in HP and ATK. Current baselines:
+Match new NPCs to nearby mobs in HP and ATK. Current baselines (read the actual files when tuning, this drifts):
 
-| NPC         | HP | ATK | SPD | Damage     | Disposition |
-|-------------|----|-----|-----|------------|-------------|
-| wasp        | 4  | 1   | 2   | 1d2+ATK    | hostile     |
-| rat         | 5  | 1   | 3   | 1d3+ATK    | hostile     |
-| dog         | 6  | 1   | 6   | —          | friendly    |
-| bee         | 6  | 1   | 8   | 1          | neutral     |
-| bear        | —  | —   | 8   | —          | hostile     |
-| skeleton    | —  | —   | 10  | —          | hostile     |
+| NPC         | HP | ATK | DEF | SPD | Damage     | Disposition |
+|-------------|----|-----|-----|-----|------------|-------------|
+| wasp        | 4  | 1   | 0   | 2   | 1d2+ATK    | hostile     |
+| rat         | 7  | 1   | 0   | 3   | 1d3+ATK    | hostile     |
+| dog         | 6  | 1   | 0   | 6   | —          | friendly    |
+| bee         | 6  | 1   | 0   | 8   | 1          | neutral     |
+| rabbit      | 3  | 1   | 0   | 7   | —          | neutral     |
+| fox         | 8  | 2   | 0   | 6   | —          | neutral     |
+| fox_pup     | 4  | 1   | 0   | 6   | —          | neutral     |
+| wolf        | 14 | 3   | 1   | 6   | —          | hostile     |
+| bear        | 30 | 5   | 2   | 6   | —          | hostile     |
+| skeleton    | 15 | 3   | 1   | 10  | —          | hostile     |
+
+`skeleton` at SPD 10 is the explicit "fast" design exception. All other hostile mobs sit at or below SPD 6 per the pacing rule below.
 
 ### Combat pacing — design principle
 
@@ -96,14 +120,32 @@ Concretely:
 
 Only use primitives from this list. Unknown primitives crash at boot.
 
-| Primitive   | Purpose                               | Required fields                        |
-|-------------|---------------------------------------|----------------------------------------|
-| `attack`    | Attack aggro target                   | `damage`, `templates`, `requires: "aggro_target"` |
-| `emote`     | Ambient flavour text                  | `lines`                                |
-| `interact`  | Do something to a random player       | `templates` (use `{target}`)           |
-| `flee`      | Move to random exit                   | `templates` (use `{actor}`, `{direction}`), `requires: "was_attacked"` |
-| `give_item` | Give inventory item to random player  | `templates` (use `{target}`, `{item}`) |
-| `say`       | Broadcast dialogue                    | `lines`                                |
+| Primitive   | Purpose                               | Status   | Required fields                        |
+|-------------|---------------------------------------|----------|----------------------------------------|
+| `attack`    | Attack aggro target                   | ready    | `damage`, `templates`, `requires: "aggro_target"` |
+| `emote`     | Ambient flavour text                  | ready    | `lines`                                |
+| `interact`  | Do something to a random player      | ready    | `templates` (use `{target}`)           |
+| `flee`      | Move to random exit                   | ready    | `templates` (use `{actor}`, `{direction}`), `requires: "was_attacked"` |
+| `give_item` | Give inventory item to random player  | ready    | `templates` (use `{target}`, `{item}`) |
+| `say`       | Broadcast dialogue                    | ready    | `lines`                                |
+| `wait`      | Stand idle, consume energy            | ready    | none (no broadcast, just consumes the turn) |
+| `move`      | Wander between rooms                  | ready    | optional `templates` (use `{actor}`, `{direction}`) — omit to move silently |
+| `cast`      | NPC casts a spell                     | ready    | `spell` (id), `target: "self"` or `"aggro_target"` |
+
+**`cast` example** (a friendly NPC self-heals when low):
+
+```json
+{
+  "primitive": "cast",
+  "spell": "spell.heal",
+  "target": "self",
+  "chance": 1.0,
+  "cost": 12,
+  "requires": { "type": "low_hp", "ratio": 0.5 }
+}
+```
+
+`cast` deducts MP, runs the spell's verb broadcast, and applies the spell's effect (damage routes through `applyDamageWithFeedback`; `apply_effect` calls `applyActiveEffect`; `heal` and other effect types go through `applyEffect`). It silently aborts if MP is insufficient, the spell is unknown, or `aggro_target` has no valid target.
 
 `lines` and `templates` must be objects with `en` and `cs` keys, each holding an array of strings. Arrays must be the same length in both languages.
 
@@ -113,10 +155,21 @@ Hostile aggressive NPCs need at minimum: one `attack` behavior + one `emote` beh
 
 Common tags — use existing ones rather than inventing new ones:
 
-`weapon`, `herb`, `reagent`, `food`, `fixture`, `tool`
+`weapon`, `armor`, `herb`, `reagent`, `food`, `fixture`, `tool`, `key`, `toy`, `light`
 
 Fixture items are room props: set `"pickable": false` and `"weight": 99`.  
 Reagent/herb items carried by players: `"weight": 0` or `1`.
+
+**Wearable items** (weapons, armor, amulets) declare a `wearable` block:
+
+```json
+"wearable": {
+  "slot": "weapon",
+  "bonus": { "attack": 1 }
+}
+```
+
+Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hpMax`, `mpMax`, `int`, `spd`. Optional `wearable.effects: ["effect.id", ...]` applies passive effects while equipped.
 
 ## Checklist before finishing
 
@@ -127,5 +180,7 @@ Reagent/herb items carried by players: `"weight": 0` or `1`.
 - [ ] `lines`/`templates` arrays are same length in `en` and `cs`
 - [ ] No `null` exit values anywhere
 - [ ] Both `en` and `cs` filled in for all text fields
+- [ ] Filename matches `id` exactly (boot will fail otherwise)
+- [ ] Items placed in the right subfolder (`consumables/`, `wearables/`, `fixtures/`, or flat)
 
 See `references/schemas.md` for complete JSON schemas.
