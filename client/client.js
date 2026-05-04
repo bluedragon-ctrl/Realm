@@ -124,9 +124,16 @@ function renderStats(msg) {
   playerPanelTitle.textContent = labels.panelTitle ?? 'Character';
   inspectTitle.textContent = labels.inspectTitle ?? 'Inspect';
   if (labels.backToRoom) backBtn.textContent = labels.backToRoom;
-  // Update quickbar Flee button label per language
+  // Update quickbar button labels per language
   const fleeBtn = document.getElementById('flee-btn');
   if (fleeBtn && labels.fleeButton) fleeBtn.textContent = labels.fleeButton;
+  const attackBtn = document.getElementById('attack-btn');
+  if (attackBtn && labels.attackButton) attackBtn.textContent = labels.attackButton;
+  const spellBtn = document.getElementById('spell-btn');
+  if (spellBtn) {
+    if (labels.castButton) spellBtn.textContent = `${labels.castButton} ▶`;
+    spellBtn.hidden = !(Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0);
+  }
   whoEl.textContent = msg.isAdmin ? `${msg.name} (admin)` : msg.name;
   whereEl.textContent = msg.location ?? '';
 
@@ -595,6 +602,8 @@ input.addEventListener('keydown', (ev) => {
 quickbar.addEventListener('click', (ev) => {
   const btn = ev.target.closest('button');
   if (!btn) return;
+  if (btn.id === 'attack-btn') { openAttackPicker(btn, ev); return; }
+  if (btn.id === 'spell-btn') { openSpellPicker(btn, ev); return; }
   if (btn.dataset.cmd) sendInput(btn.dataset.cmd);
   else if (btn.dataset.prefix) fillInput(btn.dataset.prefix);
 });
@@ -839,6 +848,69 @@ function openSpellPopover(anchorEl, spell, ev) {
     popover.appendChild(popoverButton(target, '', () => {
       sendInput(`cast ${spell.id} on ${target}`); closePopover();
     }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openAttackPicker(anchorEl, ev) {
+  ev?.stopPropagation();
+  const targets = currentRoomTargets();
+  if (targets.length === 1) { sendInput(`attack ${targets[0]}`); return; }
+  startPopover(anchorEl, labels.attackPickerTitle ?? 'Attack who?');
+  if (targets.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'picker-empty';
+    empty.textContent = labels.attackPickerEmpty ?? '(no targets)';
+    popover.appendChild(empty);
+  } else {
+    for (const target of targets) {
+      popover.appendChild(popoverButton(target, 'attack', () => {
+        sendInput(`attack ${target}`); closePopover();
+      }));
+    }
+  }
+  positionPopover(anchorEl);
+}
+
+function openSpellPicker(anchorEl, ev) {
+  ev?.stopPropagation();
+  const spells = lastStatsMsg?.knownSpells ?? [];
+  if (spells.length === 0) return;
+  const currentMp = lastStatsMsg?.stats?.mp ?? 0;
+  const sorted = [...spells].sort((a, b) => {
+    const aOk = (a.mpCost ?? 0) <= currentMp;
+    const bOk = (b.mpCost ?? 0) <= currentMp;
+    if (aOk !== bOk) return aOk ? -1 : 1;
+    return 0;
+  });
+  startPopover(anchorEl, labels.spellPickerTitle ?? 'Cast which spell?');
+  for (const spell of sorted) {
+    const canCast = (spell.mpCost ?? 0) <= currentMp;
+    const row = document.createElement('button');
+    row.type = 'button';
+    row.className = canCast ? 'spell-row' : 'spell-row disabled';
+    if (!canCast) row.title = labels.spellNoMp ?? 'not enough mana';
+    const name = document.createElement('span');
+    name.className = 'spell-row-name';
+    name.textContent = spell.name;
+    const cost = document.createElement('span');
+    cost.className = 'spell-row-cost';
+    cost.textContent = `${spell.mpCost} MP`;
+    row.appendChild(name);
+    row.appendChild(cost);
+    if (spell.description) {
+      const desc = document.createElement('span');
+      desc.className = 'spell-row-desc';
+      desc.textContent = spell.description;
+      row.appendChild(desc);
+    }
+    if (canCast) {
+      row.addEventListener('click', () => {
+        closePopover();
+        openSpellPopover(anchorEl, spell);
+      });
+    }
+    popover.appendChild(row);
   }
   positionPopover(anchorEl);
 }

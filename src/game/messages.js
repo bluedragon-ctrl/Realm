@@ -63,6 +63,7 @@ function buildKnownSpells(actor) {
       name: t(def.name, actor.lang),
       mpCost: def.mpCost ?? 0,
       target: def.target ?? 'any',
+      description: def.description ? t(def.description, actor.lang) : '',
     });
   }
   return out;
@@ -109,6 +110,10 @@ export function buildStatsMsg(actor) {
       castButton: s('panel.cast_button', actor.lang),
       attackButton: s('panel.attack_button', actor.lang),
       fleeButton: s('panel.flee_button', actor.lang),
+      spellPickerTitle: s('panel.spell_picker_title', actor.lang),
+      attackPickerTitle: s('panel.attack_picker_title', actor.lang),
+      spellNoMp: s('panel.spell_no_mp', actor.lang),
+      attackPickerEmpty: s('panel.attack_picker_empty', actor.lang),
       equipmentTitle: s('panel.equipment', actor.lang),
       equipmentEmpty: s('panel.equipment_empty', actor.lang),
       effectsTitle: s('panel.effects', actor.lang),

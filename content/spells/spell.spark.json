@@ -6,6 +6,10 @@
   },
   "mpCost": 3,
   "target": "hostile",
+  "description": {
+    "en": "Zap an enemy with a small jolt of energy.",
+    "cs": "Zasáhne nepřítele malým výbojem energie."
+  },
   "verb": {
     "en": {
       "to_target": {
