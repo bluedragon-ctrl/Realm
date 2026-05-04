@@ -37,20 +37,20 @@
     <nav id="quickbar" hidden>
       <span id="dir-buttons"></span>
       <span class="quickbar-sep" id="dir-sep" aria-hidden="true" hidden></span>
-      <button type="button" data-cmd="look">Look</button>
-      <button type="button" data-cmd="who">Who</button>
-      <button type="button" data-cmd="help">Help</button>
+      <button type="button" id="attack-btn" class="combat">Attack</button>
+      <button type="button" id="spell-btn" class="combat" hidden>Spell ▶</button>
+      <button type="button" id="consumables-btn">Consumables ▶</button>
+      <button type="button" data-cmd="flee" id="flee-btn" class="danger">Flee</button>
+      <span class="quickbar-sep" aria-hidden="true"></span>
+      <button type="button" id="use-fixture-btn">Use ▶</button>
+      <button type="button" id="use-on-btn">Use on ▶</button>
+      <span class="quickbar-sep" aria-hidden="true"></span>
+      <button type="button" id="look-btn">Look ▶</button>
       <button type="button" data-prefix="say ">Say…</button>
       <button type="button" data-prefix="emote ">Emote…</button>
       <span class="quickbar-sep" aria-hidden="true"></span>
-      <button type="button" id="use-fixture-btn" hidden>Use ▶</button>
-      <button type="button" id="use-on-btn" hidden>Use on ▶</button>
-      <button type="button" id="consumables-btn" hidden>Consumables ▶</button>
-      <span class="quickbar-sep" aria-hidden="true"></span>
-      <button type="button" id="attack-btn" class="combat">Attack</button>
-      <button type="button" id="spell-btn" class="combat" hidden>Spell ▶</button>
-      <span class="quickbar-sep" aria-hidden="true"></span>
-      <button type="button" data-cmd="flee" id="flee-btn" class="danger">Flee</button>
+      <button type="button" data-cmd="who">Who</button>
+      <button type="button" data-cmd="help">Help</button>
     </nav>
 
     <div id="action-popover" hidden></div>
