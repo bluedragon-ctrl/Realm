@@ -1,0 +1,20 @@
+{
+  "id": "forest.sunlit_path",
+  "name": {
+    "en": "Sunlit path",
+    "cs": "Slunná stezka"
+  },
+  "short": {
+    "en": "A narrow path where warm sunlight pours between the trees.",
+    "cs": "Úzká stezka, kterou mezi stromy proudí teplé sluneční světlo."
+  },
+  "long": {
+    "en": "The trees here stand farther apart and the canopy opens enough to let broad shafts of sunlight reach the forest floor. Wildflowers grow at the edges of the path and the air feels suddenly warmer. The path leads back into the dark trees to the west, while to the east it opens into a small grassy glade.",
+    "cs": "Stromy zde stojí dál od sebe a koruny se otevírají natolik, aby na lesní půdu dopadaly široké pruhy slunečních paprsků. Na okrajích stezky rostou luční květy a vzduch je najednou teplejší. Stezka se vrací zpět do temných stromů na západě a na východě se otevírá v malou travnatou mýtinu."
+  },
+  "exits": {
+    "w": "forest.deep_forest",
+    "e": "forest.fox_glade"
+  },
+  "tags": ["outdoor", "forest", "bright"]
+}

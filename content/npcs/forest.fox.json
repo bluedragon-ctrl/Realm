@@ -1,0 +1,66 @@
+{
+  "id": "forest.fox",
+  "name": { "en": "a red fox", "cs": "liška" },
+  "nameAcc": { "en": "the red fox", "cs": "lišku" },
+  "title": { "en": "red fox", "cs": "liška" },
+  "location": "forest.fox_glade",
+  "pack": "forest.fox_glade",
+  "short": {
+    "en": "A slender red fox watches you with bright, careful eyes.",
+    "cs": "Štíhlá ryšavá liška tě sleduje jasnýma, opatrnýma očima."
+  },
+  "long": {
+    "en": "A grown red fox with a thick rust-coloured coat, a white throat, and a long brush of a tail tipped in white. It stands at the edge of the glade with one paw lifted, watching you carefully. Two small pups tumble in the grass nearby.",
+    "cs": "Dospělá ryšavá liška s hustou rezavou srstí, bílým hrdlem a dlouhým ocasem zakončeným bílou špičkou. Stojí na okraji mýtiny s jednou tlapkou zdviženou a opatrně tě sleduje. V trávě poblíž dovádějí dvě malá štěňátka."
+  },
+  "disposition": "neutral",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 8, "hpMax": 8,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 0, "int": 0,
+    "spd": 6
+  },
+  "respawn": { "ticks": 600 },
+  "xp": 6,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "bite", "cs": "kousnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts in and snaps at {target}!",
+          "{actor} sinks sharp teeth into {target}!"
+        ],
+        "cs": [
+          "{actor} se vrhne a chňapne po {target}!",
+          "{actor} zatne ostré zuby do {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "trots a few quick steps and stops to listen.",
+          "sits and curls its bushy tail around its paws.",
+          "sniffs at the grass with sharp little movements.",
+          "lifts its head and gives a short, high yip."
+        ],
+        "cs": [
+          "rychle popoběhne pár kroků a zastaví se, aby naslouchala.",
+          "sedne si a obtočí huňatý ocas kolem tlap.",
+          "ostrými drobnými pohyby čmuchá v trávě.",
+          "zvedne hlavu a krátce, vysoce zaštěká."
+        ]
+      }
+    }
+  ]
+}

@@ -77,6 +77,21 @@ export function applyDamageWithFeedback(actor, target, amount) {
     target.disposition = 'hostile';
     target.aggressive = true;
     target.wasAttacked = true;
+
+    if (target.pack) {
+      const peers = world.actorsByRoom.get(target.location);
+      if (peers) {
+        for (const peer of peers) {
+          if (peer === target) continue;
+          if (peer.kind !== 'npc' || peer.alive === false) continue;
+          if (peer.pack !== target.pack) continue;
+          if (!peer.aggroAgainst) peer.aggroAgainst = new Set();
+          peer.aggroAgainst.add(actor);
+          peer.disposition = 'hostile';
+          peer.aggressive = true;
+        }
+      }
+    }
   }
 
   if (actor.kind === 'player') sendStats(actor);

@@ -1,0 +1,66 @@
+{
+  "id": "forest.rabbit",
+  "name": { "en": "a brown rabbit", "cs": "hnědý králík" },
+  "nameAcc": { "en": "the brown rabbit", "cs": "hnědého králíka" },
+  "title": { "en": "brown rabbit", "cs": "hnědý králík" },
+  "location": "forest.berry_patch",
+  "count": 3,
+  "short": {
+    "en": "A brown rabbit nibbles berries and watches you sidelong.",
+    "cs": "Hnědý králík okusuje bobule a kose tě sleduje."
+  },
+  "long": {
+    "en": "A small wild rabbit with soft brown fur, white at the belly and the underside of its tail. Its long ears swivel constantly. It nibbles at berries with quick little bites and freezes whenever you move too fast.",
+    "cs": "Malý divoký králík s měkkou hnědou srstí, na břiše a pod ocasem bílou. Dlouhé uši mu neustále otáčí. Rychlými kousky okusuje bobule a kdykoli se pohneš příliš rychle, ztuhne."
+  },
+  "disposition": "neutral",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 3, "hpMax": 3,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "spd": 7
+  },
+  "respawn": { "ticks": 500 },
+  "xp": 2,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "kick", "cs": "kopnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} kicks at {target} with strong hind legs!",
+          "{actor} thumps {target} hard with a back paw!"
+        ],
+        "cs": [
+          "{actor} kopne do {target} silnýma zadníma nohama!",
+          "{actor} tvrdě udeří {target} zadní tlapou!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "twitches its long ears.",
+          "hops two short steps and freezes.",
+          "nibbles thoughtfully on a red berry.",
+          "thumps a hind paw against the ground."
+        ],
+        "cs": [
+          "zatrhne dlouhýma ušima.",
+          "skočí dva krátké kroky a ztuhne.",
+          "zamyšleně okusuje červenou bobuli.",
+          "udeří zadní tlapkou o zem."
+        ]
+      }
+    }
+  ]
+}

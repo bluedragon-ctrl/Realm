@@ -1,0 +1,19 @@
+{
+  "id": "forest.berry_patch",
+  "name": {
+    "en": "Berry patch",
+    "cs": "Borůvčí"
+  },
+  "short": {
+    "en": "Bright bushes heavy with red berries.",
+    "cs": "Jasné keře obtěžkané červenými bobulemi."
+  },
+  "long": {
+    "en": "A sun-warmed clearing thick with low bushes, their leaves shiny and their branches heavy with clusters of small red berries. Bees hum somewhere out of sight and the air smells faintly sweet. The ground between the bushes is well trodden, with little paths worn through the grass by something small and quick. The trail back to the glade lies south.",
+    "cs": "Sluncem zalitá mýtina hustě porostlá nízkými keři s lesklými listy a větvemi obtěžkanými trsy malých červených bobulí. Někde v dálce bzučí včely a vzduch slabě voní sladce. Země mezi keři je udupaná a v trávě jsou prošlapané drobné pěšiny od něčeho malého a rychlého. Stezka zpět na mýtinu vede na jih."
+  },
+  "exits": {
+    "s": "forest.fox_glade"
+  },
+  "tags": ["outdoor", "forest", "bright"]
+}

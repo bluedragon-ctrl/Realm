@@ -1,0 +1,15 @@
+{
+  "id": "effect.poison",
+  "name": {
+    "en": "Poison",
+    "cs": "Otrava"
+  },
+  "kind": "debuff",
+  "icon": "☠",
+  "tick": {
+    "every": 2,
+    "pulses": 4,
+    "effect": { "type": "damage", "amount": 1 }
+  },
+  "stack": "refresh"
+}
