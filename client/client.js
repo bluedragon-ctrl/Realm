@@ -170,6 +170,8 @@ function renderStats(msg) {
     [labels.def ?? 'DEF', s.defense],
     [labels.int ?? 'INT', s.int],
     [labels.mres ?? 'MRES', s.magicResist],
+    [labels.acc ?? 'ACC', s.accuracy],
+    [labels.eva ?? 'EVA', s.evasion],
     [labels.spd ?? 'SPD', s.spd],
   ]) {
     const k = document.createElement('span'); k.className = 'k'; k.textContent = key;
@@ -410,6 +412,8 @@ function renderTargetInfo(msg) {
       [labels.def ?? 'DEF', s.defense],
       [labels.int ?? 'INT', s.int],
       [labels.mres ?? 'MRES', s.magicResist],
+      [labels.acc ?? 'ACC', s.accuracy],
+      [labels.eva ?? 'EVA', s.evasion],
       [labels.spd ?? 'SPD', s.spd],
     ]) {
       const span = document.createElement('span');

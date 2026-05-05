@@ -123,7 +123,21 @@ NPCs default to `magicResist: 0` (no spell resistance). Effective resist on the 
 - `magicResist: 50` — high, fits explicitly anti-magic creatures (skeleton, animated constructs).
 - Avoid stacking high `magicResist` with high `int` — both feed the same roll.
 
-Damage spells use dice formulas (`"1d4+INT/4"`, `"4d6+INT"`); `INT` lets caster intelligence scale spell power. Heal `amount` also accepts a formula. Available variables in formulas: `ATK`, `DEF`, `INT`, `HP`, `MP`, `MR` (the *actor's* magic resist). `*N` and `/N` postfix modifiers are supported (e.g. `INT/4`, `INT*2`).
+Damage spells use dice formulas (`"1d4+INT/4"`, `"4d6+INT"`); `INT` lets caster intelligence scale spell power. Heal `amount` also accepts a formula. Available variables in formulas: `ATK`, `DEF`, `INT`, `HP`, `MP`, `MR` (the *actor's* magic resist), `ACC`, `EVA`. `*N` and `/N` postfix modifiers are supported (e.g. `INT/4`, `INT*2`).
+
+### Accuracy & Evasion
+
+Melee-only hit/miss roll. Before damage rolls, `executeAttack` computes `dodge = clamp(target.evasion - actor.accuracy, 0, 50)`; if `dodge > 0` and `d100 ≤ dodge`, the attack misses (no damage, but aggro still registers). Spells are unaffected. Defaults are `accuracy: 0, evasion: 0` — two zero-stat actors never miss each other, so EVA-investing mobs are the exception, not the rule.
+
+Tuning guidance:
+- **Skirmishers** (rabbit, fox, bee, fox_pup): `evasion: 30`. Twitchy, hard to land a clean hit on.
+- **Wasp**: `evasion: 40` — top of the range, deliberately visible early so players see the mechanic in the home zone.
+- **Standard mobs** (kobold variants, kobold guard): `evasion: 15`.
+- **Slow / sluggish** (rat): `evasion: 10`.
+- **Tanks** (bear, skeleton, kobold chief, giant centipede): leave `evasion` at default 0 — they take the hit.
+- **Predators with focus** can carry `accuracy` to push through future player evasion gear: wolf at `accuracy: 10`, kobold chief at `accuracy: 15`.
+
+Gear: ACC fits weapons and rings; EVA fits cloaks, boots, and light armor. Negative `evasion` on heavy armor is mechanically supported but reserved for a later design pass — don't ship it without discussing.
 
 ## Behavior primitives
 
@@ -178,7 +192,7 @@ Reagent/herb items carried by players: `"weight": 0` or `1`.
 }
 ```
 
-Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hpMax`, `mpMax`, `int`, `magicResist`, `spd`. Optional `wearable.effects: ["effect.id", ...]` applies passive effects while equipped.
+Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hpMax`, `mpMax`, `int`, `magicResist`, `accuracy`, `evasion`, `spd`. Optional `wearable.effects: ["effect.id", ...]` applies passive effects while equipped.
 
 ## Checklist before finishing
 

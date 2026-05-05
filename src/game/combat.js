@@ -8,6 +8,8 @@ import { sendStats } from './messages.js';
 import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.js';
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
 
+const MAX_DODGE = 50;
+
 function targetDisplay(target, lang) {
   if (target.kind === 'npc') return t(target.nameAcc ?? target.name, lang);
   return target.name;
@@ -22,6 +24,29 @@ export function executeAttack(actor, action, target) {
   if (!target) return;
   if (target.kind === 'npc' && target.alive === false) return;
   if (!target.stats || target.stats.hp <= 0) return;
+
+  const acc = actor.stats?.accuracy ?? 0;
+  const eva = target.stats?.evasion ?? 0;
+  const dodge = Math.max(0, Math.min(MAX_DODGE, eva - acc));
+  if (dodge > 0 && Math.floor(Math.random() * 100) + 1 <= dodge) {
+    broadcastToRoom(actor.location, (recipient) => {
+      const lang = recipient.lang;
+      let text;
+      if (recipient === actor) {
+        text = s('combat.you_missed', lang, { target: targetDisplay(target, lang) });
+      } else if (recipient === target) {
+        text = s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) });
+      } else {
+        text = s('combat.miss_observed', lang, {
+          actor: actorDisplay(actor, lang),
+          target: targetDisplay(target, lang),
+        });
+      }
+      return { kind: 'emote', source: sourceForActor(actor, recipient), text };
+    });
+    registerAttackAggro(actor, target);
+    return;
+  }
 
   const raw = roll(action.damage ?? '1', { actor, target });
   const def = target.stats.defense ?? 0;

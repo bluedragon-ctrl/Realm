@@ -18,6 +18,8 @@ import flee from './actions/flee.js';
 import wear from './actions/wear.js';
 import removeWearable from './actions/remove.js';
 import equipment from './actions/equipment.js';
+import stats from './actions/stats.js';
+import spells from './actions/spells.js';
 import { world } from './world.js';
 import { runAdminCommand, isAdminCommand } from '../admin/adminCommands.js';
 import { parseCommand, executeHandler } from './dispatch.js';
@@ -51,6 +53,8 @@ const COMMANDS = {
   wear, equip: wear,
   remove: removeWearable, unwear: removeWearable,
   equipment, eq: equipment,
+  stats, st: stats,
+  spells, sp: spells,
 };
 
 export async function runCommand(actor, line) {

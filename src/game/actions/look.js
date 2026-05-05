@@ -104,6 +104,8 @@ function sendTargetInfo(actor, target) {
         def: s('panel.def', lang),
         int: s('panel.int', lang),
         mres: s('panel.mres', lang),
+        acc: s('panel.acc', lang),
+        eva: s('panel.eva', lang),
         spd: s('panel.spd', lang),
       },
       effects: effectsForClient,

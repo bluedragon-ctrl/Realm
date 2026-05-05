@@ -40,6 +40,8 @@
     "mp": 0, "mpMax": 0,
     "attack": 1, "defense": 0, "int": 0,
     "magicResist": 0,
+    "accuracy": 0,
+    "evasion": 0,
     "spd": 10
   },
   "respawn": { "ticks": 600 },
