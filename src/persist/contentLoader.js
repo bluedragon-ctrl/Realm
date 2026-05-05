@@ -86,11 +86,47 @@ function makeNpcValidator(knownRooms) {
         checkLines(b.templates, bctx);
       }
     }
+
+    if (def.shop != null) {
+      checkObject(def.shop, ctx, 'shop');
+      const validateEntry = (entry, label) => {
+        checkObject(entry, ctx, label);
+        check(typeof entry.item === 'string', ctx, `${label}.item must be a string`);
+        check(typeof entry.price === 'number' && Number.isInteger(entry.price) && entry.price >= 0, ctx,
+          `${label}.price must be a non-negative integer`);
+        if (entry.perUnit != null) {
+          check(typeof entry.perUnit === 'number' && Number.isInteger(entry.perUnit) && entry.perUnit >= 1, ctx,
+            `${label}.perUnit must be a positive integer`);
+        }
+      };
+      if (def.shop.sells != null) {
+        checkArray(def.shop.sells, ctx, 'shop.sells');
+        def.shop.sells.forEach((e, i) => validateEntry(e, `shop.sells[${i}]`));
+      }
+      if (def.shop.buys != null) {
+        checkArray(def.shop.buys, ctx, 'shop.buys');
+        def.shop.buys.forEach((e, i) => validateEntry(e, `shop.buys[${i}]`));
+      }
+    }
   };
 }
 
 export async function loadNpcs(knownRooms) {
   return loadDir('npc', path.resolve('content/npcs'), makeNpcValidator(knownRooms));
+}
+
+export function validateNpcShops(npcs, items) {
+  for (const def of npcs.values()) {
+    if (!def.shop) continue;
+    const ctx = `npc '${def.id}'`;
+    for (const list of ['sells', 'buys']) {
+      const entries = def.shop[list] ?? [];
+      for (const entry of entries) {
+        check(items.has(entry.item), ctx,
+          `shop.${list} references unknown item '${entry.item}'`);
+      }
+    }
+  }
 }
 
 // ---------- items ----------
@@ -101,6 +137,15 @@ function makeItemValidator(knownRooms, knownEffects) {
     checkLocalizedText(def.name, ctx, 'name');
     if (def.spawn?.location) {
       check(knownRooms.has(def.spawn.location), ctx, `spawn.location '${def.spawn.location}' is not a known room`);
+    }
+    if (def.spawn?.locations) {
+      checkObject(def.spawn.locations, ctx, 'spawn.locations');
+      for (const [roomId, n] of Object.entries(def.spawn.locations)) {
+        check(knownRooms.has(roomId), ctx, `spawn.locations key '${roomId}' is not a known room`);
+        check(typeof n === 'number' && n >= 1 && Number.isInteger(n), ctx,
+          `spawn.locations['${roomId}'] must be a positive integer`);
+      }
+      check(!def.spawn.location, ctx, `spawn.location and spawn.locations are mutually exclusive`);
     }
     if (def.wearable != null) {
       checkObject(def.wearable, ctx, 'wearable');
@@ -160,6 +205,10 @@ function validateItemInteractions(items, knownRooms) {
         check(spec.produces && items.has(spec.produces), ctx,
           `recipe[${reagentId}].produces references unknown item '${spec.produces}'`);
         checkObject(spec.verb, ctx, `recipe[${reagentId}].verb`);
+        if (spec.count != null) {
+          check(typeof spec.count === 'number' && Number.isInteger(spec.count) && spec.count >= 1, ctx,
+            `recipe[${reagentId}].count must be a positive integer`);
+        }
       }
     }
   }

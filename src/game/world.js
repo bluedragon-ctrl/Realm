@@ -14,7 +14,7 @@ export {
 } from './world/actors.js';
 export {
   itemsInRoom, placeItemInRoom, removeItemFromRoom,
-  countItemsInWorldMemory, countItemsTotal,
+  countItemsInWorldMemory, countItemsInRoomMemory, countItemsTotal,
   spawnAllItems, respawnItemsTick,
   getGoldInRoom, addGoldToRoom, takeGoldFromRoom, clearGoldInRoom,
 } from './world/items.js';

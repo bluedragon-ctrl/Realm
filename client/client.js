@@ -456,6 +456,34 @@ function renderTargetInfo(msg) {
     block.appendChild(grid);
     inspectBody.appendChild(block);
   }
+  if (msg.shop && Array.isArray(msg.shop.sells) && msg.shop.sells.length > 0) {
+    const row = document.createElement('div'); row.className = 'inspect-row';
+    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+    lab.textContent = `${msg.shopSellsLabel ?? 'for sale'}: `;
+    row.appendChild(lab);
+    msg.shop.sells.forEach((entry, i) => {
+      if (i > 0) row.append(' ');
+      const label = `${entry.name} — ${entry.price}g`;
+      const chip = makeChip(label, 'shop-sell', () => sendInput(`buy ${entry.itemId}`));
+      row.appendChild(chip);
+    });
+    inspectBody.appendChild(row);
+  }
+  if (msg.shop && Array.isArray(msg.shop.buys) && msg.shop.buys.length > 0) {
+    const row = document.createElement('div'); row.className = 'inspect-row';
+    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+    lab.textContent = `${msg.shopBuysLabel ?? 'wants to buy'}: `;
+    row.appendChild(lab);
+    msg.shop.buys.forEach((entry, i) => {
+      if (i > 0) row.append(' ');
+      const label = entry.perUnit > 1
+        ? `${entry.name} — ${entry.perUnit} for ${entry.price}g`
+        : `${entry.name} — ${entry.price}g`;
+      const chip = makeChip(label, 'shop-buy', () => sendInput(`sell ${entry.itemId}`));
+      row.appendChild(chip);
+    });
+    inspectBody.appendChild(row);
+  }
   if (Array.isArray(msg.effects) && msg.effects.length > 0) {
     const row = document.createElement('div'); row.className = 'inspect-row';
     const lab = document.createElement('span'); lab.className = 'inspect-row-label';
@@ -570,7 +598,7 @@ form.addEventListener('submit', (ev) => {
 
 const VERB_LIST = [
   'look', 'l', 'go', 'say', 'emote', 'who', 'help', 'quit', 'lang',
-  'take', 'get', 'pick', 'drop', 'inventory', 'inv', 'give',
+  'take', 'get', 'pick', 'drop', 'inventory', 'inv', 'give', 'buy', 'sell',
   'use', 'cast', 'attack', 'kill', 'hit', 'flee',
   'wear', 'equip', 'remove', 'unwear', 'equipment', 'eq',
   'n', 's', 'e', 'w', 'u', 'd', 'ne', 'nw', 'se', 'sw',

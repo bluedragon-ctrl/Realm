@@ -64,6 +64,14 @@ export function countItemsInWorldMemory(defId) {
   return n;
 }
 
+export function countItemsInRoomMemory(defId, roomId) {
+  const list = world.itemsByRoom.get(roomId);
+  if (!list) return 0;
+  let n = 0;
+  for (const inst of list) if (inst.defId === defId) n++;
+  return n;
+}
+
 export async function countItemsTotal(defId) {
   let n = countItemsInWorldMemory(defId);
   const online = new Set();
@@ -86,6 +94,14 @@ export async function countItemsTotal(defId) {
 export async function spawnAllItems() {
   world.itemsByRoom.clear();
   for (const def of world.itemDefs.values()) {
+    if (def.spawn?.locations) {
+      for (const [roomId, perRoomCap] of Object.entries(def.spawn.locations)) {
+        for (let i = 0; i < perRoomCap; i++) {
+          placeItemInRoom(makeItemInstance(def), roomId);
+        }
+      }
+      continue;
+    }
     if (!def.spawn?.location) continue;
     const cap = def.spawn.count ?? 1;
     const existing = await countItemsTotal(def.id);
@@ -99,6 +115,16 @@ export async function spawnAllItems() {
 
 export function respawnItemsTick() {
   for (const def of world.itemDefs.values()) {
+    if (def.spawn?.locations) {
+      for (const [roomId, perRoomCap] of Object.entries(def.spawn.locations)) {
+        const existing = countItemsInRoomMemory(def.id, roomId);
+        const toSpawn = Math.max(0, perRoomCap - existing);
+        for (let i = 0; i < toSpawn; i++) {
+          placeItemInRoom(makeItemInstance(def), roomId);
+        }
+      }
+      continue;
+    }
     if (!def.spawn?.location) continue;
     const cap = def.spawn.count ?? 1;
     const existing = countItemsInWorldMemory(def.id);

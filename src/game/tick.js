@@ -1,4 +1,4 @@
-import { world, allActors, actorsInRoom, countItemsInWorldMemory, placeItemInRoom, processNpcRespawns } from './world.js';
+import { world, allActors, actorsInRoom, countItemsInWorldMemory, countItemsInRoomMemory, placeItemInRoom, processNpcRespawns } from './world.js';
 import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
 import { DEFAULT_COSTS } from './stats.js';
@@ -109,6 +109,16 @@ function maybeRespawnItems() {
     const respawnTicks = def.spawn?.respawnTicks ?? 0;
     if (respawnTicks <= 0) continue;
     if (tickCount % respawnTicks !== 0) continue;
+    if (def.spawn.locations) {
+      for (const [roomId, perRoomCap] of Object.entries(def.spawn.locations)) {
+        const existing = countItemsInRoomMemory(def.id, roomId);
+        const toSpawn = Math.max(0, perRoomCap - existing);
+        for (let i = 0; i < toSpawn; i++) {
+          placeItemInRoom(makeItemInstance(def), roomId);
+        }
+      }
+      continue;
+    }
     const cap = def.spawn.count ?? 1;
     const existing = countItemsInWorldMemory(def.id);
     const toSpawn = Math.max(0, cap - existing);
