@@ -1,0 +1,69 @@
+{
+  "id": "mine.giant_centipede",
+  "name": { "en": "a giant centipede", "cs": "obří stonožka" },
+  "nameAcc": { "en": "the giant centipede", "cs": "obří stonožku" },
+  "title": { "en": "giant centipede", "cs": "obří stonožka" },
+  "location": "mine.centipede_pit",
+  "count": 1,
+  "short": {
+    "en": "A huge many-legged creature as long as a person, rippling along the rock.",
+    "cs": "Obrovský mnohonožkový tvor tak dlouhý jako člověk, vlní se po skále."
+  },
+  "long": {
+    "en": "A centipede the length of a grown person, its glossy black body covered in armoured segments. Dozens of legs move in a rippling wave as it moves. Its jaws drip with venom — even kobolds give this creature a wide berth. The body is thick enough that you can see it breathing.",
+    "cs": "Stonožka tak dlouhá jako dospělý člověk, lesklé černé tělo pokryté pancéřovitými články. Desítky noh se pohybují ve vlnivém pohybu. Z čelistí jí kape jed — i koboldové se tomuto tvorovi vyhýbají obloukem. Tělo je tak silné, že vidíš jak dýchá."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 24, "hpMax": 24,
+    "mp": 0, "mpMax": 0,
+    "attack": 4, "defense": 1, "int": 0,
+    "spd": 5
+  },
+  "respawn": { "ticks": 2400 },
+  "xp": 25,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "venomous bite", "cs": "jedovatý kousnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "onHit": { "applyEffect": "effect.poison", "chance": 1.0 },
+      "templates": {
+        "en": [
+          "{actor} lashes out and bites {target} with its dripping jaws!",
+          "{actor} coils and snaps its fangs into {target}!",
+          "{actor} strikes at {target} with a burst of speed!"
+        ],
+        "cs": [
+          "{actor} vymrští se a kousne {target} kapajícími čelistmi!",
+          "{actor} se stočí a zabodne tesáky do {target}!",
+          "{actor} zaútočí na {target} s nečekanou rychlostí!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "ripples along the rock wall.",
+          "clicks its legs together with a dry sound.",
+          "curls and uncurls slowly in the shadows.",
+          "sways its head back and forth, watching."
+        ],
+        "cs": [
+          "vlní se po skalní stěně.",
+          "zaklepe nohama k sobě suchým zvukem.",
+          "pomalu se stočí a rozstočí ve stínech.",
+          "kymácí hlavou sem a tam a pozoruje."
+        ]
+      }
+    }
+  ]
+}

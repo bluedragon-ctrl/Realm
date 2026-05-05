@@ -1,0 +1,68 @@
+{
+  "id": "mine.kobold_dark",
+  "name": { "en": "a kobold", "cs": "kobold" },
+  "nameAcc": { "en": "the kobold", "cs": "kobolda" },
+  "title": { "en": "kobold", "cs": "kobold" },
+  "location": "mine.dark_crossing",
+  "count": 2,
+  "short": {
+    "en": "A small scaly shape barely visible in the darkness, eyes glinting like coins.",
+    "cs": "Malá šupinatá postava sotva viditelná ve tmě, oči se blýskají jako mince."
+  },
+  "long": {
+    "en": "A short creature covered in rough grey-green scales, with a flat snout and small sharp teeth. In the near-darkness its yellow eyes are more noticeable than anything else — two small points of reflected light. It holds a battered pick and waits, perfectly comfortable in the dark.",
+    "cs": "Malý tvor pokrytý hrubými šedozelenými šupinami, s plochým čumákem a malými ostrými zuby. V téměř úplné tmě jsou jeho žluté oči nápadnější než cokoliv jiného — dva malé odlesky světla. Drží otlučený krumpáč a čeká, ve tmě zcela jako doma."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 10, "hpMax": 10,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "spd": 4
+  },
+  "respawn": { "ticks": 900 },
+  "xp": 8,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "pick swing", "cs": "úder krumpáčem" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} strikes from the dark at {target}!",
+          "{actor} lunges at {target} with a clawed hand!",
+          "{actor} snarls and drives its pick into {target}!"
+        ],
+        "cs": [
+          "{actor} udeří z tmy na {target}!",
+          "{actor} se vrhne na {target} drápnatou rukou!",
+          "{actor} zavrčí a zabodne krumpáč do {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.04,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "hisses softly somewhere in the dark.",
+          "its eyes blink once and then go still.",
+          "shifts in the shadows without a sound.",
+          "makes a quiet clicking noise."
+        ],
+        "cs": [
+          "tiše zasykne někde ve tmě.",
+          "zamrká jednou a pak znehybní.",
+          "pohne se ve stínech bez jediného zvuku.",
+          "vydá tiché klapavé zvuky."
+        ]
+      }
+    }
+  ]
+}

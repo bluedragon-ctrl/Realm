@@ -1,0 +1,22 @@
+{
+  "id": "mine.entrance",
+  "name": {
+    "en": "Mine entrance",
+    "cs": "Vstup do dolu"
+  },
+  "short": {
+    "en": "A rough chamber cut from rock, lit by a few torches jammed into cracks in the wall.",
+    "cs": "Hrubá komnata vytesaná ze skály, osvětlená několika pochodněmi zaraženými do prasklin ve zdi."
+  },
+  "long": {
+    "en": "The mine opens into a low chamber where the walls are rough and uneven. Old mine carts sit rusting on short rails that go nowhere. Torches in iron brackets cast orange light across the stone floor. The air is cool and smells of rock dust and old smoke. Tunnels lead west and east, and the main shaft continues south.",
+    "cs": "Důl se otevírá do nízké komnaty, kde jsou stěny hrubé a nerovné. Na krátkých kolejích, které nikam nevedou, rezaví staré důlní vozíky. Pochodně v železných konzolách vrhají oranžové světlo na kamennou podlahu. Vzduch je chladný a voní kamenným prachem a starým kouřem. Na západ a na východ vedou štoly a hlavní šachta pokračuje na jih."
+  },
+  "exits": {
+    "n": "forest.gorge",
+    "w": "mine.west_tunnel",
+    "e": "mine.east_tunnel",
+    "s": "mine.deep_hall"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

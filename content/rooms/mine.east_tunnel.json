@@ -1,0 +1,19 @@
+{
+  "id": "mine.east_tunnel",
+  "name": {
+    "en": "East shaft",
+    "cs": "Východní štola"
+  },
+  "short": {
+    "en": "A wider shaft supported by heavy beams, old iron tools hanging on the walls.",
+    "cs": "Širší štola podepřená těžkými trámy, na stěnách visí staré železné nástroje."
+  },
+  "long": {
+    "en": "This tunnel is wider than the others and the ceiling is held up by heavy wooden beams, most of them cracked and dark with age. Iron tools — picks, shovels, rusted through and old — hang on pegs driven into the rock. At the far end the tunnel ends where the ceiling has collapsed into a pile of rubble.",
+    "cs": "Tato štola je širší než ostatní a strop drží těžké dřevěné trámy, většinou poprasklané a zčernalé stářím. Na kolících zaražených do skály visí železné nástroje — krumpáče, lopaty, prorezlé a staré. Na vzdáleném konci štola končí, kde se strop propadl do hromady sutin."
+  },
+  "exits": {
+    "w": "mine.entrance"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "mine.store_room",
+  "name": {
+    "en": "Store room",
+    "cs": "Skladiště"
+  },
+  "short": {
+    "en": "A side chamber packed with old crates and barrels, most of them broken open.",
+    "cs": "Boční komnata plná starých beden a sudů, většina z nich rozbitá."
+  },
+  "long": {
+    "en": "Crates and barrels line every wall, stacked haphazardly to the ceiling. Most are old and rotting, lids broken or missing. Some have been pried open and the contents spilled across the floor — rags, broken tools, scraps of rope. It looks like something has been rummaging through everything.",
+    "cs": "Podél každé stěny jsou naskládané bedny a sudy, nahromaděné až ke stropu jak se dalo. Většina je stará a prohnilá, víka rozbitá nebo chybějící. Část jich byla násilně otevřena a obsah se vysypal na podlahu — hadry, rozbitá nářadí, kousky provazu. Vypadá to, jako by se tu někdo důkladně přehrabal."
+  },
+  "exits": {
+    "w": "mine.deep_hall"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

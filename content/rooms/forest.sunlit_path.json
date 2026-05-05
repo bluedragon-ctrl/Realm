@@ -14,7 +14,8 @@
   },
   "exits": {
     "w": "forest.deep_forest",
-    "e": "forest.fox_glade"
+    "e": "forest.fox_glade",
+    "s": "forest.briar_path"
   },
   "tags": ["outdoor", "forest", "bright"]
 }

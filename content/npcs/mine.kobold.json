@@ -1,0 +1,68 @@
+{
+  "id": "mine.kobold",
+  "name": { "en": "a kobold", "cs": "kobold" },
+  "nameAcc": { "en": "the kobold", "cs": "kobolda" },
+  "title": { "en": "kobold", "cs": "kobold" },
+  "location": "mine.entrance",
+  "count": 2,
+  "short": {
+    "en": "A small scaly creature with a rusty pick, watching you with yellow eyes.",
+    "cs": "Malý šupinatý tvor s rezavým krumpáčem, sledující tě žlutýma očima."
+  },
+  "long": {
+    "en": "A short creature covered in rough grey-green scales, with a flat snout and small sharp teeth. It grips a battered iron pick in both clawed hands and shifts its weight, watching for an opening. Its yellow eyes catch the torchlight.",
+    "cs": "Malý tvor pokrytý hrubými šedozelenými šupinami, s plochým čumákem a malými ostrými zuby. V obou drápnatých rukou svírá otlučený železný krumpáč a přešlapuje, čeká na příležitost. Žluté oči mu odrážejí světlo pochodně."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 10, "hpMax": 10,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "spd": 4
+  },
+  "respawn": { "ticks": 900 },
+  "xp": 8,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "pick swing", "cs": "úder krumpáčem" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swings its rusty pick at {target}!",
+          "{actor} lunges at {target} with a clawed hand!",
+          "{actor} snarls and drives its pick into {target}!"
+        ],
+        "cs": [
+          "{actor} zamáchne rezavým krumpáčem na {target}!",
+          "{actor} se vrhne na {target} drápnatou rukou!",
+          "{actor} zavrčí a zabodne krumpáč do {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.04,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lets out a sharp hiss.",
+          "taps its claws on the rock.",
+          "chatters its teeth.",
+          "shifts its grip on its pick and glares."
+        ],
+        "cs": [
+          "vydá pronikavé syčení.",
+          "klepá drápy o skálu.",
+          "cvakne zuby.",
+          "přehmatá krumpáč a zírá."
+        ]
+      }
+    }
+  ]
+}

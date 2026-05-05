@@ -1,0 +1,19 @@
+{
+  "id": "mine.centipede_pit",
+  "name": {
+    "en": "Centipede pit",
+    "cs": "Stonožčí jáma"
+  },
+  "short": {
+    "en": "A wide hollow in the rock that smells wrong, with bones scattered across the floor.",
+    "cs": "Široká prohlubeň ve skále, která divně páchne, s kostmi roztroušenými po podlaze."
+  },
+  "long": {
+    "en": "The floor is littered with small bones — mostly rats and birds, with a few larger ones mixed in. A wet, earthy smell fills the space and the walls are streaked with something dark and sticky. The rock at the far end has been worn smooth by something heavy moving over it again and again.",
+    "cs": "Podlaha je posetá malými kostmi — většinou krysami a ptáky, s několika většími kosmi mezi nimi. Prostor naplňuje vlhký zemitý pach a stěny jsou popruhované něčím tmavým a lepkavým. Skála na vzdáleném konci je uhladěna něčím těžkým, co po ní opakovaně přejíždělo."
+  },
+  "exits": {
+    "w": "mine.dark_crossing"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}
