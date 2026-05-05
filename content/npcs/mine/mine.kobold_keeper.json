@@ -25,6 +25,7 @@
   },
   "respawn": { "ticks": 900 },
   "xp": 8,
+  "goldDrop": { "formula": "1d4+1", "chance": 0.7 },
   "behaviors": [
     {
       "primitive": "attack",

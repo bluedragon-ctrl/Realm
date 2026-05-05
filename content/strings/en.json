@@ -57,11 +57,25 @@
   "drop.no_arg": "drop what?",
   "drop.self": "you drop {item}.",
   "drop.others": "{actor} drops {item}.",
-  "give.usage": "usage: give <item> to <target>",
+  "give.usage": "usage: give <item> to <target>  (or: give <N> gold to <target>)",
   "give.to_self": "you can't give something to yourself.",
   "give.self": "you give {item} to {target}.",
   "give.recipient": "{actor} gives you {item}.",
   "give.you_received": "you now carry {item}.",
+  "give.gold.self": "you give {amount} gold to {target}.",
+  "give.gold.recipient": "{actor} gives you {amount} gold.",
+  "give.gold.others": "{actor} gives {amount} gold to {target}.",
+  "give.gold.target_invalid": "you can only give gold to other players.",
+  "give.gold.not_enough": "you only have {gold} gold.",
+  "take.gold.self": "you pick up {amount} gold.",
+  "take.gold.others": "{actor} picks up {amount} gold.",
+  "take.gold.none": "there is no gold here.",
+  "drop.gold.self": "you drop {amount} gold.",
+  "drop.gold.others": "{actor} drops {amount} gold.",
+  "drop.gold.not_enough": "you only have {gold} gold.",
+  "loot.gold_dropped": "{target} drops {amount} gold.",
+  "room.gold_label": "gold",
+  "panel.gold": "Gold",
   "cast.no_arg": "cast what?",
   "cast.unknown": "you don't know any spell named '{query}'.",
   "cast.no_mp": "you don't have enough mana ({mp} required).",
@@ -238,5 +252,5 @@
   "admin.who_header": "online ({count}):",
   "admin.who_line": "  {name}{adminTag} @ {location} [{lang}]",
 
-  "help.text": "── commands ──────────────────────────────────────────\n\n  [ movement ]\n  look [target]             describe surroundings or someone\n  n s e w u d               move  (also: north south east west up down)\n  go <exit>                 move through a named exit\n\n  [ talking ]\n  say <text>   (\"<text>)    speak to the room\n  emote <text> (:<text>)    perform an action\n  wave/bow/hug/pet/smile/…  social actions  (try with a name: 'bow guard')\n\n  [ items ]\n  take <item>               pick up from the ground\n  drop <item>               drop from your inventory\n  inventory (i)             list what you carry\n  give <item> to <target>   hand an item to someone\n  use <item> [on <target>]  use an item, optionally on someone\n  wear / equip <item>       put on a wearable\n  remove / unwear <item>    take off a wearable\n  equipment (eq)            show worn items\n\n  [ combat ]\n  attack <target>           attack an NPC  (also: kill, hit)\n  cast <spell> [on <target>]  cast a known spell\n  flee (f)                  run through a random exit\n\n  [ reference ]\n  stats (st)                show your stats with explanations\n  spells (sp)               show known spells with damage/effects\n\n  [ other ]\n  who                       list players online\n  lang [code]               show or set language  (en | cs)\n  help (?)                  show this list\n  quit (q)                  disconnect\n\n  [ tips ]\n  Tab                       complete commands and target names\n  ↑ / ↓ arrows              scroll command history\n  click chips               interact with NPCs and items\n  scroll up in console      locks auto-scroll; ↓ button to resume\n\n── admin ─────────────────────────────────────────────\n  @create-player <name>     create a new character\n  @reload                   reload world content from disk\n  @who                      list players with locations"
+  "help.text": "── commands ──────────────────────────────────────────\n\n  [ movement ]\n  look [target]             describe surroundings or someone\n  n s e w u d               move  (also: north south east west up down)\n  go <exit>                 move through a named exit\n\n  [ talking ]\n  say <text>   (\"<text>)    speak to the room\n  emote <text> (:<text>)    perform an action\n  wave/bow/hug/pet/smile/…  social actions  (try with a name: 'bow guard')\n\n  [ items ]\n  take <item>               pick up from the ground\n  drop <item>               drop from your inventory\n  inventory (i)             list what you carry\n  give <item> to <target>   hand an item to someone\n  give <N> gold to <player> hand gold to another player\n  drop <N> gold             drop a pile of gold\n  use <item> [on <target>]  use an item, optionally on someone\n  wear / equip <item>       put on a wearable\n  remove / unwear <item>    take off a wearable\n  equipment (eq)            show worn items\n\n  [ combat ]\n  attack <target>           attack an NPC  (also: kill, hit)\n  cast <spell> [on <target>]  cast a known spell\n  flee (f)                  run through a random exit\n\n  [ reference ]\n  stats (st)                show your stats with explanations\n  spells (sp)               show known spells with damage/effects\n\n  [ other ]\n  who                       list players online\n  lang [code]               show or set language  (en | cs)\n  help (?)                  show this list\n  quit (q)                  disconnect\n\n  [ tips ]\n  Tab                       complete commands and target names\n  ↑ / ↓ arrows              scroll command history\n  click chips               interact with NPCs and items\n  scroll up in console      locks auto-scroll; ↓ button to resume\n\n── admin ─────────────────────────────────────────────\n  @create-player <name>     create a new character\n  @reload                   reload world content from disk\n  @who                      list players with locations"
 }

@@ -50,6 +50,7 @@ export function buildStatsMsg(actor) {
     level: actor.record.level ?? 1,
     xp: actor.record.xp ?? 0,
     xpToNext: xpToNext(actor.record.level ?? 1),
+    gold: actor.gold ?? 0,
     labels: buildPanelLabels(actor.lang),
     socials: buildSocialButtons(actor.lang),
     inventory: buildInventory(actor),

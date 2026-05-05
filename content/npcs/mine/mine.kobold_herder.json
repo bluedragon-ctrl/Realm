@@ -25,6 +25,7 @@
   },
   "respawn": { "ticks": 900 },
   "xp": 8,
+  "goldDrop": { "formula": "1d3", "chance": 0.6 },
   "loot": [
     { "defId": "item.rusty_dagger", "chance": 0.05 }
   ],

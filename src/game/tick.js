@@ -23,6 +23,7 @@ async function flushDirty() {
     actor.record.lastSeen = new Date().toISOString();
     actor.record.inventory = serializeInventory(actor.inventory);
     actor.record.activeEffects = serializeActiveEffectsForSave(actor);
+    actor.record.gold = actor.gold ?? 0;
     try {
       await savePlayer(actor.record);
       actor.dirty = false;

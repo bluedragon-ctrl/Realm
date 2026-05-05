@@ -14,6 +14,7 @@ export const world = {
   actorsByName: new Map(),
   actorsByRoom: new Map(),
   itemsByRoom: new Map(),
+  goldByRoom: new Map(),
   npcsByInstance: new Map(),
   unlockedExits: new Set(),
 };

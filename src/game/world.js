@@ -16,6 +16,7 @@ export {
   itemsInRoom, placeItemInRoom, removeItemFromRoom,
   countItemsInWorldMemory, countItemsTotal,
   spawnAllItems, respawnItemsTick,
+  getGoldInRoom, addGoldToRoom, takeGoldFromRoom, clearGoldInRoom,
 } from './world/items.js';
 export {
   spawnNpc, despawnNpc, spawnAllNpcs, despawnAllNpcs,

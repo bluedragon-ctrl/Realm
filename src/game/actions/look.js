@@ -1,4 +1,4 @@
-import { getRoom, actorsInRoom, findInRoom, itemsInRoom, isExitLocked } from '../world.js';
+import { getRoom, actorsInRoom, findInRoom, itemsInRoom, isExitLocked, getGoldInRoom } from '../world.js';
 import { findItemInList } from '../items.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
 import { t, s, dirName } from '../../i18n.js';
@@ -60,6 +60,7 @@ export function describeRoom(actor) {
     }
   }
   const items = [...itemGroups.values()];
+  const gold = getGoldInRoom(room.id);
   actor.session.send({
     kind: 'room',
     name: t(room.name, lang),
@@ -74,6 +75,8 @@ export function describeRoom(actor) {
     others: players,
     itemsLabel: s('room.items_label', lang),
     items,
+    gold,
+    goldLabel: s('room.gold_label', lang),
   });
 }
 

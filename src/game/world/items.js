@@ -12,6 +12,33 @@ export function itemsInRoom(roomId) {
   return world.itemsByRoom.get(roomId) ?? [];
 }
 
+export function getGoldInRoom(roomId) {
+  return world.goldByRoom.get(roomId) ?? 0;
+}
+
+export function addGoldToRoom(roomId, amount) {
+  const n = Math.max(0, Math.floor(amount));
+  if (n <= 0) return 0;
+  const cur = world.goldByRoom.get(roomId) ?? 0;
+  world.goldByRoom.set(roomId, cur + n);
+  return cur + n;
+}
+
+export function clearGoldInRoom(roomId) {
+  const cur = world.goldByRoom.get(roomId) ?? 0;
+  world.goldByRoom.delete(roomId);
+  return cur;
+}
+
+export function takeGoldFromRoom(roomId, amount) {
+  const cur = world.goldByRoom.get(roomId) ?? 0;
+  const take = Math.min(cur, Math.max(0, Math.floor(amount)));
+  if (take <= 0) return 0;
+  if (cur - take <= 0) world.goldByRoom.delete(roomId);
+  else world.goldByRoom.set(roomId, cur - take);
+  return take;
+}
+
 export function placeItemInRoom(instance, roomId) {
   if (!world.itemsByRoom.has(roomId)) world.itemsByRoom.set(roomId, []);
   world.itemsByRoom.get(roomId).push(instance);

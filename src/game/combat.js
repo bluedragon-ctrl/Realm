@@ -1,4 +1,4 @@
-import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom } from './world.js';
+import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom } from './world.js';
 import { applyEffect } from './effects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
@@ -183,6 +183,21 @@ function handleNpcDeath(killer, npc) {
         const itemDef = world.itemDefs.get(entry.defId);
         if (itemDef) placeItemInRoom(makeItemInstance(itemDef), room);
       }
+    }
+  }
+
+  if (room && def?.goldDrop && Math.random() < (def.goldDrop.chance ?? 1)) {
+    const amount = Math.max(0, roll(def.goldDrop.formula ?? '0'));
+    if (amount > 0) {
+      addGoldToRoom(room, amount);
+      broadcastToRoom(room, (recipient) => ({
+        kind: 'system',
+        tone: 'good',
+        text: s('loot.gold_dropped', recipient.lang, {
+          target: targetDisplay(npc, recipient.lang),
+          amount,
+        }),
+      }));
     }
   }
 
