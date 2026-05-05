@@ -47,14 +47,31 @@ src/
   i18n.js                  t / s / pickListIndex / tListAt / dirName
   net/wsServer.js          http static + ws upgrade, login, dispatch
   game/
-    world.js               in-memory state: rooms, npcDefs, itemDefs, socials, actors, item locations
+    world.js               barrel — re-exports from world/ submodules
+    world/state.js         the world object, START_ROOM, getRoom, isAdmin
+    world/exits.js         per-room exit lock state
+    world/actors.js        actor placement, lookup, per-room broadcast
+    world/items.js         floor items + spawn cap + respawn top-up
+    world/npcs.js          NPC spawn / despawn / respawn queue
+    world/load.js          loadWorld() boot orchestration
     actors.js              makePlayerActor / makeNpcActor (stats + inventory normalize)
     items.js               item instance factory, find/remove helpers
     stats.js               default stat blocks, default action costs
     tick.js                600ms loop, NPC energy/turn scheduler, periodic flush
     primitives.js          NPC behavior primitives (say, emote, interact, give_item, ...)
     verbs.js               shared per-recipient verb broadcast (socials + item.use)
-    messages.js             buildStatsMsg, sendStats (player panel + inventory + social buttons)
+    targeting.js           SELF_TOKENS, isSelfToken, resolveActorTarget
+    messages.js            barrel — re-exports from messages/ submodules
+    messages/stats.js      buildStatsMsg, sendStats (top-level composer)
+    messages/inventory.js  buildInventory (player panel)
+    messages/equipment.js  buildEquipment (slots + known wearables)
+    messages/spells.js     buildKnownSpells (spellbook)
+    messages/socials.js    buildSocialButtons (cached per language)
+    messages/labels.js     buildPanelLabels (all static UI strings)
+    spellMeta.js           SPELL_TARGETS  (leaf, no imports)
+    effectMeta.js          EFFECT_KINDS / EFFECT_STACKS / TICK_EFFECT_TYPES
+    npcMeta.js             DISPOSITIONS / PRIMITIVE_NAMES
+    wearableMeta.js        WEARABLE_SLOTS / ALLOWED_BONUS_KEYS
     commands.js            command dispatch table; falls through to socials map
     actions/               look, move, say, emote, who, help, quit, lang, take, drop, give, use, inventory, social, cast, attack, flee
     combat.js              executeAttack + applyDamageWithFeedback (shared post-damage path)
@@ -62,17 +79,20 @@ src/
     effects.js             effect registry (heal, damage)
     dispatch.js            verb/argument parsing for runCommand
   persist/
-    jsonStore.js           atomic read/write (tmp + rename), listJsonFiles
+    jsonStore.js           atomic read/write (tmp + rename), recursive listJsonFiles
     players.js             one file per character, lower-cased filename
-    contentLoader.js       loadRooms / loadNpcs / loadItems / loadSocials / loadStrings / loadAdmins
+    contentLoader.js       loadRooms / loadNpcs / loadItems / loadSocials / loadStrings / loadAdmins (uses validate.js + loadDir helper)
+    validate.js            check / checkEnum / checkLocalizedText / ... validation primitives
   admin/
     adminCommands.js       @create-player, @reload, @who
 client/                    static html/css/js (no build step)
 content/
-  rooms/<id>.json          one file per room
-  npcs/<id>.json           one file per NPC def
-  items/<id>.json          one file per item def
+  rooms/<region>/<id>.json one file per room, region-nested (home, forest, mine)
+  npcs/<region>/<id>.json  one file per NPC def, region-nested
+  items/<category>/<id>.json one file per item def, category-nested (forest, home, mine, _generic, consumables, fixtures, wearables)
   socials.json             all social verbs in one file
+  spells/<id>.json         one file per spell
+  effects/<id>.json        one file per active-effect def
   strings/<lang>.json      system messages
   lore/                    placeholder
 data/

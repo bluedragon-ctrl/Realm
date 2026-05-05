@@ -184,7 +184,7 @@ function handlePlayerDeath(killer, victim) {
   const oldRoom = victim.location;
 
   broadcastToRoom(oldRoom, (recipient) => ({
-    kind: 'narration',
+    kind: 'emote',
     tone: 'death',
     text: s('combat.player_died_observed', recipient.lang, { name: victim.name }),
   }), victim);
@@ -219,7 +219,6 @@ function handlePlayerDeath(killer, victim) {
     victim.dying = false;
     victim.session?.send({
       kind: 'system',
-      tone: 'notice',
       text: s('combat.you_respawn', victim.lang),
     });
     sendStats(victim);

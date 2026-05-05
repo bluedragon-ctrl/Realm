@@ -57,7 +57,7 @@ export default function move(actor, args) {
   const sourceId = room.id;
 
   broadcastToRoom(sourceId, (recipient) => ({
-    kind: 'narration',
+    kind: 'emote',
     source: 'ambient',
     text: s('narration.leaves', recipient.lang, {
       name: actor.name,
@@ -71,7 +71,7 @@ export default function move(actor, args) {
   applyAggressionOnEnter(actor, targetId);
 
   broadcastToRoom(targetId, (recipient) => ({
-    kind: 'narration',
+    kind: 'emote',
     source: 'ambient',
     text: s('narration.arrives', recipient.lang, { name: actor.name }),
   }), actor);

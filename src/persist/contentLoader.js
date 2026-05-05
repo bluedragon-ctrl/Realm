@@ -1,13 +1,18 @@
+// Content loaders. Each `load*` walks `content/<kind>/` recursively, validates every JSON file,
+// and returns a Map<id, def>. Validation throws on first error so misconfigured content fails at boot.
+// Schema-level constants (allowed enums) live next to their behavior in `*Meta.js` modules.
+
 import path from 'node:path';
 import { readJson, listJsonFiles } from './jsonStore.js';
 import { SUPPORTED_LANGS } from '../i18n.js';
-
-const KNOWN_PRIMITIVES = new Set(['say', 'emote', 'wait', 'move', 'attack', 'cast', 'interact', 'give_item', 'flee']);
-const KNOWN_DISPOSITIONS = new Set(['friendly', 'neutral', 'hostile']);
-
-function isLocalizedText(v) {
-  return typeof v === 'string' || (v && typeof v === 'object' && !Array.isArray(v));
-}
+import {
+  check, checkRequired, checkEnum, checkLocalizedText,
+  checkPositiveInt, checkObject, checkArray, checkLines,
+} from './validate.js';
+import { PRIMITIVE_NAMES, DISPOSITIONS } from '../game/npcMeta.js';
+import { WEARABLE_SLOT_SET, ALLOWED_BONUS_KEYS } from '../game/wearableMeta.js';
+import { SPELL_TARGETS } from '../game/spellMeta.js';
+import { EFFECT_KINDS, EFFECT_STACKS, TICK_EFFECT_TYPES } from '../game/effectMeta.js';
 
 function assertFilenameMatchesId(kind, def, file) {
   const expected = path.basename(file, '.json');
@@ -16,274 +21,193 @@ function assertFilenameMatchesId(kind, def, file) {
   }
 }
 
-function validateLines(lines, ctx) {
-  if (Array.isArray(lines)) return;
-  if (lines && typeof lines === 'object') {
-    let refLen = null;
-    for (const lang of Object.keys(lines)) {
-      if (!Array.isArray(lines[lang])) {
-        throw new Error(`${ctx}: 'lines.${lang}' must be an array`);
-      }
-      if (refLen == null) refLen = lines[lang].length;
-      else if (lines[lang].length !== refLen) {
-        console.warn(`${ctx}: 'lines.${lang}' length (${lines[lang].length}) does not match other languages (${refLen})`);
-      }
-    }
-    return;
+// Generic discover/validate/dedupe pipeline used by every content kind.
+//   kind         — label used in error messages ('room', 'npc', ...)
+//   dir          — directory to walk (recursive)
+//   validate     — (def, file) => void; throws on failure. May be omitted.
+//   missingDirOk — return empty Map if the directory doesn't exist
+async function loadDir(kind, dir, validate, { missingDirOk = false } = {}) {
+  let files;
+  try {
+    files = await listJsonFiles(dir);
+  } catch (err) {
+    if (missingDirOk && err.code === 'ENOENT') return new Map();
+    throw err;
   }
-  throw new Error(`${ctx}: 'lines' must be an array or object of arrays`);
+  const map = new Map();
+  for (const file of files) {
+    const def = await readJson(file);
+    if (!def.id) throw new Error(`${kind} missing id: ${file}`);
+    assertFilenameMatchesId(kind, def, file);
+    if (map.has(def.id)) throw new Error(`duplicate ${kind} id '${def.id}' in ${file}`);
+    if (validate) validate(def, file);
+    map.set(def.id, def);
+  }
+  return map;
 }
 
+// ---------- rooms ----------
+
 export async function loadRooms() {
-  const files = await listJsonFiles(path.resolve('content/rooms'));
-  const rooms = new Map();
-  for (const file of files) {
-    const data = await readJson(file);
-    if (!data.id) throw new Error(`room missing id: ${file}`);
-    assertFilenameMatchesId('room', data, file);
-    if (rooms.has(data.id)) throw new Error(`duplicate room id '${data.id}' in ${file}`);
-    rooms.set(data.id, data);
-  }
+  const rooms = await loadDir('room', path.resolve('content/rooms'));
   for (const room of rooms.values()) {
+    const ctx = `room '${room.id}'`;
     for (const [exitCmd, targetId] of Object.entries(room.exits ?? {})) {
-      if (!rooms.has(targetId)) {
-        throw new Error(`room '${room.id}' exit '${exitCmd}' -> unknown room '${targetId}'`);
-      }
+      check(rooms.has(targetId), ctx, `exit '${exitCmd}' -> unknown room '${targetId}'`);
     }
     if (room.lockedExits != null) {
-      if (typeof room.lockedExits !== 'object' || Array.isArray(room.lockedExits)) {
-        throw new Error(`room '${room.id}' lockedExits must be an object`);
-      }
+      checkObject(room.lockedExits, ctx, 'lockedExits');
       for (const exitKey of Object.keys(room.lockedExits)) {
-        if (!(exitKey in (room.exits ?? {}))) {
-          throw new Error(`room '${room.id}' lockedExits references unknown exit '${exitKey}'`);
-        }
+        check(exitKey in (room.exits ?? {}), ctx, `lockedExits references unknown exit '${exitKey}'`);
       }
     }
   }
   return rooms;
 }
 
-function validateNpc(def, file, knownRooms) {
-  if (!def.id) throw new Error(`npc missing id: ${file}`);
-  if (!isLocalizedText(def.name)) throw new Error(`npc '${def.id}' missing or invalid name (${file})`);
-  if (!def.location) throw new Error(`npc '${def.id}' missing location (${file})`);
-  if (!knownRooms.has(def.location)) {
-    throw new Error(`npc '${def.id}' location '${def.location}' is not a known room (${file})`);
-  }
-  if (def.disposition && !KNOWN_DISPOSITIONS.has(def.disposition)) {
-    throw new Error(`npc '${def.id}' has unknown disposition '${def.disposition}' (${file})`);
-  }
-  if (def.count != null && (typeof def.count !== 'number' || def.count < 1 || !Number.isInteger(def.count))) {
-    throw new Error(`npc '${def.id}' count must be a positive integer (${file})`);
-  }
-  const behaviors = def.behaviors ?? [];
-  if (!Array.isArray(behaviors)) {
-    throw new Error(`npc '${def.id}' behaviors must be an array (${file})`);
-  }
-  for (const [i, b] of behaviors.entries()) {
-    if (!KNOWN_PRIMITIVES.has(b.primitive)) {
-      throw new Error(`npc '${def.id}' behavior #${i} has unknown primitive '${b.primitive}' (${file})`);
+// ---------- npcs ----------
+
+function makeNpcValidator(knownRooms) {
+  return (def, file) => {
+    const ctx = `npc '${def.id}' (${path.basename(file)})`;
+    checkLocalizedText(def.name, ctx, 'name');
+    checkRequired(def.location, ctx, 'location');
+    check(knownRooms.has(def.location), ctx, `location '${def.location}' is not a known room`);
+    checkEnum(def.disposition, DISPOSITIONS, ctx, 'disposition');
+    checkPositiveInt(def.count, ctx, 'count');
+
+    const behaviors = def.behaviors ?? [];
+    checkArray(behaviors, ctx, 'behaviors');
+    for (const [i, b] of behaviors.entries()) {
+      const bctx = `${ctx} behavior #${i}`;
+      check(PRIMITIVE_NAMES.has(b.primitive), bctx, `unknown primitive '${b.primitive}'`);
+      if (b.primitive === 'say' || b.primitive === 'emote') checkLines(b.lines, bctx);
+      if (b.primitive === 'interact' || b.primitive === 'give_item' || b.primitive === 'flee') {
+        checkLines(b.templates, bctx);
+      }
     }
-    if (b.primitive === 'say' || b.primitive === 'emote') {
-      validateLines(b.lines, `npc '${def.id}' behavior #${i}`);
-    }
-    if (b.primitive === 'interact' || b.primitive === 'give_item' || b.primitive === 'flee') {
-      validateLines(b.templates, `npc '${def.id}' behavior #${i}`);
-    }
-  }
+  };
 }
 
-const KNOWN_WEARABLE_SLOTS = new Set(['body', 'head', 'weapon', 'amulet']);
-const KNOWN_BONUS_KEYS = new Set(['attack', 'defense', 'hpMax', 'mpMax', 'int', 'spd']);
+export async function loadNpcs(knownRooms) {
+  return loadDir('npc', path.resolve('content/npcs'), makeNpcValidator(knownRooms));
+}
 
-function validateItem(def, file, knownRooms, knownEffects) {
-  if (!def.id) throw new Error(`item missing id: ${file}`);
-  if (!isLocalizedText(def.name)) throw new Error(`item '${def.id}' missing or invalid name (${file})`);
-  if (def.spawn?.location && !knownRooms.has(def.spawn.location)) {
-    throw new Error(`item '${def.id}' spawn location '${def.spawn.location}' is not a known room (${file})`);
-  }
-  if (def.wearable != null) {
-    if (typeof def.wearable !== 'object') {
-      throw new Error(`item '${def.id}' wearable must be an object (${file})`);
+// ---------- items ----------
+
+function makeItemValidator(knownRooms, knownEffects) {
+  return (def, file) => {
+    const ctx = `item '${def.id}' (${path.basename(file)})`;
+    checkLocalizedText(def.name, ctx, 'name');
+    if (def.spawn?.location) {
+      check(knownRooms.has(def.spawn.location), ctx, `spawn.location '${def.spawn.location}' is not a known room`);
     }
-    if (!KNOWN_WEARABLE_SLOTS.has(def.wearable.slot)) {
-      throw new Error(`item '${def.id}' wearable.slot must be one of: ${[...KNOWN_WEARABLE_SLOTS].join(', ')} (${file})`);
-    }
-    const bonus = def.wearable.bonus ?? {};
-    if (typeof bonus !== 'object') {
-      throw new Error(`item '${def.id}' wearable.bonus must be an object (${file})`);
-    }
-    for (const [k, v] of Object.entries(bonus)) {
-      if (!KNOWN_BONUS_KEYS.has(k)) {
-        throw new Error(`item '${def.id}' wearable.bonus has unknown stat '${k}' (allowed: ${[...KNOWN_BONUS_KEYS].join(', ')}) (${file})`);
+    if (def.wearable != null) {
+      checkObject(def.wearable, ctx, 'wearable');
+      check(WEARABLE_SLOT_SET.has(def.wearable.slot), ctx,
+        `wearable.slot must be one of: ${[...WEARABLE_SLOT_SET].join(', ')}`);
+      const bonus = def.wearable.bonus ?? {};
+      checkObject(bonus, ctx, 'wearable.bonus');
+      for (const [k, v] of Object.entries(bonus)) {
+        check(ALLOWED_BONUS_KEYS.has(k), ctx,
+          `wearable.bonus has unknown stat '${k}' (allowed: ${[...ALLOWED_BONUS_KEYS].join(', ')})`);
+        check(typeof v === 'number', ctx, `wearable.bonus.${k} must be a number`);
       }
-      if (typeof v !== 'number') {
-        throw new Error(`item '${def.id}' wearable.bonus.${k} must be a number (${file})`);
-      }
-    }
-    if (def.wearable.effects != null) {
-      if (!Array.isArray(def.wearable.effects)) {
-        throw new Error(`item '${def.id}' wearable.effects must be an array (${file})`);
-      }
-      for (const eid of def.wearable.effects) {
-        if (typeof eid !== 'string' || !knownEffects.has(eid)) {
-          throw new Error(`item '${def.id}' wearable.effects references unknown effect '${eid}' (${file})`);
+      if (def.wearable.effects != null) {
+        checkArray(def.wearable.effects, ctx, 'wearable.effects');
+        for (const eid of def.wearable.effects) {
+          check(typeof eid === 'string' && knownEffects.has(eid), ctx,
+            `wearable.effects references unknown effect '${eid}'`);
         }
       }
     }
-  }
-  if (def.use?.effect?.type === 'apply_effect') {
-    const eid = def.use.effect.effectId;
-    if (!eid || !knownEffects.has(eid)) {
-      throw new Error(`item '${def.id}' use.effect references unknown effect '${eid}' (${file})`);
+    if (def.use?.effect?.type === 'apply_effect') {
+      const eid = def.use.effect.effectId;
+      check(eid && knownEffects.has(eid), ctx, `use.effect references unknown effect '${eid}'`);
+    }
+  };
+}
+
+function validateItemInteractions(items, knownRooms) {
+  for (const def of items.values()) {
+    const ctx = `item '${def.id}'`;
+    if (def.unlocks != null) {
+      const u = def.unlocks;
+      checkObject(u, ctx, 'unlocks');
+      check(typeof u.exit === 'string', ctx, 'unlocks.exit must be a string');
+      check(u.key && items.has(u.key), ctx, `unlocks.key references unknown item '${u.key}'`);
+      checkObject(u.verb, ctx, 'unlocks.verb');
+      const roomId = def.spawn?.location;
+      if (roomId) {
+        const room = knownRooms.get(roomId);
+        const declared = room?.lockedExits?.[u.exit];
+        check(declared === def.id, ctx,
+          `unlocks exit '${u.exit}' but room '${roomId}' lockedExits.${u.exit} = ${JSON.stringify(declared ?? null)} (expected '${def.id}')`);
+      }
+    }
+    if (def.recipes != null) {
+      checkObject(def.recipes, ctx, 'recipes');
+      for (const [reagentId, spec] of Object.entries(def.recipes)) {
+        check(items.has(reagentId), ctx, `recipe references unknown reagent '${reagentId}'`);
+        check(spec.produces && items.has(spec.produces), ctx,
+          `recipe[${reagentId}].produces references unknown item '${spec.produces}'`);
+        checkObject(spec.verb, ctx, `recipe[${reagentId}].verb`);
+      }
     }
   }
 }
 
 export async function loadItems(knownRooms, knownEffects) {
-  const files = await listJsonFiles(path.resolve('content/items'));
-  const items = new Map();
   const effects = knownEffects ?? new Map();
-  for (const file of files) {
-    const def = await readJson(file);
-    validateItem(def, file, knownRooms, effects);
-    assertFilenameMatchesId('item', def, file);
-    if (items.has(def.id)) throw new Error(`duplicate item id '${def.id}' in ${file}`);
-    items.set(def.id, def);
-  }
+  const items = await loadDir('item', path.resolve('content/items'), makeItemValidator(knownRooms, effects));
   validateItemInteractions(items, knownRooms);
   return items;
 }
 
-function validateItemInteractions(items, knownRooms) {
-  for (const def of items.values()) {
-    if (def.unlocks != null) {
-      const u = def.unlocks;
-      if (typeof u !== 'object') throw new Error(`item '${def.id}' unlocks must be an object`);
-      if (!u.exit || typeof u.exit !== 'string') throw new Error(`item '${def.id}' unlocks.exit must be a string`);
-      if (!u.key || !items.has(u.key)) throw new Error(`item '${def.id}' unlocks.key references unknown item '${u.key}'`);
-      if (!u.verb || typeof u.verb !== 'object') throw new Error(`item '${def.id}' unlocks.verb must be a verb-shaped object`);
-      const roomId = def.spawn?.location;
-      if (roomId) {
-        const room = knownRooms.get(roomId);
-        const declared = room?.lockedExits?.[u.exit];
-        if (declared !== def.id) {
-          throw new Error(`item '${def.id}' unlocks exit '${u.exit}' but room '${roomId}' lockedExits.${u.exit} = ${JSON.stringify(declared ?? null)} (expected '${def.id}')`);
-        }
-      }
-    }
-    if (def.recipes != null) {
-      if (typeof def.recipes !== 'object' || Array.isArray(def.recipes)) {
-        throw new Error(`item '${def.id}' recipes must be an object`);
-      }
-      for (const [reagentId, spec] of Object.entries(def.recipes)) {
-        if (!items.has(reagentId)) throw new Error(`item '${def.id}' recipe references unknown reagent '${reagentId}'`);
-        if (!spec.produces || !items.has(spec.produces)) {
-          throw new Error(`item '${def.id}' recipe[${reagentId}].produces references unknown item '${spec.produces}'`);
-        }
-        if (!spec.verb || typeof spec.verb !== 'object') {
-          throw new Error(`item '${def.id}' recipe[${reagentId}].verb must be a verb-shaped object`);
-        }
-      }
-    }
-  }
-}
+// ---------- spells ----------
 
-export async function loadNpcs(knownRooms) {
-  const files = await listJsonFiles(path.resolve('content/npcs'));
-  const npcs = new Map();
-  for (const file of files) {
-    const def = await readJson(file);
-    validateNpc(def, file, knownRooms);
-    assertFilenameMatchesId('npc', def, file);
-    if (npcs.has(def.id)) throw new Error(`duplicate npc id '${def.id}' in ${file}`);
-    npcs.set(def.id, def);
-  }
-  return npcs;
-}
-
-const KNOWN_SPELL_TARGETS = new Set(['self', 'friendly', 'hostile', 'any']);
-
-function validateSpell(def, file, knownEffects) {
-  if (!def.id) throw new Error(`spell missing id: ${file}`);
-  if (!isLocalizedText(def.name)) throw new Error(`spell '${def.id}' missing or invalid name (${file})`);
-  if (!def.verb || typeof def.verb !== 'object') {
-    throw new Error(`spell '${def.id}' missing 'verb' block (${file})`);
-  }
-  if (def.target != null && !KNOWN_SPELL_TARGETS.has(def.target)) {
-    throw new Error(`spell '${def.id}' has unknown target '${def.target}' (must be one of: ${[...KNOWN_SPELL_TARGETS].join(', ')}) (${file})`);
-  }
-  if (def.effect?.type === 'apply_effect') {
-    const eid = def.effect.effectId;
-    if (!eid || !knownEffects.has(eid)) {
-      throw new Error(`spell '${def.id}' applies unknown effect '${eid}' (${file})`);
+function makeSpellValidator(knownEffects) {
+  return (def, file) => {
+    const ctx = `spell '${def.id}' (${path.basename(file)})`;
+    checkLocalizedText(def.name, ctx, 'name');
+    checkObject(def.verb, ctx, 'verb');
+    checkRequired(def.verb, ctx, 'verb');
+    checkEnum(def.target, SPELL_TARGETS, ctx, 'target');
+    if (def.effect?.type === 'apply_effect') {
+      const eid = def.effect.effectId;
+      check(eid && knownEffects.has(eid), ctx, `applies unknown effect '${eid}'`);
     }
-  }
+  };
 }
 
 export async function loadSpells(knownEffects) {
-  const files = await listJsonFiles(path.resolve('content/spells'));
-  const spells = new Map();
-  for (const file of files) {
-    const def = await readJson(file);
-    validateSpell(def, file, knownEffects ?? new Map());
-    assertFilenameMatchesId('spell', def, file);
-    if (spells.has(def.id)) throw new Error(`duplicate spell id '${def.id}' in ${file}`);
-    spells.set(def.id, def);
-  }
-  return spells;
+  return loadDir('spell', path.resolve('content/spells'), makeSpellValidator(knownEffects ?? new Map()));
 }
 
-const KNOWN_EFFECT_KINDS = new Set(['buff', 'debuff', 'neutral']);
-const KNOWN_EFFECT_STACKS = new Set(['refresh', 'stack', 'ignore']);
-const KNOWN_TICK_EFFECT_TYPES = new Set(['heal', 'damage']);
+// ---------- effects ----------
 
 function validateEffect(def, file) {
-  if (!def.id) throw new Error(`effect missing id: ${file}`);
-  if (!isLocalizedText(def.name)) throw new Error(`effect '${def.id}' missing or invalid name (${file})`);
-  if (def.kind != null && !KNOWN_EFFECT_KINDS.has(def.kind)) {
-    throw new Error(`effect '${def.id}' has unknown kind '${def.kind}' (${file})`);
-  }
-  if (def.stack != null && !KNOWN_EFFECT_STACKS.has(def.stack)) {
-    throw new Error(`effect '${def.id}' has unknown stack '${def.stack}' (${file})`);
-  }
+  const ctx = `effect '${def.id}' (${path.basename(file)})`;
+  checkLocalizedText(def.name, ctx, 'name');
+  checkEnum(def.kind, EFFECT_KINDS, ctx, 'kind');
+  checkEnum(def.stack, EFFECT_STACKS, ctx, 'stack');
   if (def.tick != null) {
-    if (typeof def.tick !== 'object') throw new Error(`effect '${def.id}' tick must be an object (${file})`);
-    if (typeof def.tick.every !== 'number' || def.tick.every < 1) {
-      throw new Error(`effect '${def.id}' tick.every must be a positive number (${file})`);
+    checkObject(def.tick, ctx, 'tick');
+    check(typeof def.tick.every === 'number' && def.tick.every >= 1, ctx, 'tick.every must be a positive number');
+    if (def.tick.pulses != null) {
+      check(typeof def.tick.pulses === 'number' && def.tick.pulses >= 1, ctx, 'tick.pulses must be a positive number when set');
     }
-    if (def.tick.pulses != null && (typeof def.tick.pulses !== 'number' || def.tick.pulses < 1)) {
-      throw new Error(`effect '${def.id}' tick.pulses must be a positive number when set (${file})`);
-    }
-    if (!def.tick.effect || typeof def.tick.effect !== 'object') {
-      throw new Error(`effect '${def.id}' tick.effect must be an object (${file})`);
-    }
-    if (!KNOWN_TICK_EFFECT_TYPES.has(def.tick.effect.type)) {
-      throw new Error(`effect '${def.id}' tick.effect.type '${def.tick.effect.type}' must be one of: ${[...KNOWN_TICK_EFFECT_TYPES].join(', ')} (${file})`);
-    }
+    checkObject(def.tick.effect, ctx, 'tick.effect');
+    check(def.tick.effect && TICK_EFFECT_TYPES.has(def.tick.effect.type), ctx,
+      `tick.effect.type must be one of: ${[...TICK_EFFECT_TYPES].join(', ')}`);
   }
 }
 
 export async function loadEffects() {
-  const dir = path.resolve('content/effects');
-  let files;
-  try {
-    files = await listJsonFiles(dir);
-  } catch (err) {
-    if (err.code === 'ENOENT') return new Map();
-    throw err;
-  }
-  const effects = new Map();
-  for (const file of files) {
-    const def = await readJson(file);
-    validateEffect(def, file);
-    assertFilenameMatchesId('effect', def, file);
-    if (effects.has(def.id)) throw new Error(`duplicate effect id '${def.id}' in ${file}`);
-    effects.set(def.id, def);
-  }
-  return effects;
+  return loadDir('effect', path.resolve('content/effects'), validateEffect, { missingDirOk: true });
 }
+
+// ---------- socials ----------
 
 export async function loadSocials() {
   const file = path.resolve('content/socials.json');
@@ -303,6 +227,8 @@ export async function loadSocials() {
   }
   return map;
 }
+
+// ---------- strings & admins ----------
 
 export async function loadStrings() {
   const dir = path.resolve('content/strings');

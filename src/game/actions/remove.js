@@ -28,7 +28,7 @@ export default function removeWearable(actor, args) {
       return { kind: 'system', text: s('remove.self', recipient.lang, { item }) };
     }
     return {
-      kind: 'narration',
+      kind: 'emote',
       source: sourceForActor(actor, recipient),
       text: s('remove.others', recipient.lang, { actor: actor.name, item }),
     };

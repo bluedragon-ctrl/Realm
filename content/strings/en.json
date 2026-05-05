@@ -182,11 +182,11 @@
   "panel.slot_empty_label": "(empty)",
   "panel.effects": "Effects",
   "panel.effects_empty": "(none)",
-  "effect.tick.heal_hp": "{icon} {name} restores {amount} HP.",
-  "effect.tick.heal_mp": "{icon} {name} restores {amount} MP.",
-  "effect.tick.heal_both": "{icon} {name} restores {hp} HP and {mp} MP.",
-  "effect.tick.damage": "{icon} {name} burns you for {amount} damage.",
-  "effect.expired": "{icon} {name} fades.",
+  "effect.tick.heal_hp": "{name} restores {amount} HP.",
+  "effect.tick.heal_mp": "{name} restores {amount} MP.",
+  "effect.tick.heal_both": "{name} restores {hp} HP and {mp} MP.",
+  "effect.tick.damage": "{name} burns you for {amount} damage.",
+  "effect.expired": "{name} fades.",
 
   "stats.header": "── character — Lv {level}, {xp}/{xpNext} XP ──",
   "stats.bars": "{hpLabel} {hp}/{hpMax}    {mpLabel} {mp}/{mpMax}",
@@ -217,8 +217,8 @@
   "spells.detail.apply_unknown": "effect: {id} (unknown)",
 
   "xp.gained": "you earn {amount} XP.",
-  "xp.level_up": "✨ you reached level {level}!",
-  "xp.level_up_observed": "✨ {name} reached level {level}!",
+  "xp.level_up": "── LEVEL {level} REACHED ──",
+  "xp.level_up_observed": "── {name} reached level {level} ──",
 
 
   "dir.n": "north",

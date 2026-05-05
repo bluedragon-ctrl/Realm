@@ -57,7 +57,7 @@ export default function give(actor, args) {
       return { kind: 'system', text: s('give.recipient', recipient.lang, { item, actor: actor.name }) };
     }
     return {
-      kind: 'narration',
+      kind: 'emote',
       source: sourceForActor(actor, recipient),
       text: s('give.others', recipient.lang, { actor: actor.name, item, target: targetName }),
     };

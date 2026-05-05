@@ -43,6 +43,7 @@ async function createPlayerCmd(actor, args) {
   const record = await createPlayer(name, START_ROOM, lang);
   actor.session.send({
     kind: 'system',
+    tone: 'good',
     text: s('admin.created', actor.lang, { name: record.name, lang: record.lang }),
   });
 }

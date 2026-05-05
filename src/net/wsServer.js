@@ -83,7 +83,7 @@ async function handleLogin(session, name) {
   describeRoom(actor);
   for (const a of world.actorsByRoom.get(actor.location)) {
     if (a !== actor && a.session) {
-      a.session.send({ kind: 'narration', source: 'ambient', text: s('narration.appears', a.lang, { name: actor.name }) });
+      a.session.send({ kind: 'emote', source: 'ambient', text: s('narration.appears', a.lang, { name: actor.name }) });
     }
   }
   describeRoomToAll(actor.location);
@@ -96,7 +96,7 @@ async function handleClose(session) {
   const lastRoom = actor.location;
   for (const a of world.actorsByRoom.get(actor.location) ?? []) {
     if (a !== actor && a.session) {
-      a.session.send({ kind: 'narration', source: 'ambient', text: s('narration.vanishes', a.lang, { name: actor.name }) });
+      a.session.send({ kind: 'emote', source: 'ambient', text: s('narration.vanishes', a.lang, { name: actor.name }) });
     }
   }
   try {

@@ -182,11 +182,11 @@
   "panel.slot_empty_label": "(prázdné)",
   "panel.effects": "Efekty",
   "panel.effects_empty": "(žádné)",
-  "effect.tick.heal_hp": "{icon} {name} ti obnovuje {amount} HP.",
-  "effect.tick.heal_mp": "{icon} {name} ti obnovuje {amount} MP.",
-  "effect.tick.heal_both": "{icon} {name} ti obnovuje {hp} HP a {mp} MP.",
-  "effect.tick.damage": "{icon} {name} tě pálí za {amount} poškození.",
-  "effect.expired": "{icon} {name} odeznívá.",
+  "effect.tick.heal_hp": "{name} ti obnovuje {amount} HP.",
+  "effect.tick.heal_mp": "{name} ti obnovuje {amount} MP.",
+  "effect.tick.heal_both": "{name} ti obnovuje {hp} HP a {mp} MP.",
+  "effect.tick.damage": "{name} tě pálí za {amount} poškození.",
+  "effect.expired": "{name} odeznívá.",
 
   "stats.header": "── postava — Lv {level}, {xp}/{xpNext} XP ──",
   "stats.bars": "{hpLabel} {hp}/{hpMax}    {mpLabel} {mp}/{mpMax}",
@@ -217,8 +217,8 @@
   "spells.detail.apply_unknown": "efekt: {id} (neznámý)",
 
   "xp.gained": "získáváš {amount} XP.",
-  "xp.level_up": "✨ dosáhl jsi úrovně {level}!",
-  "xp.level_up_observed": "✨ {name} dosáhl úrovně {level}!",
+  "xp.level_up": "── ÚROVEŇ {level} DOSAŽENA ──",
+  "xp.level_up_observed": "── {name} dosáhl úrovně {level} ──",
 
 
   "dir.n": "na sever",

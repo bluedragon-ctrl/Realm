@@ -26,7 +26,7 @@ export default function drop(actor, args) {
       return { kind: 'system', text: s('drop.self', recipient.lang, { item }) };
     }
     return {
-      kind: 'narration',
+      kind: 'emote',
       source: sourceForActor(actor, recipient),
       text: s('drop.others', recipient.lang, { actor: actor.name, item }),
     };

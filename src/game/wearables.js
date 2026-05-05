@@ -1,8 +1,8 @@
 import { world } from './world.js';
 import { nameVariants } from '../i18n.js';
+import { WEARABLE_SLOTS, ALLOWED_BONUS_KEYS } from './wearableMeta.js';
 
-export const WEARABLE_SLOTS = ['body', 'head', 'weapon', 'amulet'];
-export const ALLOWED_BONUS_KEYS = new Set(['attack', 'defense', 'hpMax', 'mpMax', 'int', 'magicResist', 'accuracy', 'evasion', 'spd']);
+export { WEARABLE_SLOTS, ALLOWED_BONUS_KEYS };
 
 export function emptyEquipped() {
   const out = {};
