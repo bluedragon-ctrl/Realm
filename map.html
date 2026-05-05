@@ -114,6 +114,29 @@ const ROOMS = [
     ]
   },
   {
+    "id": "forest.briar_path",
+    "name": {
+      "en": "Briar path",
+      "cs": "Trnková stezka"
+    },
+    "short": {
+      "en": "A narrow gap between walls of thorny briars where the trail turns stony.",
+      "cs": "Úzká mezera mezi zdmi trnitých keřů, kde se stezka mění v kamenité pásmo."
+    },
+    "long": {
+      "en": "The warm sunlit path ends abruptly where thorny briars crowd in from both sides, leaving only a narrow gap to squeeze through. The ground turns stony and the slope runs downward. The brambles thin out to the west where the trail levels off at the edge of a deep rocky gorge.",
+      "cs": "Teplá slunná stezka náhle končí, kde se z obou stran tisknou trnité keře a nechávají jen úzkou mezeru. Půda se mění v kamení a svah klesá dolů. Na západ křoviny řídnou a stezka se vyrovnává na okraji hluboké skalnaté rokle."
+    },
+    "exits": {
+      "n": "forest.sunlit_path",
+      "w": "forest.gorge"
+    },
+    "tags": [
+      "outdoor",
+      "forest"
+    ]
+  },
+  {
     "id": "forest.cave",
     "name": {
       "en": "Bear's cave",
@@ -238,6 +261,34 @@ const ROOMS = [
     ]
   },
   {
+    "id": "forest.gorge",
+    "name": {
+      "en": "The gorge",
+      "cs": "Rokle"
+    },
+    "short": {
+      "en": "A narrow rocky gorge with steep dark walls and a dry streambed underfoot.",
+      "cs": "Úzká skalnatá rokle se strmými temnými stěnami a vyschlým korytem pod nohama."
+    },
+    "long": {
+      "en": "Steep rock walls rise on both sides, streaked with rust and dark moss. The ground is a dry streambed of smooth pebbles — whatever water carved this gorge is long gone. At the north face of the gorge a heavy timber frame is set into the rock, marking the entrance to old mine shafts driven into the hillside. The doors are shut tight and rust has sealed the bolts. The gorge runs west and east along the base of the ridge.",
+      "cs": "Po obou stranách se tyčí strmé skalní stěny, popraskané rezivými pruhy a tmavým mechem. Pod nohama leží vyschlé koryto z oblázků — voda, která tuto rokli vyhloubila, je dávno pryč. Na severní stěně rokle je do skály zasazen těžký dřevěný rám, označující vchod do starých šachet vyraženích do kopce. Dveře jsou pevně zavřeny a rez zapečetila závory. Rokle běží na západ a na východ podél úpatí hřebene."
+    },
+    "exits": {
+      "w": "forest.tangled_slope",
+      "e": "forest.briar_path",
+      "s": "mine.entrance"
+    },
+    "lockedExits": {
+      "s": "mine.door"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "dark"
+    ]
+  },
+  {
     "id": "forest.hill",
     "name": {
       "en": "Hilltop",
@@ -277,7 +328,8 @@ const ROOMS = [
     },
     "exits": {
       "w": "forest.entry",
-      "e": "forest.deep_forest"
+      "e": "forest.deep_forest",
+      "s": "forest.tangled_slope"
     },
     "tags": [
       "outdoor",
@@ -348,12 +400,37 @@ const ROOMS = [
     },
     "exits": {
       "w": "forest.deep_forest",
-      "e": "forest.fox_glade"
+      "e": "forest.fox_glade",
+      "s": "forest.briar_path"
     },
     "tags": [
       "outdoor",
       "forest",
       "bright"
+    ]
+  },
+  {
+    "id": "forest.tangled_slope",
+    "name": {
+      "en": "Tangled slope",
+      "cs": "Zarostlý svah"
+    },
+    "short": {
+      "en": "The ground drops away here, tangled with roots and fallen logs.",
+      "cs": "Půda se zde svažuje, zapletená do kořenů a popadaných kmenů."
+    },
+    "long": {
+      "en": "The blue flowers of the meadow give way to rough ground where the land starts to dip. Tree roots push up through the dark soil and mossy logs lie where they fell. The air is cooler and the light thinner. The slope runs east along the foot of a rocky ridge toward what sounds like an old ravine.",
+      "cs": "Modré květy louky ustupují hrubé půdě, kde se terén začíná svažovat. Z tmavé zeminy trčí kořeny stromů a mechové kmeny leží tam, kde padly. Vzduch je chladnější a světla ubývá. Svah běží na východ podél úpatí skalnatého hřebene k tomu, co zní jako starý roklinový zářez."
+    },
+    "exits": {
+      "n": "forest.meadow",
+      "e": "forest.gorge"
+    },
+    "tags": [
+      "outdoor",
+      "forest",
+      "dark"
     ]
   },
   {
@@ -519,7 +596,8 @@ const ROOMS = [
     },
     "exits": {
       "n": "home.yard",
-      "e": "forest.entry"
+      "e": "forest.entry",
+      "w": "village.wheat_path"
     },
     "tags": [
       "outdoor",
@@ -602,6 +680,439 @@ const ROOMS = [
       "outdoor",
       "home"
     ]
+  },
+  {
+    "id": "mine.centipede_pit",
+    "name": {
+      "en": "Centipede pit",
+      "cs": "Stonožčí jáma"
+    },
+    "short": {
+      "en": "A wide hollow in the rock that smells wrong, with bones scattered across the floor.",
+      "cs": "Široká prohlubeň ve skále, která divně páchne, s kostmi roztroušenými po podlaze."
+    },
+    "long": {
+      "en": "The floor is littered with small bones — mostly rats and birds, with a few larger ones mixed in. A wet, earthy smell fills the space and the walls are streaked with something dark and sticky. The rock at the far end has been worn smooth by something heavy moving over it again and again.",
+      "cs": "Podlaha je posetá malými kostmi — většinou krysami a ptáky, s několika většími kosmi mezi nimi. Prostor naplňuje vlhký zemitý pach a stěny jsou popruhované něčím tmavým a lepkavým. Skála na vzdáleném konci je uhladěna něčím těžkým, co po ní opakovaně přejíždělo."
+    },
+    "exits": {
+      "w": "mine.dark_crossing"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "mine.dark_crossing",
+    "name": {
+      "en": "Dark crossing",
+      "cs": "Temná křižovatka"
+    },
+    "short": {
+      "en": "A junction where all the torches have burnt out, leaving only darkness.",
+      "cs": "Křižovatka, kde všechny pochodně dohořely a zanechaly jen tmu."
+    },
+    "long": {
+      "en": "The torches here are long dead — only black stumps remain in their iron brackets. The darkness is almost complete. Your eyes slowly adjust and you can just make out passages leading north, east, and south. The quiet is deep and the air smells faintly of something sharp and sour.",
+      "cs": "Pochodně zde dávno dohořely — v železných konzolách zbývají jen černé pahýly. Tma je téměř úplná. Oči si pomalu zvykají a sotva rozeznáš chodby vedoucí na sever, na východ a na jih. Ticho je hluboké a vzduch slabě zapáchá něčím ostrým a kyselým."
+    },
+    "exits": {
+      "n": "mine.deep_hall",
+      "e": "mine.centipede_pit",
+      "s": "mine.chief_hall"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "mine.deep_hall",
+    "name": {
+      "en": "Deep hall",
+      "cs": "Hluboká hala"
+    },
+    "short": {
+      "en": "A wider underground chamber where several tunnels meet.",
+      "cs": "Širší podzemní hala, kde se stýká několik štol."
+    },
+    "long": {
+      "en": "The rock here opens into a space big enough to stand upright without hunching. The floor is worn smooth in the middle from years of small feet passing through. Three tunnels branch off into the dark. The air is damp and there is a faint dripping sound somewhere above, and the smell of wet stone is strong.",
+      "cs": "Skála se zde rozevírá do prostoru, ve kterém se dá stát zpříma bez ohýbání. Podlaha je uprostřed uhladěna lety procházejících malých noh. Tři štoly odbočují do tmy. Vzduch je vlhký, odněkud shora se ozývá slabé kápání a silně tu voní mokrá skála."
+    },
+    "exits": {
+      "n": "mine.entrance",
+      "e": "mine.store_room",
+      "s": "mine.dark_crossing"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "mine.east_tunnel",
+    "name": {
+      "en": "East shaft",
+      "cs": "Východní štola"
+    },
+    "short": {
+      "en": "A wider shaft supported by heavy beams, old iron tools hanging on the walls.",
+      "cs": "Širší štola podepřená těžkými trámy, na stěnách visí staré železné nástroje."
+    },
+    "long": {
+      "en": "This tunnel is wider than the others and the ceiling is held up by heavy wooden beams, most of them cracked and dark with age. Iron tools — picks, shovels, rusted through and old — hang on pegs driven into the rock. At the far end the tunnel ends where the ceiling has collapsed into a pile of rubble.",
+      "cs": "Tato štola je širší než ostatní a strop drží těžké dřevěné trámy, většinou poprasklané a zčernalé stářím. Na kolících zaražených do skály visí železné nástroje — krumpáče, lopaty, prorezlé a staré. Na vzdáleném konci štola končí, kde se strop propadl do hromady sutin."
+    },
+    "exits": {
+      "w": "mine.entrance"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "mine.entrance",
+    "name": {
+      "en": "Mine entrance",
+      "cs": "Vstup do dolu"
+    },
+    "short": {
+      "en": "A rough chamber cut from rock, lit by a few torches jammed into cracks in the wall.",
+      "cs": "Hrubá komnata vytesaná ze skály, osvětlená několika pochodněmi zaraženými do prasklin ve zdi."
+    },
+    "long": {
+      "en": "The mine opens into a low chamber where the walls are rough and uneven. Old mine carts sit rusting on short rails that go nowhere. Torches in iron brackets cast orange light across the stone floor. The air is cool and smells of rock dust and old smoke. Tunnels lead west and east, and the main shaft continues south.",
+      "cs": "Důl se otevírá do nízké komnaty, kde jsou stěny hrubé a nerovné. Na krátkých kolejích, které nikam nevedou, rezaví staré důlní vozíky. Pochodně v železných konzolách vrhají oranžové světlo na kamennou podlahu. Vzduch je chladný a voní kamenným prachem a starým kouřem. Na západ a na východ vedou štoly a hlavní šachta pokračuje na jih."
+    },
+    "exits": {
+      "n": "forest.gorge",
+      "w": "mine.west_tunnel",
+      "e": "mine.east_tunnel",
+      "s": "mine.deep_hall"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "mine.chief_hall",
+    "name": {
+      "en": "Chief's hall",
+      "cs": "Náčelníkova komnata"
+    },
+    "short": {
+      "en": "A large chamber with a crude stone seat carved into the raised rock at the far end.",
+      "cs": "Velká komnata s hrubým kamenným sedadlem vytesaným do vyvýšené skály na vzdáleném konci."
+    },
+    "long": {
+      "en": "This is the biggest space in the mine. The ceiling is higher here and the walls have been scraped roughly smooth. At the far end a wide ledge of rock has been carved into a seat — crude but clearly meant to be a throne. Scraps of metal, bones, and stolen trinkets are piled around it. The air is thick with smoke from a fire pit in the middle of the floor.",
+      "cs": "Toto je největší prostor v dole. Strop je zde vyšší a stěny byly hrubě uhlazeně seškrábány. Na vzdáleném konci bylo do širokého skalního výstupku vytesáno sedadlo — hrubé, ale jednoznačně zamýšlené jako trůn. Kolem jsou nahrnuté odlomky kovu, kosti a ukradené drobnosti. Vzduch je hustý kouřem z ohniště uprostřed podlahy."
+    },
+    "exits": {
+      "n": "mine.dark_crossing"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "mine.store_room",
+    "name": {
+      "en": "Store room",
+      "cs": "Skladiště"
+    },
+    "short": {
+      "en": "A side chamber packed with old crates and barrels, most of them broken open.",
+      "cs": "Boční komnata plná starých beden a sudů, většina z nich rozbitá."
+    },
+    "long": {
+      "en": "Crates and barrels line every wall, stacked haphazardly to the ceiling. Most are old and rotting, lids broken or missing. Some have been pried open and the contents spilled across the floor — rags, broken tools, scraps of rope. It looks like something has been rummaging through everything.",
+      "cs": "Podél každé stěny jsou naskládané bedny a sudy, nahromaděné až ke stropu jak se dalo. Většina je stará a prohnilá, víka rozbitá nebo chybějící. Část jich byla násilně otevřena a obsah se vysypal na podlahu — hadry, rozbitá nářadí, kousky provazu. Vypadá to, jako by se tu někdo důkladně přehrabal."
+    },
+    "exits": {
+      "w": "mine.deep_hall"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "mine.west_tunnel",
+    "name": {
+      "en": "West tunnel",
+      "cs": "Západní štola"
+    },
+    "short": {
+      "en": "A low tunnel that reeks of rats, with straw and scraps piled against the walls.",
+      "cs": "Nízká štola zapáchající krysami, s hromadami slámy a odpadků u stěn."
+    },
+    "long": {
+      "en": "The ceiling is low enough to brush against and the floor is covered in loose dirt and matted straw. Scratching sounds come from the dark corners. The straw is pressed into rough nests and something has gnawed through the old wooden supports. Squeaking echoes from the shadows.",
+      "cs": "Strop je tak nízko, že se ho skoro dotýkáš, a podlahu pokrývá sypaná hlína a slepená sláma. Z temných koutů se ozývá škrábání. Sláma je upěchovaná do hrubých hnízd a něco přehryzlo staré dřevěné vzpěry. Ze stínů se ozývá pištění."
+    },
+    "exits": {
+      "e": "mine.entrance"
+    },
+    "tags": [
+      "indoor",
+      "mine",
+      "dark"
+    ]
+  },
+  {
+    "id": "village.bakery",
+    "name": {
+      "en": "The Bakery",
+      "cs": "Pekařství"
+    },
+    "short": {
+      "en": "A warm room that smells of fresh bread.",
+      "cs": "Teplá místnost, kde voní čerstvý chléb."
+    },
+    "long": {
+      "en": "A low room with a big stone oven glowing in the back. Loaves of bread and round buns sit on a wooden counter, still warm. Flour drifts in the air like fine snow. A door to the south leads back to the square, and a small side door to the west opens onto a quiet lane.",
+      "cs": "Nízká místnost s velkou kamennou pecí, která vzadu žhne. Na dřevěném pultu leží bochníky chleba a kulaté housky, ještě teplé. Ve vzduchu poletuje mouka jako jemný sníh. Dveře na jih vedou zpět na náves, malé boční dveře na západ ústí do tiché uličky."
+    },
+    "exits": {
+      "s": "village.square",
+      "w": "village.lane"
+    },
+    "tags": [
+      "indoor",
+      "village",
+      "shop",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.herbalist",
+    "name": {
+      "en": "Herbalist's Cottage",
+      "cs": "Bylinkářčina chaloupka"
+    },
+    "short": {
+      "en": "A small cottage full of drying herbs and glass jars.",
+      "cs": "Malá chaloupka plná sušících se bylin a skleněných nádob."
+    },
+    "long": {
+      "en": "Bunches of dried herbs hang from the low ceiling. Shelves are crowded with glass jars of leaves, roots and seeds, each with a careful little label. The room smells of mint and lavender. The only door leads east back to the lane.",
+      "cs": "Z nízkého stropu visí svazky sušených bylin. Police jsou plné skleněných nádob s listy, kořínky a semínky, každá pečlivě popsaná. V místnosti voní máta a levandule. Jediné dveře vedou na východ zpátky do uličky."
+    },
+    "exits": {
+      "e": "village.lane"
+    },
+    "tags": [
+      "indoor",
+      "village",
+      "shop",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.lane",
+    "name": {
+      "en": "Cobbled Lane",
+      "cs": "Dlážděná ulička"
+    },
+    "short": {
+      "en": "A quiet cobbled lane lined with flowerboxes.",
+      "cs": "Tichá dlážděná ulička s truhlíky květin."
+    },
+    "long": {
+      "en": "A narrow lane paved with round cobblestones. Wooden flowerboxes under every window are full of red geraniums. A pair of geese waddles past, honking softly. The lane meets the bakery to the east, a small herbalist's cottage to the west, and a path leads south to a stone shrine.",
+      "cs": "Úzká ulička dlážděná kulatými kameny. Dřevěné truhlíky pod každým oknem jsou plné červených pelargónií. Kolem se kolébají dvě husy a tiše kejhají. Ulička navazuje na východ na pekařství, na západ na malou bylinkářčinu chaloupku a na jih vede pěšinka ke kamenné svatyňce."
+    },
+    "exits": {
+      "e": "village.bakery",
+      "w": "village.herbalist",
+      "s": "village.shrine"
+    },
+    "tags": [
+      "outdoor",
+      "village",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.orchard",
+    "name": {
+      "en": "Apple Orchard",
+      "cs": "Jabloňový sad"
+    },
+    "short": {
+      "en": "Rows of apple trees behind a low stone wall.",
+      "cs": "Řady jabloní za nízkou kamennou zídkou."
+    },
+    "long": {
+      "en": "Old apple trees stand in tidy rows, their branches heavy with red and green fruit. Fallen blossoms lie like soft snow in the grass. A low stone wall runs along the south side, where a fenced lane curves out of sight toward distant rolling fields. The smithy is back to the north.",
+      "cs": "Staré jabloně stojí v úhledných řadách a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Po jižní straně se táhne nízká kamenná zídka, kde se ohraničená cesta ztrácí směrem k dalekým zvlněným polím. Kovárna je zpátky na severu."
+    },
+    "exits": {
+      "n": "village.smith"
+    },
+    "tags": [
+      "outdoor",
+      "village",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.outskirts",
+    "name": {
+      "en": "Village Outskirts",
+      "cs": "Okraj vesnice"
+    },
+    "short": {
+      "en": "The first cottages of the village, with gardens and wood smoke in the air.",
+      "cs": "První chalupy vesnice, kolem zahrádky a ve vzduchu kouř ze dřeva."
+    },
+    "long": {
+      "en": "Small cottages with thatched roofs stand close to the road. Wooden fences hold back rows of cabbages and beans. The smell of wood smoke drifts from a chimney. The road runs east to the wheat fields and west into the village square.",
+      "cs": "U cesty stojí malé chalupy s doškovými střechami. Dřevěné ploty drží řádky zelí a fazolí. Z komína se line vůně dřevěného kouře. Cesta pokračuje na východ do polí a na západ na náves."
+    },
+    "exits": {
+      "e": "village.wheat_path",
+      "w": "village.square"
+    },
+    "tags": [
+      "outdoor",
+      "village"
+    ]
+  },
+  {
+    "id": "village.pub",
+    "name": {
+      "en": "The Village Pub",
+      "cs": "Hostinec"
+    },
+    "short": {
+      "en": "A cosy pub with a few wooden tables and a warm fire.",
+      "cs": "Útulný hostinec s pár dřevěnými stoly a teplým ohněm."
+    },
+    "long": {
+      "en": "A low room with dark wooden beams and a fire crackling in a stone fireplace. A few sturdy tables are scratched with years of use. Mugs hang in a row above the bar. The only door leads east back to the square.",
+      "cs": "Nízká místnost s tmavými dřevěnými trámy a praskajícím ohněm v kamenném krbu. Pár pevných stolů je poškrábaných od dlouhých let. Nad výčepem visí v řadě korbely. Jediné dveře vedou na východ zpět na náves."
+    },
+    "exits": {
+      "e": "village.square"
+    },
+    "tags": [
+      "indoor",
+      "village",
+      "shop",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.shrine",
+    "name": {
+      "en": "Small Stone Shrine",
+      "cs": "Malá kamenná svatyňka"
+    },
+    "short": {
+      "en": "A small stone shrine in a quiet wildflower garden.",
+      "cs": "Malá kamenná svatyňka v tiché zahrádce s lučními květy."
+    },
+    "long": {
+      "en": "A simple stone shrine no taller than a child stands in a patch of wildflowers. A worn offering bowl sits on the step, holding a few coins and a sprig of dried lavender. Bees drift between the blossoms. A path leads back north to the lane.",
+      "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí v záhonu lučních květů. Na schůdku leží otřelá obětní miska s pár drobnými mincemi a větvičkou sušené levandule. Mezi květy poletují včely. Cesta vede zpátky na sever do uličky."
+    },
+    "exits": {
+      "n": "village.lane"
+    },
+    "tags": [
+      "outdoor",
+      "village",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.smith",
+    "name": {
+      "en": "The Smithy",
+      "cs": "Kovárna"
+    },
+    "short": {
+      "en": "A hot workshop with an anvil and a glowing forge.",
+      "cs": "Horká dílna s kovadlinou a žhnoucí výhní."
+    },
+    "long": {
+      "en": "Sparks fly from a forge in the corner, and the iron anvil is dark with use. Tools and horseshoes hang on every wall. The smell of coal and hot metal fills the air. The big door north leads back to the square, and an open back door south looks out on an apple orchard.",
+      "cs": "Z výhně v rohu létají jiskry a železná kovadlina je od práce zčernalá. Na všech stěnách visí nářadí a podkovy. Vzduch voní uhlím a horkým kovem. Velké dveře na sever vedou zpět na náves a otevřené zadní dveře na jih hledí do jabloňového sadu."
+    },
+    "exits": {
+      "n": "village.square",
+      "s": "village.orchard"
+    },
+    "tags": [
+      "indoor",
+      "village",
+      "shop",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.square",
+    "name": {
+      "en": "Village Square",
+      "cs": "Náves"
+    },
+    "short": {
+      "en": "A small square with a stone well in the middle.",
+      "cs": "Malá náves s kamennou studnou uprostřed."
+    },
+    "long": {
+      "en": "A round square paved with worn stones. In the middle stands an old well with a wooden bucket on a rope. Around the square sit a bakery to the north, a smithy to the south, and a small pub to the west. The road back east leads out of the village.",
+      "cs": "Kulatá náves dlážděná otřelými kameny. Uprostřed stojí stará studna s dřevěným vědrem na provaze. Kolem návsi je na severu pekařství, na jihu kovárna a na západě malý hostinec. Cesta na východ vede z vesnice ven."
+    },
+    "exits": {
+      "n": "village.bakery",
+      "s": "village.smith",
+      "w": "village.pub",
+      "e": "village.outskirts"
+    },
+    "tags": [
+      "outdoor",
+      "village",
+      "safe"
+    ]
+  },
+  {
+    "id": "village.wheat_path",
+    "name": {
+      "en": "Path Through the Wheat",
+      "cs": "Pěšina v pšenici"
+    },
+    "short": {
+      "en": "A narrow path between tall wheat, going east and west.",
+      "cs": "Úzká pěšina mezi vysokou pšenicí, vede na východ a na západ."
+    },
+    "long": {
+      "en": "Tall golden wheat brushes your shoulders on both sides of the path. A wooden scarecrow with a straw hat watches over the field. Larks sing high above. The path runs east back to the crossroads and west toward a village.",
+      "cs": "Vysoká zlatá pšenice se po obou stranách otírá o tvá ramena. Dřevěný strašák se slaměným kloboukem hlídá pole. Vysoko nad tebou zpívají skřivani. Pěšina vede na východ zpět na rozcestí a na západ k vesnici."
+    },
+    "exits": {
+      "e": "home.field",
+      "w": "village.outskirts"
+    },
+    "tags": [
+      "outdoor",
+      "village",
+      "border"
+    ]
   }
 ];
 const GRID_POSITIONS = {
@@ -633,13 +1144,29 @@ const GRID_POSITIONS = {
     0,
     1
   ],
+  "village.wheat_path": [
+    -1,
+    2
+  ],
   "forest.meadow": [
     1,
     1
   ],
+  "village.outskirts": [
+    -2,
+    2
+  ],
   "forest.deep_forest": [
     2,
     1
+  ],
+  "forest.tangled_slope": [
+    1,
+    2
+  ],
+  "village.square": [
+    -3,
+    2
   ],
   "forest.cave": [
     2,
@@ -653,6 +1180,22 @@ const GRID_POSITIONS = {
     3,
     1
   ],
+  "forest.gorge": [
+    0,
+    2
+  ],
+  "village.bakery": [
+    -3,
+    1
+  ],
+  "village.smith": [
+    -3,
+    3
+  ],
+  "village.pub": [
+    -4,
+    2
+  ],
   "forest.hill": [
     2,
     -1
@@ -660,6 +1203,22 @@ const GRID_POSITIONS = {
   "forest.fox_glade": [
     4,
     1
+  ],
+  "forest.briar_path": [
+    3,
+    2
+  ],
+  "mine.entrance": [
+    0,
+    3
+  ],
+  "village.lane": [
+    -4,
+    1
+  ],
+  "village.orchard": [
+    -3,
+    4
   ],
   "forest.tower_entry": [
     2,
@@ -677,6 +1236,26 @@ const GRID_POSITIONS = {
     5,
     1
   ],
+  "mine.west_tunnel": [
+    -1,
+    3
+  ],
+  "mine.east_tunnel": [
+    1,
+    3
+  ],
+  "mine.deep_hall": [
+    0,
+    4
+  ],
+  "village.herbalist": [
+    -5,
+    1
+  ],
+  "village.shrine": [
+    -4,
+    0
+  ],
   "forest.tower_upper": [
     2,
     -3
@@ -688,6 +1267,22 @@ const GRID_POSITIONS = {
   "forest.wolf_den": [
     6,
     1
+  ],
+  "mine.store_room": [
+    1,
+    4
+  ],
+  "mine.dark_crossing": [
+    0,
+    5
+  ],
+  "mine.centipede_pit": [
+    1,
+    5
+  ],
+  "mine.chief_hall": [
+    0,
+    6
   ]
 };
 

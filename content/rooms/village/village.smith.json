@@ -1,0 +1,20 @@
+{
+  "id": "village.smith",
+  "name": {
+    "en": "The Smithy",
+    "cs": "Kovárna"
+  },
+  "short": {
+    "en": "A hot workshop with an anvil and a glowing forge.",
+    "cs": "Horká dílna s kovadlinou a žhnoucí výhní."
+  },
+  "long": {
+    "en": "Sparks fly from a forge in the corner, and the iron anvil is dark with use. Tools and horseshoes hang on every wall. The smell of coal and hot metal fills the air. The big door north leads back to the square, and an open back door south looks out on an apple orchard.",
+    "cs": "Z výhně v rohu létají jiskry a železná kovadlina je od práce zčernalá. Na všech stěnách visí nářadí a podkovy. Vzduch voní uhlím a horkým kovem. Velké dveře na sever vedou zpět na náves a otevřené zadní dveře na jih hledí do jabloňového sadu."
+  },
+  "exits": {
+    "n": "village.square",
+    "s": "village.orchard"
+  },
+  "tags": ["indoor", "village", "shop", "safe"]
+}

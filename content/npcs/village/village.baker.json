@@ -1,0 +1,76 @@
+{
+  "id": "village.baker",
+  "name": {
+    "en": "the baker",
+    "cs": "pekař"
+  },
+  "nameAcc": {
+    "en": "the baker",
+    "cs": "pekaře"
+  },
+  "title": {
+    "en": "baker",
+    "cs": "pekař"
+  },
+  "location": "village.bakery",
+  "short": {
+    "en": "A round, flour-dusted baker hums by the oven.",
+    "cs": "Kulatý pekař obsypaný moukou si pobrukuje u pece."
+  },
+  "long": {
+    "en": "A cheerful man in a white apron with flour on his nose and his sleeves rolled up. His big arms are used to kneading dough since before dawn. He smiles at every customer like an old friend.",
+    "cs": "Veselý muž v bílé zástěře, mouku má na nose a rukávy vyhrnuté. Jeho silné paže jsou zvyklé hníst těsto už od svítání. Na každého zákazníka se usměje jako na starého známého."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 20, "hpMax": 20,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "spd": 6
+  },
+  "respawn": { "ticks": 600 },
+  "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.05,
+      "cost": 12,
+      "lines": {
+        "en": [
+          "Fresh bread, still warm!",
+          "Mind the flour, it gets everywhere.",
+          "Try a bun, just out of the oven.",
+          "Best loaves in three villages, if I say so myself."
+        ],
+        "cs": [
+          "Čerstvý chléb, ještě teplý!",
+          "Pozor na mouku, je všude.",
+          "Ochutnej housku, právě z pece.",
+          "Nejlepší bochníky ze tří vesnic, troufám si říct."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "kneads a lump of dough on the wooden counter.",
+          "wipes flour from his hands onto his apron.",
+          "opens the oven and a wave of warm air rolls out.",
+          "hums a tune as he shapes the next loaf.",
+          "dusts more flour over the work surface."
+        ],
+        "cs": [
+          "hněte kus těsta na dřevěném pultu.",
+          "otírá si mouku z rukou do zástěry.",
+          "otevře pec a vyvalí se vlna teplého vzduchu.",
+          "při tvarování dalšího bochníku si pobrukuje.",
+          "posype pracovní plochu další moukou."
+        ]
+      }
+    }
+  ]
+}

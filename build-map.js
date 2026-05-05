@@ -98,10 +98,20 @@ function buildLayout(rooms) {
 }
 
 function loadRooms() {
-  return readdirSync(ROOMS_DIR)
-    .filter(f => f.endsWith(".json"))
+  const files = [];
+  for (const entry of readdirSync(ROOMS_DIR, { withFileTypes: true })) {
+    if (entry.isDirectory()) {
+      for (const sub of readdirSync(join(ROOMS_DIR, entry.name), { withFileTypes: true })) {
+        if (sub.isFile() && sub.name.endsWith(".json"))
+          files.push(join(ROOMS_DIR, entry.name, sub.name));
+      }
+    } else if (entry.isFile() && entry.name.endsWith(".json")) {
+      files.push(join(ROOMS_DIR, entry.name));
+    }
+  }
+  return files
     .map(f => {
-      try { return JSON.parse(readFileSync(join(ROOMS_DIR, f), "utf8")); }
+      try { return JSON.parse(readFileSync(f, "utf8")); }
       catch (e) { console.warn(`Skipping ${f}: ${e.message}`); return null; }
     })
     .filter(Boolean)

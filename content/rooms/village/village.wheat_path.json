@@ -1,0 +1,20 @@
+{
+  "id": "village.wheat_path",
+  "name": {
+    "en": "Path Through the Wheat",
+    "cs": "Pěšina v pšenici"
+  },
+  "short": {
+    "en": "A narrow path between tall wheat, going east and west.",
+    "cs": "Úzká pěšina mezi vysokou pšenicí, vede na východ a na západ."
+  },
+  "long": {
+    "en": "Tall golden wheat brushes your shoulders on both sides of the path. A wooden scarecrow with a straw hat watches over the field. Larks sing high above. The path runs east back to the crossroads and west toward a village.",
+    "cs": "Vysoká zlatá pšenice se po obou stranách otírá o tvá ramena. Dřevěný strašák se slaměným kloboukem hlídá pole. Vysoko nad tebou zpívají skřivani. Pěšina vede na východ zpět na rozcestí a na západ k vesnici."
+  },
+  "exits": {
+    "e": "home.field",
+    "w": "village.outskirts"
+  },
+  "tags": ["outdoor", "village", "border"]
+}

@@ -1,0 +1,19 @@
+{
+  "id": "village.pub",
+  "name": {
+    "en": "The Village Pub",
+    "cs": "Hostinec"
+  },
+  "short": {
+    "en": "A cosy pub with a few wooden tables and a warm fire.",
+    "cs": "Útulný hostinec s pár dřevěnými stoly a teplým ohněm."
+  },
+  "long": {
+    "en": "A low room with dark wooden beams and a fire crackling in a stone fireplace. A few sturdy tables are scratched with years of use. Mugs hang in a row above the bar. The only door leads east back to the square.",
+    "cs": "Nízká místnost s tmavými dřevěnými trámy a praskajícím ohněm v kamenném krbu. Pár pevných stolů je poškrábaných od dlouhých let. Nad výčepem visí v řadě korbely. Jediné dveře vedou na východ zpět na náves."
+  },
+  "exits": {
+    "e": "village.square"
+  },
+  "tags": ["indoor", "village", "shop", "safe"]
+}
