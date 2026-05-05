@@ -62,9 +62,17 @@ export function applyTrain(actor, key) {
   const gain = STAT_RATIOS[key];
   if (!record.baseStats) return false;
   record.baseStats[key] = (record.baseStats[key] ?? 0) + gain;
-  // For HP/MP, bump current pool so the gain feels immediate.
-  if (key === 'hpMax') record.baseStats.hp = (record.baseStats.hp ?? 0) + gain;
-  if (key === 'mpMax') record.baseStats.mp = (record.baseStats.mp ?? 0) + gain;
+  // For HP/MP, also bump the live current pool so the gain feels immediate.
+  // recomputeStats reads actor.stats.hp/mp (clamped to new max) — bumping
+  // record.baseStats.hp alone is overwritten, so update both.
+  if (key === 'hpMax') {
+    record.baseStats.hp = (record.baseStats.hp ?? 0) + gain;
+    actor.stats.hp = (actor.stats.hp ?? 0) + gain;
+  }
+  if (key === 'mpMax') {
+    record.baseStats.mp = (record.baseStats.mp ?? 0) + gain;
+    actor.stats.mp = (actor.stats.mp ?? 0) + gain;
+  }
 
   record.unspentPoints -= 1;
   record.allocated[key] = (record.allocated[key] ?? 0) + 1;
@@ -86,9 +94,11 @@ export function resetAllocations(actor) {
     record.baseStats[key] = (record.baseStats[key] ?? 0) - gain * count;
     if (key === 'hpMax') {
       record.baseStats.hp = Math.max(0, (record.baseStats.hp ?? 0) - gain * count);
+      if (actor.stats) actor.stats.hp = Math.max(0, (actor.stats.hp ?? 0) - gain * count);
     }
     if (key === 'mpMax') {
       record.baseStats.mp = Math.max(0, (record.baseStats.mp ?? 0) - gain * count);
+      if (actor.stats) actor.stats.mp = Math.max(0, (actor.stats.mp ?? 0) - gain * count);
     }
     record.allocated[key] = 0;
     refunded += count;
