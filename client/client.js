@@ -292,6 +292,16 @@ function renderStats(msg) {
       grid.appendChild(row);
     });
     body.appendChild(grid);
+    if (Array.isArray(eq.inInventory) && eq.inInventory.length > 0) {
+      const chipsRow = document.createElement('div');
+      chipsRow.className = 'equipment-inventory-row';
+      eq.inInventory.forEach((w, i) => {
+        if (i > 0) chipsRow.append(' ');
+        const label = w.count > 1 ? `${w.name} ×${w.count}` : w.name;
+        chipsRow.appendChild(makeChip(label, 'item', () => sendInput(`wear ${w.name}`)));
+      });
+      body.appendChild(chipsRow);
+    }
   }));
 
   playerPanel.hidden = false;
@@ -842,7 +852,8 @@ function openUseInventoryOnSubmenu(anchorEl, roomItem) {
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
     openRoomItemPopover(anchorEl, roomItem);
   }));
-  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  const inv = (Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [])
+    .filter(it => it.usable);
   if (inv.length === 0) {
     const empty = document.createElement('div');
     empty.style.padding = '4px';
@@ -1140,7 +1151,8 @@ function openUseFixturePicker(anchorEl, ev) {
 
 function openUseOnPicker(anchorEl, ev) {
   ev?.stopPropagation();
-  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  const inv = (Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [])
+    .filter(it => it.usable);
   startPopover(anchorEl, labels.useOnPickerTitle ?? 'Use which item?');
   if (inv.length === 0) {
     const empty = document.createElement('div');
