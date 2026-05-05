@@ -5,15 +5,16 @@
     "cs": "Jabloňový sad"
   },
   "short": {
-    "en": "Rows of apple trees behind a low stone wall.",
-    "cs": "Řady jabloní za nízkou kamennou zídkou."
+    "en": "Rows of apple trees along the village road.",
+    "cs": "Řady jabloní podél vesnické cesty."
   },
   "long": {
-    "en": "Old apple trees stand in tidy rows, their branches heavy with red and green fruit. Fallen blossoms lie like soft snow in the grass. A low stone wall runs along the south side, where a fenced lane curves out of sight toward distant rolling fields. The smithy is back to the north.",
-    "cs": "Staré jabloně stojí v úhledných řadách a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Po jižní straně se táhne nízká kamenná zídka, kde se ohraničená cesta ztrácí směrem k dalekým zvlněným polím. Kovárna je zpátky na severu."
+    "en": "Old apple trees stand in tidy rows on both sides of the road, their branches heavy with red and green fruit. Fallen blossoms lie like soft snow in the grass. A low stone wall keeps the trees from leaning over the path. The road runs west into the village square and east toward the cottages on the edge of the village.",
+    "cs": "Po obou stranách cesty stojí v úhledných řadách staré jabloně a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Nízká kamenná zídka brání tomu, aby se stromy nakláněly nad pěšinu. Cesta vede na západ na náves a na východ k chalupám na okraji vesnice."
   },
   "exits": {
-    "n": "village.smith"
+    "w": "village.square",
+    "e": "village.outskirts"
   },
   "tags": ["outdoor", "village", "safe"]
 }

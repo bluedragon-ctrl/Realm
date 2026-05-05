@@ -9,13 +9,14 @@
     "cs": "Tichá dlážděná ulička s truhlíky květin."
   },
   "long": {
-    "en": "A narrow lane paved with round cobblestones. Wooden flowerboxes under every window are full of red geraniums. A pair of geese waddles past, honking softly. The lane meets the bakery to the east, a small herbalist's cottage to the west, and a path leads south to a stone shrine.",
-    "cs": "Úzká ulička dlážděná kulatými kameny. Dřevěné truhlíky pod každým oknem jsou plné červených pelargónií. Kolem se kolébají dvě husy a tiše kejhají. Ulička navazuje na východ na pekařství, na západ na malou bylinkářčinu chaloupku a na jih vede pěšinka ke kamenné svatyňce."
+    "en": "A narrow lane paved with round cobblestones, where four ways meet. Wooden flowerboxes under every window are full of red geraniums. A pair of geese waddles past, honking softly. The bakery is to the east, a small herbalist's cottage to the west, a stone shrine sits at the end of the road north, and the village square opens up to the south.",
+    "cs": "Úzká ulička dlážděná kulatými kameny, kde se kříží čtyři cesty. Dřevěné truhlíky pod každým oknem jsou plné červených pelargónií. Kolem se kolébají dvě husy a tiše kejhají. Pekařství je na východ, malá bylinkářčina chaloupka na západ, na konci cesty na sever stojí kamenná svatyňka a na jih se otevírá náves."
   },
   "exits": {
     "e": "village.bakery",
     "w": "village.herbalist",
-    "s": "village.shrine"
+    "n": "village.shrine",
+    "s": "village.square"
   },
   "tags": ["outdoor", "village", "safe"]
 }

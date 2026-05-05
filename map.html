@@ -883,11 +883,10 @@ const ROOMS = [
       "cs": "Teplá místnost, kde voní čerstvý chléb."
     },
     "long": {
-      "en": "A low room with a big stone oven glowing in the back. Loaves of bread and round buns sit on a wooden counter, still warm. Flour drifts in the air like fine snow. A door to the south leads back to the square, and a small side door to the west opens onto a quiet lane.",
-      "cs": "Nízká místnost s velkou kamennou pecí, která vzadu žhne. Na dřevěném pultu leží bochníky chleba a kulaté housky, ještě teplé. Ve vzduchu poletuje mouka jako jemný sníh. Dveře na jih vedou zpět na náves, malé boční dveře na západ ústí do tiché uličky."
+      "en": "A low room with a big stone oven glowing in the back. Loaves of bread and round buns sit on a wooden counter, still warm. Flour drifts in the air like fine snow. The only door opens west onto the cobbled lane.",
+      "cs": "Nízká místnost s velkou kamennou pecí, která vzadu žhne. Na dřevěném pultu leží bochníky chleba a kulaté housky, ještě teplé. Ve vzduchu poletuje mouka jako jemný sníh. Jediné dveře vedou na západ do dlážděné uličky."
     },
     "exits": {
-      "s": "village.square",
       "w": "village.lane"
     },
     "tags": [
@@ -932,13 +931,14 @@ const ROOMS = [
       "cs": "Tichá dlážděná ulička s truhlíky květin."
     },
     "long": {
-      "en": "A narrow lane paved with round cobblestones. Wooden flowerboxes under every window are full of red geraniums. A pair of geese waddles past, honking softly. The lane meets the bakery to the east, a small herbalist's cottage to the west, and a path leads south to a stone shrine.",
-      "cs": "Úzká ulička dlážděná kulatými kameny. Dřevěné truhlíky pod každým oknem jsou plné červených pelargónií. Kolem se kolébají dvě husy a tiše kejhají. Ulička navazuje na východ na pekařství, na západ na malou bylinkářčinu chaloupku a na jih vede pěšinka ke kamenné svatyňce."
+      "en": "A narrow lane paved with round cobblestones, where four ways meet. Wooden flowerboxes under every window are full of red geraniums. A pair of geese waddles past, honking softly. The bakery is to the east, a small herbalist's cottage to the west, a stone shrine sits at the end of the road north, and the village square opens up to the south.",
+      "cs": "Úzká ulička dlážděná kulatými kameny, kde se kříží čtyři cesty. Dřevěné truhlíky pod každým oknem jsou plné červených pelargónií. Kolem se kolébají dvě husy a tiše kejhají. Pekařství je na východ, malá bylinkářčina chaloupka na západ, na konci cesty na sever stojí kamenná svatyňka a na jih se otevírá náves."
     },
     "exits": {
       "e": "village.bakery",
       "w": "village.herbalist",
-      "s": "village.shrine"
+      "n": "village.shrine",
+      "s": "village.square"
     },
     "tags": [
       "outdoor",
@@ -953,15 +953,16 @@ const ROOMS = [
       "cs": "Jabloňový sad"
     },
     "short": {
-      "en": "Rows of apple trees behind a low stone wall.",
-      "cs": "Řady jabloní za nízkou kamennou zídkou."
+      "en": "Rows of apple trees along the village road.",
+      "cs": "Řady jabloní podél vesnické cesty."
     },
     "long": {
-      "en": "Old apple trees stand in tidy rows, their branches heavy with red and green fruit. Fallen blossoms lie like soft snow in the grass. A low stone wall runs along the south side, where a fenced lane curves out of sight toward distant rolling fields. The smithy is back to the north.",
-      "cs": "Staré jabloně stojí v úhledných řadách a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Po jižní straně se táhne nízká kamenná zídka, kde se ohraničená cesta ztrácí směrem k dalekým zvlněným polím. Kovárna je zpátky na severu."
+      "en": "Old apple trees stand in tidy rows on both sides of the road, their branches heavy with red and green fruit. Fallen blossoms lie like soft snow in the grass. A low stone wall keeps the trees from leaning over the path. The road runs west into the village square and east toward the cottages on the edge of the village.",
+      "cs": "Po obou stranách cesty stojí v úhledných řadách staré jabloně a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Nízká kamenná zídka brání tomu, aby se stromy nakláněly nad pěšinu. Cesta vede na západ na náves a na východ k chalupám na okraji vesnice."
     },
     "exits": {
-      "n": "village.smith"
+      "w": "village.square",
+      "e": "village.outskirts"
     },
     "tags": [
       "outdoor",
@@ -980,12 +981,12 @@ const ROOMS = [
       "cs": "První chalupy vesnice, kolem zahrádky a ve vzduchu kouř ze dřeva."
     },
     "long": {
-      "en": "Small cottages with thatched roofs stand close to the road. Wooden fences hold back rows of cabbages and beans. The smell of wood smoke drifts from a chimney. The road runs east to the wheat fields and west into the village square.",
-      "cs": "U cesty stojí malé chalupy s doškovými střechami. Dřevěné ploty drží řádky zelí a fazolí. Z komína se line vůně dřevěného kouře. Cesta pokračuje na východ do polí a na západ na náves."
+      "en": "Small cottages with thatched roofs stand close to the road. Wooden fences hold back rows of cabbages and beans. The smell of wood smoke drifts from a chimney. The road runs east to the wheat fields and west between the apple trees of an orchard.",
+      "cs": "U cesty stojí malé chalupy s doškovými střechami. Dřevěné ploty drží řádky zelí a fazolí. Z komína se line vůně dřevěného kouře. Cesta vede na východ do polí a na západ mezi jabloně sadu."
     },
     "exits": {
       "e": "village.wheat_path",
-      "w": "village.square"
+      "w": "village.orchard"
     },
     "tags": [
       "outdoor",
@@ -1023,15 +1024,15 @@ const ROOMS = [
       "cs": "Malá kamenná svatyňka"
     },
     "short": {
-      "en": "A small stone shrine in a quiet wildflower garden.",
-      "cs": "Malá kamenná svatyňka v tiché zahrádce s lučními květy."
+      "en": "A small stone shrine beside the road, in a patch of wildflowers.",
+      "cs": "Malá kamenná svatyňka u cesty, v záhonu lučních květů."
     },
     "long": {
-      "en": "A simple stone shrine no taller than a child stands in a patch of wildflowers. A worn offering bowl sits on the step, holding a few coins and a sprig of dried lavender. Bees drift between the blossoms. A path leads back north to the lane.",
-      "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí v záhonu lučních květů. Na schůdku leží otřelá obětní miska s pár drobnými mincemi a větvičkou sušené levandule. Mezi květy poletují včely. Cesta vede zpátky na sever do uličky."
+      "en": "A simple stone shrine no taller than a child stands at the side of the road in a patch of wildflowers. A worn offering bowl sits on the step, holding a few coins and a sprig of dried lavender. Bees drift between the blossoms. The cobbled road runs back south into the lane, and continues north out of the village toward distant hills.",
+      "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí u cesty v záhonu lučních květů. Na schůdku leží otřelá obětní miska s pár drobnými mincemi a větvičkou sušené levandule. Mezi květy poletují včely. Dlážděná cesta vede zpátky na jih do uličky a pokračuje na sever z vesnice ven k dalekým kopcům."
     },
     "exits": {
-      "n": "village.lane"
+      "s": "village.lane"
     },
     "tags": [
       "outdoor",
@@ -1050,12 +1051,11 @@ const ROOMS = [
       "cs": "Horká dílna s kovadlinou a žhnoucí výhní."
     },
     "long": {
-      "en": "Sparks fly from a forge in the corner, and the iron anvil is dark with use. Tools and horseshoes hang on every wall. The smell of coal and hot metal fills the air. The big door north leads back to the square, and an open back door south looks out on an apple orchard.",
-      "cs": "Z výhně v rohu létají jiskry a železná kovadlina je od práce zčernalá. Na všech stěnách visí nářadí a podkovy. Vzduch voní uhlím a horkým kovem. Velké dveře na sever vedou zpět na náves a otevřené zadní dveře na jih hledí do jabloňového sadu."
+      "en": "Sparks fly from a forge in the corner, and the iron anvil is dark with use. Tools and horseshoes hang on every wall. The smell of coal and hot metal fills the air. The big door north leads back to the village square.",
+      "cs": "Z výhně v rohu létají jiskry a železná kovadlina je od práce zčernalá. Na všech stěnách visí nářadí a podkovy. Vzduch voní uhlím a horkým kovem. Velké dveře na sever vedou zpět na náves."
     },
     "exits": {
-      "n": "village.square",
-      "s": "village.orchard"
+      "n": "village.square"
     },
     "tags": [
       "indoor",
@@ -1075,14 +1075,14 @@ const ROOMS = [
       "cs": "Malá náves s kamennou studnou uprostřed."
     },
     "long": {
-      "en": "A round square paved with worn stones. In the middle stands an old well with a wooden bucket on a rope. Around the square sit a bakery to the north, a smithy to the south, and a small pub to the west. The road back east leads out of the village.",
-      "cs": "Kulatá náves dlážděná otřelými kameny. Uprostřed stojí stará studna s dřevěným vědrem na provaze. Kolem návsi je na severu pekařství, na jihu kovárna a na západě malý hostinec. Cesta na východ vede z vesnice ven."
+      "en": "A round square paved with worn stones. In the middle stands an old well with a wooden bucket on a rope. A cobbled lane leads north between flowerboxes, the smithy stands to the south, and a small pub sits to the west. To the east the road runs out under apple trees toward the edge of the village.",
+      "cs": "Kulatá náves dlážděná otřelými kameny. Uprostřed stojí stará studna s dřevěným vědrem na provaze. Na sever vede mezi truhlíky květin dlážděná ulička, na jihu stojí kovárna a na západě malý hostinec. Na východ vede cesta pod jabloně k okraji vesnice."
     },
     "exits": {
-      "n": "village.bakery",
+      "n": "village.lane",
       "s": "village.smith",
       "w": "village.pub",
-      "e": "village.outskirts"
+      "e": "village.orchard"
     },
     "tags": [
       "outdoor",
@@ -1164,7 +1164,7 @@ const GRID_POSITIONS = {
     1,
     2
   ],
-  "village.square": [
+  "village.orchard": [
     -3,
     2
   ],
@@ -1184,15 +1184,7 @@ const GRID_POSITIONS = {
     0,
     2
   ],
-  "village.bakery": [
-    -3,
-    1
-  ],
-  "village.smith": [
-    -3,
-    3
-  ],
-  "village.pub": [
+  "village.square": [
     -4,
     2
   ],
@@ -1216,9 +1208,13 @@ const GRID_POSITIONS = {
     -4,
     1
   ],
-  "village.orchard": [
-    -3,
-    4
+  "village.smith": [
+    -4,
+    3
+  ],
+  "village.pub": [
+    -5,
+    2
   ],
   "forest.tower_entry": [
     2,
@@ -1247,6 +1243,10 @@ const GRID_POSITIONS = {
   "mine.deep_hall": [
     0,
     4
+  ],
+  "village.bakery": [
+    -3,
+    1
   ],
   "village.herbalist": [
     -5,
