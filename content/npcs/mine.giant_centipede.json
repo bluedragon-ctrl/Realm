@@ -29,7 +29,7 @@
       "primitive": "attack",
       "name": { "en": "venomous bite", "cs": "jedovatý kousnutí" },
       "chance": 1.0,
-      "cost": 12,
+      "cost": 18,
       "damage": "1d4+ATK",
       "requires": "aggro_target",
       "onHit": { "applyEffect": "effect.poison", "chance": 1.0 },

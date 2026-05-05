@@ -29,7 +29,7 @@
       "primitive": "attack",
       "name": { "en": "axe blow", "cs": "sekerový úder" },
       "chance": 1.0,
-      "cost": 12,
+      "cost": 20,
       "damage": "1d6+ATK",
       "requires": "aggro_target",
       "templates": {

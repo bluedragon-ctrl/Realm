@@ -32,7 +32,7 @@
       "primitive": "attack",
       "name": { "en": "slash", "cs": "sek" },
       "chance": 1.0,
-      "cost": 12,
+      "cost": 14,
       "damage": "1d4+ATK",
       "requires": "aggro_target",
       "templates": {

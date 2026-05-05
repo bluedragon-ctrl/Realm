@@ -29,7 +29,7 @@
       "primitive": "attack",
       "name": { "en": "club strike", "cs": "úder kyjem" },
       "chance": 1.0,
-      "cost": 12,
+      "cost": 16,
       "damage": "1d4+ATK",
       "requires": "aggro_target",
       "templates": {
