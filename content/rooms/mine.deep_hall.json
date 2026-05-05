@@ -1,0 +1,21 @@
+{
+  "id": "mine.deep_hall",
+  "name": {
+    "en": "Deep hall",
+    "cs": "Hluboká hala"
+  },
+  "short": {
+    "en": "A wider underground chamber where several tunnels meet.",
+    "cs": "Širší podzemní hala, kde se stýká několik štol."
+  },
+  "long": {
+    "en": "The rock here opens into a space big enough to stand upright without hunching. The floor is worn smooth in the middle from years of small feet passing through. Three tunnels branch off into the dark. The air is damp and there is a faint dripping sound somewhere above, and the smell of wet stone is strong.",
+    "cs": "Skála se zde rozevírá do prostoru, ve kterém se dá stát zpříma bez ohýbání. Podlaha je uprostřed uhladěna lety procházejících malých noh. Tři štoly odbočují do tmy. Vzduch je vlhký, odněkud shora se ozývá slabé kápání a silně tu voní mokrá skála."
+  },
+  "exits": {
+    "n": "mine.entrance",
+    "e": "mine.store_room",
+    "s": "mine.dark_crossing"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

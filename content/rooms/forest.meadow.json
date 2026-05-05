@@ -14,7 +14,8 @@
   },
   "exits": {
     "w": "forest.entry",
-    "e": "forest.deep_forest"
+    "e": "forest.deep_forest",
+    "s": "forest.tangled_slope"
   },
   "tags": ["outdoor", "forest", "clearing"]
 }

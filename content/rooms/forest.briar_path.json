@@ -1,0 +1,20 @@
+{
+  "id": "forest.briar_path",
+  "name": {
+    "en": "Briar path",
+    "cs": "Trnková stezka"
+  },
+  "short": {
+    "en": "A narrow gap between walls of thorny briars where the trail turns stony.",
+    "cs": "Úzká mezera mezi zdmi trnitých keřů, kde se stezka mění v kamenité pásmo."
+  },
+  "long": {
+    "en": "The warm sunlit path ends abruptly where thorny briars crowd in from both sides, leaving only a narrow gap to squeeze through. The ground turns stony and the slope runs downward. The brambles thin out to the west where the trail levels off at the edge of a deep rocky gorge.",
+    "cs": "Teplá slunná stezka náhle končí, kde se z obou stran tisknou trnité keře a nechávají jen úzkou mezeru. Půda se mění v kamení a svah klesá dolů. Na západ křoviny řídnou a stezka se vyrovnává na okraji hluboké skalnaté rokle."
+  },
+  "exits": {
+    "n": "forest.sunlit_path",
+    "w": "forest.gorge"
+  },
+  "tags": ["outdoor", "forest"]
+}

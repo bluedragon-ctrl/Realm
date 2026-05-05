@@ -1,0 +1,68 @@
+{
+  "id": "mine.kobold_guard",
+  "name": { "en": "a kobold guard", "cs": "koboldí stráž" },
+  "nameAcc": { "en": "the kobold guard", "cs": "koboldí stráž" },
+  "title": { "en": "kobold guard", "cs": "koboldí stráž" },
+  "location": "mine.chief_hall",
+  "count": 2,
+  "short": {
+    "en": "A larger kobold in battered iron armour, blocking the way.",
+    "cs": "Větší kobold v otlučeném železném brnění, stojí v cestě."
+  },
+  "long": {
+    "en": "A kobold a head taller than the others, wearing scraps of iron armour hammered roughly into shape. It carries a short heavy club with an iron head. Its scales are darker and its yellow eyes are steady — no nervous shifting, just flat readiness.",
+    "cs": "Kobold o hlavu vyšší než ostatní, oblečený do kousků železného brnění nahrubo ukutého do tvaru. Nese krátký těžký kyj s železnou hlavou. Šupiny má tmavší a žluté oči klidné — žádné nervózní přešlapování, jen plná připravenost."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 16, "hpMax": 16,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 2, "int": 0,
+    "spd": 5
+  },
+  "respawn": { "ticks": 1200 },
+  "xp": 14,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "club strike", "cs": "úder kyjem" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swings its iron club at {target}!",
+          "{actor} drives a heavy blow into {target}!",
+          "{actor} charges and slams its club into {target}!"
+        ],
+        "cs": [
+          "{actor} zamáchne železným kyjem na {target}!",
+          "{actor} zasadí těžkou ránu do {target}!",
+          "{actor} se rozběhne a vrazí kyj do {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.04,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "thumps its club against its palm.",
+          "bares its teeth in a slow, deliberate snarl.",
+          "rolls its shoulders and sets its feet.",
+          "lets out a short warning bark."
+        ],
+        "cs": [
+          "třeskne kyjem o dlaň.",
+          "pomalu a záměrně vycenil zuby.",
+          "protočí rameny a pevně se postaví.",
+          "vydá krátké výstražné zavrčení."
+        ]
+      }
+    }
+  ]
+}

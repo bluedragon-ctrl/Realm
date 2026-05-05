@@ -1,0 +1,19 @@
+{
+  "id": "mine.west_tunnel",
+  "name": {
+    "en": "West tunnel",
+    "cs": "Západní štola"
+  },
+  "short": {
+    "en": "A low tunnel that reeks of rats, with straw and scraps piled against the walls.",
+    "cs": "Nízká štola zapáchající krysami, s hromadami slámy a odpadků u stěn."
+  },
+  "long": {
+    "en": "The ceiling is low enough to brush against and the floor is covered in loose dirt and matted straw. Scratching sounds come from the dark corners. The straw is pressed into rough nests and something has gnawed through the old wooden supports. Squeaking echoes from the shadows.",
+    "cs": "Strop je tak nízko, že se ho skoro dotýkáš, a podlahu pokrývá sypaná hlína a slepená sláma. Z temných koutů se ozývá škrábání. Sláma je upěchovaná do hrubých hnízd a něco přehryzlo staré dřevěné vzpěry. Ze stínů se ozývá pištění."
+  },
+  "exits": {
+    "e": "mine.entrance"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

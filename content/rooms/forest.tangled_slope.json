@@ -1,0 +1,20 @@
+{
+  "id": "forest.tangled_slope",
+  "name": {
+    "en": "Tangled slope",
+    "cs": "Zarostlý svah"
+  },
+  "short": {
+    "en": "The ground drops away here, tangled with roots and fallen logs.",
+    "cs": "Půda se zde svažuje, zapletená do kořenů a popadaných kmenů."
+  },
+  "long": {
+    "en": "The blue flowers of the meadow give way to rough ground where the land starts to dip. Tree roots push up through the dark soil and mossy logs lie where they fell. The air is cooler and the light thinner. The slope runs east along the foot of a rocky ridge toward what sounds like an old ravine.",
+    "cs": "Modré květy louky ustupují hrubé půdě, kde se terén začíná svažovat. Z tmavé zeminy trčí kořeny stromů a mechové kmeny leží tam, kde padly. Vzduch je chladnější a světla ubývá. Svah běží na východ podél úpatí skalnatého hřebene k tomu, co zní jako starý roklinový zářez."
+  },
+  "exits": {
+    "n": "forest.meadow",
+    "e": "forest.gorge"
+  },
+  "tags": ["outdoor", "forest", "dark"]
+}

@@ -1,0 +1,44 @@
+{
+  "id": "mine.door",
+  "name": {
+    "en": "a heavy mine door",
+    "cs": "těžké důlní dveře"
+  },
+  "nameAcc": {
+    "en": "the mine door",
+    "cs": "důlní dveře"
+  },
+  "short": {
+    "en": "A heavy timber door is set into the rock face. Someone has painted DANGER on it in big red letters.",
+    "cs": "Do skalní stěny jsou zasazeny těžké dřevěné dveře. Někdo na ně velkými červenými písmeny napsal NEBEZPEČÍ."
+  },
+  "long": {
+    "en": "Thick planks held together with iron bands. The wood is old and dark with moisture but still solid. In the middle of the door, painted in faded red, are the letters DANGER. The door sits in a timber frame sunk deep into the rock. There is no lock — just a heavy iron bar across the outside.",
+    "cs": "Tlusté prkna stažená železnými pásy. Dřevo je staré a ztmavlé vlhkostí, ale stále pevné. Uprostřed dveří jsou vybledlou červenou barvou napsána slova NEBEZPEČÍ. Dveře sedí v dřevěném rámu zasazeném hluboko do skály. Žádný zámek — jen těžká železná závora zvenku."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "forest.gorge",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you lift the iron bar and push the mine door open. Cool, stale air flows out from the dark passage below.",
+        "others": "{actor} lifts the iron bar and pushes the mine door open. Cool, stale air flows out from the dark passage."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zvedneš železnou závoru a otevřeš důlní dveře. Z temného průchodu níže vyteče chladný, zatuchlý vzduch.",
+        "others": "{actor} zvedne železnou závoru a otevře důlní dveře. Z temného průchodu vytéká chladný, zatuchlý vzduch."
+      }
+    },
+    "effect": {
+      "type": "unlock",
+      "exit": "s"
+    }
+  }
+}

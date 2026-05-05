@@ -1,0 +1,19 @@
+{
+  "id": "mine.chief_hall",
+  "name": {
+    "en": "Chief's hall",
+    "cs": "Náčelníkova komnata"
+  },
+  "short": {
+    "en": "A large chamber with a crude stone seat carved into the raised rock at the far end.",
+    "cs": "Velká komnata s hrubým kamenným sedadlem vytesaným do vyvýšené skály na vzdáleném konci."
+  },
+  "long": {
+    "en": "This is the biggest space in the mine. The ceiling is higher here and the walls have been scraped roughly smooth. At the far end a wide ledge of rock has been carved into a seat — crude but clearly meant to be a throne. Scraps of metal, bones, and stolen trinkets are piled around it. The air is thick with smoke from a fire pit in the middle of the floor.",
+    "cs": "Toto je největší prostor v dole. Strop je zde vyšší a stěny byly hrubě uhlazeně seškrábány. Na vzdáleném konci bylo do širokého skalního výstupku vytesáno sedadlo — hrubé, ale jednoznačně zamýšlené jako trůn. Kolem jsou nahrnuté odlomky kovu, kosti a ukradené drobnosti. Vzduch je hustý kouřem z ohniště uprostřed podlahy."
+  },
+  "exits": {
+    "n": "mine.dark_crossing"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

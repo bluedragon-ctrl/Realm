@@ -1,0 +1,68 @@
+{
+  "id": "mine.kobold_chief",
+  "name": { "en": "the Kobold Chief", "cs": "koboldí náčelník" },
+  "nameAcc": { "en": "the Kobold Chief", "cs": "koboldího náčelníka" },
+  "title": { "en": "Kobold Chief", "cs": "koboldí náčelník" },
+  "location": "mine.chief_hall",
+  "count": 1,
+  "short": {
+    "en": "A big kobold sitting on a stone throne, wearing a crown made of bent nails.",
+    "cs": "Velký kobold sedí na kamenném trůnu s korunou z ohnutých hřebíků."
+  },
+  "long": {
+    "en": "The biggest kobold you have ever seen, nearly waist-high, with dark red scales and a scarred face. On its head sits a crown made from bent nails and a copper ring. It carries a heavy axe with a chipped blade. It watches you from the throne with eyes that are completely still — not nervous or twitchy like the other kobolds, just calculating.",
+    "cs": "Největší kobold, jakého jsi kdy viděl, téměř do pasu, s tmavě červenými šupinami a zjizveným obličejem. Na hlavě mu sedí koruna z ohnutých hřebíků a měděného prstenu. Nese těžkou sekeru s vyštípenou čepelí. Sleduje tě z trůnu očima, které jsou úplně klidné — žádná nervozita ani přešlapování jako ostatní koboldové, jen chladný výpočet."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 40, "hpMax": 40,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 3, "int": 0,
+    "spd": 5
+  },
+  "respawn": { "ticks": 3000 },
+  "xp": 50,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "axe blow", "cs": "sekerový úder" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} slams its axe into {target} with both hands!",
+          "{actor} roars and swings its axe at {target}!",
+          "{actor} brings a crushing blow down on {target}!"
+        ],
+        "cs": [
+          "{actor} zarazí sekeru do {target} oběma rukama!",
+          "{actor} zařve a zasekne sekeru na {target}!",
+          "{actor} zasadí drtivou ránu na {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "roars and thumps its chest.",
+          "bellows something at the guards in a rasping voice.",
+          "hefts its axe and stomps one foot heavily.",
+          "glares around the hall and lets out a low growl."
+        ],
+        "cs": [
+          "zařve a bouchne se do hrudi.",
+          "zaburácel na stráže chraplavým hlasem.",
+          "zvedne sekeru a těžce dupne nohou.",
+          "přehlédne komnatu a vydá hluboké zavrčení."
+        ]
+      }
+    }
+  ]
+}
