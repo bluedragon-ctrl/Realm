@@ -22,10 +22,10 @@ async function flushDirty() {
     actor.record.location = actor.location;
     actor.record.lastSeen = new Date().toISOString();
     actor.record.inventory = serializeInventory(actor.inventory);
-    actor.record.activeEffects = serializeActiveEffectsForSave(actor);
     actor.record.gold = actor.gold ?? 0;
+    const snapshot = { ...actor.record, activeEffects: serializeActiveEffectsForSave(actor) };
     try {
-      await savePlayer(actor.record);
+      await savePlayer(snapshot);
       actor.dirty = false;
     } catch (err) {
       console.error(`failed to save player ${actor.name}:`, err);

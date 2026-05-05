@@ -115,7 +115,8 @@ function sendTargetInfo(actor, target) {
     if (target.disposition && target.disposition !== 'neutral') {
       subtitle += ` (${s(`look.disposition_${target.disposition}`, lang)})`;
     }
-    const effectsForClient = serializeActiveEffectsForClient(target, lang)
+    const isFriendly = target.disposition === 'friendly';
+    const effectsForClient = isFriendly ? [] : serializeActiveEffectsForClient(target, lang)
       .map(e => ({ defId: e.defId, name: e.name, icon: e.icon, kind: e.kind }));
     const shop = serializeShop(target, lang);
     actor.session.send({
@@ -126,7 +127,7 @@ function sendTargetInfo(actor, target) {
       shop,
       shopSellsLabel: shop ? s('shop.sells_label', lang) : undefined,
       shopBuysLabel: shop ? s('shop.buys_label', lang) : undefined,
-      stats: target.stats ? { ...target.stats } : null,
+      stats: isFriendly || !target.stats ? null : { ...target.stats },
       statLabels: {
         hp: s('panel.hp', lang),
         mp: s('panel.mp', lang),

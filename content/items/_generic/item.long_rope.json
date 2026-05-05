@@ -1,0 +1,21 @@
+{
+  "id": "item.long_rope",
+  "name": {
+    "en": "a long rope",
+    "cs": "dlouhý provaz"
+  },
+  "nameAcc": {
+    "en": "the long rope",
+    "cs": "dlouhý provaz"
+  },
+  "short": {
+    "en": "A coil of strong hemp rope.",
+    "cs": "Smotaný silný konopný provaz."
+  },
+  "long": {
+    "en": "A long coil of thick hemp rope, twisted tight and tied off with a leather strap. It feels strong in your hands and smells faintly of tar. Useful for climbing down where it would be foolish to jump.",
+    "cs": "Dlouhý smotek tlustého konopného provazu, pevně spletený a stažený koženým řemínkem. V rukou působí pevně a slabě voní dehtem. Hodí se tam, kde by bylo bláznivé skákat dolů."
+  },
+  "tags": ["tool"],
+  "weight": 3
+}
