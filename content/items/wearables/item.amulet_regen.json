@@ -1,12 +1,12 @@
 {
   "id": "item.amulet_regen",
   "name": {
-    "en": "an amulet of regeneration",
-    "cs": "amulet regenerace"
+    "en": "an amulet of the mage",
+    "cs": "amulet čaroděje"
   },
   "nameAcc": {
-    "en": "the amulet of regeneration",
-    "cs": "amulet regenerace"
+    "en": "the amulet of the mage",
+    "cs": "amulet čaroděje"
   },
   "short": {
     "en": "A small silver amulet that hums with a calm light.",
