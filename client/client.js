@@ -705,10 +705,48 @@ function openActorPopover(anchorEl, targetName, ev, opts = {}) {
   popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
     sendInput(`look ${targetName}`); closePopover();
   }));
+  popover.appendChild(popoverButton(`${labels.giveButton ?? 'Give'} ▶`, '', () => {
+    openGiveToActorSubmenu(anchorEl, targetName, opts);
+  }));
   for (const social of socialList) {
     popover.appendChild(popoverButton(social.label, '', () => {
       sendInput(`${social.verb} ${targetName}`); closePopover();
     }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openGiveToActorSubmenu(anchorEl, targetName, opts = {}) {
+  startPopover(anchorEl, `${labels.giveButton ?? 'Give'}: ${targetName}`);
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
+    openActorPopover(anchorEl, targetName, null, opts);
+  }));
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  const gold = lastStatsMsg?.gold ?? 0;
+  const canGiveGold = opts.kind === 'player' && gold > 0;
+  if (inv.length === 0 && !canGiveGold) {
+    const empty = document.createElement('div');
+    empty.style.padding = '4px';
+    empty.style.color = 'var(--dim)';
+    empty.style.fontSize = '12px';
+    empty.textContent = labels.noItemsLabel ?? '(no items)';
+    popover.appendChild(empty);
+  } else {
+    if (canGiveGold) {
+      popover.appendChild(popoverButton(`🪙 ${labels.gold ?? 'Gold'}... (${gold})`, '', () => {
+        const raw = window.prompt(`${labels.gold ?? 'Gold'} → ${targetName}`, '');
+        if (raw === null) return;
+        const amt = parseInt(raw.trim(), 10);
+        if (!Number.isFinite(amt) || amt <= 0) { closePopover(); return; }
+        sendInput(`give ${amt} gold to ${targetName}`); closePopover();
+      }));
+    }
+    for (const invItem of inv) {
+      const label = invItem.count > 1 ? `${invItem.name} ×${invItem.count}` : invItem.name;
+      popover.appendChild(popoverButton(label, '', () => {
+        sendInput(`give ${invItem.name} to ${targetName}`); closePopover();
+      }));
+    }
   }
   positionPopover(anchorEl);
 }
