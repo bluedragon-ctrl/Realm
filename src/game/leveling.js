@@ -1,4 +1,5 @@
 import { recomputeStats } from './wearables.js';
+import { PLAYER_DEFAULT_STATS } from './stats.js';
 
 export const POINTS_PER_LEVEL = 2;
 
@@ -81,30 +82,31 @@ export function applyTrain(actor, key) {
   return true;
 }
 
-// Refund every allocated point back into unspentPoints and zero baseStats deltas.
+// Full re-baseline. Reverts baseStats to defaults, zeroes allocations, and grants
+// (level - 1) * POINTS_PER_LEVEL points so pre-feature characters (whose level-up
+// gains were baked into baseStats by the old system) also get refunded properly.
+// Returns the number of points newly available to spend after the reset
+// (clamped to ≥ 0).
 export function resetAllocations(actor) {
   const record = actor.record;
   ensureAllocationFields(record);
-  if (!record.baseStats) return 0;
-  let refunded = 0;
-  for (const key of STAT_KEYS) {
-    const count = record.allocated[key] ?? 0;
-    if (count <= 0) continue;
-    const gain = STAT_RATIOS[key];
-    record.baseStats[key] = (record.baseStats[key] ?? 0) - gain * count;
-    if (key === 'hpMax') {
-      record.baseStats.hp = Math.max(0, (record.baseStats.hp ?? 0) - gain * count);
-      if (actor.stats) actor.stats.hp = Math.max(0, (actor.stats.hp ?? 0) - gain * count);
-    }
-    if (key === 'mpMax') {
-      record.baseStats.mp = Math.max(0, (record.baseStats.mp ?? 0) - gain * count);
-      if (actor.stats) actor.stats.mp = Math.max(0, (actor.stats.mp ?? 0) - gain * count);
-    }
-    record.allocated[key] = 0;
-    refunded += count;
+  const level = Math.max(1, Math.floor(record.level ?? 1));
+  const totalPoints = (level - 1) * POINTS_PER_LEVEL;
+  const oldUnspent = record.unspentPoints;
+
+  if (!record.baseStats) record.baseStats = {};
+  for (const k of Object.keys(PLAYER_DEFAULT_STATS)) {
+    record.baseStats[k] = PLAYER_DEFAULT_STATS[k];
   }
-  record.unspentPoints += refunded;
+  for (const key of STAT_KEYS) record.allocated[key] = 0;
+  record.unspentPoints = totalPoints;
+
+  if (actor.stats) {
+    actor.stats.hp = record.baseStats.hpMax;
+    actor.stats.mp = record.baseStats.mpMax;
+  }
+
   actor.dirty = true;
   recomputeStats(actor);
-  return refunded;
+  return Math.max(0, totalPoints - oldUnspent);
 }
