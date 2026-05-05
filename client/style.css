@@ -568,3 +568,21 @@ html, body {
 #death-msg { color: #cc4444; font-size: 28px; font-weight: bold; }
 #death-countdown { color: var(--dim); font-size: 15px; }
 #death-count { color: var(--fg); font-weight: bold; }
+
+.unspent-points-row {
+  margin: 4px 0;
+}
+.chip.unspent-points {
+  background: #f3c969;
+  color: #222;
+  font-weight: 600;
+  cursor: pointer;
+  animation: unspent-pulse 1.4s ease-in-out infinite;
+}
+@keyframes unspent-pulse {
+  0%, 100% { box-shadow: 0 0 0 0 rgba(243, 201, 105, 0.6); }
+  50%      { box-shadow: 0 0 0 6px rgba(243, 201, 105, 0); }
+}
+.chip.train-stat {
+  cursor: pointer;
+}
