@@ -31,6 +31,14 @@
     "spd": 6
   },
   "respawn": { "ticks": 600 },
+  "shop": {
+    "sells": [
+      { "item": "potion.beer", "price": 3 }
+    ],
+    "buys": [
+      { "item": "item.rat_tail", "price": 1, "perUnit": 1 }
+    ]
+  },
   "behaviors": [
     {
       "primitive": "say",
@@ -41,13 +49,17 @@
           "Welcome, friend! Sit, rest your legs.",
           "Stew today, fresh bread tomorrow.",
           "A quiet day. The way I like it.",
-          "Mind the step on your way out."
+          "Mind the step on your way out.",
+          "Rats! I hate the things. A copper for every tail you bring me — I mean it.",
+          "The cellar's overrun again. Bring me rat tails and I'll pay you."
         ],
         "cs": [
           "Vítej, příteli! Posaď se, odpočiň si.",
           "Dnes guláš, zítra čerstvý chléb.",
           "Klidný den. Tak to mám rád.",
-          "Dej si pozor na schod, až půjdeš ven."
+          "Dej si pozor na schod, až půjdeš ven.",
+          "Krysy! Nesnáším je. Za každý ocásek, co mi přineseš, dám měďák — vážně.",
+          "Sklep je zase plný krys. Přines mi ocásky a zaplatím."
         ]
       }
     },

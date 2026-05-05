@@ -22,7 +22,7 @@
     "attack": 4, "defense": 1, "int": 0,
     "spd": 5
   },
-  "respawn": { "ticks": 2400 },
+  "respawn": { "ticks": 1500 },
   "xp": 25,
   "loot": [
     { "defId": "mine.amulet_int", "chance": 1 }
@@ -35,7 +35,7 @@
       "cost": 18,
       "damage": "1d4+ATK",
       "requires": "aggro_target",
-      "onHit": { "applyEffect": "effect.poison", "chance": 1.0 },
+      "onHit": { "applyEffect": "effect.poison", "chance": 0.4 },
       "templates": {
         "en": [
           "{actor} lashes out and bites {target} with its dripping jaws!",

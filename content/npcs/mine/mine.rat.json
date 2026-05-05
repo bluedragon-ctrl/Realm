@@ -1,0 +1,74 @@
+{
+  "id": "mine.rat",
+  "name": { "en": "a giant rat", "cs": "obří krysa" },
+  "nameAcc": { "en": "the giant rat", "cs": "obří krysu" },
+  "title": { "en": "giant rat", "cs": "obří krysa" },
+  "locations": {
+    "mine.west_tunnel": 4,
+    "mine.deep_hall": 4
+  },
+  "short": {
+    "en": "A grey rat the size of a small dog, with quick teeth and bright eyes.",
+    "cs": "Šedá krysa velká jako malý pes, s rychlými zuby a bystrýma očima."
+  },
+  "long": {
+    "en": "A long grey rat with matted fur and a thick scarred tail. It is much bigger than a normal rat — almost the size of a small dog. Its yellow teeth are always working at something, and it watches you with shiny black eyes that miss very little.",
+    "cs": "Dlouhá šedá krysa se zacuchanou srstí a tlustým zjizveným ocasem. Je mnohem větší než obyčejná krysa — skoro jako malý pes. Žluté zuby na něčem stále pracují a sleduje tě lesklýma černýma očima, kterým toho moc neunikne."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 6, "hpMax": 6,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 14,
+    "spd": 4
+  },
+  "respawn": { "ticks": 700 },
+  "xp": 4,
+  "loot": [
+    { "defId": "item.rat_tail", "chance": 0.8 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "rat bite", "cs": "kousnutí krysy" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} scurries in and bites {target}!",
+          "{actor} leaps at {target} with bared teeth!",
+          "{actor} darts at {target} and snaps at an ankle!"
+        ],
+        "cs": [
+          "{actor} se přihrne a kousne {target}!",
+          "{actor} skočí na {target} s vyceněnými zuby!",
+          "{actor} se mihne k {target} a chňapne po kotníku!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "scratches at the floor with quick claws.",
+          "twitches its long pink tail.",
+          "sniffs the air, whiskers trembling.",
+          "lets out a sharp squeak."
+        ],
+        "cs": [
+          "škrábe rychlými drápky o podlahu.",
+          "škubne dlouhým růžovým ocasem.",
+          "čichá ve vzduchu, vousky se mu chvějí.",
+          "vydá pronikavé zapištění."
+        ]
+      }
+    }
+  ]
+}

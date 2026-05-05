@@ -1,0 +1,85 @@
+{
+  "id": "mine.trapped_miner",
+  "name": { "en": "the trapped miner", "cs": "svázaný horník" },
+  "nameAcc": { "en": "the trapped miner", "cs": "svázaného horníka" },
+  "title": { "en": "trapped miner", "cs": "svázaný horník" },
+  "location": "mine.store_room",
+  "spawn": { "requires": "room_clear" },
+  "short": {
+    "en": "A thin miner sits roped to a post, blinking in the light.",
+    "cs": "Hubený horník sedí přivázaný k trámu a mžourá do světla."
+  },
+  "long": {
+    "en": "A wiry man with rope-burned wrists and dust caked into the lines of his face. The kobolds had him tied to a post behind the crates. He works his hands to get the blood back, then looks up at you with grateful, tired eyes. He looks like he hasn't eaten in days.",
+    "cs": "Šlachovitý muž s odřenýma zápěstíma od provazu a prachem zaschlým ve vráskách obličeje. Koboldové ho měli uvázaného k trámu za bednami. Procvičuje si ruce, aby do nich zase přitekla krev, a pak se na tebe podívá vděčnýma unavenýma očima. Vypadá, jako by několik dní nejedl."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 12, "hpMax": 12,
+    "mp": 0, "mpMax": 0,
+    "attack": 0, "defense": 0, "int": 0,
+    "spd": 4
+  },
+  "inventory": ["item.green_brass_key", "potion.heal"],
+  "behaviors": [
+    {
+      "primitive": "give_item",
+      "chance": 1.0,
+      "cost": 18,
+      "templates": {
+        "en": [
+          "{actor} presses {item} into {target}'s hand. \"Take it. It's all I have.\"",
+          "{actor} fumbles {item} from a pocket and offers it to {target}.",
+          "{actor} holds out {item} to {target}. \"For the rescue.\""
+        ],
+        "cs": [
+          "{actor} vtiskne {item} do ruky {target}. \"Vezmi si to. Víc nemám.\"",
+          "{actor} vyloví {item} z kapsy a podá {target}.",
+          "{actor} podá {item} {target}. \"Za záchranu.\""
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.15,
+      "cost": 14,
+      "lines": {
+        "en": [
+          "Thank you. I thought I was done for.",
+          "There's a bigger one deeper in — the chief. Wears a crown of nails.",
+          "I worked these tunnels before the kobolds came. They came up from below.",
+          "Take the key. My grandfather kept it on him always. I don't know what it opens.",
+          "I'll head for the surface as soon as my legs work again."
+        ],
+        "cs": [
+          "Děkuji. Myslel jsem, že je konec.",
+          "Hlouběji je větší jeden — náčelník. Nosí korunu z hřebíků.",
+          "Dělal jsem v těchhle šachtách dřív, než přišli koboldové. Přišli zezdola.",
+          "Vezmi ten klíč. Můj děd ho nosil pořád u sebe. Nevím, co otevírá.",
+          "Až mi nohy zase poslechnou, vyrazím nahoru."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.1,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "rubs his rope-burned wrists.",
+          "coughs dust out of his lungs.",
+          "leans heavily against a crate.",
+          "shakes his head and mutters to himself."
+        ],
+        "cs": [
+          "tře si odřená zápěstí od provazu.",
+          "vykašle prach z plic.",
+          "těžce se opře o bednu.",
+          "potřese hlavou a něco si pro sebe mumlá."
+        ]
+      }
+    }
+  ]
+}

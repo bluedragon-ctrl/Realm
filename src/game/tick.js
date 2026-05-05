@@ -1,4 +1,4 @@
-import { world, allActors, actorsInRoom, countItemsInWorldMemory, countItemsInRoomMemory, placeItemInRoom, processNpcRespawns } from './world.js';
+import { world, allActors, actorsInRoom, countItemsInWorldMemory, countItemsInRoomMemory, placeItemInRoom, processNpcRespawns, processConditionalSpawns } from './world.js';
 import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
 import { DEFAULT_COSTS } from './stats.js';
@@ -142,6 +142,7 @@ function onTick() {
   }
   maybeRespawnItems();
   processNpcRespawns();
+  processConditionalSpawns();
   broadcastTick();
   if (tickCount % FLUSH_EVERY_TICKS === 0) flushDirty();
 }

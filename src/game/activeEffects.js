@@ -1,6 +1,7 @@
 import { world } from './world.js';
 import { applyEffect } from './effects.js';
 import { sendStats } from './messages.js';
+import { recomputeStats } from './wearables.js';
 import { t, s } from '../i18n.js';
 
 function makeInstance(defId, source, casterName) {
@@ -13,6 +14,7 @@ function makeInstance(defId, source, casterName) {
     casterName: casterName ?? null,
     nextTickIn: tick?.every ?? 0,
     pulsesLeft: tick?.pulses ?? null,
+    ticksLeft: typeof def.duration === 'number' ? def.duration : null,
   };
 }
 
@@ -37,6 +39,7 @@ export function applyActiveEffect(target, defId, source, casterName = null) {
       const fresh = makeInstance(defId, source, casterName);
       if (fresh) list[idx] = fresh;
       markDirty(target);
+      if (def.statMod) recomputeStats(target);
       return fresh;
     }
   }
@@ -44,6 +47,7 @@ export function applyActiveEffect(target, defId, source, casterName = null) {
   if (!inst) return null;
   list.push(inst);
   markDirty(target);
+  if (def.statMod) recomputeStats(target);
   return inst;
 }
 
@@ -130,9 +134,20 @@ export function tickActiveEffects(actor) {
   if (!Array.isArray(list) || list.length === 0) return false;
   const remaining = [];
   let changed = false;
+  let statModChanged = false;
   for (const inst of list) {
     const def = world.effectDefs.get(inst.defId);
     if (!def) { changed = true; continue; }
+    if (inst.ticksLeft != null) {
+      inst.ticksLeft -= 1;
+      if (inst.ticksLeft <= 0) {
+        sendExpiredFeedback(actor, def);
+        if (def.statMod) statModChanged = true;
+        changed = true;
+        continue;
+      }
+      changed = true;
+    }
     if (!def.tick) { remaining.push(inst); continue; }
     inst.nextTickIn -= 1;
     if (inst.nextTickIn > 0) { remaining.push(inst); continue; }
@@ -142,6 +157,7 @@ export function tickActiveEffects(actor) {
       inst.pulsesLeft -= 1;
       if (inst.pulsesLeft <= 0) {
         sendExpiredFeedback(actor, def);
+        if (def.statMod) statModChanged = true;
         continue;
       }
     }
@@ -150,6 +166,7 @@ export function tickActiveEffects(actor) {
   }
   actor.activeEffects = remaining;
   if (changed) markDirty(actor);
+  if (statModChanged) recomputeStats(actor);
   return changed;
 }
 

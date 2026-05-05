@@ -1,0 +1,45 @@
+{
+  "id": "potion.beer",
+  "name": {
+    "en": "a mug of beer",
+    "cs": "korbel piva"
+  },
+  "nameAcc": {
+    "en": "the mug of beer",
+    "cs": "korbel piva"
+  },
+  "short": {
+    "en": "A heavy wooden mug of dark, foamy beer.",
+    "cs": "Těžký dřevěný korbel s tmavým pěnivým pivem."
+  },
+  "long": {
+    "en": "A wooden mug full to the brim with dark beer, the foam still settling. The smell is rich and a little yeasty. The innkeeper pours it himself from the big barrel behind the bar.",
+    "cs": "Dřevěný korbel až po okraj plný tmavého piva, pěna se ještě usazuje. Voní hutně a trochu po kvasnicích. Hostinský ho sám natáčí z velkého sudu za výčepem."
+  },
+  "tags": ["potion", "consumable", "drink"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you take a long pull from the mug. The beer is heavy and warm in your belly — your feet feel slower already.",
+        "others": "{actor} takes a long pull from a mug of beer."
+      },
+      "to_target": {
+        "self": "you press the mug to {target}'s lips and tip it back.",
+        "others": "{actor} presses a mug of beer to {target}'s lips and tips it back."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "pořádně si lokneš z korbelu. Pivo je těžké a hřeje v břiše — nohy už máš pomalejší.",
+        "others": "{actor} se pořádně napije z korbelu piva."
+      },
+      "to_target": {
+        "self": "přiložíš korbel k ústům {target} a nakloníš ho.",
+        "others": "{actor} přiloží korbel piva k ústům {target} a nakloní ho."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.slow" },
+    "consumable": true
+  }
+}

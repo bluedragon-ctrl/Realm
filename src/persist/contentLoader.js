@@ -71,10 +71,25 @@ function makeNpcValidator(knownRooms) {
   return (def, file) => {
     const ctx = `npc '${def.id}' (${path.basename(file)})`;
     checkLocalizedText(def.name, ctx, 'name');
-    checkRequired(def.location, ctx, 'location');
-    check(knownRooms.has(def.location), ctx, `location '${def.location}' is not a known room`);
+    if (def.locations) {
+      checkObject(def.locations, ctx, 'locations');
+      for (const [roomId, n] of Object.entries(def.locations)) {
+        check(knownRooms.has(roomId), ctx, `locations key '${roomId}' is not a known room`);
+        check(typeof n === 'number' && n >= 1 && Number.isInteger(n), ctx,
+          `locations['${roomId}'] must be a positive integer`);
+      }
+      check(!def.location, ctx, `location and locations are mutually exclusive`);
+      check(def.count == null, ctx, `count is not used when locations is set`);
+    } else {
+      checkRequired(def.location, ctx, 'location');
+      check(knownRooms.has(def.location), ctx, `location '${def.location}' is not a known room`);
+      checkPositiveInt(def.count, ctx, 'count');
+    }
     checkEnum(def.disposition, DISPOSITIONS, ctx, 'disposition');
-    checkPositiveInt(def.count, ctx, 'count');
+    if (def.spawn?.requires) {
+      check(def.spawn.requires === 'room_clear', ctx,
+        `spawn.requires must be 'room_clear' (got '${def.spawn.requires}')`);
+    }
 
     const behaviors = def.behaviors ?? [];
     checkArray(behaviors, ctx, 'behaviors');
@@ -257,6 +272,16 @@ function validateEffect(def, file) {
     checkObject(def.tick.effect, ctx, 'tick.effect');
     check(def.tick.effect && TICK_EFFECT_TYPES.has(def.tick.effect.type), ctx,
       `tick.effect.type must be one of: ${[...TICK_EFFECT_TYPES].join(', ')}`);
+  }
+  if (def.duration != null) {
+    check(typeof def.duration === 'number' && def.duration >= 1 && Number.isInteger(def.duration),
+      ctx, 'duration must be a positive integer (ticks)');
+  }
+  if (def.statMod != null) {
+    checkObject(def.statMod, ctx, 'statMod');
+    for (const [k, v] of Object.entries(def.statMod)) {
+      check(typeof v === 'number', ctx, `statMod.${k} must be a number`);
+    }
   }
 }
 

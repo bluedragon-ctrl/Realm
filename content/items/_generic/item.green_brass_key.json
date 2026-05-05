@@ -1,0 +1,21 @@
+{
+  "id": "item.green_brass_key",
+  "name": {
+    "en": "a green brass key",
+    "cs": "zelený mosazný klíč"
+  },
+  "nameAcc": {
+    "en": "the green brass key",
+    "cs": "zelený mosazný klíč"
+  },
+  "short": {
+    "en": "A small brass key, gone green at the edges.",
+    "cs": "Malý mosazný klíč, na okrajích zelený měděnkou."
+  },
+  "long": {
+    "en": "A simple brass key with a round loop for a bow. The brass has gone dull green at the edges, like something left near water for a long time. It feels old. The trapped miner gave it to you — his only keepsake.",
+    "cs": "Jednoduchý mosazný klíč s kulatým očkem. Mosaz na okrajích zezelenala měděnkou, jako by byl dlouho někde u vody. Působí starobyle. Dostal jsi ho od svázaného horníka — jeho jediná památka."
+  },
+  "tags": ["key"],
+  "weight": 0
+}

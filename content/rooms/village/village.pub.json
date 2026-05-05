@@ -9,11 +9,12 @@
     "cs": "Útulný hostinec s pár dřevěnými stoly a teplým ohněm."
   },
   "long": {
-    "en": "A low room with dark wooden beams and a fire crackling in a stone fireplace. A few sturdy tables are scratched with years of use. Mugs hang in a row above the bar. The only door leads east back to the square.",
-    "cs": "Nízká místnost s tmavými dřevěnými trámy a praskajícím ohněm v kamenném krbu. Pár pevných stolů je poškrábaných od dlouhých let. Nad výčepem visí v řadě korbely. Jediné dveře vedou na východ zpět na náves."
+    "en": "A low room with dark wooden beams and a fire crackling in a stone fireplace. A few sturdy tables are scratched with years of use. Mugs hang in a row above the bar. A wooden hatch is set into the floor in the back corner — the way down to the cellar. The only door leads east back to the square.",
+    "cs": "Nízká místnost s tmavými dřevěnými trámy a praskajícím ohněm v kamenném krbu. Pár pevných stolů je poškrábaných od dlouhých let. Nad výčepem visí v řadě korbely. V zadním rohu podlahy je dřevěný poklop — vede dolů do sklepa. Jediné dveře vedou na východ zpět na náves."
   },
   "exits": {
-    "e": "village.square"
+    "e": "village.square",
+    "d": "village.cellar"
   },
   "tags": ["indoor", "village", "shop", "safe"]
 }

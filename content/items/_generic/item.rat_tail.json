@@ -1,0 +1,21 @@
+{
+  "id": "item.rat_tail",
+  "name": {
+    "en": "a rat tail",
+    "cs": "krysí ocásek"
+  },
+  "nameAcc": {
+    "en": "the rat tail",
+    "cs": "krysí ocásek"
+  },
+  "short": {
+    "en": "A long pink rat tail, slightly bent.",
+    "cs": "Dlouhý růžový krysí ocásek, mírně ohnutý."
+  },
+  "long": {
+    "en": "A scaly pink tail with a tuft of fur at the base. Light and easy to carry. The innkeeper in the village pays a copper for each one — he hates rats and pays anyone who thins them out.",
+    "cs": "Šupinatý růžový ocásek s chomáčkem chlupů u kořene. Lehký a snadno se nese. Hostinský ve vesnici za každý dá měďák — nesnáší krysy a platí každému, kdo jich pár ubude."
+  },
+  "tags": ["trophy"],
+  "weight": 0
+}

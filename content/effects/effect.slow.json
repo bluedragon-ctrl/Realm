@@ -1,0 +1,12 @@
+{
+  "id": "effect.slow",
+  "name": {
+    "en": "Slow",
+    "cs": "Zpomalení"
+  },
+  "kind": "debuff",
+  "icon": "🐌",
+  "duration": 30,
+  "statMod": { "spd": -3 },
+  "stack": "refresh"
+}
