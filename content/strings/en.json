@@ -176,6 +176,17 @@
   "panel.back": "← back",
   "panel.level": "Lv",
   "panel.xp": "XP",
+  "panel.unspent_points": "★ {count}",
+  "panel.unspent_points_tooltip": "{count} unspent point(s) — click to train.",
+  "panel.train_button": "Train",
+  "panel.train_label_attack": "ATK",
+  "panel.train_label_defense": "DEF",
+  "panel.train_label_int": "INT",
+  "panel.train_label_magicResist": "MR",
+  "panel.train_label_accuracy": "ACC",
+  "panel.train_label_evasion": "EVA",
+  "panel.train_label_hpMax": "HP",
+  "panel.train_label_mpMax": "MP",
   "panel.hp": "HP",
   "panel.mp": "MP",
   "panel.atk": "ATK",
@@ -233,7 +244,13 @@
   "xp.gained": "you earn {amount} XP.",
   "xp.level_up": "── LEVEL {level} REACHED ──",
   "xp.level_up_observed": "── {name} reached level {level} ──",
+  "xp.points_granted": "you gain {points} stat points to train.",
 
+  "train.no_arg": "train what? try: train atk | def | int | mr | acc | eva | hp | mp.",
+  "train.no_points": "you have no unspent points.",
+  "train.unknown_stat": "'{stat}' is not a trainable stat.",
+  "train.failed": "training failed.",
+  "train.success": "you train {stat} (+{gain}).",
 
   "dir.n": "north",
   "dir.s": "south",
@@ -251,6 +268,9 @@
   "admin.reloaded": "reloaded {rooms} rooms, {npcs} NPC defs (respawned), strings reloaded.",
   "admin.who_header": "online ({count}):",
   "admin.who_line": "  {name}{adminTag} @ {location} [{lang}]",
+  "admin.reset_stats_usage": "@reset-stats <player>",
+  "admin.reset_stats_no_such": "no such player '{name}'.",
+  "admin.reset_stats_done": "reset {name}: refunded {refunded} point(s); they now have {total} unspent.",
 
   "help.text": "── commands ──────────────────────────────────────────\n\n  [ movement ]\n  look [target]             describe surroundings or someone\n  n s e w u d               move  (also: north south east west up down)\n  go <exit>                 move through a named exit\n\n  [ talking ]\n  say <text>   (\"<text>)    speak to the room\n  emote <text> (:<text>)    perform an action\n  wave/bow/hug/pet/smile/…  social actions  (try with a name: 'bow guard')\n\n  [ items ]\n  take <item>               pick up from the ground\n  drop <item>               drop from your inventory\n  inventory (i)             list what you carry\n  give <item> to <target>   hand an item to someone\n  give <N> gold to <player> hand gold to another player\n  drop <N> gold             drop a pile of gold\n  use <item> [on <target>]  use an item, optionally on someone\n  wear / equip <item>       put on a wearable\n  remove / unwear <item>    take off a wearable\n  equipment (eq)            show worn items\n\n  [ combat ]\n  attack <target>           attack an NPC  (also: kill, hit)\n  cast <spell> [on <target>]  cast a known spell\n  flee (f)                  run through a random exit\n\n  [ reference ]\n  stats (st)                show your stats with explanations\n  spells (sp)               show known spells with damage/effects\n\n  [ other ]\n  who                       list players online\n  lang [code]               show or set language  (en | cs)\n  help (?)                  show this list\n  quit (q)                  disconnect\n\n  [ tips ]\n  Tab                       complete commands and target names\n  ↑ / ↓ arrows              scroll command history\n  click chips               interact with NPCs and items\n  scroll up in console      locks auto-scroll; ↓ button to resume\n\n── admin ─────────────────────────────────────────────\n  @create-player <name>     create a new character\n  @reload                   reload world content from disk\n  @who                      list players with locations"
 }
