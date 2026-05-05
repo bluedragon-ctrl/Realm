@@ -20,6 +20,7 @@ import removeWearable from './actions/remove.js';
 import equipment from './actions/equipment.js';
 import stats from './actions/stats.js';
 import spells from './actions/spells.js';
+import train from './actions/train.js';
 import { world } from './world.js';
 import { runAdminCommand, isAdminCommand } from '../admin/adminCommands.js';
 import { parseCommand, executeHandler } from './dispatch.js';
@@ -55,6 +56,7 @@ const COMMANDS = {
   equipment, eq: equipment,
   stats, st: stats,
   spells, sp: spells,
+  train, tr: train,
 };
 
 export async function runCommand(actor, line) {
