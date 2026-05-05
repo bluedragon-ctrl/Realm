@@ -6,6 +6,7 @@
   },
   "mpCost": 3,
   "target": "hostile",
+  "harmful": true,
   "description": {
     "en": "Zap an enemy with a small jolt of energy.",
     "cs": "Zasáhne nepřítele malým výbojem energie."
@@ -24,5 +25,5 @@
       }
     }
   },
-  "effect": { "type": "damage", "formula": "1d4" }
+  "effect": { "type": "damage", "formula": "1d4+INT/4" }
 }

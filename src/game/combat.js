@@ -71,28 +71,7 @@ export function applyDamageWithFeedback(actor, target, amount) {
     });
   }
 
-  if (target.kind === 'npc' && actor.kind === 'player') {
-    if (!target.aggroAgainst) target.aggroAgainst = new Set();
-    target.aggroAgainst.add(actor);
-    target.disposition = 'hostile';
-    target.aggressive = true;
-    target.wasAttacked = true;
-
-    if (target.pack) {
-      const peers = world.actorsByRoom.get(target.location);
-      if (peers) {
-        for (const peer of peers) {
-          if (peer === target) continue;
-          if (peer.kind !== 'npc' || peer.alive === false) continue;
-          if (peer.pack !== target.pack) continue;
-          if (!peer.aggroAgainst) peer.aggroAgainst = new Set();
-          peer.aggroAgainst.add(actor);
-          peer.disposition = 'hostile';
-          peer.aggressive = true;
-        }
-      }
-    }
-  }
+  registerAttackAggro(actor, target);
 
   if (actor.kind === 'player') sendStats(actor);
   if (target.kind === 'player') sendStats(target);
@@ -105,6 +84,30 @@ export function applyDamageWithFeedback(actor, target, amount) {
   }
 
   return dealt;
+}
+
+export function registerAttackAggro(actor, target) {
+  if (!target || target.kind !== 'npc' || actor.kind !== 'player') return;
+  if (!target.aggroAgainst) target.aggroAgainst = new Set();
+  target.aggroAgainst.add(actor);
+  target.disposition = 'hostile';
+  target.aggressive = true;
+  target.wasAttacked = true;
+
+  if (target.pack) {
+    const peers = world.actorsByRoom.get(target.location);
+    if (peers) {
+      for (const peer of peers) {
+        if (peer === target) continue;
+        if (peer.kind !== 'npc' || peer.alive === false) continue;
+        if (peer.pack !== target.pack) continue;
+        if (!peer.aggroAgainst) peer.aggroAgainst = new Set();
+        peer.aggroAgainst.add(actor);
+        peer.disposition = 'hostile';
+        peer.aggressive = true;
+      }
+    }
+  }
 }
 
 function handleDeath(killer, target) {

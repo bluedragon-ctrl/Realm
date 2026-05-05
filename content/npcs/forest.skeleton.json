@@ -20,6 +20,7 @@
     "hp": 15, "hpMax": 15,
     "mp": 0, "mpMax": 0,
     "attack": 3, "defense": 1, "int": 0,
+    "magicResist": 50,
     "spd": 10
   },
   "respawn": { "ticks": 900 },

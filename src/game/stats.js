@@ -4,6 +4,7 @@ export const PLAYER_DEFAULT_STATS = Object.freeze({
   attack: 3,
   defense: 1,
   int: 1,
+  magicResist: 0,
   spd: 6,
 });
 
@@ -13,6 +14,7 @@ export const NPC_DEFAULT_STATS = Object.freeze({
   attack: 0,
   defense: 0,
   int: 0,
+  magicResist: 0,
   spd: 6,
 });
 

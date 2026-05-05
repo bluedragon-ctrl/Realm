@@ -2,6 +2,13 @@ import { sendStats } from './messages.js';
 import { s, t } from '../i18n.js';
 import { world, unlockExit } from './world.js';
 import { makeItemInstance } from './items.js';
+import { roll } from './dice.js';
+
+function evalAmount(value, ctx) {
+  if (typeof value === 'number') return value;
+  if (typeof value === 'string') return roll(value, ctx);
+  return 0;
+}
 
 const EFFECTS = {
   teach_spell({ spell }, { actor }) {
@@ -36,8 +43,9 @@ const EFFECTS = {
   heal({ amount, hp, mp }, { actor, target }) {
     const recipient = target ?? actor;
     if (!recipient.stats) return { hpRestored: 0, mpRestored: 0 };
-    const hpAmount = hp ?? amount ?? 0;
-    const mpAmount = mp ?? 0;
+    const ctx = { actor };
+    const hpAmount = Math.max(0, evalAmount(hp ?? amount ?? 0, ctx));
+    const mpAmount = Math.max(0, evalAmount(mp ?? 0, ctx));
     const hpBefore = recipient.stats.hp;
     const mpBefore = recipient.stats.mp;
     recipient.stats.hp = Math.min(recipient.stats.hpMax, recipient.stats.hp + hpAmount);

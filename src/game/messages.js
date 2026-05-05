@@ -93,6 +93,7 @@ export function buildStatsMsg(actor) {
       atk: s('panel.atk', actor.lang),
       def: s('panel.def', actor.lang),
       int: s('panel.int', actor.lang),
+      mres: s('panel.mres', actor.lang),
       spd: s('panel.spd', actor.lang),
       panelTitle: s('panel.player_info', actor.lang),
       inspectTitle: s('panel.inspect', actor.lang),

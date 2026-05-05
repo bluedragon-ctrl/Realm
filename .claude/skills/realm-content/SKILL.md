@@ -116,6 +116,15 @@ Concretely:
 - Damage `1d2+ATK` to `1d4+ATK` is typical. Avoid flat high damage on early-zone mobs.
 - Early-zone hostiles: 4–8 HP, SPD 2–6, damage `1d2+ATK`–`1d3+ATK`.
 
+### Magic resistance
+
+NPCs default to `magicResist: 0` (no spell resistance). Effective resist on the target is `magicResist + int`, capped at 95%, rolled against d100 before any harmful spell lands. Use sparingly:
+- `magicResist: 20` — modest, e.g. an elite or boss with light magical insulation (kobold chief).
+- `magicResist: 50` — high, fits explicitly anti-magic creatures (skeleton, animated constructs).
+- Avoid stacking high `magicResist` with high `int` — both feed the same roll.
+
+Damage spells use dice formulas (`"1d4+INT/4"`, `"4d6+INT"`); `INT` lets caster intelligence scale spell power. Heal `amount` also accepts a formula. Available variables in formulas: `ATK`, `DEF`, `INT`, `HP`, `MP`, `MR` (the *actor's* magic resist). `*N` and `/N` postfix modifiers are supported (e.g. `INT/4`, `INT*2`).
+
 ## Behavior primitives
 
 Only use primitives from this list. Unknown primitives crash at boot.
@@ -169,7 +178,7 @@ Reagent/herb items carried by players: `"weight": 0` or `1`.
 }
 ```
 
-Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hpMax`, `mpMax`, `int`, `spd`. Optional `wearable.effects: ["effect.id", ...]` applies passive effects while equipped.
+Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hpMax`, `mpMax`, `int`, `magicResist`, `spd`. Optional `wearable.effects: ["effect.id", ...]` applies passive effects while equipped.
 
 ## Checklist before finishing
 
