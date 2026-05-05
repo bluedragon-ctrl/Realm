@@ -1,6 +1,7 @@
 import { world } from './world.js';
 import { nameVariants } from '../i18n.js';
 import { WEARABLE_SLOTS, ALLOWED_BONUS_KEYS } from './wearableMeta.js';
+import { findItemInList } from './items.js';
 
 export { WEARABLE_SLOTS, ALLOWED_BONUS_KEYS };
 
@@ -20,20 +21,6 @@ export function normalizeEquipped(input) {
         if (def.wearable?.slot === slot) out[slot] = v;
       }
     }
-  }
-  return out;
-}
-
-export function normalizeKnownWearables(input) {
-  if (!Array.isArray(input)) return [];
-  const seen = new Set();
-  const out = [];
-  for (const id of input) {
-    if (typeof id !== 'string' || seen.has(id)) continue;
-    const def = world.itemDefs.get(id);
-    if (!def?.wearable) continue;
-    seen.add(id);
-    out.push(id);
   }
   return out;
 }
@@ -62,22 +49,9 @@ export function recomputeStats(actor) {
   Object.assign(actor.stats, computed);
 }
 
-export function findKnownWearable(actor, query) {
-  const q = query.toLowerCase();
-  let exact = null, sub = null, word = null;
-  for (const defId of actor.record.knownWearables ?? []) {
-    const def = world.itemDefs.get(defId);
-    if (!def?.wearable) continue;
-    const variants = [
-      ...nameVariants(def.name),
-      ...nameVariants(def.nameAcc),
-      defId.toLowerCase(),
-    ];
-    if (variants.some(v => v === q)) { exact = def; break; }
-    if (sub == null && variants.some(v => v.includes(q))) sub = def;
-    if (word == null && variants.some(v => v.split(/\s+/).some(w => w === q))) word = def;
-  }
-  return exact ?? sub ?? word ?? null;
+export function findWearableInInventory(actor, query) {
+  const list = (actor.inventory ?? []).filter(inst => inst.def?.wearable);
+  return findItemInList(list, query);
 }
 
 export function findEquippedWearable(actor, query) {
@@ -99,15 +73,4 @@ export function findEquippedWearable(actor, query) {
     if (word == null && variants.some(v => v.split(/\s+/).some(w => w === q))) word = { def, slot };
   }
   return exact ?? sub ?? word ?? null;
-}
-
-export function isWearableKnown(actor, defId) {
-  return (actor.record.knownWearables ?? []).includes(defId);
-}
-
-export function learnWearable(actor, defId) {
-  if (!actor.record.knownWearables) actor.record.knownWearables = [];
-  if (!actor.record.knownWearables.includes(defId)) {
-    actor.record.knownWearables.push(defId);
-  }
 }
