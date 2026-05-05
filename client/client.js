@@ -159,6 +159,22 @@ function renderStats(msg) {
     const xpLabel = `${labels.level ?? 'Lv'} ${msg.level}`;
     playerStatsEl.appendChild(makeBar(xpLabel, `${xp}/${xpNext} ⭐`, xpPct, 'xp'));
   }
+  if (typeof msg.unspentPoints === 'number' && msg.unspentPoints > 0) {
+    const wrap = document.createElement('div');
+    wrap.className = 'unspent-points-row';
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = 'chip unspent-points';
+    btn.textContent = (labels.unspentPoints ?? '★ {count}').replace('{count}', msg.unspentPoints);
+    btn.title = (labels.unspentPointsTooltip ?? '{count} unspent point(s) — click to train.')
+      .replace('{count}', msg.unspentPoints);
+    btn.addEventListener('click', (ev) => {
+      ev.stopPropagation();
+      openTrainPopover(btn, msg);
+    });
+    wrap.appendChild(btn);
+    playerStatsEl.appendChild(wrap);
+  }
   playerStatsEl.appendChild(makeBar(labels.hp ?? 'HP', `${s.hp}/${s.hpMax}`, hpPct, `hp ${hpClass}`));
   if (s.mpMax > 0) {
     playerStatsEl.appendChild(makeBar(labels.mp ?? 'MP', `${s.mp}/${s.mpMax}`, mpPct, 'mp'));
@@ -697,6 +713,26 @@ function popoverButton(label, cls, onClick) {
   btn.textContent = label;
   btn.addEventListener('click', onClick);
   return btn;
+}
+
+function openTrainPopover(anchorEl, msg) {
+  const order = ['attack', 'defense', 'int', 'magicResist', 'accuracy', 'evasion', 'hpMax', 'mpMax'];
+  const ratios = { attack: 1, defense: 1, int: 1, magicResist: 1, accuracy: 1, evasion: 1, hpMax: 5, mpMax: 2 };
+  const shortNames = {
+    attack: 'atk', defense: 'def', int: 'int', magicResist: 'mr',
+    accuracy: 'acc', evasion: 'eva', hpMax: 'hp', mpMax: 'mp',
+  };
+  startPopover(anchorEl, labels.trainButton ?? 'Train');
+  for (const key of order) {
+    const label = labels[`trainLabel_${key}`] ?? key;
+    const allocated = msg.allocated?.[key] ?? 0;
+    const text = `${label} +${ratios[key]}` + (allocated > 0 ? ` (${allocated})` : '');
+    popover.appendChild(popoverButton(text, 'chip train-stat', () => {
+      sendInput(`train ${shortNames[key]}`);
+      closePopover();
+    }));
+  }
+  positionPopover(anchorEl);
 }
 
 function openActorPopover(anchorEl, targetName, ev, opts = {}) {

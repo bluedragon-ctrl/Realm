@@ -1,5 +1,6 @@
 import { PLAYER_DEFAULT_STATS, NPC_DEFAULT_STATS, normalizeStats } from './stats.js';
 import { normalizeLang } from '../i18n.js';
+import { ensureAllocationFields } from './leveling.js';
 import { instanceFromSaved, makeItemInstance } from './items.js';
 import { world } from './world.js';
 import { emptyEquipped, normalizeEquipped, normalizeKnownWearables, recomputeStats } from './wearables.js';
@@ -13,6 +14,7 @@ let nextNpcInstanceId = 1;
 export function makePlayerActor(record, session, isAdmin) {
   record.stats = normalizeStats(record.stats, PLAYER_DEFAULT_STATS);
   record.baseStats = normalizeStats(record.baseStats ?? record.stats, PLAYER_DEFAULT_STATS);
+  ensureAllocationFields(record);
   record.lang = normalizeLang(record.lang);
   if (!Array.isArray(record.inventory)) record.inventory = [];
   if (!Array.isArray(record.knownSpells)) record.knownSpells = [];
@@ -55,6 +57,8 @@ export function makePlayerActor(record, session, isAdmin) {
     get xp() { return record.xp; },
     get level() { return record.level; },
     get gold() { return record.gold; },
+    get unspentPoints() { return record.unspentPoints; },
+    get allocated() { return record.allocated; },
     set gold(v) { record.gold = Math.max(0, Math.floor(v)); },
     get knownSpells() { return record.knownSpells; },
     get knownWearables() { return record.knownWearables; },

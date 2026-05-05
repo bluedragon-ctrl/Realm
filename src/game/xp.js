@@ -1,9 +1,7 @@
 import { broadcastToRoom } from './world.js';
 import { sendStats } from './messages.js';
 import { s } from '../i18n.js';
-
-const HP_PER_LEVEL = 2;
-const MP_PER_LEVEL = 1;
+import { POINTS_PER_LEVEL, ensureAllocationFields } from './leveling.js';
 
 export function xpToNext(level) {
   return 10 * level * level;
@@ -37,13 +35,13 @@ export function awardXp(actor, amount, reason = '') {
 
 function levelUp(actor) {
   const record = actor.record;
-  actor.stats.hpMax += HP_PER_LEVEL;
-  actor.stats.mpMax += MP_PER_LEVEL;
+  ensureAllocationFields(record);
+  record.unspentPoints += POINTS_PER_LEVEL;
+
+  // Heal-on-level: top off current pool (no max change).
   actor.stats.hp = actor.stats.hpMax;
   actor.stats.mp = actor.stats.mpMax;
   if (record.baseStats) {
-    record.baseStats.hpMax = (record.baseStats.hpMax ?? actor.stats.hpMax) + HP_PER_LEVEL;
-    record.baseStats.mpMax = (record.baseStats.mpMax ?? actor.stats.mpMax) + MP_PER_LEVEL;
     record.baseStats.hp = record.baseStats.hpMax;
     record.baseStats.mp = record.baseStats.mpMax;
   }
@@ -53,6 +51,11 @@ function levelUp(actor) {
       kind: 'system',
       tone: 'levelup',
       text: s('xp.level_up', actor.lang, { level: record.level }),
+    });
+    actor.session.send({
+      kind: 'system',
+      tone: 'good',
+      text: s('xp.points_granted', actor.lang, { points: POINTS_PER_LEVEL }),
     });
   }
 

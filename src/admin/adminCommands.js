@@ -1,9 +1,12 @@
 import { loadRooms, loadNpcs, loadStrings, loadSocials, loadItems, loadSpells, loadEffects } from '../persist/contentLoader.js';
-import { createPlayer } from '../persist/players.js';
+import { createPlayer, loadPlayer, savePlayer } from '../persist/players.js';
 import { world, START_ROOM, despawnAllNpcs, spawnAllNpcs, spawnAllItems } from '../game/world.js';
 import { parseCommand, executeHandler } from '../game/dispatch.js';
-import { clearSocialButtonCache } from '../game/messages.js';
+import { clearSocialButtonCache, sendStats } from '../game/messages.js';
 import { s, normalizeLang, setStringTables } from '../i18n.js';
+import { resetAllocations, ensureAllocationFields } from '../game/leveling.js';
+import { recomputeStats } from '../game/wearables.js';
+import { PLAYER_DEFAULT_STATS, normalizeStats } from '../game/stats.js';
 
 export function isAdminCommand(line) {
   return line.startsWith('@');
@@ -13,6 +16,7 @@ const ADMIN_HANDLERS = {
   'create-player': createPlayerCmd,
   'reload': reloadCmd,
   'who': adminWhoCmd,
+  'reset-stats': resetStatsCmd,
 };
 
 export async function runAdminCommand(actor, line) {
@@ -87,5 +91,53 @@ async function adminWhoCmd(actor) {
   actor.session.send({
     kind: 'system',
     text: `${s('admin.who_header', actor.lang, { count: lines.length })}\n${lines.join('\n')}`,
+  });
+}
+
+async function resetStatsCmd(actor, args) {
+  const name = args[0];
+  if (!name) {
+    actor.session.send({ kind: 'error', text: s('admin.reset_stats_usage', actor.lang) });
+    return;
+  }
+
+  // Online path: mutate the live actor.
+  const online = world.actorsByName.get(name.toLowerCase());
+  if (online && online.kind === 'player') {
+    const refunded = resetAllocations(online);
+    sendStats(online);
+    actor.session.send({
+      kind: 'system',
+      tone: 'good',
+      text: s('admin.reset_stats_done', actor.lang, {
+        name: online.name,
+        refunded,
+        total: online.record.unspentPoints,
+      }),
+    });
+    return;
+  }
+
+  // Offline path: edit the saved record directly.
+  const record = await loadPlayer(name);
+  if (!record) {
+    actor.session.send({ kind: 'error', text: s('admin.reset_stats_no_such', actor.lang, { name }) });
+    return;
+  }
+  record.stats = normalizeStats(record.stats, PLAYER_DEFAULT_STATS);
+  record.baseStats = normalizeStats(record.baseStats ?? record.stats, PLAYER_DEFAULT_STATS);
+  ensureAllocationFields(record);
+  // Use a tiny shim actor so resetAllocations can call recomputeStats on the offline record.
+  const shim = { record, stats: record.stats };
+  const refunded = resetAllocations(shim);
+  await savePlayer(record);
+  actor.session.send({
+    kind: 'system',
+    tone: 'good',
+    text: s('admin.reset_stats_done', actor.lang, {
+      name: record.name,
+      refunded,
+      total: record.unspentPoints,
+    }),
   });
 }
