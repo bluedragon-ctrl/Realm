@@ -9,11 +9,10 @@
     "cs": "Teplá místnost, kde voní čerstvý chléb."
   },
   "long": {
-    "en": "A low room with a big stone oven glowing in the back. Loaves of bread and round buns sit on a wooden counter, still warm. Flour drifts in the air like fine snow. A door to the south leads back to the square, and a small side door to the west opens onto a quiet lane.",
-    "cs": "Nízká místnost s velkou kamennou pecí, která vzadu žhne. Na dřevěném pultu leží bochníky chleba a kulaté housky, ještě teplé. Ve vzduchu poletuje mouka jako jemný sníh. Dveře na jih vedou zpět na náves, malé boční dveře na západ ústí do tiché uličky."
+    "en": "A low room with a big stone oven glowing in the back. Loaves of bread and round buns sit on a wooden counter, still warm. Flour drifts in the air like fine snow. The only door opens west onto the cobbled lane.",
+    "cs": "Nízká místnost s velkou kamennou pecí, která vzadu žhne. Na dřevěném pultu leží bochníky chleba a kulaté housky, ještě teplé. Ve vzduchu poletuje mouka jako jemný sníh. Jediné dveře vedou na západ do dlážděné uličky."
   },
   "exits": {
-    "s": "village.square",
     "w": "village.lane"
   },
   "tags": ["indoor", "village", "shop", "safe"]
