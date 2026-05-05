@@ -174,6 +174,17 @@
   "panel.give_button": "Dát",
   "panel.yourself": "Sobě",
   "panel.back": "← zpět",
+  "panel.unspent_points": "★ {count}",
+  "panel.unspent_points_tooltip": "{count} volných bodů — klikni pro trénink.",
+  "panel.train_button": "Trénovat",
+  "panel.train_label_attack": "ATK",
+  "panel.train_label_defense": "DEF",
+  "panel.train_label_int": "INT",
+  "panel.train_label_magicResist": "MR",
+  "panel.train_label_accuracy": "ACC",
+  "panel.train_label_evasion": "EVA",
+  "panel.train_label_hpMax": "HP",
+  "panel.train_label_mpMax": "MP",
   "panel.level": "Lv",
   "panel.xp": "XP",
   "panel.hp": "HP",
@@ -233,6 +244,13 @@
   "xp.gained": "získáváš {amount} XP.",
   "xp.level_up": "── ÚROVEŇ {level} DOSAŽENA ──",
   "xp.level_up_observed": "── {name} dosáhl úrovně {level} ──",
+  "xp.points_granted": "získáváš {points} bodů k rozdělení.",
+
+  "train.no_arg": "trénovat co? zkus: train atk | def | int | mr | acc | eva | hp | mp.",
+  "train.no_points": "nemáš žádné volné body.",
+  "train.unknown_stat": "'{stat}' není trénovatelná vlastnost.",
+  "train.failed": "trénink selhal.",
+  "train.success": "trénuješ {stat} (+{gain}).",
 
 
   "dir.n": "na sever",
@@ -251,6 +269,9 @@
   "admin.reloaded": "znovu načteno {rooms} místností, {npcs} NPC definic (respawn), texty přenačteny.",
   "admin.who_header": "online ({count}):",
   "admin.who_line": "  {name}{adminTag} @ {location} [{lang}]",
+  "admin.reset_stats_usage": "@reset-stats <hráč>",
+  "admin.reset_stats_no_such": "hráč '{name}' neexistuje.",
+  "admin.reset_stats_done": "reset {name}: vráceno {refunded} bodů; nyní má {total} volných.",
 
   "help.text": "── příkazy ───────────────────────────────────────────\n\n  [ pohyb ]\n  look [cíl]                popíše okolí nebo někoho\n  n s e w u d               pohyb  (také: north south east west up down)\n  go <východ>               pohyb pojmenovaným východem\n\n  [ mluvení ]\n  say <text>   (\"<text>)    mluvit do místnosti\n  emote <text> (:<text>)    provést akci\n  wave/bow/hug/pet/smile/…  sociální akce  (zkus s jménem: 'bow guard')\n\n  [ předměty ]\n  take <předmět>            sebrat ze země\n  drop <předmět>            položit z inventáře\n  inventory (i)             seznam toho, co neseš\n  give <předmět> to <cíl>   dát předmět někomu\n  give <N> gold to <hráč>   předat zlato jinému hráči\n  drop <N> gold             položit hromádku zlata\n  use <předmět> [on <cíl>]  použít předmět, případně na někoho\n  wear / equip <předmět>    obléct výstroj\n  remove / unwear <předmět> sundat výstroj\n  equipment (eq)            zobrazí výstroj\n\n  [ boj ]\n  attack <cíl>              zaútočit na NPC  (také: kill, hit)\n  cast <kouzlo> [on <cíl>]  seslat známé kouzlo\n  flee (f)                  utéct náhodným východem\n\n  [ reference ]\n  stats (st)                zobrazí tvé staty s vysvětlením\n  spells (sp)               zobrazí známá kouzla s poškozením/efekty\n\n  [ ostatní ]\n  who                       seznam hráčů online\n  lang [kód]                zobrazí nebo nastaví jazyk  (en | cs)\n  help (?)                  tento seznam\n  quit (q)                  odpojit se\n\n  [ tipy ]\n  Tab                       doplní příkazy a jména cílů\n  ↑ / ↓ šipky               historie příkazů\n  klikni na čip             interakce s NPC a předměty\n  scroll nahoru v konzoli   zamkne auto-scroll; tlačítko ↓ pro pokračování\n\n── admin ─────────────────────────────────────────────\n  @create-player <jméno>    vytvoří novou postavu\n  @reload                   načte obsah světa z disku\n  @who                      seznam hráčů s lokacemi"
 }
