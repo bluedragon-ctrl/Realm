@@ -171,7 +171,7 @@
 }
 ```
 
-**effect.type** — currently only `"heal"` is implemented. Others are placeholders.  
+**effect.type** — `"heal"`, `"damage"`, and `"apply_effect"` are implemented. See `content/effects/` for the active-effect catalog (`bleeding`, `poison`, `regen`, `regen_aura`); reference these by id in `apply_effect`.  
 **consumable** — `true` removes the item on use; `false` keeps it (e.g. the stew pot).
 
 ---
