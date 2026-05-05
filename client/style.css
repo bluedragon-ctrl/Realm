@@ -16,6 +16,10 @@
   --hp-mid: #d6c45a;
   --hp-low: #d65a5a;
   --mp: #6c9ec0;
+
+  /* Width of the player-panel stats column (340px panel - 24px padding).
+     Inspect panel reuses this so NPC HP/stats render at the same width. */
+  --stats-block-width: 316px;
 }
 
 * { box-sizing: border-box; }
@@ -264,6 +268,7 @@ html, body {
   padding-top: 8px;
   border-top: 1px solid var(--border);
   font-size: 12px;
+  max-width: var(--stats-block-width);
 }
 .inspect-stat-line {
   color: var(--fg);
@@ -278,39 +283,44 @@ html, body {
 }
 
 .line { margin: 0 0 2px 0; }
-.line.system    { color: var(--system); }
-.line.error     { color: var(--error); font-weight: bold; }
-.line.say       { color: var(--say); }
-.line.emote     { color: var(--emote); font-style: italic; }
-.line.narration { color: var(--narration); font-style: italic; }
+.line.system { color: var(--system); }
+.line.error  { color: var(--error); font-weight: bold; }
+.line.say    { color: var(--say); }
+.line.emote  { color: var(--emote); font-style: italic; }
 
-/* channel icons via ::before */
-.line.say::before       { content: '💬 '; }
-.line.emote::before     { content: '~ '; }
-.line.narration::before { content: '· '; }
-.line.error::before     { content: '! '; }
-.line.system::before              { content: '› '; }
-.line.system.tone-good::before    { content: '★ '; }
-.line.system.tone-bad::before     { content: '⚔️ '; }
-.line.system.tone-combat::before  { content: '⚔️ '; }
-.line.system.tone-notice::before  { content: '⭐ '; }
-.line.system.tone-flavor::before  { content: '✨ '; }
-.line.tone-death                  { color: #cc4444; font-style: italic; }
-.line.tone-death::before          { content: '💀 '; }
+/* Leading-icon rule: every console line gets exactly one glyph here, chosen by kind+tone.
+   String templates must NOT begin with an icon — content emoji (def.icon) appear only
+   mid-sentence (e.g. spells.detail.apply) or in side-panel UI, never at line start. */
+.line.say::before                  { content: '" '; }
+.line.emote::before                { content: '» '; }
+.line.error::before                { content: '⚠ '; }
+.line.system::before               { content: '› '; }
+.line.system.tone-good::before     { content: '✓ '; }
+.line.system.tone-bad::before      { content: '✗ '; }
+.line.system.tone-combat::before   { content: '⚔ '; }
+.line.system.tone-flavor::before   { content: '✿ '; }
+.line.system.tone-levelup::before  { content: '★ '; }
+.line.tone-death                   { color: #cc4444; font-style: italic; }
+.line.tone-death::before           { content: '† '; }
 
-/* source overrides — color by who's responsible */
+/* source overrides — color by who's responsible (applies on top of kind color) */
 .line.source-self          { color: #6cbf6c; }
 .line.source-player        { color: var(--say); }
 .line.source-npc-friendly  { color: var(--accent); }
 .line.source-npc-hostile   { color: var(--error); font-weight: bold; }
 .line.source-ambient       { color: var(--narration); font-style: italic; }
 
-/* system tone overrides — extra emphasis for tagged system messages */
+/* tone overrides for kind:'system' — color/weight emphasis for the prefix and text */
 .line.system.tone-good     { color: #7ecf7e; font-weight: bold; }
 .line.system.tone-bad      { color: #d6a85a; font-weight: bold; }
 .line.system.tone-combat   { color: #7ecf7e; font-weight: bold; }
-.line.system.tone-notice   { color: var(--accent); font-weight: bold; }
 .line.system.tone-flavor   { color: var(--dim); font-style: italic; }
+.line.system.tone-levelup  {
+  color: #f5c542;
+  font-weight: bold;
+  letter-spacing: 0.08em;
+  text-shadow: 0 0 6px rgba(245, 197, 66, 0.35);
+}
 
 .chip {
   display: inline-block;

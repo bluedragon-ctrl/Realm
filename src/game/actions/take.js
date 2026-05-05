@@ -38,7 +38,7 @@ export default function take(actor, args) {
         return { kind: 'system', tone: 'good', text: s('wearable.learned', recipient.lang, { item }) };
       }
       return {
-        kind: 'narration',
+        kind: 'emote',
         source: sourceForActor(actor, recipient),
         text: s('take.others', recipient.lang, { actor: actor.name, item }),
       };
@@ -58,7 +58,7 @@ export default function take(actor, args) {
       return { kind: 'system', text: s('take.self', recipient.lang, { item }) };
     }
     return {
-      kind: 'narration',
+      kind: 'emote',
       source: sourceForActor(actor, recipient),
       text: s('take.others', recipient.lang, { actor: actor.name, item }),
     };

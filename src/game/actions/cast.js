@@ -1,4 +1,4 @@
-import { findInRoom, world, broadcastToRoom } from '../world.js';
+import { world, broadcastToRoom } from '../world.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
 import { applyActiveEffect } from '../activeEffects.js';
@@ -9,6 +9,7 @@ import { s, t } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 import { awardXp } from '../xp.js';
+import { resolveActorTarget } from '../targeting.js';
 
 const MAX_RESIST = 95;
 
@@ -35,14 +36,12 @@ function broadcastResist(actor, target) {
   if (actor.session) {
     actor.session.send({
       kind: 'system',
-      tone: 'notice',
       text: s('cast.resisted_self', actor.lang, { target: targetDisplayName(target, actor.lang) }),
     });
   }
   if (target.session && target !== actor) {
     target.session.send({
       kind: 'system',
-      tone: 'notice',
       text: s('cast.resisted_target', target.lang, { actor: actorDisplayName(actor, target.lang) }),
     });
   }
@@ -50,7 +49,6 @@ function broadcastResist(actor, target) {
     if (recipient === actor || recipient === target) return null;
     return {
       kind: 'emote',
-      tone: 'notice',
       source: sourceForActor(actor, recipient),
       text: s('cast.resisted_others', recipient.lang, {
         actor: actorDisplayName(actor, recipient.lang),
@@ -59,8 +57,6 @@ function broadcastResist(actor, target) {
     };
   });
 }
-
-const SELF_TOKENS = new Set(['me', 'self', 'myself']);
 
 function spellNameVariants(def) {
   const out = [def.id.toLowerCase()];
@@ -108,15 +104,8 @@ export default function cast(actor, args) {
 
   let target = null;
   if (targetQuery) {
-    if (SELF_TOKENS.has(targetQuery.toLowerCase())) {
-      target = actor;
-    } else {
-      target = findInRoom(actor.location, targetQuery);
-      if (!target) {
-        actor.session.send({ kind: 'error', text: s('error.no_such_target', actor.lang, { query: targetQuery }) });
-        return;
-      }
-    }
+    target = resolveActorTarget(actor, targetQuery);
+    if (!target) return;
   }
 
   if (!validateSpellTarget(actor, spell, target)) return;

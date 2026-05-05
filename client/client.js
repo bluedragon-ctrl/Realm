@@ -468,7 +468,6 @@ function handle(msg) {
       appendText('system', msg.text, extraClasses(msg));
       break;
     case 'error':      appendText('error', msg.text, extraClasses(msg)); break;
-    case 'narration':  appendText('narration', msg.text, extraClasses(msg)); break;
     case 'say':        appendText('say', msg.text, extraClasses(msg)); break;
     case 'emote':      appendText('emote', msg.text, extraClasses(msg)); break;
     case 'room-transition':

@@ -7,8 +7,7 @@ import { applyActiveEffect } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { describeRoomToAll } from './look.js';
 import { awardXp } from '../xp.js';
-
-const SELF_TOKENS = new Set(['me', 'self', 'myself']);
+import { isSelfToken } from '../targeting.js';
 
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
@@ -90,7 +89,7 @@ export default function use(actor, args) {
   let targetActor = null;
   let targetItem = null;
   if (targetQuery) {
-    if (SELF_TOKENS.has(targetQuery.toLowerCase())) {
+    if (isSelfToken(targetQuery)) {
       targetActor = actor;
     } else {
       targetActor = findInRoom(actor.location, targetQuery);
@@ -145,7 +144,7 @@ export default function use(actor, args) {
       if (result?.learned) {
         const spellDef = world.spellDefs.get(useDef.effect.spell);
         const name = spellDef ? t(spellDef.name, actor.lang) : useDef.effect.spell;
-        actor.session?.send({ kind: 'system', tone: 'notice', text: s('spell.learned', actor.lang, { spell: name }) });
+        actor.session?.send({ kind: 'system', tone: 'good', text: s('spell.learned', actor.lang, { spell: name }) });
         sendStats(actor);
       } else if (result?.already) {
         actor.session?.send({ kind: 'system', tone: 'flavor', text: s('spell.already_known', actor.lang) });

@@ -35,7 +35,7 @@ export default function wear(actor, args) {
       return { kind: 'system', text: s('wear.self', recipient.lang, { item }) };
     }
     return {
-      kind: 'narration',
+      kind: 'emote',
       source: sourceForActor(actor, recipient),
       text: s('wear.others', recipient.lang, { actor: actor.name, item }),
     };

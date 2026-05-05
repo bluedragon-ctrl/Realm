@@ -51,15 +51,15 @@ function levelUp(actor) {
   if (actor.session) {
     actor.session.send({
       kind: 'system',
-      tone: 'good',
+      tone: 'levelup',
       text: s('xp.level_up', actor.lang, { level: record.level }),
     });
   }
 
   if (actor.location) {
     broadcastToRoom(actor.location, (recipient) => ({
-      kind: 'narration',
-      tone: 'good',
+      kind: 'system',
+      tone: 'levelup',
       text: s('xp.level_up_observed', recipient.lang, {
         name: actor.name,
         level: record.level,

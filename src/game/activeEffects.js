@@ -73,7 +73,7 @@ let damageHandler = null;
 export function setEffectDamageHandler(fn) { damageHandler = fn; }
 
 function tickFeedbackParams(def, lang) {
-  return { icon: def.icon ?? '', name: t(def.name, lang) };
+  return { name: t(def.name, lang) };
 }
 
 function sendTickFeedback(actor, def, spec, result) {
