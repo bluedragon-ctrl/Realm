@@ -353,6 +353,10 @@ html, body {
 .chip.fixture:hover { background: #c8ad8d; }
 .chip.spell  { color: #ffffff; background: #6e4ea0; border-color: #9b76d0; }
 .chip.spell:hover { background: #876ec0; }
+.chip.shop-sell { color: #1c1c1f; background: #f0c46a; border-color: #b88a2c; }
+.chip.shop-sell:hover { background: #ffd987; }
+.chip.shop-buy  { color: #1c1c1f; background: #7ec4d6; border-color: #4a90a8; }
+.chip.shop-buy:hover  { background: #98d6e6; }
 .chip .mp-cost { color: #cdb4ff; font-size: 0.85em; margin-left: 4px; }
 .chip.effect { cursor: default; }
 .chip.effect.buff    { color: #1c1c1f; background: #a8d8c0; border-color: #6fae90; }

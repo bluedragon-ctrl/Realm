@@ -19,8 +19,10 @@
   "tags": ["herb", "reagent", "red_berry"],
   "weight": 0,
   "spawn": {
-    "location": "forest.berry_patch",
-    "count": 4,
+    "locations": {
+      "forest.berry_patch": 4,
+      "forest.clearing": 3
+    },
     "respawnTicks": 400
   },
   "use": {

@@ -1,0 +1,44 @@
+{
+  "id": "item.pie",
+  "name": {
+    "en": "a small pie",
+    "cs": "malý koláč"
+  },
+  "nameAcc": {
+    "en": "the small pie",
+    "cs": "malý koláč"
+  },
+  "short": {
+    "en": "A small golden-brown pie, still warm.",
+    "cs": "Malý zlatohnědý koláč, ještě teplý."
+  },
+  "long": {
+    "en": "A small round pie with a golden crust and a sweet smell. The baker pulls them fresh from the oven all day. Eating one feels just a little bit better than not eating one.",
+    "cs": "Malý kulatý koláč se zlatou kůrkou, voní sladce. Pekař je celý den vytahuje z pece čerstvé. Když ho sníš, cítíš se trošku líp."
+  },
+  "tags": ["food", "consumable"],
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you eat the small pie. It's warm and sweet.",
+        "others": "{actor} eats a small pie."
+      },
+      "to_target": {
+        "self": "you offer the small pie to {target}, who eats it.",
+        "others": "{actor} offers a small pie to {target}, who eats it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sníš malý koláč. Je teplý a sladký.",
+        "others": "{actor} sní malý koláč."
+      },
+      "to_target": {
+        "self": "podáš malý koláč {target} a ten ho sní.",
+        "others": "{actor} podává malý koláč {target} a ten ho sní."
+      }
+    },
+    "effect": { "type": "heal", "amount": 1 },
+    "consumable": true
+  }
+}

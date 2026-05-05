@@ -1,0 +1,29 @@
+{
+  "id": "mine.iron_ore",
+  "name": {
+    "en": "a chunk of iron ore",
+    "cs": "kus železné rudy"
+  },
+  "nameAcc": {
+    "en": "the iron ore",
+    "cs": "železnou rudu"
+  },
+  "short": {
+    "en": "A heavy, rust-streaked chunk of iron ore.",
+    "cs": "Těžký kus železné rudy s pruhy rzi."
+  },
+  "long": {
+    "en": "A rough chunk of stone, dark and heavy, with red-brown streaks of iron running through it. The smith in the village will pay good gold for these.",
+    "cs": "Hrubý kus kamene, tmavý a těžký, prostoupený červenohnědými pruhy železa. Kovář ve vesnici za takové kusy dobře platí."
+  },
+  "tags": ["ore", "trade"],
+  "spawn": {
+    "locations": {
+      "mine.east_tunnel": 1,
+      "mine.west_tunnel": 1,
+      "mine.deep_hall": 1,
+      "mine.dark_crossing": 1
+    },
+    "respawnTicks": 600
+  }
+}

@@ -29,6 +29,24 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
   const { kind, spec } = interaction;
   const lang = actor.lang;
 
+  if (kind === 'recipe') {
+    const required = spec.count ?? 1;
+    if (required > 1) {
+      const have = actor.inventory.filter(i => i.defId === sourceInst.defId).length;
+      if (have < required) {
+        actor.session.send({
+          kind: 'error',
+          text: s('recipe.need_more', lang, {
+            item: t(sourceInst.def.name, lang),
+            required,
+            have,
+          }),
+        });
+        return;
+      }
+    }
+  }
+
   runVerb({ actor, def: spec.verb, targetName: targetInst.def.nameAcc ?? targetInst.def.name });
 
   if (kind === 'unlock') {
@@ -49,6 +67,7 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
   }
 
   if (kind === 'recipe') {
+    const required = spec.count ?? 1;
     const result = applyEffect({ type: 'produce', item: spec.produces }, { actor });
     if (result?.produced) {
       actor.session.send({
@@ -58,7 +77,9 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
       });
     }
     if (spec.consume) {
-      removeFromList(actor.inventory, sourceInst);
+      const toConsume = required;
+      const matches = actor.inventory.filter(i => i.defId === sourceInst.defId).slice(0, toConsume);
+      for (const inst of matches) removeFromList(actor.inventory, inst);
     }
     actor.dirty = true;
     sendStats(actor);

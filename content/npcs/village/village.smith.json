@@ -18,8 +18,8 @@
     "cs": "Kovář se širokými rameny pracuje u kovadliny."
   },
   "long": {
-    "en": "A tall man with arms like tree trunks and a sooty leather apron. His face is tired but his eyes are kind. Sweat shines on his brow as he hammers a glowing strip of iron.",
-    "cs": "Vysoký muž s pažemi jako trámy a v zakouřené kožené zástěře. Tvář má unavenou, ale oči laskavé. Na čele se mu lesknou kapky potu, když buší do žhnoucího pásu železa."
+    "en": "A tall man with arms like tree trunks and a sooty leather apron. His face is tired but his eyes are kind. Sweat shines on his brow as he hammers a glowing strip of iron. He pays five gold for every chunk of iron ore brought to him.",
+    "cs": "Vysoký muž s pažemi jako trámy a v zakouřené kožené zástěře. Tvář má unavenou, ale oči laskavé. Na čele se mu lesknou kapky potu, když buší do žhnoucího pásu železa. Za každý kus železné rudy, který mu přineseš, zaplatí pět zlatých."
   },
   "disposition": "friendly",
   "aggressive": false,
@@ -31,6 +31,11 @@
     "spd": 6
   },
   "respawn": { "ticks": 600 },
+  "shop": {
+    "buys": [
+      { "item": "mine.iron_ore", "price": 5, "perUnit": 1 }
+    ]
+  },
   "behaviors": [
     {
       "primitive": "say",
@@ -40,13 +45,13 @@
         "en": [
           "Mind the sparks, lad.",
           "Iron does what iron wants.",
-          "Need a horseshoe? A nail? Speak up.",
+          "Got iron ore? Five gold a chunk.",
           "A good hammer is half the work."
         ],
         "cs": [
           "Pozor na jiskry, mladý.",
           "Železo dělá to, co železo chce.",
-          "Potřebuješ podkovu? Hřebík? Mluv.",
+          "Máš železnou rudu? Pět zlatých za kus.",
           "Dobrý kladivo je půlka práce."
         ]
       }
