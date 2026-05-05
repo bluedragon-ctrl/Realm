@@ -17,6 +17,7 @@ export function buildInventory(actor) {
       existing.count++;
     } else {
       const use = inst.def.use;
+      const wearable = inst.def.wearable;
       groups.set(key, {
         instanceId: inst.instanceId,
         defId: inst.defId,
@@ -24,6 +25,8 @@ export function buildInventory(actor) {
         count: 1,
         usable: !!use,
         consumable: !!(use && use.consumable),
+        wearable: !!wearable,
+        slot: wearable?.slot ?? null,
       });
     }
   }

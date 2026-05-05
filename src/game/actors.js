@@ -3,11 +3,10 @@ import { normalizeLang } from '../i18n.js';
 import { ensureAllocationFields } from './leveling.js';
 import { instanceFromSaved, makeItemInstance } from './items.js';
 import { world } from './world.js';
-import { emptyEquipped, normalizeEquipped, normalizeKnownWearables, recomputeStats } from './wearables.js';
+import { normalizeEquipped, recomputeStats } from './wearables.js';
 import { normalizeSavedActiveEffects, syncWearableEffects } from './activeEffects.js';
 
 const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark'];
-const ADMIN_GRANTED_WEARABLES = ['item.amulet_regen'];
 
 let nextNpcInstanceId = 1;
 
@@ -23,13 +22,16 @@ export function makePlayerActor(record, session, isAdmin) {
       if (world.spellDefs.has(sid) && !record.knownSpells.includes(sid)) record.knownSpells.push(sid);
     }
   }
-  record.knownWearables = normalizeKnownWearables(record.knownWearables);
-  if (isAdmin) {
-    for (const iid of ADMIN_GRANTED_WEARABLES) {
-      const def = world.itemDefs.get(iid);
-      if (def?.wearable && !record.knownWearables.includes(iid)) record.knownWearables.push(iid);
+  let migratedKnownWearables = false;
+  if (Array.isArray(record.knownWearables) && record.knownWearables.length > 0) {
+    for (const id of record.knownWearables) {
+      if (typeof id !== 'string') continue;
+      const def = world.itemDefs.get(id);
+      if (def?.wearable) record.inventory.push({ defId: id, state: {} });
     }
+    migratedKnownWearables = true;
   }
+  delete record.knownWearables;
   record.equipped = normalizeEquipped(record.equipped);
   record.activeEffects = normalizeSavedActiveEffects(record.activeEffects);
   if (typeof record.xp !== 'number') record.xp = 0;
@@ -61,7 +63,6 @@ export function makePlayerActor(record, session, isAdmin) {
     get allocated() { return record.allocated; },
     set gold(v) { record.gold = Math.max(0, Math.floor(v)); },
     get knownSpells() { return record.knownSpells; },
-    get knownWearables() { return record.knownWearables; },
     get equipped() { return record.equipped; },
     get activeEffects() { return record.activeEffects; },
     set activeEffects(v) { record.activeEffects = v; },
@@ -71,6 +72,7 @@ export function makePlayerActor(record, session, isAdmin) {
   };
   recomputeStats(actor);
   syncWearableEffects(actor);
+  if (migratedKnownWearables) actor.dirty = true;
   return actor;
 }
 

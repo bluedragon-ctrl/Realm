@@ -273,7 +273,7 @@ function renderStats(msg) {
   }));
 
   playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
-    const eq = msg.equipment ?? { slots: [], known: [] };
+    const eq = msg.equipment ?? { slots: [], inInventory: [] };
     const slotLabels = labels.slotLabels ?? {};
     const slotEmpty = labels.slotEmpty ?? '(empty)';
     const grid = document.createElement('div');
@@ -287,7 +287,7 @@ function renderStats(msg) {
       row.appendChild(label);
       const chipCls = slotInfo.defId ? 'item' : 'fixture';
       const chipText = slotInfo.defId ? slotInfo.name : slotEmpty;
-      const chip = makeChip(chipText, chipCls, (ev) => openEquipmentSlotPopover(chip, slotInfo, eq.known, ev));
+      const chip = makeChip(chipText, chipCls, (ev) => openEquipmentSlotPopover(chip, slotInfo, eq.inInventory, ev));
       row.appendChild(chip);
       grid.appendChild(row);
     });
@@ -839,9 +839,16 @@ function openInventoryItemPopover(anchorEl, item, ev) {
   popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
     sendInput(`look ${item.name}`); closePopover();
   }));
-  popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
-    openUseSubmenu(anchorEl, item);
-  }));
+  if (item.wearable) {
+    popover.appendChild(popoverButton(labels.wearButton ?? 'Wear', '', () => {
+      sendInput(`wear ${item.name}`); closePopover();
+    }));
+  }
+  if (item.usable) {
+    popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
+      openUseSubmenu(anchorEl, item);
+    }));
+  }
   popover.appendChild(popoverButton(labels.dropButton ?? 'Drop', '', () => {
     sendInput(`drop ${item.name}`); closePopover();
   }));
@@ -890,7 +897,7 @@ function openGiveSubmenu(anchorEl, item) {
   positionPopover(anchorEl);
 }
 
-function openEquipmentSlotPopover(anchorEl, slotInfo, known, ev) {
+function openEquipmentSlotPopover(anchorEl, slotInfo, inInventory, ev) {
   ev?.stopPropagation();
   const slotLabels = labels.slotLabels ?? {};
   const slotName = slotLabels[slotInfo.slot] ?? slotInfo.slot;
@@ -908,7 +915,7 @@ function openEquipmentSlotPopover(anchorEl, slotInfo, known, ev) {
   }
 
   startPopover(anchorEl, `${labels.wearButton ?? 'Wear'}: ${slotName}`);
-  const candidates = (known || []).filter(w => w.slot === slotInfo.slot);
+  const candidates = (inInventory || []).filter(w => w.slot === slotInfo.slot);
   if (candidates.length === 0) {
     const empty = document.createElement('div');
     empty.style.padding = '4px';
@@ -918,7 +925,8 @@ function openEquipmentSlotPopover(anchorEl, slotInfo, known, ev) {
     popover.appendChild(empty);
   } else {
     for (const w of candidates) {
-      popover.appendChild(popoverButton(w.name, '', () => {
+      const label = w.count > 1 ? `${w.name} ×${w.count}` : w.name;
+      popover.appendChild(popoverButton(label, '', () => {
         sendInput(`wear ${w.name}`); closePopover();
       }));
     }

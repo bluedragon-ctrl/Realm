@@ -1,4 +1,4 @@
-// Build the equipment section of the player panel: filled slot list + known-wearable list.
+// Build the equipment section of the player panel: filled slot list + wearables-in-inventory list.
 
 import { t } from '../../i18n.js';
 import { world } from '../world.js';
@@ -16,15 +16,21 @@ export function buildEquipment(actor) {
       name: def ? t(def.name, lang) : defId,
     };
   });
-  const known = [];
-  for (const id of actor.record.knownWearables ?? []) {
-    const def = world.itemDefs.get(id);
+  const counts = new Map();
+  for (const inst of actor.inventory ?? []) {
+    if (!inst.def?.wearable) continue;
+    counts.set(inst.defId, (counts.get(inst.defId) ?? 0) + 1);
+  }
+  const inInventory = [];
+  for (const [defId, count] of counts) {
+    const def = world.itemDefs.get(defId);
     if (!def?.wearable) continue;
-    known.push({
-      defId: id,
+    inInventory.push({
+      defId,
       name: t(def.name, lang),
       slot: def.wearable.slot,
+      count,
     });
   }
-  return { slots, known };
+  return { slots, inInventory };
 }

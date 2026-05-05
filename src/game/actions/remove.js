@@ -4,6 +4,7 @@ import { findEquippedWearable, recomputeStats } from '../wearables.js';
 import { syncWearableEffects } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
+import { makeItemInstance } from '../items.js';
 
 export default function removeWearable(actor, args) {
   if (!args || args.length === 0) {
@@ -18,6 +19,7 @@ export default function removeWearable(actor, args) {
   }
   const { def, slot } = found;
   actor.record.equipped[slot] = null;
+  actor.inventory.push(makeItemInstance(def));
   recomputeStats(actor);
   syncWearableEffects(actor);
   actor.dirty = true;

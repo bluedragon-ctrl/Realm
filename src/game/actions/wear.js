@@ -1,9 +1,10 @@
-import { broadcastToRoom } from '../world.js';
+import { broadcastToRoom, world } from '../world.js';
 import { s, t } from '../../i18n.js';
-import { findKnownWearable, recomputeStats } from '../wearables.js';
+import { findWearableInInventory, recomputeStats } from '../wearables.js';
 import { syncWearableEffects } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
+import { makeItemInstance, removeFromList } from '../items.js';
 
 export default function wear(actor, args) {
   if (!args || args.length === 0) {
@@ -11,11 +12,12 @@ export default function wear(actor, args) {
     return;
   }
   const query = args.join(' ');
-  const def = findKnownWearable(actor, query);
-  if (!def) {
+  const inst = findWearableInInventory(actor, query);
+  if (!inst) {
     actor.session.send({ kind: 'error', text: s('wear.unknown', actor.lang, { query }) });
     return;
   }
+  const def = inst.def;
   const slot = def.wearable.slot;
   if (actor.record.equipped[slot] === def.id) {
     actor.session.send({
@@ -24,6 +26,10 @@ export default function wear(actor, args) {
     });
     return;
   }
+  removeFromList(actor.inventory, inst);
+  const oldDefId = actor.record.equipped[slot];
+  const oldDef = oldDefId ? world.itemDefs.get(oldDefId) : null;
+  if (oldDef) actor.inventory.push(makeItemInstance(oldDef));
   actor.record.equipped[slot] = def.id;
   recomputeStats(actor);
   syncWearableEffects(actor);
@@ -31,6 +37,17 @@ export default function wear(actor, args) {
 
   broadcastToRoom(actor.location, (recipient) => {
     const item = t(def.nameAcc ?? def.name, recipient.lang);
+    if (oldDef) {
+      const oldItem = t(oldDef.nameAcc ?? oldDef.name, recipient.lang);
+      if (recipient === actor) {
+        return { kind: 'system', text: s('wear.swap_self', recipient.lang, { old: oldItem, item }) };
+      }
+      return {
+        kind: 'emote',
+        source: sourceForActor(actor, recipient),
+        text: s('wear.swap_others', recipient.lang, { actor: actor.name, old: oldItem, item }),
+      };
+    }
     if (recipient === actor) {
       return { kind: 'system', text: s('wear.self', recipient.lang, { item }) };
     }
