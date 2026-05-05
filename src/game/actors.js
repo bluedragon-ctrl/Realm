@@ -5,7 +5,7 @@ import { world } from './world.js';
 import { emptyEquipped, normalizeEquipped, normalizeKnownWearables, recomputeStats } from './wearables.js';
 import { normalizeSavedActiveEffects, syncWearableEffects } from './activeEffects.js';
 
-const ADMIN_GRANTED_SPELLS = [];
+const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark'];
 const ADMIN_GRANTED_WEARABLES = ['item.amulet_regen'];
 
 let nextNpcInstanceId = 1;
@@ -15,9 +15,7 @@ export function makePlayerActor(record, session, isAdmin) {
   record.baseStats = normalizeStats(record.baseStats ?? record.stats, PLAYER_DEFAULT_STATS);
   record.lang = normalizeLang(record.lang);
   if (!Array.isArray(record.inventory)) record.inventory = [];
-  if (!Array.isArray(record.knownSpells) || record.knownSpells.length === 0) {
-    record.knownSpells = ['spell.heal'];
-  }
+  if (!Array.isArray(record.knownSpells)) record.knownSpells = [];
   if (isAdmin) {
     for (const sid of ADMIN_GRANTED_SPELLS) {
       if (world.spellDefs.has(sid) && !record.knownSpells.includes(sid)) record.knownSpells.push(sid);

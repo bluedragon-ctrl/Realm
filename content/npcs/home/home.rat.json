@@ -25,6 +25,9 @@
   },
   "respawn": { "ticks": 600 },
   "xp": 5,
+  "loot": [
+    { "defId": "home.heal_scroll", "chance": 1 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",

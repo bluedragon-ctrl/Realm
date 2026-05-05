@@ -1,7 +1,14 @@
-import { findInRoom } from '../world.js';
+import { findInRoom, world } from '../world.js';
 import { s, t } from '../../i18n.js';
 import { DEFAULT_PLAYER_ATTACK } from '../stats.js';
 import { executeAttack } from '../combat.js';
+
+function buildPlayerAttack(actor) {
+  const weaponId = actor.record?.equipped?.weapon;
+  const onHit = weaponId ? world.itemDefs.get(weaponId)?.wearable?.onHit : null;
+  if (!onHit) return DEFAULT_PLAYER_ATTACK;
+  return { ...DEFAULT_PLAYER_ATTACK, onHit };
+}
 
 export default function attack(actor, args) {
   if (!args || args.length === 0) {
@@ -31,5 +38,5 @@ export default function attack(actor, args) {
     });
     return;
   }
-  executeAttack(actor, DEFAULT_PLAYER_ATTACK, target);
+  executeAttack(actor, buildPlayerAttack(actor), target);
 }

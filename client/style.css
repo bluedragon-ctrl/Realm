@@ -136,16 +136,14 @@ html, body {
 .bar-num { color: var(--fg); font-size: 12px; text-align: right; }
 
 .stat-grid {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 2px 4px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  gap: 4px 8px;
+  color: var(--dim);
   margin-top: 8px;
   font-size: 12px;
   align-items: baseline;
 }
-.stat-grid .k { color: var(--dim); }
-.stat-grid .k:not(:first-child) { margin-left: 10px; }
-.stat-grid .v { color: var(--fg); }
 
 .inventory-section {
   margin-top: 10px;

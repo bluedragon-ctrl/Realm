@@ -167,16 +167,15 @@ function renderStats(msg) {
   grid.className = 'stat-grid';
   for (const [key, val] of [
     [labels.atk ?? 'ATK', s.attack],
+    [labels.acc ?? 'ACC', s.accuracy],
     [labels.def ?? 'DEF', s.defense],
+    [labels.eva ?? 'EVA', s.evasion],
     [labels.int ?? 'INT', s.int],
     [labels.mres ?? 'MRES', s.magicResist],
-    [labels.acc ?? 'ACC', s.accuracy],
-    [labels.eva ?? 'EVA', s.evasion],
-    [labels.spd ?? 'SPD', s.spd],
   ]) {
-    const k = document.createElement('span'); k.className = 'k'; k.textContent = key;
-    const v = document.createElement('span'); v.className = 'v'; v.textContent = val ?? '?';
-    grid.appendChild(k); grid.appendChild(v);
+    const span = document.createElement('span');
+    span.textContent = `${key} ${val ?? '?'}`;
+    grid.appendChild(span);
   }
   playerStatsEl.appendChild(grid);
 
@@ -200,6 +199,11 @@ function renderStats(msg) {
         const counter = document.createElement('span');
         counter.className = 'effect-counter';
         counter.textContent = `${eff.pulsesLeft}`;
+        chip.appendChild(counter);
+      } else if (eff.chancePct != null) {
+        const counter = document.createElement('span');
+        counter.className = 'effect-counter';
+        counter.textContent = `${eff.chancePct}%`;
         chip.appendChild(counter);
       }
       body.appendChild(chip);
@@ -409,12 +413,11 @@ function renderTargetInfo(msg) {
     grid.className = 'inspect-stat-grid';
     for (const [k, v] of [
       [labels.atk ?? 'ATK', s.attack],
+      [labels.acc ?? 'ACC', s.accuracy],
       [labels.def ?? 'DEF', s.defense],
+      [labels.eva ?? 'EVA', s.evasion],
       [labels.int ?? 'INT', s.int],
       [labels.mres ?? 'MRES', s.magicResist],
-      [labels.acc ?? 'ACC', s.accuracy],
-      [labels.eva ?? 'EVA', s.evasion],
-      [labels.spd ?? 'SPD', s.spd],
     ]) {
       const span = document.createElement('span');
       span.textContent = `${k} ${v}`;

@@ -140,6 +140,8 @@ export default function use(actor, args) {
     const result = applyEffect(useDef.effect, { actor, target: targetActor });
     if (useDef.effect?.type === 'heal') {
       sendHealFeedback(actor, targetActor, result);
+    } else if (useDef.effect?.type === 'unlock' && result?.unlocked) {
+      describeRoomToAll(actor.location);
     } else if (useDef.effect?.type === 'teach_spell') {
       if (result?.learned) {
         const spellDef = world.spellDefs.get(useDef.effect.spell);

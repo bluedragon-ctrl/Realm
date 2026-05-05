@@ -1,10 +1,11 @@
-import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom } from './world.js';
+import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom } from './world.js';
 import { applyEffect } from './effects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { sourceForActor } from './sources.js';
 import { sendStats } from './messages.js';
+import { applyActiveEffect } from './activeEffects.js';
 import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.js';
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
 
@@ -45,6 +46,7 @@ export function executeAttack(actor, action, target) {
       return { kind: 'emote', source: sourceForActor(actor, recipient), text };
     });
     registerAttackAggro(actor, target);
+    if (actor.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
     return;
   }
 
@@ -67,6 +69,19 @@ export function executeAttack(actor, action, target) {
   }
 
   applyDamageWithFeedback(actor, target, final);
+
+  if (action.onHit && target.stats?.hp > 0) {
+    const hits = Array.isArray(action.onHit) ? action.onHit : [action.onHit];
+    let applied = false;
+    for (const hit of hits) {
+      if (!hit.applyEffect) continue;
+      if (Math.random() < (hit.chance ?? 1.0)) {
+        applyActiveEffect(target, hit.applyEffect, 'combat', actor.name);
+        applied = true;
+      }
+    }
+    if (applied && target.kind === 'player' && target.session) sendStats(target);
+  }
 }
 
 export function applyDamageWithFeedback(actor, target, amount) {
@@ -102,7 +117,6 @@ export function applyDamageWithFeedback(actor, target, amount) {
   if (target.kind === 'player') sendStats(target);
 
   if (actor.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
-  if (target.kind === 'player' && actor.kind === 'npc') pushTargetInfo(target, actor);
 
   if (target.stats.hp <= 0) {
     handleDeath(actor, target);
@@ -223,8 +237,15 @@ function handlePlayerDeath(killer, victim) {
     });
     sendStats(victim);
     describeRoom(victim);
+    const home = getRoom('home.cottage');
+    if (home) {
+      victim.session?.send({
+        kind: 'system',
+        text: s('narration.you_arrive', victim.lang, { room: t(home.name, victim.lang) }),
+      });
+    }
     describeRoomToAll('home.cottage');
-  }, 3000);
+  }, 5000);
 }
 
 export function applyAggressionOnEnter(player, roomId) {

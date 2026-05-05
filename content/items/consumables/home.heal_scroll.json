@@ -1,0 +1,40 @@
+{
+  "id": "home.heal_scroll",
+  "name": {
+    "en": "a tattered scroll",
+    "cs": "ošoupaný svitek"
+  },
+  "nameAcc": {
+    "en": "the tattered scroll",
+    "cs": "ošoupaný svitek"
+  },
+  "short": {
+    "en": "A small scroll tied with a green thread sits here.",
+    "cs": "Na zemi leží malý svitek uvázaný zelenou nití."
+  },
+  "long": {
+    "en": "A thin scroll of yellowed paper, edges chewed and stained. The writing inside glows faintly with a soft green cross.",
+    "cs": "Tenký svitek ze zežloutlého papíru s okraji okousanými a potřísněnými. Písmo uvnitř slabě svítí měkkým zeleným křížem."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The green cross flares warmly and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A soft green light blooms in the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Zelený kříž tepleji vzplane a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Ve vzduchu vykvete měkké zelené světlo."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.heal"
+    }
+  }
+}

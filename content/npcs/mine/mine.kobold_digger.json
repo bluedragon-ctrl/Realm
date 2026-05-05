@@ -25,6 +25,9 @@
   },
   "respawn": { "ticks": 900 },
   "xp": 8,
+  "loot": [
+    { "defId": "item.rusty_helmet", "chance": 0.05 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",
