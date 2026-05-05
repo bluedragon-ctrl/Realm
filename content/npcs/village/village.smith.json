@@ -32,6 +32,9 @@
   },
   "respawn": { "ticks": 600 },
   "shop": {
+    "sells": [
+      { "item": "item.long_rope", "price": 10 }
+    ],
     "buys": [
       { "item": "mine.iron_ore", "price": 5, "perUnit": 1 }
     ]
