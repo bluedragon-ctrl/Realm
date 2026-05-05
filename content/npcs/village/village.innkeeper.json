@@ -1,0 +1,76 @@
+{
+  "id": "village.innkeeper",
+  "name": {
+    "en": "the innkeeper",
+    "cs": "hostinský"
+  },
+  "nameAcc": {
+    "en": "the innkeeper",
+    "cs": "hostinského"
+  },
+  "title": {
+    "en": "innkeeper",
+    "cs": "hostinský"
+  },
+  "location": "village.pub",
+  "short": {
+    "en": "A round innkeeper polishes a wooden mug behind the bar.",
+    "cs": "Kulaťoučký hostinský leští za výčepem dřevěný korbel."
+  },
+  "long": {
+    "en": "A round, friendly man in a long apron, with a thick grey moustache and bright eyes. He seems to know every face that walks in. The bar in front of him is spotless, even though the rest of the room is comfortably worn.",
+    "cs": "Kulatý přátelský muž v dlouhé zástěře, s hustým šedým knírem a jasnýma očima. Vypadá to, že zná každou tvář, která vejde. Výčep před ním je bez poskvrnky, i když zbytek místnosti je příjemně otřelý."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 20, "hpMax": 20,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "spd": 6
+  },
+  "respawn": { "ticks": 600 },
+  "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.05,
+      "cost": 12,
+      "lines": {
+        "en": [
+          "Welcome, friend! Sit, rest your legs.",
+          "Stew today, fresh bread tomorrow.",
+          "A quiet day. The way I like it.",
+          "Mind the step on your way out."
+        ],
+        "cs": [
+          "Vítej, příteli! Posaď se, odpočiň si.",
+          "Dnes guláš, zítra čerstvý chléb.",
+          "Klidný den. Tak to mám rád.",
+          "Dej si pozor na schod, až půjdeš ven."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "polishes a wooden mug with a soft cloth.",
+          "stirs a pot of stew on the hearth.",
+          "lines up clean mugs along the bar.",
+          "twirls one end of his thick grey moustache.",
+          "wipes down the bar with slow, careful strokes."
+        ],
+        "cs": [
+          "leští dřevěný korbel měkkým hadříkem.",
+          "míchá v hrnci guláš na ohništi.",
+          "rovná čisté korbely podél výčepu.",
+          "natáčí si konec hustého šedého kníru.",
+          "pomalými, opatrnými tahy utírá výčep."
+        ]
+      }
+    }
+  ]
+}

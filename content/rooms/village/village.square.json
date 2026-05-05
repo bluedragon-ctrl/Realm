@@ -1,0 +1,22 @@
+{
+  "id": "village.square",
+  "name": {
+    "en": "Village Square",
+    "cs": "Náves"
+  },
+  "short": {
+    "en": "A small square with a stone well in the middle.",
+    "cs": "Malá náves s kamennou studnou uprostřed."
+  },
+  "long": {
+    "en": "A round square paved with worn stones. In the middle stands an old well with a wooden bucket on a rope. Around the square sit a bakery to the north, a smithy to the south, and a small pub to the west. The road back east leads out of the village.",
+    "cs": "Kulatá náves dlážděná otřelými kameny. Uprostřed stojí stará studna s dřevěným vědrem na provaze. Kolem návsi je na severu pekařství, na jihu kovárna a na západě malý hostinec. Cesta na východ vede z vesnice ven."
+  },
+  "exits": {
+    "n": "village.bakery",
+    "s": "village.smith",
+    "w": "village.pub",
+    "e": "village.outskirts"
+  },
+  "tags": ["outdoor", "village", "safe"]
+}

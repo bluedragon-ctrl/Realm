@@ -1,0 +1,19 @@
+{
+  "id": "village.shrine",
+  "name": {
+    "en": "Small Stone Shrine",
+    "cs": "Malá kamenná svatyňka"
+  },
+  "short": {
+    "en": "A small stone shrine in a quiet wildflower garden.",
+    "cs": "Malá kamenná svatyňka v tiché zahrádce s lučními květy."
+  },
+  "long": {
+    "en": "A simple stone shrine no taller than a child stands in a patch of wildflowers. A worn offering bowl sits on the step, holding a few coins and a sprig of dried lavender. Bees drift between the blossoms. A path leads back north to the lane.",
+    "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí v záhonu lučních květů. Na schůdku leží otřelá obětní miska s pár drobnými mincemi a větvičkou sušené levandule. Mezi květy poletují včely. Cesta vede zpátky na sever do uličky."
+  },
+  "exits": {
+    "n": "village.lane"
+  },
+  "tags": ["outdoor", "village", "safe"]
+}

@@ -1,0 +1,76 @@
+{
+  "id": "village.smith",
+  "name": {
+    "en": "the smith",
+    "cs": "kovář"
+  },
+  "nameAcc": {
+    "en": "the smith",
+    "cs": "kováře"
+  },
+  "title": {
+    "en": "smith",
+    "cs": "kovář"
+  },
+  "location": "village.smith",
+  "short": {
+    "en": "A broad-shouldered smith works at the anvil.",
+    "cs": "Kovář se širokými rameny pracuje u kovadliny."
+  },
+  "long": {
+    "en": "A tall man with arms like tree trunks and a sooty leather apron. His face is tired but his eyes are kind. Sweat shines on his brow as he hammers a glowing strip of iron.",
+    "cs": "Vysoký muž s pažemi jako trámy a v zakouřené kožené zástěře. Tvář má unavenou, ale oči laskavé. Na čele se mu lesknou kapky potu, když buší do žhnoucího pásu železa."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 30, "hpMax": 30,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "spd": 6
+  },
+  "respawn": { "ticks": 600 },
+  "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.05,
+      "cost": 12,
+      "lines": {
+        "en": [
+          "Mind the sparks, lad.",
+          "Iron does what iron wants.",
+          "Need a horseshoe? A nail? Speak up.",
+          "A good hammer is half the work."
+        ],
+        "cs": [
+          "Pozor na jiskry, mladý.",
+          "Železo dělá to, co železo chce.",
+          "Potřebuješ podkovu? Hřebík? Mluv.",
+          "Dobrý kladivo je půlka práce."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "swings the hammer in a steady, even rhythm.",
+          "plunges a glowing piece of iron into a barrel of water with a hiss.",
+          "wipes his brow with the back of a thick arm.",
+          "pumps the bellows and the forge blazes brighter.",
+          "turns a horseshoe with the tongs to check its shape."
+        ],
+        "cs": [
+          "buší kladivem v klidném rovnoměrném rytmu.",
+          "se sykotem ponoří žhnoucí kus železa do sudu s vodou.",
+          "otírá si čelo hřbetem silné paže.",
+          "zmáčkne měchy a výheň zaplane jasněji.",
+          "otáčí kleštěmi podkovou a kontroluje její tvar."
+        ]
+      }
+    }
+  ]
+}

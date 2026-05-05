@@ -14,7 +14,8 @@
   },
   "exits": {
     "n": "home.yard",
-    "e": "forest.entry"
+    "e": "forest.entry",
+    "w": "village.wheat_path"
   },
   "tags": ["outdoor", "home", "border"]
 }

@@ -1,0 +1,19 @@
+{
+  "id": "village.orchard",
+  "name": {
+    "en": "Apple Orchard",
+    "cs": "Jabloňový sad"
+  },
+  "short": {
+    "en": "Rows of apple trees behind a low stone wall.",
+    "cs": "Řady jabloní za nízkou kamennou zídkou."
+  },
+  "long": {
+    "en": "Old apple trees stand in tidy rows, their branches heavy with red and green fruit. Fallen blossoms lie like soft snow in the grass. A low stone wall runs along the south side, where a fenced lane curves out of sight toward distant rolling fields. The smithy is back to the north.",
+    "cs": "Staré jabloně stojí v úhledných řadách a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Po jižní straně se táhne nízká kamenná zídka, kde se ohraničená cesta ztrácí směrem k dalekým zvlněným polím. Kovárna je zpátky na severu."
+  },
+  "exits": {
+    "n": "village.smith"
+  },
+  "tags": ["outdoor", "village", "safe"]
+}

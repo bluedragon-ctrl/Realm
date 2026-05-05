@@ -1,0 +1,76 @@
+{
+  "id": "village.herbalist",
+  "name": {
+    "en": "the herbalist",
+    "cs": "bylinkářka"
+  },
+  "nameAcc": {
+    "en": "the herbalist",
+    "cs": "bylinkářku"
+  },
+  "title": {
+    "en": "herbalist",
+    "cs": "bylinkářka"
+  },
+  "location": "village.herbalist",
+  "short": {
+    "en": "A kind old herbalist sorts dried leaves at the table.",
+    "cs": "Hodná stará bylinkářka třídí u stolu sušené listy."
+  },
+  "long": {
+    "en": "A small woman with grey hair tied in a braid and warm wrinkled hands. Her shawl smells faintly of every herb in the room. She moves slowly but never seems lost or hurried.",
+    "cs": "Drobná žena se šedými vlasy spletenými do copu a teplýma vrásčitýma rukama. Její šál slabě voní po každé bylince v místnosti. Pohybuje se pomalu, ale nikdy nepůsobí zmateně ani uspěchaně."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 15, "hpMax": 15,
+    "mp": 10, "mpMax": 10,
+    "attack": 1, "defense": 0, "int": 2,
+    "spd": 6
+  },
+  "respawn": { "ticks": 600 },
+  "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.05,
+      "cost": 12,
+      "lines": {
+        "en": [
+          "Mind the jars, dear, some of them bite back.",
+          "A little mint will settle most stomachs.",
+          "Bring me herbs and I will brew you something useful.",
+          "The forest gives, if you know where to look."
+        ],
+        "cs": [
+          "Pozor na ty nádoby, milý, některé koušou zpátky.",
+          "Trocha máty uklidní většinu žaludků.",
+          "Přines mi bylinky a uvařím ti něco užitečného.",
+          "Les dává, když víš, kam se podívat."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "ties a fresh bunch of herbs and hangs it from the ceiling.",
+          "sniffs at a small jar, frowns, and labels it again.",
+          "grinds dried leaves in a stone mortar with slow, patient strokes.",
+          "pours a careful spoon of something dark into a tiny bottle.",
+          "smiles softly to herself and rearranges the jars on the shelf."
+        ],
+        "cs": [
+          "sváže čerstvý svazek bylin a pověsí ho ke stropu.",
+          "přivoní k malé nádobce, zamračí se a znovu ji popíše.",
+          "v kamenném hmoždíři pomalu a trpělivě tře sušené listy.",
+          "opatrnou lžičkou přelije něco tmavého do drobné lahvičky.",
+          "tiše se pro sebe usměje a přerovná nádoby na polici."
+        ]
+      }
+    }
+  ]
+}
