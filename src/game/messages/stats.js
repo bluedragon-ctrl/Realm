@@ -51,6 +51,8 @@ export function buildStatsMsg(actor) {
     xp: actor.record.xp ?? 0,
     xpToNext: xpToNext(actor.record.level ?? 1),
     gold: actor.gold ?? 0,
+    unspentPoints: actor.record?.unspentPoints ?? 0,
+    allocated: { ...(actor.record?.allocated ?? {}) },
     labels: buildPanelLabels(actor.lang),
     socials: buildSocialButtons(actor.lang),
     inventory: buildInventory(actor),
