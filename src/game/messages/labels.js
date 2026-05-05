@@ -17,6 +17,7 @@ export function buildPanelLabels(lang) {
     eva: s('panel.eva', lang),
     spd: s('panel.spd', lang),
     panelTitle: s('panel.player_info', lang),
+    gold: s('panel.gold', lang),
     inspectTitle: s('panel.inspect', lang),
     backToRoom: s('panel.back_to_room', lang),
     lookButton: s('panel.look_button', lang),

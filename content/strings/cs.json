@@ -57,11 +57,25 @@
   "drop.no_arg": "co položit?",
   "drop.self": "položíš {item}.",
   "drop.others": "{actor} pokládá {item}.",
-  "give.usage": "použití: give <předmět> to <cíl>",
+  "give.usage": "použití: give <předmět> to <cíl>  (nebo: give <N> gold to <cíl>)",
   "give.to_self": "nemůžeš to dát sám sobě.",
   "give.self": "dáváš {item} {target}.",
   "give.recipient": "{actor} ti dává {item}.",
   "give.you_received": "teď neseš {item}.",
+  "give.gold.self": "dáváš {amount} zlatých {target}.",
+  "give.gold.recipient": "{actor} ti dává {amount} zlatých.",
+  "give.gold.others": "{actor} dává {amount} zlatých {target}.",
+  "give.gold.target_invalid": "zlato můžeš dát jen jiným hráčům.",
+  "give.gold.not_enough": "máš jen {gold} zlatých.",
+  "take.gold.self": "sebereš {amount} zlatých.",
+  "take.gold.others": "{actor} sbírá {amount} zlatých.",
+  "take.gold.none": "nic zde neleží.",
+  "drop.gold.self": "položíš {amount} zlatých.",
+  "drop.gold.others": "{actor} pokládá {amount} zlatých.",
+  "drop.gold.not_enough": "máš jen {gold} zlatých.",
+  "loot.gold_dropped": "{target} upouští {amount} zlatých.",
+  "room.gold_label": "zlato",
+  "panel.gold": "Zlato",
   "cast.no_arg": "co seslat?",
   "cast.unknown": "neznáš žádné kouzlo jménem '{query}'.",
   "cast.no_mp": "nemáš dost many ({mp} potřeba).",
@@ -238,5 +252,5 @@
   "admin.who_header": "online ({count}):",
   "admin.who_line": "  {name}{adminTag} @ {location} [{lang}]",
 
-  "help.text": "── příkazy ───────────────────────────────────────────\n\n  [ pohyb ]\n  look [cíl]                popíše okolí nebo někoho\n  n s e w u d               pohyb  (také: north south east west up down)\n  go <východ>               pohyb pojmenovaným východem\n\n  [ mluvení ]\n  say <text>   (\"<text>)    mluvit do místnosti\n  emote <text> (:<text>)    provést akci\n  wave/bow/hug/pet/smile/…  sociální akce  (zkus s jménem: 'bow guard')\n\n  [ předměty ]\n  take <předmět>            sebrat ze země\n  drop <předmět>            položit z inventáře\n  inventory (i)             seznam toho, co neseš\n  give <předmět> to <cíl>   dát předmět někomu\n  use <předmět> [on <cíl>]  použít předmět, případně na někoho\n  wear / equip <předmět>    obléct výstroj\n  remove / unwear <předmět> sundat výstroj\n  equipment (eq)            zobrazí výstroj\n\n  [ boj ]\n  attack <cíl>              zaútočit na NPC  (také: kill, hit)\n  cast <kouzlo> [on <cíl>]  seslat známé kouzlo\n  flee (f)                  utéct náhodným východem\n\n  [ reference ]\n  stats (st)                zobrazí tvé staty s vysvětlením\n  spells (sp)               zobrazí známá kouzla s poškozením/efekty\n\n  [ ostatní ]\n  who                       seznam hráčů online\n  lang [kód]                zobrazí nebo nastaví jazyk  (en | cs)\n  help (?)                  tento seznam\n  quit (q)                  odpojit se\n\n  [ tipy ]\n  Tab                       doplní příkazy a jména cílů\n  ↑ / ↓ šipky               historie příkazů\n  klikni na čip             interakce s NPC a předměty\n  scroll nahoru v konzoli   zamkne auto-scroll; tlačítko ↓ pro pokračování\n\n── admin ─────────────────────────────────────────────\n  @create-player <jméno>    vytvoří novou postavu\n  @reload                   načte obsah světa z disku\n  @who                      seznam hráčů s lokacemi"
+  "help.text": "── příkazy ───────────────────────────────────────────\n\n  [ pohyb ]\n  look [cíl]                popíše okolí nebo někoho\n  n s e w u d               pohyb  (také: north south east west up down)\n  go <východ>               pohyb pojmenovaným východem\n\n  [ mluvení ]\n  say <text>   (\"<text>)    mluvit do místnosti\n  emote <text> (:<text>)    provést akci\n  wave/bow/hug/pet/smile/…  sociální akce  (zkus s jménem: 'bow guard')\n\n  [ předměty ]\n  take <předmět>            sebrat ze země\n  drop <předmět>            položit z inventáře\n  inventory (i)             seznam toho, co neseš\n  give <předmět> to <cíl>   dát předmět někomu\n  give <N> gold to <hráč>   předat zlato jinému hráči\n  drop <N> gold             položit hromádku zlata\n  use <předmět> [on <cíl>]  použít předmět, případně na někoho\n  wear / equip <předmět>    obléct výstroj\n  remove / unwear <předmět> sundat výstroj\n  equipment (eq)            zobrazí výstroj\n\n  [ boj ]\n  attack <cíl>              zaútočit na NPC  (také: kill, hit)\n  cast <kouzlo> [on <cíl>]  seslat známé kouzlo\n  flee (f)                  utéct náhodným východem\n\n  [ reference ]\n  stats (st)                zobrazí tvé staty s vysvětlením\n  spells (sp)               zobrazí známá kouzla s poškozením/efekty\n\n  [ ostatní ]\n  who                       seznam hráčů online\n  lang [kód]                zobrazí nebo nastaví jazyk  (en | cs)\n  help (?)                  tento seznam\n  quit (q)                  odpojit se\n\n  [ tipy ]\n  Tab                       doplní příkazy a jména cílů\n  ↑ / ↓ šipky               historie příkazů\n  klikni na čip             interakce s NPC a předměty\n  scroll nahoru v konzoli   zamkne auto-scroll; tlačítko ↓ pro pokračování\n\n── admin ─────────────────────────────────────────────\n  @create-player <jméno>    vytvoří novou postavu\n  @reload                   načte obsah světa z disku\n  @who                      seznam hráčů s lokacemi"
 }

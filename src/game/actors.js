@@ -32,6 +32,7 @@ export function makePlayerActor(record, session, isAdmin) {
   record.activeEffects = normalizeSavedActiveEffects(record.activeEffects);
   if (typeof record.xp !== 'number') record.xp = 0;
   if (typeof record.level !== 'number') record.level = 1;
+  if (typeof record.gold !== 'number' || record.gold < 0) record.gold = 0;
   if (!Array.isArray(record.visitedRooms)) record.visitedRooms = [];
   const visitedRooms = new Set(record.visitedRooms);
   const inventory = [];
@@ -53,6 +54,8 @@ export function makePlayerActor(record, session, isAdmin) {
     visitedRooms,
     get xp() { return record.xp; },
     get level() { return record.level; },
+    get gold() { return record.gold; },
+    set gold(v) { record.gold = Math.max(0, Math.floor(v)); },
     get knownSpells() { return record.knownSpells; },
     get knownWearables() { return record.knownWearables; },
     get equipped() { return record.equipped; },

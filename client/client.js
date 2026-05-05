@@ -179,6 +179,13 @@ function renderStats(msg) {
   }
   playerStatsEl.appendChild(grid);
 
+  if (typeof msg.gold === 'number') {
+    const goldRow = document.createElement('div');
+    goldRow.className = 'gold-row';
+    goldRow.textContent = `${labels.gold ?? 'Gold'}: 🪙 ${msg.gold}`;
+    playerStatsEl.appendChild(goldRow);
+  }
+
   // Collapsibles in order: effects, spells, inventory, equipment
   playerStatsEl.appendChild(makeCollapsibleSection('effects', labels.effectsTitle ?? 'Effects', (body) => {
     const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
@@ -328,13 +335,20 @@ function renderRoomInInspect(msg) {
     inspectBody.appendChild(row);
   }
 
-  if (msg.items?.length) {
+  if (msg.items?.length || msg.gold > 0) {
     const row = document.createElement('div'); row.className = 'inspect-row';
     const lab = document.createElement('span'); lab.className = 'inspect-row-label';
     lab.textContent = `${msg.itemsLabel ?? 'on the ground'}: `;
     row.appendChild(lab);
-    msg.items.forEach((item, i) => {
-      if (i > 0) row.append(' ');
+    let first = true;
+    if (msg.gold > 0) {
+      const chip = makeChip(`🪙 ${msg.gold}`, 'item gold', () => sendInput('take gold'));
+      row.appendChild(chip);
+      first = false;
+    }
+    (msg.items ?? []).forEach((item) => {
+      if (!first) row.append(' ');
+      first = false;
       const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
       const cssClass = item.pickable === false ? 'fixture' : 'item';
       const chip = makeChip(label, cssClass, (ev) => openRoomItemPopover(chip, item, ev));

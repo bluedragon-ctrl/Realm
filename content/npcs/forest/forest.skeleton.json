@@ -25,6 +25,7 @@
   },
   "respawn": { "ticks": 900 },
   "xp": 20,
+  "goldDrop": { "formula": "1d6", "chance": 0.3 },
   "loot": [
     { "defId": "forest.iron_sword", "chance": 1.0 }
   ],

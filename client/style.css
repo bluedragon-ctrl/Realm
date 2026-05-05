@@ -135,6 +135,9 @@ html, body {
 .bar-fill.xp   { background: gold; }
 .bar-num { color: var(--fg); font-size: 12px; text-align: right; }
 
+.gold-row { color: gold; font-size: 13px; margin-top: 6px; }
+.chip.gold { color: gold; }
+
 .stat-grid {
   display: grid;
   grid-template-columns: 1fr 1fr 1fr 1fr;

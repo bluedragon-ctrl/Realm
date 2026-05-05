@@ -25,6 +25,7 @@
   },
   "respawn": { "ticks": 1200 },
   "xp": 14,
+  "goldDrop": { "formula": "2d3+1", "chance": 0.85 },
   "loot": [
     { "defId": "item.rusty_helmet", "chance": 0.05 }
   ],

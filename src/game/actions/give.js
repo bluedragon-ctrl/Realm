@@ -13,6 +13,22 @@ function parseGiveArgs(args) {
   return null;
 }
 
+const GOLD_WORDS = new Set(['gold', 'coin', 'coins', 'zlato', 'zlaťák', 'zlaťáky', 'mince']);
+
+function parseGoldGive(itemQuery) {
+  const parts = itemQuery.trim().split(/\s+/);
+  if (parts.length !== 2) return null;
+  const a = parts[0].toLowerCase();
+  const b = parts[1].toLowerCase();
+  let amountStr = null;
+  if (/^\d+$/.test(a) && GOLD_WORDS.has(b)) amountStr = a;
+  else if (GOLD_WORDS.has(a) && /^\d+$/.test(b)) amountStr = b;
+  if (!amountStr) return null;
+  const amount = parseInt(amountStr, 10);
+  if (!Number.isFinite(amount) || amount <= 0) return null;
+  return { amount };
+}
+
 export default function give(actor, args) {
   if (!args || args.length < 2) {
     actor.session.send({ kind: 'error', text: s('give.usage', actor.lang) });
@@ -24,6 +40,47 @@ export default function give(actor, args) {
     return;
   }
   const { itemQuery, targetQuery } = parsed;
+
+  const goldGive = parseGoldGive(itemQuery);
+  if (goldGive) {
+    const target = findInRoom(actor.location, targetQuery);
+    if (!target) {
+      actor.session.send({ kind: 'error', text: s('error.no_such_target', actor.lang, { query: targetQuery }) });
+      return;
+    }
+    if (target === actor) {
+      actor.session.send({ kind: 'error', text: s('give.to_self', actor.lang) });
+      return;
+    }
+    if (target.kind !== 'player') {
+      actor.session.send({ kind: 'error', text: s('give.gold.target_invalid', actor.lang) });
+      return;
+    }
+    if ((actor.gold ?? 0) < goldGive.amount) {
+      actor.session.send({ kind: 'error', text: s('give.gold.not_enough', actor.lang, { amount: goldGive.amount, gold: actor.gold ?? 0 }) });
+      return;
+    }
+    actor.gold = (actor.gold ?? 0) - goldGive.amount;
+    target.gold = (target.gold ?? 0) + goldGive.amount;
+    actor.dirty = true;
+    target.dirty = true;
+    broadcastToRoom(actor.location, (recipient) => {
+      if (recipient === actor) {
+        return { kind: 'system', text: s('give.gold.self', recipient.lang, { amount: goldGive.amount, target: target.name }) };
+      }
+      if (recipient === target) {
+        return { kind: 'system', tone: 'good', text: s('give.gold.recipient', recipient.lang, { amount: goldGive.amount, actor: actor.name }) };
+      }
+      return {
+        kind: 'emote',
+        source: sourceForActor(actor, recipient),
+        text: s('give.gold.others', recipient.lang, { actor: actor.name, amount: goldGive.amount, target: target.name }),
+      };
+    });
+    sendStats(actor);
+    sendStats(target);
+    return;
+  }
 
   const inst = findItemInList(actor.inventory, itemQuery);
   if (!inst) {
