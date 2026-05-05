@@ -2,7 +2,7 @@ import { world } from './world.js';
 import { nameVariants } from '../i18n.js';
 
 export const WEARABLE_SLOTS = ['body', 'head', 'weapon', 'amulet'];
-export const ALLOWED_BONUS_KEYS = new Set(['attack', 'defense', 'hpMax', 'mpMax', 'int', 'spd']);
+export const ALLOWED_BONUS_KEYS = new Set(['attack', 'defense', 'hpMax', 'mpMax', 'int', 'magicResist', 'spd']);
 
 export function emptyEquipped() {
   const out = {};

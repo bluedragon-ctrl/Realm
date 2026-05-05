@@ -1,13 +1,64 @@
-import { findInRoom, world } from '../world.js';
+import { findInRoom, world, broadcastToRoom } from '../world.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
 import { applyActiveEffect } from '../activeEffects.js';
-import { applyDamageWithFeedback } from '../combat.js';
+import { applyDamageWithFeedback, registerAttackAggro } from '../combat.js';
 import { roll } from '../dice.js';
 import { splitOnKeyword } from '../items.js';
-import { s } from '../../i18n.js';
+import { s, t } from '../../i18n.js';
 import { sendStats } from '../messages.js';
+import { sourceForActor } from '../sources.js';
 import { awardXp } from '../xp.js';
+
+const MAX_RESIST = 95;
+
+function actorDisplayName(a, lang) {
+  if (a.kind === 'npc') return t(a.name, lang);
+  return a.name;
+}
+
+function targetDisplayName(target, lang) {
+  if (target.kind === 'npc') return t(target.nameAcc ?? target.name, lang);
+  return target.name;
+}
+
+function resists(target) {
+  if (!target?.stats) return false;
+  const mr = (target.stats.magicResist ?? 0) + (target.stats.int ?? 0);
+  const effective = Math.max(0, Math.min(MAX_RESIST, mr));
+  if (effective <= 0) return false;
+  const r = 1 + Math.floor(Math.random() * 100);
+  return r <= effective;
+}
+
+function broadcastResist(actor, target) {
+  if (actor.session) {
+    actor.session.send({
+      kind: 'system',
+      tone: 'notice',
+      text: s('cast.resisted_self', actor.lang, { target: targetDisplayName(target, actor.lang) }),
+    });
+  }
+  if (target.session && target !== actor) {
+    target.session.send({
+      kind: 'system',
+      tone: 'notice',
+      text: s('cast.resisted_target', target.lang, { actor: actorDisplayName(actor, target.lang) }),
+    });
+  }
+  broadcastToRoom(actor.location, (recipient) => {
+    if (recipient === actor || recipient === target) return null;
+    return {
+      kind: 'emote',
+      tone: 'notice',
+      source: sourceForActor(actor, recipient),
+      text: s('cast.resisted_others', recipient.lang, {
+        actor: actorDisplayName(actor, recipient.lang),
+        target: targetDisplayName(target, recipient.lang),
+      }),
+    };
+  });
+}
 
 const SELF_TOKENS = new Set(['me', 'self', 'myself']);
 
@@ -82,6 +133,13 @@ export default function cast(actor, args) {
   runVerb({ actor, def: spell.verb, targetActor: target });
 
   const castXp = spell.xp ?? 1;
+
+  if (spell.harmful && target && target !== actor && resists(target)) {
+    broadcastResist(actor, target);
+    registerAttackAggro(actor, target);
+    sendStats(actor);
+    return;
+  }
 
   if (spell.effect?.type === 'damage' && target && target !== actor) {
     const formula = spell.effect.formula ?? spell.effect.amount ?? '1';

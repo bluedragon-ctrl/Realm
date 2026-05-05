@@ -169,6 +169,7 @@ function renderStats(msg) {
     [labels.atk ?? 'ATK', s.attack],
     [labels.def ?? 'DEF', s.defense],
     [labels.int ?? 'INT', s.int],
+    [labels.mres ?? 'MRES', s.magicResist],
     [labels.spd ?? 'SPD', s.spd],
   ]) {
     const k = document.createElement('span'); k.className = 'k'; k.textContent = key;
@@ -408,6 +409,7 @@ function renderTargetInfo(msg) {
       [labels.atk ?? 'ATK', s.attack],
       [labels.def ?? 'DEF', s.defense],
       [labels.int ?? 'INT', s.int],
+      [labels.mres ?? 'MRES', s.magicResist],
       [labels.spd ?? 'SPD', s.spd],
     ]) {
       const span = document.createElement('span');
