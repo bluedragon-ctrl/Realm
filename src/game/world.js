@@ -20,6 +20,6 @@ export {
 } from './world/items.js';
 export {
   spawnNpc, despawnNpc, spawnAllNpcs, despawnAllNpcs,
-  queueNpcRespawn, processNpcRespawns, setNpcRespawnHandler, clearNpcRespawnQueue,
+  queueNpcRespawn, processNpcRespawns, processConditionalSpawns, setNpcRespawnHandler, clearNpcRespawnQueue,
 } from './world/npcs.js';
 export { loadWorld } from './world/load.js';

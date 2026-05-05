@@ -203,7 +203,7 @@ function handleNpcDeath(killer, npc) {
 
   const respawnTicks = def?.respawn?.ticks ?? 0;
   if (respawnTicks > 0 && def) {
-    queueNpcRespawn(npc.defId, respawnTicks);
+    queueNpcRespawn(npc.defId, respawnTicks, npc.homeLocation);
   }
 
   if (room) describeRoomToAll(room);

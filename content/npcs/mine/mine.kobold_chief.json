@@ -24,7 +24,7 @@
     "accuracy": 15,
     "spd": 5
   },
-  "respawn": { "ticks": 3000 },
+  "respawn": { "ticks": 1500 },
   "xp": 50,
   "goldDrop": { "formula": "3d6+5", "chance": 1.0 },
   "loot": [
@@ -38,7 +38,7 @@
       "cost": 20,
       "damage": "1d6+ATK",
       "requires": "aggro_target",
-      "onHit": { "applyEffect": "effect.bleeding", "chance": 0.5 },
+      "onHit": { "applyEffect": "effect.bleeding", "chance": 0.3 },
       "templates": {
         "en": [
           "{actor} slams its axe into {target} with both hands!",

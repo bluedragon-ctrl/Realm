@@ -76,7 +76,7 @@ export function makePlayerActor(record, session, isAdmin) {
   return actor;
 }
 
-export function makeNpcActor(def) {
+export function makeNpcActor(def, homeLocation = null) {
   const stats = normalizeStats(def.stats, NPC_DEFAULT_STATS);
   const inventory = [];
   for (const startId of def.inventory ?? []) {
@@ -87,6 +87,8 @@ export function makeNpcActor(def) {
     kind: 'npc',
     instanceId: nextNpcInstanceId++,
     defId: def.id,
+    homeLocation: homeLocation ?? def.location ?? null,
+    baseStats: { ...stats },
     name: def.name,
     nameAcc: def.nameAcc ?? def.name,
     title: def.title ?? def.name,

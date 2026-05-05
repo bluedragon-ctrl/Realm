@@ -1,0 +1,72 @@
+{
+  "id": "village.rat",
+  "name": { "en": "a cellar rat", "cs": "sklepní krysa" },
+  "nameAcc": { "en": "the cellar rat", "cs": "sklepní krysu" },
+  "title": { "en": "cellar rat", "cs": "sklepní krysa" },
+  "location": "village.cellar",
+  "count": 3,
+  "short": {
+    "en": "A grey rat sniffing along the barrels, with a long pink tail.",
+    "cs": "Šedá krysa čmuchající kolem sudů, s dlouhým růžovým ocáskem."
+  },
+  "long": {
+    "en": "A common grey rat, fat from a steady diet of pub scraps and spilt beer. Its long pink tail trails behind it as it scurries between the barrels. The innkeeper would be very pleased if it stopped existing.",
+    "cs": "Obyčejná šedá krysa, tlustá z neustálé hostinské stravy a rozlitého piva. Dlouhý růžový ocásek se za ní táhne, když pobíhá mezi sudy. Hostinský by byl velmi rád, kdyby přestala existovat."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 5, "hpMax": 5,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 14,
+    "spd": 4
+  },
+  "respawn": { "ticks": 700 },
+  "xp": 3,
+  "loot": [
+    { "defId": "item.rat_tail", "chance": 0.9 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "rat bite", "cs": "kousnutí krysy" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} scurries in and bites {target}!",
+          "{actor} leaps at {target} with bared teeth!",
+          "{actor} darts at {target} and snaps at an ankle!"
+        ],
+        "cs": [
+          "{actor} se přihrne a kousne {target}!",
+          "{actor} skočí na {target} s vyceněnými zuby!",
+          "{actor} se mihne k {target} a chňapne po kotníku!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "scratches at a barrel with quick claws.",
+          "twitches its long pink tail.",
+          "sniffs at a puddle of spilt beer.",
+          "lets out a sharp squeak."
+        ],
+        "cs": [
+          "škrábe rychlými drápky o sud.",
+          "škubne dlouhým růžovým ocasem.",
+          "čichá k loužičce rozlitého piva.",
+          "vydá pronikavé zapištění."
+        ]
+      }
+    }
+  ]
+}

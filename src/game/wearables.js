@@ -26,7 +26,7 @@ export function normalizeEquipped(input) {
 }
 
 export function recomputeStats(actor) {
-  const base = actor.record.baseStats;
+  const base = actor.record?.baseStats ?? actor.baseStats;
   if (!base) return;
   const computed = { ...base };
   for (const slot of WEARABLE_SLOTS) {
@@ -36,6 +36,14 @@ export function recomputeStats(actor) {
     const bonus = def?.wearable?.bonus;
     if (!bonus) continue;
     for (const [k, v] of Object.entries(bonus)) {
+      if (typeof v === 'number' && k in computed) computed[k] += v;
+    }
+  }
+  for (const inst of actor.activeEffects ?? []) {
+    const def = world.effectDefs.get(inst.defId);
+    const mod = def?.statMod;
+    if (!mod) continue;
+    for (const [k, v] of Object.entries(mod)) {
       if (typeof v === 'number' && k in computed) computed[k] += v;
     }
   }

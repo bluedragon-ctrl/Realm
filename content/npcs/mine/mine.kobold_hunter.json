@@ -1,0 +1,76 @@
+{
+  "id": "mine.kobold_hunter",
+  "name": { "en": "a kobold hunter", "cs": "koboldí lovec" },
+  "nameAcc": { "en": "the kobold hunter", "cs": "koboldího lovce" },
+  "title": { "en": "kobold hunter", "cs": "koboldí lovec" },
+  "locations": {
+    "mine.east_tunnel": 2,
+    "mine.dark_crossing": 2
+  },
+  "short": {
+    "en": "A lean kobold with a short spear, eyes glinting in the dim light.",
+    "cs": "Štíhlý kobold s krátkým oštěpem, oči se mu blýskají v šeru."
+  },
+  "long": {
+    "en": "A kobold leaner and quicker than the workers, dressed in dark hide and carrying a short spear. Its yellow eyes track every movement and it shifts its feet constantly, ready to dart in or back away. These ones move quietly through the deeper tunnels.",
+    "cs": "Kobold štíhlejší a rychlejší než dělníci, oblečený do tmavé kůže a nesoucí krátký oštěp. Žluté oči sledují každý pohyb a neustále přešlapuje, připraven se vrhnout vpřed nebo ustoupit. Tihle se pohybují tiše hlubšími tunely."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 10, "hpMax": 10,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "evasion": 17,
+    "spd": 5
+  },
+  "respawn": { "ticks": 900 },
+  "xp": 10,
+  "goldDrop": { "formula": "1d4", "chance": 0.7 },
+  "loot": [
+    { "defId": "item.rusty_dagger", "chance": 0.05 },
+    { "defId": "item.rusty_helmet", "chance": 0.05 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "spear jab", "cs": "bodnutí oštěpem" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts in and jabs its spear at {target}!",
+          "{actor} feints once and stabs at {target}!",
+          "{actor} lunges with the spear, low and fast, at {target}!"
+        ],
+        "cs": [
+          "{actor} se mihne vpřed a bodne oštěpem na {target}!",
+          "{actor} jednou kličkuje a bodne na {target}!",
+          "{actor} se vrhne s oštěpem, nízko a rychle, na {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.04,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "circles slowly, watching for an opening.",
+          "shifts on the balls of its feet without a sound.",
+          "clicks the spear shaft against a tooth.",
+          "blinks once and goes very still."
+        ],
+        "cs": [
+          "pomalu krouží a hledá příležitost.",
+          "tiše přešlapuje na špičkách.",
+          "cvakne ratištěm o zub.",
+          "zamrká jednou a znehybní."
+        ]
+      }
+    }
+  ]
+}

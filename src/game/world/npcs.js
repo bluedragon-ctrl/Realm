@@ -8,10 +8,11 @@ import { makeNpcActor } from '../actors.js';
 const npcRespawnQueue = [];
 let _onNpcRespawn = null;
 
-export function spawnNpc(def) {
-  const npc = makeNpcActor(def);
+export function spawnNpc(def, locationOverride = null) {
+  const location = locationOverride ?? def.location;
+  const npc = makeNpcActor(def, location);
   world.npcsByInstance.set(npc.instanceId, npc);
-  placeActor(npc, def.location);
+  placeActor(npc, location);
   return npc;
 }
 
@@ -22,10 +23,18 @@ export function despawnNpc(npc) {
   world.npcsByInstance.delete(npc.instanceId);
 }
 
+function spawnPlacements(def) {
+  if (def.locations) return Object.entries(def.locations);
+  if (def.location) return [[def.location, def.count ?? 1]];
+  return [];
+}
+
 export function spawnAllNpcs() {
   for (const def of world.npcDefs.values()) {
-    const count = def.count ?? 1;
-    for (let i = 0; i < count; i++) spawnNpc(def);
+    if (def.spawn?.requires) continue;
+    for (const [roomId, count] of spawnPlacements(def)) {
+      for (let i = 0; i < count; i++) spawnNpc(def, roomId);
+    }
   }
 }
 
@@ -35,19 +44,50 @@ export function despawnAllNpcs() {
   }
 }
 
-export function queueNpcRespawn(defId, ticksFromNow) {
-  npcRespawnQueue.push({ defId, ticksRemaining: ticksFromNow });
+export function queueNpcRespawn(defId, ticksFromNow, homeLocation = null) {
+  npcRespawnQueue.push({ defId, ticksRemaining: ticksFromNow, homeLocation });
 }
 
 export function processNpcRespawns() {
   for (let i = npcRespawnQueue.length - 1; i >= 0; i--) {
     npcRespawnQueue[i].ticksRemaining--;
     if (npcRespawnQueue[i].ticksRemaining > 0) continue;
-    const def = world.npcDefs.get(npcRespawnQueue[i].defId);
+    const entry = npcRespawnQueue[i];
+    const def = world.npcDefs.get(entry.defId);
     npcRespawnQueue.splice(i, 1);
     if (def) {
-      const npc = spawnNpc(def);
+      const npc = spawnNpc(def, entry.homeLocation);
       _onNpcRespawn?.(npc);
+    }
+  }
+}
+
+function roomHasHostiles(roomId) {
+  const set = world.actorsByRoom.get(roomId);
+  if (!set) return false;
+  for (const a of set) {
+    if (a.kind === 'npc' && a.alive !== false && a.disposition === 'hostile') return true;
+  }
+  return false;
+}
+
+function defHasLiveInstance(defId) {
+  for (const npc of world.npcsByInstance.values()) {
+    if (npc.defId === defId && npc.alive !== false) return true;
+  }
+  return false;
+}
+
+export function processConditionalSpawns() {
+  for (const def of world.npcDefs.values()) {
+    const cond = def.spawn?.requires;
+    if (!cond) continue;
+    if (defHasLiveInstance(def.id)) continue;
+    if (cond === 'room_clear') {
+      for (const [roomId, count] of spawnPlacements(def)) {
+        if (roomHasHostiles(roomId)) continue;
+        for (let i = 0; i < count; i++) spawnNpc(def, roomId);
+      }
     }
   }
 }

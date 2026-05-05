@@ -1,0 +1,19 @@
+{
+  "id": "village.cellar",
+  "name": {
+    "en": "The Pub Cellar",
+    "cs": "Sklep hostince"
+  },
+  "short": {
+    "en": "A cool earthen cellar lined with barrels — and squeaking in the dark.",
+    "cs": "Chladný hliněný sklep lemovaný sudy — a ve tmě je slyšet pištění."
+  },
+  "long": {
+    "en": "A low cellar dug into the earth under the pub, lit only by what light spills down through the hatch. Big oak barrels of beer line the walls, and bundles of dried herbs hang from the beams. The floor is hard-packed dirt, dotted with rat droppings, and something is rustling in the straw. The hatch is the only way back up.",
+    "cs": "Nízký sklep vyhloubený do země pod hostincem, osvětlený jen tím, co prosvítá poklopem. U stěn stojí velké dubové sudy s pivem a od trámů visí svazky sušených bylinek. Podlaha je z udusané hlíny, posetá krysími bobky, a něco šustí ve slámě. Poklop je jediná cesta zpět nahoru."
+  },
+  "exits": {
+    "u": "village.pub"
+  },
+  "tags": ["indoor", "village", "dark"]
+}
