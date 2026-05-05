@@ -1,0 +1,25 @@
+{
+  "id": "item.rusty_helmet",
+  "name": {
+    "en": "a rusty helmet",
+    "cs": "rezavá přilba"
+  },
+  "nameAcc": {
+    "en": "the rusty helmet",
+    "cs": "rezavou přilbu"
+  },
+  "short": {
+    "en": "A dented iron helmet streaked with rust.",
+    "cs": "Promáčknutá železná přilba pokrytá rzí."
+  },
+  "long": {
+    "en": "An old iron helmet with a wide brim, dented along the side and pitted with rust. The leather lining inside is stiff and stained, but the iron still holds. It will turn aside a careless blow.",
+    "cs": "Stará železná přilba se širokou krempou, na boku promáčknutá a pokrytá rzí. Kožená výstelka uvnitř je ztuhlá a potřísněná, ale železo stále drží. Odrazí ledabylý úder."
+  },
+  "tags": ["armor"],
+  "weight": 2,
+  "wearable": {
+    "slot": "head",
+    "bonus": { "defense": 1 }
+  }
+}

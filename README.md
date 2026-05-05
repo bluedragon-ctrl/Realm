@@ -262,7 +262,7 @@ Drop a file under `content/spells/`:
 
 Only spells declared `target: "hostile"` skip the `no_target` form check; if you give a spell only a `to_target` form, leave `target` as `"hostile"` (or supply both forms for `"any"`/`"friendly"`).
 
-New players auto-learn `spell.heal` and `spell.spark` (the latter is a temporary test spell — remove it from `actors.js` once spells can be taught at runtime). Future spells must be added to a player's `knownSpells` explicitly.
+New players start with no spells — they learn them via loot or teaching at runtime. Admins are auto-granted `spell.heal` and `spell.spark` on login for testing (see `ADMIN_GRANTED_SPELLS` in `src/game/actors.js`).
 
 ### Add a social verb
 

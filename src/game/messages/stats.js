@@ -2,8 +2,34 @@
 // Composed from the smaller builders in this folder.
 
 import { t } from '../../i18n.js';
-import { getRoom } from '../world.js';
+import { getRoom, world } from '../world.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
+
+function buildWearableOnHitEffects(actor, lang) {
+  const out = [];
+  const equipped = actor.record?.equipped ?? {};
+  for (const slot of Object.keys(equipped)) {
+    const defId = equipped[slot];
+    if (!defId) continue;
+    const onHit = world.itemDefs.get(defId)?.wearable?.onHit;
+    if (!onHit) continue;
+    const hits = Array.isArray(onHit) ? onHit : [onHit];
+    for (const hit of hits) {
+      const effDef = world.effectDefs.get(hit.applyEffect);
+      if (!effDef) continue;
+      const chance = hit.chance ?? 1;
+      out.push({
+        defId: hit.applyEffect,
+        name: t(effDef.name, lang),
+        icon: effDef.icon ?? '',
+        kind: effDef.kind ?? 'neutral',
+        source: `onhit:${defId}`,
+        chancePct: Math.round(chance * 100),
+      });
+    }
+  }
+  return out;
+}
 import { xpToNext } from '../xp.js';
 import { buildInventory } from './inventory.js';
 import { buildEquipment } from './equipment.js';
@@ -29,7 +55,10 @@ export function buildStatsMsg(actor) {
     inventory: buildInventory(actor),
     knownSpells: buildKnownSpells(actor),
     equipment: buildEquipment(actor),
-    activeEffects: serializeActiveEffectsForClient(actor, actor.lang),
+    activeEffects: [
+      ...serializeActiveEffectsForClient(actor, actor.lang),
+      ...buildWearableOnHitEffects(actor, actor.lang),
+    ],
   };
 }
 

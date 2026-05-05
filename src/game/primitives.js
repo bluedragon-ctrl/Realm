@@ -78,18 +78,6 @@ const PRIMITIVES = {
     const target = aggroTargetInRoom(actor);
     if (!target) return;
     executeAttack(actor, behavior, target);
-    if (behavior.onHit && target.stats?.hp > 0) {
-      const hits = Array.isArray(behavior.onHit) ? behavior.onHit : [behavior.onHit];
-      let applied = false;
-      for (const hit of hits) {
-        if (!hit.applyEffect) continue;
-        if (Math.random() < (hit.chance ?? 1.0)) {
-          applyActiveEffect(target, hit.applyEffect, 'combat', actor.name);
-          applied = true;
-        }
-      }
-      if (applied && target.kind === 'player' && target.session) sendStats(target);
-    }
   },
   flee(actor, behavior) {
     if (actor.alive === false) return;

@@ -26,6 +26,9 @@
   },
   "respawn": { "ticks": 3000 },
   "xp": 50,
+  "loot": [
+    { "defId": "mine.kobold_axe", "chance": 1 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",
@@ -34,6 +37,7 @@
       "cost": 20,
       "damage": "1d6+ATK",
       "requires": "aggro_target",
+      "onHit": { "applyEffect": "effect.bleeding", "chance": 0.5 },
       "templates": {
         "en": [
           "{actor} slams its axe into {target} with both hands!",

@@ -67,6 +67,15 @@ function pickBehavior(actor) {
   return null;
 }
 
+function maxBehaviorCost(actor) {
+  let max = 12;
+  for (const b of actor.behaviors) {
+    const cost = b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12;
+    if (cost > max) max = cost;
+  }
+  return max;
+}
+
 function tickActor(actor) {
   if (actor.kind === 'npc' && !actor.alive) return;
 
@@ -82,17 +91,16 @@ function tickActor(actor) {
 
   if (actor.kind !== 'npc') return;
   actor.energy += actor.stats.spd;
-  if (actor.energy < 12) return;
 
   const chosen = pickBehavior(actor);
   if (chosen) {
     const cost = chosen.cost ?? DEFAULT_COSTS[chosen.primitive] ?? 12;
     actor.energy -= cost;
     runPrimitive(actor, chosen);
-  } else {
-    actor.energy -= DEFAULT_COSTS.wait;
   }
   if (actor.energy < 0) actor.energy = 0;
+  const cap = maxBehaviorCost(actor);
+  if (actor.energy > cap) actor.energy = cap;
 }
 
 function maybeRespawnItems() {

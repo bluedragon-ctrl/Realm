@@ -120,6 +120,14 @@ function makeItemValidator(knownRooms, knownEffects) {
             `wearable.effects references unknown effect '${eid}'`);
         }
       }
+      if (def.wearable.onHit != null) {
+        const hits = Array.isArray(def.wearable.onHit) ? def.wearable.onHit : [def.wearable.onHit];
+        for (const hit of hits) {
+          checkObject(hit, ctx, 'wearable.onHit');
+          check(typeof hit.applyEffect === 'string' && knownEffects.has(hit.applyEffect), ctx,
+            `wearable.onHit.applyEffect references unknown effect '${hit.applyEffect}'`);
+        }
+      }
     }
     if (def.use?.effect?.type === 'apply_effect') {
       const eid = def.use.effect.effectId;
