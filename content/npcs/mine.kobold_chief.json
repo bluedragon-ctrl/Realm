@@ -21,6 +21,7 @@
     "mp": 0, "mpMax": 0,
     "attack": 5, "defense": 3, "int": 0,
     "magicResist": 20,
+    "accuracy": 15,
     "spd": 5
   },
   "respawn": { "ticks": 3000 },

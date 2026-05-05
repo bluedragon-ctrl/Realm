@@ -19,6 +19,7 @@
     "hp": 6, "hpMax": 6,
     "mp": 0, "mpMax": 0,
     "attack": 1, "defense": 0, "int": 0,
+    "evasion": 30,
     "spd": 8
   },
   "respawn": { "ticks": 500 },

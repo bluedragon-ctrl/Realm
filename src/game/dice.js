@@ -5,7 +5,7 @@
 
 const DICE_RE = /^(\d+)d(\d+)/i;
 const NUM_RE = /^(\d+)/;
-const VAR_RE = /^(ATK|DEF|INT|HP|MP|MR)/i;
+const VAR_RE = /^(ATK|DEF|INT|HP|MP|MR|ACC|EVA)/i;
 const SIGN_RE = /^([+\-])/;
 const MULDIV_RE = /^([*\/])(\d+)/;
 
@@ -19,6 +19,8 @@ function varValue(name, ctx) {
     case 'HP':  return a.stats.hp ?? 0;
     case 'MP':  return a.stats.mp ?? 0;
     case 'MR':  return a.stats.magicResist ?? 0;
+    case 'ACC': return a.stats.accuracy ?? 0;
+    case 'EVA': return a.stats.evasion ?? 0;
     default:    return 0;
   }
 }
@@ -66,4 +68,47 @@ export function roll(formula, ctx = {}) {
     sign = 1;
   }
   return total;
+}
+
+export function formulaRange(formula, ctx = {}) {
+  if (typeof formula === 'number') return { min: formula, max: formula };
+  if (typeof formula !== 'string') return { min: 0, max: 0 };
+  let str = formula.replace(/\s+/g, '');
+  let totalMin = 0, totalMax = 0;
+  let sign = 1;
+  while (str.length) {
+    const sm = str.match(SIGN_RE);
+    if (sm) { sign = sm[1] === '-' ? -1 : 1; str = str.slice(1); continue; }
+
+    let lo, hi;
+    const dm = str.match(DICE_RE);
+    if (dm) {
+      const n = +dm[1], d = +dm[2];
+      lo = n; hi = n * d;
+      str = str.slice(dm[0].length);
+    } else {
+      const nm = str.match(NUM_RE);
+      if (nm) { lo = hi = +nm[1]; str = str.slice(nm[0].length); }
+      else {
+        const vm = str.match(VAR_RE);
+        if (vm) { lo = hi = varValue(vm[1], ctx); str = str.slice(vm[0].length); }
+        else { str = str.slice(1); continue; }
+      }
+    }
+
+    while (true) {
+      const md = str.match(MULDIV_RE);
+      if (!md) break;
+      const n = +md[2];
+      if (md[1] === '*') { lo *= n; hi *= n; }
+      else { lo = n === 0 ? 0 : Math.floor(lo / n); hi = n === 0 ? 0 : Math.floor(hi / n); }
+      str = str.slice(md[0].length);
+    }
+
+    if (sign < 0) { const t = lo; lo = -hi; hi = -t; }
+    totalMin += lo;
+    totalMax += hi;
+    sign = 1;
+  }
+  return { min: totalMin, max: totalMax };
 }

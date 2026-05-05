@@ -94,6 +94,8 @@ export function buildStatsMsg(actor) {
       def: s('panel.def', actor.lang),
       int: s('panel.int', actor.lang),
       mres: s('panel.mres', actor.lang),
+      acc: s('panel.acc', actor.lang),
+      eva: s('panel.eva', actor.lang),
       spd: s('panel.spd', actor.lang),
       panelTitle: s('panel.player_info', actor.lang),
       inspectTitle: s('panel.inspect', actor.lang),
