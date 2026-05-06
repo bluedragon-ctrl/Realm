@@ -5,6 +5,7 @@ import { syncWearableEffects } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 import { makeItemInstance, removeFromList } from '../items.js';
+import { resolveName } from '../declension.js';
 
 export default function wear(actor, args) {
   if (!args || args.length === 0) {
@@ -36,9 +37,9 @@ export default function wear(actor, args) {
   actor.dirty = true;
 
   broadcastToRoom(actor.location, (recipient) => {
-    const item = t(def.nameAcc ?? def.name, recipient.lang);
+    const item = resolveName(def, 'acc', recipient.lang);
     if (oldDef) {
-      const oldItem = t(oldDef.nameAcc ?? oldDef.name, recipient.lang);
+      const oldItem = resolveName(oldDef, 'acc', recipient.lang);
       if (recipient === actor) {
         return { kind: 'system', text: s('wear.swap_self', recipient.lang, { old: oldItem, item }) };
       }

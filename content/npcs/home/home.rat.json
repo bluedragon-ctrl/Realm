@@ -2,6 +2,8 @@
   "id": "home.rat",
   "name": { "en": "a rat", "cs": "krysa" },
   "nameAcc": { "en": "the rat", "cs": "krysu" },
+  "nameDat": { "en": "the rat", "cs": "kryse" },
+  "nameGen": { "en": "the rat", "cs": "krysy" },
   "title": { "en": "rat", "cs": "krysa" },
   "location": "home.basement",
   "count": 1,
@@ -44,7 +46,7 @@
         ],
         "cs": [
           "{actor} se vrhne a kouše {target}!",
-          "{actor} zabodne žluté zuby do {target}!",
+          "{actor} zabodne žluté zuby do {target.gen}!",
           "{actor} kousne {target} do krve!"
         ]
       }

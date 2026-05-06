@@ -2,6 +2,8 @@
   "id": "forest.skeleton",
   "name": { "en": "a skeleton warrior", "cs": "kostlivec bojovník" },
   "nameAcc": { "en": "the skeleton warrior", "cs": "kostlivce bojovníka" },
+  "nameDat": { "en": "the skeleton warrior", "cs": "kostlivci bojovníkovi" },
+  "nameGen": { "en": "the skeleton warrior", "cs": "kostlivce bojovníka" },
   "title": { "en": "skeleton warrior", "cs": "kostlivec bojovník" },
   "location": "forest.tower_cellar",
   "count": 1,
@@ -45,7 +47,7 @@
         ],
         "cs": [
           "{actor} zamíří zrezivělým mečem na {target}!",
-          "{actor} sekne po {target} kostnatou rukou!",
+          "{actor} sekne po {target.dat} kostnatou rukou!",
           "{actor} vyrazí vpřed a zasáhne {target}!"
         ]
       }

@@ -208,8 +208,9 @@ function renderStats(msg) {
     btn.type = 'button';
     btn.className = 'chip unspent-points';
     btn.textContent = (labels.unspentPoints ?? '★ {count}').replace('{count}', msg.unspentPoints);
-    btn.title = (labels.unspentPointsTooltip ?? '{count} unspent point(s) — click to train.')
-      .replace('{count}', msg.unspentPoints);
+    const tooltipPhrase = msg.unspentPointsPhrase ?? msg.unspentPoints;
+    btn.title = (labels.unspentPointsTooltip ?? '{count} — click to train.')
+      .replace('{count}', tooltipPhrase);
     btn.addEventListener('click', (ev) => {
       ev.stopPropagation();
       openTrainPopover(btn, msg);

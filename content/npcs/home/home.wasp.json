@@ -2,6 +2,8 @@
   "id": "home.wasp",
   "name": { "en": "a wasp", "cs": "vosa" },
   "nameAcc": { "en": "the wasp", "cs": "vosu" },
+  "nameDat": { "en": "the wasp", "cs": "vose" },
+  "nameGen": { "en": "the wasp", "cs": "vosy" },
   "title": { "en": "wasp", "cs": "vosa" },
   "location": "home.field",
   "count": 2,
@@ -42,7 +44,7 @@
         "cs": [
           "{actor} se vrhne na {target} a bodne!",
           "{actor} se snese na {target} a bodne!",
-          "{actor} zabodne žihadlo do {target}!"
+          "{actor} zabodne žihadlo do {target.gen}!"
         ]
       }
     },

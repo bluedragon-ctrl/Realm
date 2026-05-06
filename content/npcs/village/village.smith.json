@@ -8,6 +8,8 @@
     "en": "the smith",
     "cs": "kováře"
   },
+  "nameDat": { "en": "the smith", "cs": "kovářovi" },
+  "nameGen": { "en": "the smith", "cs": "kováře" },
   "title": {
     "en": "smith",
     "cs": "kovář"
@@ -77,8 +79,8 @@
         },
         "cs": {
           "to_target": {
-            "self": "podáš medvědí kůži a padesát zlatých {target}. Napne kůži, ořeže ji a sešije, až vznikne těžká zbroj z medvědí kůže.",
-            "others": "{actor} podává medvědí kůži a zlaté {target}. Kovář napne kůži, ořeže ji a sešije, až vznikne zbroj z medvědí kůže."
+            "self": "podáš medvědí kůži a padesát zlatých {target.dat}. Napne kůži, ořeže ji a sešije, až vznikne těžká zbroj z medvědí kůže.",
+            "others": "{actor} podává medvědí kůži a zlaté {target.dat}. Kovář napne kůži, ořeže ji a sešije, až vznikne zbroj z medvědí kůže."
           }
         }
       }
@@ -100,7 +102,7 @@
           "Pozor na jiskry, mladý.",
           "Železo dělá to, co železo chce.",
           "Máš železnou rudu? Pět zlatých za kus.",
-          "Dobrý kladivo je půlka práce."
+          "Dobré kladivo je půlka práce."
         ]
       }
     },

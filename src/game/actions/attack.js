@@ -1,7 +1,8 @@
 import { findInRoom, world } from '../world.js';
-import { s, t } from '../../i18n.js';
+import { s } from '../../i18n.js';
 import { DEFAULT_PLAYER_ATTACK } from '../stats.js';
 import { executeAttack } from '../combat.js';
+import { resolveName } from '../declension.js';
 import { sendStats } from '../messages.js';
 import { clearPlayerAttackQueue } from '../playerCombatState.js';
 
@@ -61,7 +62,7 @@ export default function attack(actor, args) {
     actor.session.send({
       kind: 'error',
       text: s('attack.dead_target', actor.lang, {
-        target: t(target.nameAcc ?? target.name, actor.lang),
+        target: resolveName(target, 'nom', actor.lang),
       }),
     });
     return;

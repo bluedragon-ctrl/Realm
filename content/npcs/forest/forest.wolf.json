@@ -2,6 +2,8 @@
   "id": "forest.wolf",
   "name": { "en": "a grey wolf", "cs": "šedý vlk" },
   "nameAcc": { "en": "the grey wolf", "cs": "šedého vlka" },
+  "nameDat": { "en": "the grey wolf", "cs": "šedému vlkovi" },
+  "nameGen": { "en": "the grey wolf", "cs": "šedého vlka" },
   "title": { "en": "grey wolf", "cs": "šedý vlk" },
   "location": "forest.wolf_den",
   "count": 3,

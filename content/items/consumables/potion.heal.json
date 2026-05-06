@@ -14,7 +14,7 @@
   },
   "long": {
     "en": "A glass vial sealed with cork and twine, holding a pale-green liquid that catches the light. It smells faintly of mint and something earthier underneath.",
-    "cs": "Skleněná lahvička zazátkovaná korkem a motouzem obsahuje bledě zelenou tekutinu, která se třpytí ve světle. Slabě páchne mátou a pod tím něčím hutnějším."
+    "cs": "Skleněná lahvička zazátkovaná korkem a převázaná motouzem. Uvnitř je bledě zelená tekutina, která se třpytí ve světle. Slabě voní mátou a pod tím něčím hutnějším."
   },
   "tags": ["potion", "consumable", "heal"],
   "weight": 1,
@@ -32,12 +32,12 @@
     },
     "cs": {
       "no_target": {
-        "self": "odzátkáš lahvičku a vypiješ lektvar. Tělem se ti rozlije teplo.",
+        "self": "vytáhneš zátku a vypiješ lektvar. Tělem se ti rozlije teplo.",
         "others": "{actor} odzátkává malou lahvičku a vypíjí léčivý lektvar."
       },
       "to_target": {
-        "self": "přiložíš lahvičku k ústům {target} a naliješ lektvar dovnitř.",
-        "others": "{actor} přikládá malou lahvičku k ústům {target} a nalévá dovnitř léčivý lektvar."
+        "self": "přiložíš lahvičku k ústům {target.gen} a naliješ lektvar dovnitř.",
+        "others": "{actor} přikládá malou lahvičku k ústům {target.gen} a nalévá dovnitř léčivý lektvar."
       }
     },
     "effect": { "type": "heal", "amount": 5 },

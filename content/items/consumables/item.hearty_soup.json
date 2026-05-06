@@ -35,8 +35,8 @@
         "others": "{actor} sní misku vydatné polévky."
       },
       "to_target": {
-        "self": "podáš misku vydatné polévky {target} a ten ji dychtivě vyjí.",
-        "others": "{actor} podává misku vydatné polévky {target} a ten ji dychtivě vyjí."
+        "self": "podáš misku vydatné polévky {target.dat} a ten ji dychtivě vyjí.",
+        "others": "{actor} podává misku vydatné polévky {target.dat} a ten ji dychtivě vyjí."
       }
     },
     "effect": { "type": "heal", "amount": 5, "mp": 5 },

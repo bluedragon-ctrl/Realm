@@ -1,9 +1,11 @@
 import { placeItemInRoom, broadcastToRoom, addGoldToRoom } from '../world.js';
 import { findItemInList, removeFromList } from '../items.js';
-import { s, t } from '../../i18n.js';
+import { s } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { describeRoomToAll } from './look.js';
 import { sourceForActor } from '../sources.js';
+import { resolveName } from '../declension.js';
+import { goldPhrase } from '../format.js';
 
 const GOLD_WORDS = new Set(['gold', 'coin', 'coins', 'zlato', 'zlaťák', 'zlaťáky', 'mince']);
 
@@ -28,20 +30,21 @@ export default function drop(actor, args) {
   const goldArgs = parseGoldArgs(args);
   if (goldArgs) {
     if ((actor.gold ?? 0) < goldArgs.amount) {
-      actor.session.send({ kind: 'error', text: s('drop.gold.not_enough', actor.lang, { amount: goldArgs.amount, gold: actor.gold ?? 0 }) });
+      actor.session.send({ kind: 'error', text: s('drop.gold.not_enough', actor.lang, { amount: goldArgs.amount, gold: goldPhrase(actor.gold ?? 0, actor.lang) }) });
       return;
     }
     actor.gold = (actor.gold ?? 0) - goldArgs.amount;
     addGoldToRoom(actor.location, goldArgs.amount);
     actor.dirty = true;
     broadcastToRoom(actor.location, (recipient) => {
+      const amount = goldPhrase(goldArgs.amount, recipient.lang);
       if (recipient === actor) {
-        return { kind: 'system', text: s('drop.gold.self', recipient.lang, { amount: goldArgs.amount }) };
+        return { kind: 'system', text: s('drop.gold.self', recipient.lang, { amount }) };
       }
       return {
         kind: 'emote',
         source: sourceForActor(actor, recipient),
-        text: s('drop.gold.others', recipient.lang, { actor: actor.name, amount: goldArgs.amount }),
+        text: s('drop.gold.others', recipient.lang, { actor: actor.name, amount }),
       };
     });
     sendStats(actor);
@@ -59,7 +62,7 @@ export default function drop(actor, args) {
   actor.dirty = true;
 
   broadcastToRoom(actor.location, (recipient) => {
-    const item = t(inst.def.nameAcc ?? inst.def.name, recipient.lang);
+    const item = resolveName(inst.def, 'acc', recipient.lang);
     if (recipient === actor) {
       return { kind: 'system', text: s('drop.self', recipient.lang, { item }) };
     }

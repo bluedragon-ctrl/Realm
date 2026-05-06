@@ -5,9 +5,10 @@ import { sendStats } from './messages.js';
 import { sourceForActor } from './sources.js';
 import { executeAttack, aggroTargetInRoom, applyDamageWithFeedback } from './combat.js';
 import { describeRoomToAll } from './actions/look.js';
-import { runVerb, hasForm } from './verbs.js';
+import { runVerb, hasForm, fillPlaceholders } from './verbs.js';
 import { applyEffect } from './effects.js';
 import { applyActiveEffect } from './activeEffects.js';
+import { resolveName } from './declension.js';
 import { roll } from './dice.js';
 
 const PRIMITIVES = {
@@ -38,7 +39,7 @@ const PRIMITIVES = {
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const tmpl = tListAt(behavior.templates, lang, idx);
-      const filled = tmpl.replace(/\{target\}/g, targetPlayer.name);
+      const filled = fillPlaceholders(tmpl, { actor, target: targetPlayer, lang });
       return { kind: 'emote', text: s('emote.line', lang, { from, text: filled }) };
     });
   },
@@ -58,15 +59,15 @@ const PRIMITIVES = {
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const tmpl = tListAt(behavior.templates, lang, idx);
-      const itemName = t(inst.def.nameAcc ?? inst.def.name, lang);
-      const filled = tmpl
-        .replace(/\{target\}/g, targetPlayer.name)
-        .replace(/\{item\}/g, itemName);
+      const itemName = resolveName(inst.def, 'acc', lang);
+      const filled = fillPlaceholders(tmpl, {
+        actor, target: targetPlayer, lang, params: { item: itemName },
+      });
       return { kind: 'emote', text: s('emote.line', lang, { from, text: filled }) };
     });
 
     if (targetPlayer.session) {
-      const itemName = t(inst.def.nameAcc ?? inst.def.name, targetPlayer.lang);
+      const itemName = resolveName(inst.def, 'acc', targetPlayer.lang);
       targetPlayer.session.send({
         kind: 'system',
         text: s('give.you_received', targetPlayer.lang, { item: itemName }),

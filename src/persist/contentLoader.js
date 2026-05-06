@@ -67,10 +67,17 @@ export async function loadRooms() {
 
 // ---------- npcs ----------
 
+function checkOptionalNameForms(def, ctx) {
+  for (const field of ['nameAcc', 'nameDat', 'nameGen', 'nameVoc']) {
+    if (def[field] != null) checkLocalizedText(def[field], ctx, field);
+  }
+}
+
 function makeNpcValidator(knownRooms) {
   return (def, file) => {
     const ctx = `npc '${def.id}' (${path.basename(file)})`;
     checkLocalizedText(def.name, ctx, 'name');
+    checkOptionalNameForms(def, ctx);
     if (def.locations) {
       checkObject(def.locations, ctx, 'locations');
       for (const [roomId, n] of Object.entries(def.locations)) {
@@ -185,6 +192,7 @@ function makeItemValidator(knownRooms, knownEffects) {
   return (def, file) => {
     const ctx = `item '${def.id}' (${path.basename(file)})`;
     checkLocalizedText(def.name, ctx, 'name');
+    checkOptionalNameForms(def, ctx);
     if (def.spawn?.location) {
       check(knownRooms.has(def.spawn.location), ctx, `spawn.location '${def.spawn.location}' is not a known room`);
     }

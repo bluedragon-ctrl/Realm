@@ -2,6 +2,8 @@
   "id": "mine.kobold_worker",
   "name": { "en": "a kobold", "cs": "kobold" },
   "nameAcc": { "en": "the kobold", "cs": "kobolda" },
+  "nameDat": { "en": "the kobold", "cs": "koboldovi" },
+  "nameGen": { "en": "the kobold", "cs": "kobolda" },
   "title": { "en": "kobold", "cs": "kobold" },
   "locations": {
     "mine.entrance": 2,
@@ -51,7 +53,7 @@
         "cs": [
           "{actor} zamáchne rezavým krumpáčem na {target}!",
           "{actor} se vrhne na {target} drápnatou rukou!",
-          "{actor} zavrčí a zabodne krumpáč do {target}!"
+          "{actor} zavrčí a zabodne krumpáč do {target.gen}!"
         ]
       }
     },

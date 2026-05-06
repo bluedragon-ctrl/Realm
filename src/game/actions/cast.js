@@ -10,17 +10,16 @@ import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 import { awardXp } from '../xp.js';
 import { resolveActorTarget } from '../targeting.js';
+import { resolveName } from '../declension.js';
 
 const MAX_RESIST = 95;
 
 function actorDisplayName(a, lang) {
-  if (a.kind === 'npc') return t(a.name, lang);
-  return a.name;
+  return resolveName(a, 'nom', lang);
 }
 
 function targetDisplayName(target, lang) {
-  if (target.kind === 'npc') return t(target.nameAcc ?? target.name, lang);
-  return target.name;
+  return resolveName(target, 'acc', lang);
 }
 
 function resists(target) {
@@ -36,13 +35,13 @@ function broadcastResist(actor, target) {
   if (actor.session) {
     actor.session.send({
       kind: 'system',
-      text: s('cast.resisted_self', actor.lang, { target: targetDisplayName(target, actor.lang) }),
+      text: s('cast.resisted_self', actor.lang, { target: resolveName(target, 'dat', actor.lang) }),
     });
   }
   if (target.session && target !== actor) {
     target.session.send({
       kind: 'system',
-      text: s('cast.resisted_target', target.lang, { actor: actorDisplayName(actor, target.lang) }),
+      text: s('cast.resisted_target', target.lang, { actor: resolveName(actor, 'gen', target.lang) }),
     });
   }
   broadcastToRoom(actor.location, (recipient) => {
@@ -51,8 +50,8 @@ function broadcastResist(actor, target) {
       kind: 'emote',
       source: sourceForActor(actor, recipient),
       text: s('cast.resisted_others', recipient.lang, {
-        actor: actorDisplayName(actor, recipient.lang),
-        target: targetDisplayName(target, recipient.lang),
+        actor: resolveName(actor, 'gen', recipient.lang),
+        target: resolveName(target, 'dat', recipient.lang),
       }),
     };
   });

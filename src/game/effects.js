@@ -3,6 +3,7 @@ import { s, t } from '../i18n.js';
 import { world, unlockExit } from './world.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
+import { resolveName } from './declension.js';
 
 function evalAmount(value, ctx) {
   if (typeof value === 'number') return value;
@@ -70,8 +71,7 @@ export function applyEffect(effectDef, ctx) {
 }
 
 function actorDisplayName(a, lang) {
-  const n = a.kind === 'npc' ? (a.nameAcc ?? a.name) : a.name;
-  return t(n, lang);
+  return resolveName(a, 'acc', lang);
 }
 
 function healSelfMessage(lang, hp, mp) {

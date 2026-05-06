@@ -2,6 +2,8 @@
   "id": "forest.bear",
   "name": { "en": "a big brown bear", "cs": "velký hnědý medvěd" },
   "nameAcc": { "en": "the big brown bear", "cs": "velkého hnědého medvěda" },
+  "nameDat": { "en": "the big brown bear", "cs": "velkému hnědému medvědovi" },
+  "nameGen": { "en": "the big brown bear", "cs": "velkého hnědého medvěda" },
   "title": { "en": "big brown bear", "cs": "velký hnědý medvěd" },
   "location": "forest.cave",
   "count": 1,
@@ -43,8 +45,8 @@
         ],
         "cs": [
           "{actor} se vztyčí a dopadne oběma tlapami na {target}!",
-          "{actor} šmáhne po {target} obrovským drátem!",
-          "{actor} se vrhne a zabodne zuby do {target}!"
+          "{actor} máchne po {target.dat} obrovským drápem!",
+          "{actor} se vrhne a zabodne zuby do {target.gen}!"
         ]
       }
     },

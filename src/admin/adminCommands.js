@@ -7,6 +7,8 @@ import { s, normalizeLang, setStringTables } from '../i18n.js';
 import { resetAllocations, ensureAllocationFields } from '../game/leveling.js';
 import { recomputeStats } from '../game/wearables.js';
 import { PLAYER_DEFAULT_STATS, normalizeStats } from '../game/stats.js';
+import { makeNameForms } from '../game/declension.js';
+import { pointsPhrase } from '../game/format.js';
 
 export function isAdminCommand(line) {
   return line.startsWith('@');
@@ -44,7 +46,8 @@ async function createPlayerCmd(actor, args) {
     return;
   }
   const lang = normalizeLang(args[1]);
-  const record = await createPlayer(name, START_ROOM, lang);
+  const nameForms = makeNameForms({ acc: args[2], dat: args[3], gen: args[4], voc: args[5] });
+  const record = await createPlayer(name, START_ROOM, lang, nameForms);
   actor.session.send({
     kind: 'system',
     tone: 'good',
@@ -111,8 +114,8 @@ async function resetStatsCmd(actor, args) {
       tone: 'good',
       text: s('admin.reset_stats_done', actor.lang, {
         name: online.name,
-        refunded,
-        total: online.record.unspentPoints,
+        refunded: pointsPhrase(refunded, actor.lang),
+        total: pointsPhrase(online.record.unspentPoints, actor.lang),
       }),
     });
     return;
@@ -136,8 +139,8 @@ async function resetStatsCmd(actor, args) {
     tone: 'good',
     text: s('admin.reset_stats_done', actor.lang, {
       name: record.name,
-      refunded,
-      total: record.unspentPoints,
+      refunded: pointsPhrase(refunded, actor.lang),
+      total: pointsPhrase(record.unspentPoints, actor.lang),
     }),
   });
 }

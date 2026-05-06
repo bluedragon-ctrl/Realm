@@ -1,11 +1,11 @@
-import { s, t, nameVariants } from '../../i18n.js';
+import { s } from '../../i18n.js';
 import { world } from '../world.js';
 import { findExchanges, runExchange } from '../exchange.js';
+import { allNameVariants } from '../declension.js';
 
 function nameMatches(def, q) {
   const variants = [
-    ...nameVariants(def.name),
-    ...nameVariants(def.nameAcc),
+    ...allNameVariants(def),
     def.id.toLowerCase(),
   ];
   if (variants.some(v => v === q)) return 'exact';

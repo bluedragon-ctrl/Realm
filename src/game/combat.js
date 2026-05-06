@@ -8,18 +8,19 @@ import { sendStats } from './messages.js';
 import { applyActiveEffect } from './activeEffects.js';
 import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.js';
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
+import { resolveName } from './declension.js';
+import { fillPlaceholders } from './verbs.js';
+import { goldPhrase } from './format.js';
 import { clearPlayerAttackQueue } from './playerCombatState.js';
 
 const MAX_DODGE = 50;
 
 function targetDisplay(target, lang) {
-  if (target.kind === 'npc') return t(target.nameAcc ?? target.name, lang);
-  return target.name;
+  return resolveName(target, 'acc', lang);
 }
 
 function actorDisplay(actor, lang) {
-  if (actor.kind === 'npc') return t(actor.name, lang);
-  return actor.name;
+  return resolveName(actor, 'nom', lang);
 }
 
 export function executeAttack(actor, action, target) {
@@ -60,11 +61,7 @@ export function executeAttack(actor, action, target) {
     const idx = pickListIndex(tmpl);
     broadcastToRoom(actor.location, (recipient) => {
       const lang = recipient.lang;
-      const from = t(actor.name, lang);
-      const tname = targetDisplay(target, lang);
-      const line = tListAt(tmpl, lang, idx)
-        .replace(/\{actor\}/g, from)
-        .replace(/\{target\}/g, tname);
+      const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
     });
   }
@@ -161,7 +158,7 @@ function handleNpcDeath(killer, npc) {
     kind: 'emote',
     tone: 'death',
     text: s('combat.target_dies_observed', recipient.lang, {
-      target: targetDisplay(npc, recipient.lang),
+      target: resolveName(npc, 'nom', recipient.lang),
     }),
   }));
 
@@ -195,8 +192,8 @@ function handleNpcDeath(killer, npc) {
         kind: 'system',
         tone: 'good',
         text: s('loot.gold_dropped', recipient.lang, {
-          target: targetDisplay(npc, recipient.lang),
-          amount,
+          target: resolveName(npc, 'nom', recipient.lang),
+          amount: goldPhrase(amount, recipient.lang),
         }),
       }));
     }

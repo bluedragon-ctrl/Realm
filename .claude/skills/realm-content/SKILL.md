@@ -103,7 +103,26 @@ New rooms must have at least one exit that connects back into the existing map.
 
 ## Step 4 — Czech text
 
-Write Czech text naturally — short, plain sentences. **Sense beats precision**: a translation that reads natural and conveys the meaning is better than a stiff word-for-word rendering. Use nominative for `{actor}` and `{target}` placeholders; items can declare optional `nameAcc` (accusative) for use as direct objects in templates. When unsure, follow patterns in existing files — but don't preserve a literal English construction at the cost of readability.
+Write Czech text naturally — short, plain sentences. **Sense beats precision**: a translation that reads natural and conveys the meaning is better than a stiff word-for-word rendering.
+
+**Name forms.** Czech-target NPCs and items declare declined forms alongside `name`. All optional; missing forms fall back to nominative.
+
+| Field     | Case (pád)         | When it's used                                                  |
+|-----------|--------------------|-----------------------------------------------------------------|
+| `name`    | nominative (1.)    | subject — `{target} se zhroutí`                                 |
+| `nameAcc` | accusative (4.)    | direct object — `kousne {target}`, after `na`/`pro`             |
+| `nameDat` | dative (3.)        | indirect object — `dáváš X {target.dat}`, after `k`/`proti`/`po`|
+| `nameGen` | genitive (2.)      | possession + after `do`/`od`/`u`/`bez` — `do ruky {target.gen}` |
+| `nameVoc` | vocative (5.)      | direct address — rare; use for "Petře!" lines                   |
+
+**Template placeholders.** Plain `{actor}` is nominative; plain `{target}` is accusative (the default for direct-object slots). Use a dotted suffix to pick a specific case:
+
+- `{target.dat}` — after `k`, `proti`, `po`, with verbs `dát`, `podat`, `ukázat`
+- `{target.gen}` — possessive ("X's leg/lips/feet"), after `do`, `od`, `u`, `bez`
+- `{actor.gen}` — `kouzlo {actor.gen}` ("X's spell")
+- `{target.nom}` / `{actor.acc}` — explicit overrides when needed
+
+The same syntax works in NPC verb templates (attack, give_item, interact, craft) and in item.use templates. When you write a new template with `{target}` or `{actor}`, decide which case the surrounding Czech requires and pick the right suffix. See [references/czech-cases.md](references/czech-cases.md) for the preposition-to-case lookup, declined-form examples, and the dat≈loc shortcut for `po + loc` templates.
 
 ## Step 5 — Style guide
 

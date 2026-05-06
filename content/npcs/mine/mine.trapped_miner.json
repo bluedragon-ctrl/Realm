@@ -2,6 +2,8 @@
   "id": "mine.trapped_miner",
   "name": { "en": "the trapped miner", "cs": "svázaný horník" },
   "nameAcc": { "en": "the trapped miner", "cs": "svázaného horníka" },
+  "nameDat": { "en": "the trapped miner", "cs": "svázanému horníkovi" },
+  "nameGen": { "en": "the trapped miner", "cs": "svázaného horníka" },
   "title": { "en": "trapped miner", "cs": "svázaný horník" },
   "location": "mine.store_room",
   "spawn": { "requires": "room_clear" },
@@ -11,7 +13,7 @@
   },
   "long": {
     "en": "A wiry man with rope-burned wrists and dust caked into the lines of his face. The kobolds had him tied to a post behind the crates. He works his hands to get the blood back, then looks up at you with grateful, tired eyes. He looks like he hasn't eaten in days.",
-    "cs": "Šlachovitý muž s odřenýma zápěstíma od provazu a prachem zaschlým ve vráskách obličeje. Koboldové ho měli uvázaného k trámu za bednami. Procvičuje si ruce, aby do nich zase přitekla krev, a pak se na tebe podívá vděčnýma unavenýma očima. Vypadá, jako by několik dní nejedl."
+    "cs": "Šlachovitý muž s odřenýma zápěstíma od provazu a prachem zaschlým ve vráskách obličeje. Koboldové ho měli uvázaného k trámu za bednami. Hýbe rukama, aby se mu vrátila krev do prstů, a pak se na tebe podívá vděčnýma unavenýma očima. Vypadá, jako by několik dní nejedl."
   },
   "disposition": "friendly",
   "aggressive": false,
@@ -35,9 +37,9 @@
           "{actor} holds out {item} to {target}. \"For the rescue.\""
         ],
         "cs": [
-          "{actor} vtiskne {item} do ruky {target}. \"Vezmi si to. Víc nemám.\"",
-          "{actor} vyloví {item} z kapsy a podá {target}.",
-          "{actor} podá {item} {target}. \"Za záchranu.\""
+          "{actor} vtiskne {item} do ruky {target.gen}. \"Vezmi si to. Víc nemám.\"",
+          "{actor} vyloví {item} z kapsy a podá ho {target.dat}.",
+          "{actor} podá {item} {target.dat}. \"Za záchranu.\""
         ]
       }
     },
@@ -55,8 +57,8 @@
         ],
         "cs": [
           "Děkuji. Myslel jsem, že je konec.",
-          "Hlouběji je větší jeden — náčelník. Nosí korunu z hřebíků.",
-          "Dělal jsem v těchhle šachtách dřív, než přišli koboldové. Přišli zezdola.",
+          "Hlouběji je ještě větší — náčelník. Nosí korunu z hřebíků.",
+          "Dělal jsem v těchhle štolách dřív, než přišli koboldové. Přišli zezdola.",
           "Vezmi ten klíč. Můj děd ho nosil pořád u sebe. Nevím, co otevírá.",
           "Až mi nohy zase poslechnou, vyrazím nahoru."
         ]

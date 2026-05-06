@@ -35,8 +35,8 @@
         "others": "{actor} se pořádně napije z korbelu piva."
       },
       "to_target": {
-        "self": "přiložíš korbel k ústům {target} a nakloníš ho.",
-        "others": "{actor} přiloží korbel piva k ústům {target} a nakloní ho."
+        "self": "přiložíš korbel k ústům {target.gen} a nakloníš ho.",
+        "others": "{actor} přiloží korbel piva k ústům {target.gen} a nakloní ho."
       }
     },
     "effect": { "type": "apply_effect", "effectId": "effect.slow" },
