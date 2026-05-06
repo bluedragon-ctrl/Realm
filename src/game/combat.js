@@ -10,6 +10,8 @@ import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
 
 const MAX_DODGE = 50;
+const MAX_CRIT = 50;
+const CRIT_MULTIPLIER = 2;
 
 function targetDisplay(target, lang) {
   if (target.kind === 'npc') return t(target.nameAcc ?? target.name, lang);
@@ -50,7 +52,11 @@ export function executeAttack(actor, action, target) {
     return;
   }
 
-  const raw = roll(action.damage ?? '1', { actor, target });
+  const critChance = Math.max(0, Math.min(MAX_CRIT, acc - eva));
+  const crit = critChance > 0 && Math.floor(Math.random() * 100) + 1 <= critChance;
+
+  let raw = roll(action.damage ?? '1', { actor, target });
+  if (crit) raw *= CRIT_MULTIPLIER;
   const def = target.stats.defense ?? 0;
   const final = Math.max(1, raw - def);
 
@@ -65,6 +71,24 @@ export function executeAttack(actor, action, target) {
         .replace(/\{actor\}/g, from)
         .replace(/\{target\}/g, tname);
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
+    });
+  }
+
+  if (crit) {
+    broadcastToRoom(actor.location, (recipient) => {
+      const lang = recipient.lang;
+      let text;
+      if (recipient === actor) {
+        text = s('combat.you_crit', lang, { target: targetDisplay(target, lang) });
+      } else if (recipient === target) {
+        text = s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
+      } else {
+        text = s('combat.crit_observed', lang, {
+          actor: actorDisplay(actor, lang),
+          target: targetDisplay(target, lang),
+        });
+      }
+      return { kind: 'emote', tone: 'combat', source: sourceForActor(actor, recipient), text };
     });
   }
 
