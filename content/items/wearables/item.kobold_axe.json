@@ -20,6 +20,8 @@
   "weight": 4,
   "wearable": {
     "slot": "weapon",
+    "damage": "1d8+ATK",
+    "cost": 13,
     "bonus": { "attack": 2 },
     "onHit": { "applyEffect": "effect.bleeding", "chance": 0.5 }
   }

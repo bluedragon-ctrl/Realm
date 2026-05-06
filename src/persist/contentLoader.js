@@ -231,6 +231,18 @@ function makeItemValidator(knownRooms, knownEffects) {
             `wearable.onHit.applyEffect references unknown effect '${hit.applyEffect}'`);
         }
       }
+      if (def.wearable.damage != null) {
+        check(def.wearable.slot === 'weapon', ctx,
+          `wearable.damage is only valid on weapons (slot=weapon)`);
+        check(typeof def.wearable.damage === 'string' && def.wearable.damage.length > 0, ctx,
+          `wearable.damage must be a non-empty dice formula string`);
+      }
+      if (def.wearable.cost != null) {
+        check(def.wearable.slot === 'weapon', ctx,
+          `wearable.cost is only valid on weapons (slot=weapon)`);
+        check(Number.isInteger(def.wearable.cost) && def.wearable.cost > 0, ctx,
+          `wearable.cost must be a positive integer`);
+      }
     }
     if (def.use?.effect?.type === 'apply_effect') {
       const eid = def.use.effect.effectId;

@@ -1,0 +1,27 @@
+{
+  "id": "item.hand_axe",
+  "name": {
+    "en": "a hand axe",
+    "cs": "ruční sekera"
+  },
+  "nameAcc": {
+    "en": "the hand axe",
+    "cs": "ruční sekeru"
+  },
+  "short": {
+    "en": "A small hand axe lies here.",
+    "cs": "Leží tu malá ruční sekera."
+  },
+  "long": {
+    "en": "A short axe used for chopping wood. The head is iron and the handle is plain hardwood. It works just as well as a weapon.",
+    "cs": "Krátká sekera na štípání dřeva. Hlava je železná a topůrko je z prostého tvrdého dřeva. Jako zbraň poslouží stejně dobře."
+  },
+  "tags": ["weapon"],
+  "weight": 3,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d6+ATK",
+    "cost": 12,
+    "bonus": { "attack": 2 }
+  }
+}

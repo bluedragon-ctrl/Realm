@@ -1,0 +1,28 @@
+{
+  "id": "item.iron_mace",
+  "name": {
+    "en": "an iron mace",
+    "cs": "železný palcát"
+  },
+  "nameAcc": {
+    "en": "the iron mace",
+    "cs": "železný palcát"
+  },
+  "short": {
+    "en": "A heavy iron mace lies here.",
+    "cs": "Leží tu těžký železný palcát."
+  },
+  "long": {
+    "en": "A short iron mace with a knobbed head. A solid blow knocks the wind out of anything it hits.",
+    "cs": "Krátký železný palcát s hrbolatou hlavou. Pořádná rána vyrazí dech každému, koho zasáhne."
+  },
+  "tags": ["weapon"],
+  "weight": 4,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d6+ATK",
+    "cost": 12,
+    "bonus": { "attack": 2 },
+    "onHit": { "applyEffect": "effect.slow", "chance": 0.3 }
+  }
+}

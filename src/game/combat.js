@@ -11,6 +11,7 @@ import { s, t, tListAt, pickListIndex } from '../i18n.js';
 import { resolveName } from './declension.js';
 import { fillPlaceholders } from './verbs.js';
 import { goldPhrase } from './format.js';
+import { clearPlayerAttackQueue } from './playerCombatState.js';
 
 const MAX_DODGE = 50;
 
@@ -207,6 +208,8 @@ function handleNpcDeath(killer, npc) {
 }
 
 function handlePlayerDeath(killer, victim) {
+  clearPlayerAttackQueue(victim);
+  victim.nextAttackAt = 0;
   const oldRoom = victim.location;
 
   broadcastToRoom(oldRoom, (recipient) => ({

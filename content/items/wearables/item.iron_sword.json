@@ -20,6 +20,8 @@
   "weight": 3,
   "wearable": {
     "slot": "weapon",
-    "stats": { "atk": 2 }
+    "damage": "1d6+ATK",
+    "cost": 12,
+    "bonus": { "attack": 2 }
   }
 }

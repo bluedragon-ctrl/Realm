@@ -3,12 +3,40 @@ import { s } from '../../i18n.js';
 import { DEFAULT_PLAYER_ATTACK } from '../stats.js';
 import { executeAttack } from '../combat.js';
 import { resolveName } from '../declension.js';
+import { sendStats } from '../messages.js';
+import { clearPlayerAttackQueue } from '../playerCombatState.js';
 
-function buildPlayerAttack(actor) {
+export function buildPlayerAttack(actor) {
   const weaponId = actor.record?.equipped?.weapon;
-  const onHit = weaponId ? world.itemDefs.get(weaponId)?.wearable?.onHit : null;
-  if (!onHit) return DEFAULT_PLAYER_ATTACK;
-  return { ...DEFAULT_PLAYER_ATTACK, onHit };
+  const weapon = weaponId ? world.itemDefs.get(weaponId)?.wearable : null;
+  if (!weapon) return DEFAULT_PLAYER_ATTACK;
+  const out = { ...DEFAULT_PLAYER_ATTACK };
+  if (weapon.damage) out.damage = weapon.damage;
+  if (weapon.cost) out.cost = weapon.cost;
+  if (weapon.onHit) out.onHit = weapon.onHit;
+  return out;
+}
+
+function attackCooldownMs(action, actor) {
+  const cost = action.cost ?? 12;
+  const spd = actor.stats?.spd ?? 6;
+  return Math.max(0, Math.round((cost / spd) * 1000));
+}
+
+function fireAttack(actor, target) {
+  const action = buildPlayerAttack(actor);
+  executeAttack(actor, action, target);
+  actor.nextAttackAt = Date.now() + attackCooldownMs(action, actor);
+  if (actor.session) sendStats(actor);
+}
+
+function resolveTarget(actor, query) {
+  const target = findInRoom(actor.location, query);
+  if (!target) return null;
+  if (target === actor) return null;
+  if (target.kind === 'player') return null;
+  if (target.kind === 'npc' && target.alive === false) return null;
+  return target;
 }
 
 export default function attack(actor, args) {
@@ -39,5 +67,19 @@ export default function attack(actor, args) {
     });
     return;
   }
-  executeAttack(actor, buildPlayerAttack(actor), target);
+
+  const remaining = (actor.nextAttackAt ?? 0) - Date.now();
+  if (remaining > 0) {
+    clearPlayerAttackQueue(actor);
+    const timer = setTimeout(() => {
+      actor.queuedAttack = null;
+      const next = resolveTarget(actor, query);
+      if (!next) return;
+      fireAttack(actor, next);
+    }, remaining);
+    actor.queuedAttack = { timer, query };
+    return;
+  }
+
+  fireAttack(actor, target);
 }
