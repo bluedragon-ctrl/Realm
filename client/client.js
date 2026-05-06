@@ -21,6 +21,15 @@ const dirSepEl = document.getElementById('dir-sep');
 const useFixtureBtn = document.getElementById('use-fixture-btn');
 const useOnBtn = document.getElementById('use-on-btn');
 const consumablesBtn = document.getElementById('consumables-btn');
+const statusStrip = document.getElementById('status-strip');
+const stripHpRow = document.getElementById('strip-hp');
+const stripHpFill = stripHpRow.querySelector('.strip-fill');
+const stripHpNum = stripHpRow.querySelector('.strip-num');
+const stripHpLabel = stripHpRow.querySelector('.strip-label');
+const stripMpRow = document.getElementById('strip-mp');
+const stripMpFill = stripMpRow.querySelector('.strip-fill');
+const stripMpNum = stripMpRow.querySelector('.strip-num');
+const stripMpLabel = stripMpRow.querySelector('.strip-label');
 
 let ws = null;
 let loggedIn = false;
@@ -151,6 +160,20 @@ function renderStats(msg) {
   const mpPct = s.mpMax > 0 ? Math.max(0, Math.min(100, (s.mp / s.mpMax) * 100)) : 0;
   const hpClass = hpPct < 30 ? 'low' : hpPct < 60 ? 'mid' : '';
 
+  // Mirror HP/MP into the always-visible bottom-left status strip.
+  stripHpLabel.textContent = labels.hp ?? 'HP';
+  stripHpNum.textContent = `${s.hp ?? 0}/${s.hpMax ?? 0}`;
+  stripHpFill.className = `strip-fill hp ${hpClass}`;
+  stripHpFill.style.width = `${hpPct}%`;
+  if (s.mpMax > 0) {
+    stripMpRow.hidden = false;
+    stripMpLabel.textContent = labels.mp ?? 'MP';
+    stripMpNum.textContent = `${s.mp ?? 0}/${s.mpMax}`;
+    stripMpFill.style.width = `${mpPct}%`;
+  } else {
+    stripMpRow.hidden = true;
+  }
+
   playerStatsEl.innerHTML = '';
   if (typeof msg.level === 'number') {
     const xp = msg.xp ?? 0;
@@ -175,10 +198,31 @@ function renderStats(msg) {
     wrap.appendChild(btn);
     playerStatsEl.appendChild(wrap);
   }
-  playerStatsEl.appendChild(makeBar(labels.hp ?? 'HP', `${s.hp}/${s.hpMax}`, hpPct, `hp ${hpClass}`));
+  const vitals = document.createElement('div');
+  vitals.className = 'vitals-line';
+  const hpSpan = document.createElement('span');
+  const hpLab = document.createElement('span');
+  hpLab.className = 'vital-label';
+  hpLab.textContent = labels.hp ?? 'HP';
+  const hpVal = document.createElement('span');
+  hpVal.className = `vital-value hp ${hpClass}`;
+  hpVal.textContent = `${s.hp ?? 0}/${s.hpMax ?? 0}`;
+  hpSpan.appendChild(hpLab);
+  hpSpan.appendChild(hpVal);
+  vitals.appendChild(hpSpan);
   if (s.mpMax > 0) {
-    playerStatsEl.appendChild(makeBar(labels.mp ?? 'MP', `${s.mp}/${s.mpMax}`, mpPct, 'mp'));
+    const mpSpan = document.createElement('span');
+    const mpLab = document.createElement('span');
+    mpLab.className = 'vital-label';
+    mpLab.textContent = labels.mp ?? 'MP';
+    const mpVal = document.createElement('span');
+    mpVal.className = 'vital-value mp';
+    mpVal.textContent = `${s.mp}/${s.mpMax}`;
+    mpSpan.appendChild(mpLab);
+    mpSpan.appendChild(mpVal);
+    vitals.appendChild(mpSpan);
   }
+  playerStatsEl.appendChild(vitals);
   const grid = document.createElement('div');
   grid.className = 'stat-grid';
   for (const [key, val] of [
@@ -305,6 +349,7 @@ function renderStats(msg) {
   }));
 
   playerPanel.hidden = false;
+  statusStrip.hidden = false;
 }
 
 function makeCollapsibleSection(key, title, buildBody) {
@@ -608,6 +653,7 @@ function connect() {
     whoEl.textContent = 'not connected';
     quickbar.hidden = true;
     playerPanel.hidden = true;
+    statusStrip.hidden = true;
     inspectPanel.hidden = true;
   });
   ws.addEventListener('error', () => appendText('error', 'connection error'));
