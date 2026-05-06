@@ -106,6 +106,6 @@ export function makeNpcActor(def, homeLocation = null) {
     alive: true,
     activeEffects: [],
     pack: def.pack ?? null,
-    shop: def.shop ?? null,
+    exchanges: def.exchanges ?? null,
   };
 }
