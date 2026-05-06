@@ -630,6 +630,7 @@ html, body {
   letter-spacing: 0.04em;
 }
 #status-strip .strip-track {
+  display: block;
   height: 14px;
   background: #232327;
   border: 1px solid var(--border-2);
@@ -637,6 +638,7 @@ html, body {
   overflow: hidden;
 }
 #status-strip .strip-fill {
+  display: block;
   height: 100%;
   transition: width 0.2s ease;
 }
