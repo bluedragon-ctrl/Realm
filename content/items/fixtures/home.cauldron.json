@@ -22,5 +22,49 @@
   "spawn": {
     "location": "home.shack",
     "count": 1
-  }
+  },
+  "exchanges": [
+    {
+      "id": "cauldron.brew_mana",
+      "flavor": "craft",
+      "inputs":  [{ "item": "forest.blue_flower", "count": 1 }],
+      "outputs": [{ "item": "potion.mana" }],
+      "xp": 2,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you drop the blue flower into {target}. The water hisses, turns deep blue, and a small mana potion forms.",
+            "others": "{actor} drops a blue flower into {target}. The water hisses and turns deep blue."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vhodíš modrý květ do {target}. Voda zasyčí, zmodrá a vznikne malý lektvar many.",
+            "others": "{actor} vhazuje modrý květ do {target}. Voda zasyčí a zmodrá."
+          }
+        }
+      }
+    },
+    {
+      "id": "cauldron.brew_heal",
+      "flavor": "craft",
+      "inputs":  [{ "item": "forest.red_berries", "count": 3 }],
+      "outputs": [{ "item": "potion.heal" }],
+      "xp": 2,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you drop three handfuls of red berries into {target}. The water turns rose-pink and a small healing potion forms.",
+            "others": "{actor} drops three handfuls of red berries into {target}. The water turns rose-pink."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vhodíš tři hrsti červených bobulí do {target}. Voda zrůžoví a vznikne malý léčivý lektvar.",
+            "others": "{actor} vhazuje tři hrsti červených bobulí do {target}. Voda zrůžoví."
+          }
+        }
+      }
+    }
+  ]
 }

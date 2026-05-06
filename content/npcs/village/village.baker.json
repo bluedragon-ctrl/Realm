@@ -31,6 +31,20 @@
     "spd": 6
   },
   "respawn": { "ticks": 600 },
+  "exchanges": [
+    {
+      "id": "baker.buy_pie",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 1 }],
+      "outputs": [{ "item": "item.pie" }]
+    },
+    {
+      "id": "baker.sell_red_berries",
+      "flavor": "sell",
+      "inputs":  [{ "item": "forest.red_berries", "count": 3 }],
+      "outputs": [{ "gold": 1 }]
+    }
+  ],
   "behaviors": [
     {
       "primitive": "say",
