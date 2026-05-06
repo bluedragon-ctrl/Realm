@@ -1,19 +1,19 @@
 {
   "id": "item.leather_armor",
   "name": {
-    "en": "a leather armor",
+    "en": "a suit of leather armour",
     "cs": "kožená zbroj"
   },
   "nameAcc": {
-    "en": "the leather armor",
+    "en": "the suit of leather armour",
     "cs": "kožená zbroj"
   },
   "short": {
-    "en": "A sturdy leather armor with thick stitching.",
+    "en": "A sturdy suit of leather armour with thick stitching.",
     "cs": "Pevná kožená zbroj se silným prošíváním."
   },
   "long": {
-    "en": "A solid leather armor with thick stitching across the chest and shoulders. The leather is well-worked and supple. It offers decent protection without weighing the wearer down.",
+    "en": "A solid suit of leather armour with thick stitching across the chest and shoulders. The leather is well-worked and supple. It offers decent protection without weighing the wearer down.",
     "cs": "Pevná kožená zbroj se silným prošíváním přes hrudník a ramena. Kůže je dobře vypracovaná a poddajná. Poskytuje slušnou ochranu, aniž by nositele zatěžovala."
   },
   "tags": ["armor"],

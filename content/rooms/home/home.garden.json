@@ -1,7 +1,7 @@
 {
   "id": "home.garden",
   "name": {
-    "en": "Garden with Bees",
+    "en": "Garden with bees",
     "cs": "Zahrada se včelami"
   },
   "short": {
@@ -9,7 +9,7 @@
     "cs": "Malá zahrada s úlem v rohu."
   },
   "long": {
-    "en": "Tidy rows of cabbages, beans and herbs grow behind a low fence. In one corner there is a round straw beehive. Bees buzz quietly around it. A wooden post stands at the edge of the garden. It is full of nicks from practice with a stick and rusty dagger is sticked inside it.",
+    "en": "Tidy rows of cabbages, beans and herbs grow behind a low fence. In one corner there is a round straw beehive. Bees buzz quietly around it. A wooden post stands at the edge of the garden. It is scarred all over from practice, and a rusty dagger is jabbed into the top.",
     "cs": "Za nízkým plůtkem rostou úhledné řádky zelí, fazolí a bylinek. V jednom rohu stojí kulatý slaměný úl. Včely kolem něj tiše bzučí. Na okraji zahrady stojí dřevěný kůl. Je celý posekaný od cvičení s klackem a je v něm zabodnutá rezavá dýka."
   },
   "exits": {

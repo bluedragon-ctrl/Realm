@@ -1,10 +1,10 @@
 {
   "id": "mine.kobold_chief",
-  "name": { "en": "the Kobold Chief", "cs": "koboldí náčelník" },
-  "nameAcc": { "en": "the Kobold Chief", "cs": "koboldího náčelníka" },
-  "nameDat": { "en": "the Kobold Chief", "cs": "koboldímu náčelníkovi" },
-  "nameGen": { "en": "the Kobold Chief", "cs": "koboldího náčelníka" },
-  "title": { "en": "Kobold Chief", "cs": "koboldí náčelník" },
+  "name": { "en": "the kobold chief", "cs": "koboldí náčelník" },
+  "nameAcc": { "en": "the kobold chief", "cs": "koboldího náčelníka" },
+  "nameDat": { "en": "the kobold chief", "cs": "koboldímu náčelníkovi" },
+  "nameGen": { "en": "the kobold chief", "cs": "koboldího náčelníka" },
+  "title": { "en": "kobold chief", "cs": "koboldí náčelník" },
   "location": "mine.chief_hall",
   "count": 1,
   "short": {
