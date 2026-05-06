@@ -1,19 +1,19 @@
 {
   "id": "item.bear_skin_armor",
   "name": {
-    "en": "a bear skin armor",
+    "en": "a suit of bear-hide armour",
     "cs": "zbroj z medvědí kůže"
   },
   "nameAcc": {
-    "en": "the bear skin armor",
+    "en": "the suit of bear-hide armour",
     "cs": "zbroj z medvědí kůže"
   },
   "short": {
-    "en": "A heavy armor of thick brown bear hide.",
+    "en": "A heavy suit of armour cut from thick brown bear hide.",
     "cs": "Těžká zbroj ze silné hnědé medvědí kůže."
   },
   "long": {
-    "en": "A sturdy armor cut from a full bear pelt and stitched with thick leather cord. The fur is dark and dense, and the inside is lined with soft suede. It is heavy but turns aside both cold and steel.",
+    "en": "A sturdy suit of armour cut from a full bear pelt and stitched with thick leather cord. The fur is dark and dense, and the inside is lined with soft suede. It is heavy but turns aside both cold and steel.",
     "cs": "Pevná zbroj vystřižená z celé medvědí kožešiny a sešitá silnou koženou šňůrou. Srst je tmavá a hustá, vnitřek je vyložený měkkým semišem. Je těžká, ale zadrží jak chlad, tak ocel."
   },
   "tags": ["armor"],

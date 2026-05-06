@@ -26,7 +26,7 @@
   "use": {
     "en": {
       "no_target": {
-        "self": "you bite into the red mushroom. It tastes vile and your stomach lurches.",
+        "self": "you bite into the red mushroom. It tastes awful and your stomach lurches.",
         "others": "{actor} bites into a red-capped mushroom and immediately turns pale."
       },
       "to_target": {

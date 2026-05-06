@@ -73,8 +73,8 @@
       "verb": {
         "en": {
           "to_target": {
-            "self": "you hand the bear skin and fifty gold to {target}. He stretches the hide, cuts and stitches it, and a heavy bear skin armor takes shape.",
-            "others": "{actor} hands a bear skin and gold to {target}. The smith stretches the hide, cuts and stitches until a bear skin armor takes shape."
+            "self": "you hand the bear skin and fifty gold to {target}. He stretches the hide, cuts and stitches it, and a heavy suit of bear-hide armour takes shape.",
+            "others": "{actor} hands a bear skin and gold to {target}. The smith stretches the hide, cuts and stitches until a suit of bear-hide armour takes shape."
           }
         },
         "cs": {
@@ -93,7 +93,7 @@
       "cost": 12,
       "lines": {
         "en": [
-          "Mind the sparks, lad.",
+          "Mind the sparks, careful now.",
           "Iron does what iron wants.",
           "Got iron ore? Five gold a chunk.",
           "A good hammer is half the work."

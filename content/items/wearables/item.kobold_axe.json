@@ -9,11 +9,11 @@
     "cs": "vyštípanou železnou sekeru"
   },
   "short": {
-    "en": "A heavy axe with a chipped, blood-stained blade.",
+    "en": "A heavy axe with a chipped, well-used blade.",
     "cs": "Těžká sekera s vyštípanou čepelí potřísněnou krví."
   },
   "long": {
-    "en": "A massive axe nearly as long as your arm. The iron blade is chipped along the edge from heavy use, and dark crusted blood lines the notches. The haft is wrapped in cracked leather. Wounds it leaves do not close easily.",
+    "en": "A massive axe nearly as long as your arm. The iron blade is chipped along the edge from heavy use, and dirt is crusted into the notches. The haft is wrapped in cracked leather. Wounds it leaves bleed for a long time.",
     "cs": "Obrovská sekera dlouhá skoro jako tvoje paže. Železná čepel je po hraně vyštípaná od těžkého používání a v zubech čepele zaschla tmavá krev. Násada je obtočena popraskanou kůží. Rány, které zanechává, se nezavírají snadno."
   },
   "tags": ["weapon"],
