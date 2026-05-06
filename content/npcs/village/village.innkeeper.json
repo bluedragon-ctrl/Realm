@@ -43,6 +43,12 @@
       "flavor": "sell",
       "inputs":  [{ "item": "item.rat_tail", "count": 1 }],
       "outputs": [{ "gold": 1 }]
+    },
+    {
+      "id": "innkeeper.buy_hearty_soup",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 5 }],
+      "outputs": [{ "item": "item.hearty_soup" }]
     }
   ],
   "behaviors": [

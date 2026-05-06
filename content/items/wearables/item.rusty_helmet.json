@@ -18,6 +18,7 @@
   },
   "tags": ["armor"],
   "weight": 2,
+  "spawn": { "location": "forest.cave", "count": 1, "respawnTicks": 1200 },
   "wearable": {
     "slot": "head",
     "bonus": { "defense": 1 }

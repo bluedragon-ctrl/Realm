@@ -1,0 +1,25 @@
+{
+  "id": "item.iron_helmet",
+  "name": {
+    "en": "an iron helmet",
+    "cs": "železná přilba"
+  },
+  "nameAcc": {
+    "en": "the iron helmet",
+    "cs": "železnou přilbu"
+  },
+  "short": {
+    "en": "A clean iron helmet with a polished rim.",
+    "cs": "Čistá železná přilba s leštěným okrajem."
+  },
+  "long": {
+    "en": "A solid iron helmet, freshly forged and oiled to a soft sheen. A padded leather lining runs around the inside. It feels balanced on the head and turns a blow well.",
+    "cs": "Pevná železná přilba, čerstvě ukovaná a naolejovaná do měkkého lesku. Uvnitř je obvodem vyložená polstrovanou kůží. Na hlavě sedí vyváženě a dobře odráží údery."
+  },
+  "tags": ["armor"],
+  "weight": 2,
+  "wearable": {
+    "slot": "head",
+    "bonus": { "defense": 1 }
+  }
+}

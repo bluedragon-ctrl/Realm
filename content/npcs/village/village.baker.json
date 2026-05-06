@@ -2,24 +2,24 @@
   "id": "village.baker",
   "name": {
     "en": "the baker",
-    "cs": "pekař"
+    "cs": "pekařka"
   },
   "nameAcc": {
     "en": "the baker",
-    "cs": "pekaře"
+    "cs": "pekařku"
   },
   "title": {
     "en": "baker",
-    "cs": "pekař"
+    "cs": "pekařka"
   },
   "location": "village.bakery",
   "short": {
-    "en": "A round, flour-dusted baker hums by the oven.",
-    "cs": "Kulatý pekař obsypaný moukou si pobrukuje u pece."
+    "en": "A round, flour-dusted baker hums by the oven with a warm smile.",
+    "cs": "Kulatá pekařka obsypaná moukou si pobrukuje u pece s vřelým úsměvem."
   },
   "long": {
-    "en": "A cheerful man in a white apron with flour on his nose and his sleeves rolled up. His big arms are used to kneading dough since before dawn. He sells small pies for one gold each, and pays a gold for every three handfuls of red berries you bring him for his tarts.",
-    "cs": "Veselý muž v bílé zástěře, mouku má na nose a rukávy vyhrnuté. Jeho silné paže jsou zvyklé hníst těsto už od svítání. Prodává malé koláče po jednom zlatě a za každé tři hrsti červených bobulí na své tartaletky platí jeden zlatý."
+    "en": "A cheerful, rosy-cheeked woman in a white apron with flour on her nose and her sleeves rolled up. Her strong arms have kneaded dough since before dawn, and she greets every visitor like an old friend. She sells small pies for one gold each, and pays a gold for every three handfuls of red berries you bring her for her tarts.",
+    "cs": "Veselá pekařka s růžovými tvářemi v bílé zástěře, mouku má na nose a rukávy vyhrnuté. Její silné paže hnětou těsto už od svítání a každého návštěvníka vítá jako starého přítele. Prodává malé koláče po jednom zlatě a za každé tři hrsti červených bobulí na své tartaletky platí jeden zlatý."
   },
   "disposition": "friendly",
   "aggressive": false,
@@ -43,6 +43,18 @@
       "flavor": "sell",
       "inputs":  [{ "item": "item.red_berries", "count": 3 }],
       "outputs": [{ "gold": 1 }]
+    },
+    {
+      "id": "baker.buy_bread",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 2 }],
+      "outputs": [{ "item": "item.bread" }]
+    },
+    {
+      "id": "baker.buy_sweets",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 2 }],
+      "outputs": [{ "item": "item.sweets" }]
     }
   ],
   "behaviors": [
@@ -52,15 +64,15 @@
       "cost": 12,
       "lines": {
         "en": [
-          "Fresh pies, one gold each!",
-          "Bring me red berries — three for a gold.",
-          "Mind the flour, it gets everywhere.",
-          "Best pies in three villages, if I say so myself."
+          "Fresh pies, dear, just one gold each!",
+          "Bring me red berries, sweetheart — three for a gold.",
+          "Mind the flour, love, it gets everywhere.",
+          "Best pies in three villages, if I do say so myself."
         ],
         "cs": [
-          "Čerstvé koláče, po jednom zlatě!",
-          "Přines mi červené bobule — tři za zlatý.",
-          "Pozor na mouku, je všude.",
+          "Čerstvé koláče, miláčku, jen po jednom zlatě!",
+          "Přines mi červené bobule, drahoušku — tři za zlatý.",
+          "Pozor na mouku, zlatíčko, je všude.",
           "Nejlepší koláče ze tří vesnic, troufám si říct."
         ]
       }
@@ -72,17 +84,19 @@
       "lines": {
         "en": [
           "kneads a lump of dough on the wooden counter.",
-          "wipes flour from his hands onto his apron.",
+          "wipes flour from her hands onto her apron.",
           "opens the oven and a wave of warm air rolls out.",
-          "hums a tune as he shapes the next loaf.",
-          "dusts more flour over the work surface."
+          "hums a tune as she shapes the next loaf.",
+          "dusts more flour over the work surface.",
+          "smiles warmly and tucks a stray curl behind her ear."
         ],
         "cs": [
           "hněte kus těsta na dřevěném pultu.",
           "otírá si mouku z rukou do zástěry.",
           "otevře pec a vyvalí se vlna teplého vzduchu.",
           "při tvarování dalšího bochníku si pobrukuje.",
-          "posype pracovní plochu další moukou."
+          "posype pracovní plochu další moukou.",
+          "vřele se usměje a zastrčí si pramínek vlasů za ucho."
         ]
       }
     }
