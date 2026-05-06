@@ -86,7 +86,7 @@
 
 ```json
 {
-  "id": "zone.item_name",
+  "id": "item.blue_flower",
   "name":    { "en": "a blue flower", "cs": "modrý květ" },
   "nameAcc": { "en": "the blue flower", "cs": "modrý květ" },
   "short": { "en": "...", "cs": "..." },
@@ -105,9 +105,11 @@
 
 ## Item — fixture (room prop, unpickable)
 
+Fixtures are the only items that keep a region prefix in their id, because they're physically bound to a specific room.
+
 ```json
 {
-  "id": "zone.item_name",
+  "id": "home.cauldron",
   "name":    { "en": "a cauldron", "cs": "kotel" },
   "nameAcc": { "en": "the cauldron", "cs": "kotel" },
   "short": { "en": "...", "cs": "..." },
@@ -128,7 +130,7 @@
 
 ```json
 {
-  "id": "zone.item_name",
+  "id": "potion.heal",
   "name":    { "en": "a heal potion", "cs": "lektvar léčení" },
   "nameAcc": { "en": "the heal potion", "cs": "lektvar léčení" },
   "short": { "en": "...", "cs": "..." },
@@ -180,7 +182,7 @@
 
 ```json
 {
-  "id": "zone.item_name",
+  "id": "item.dagger",
   "name":    { "en": "a dagger", "cs": "dýka" },
   "nameAcc": { "en": "the dagger", "cs": "dýku" },
   "short": { "en": "...", "cs": "..." },
@@ -200,3 +202,47 @@
   }
 }
 ```
+
+---
+
+## Exchanges (on NPCs and fixture items)
+
+Add an `exchanges` array to an NPC or a fixture item to give it tradeable / craftable interactions. See the SKILL "Exchanges (trade and craft)" section for full guidance and routing rules.
+
+```json
+"exchanges": [
+  {
+    "id": "baker.buy_pie",
+    "flavor": "buy",
+    "inputs":  [{ "gold": 1 }],
+    "outputs": [{ "item": "item.pie" }]
+  },
+  {
+    "id": "baker.sell_red_berries",
+    "flavor": "sell",
+    "inputs":  [{ "item": "item.red_berries", "count": 3 }],
+    "outputs": [{ "gold": 1 }]
+  },
+  {
+    "id": "cauldron.brew_mana",
+    "flavor": "craft",
+    "inputs":  [{ "item": "item.blue_flower", "count": 1 }],
+    "outputs": [{ "item": "potion.mana" }],
+    "xp": 2,
+    "verb": {
+      "en": { "to_target": {
+        "self":   "you drop the blue flower into {target}. The water hisses and turns deep blue.",
+        "others": "{actor} drops a blue flower into {target}."
+      }},
+      "cs": { "to_target": {
+        "self":   "vhodíš modrý květ do {target}. Voda zasyčí a zmodrá.",
+        "others": "{actor} vhazuje modrý květ do {target}."
+      }}
+    }
+  }
+]
+```
+
+**flavor** — `"buy"` (gold→item), `"sell"` (item→gold), `"craft"` (items→items).
+**verb** — required for `craft`; optional for `buy`/`sell` (a generic broadcast is used when omitted).
+**inputs / outputs** — entries are `{ item, count? }` or `{ gold }`; `count` defaults to 1.

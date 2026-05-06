@@ -23,10 +23,13 @@
     "location": "home.shack",
     "count": 1
   },
-  "recipes": {
-    "forest.blue_flower": {
-      "produces": "potion.mana",
-      "consume": true,
+  "exchanges": [
+    {
+      "id": "cauldron.brew_mana",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.blue_flower", "count": 1 }],
+      "outputs": [{ "item": "potion.mana" }],
+      "xp": 2,
       "verb": {
         "en": {
           "to_target": {
@@ -42,10 +45,12 @@
         }
       }
     },
-    "forest.red_berries": {
-      "produces": "potion.heal",
-      "consume": true,
-      "count": 3,
+    {
+      "id": "cauldron.brew_heal",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.red_berries", "count": 3 }],
+      "outputs": [{ "item": "potion.heal" }],
+      "xp": 2,
       "verb": {
         "en": {
           "to_target": {
@@ -61,5 +66,5 @@
         }
       }
     }
-  }
+  ]
 }

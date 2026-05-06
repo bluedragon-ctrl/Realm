@@ -365,6 +365,12 @@ html, body {
 .chip.shop-sell:hover { background: #ffd987; }
 .chip.shop-buy  { color: #1c1c1f; background: #7ec4d6; border-color: #4a90a8; }
 .chip.shop-buy:hover  { background: #98d6e6; }
+.chip.chip-flavor-buy  { color: #1c1c1f; background: #f0c46a; border-color: #b88a2c; }
+.chip.chip-flavor-buy:hover  { background: #ffd987; }
+.chip.chip-flavor-sell { color: #1c1c1f; background: #7ec4d6; border-color: #4a90a8; }
+.chip.chip-flavor-sell:hover { background: #98d6e6; }
+.chip.chip-flavor-craft { background: #2a2a4a; color: #c8c0f0; }
+.chip.chip-flavor-craft:hover { background: #3a3a5a; }
 .chip .mp-cost { color: #cdb4ff; font-size: 0.85em; margin-left: 4px; }
 .chip.effect { cursor: default; }
 .chip.effect.buff    { color: #1c1c1f; background: #a8d8c0; border-color: #6fae90; }

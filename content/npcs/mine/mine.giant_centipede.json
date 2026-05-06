@@ -25,7 +25,7 @@
   "respawn": { "ticks": 1500 },
   "xp": 25,
   "loot": [
-    { "defId": "mine.amulet_int", "chance": 1 }
+    { "defId": "item.amulet_int", "chance": 1 }
   ],
   "behaviors": [
     {

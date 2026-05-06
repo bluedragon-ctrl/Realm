@@ -3,7 +3,7 @@
 import { world, START_ROOM } from './state.js';
 import { spawnAllNpcs } from './npcs.js';
 import { spawnAllItems } from './items.js';
-import { loadRooms, loadAdmins, loadNpcs, loadSocials, loadItems, loadSpells, loadEffects, validateNpcShops }
+import { loadRooms, loadAdmins, loadNpcs, loadSocials, loadItems, loadSpells, loadEffects, validateAllExchanges }
   from '../../persist/contentLoader.js';
 import { playerExists, createPlayer } from '../../persist/players.js';
 
@@ -14,7 +14,7 @@ export async function loadWorld() {
   world.socials = await loadSocials();
   world.effectDefs = await loadEffects();
   world.itemDefs = await loadItems(world.rooms, world.effectDefs);
-  validateNpcShops(world.npcDefs, world.itemDefs);
+  validateAllExchanges(world.npcDefs, world.itemDefs);
   world.spellDefs = await loadSpells(world.effectDefs);
   if (!world.rooms.has(START_ROOM)) {
     throw new Error(`start room '${START_ROOM}' not found in content/rooms`);

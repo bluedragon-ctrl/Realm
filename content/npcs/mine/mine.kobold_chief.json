@@ -28,7 +28,7 @@
   "xp": 50,
   "goldDrop": { "formula": "3d6+5", "chance": 1.0 },
   "loot": [
-    { "defId": "mine.kobold_axe", "chance": 1 }
+    { "defId": "item.kobold_axe", "chance": 1 }
   ],
   "behaviors": [
     {

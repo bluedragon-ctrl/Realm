@@ -466,33 +466,61 @@ function renderTargetInfo(msg) {
     block.appendChild(grid);
     inspectBody.appendChild(block);
   }
-  if (msg.shop && Array.isArray(msg.shop.sells) && msg.shop.sells.length > 0) {
-    const row = document.createElement('div'); row.className = 'inspect-row';
-    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
-    lab.textContent = `${msg.shopSellsLabel ?? 'for sale'}: `;
-    row.appendChild(lab);
-    msg.shop.sells.forEach((entry, i) => {
-      if (i > 0) row.append(' ');
-      const label = `${entry.name} — ${entry.price}g`;
-      const chip = makeChip(label, 'shop-sell', () => sendInput(`buy ${entry.itemId}`));
-      row.appendChild(chip);
-    });
-    inspectBody.appendChild(row);
+  function formatExchangeSide(side) {
+    return side.map(e => {
+      if (e.kind === 'gold') return `${e.amount}g`;
+      return e.count > 1 ? `${e.count} ${e.name}` : e.name;
+    }).join(' + ');
   }
-  if (msg.shop && Array.isArray(msg.shop.buys) && msg.shop.buys.length > 0) {
-    const row = document.createElement('div'); row.className = 'inspect-row';
-    const lab = document.createElement('span'); lab.className = 'inspect-row-label';
-    lab.textContent = `${msg.shopBuysLabel ?? 'wants to buy'}: `;
-    row.appendChild(lab);
-    msg.shop.buys.forEach((entry, i) => {
-      if (i > 0) row.append(' ');
-      const label = entry.perUnit > 1
-        ? `${entry.name} — ${entry.perUnit} for ${entry.price}g`
-        : `${entry.name} — ${entry.price}g`;
-      const chip = makeChip(label, 'shop-buy', () => sendInput(`sell ${entry.itemId}`));
-      row.appendChild(chip);
-    });
-    inspectBody.appendChild(row);
+
+  function formatExchangeChipLabel(entry) {
+    if (entry.flavor === 'buy') {
+      const out = entry.outputs.find(x => x.kind === 'item');
+      const gold = entry.inputs.find(x => x.kind === 'gold');
+      return `${out.name} — ${gold.amount}g`;
+    }
+    if (entry.flavor === 'sell') {
+      const inp = entry.inputs.find(x => x.kind === 'item');
+      const gold = entry.outputs.find(x => x.kind === 'gold');
+      const inpStr = inp.count > 1 ? `${inp.count} ${inp.name}` : inp.name;
+      return `${inpStr} — ${gold.amount}g`;
+    }
+    return `${formatExchangeSide(entry.inputs)} → ${formatExchangeSide(entry.outputs)}`;
+  }
+
+  function chipSendForExchange(entry) {
+    if (entry.flavor === 'buy') {
+      const out = entry.outputs.find(x => x.kind === 'item');
+      return `buy ${out.id}`;
+    }
+    if (entry.flavor === 'sell') {
+      const inp = entry.inputs.find(x => x.kind === 'item');
+      return `sell ${inp.id}`;
+    }
+    return `exchange ${entry.id}`;
+  }
+
+  if (Array.isArray(msg.exchanges) && msg.exchanges.length > 0) {
+    const labels = msg.exchangeRowLabels ?? { buy: 'For sale', sell: 'Wants to buy', craft: 'Can make' };
+    const flavorOrder = ['buy', 'sell', 'craft'];
+    for (const flavor of flavorOrder) {
+      const rows = msg.exchanges.filter(e => e.flavor === flavor);
+      if (rows.length === 0) continue;
+      const row = document.createElement('div');
+      row.className = 'inspect-row';
+      const lab = document.createElement('span');
+      lab.className = 'inspect-row-label';
+      lab.textContent = `${labels[flavor]}: `;
+      row.appendChild(lab);
+      rows.forEach((entry, i) => {
+        if (i > 0) row.appendChild(document.createTextNode(', '));
+        const label = formatExchangeChipLabel(entry);
+        const send = chipSendForExchange(entry);
+        const chip = makeChip(label, `chip-flavor-${flavor}`, () => sendInput(send));
+        row.appendChild(chip);
+      });
+      inspectBody.appendChild(row);
+    }
   }
   if (Array.isArray(msg.effects) && msg.effects.length > 0) {
     const row = document.createElement('div'); row.className = 'inspect-row';

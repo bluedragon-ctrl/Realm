@@ -148,6 +148,10 @@
   "shop.chip_buy_rate": "{name} — {perUnit} for {price}g",
   "shop.chip_buy": "{name} — {price}g",
   "shop.chip_sell": "{name} — {price}g",
+  "exchange.row.buy": "For sale",
+  "exchange.row.sell": "Wants to buy",
+  "exchange.row.craft": "Can make",
+  "exchange.ambiguous_give": "Be more specific — try `buy`, `sell`, `use`, or click a chip.",
   "recipe.need_more": "you need {required} of {item}, but you only have {have}.",
 
   "use.no_arg": "use what?",

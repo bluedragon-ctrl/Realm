@@ -31,14 +31,20 @@
     "spd": 6
   },
   "respawn": { "ticks": 600 },
-  "shop": {
-    "sells": [
-      { "item": "potion.beer", "price": 3 }
-    ],
-    "buys": [
-      { "item": "item.rat_tail", "price": 1, "perUnit": 1 }
-    ]
-  },
+  "exchanges": [
+    {
+      "id": "innkeeper.buy_beer",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 3 }],
+      "outputs": [{ "item": "potion.beer" }]
+    },
+    {
+      "id": "innkeeper.sell_rat_tail",
+      "flavor": "sell",
+      "inputs":  [{ "item": "item.rat_tail", "count": 1 }],
+      "outputs": [{ "gold": 1 }]
+    }
+  ],
   "behaviors": [
     {
       "primitive": "say",

@@ -148,6 +148,10 @@
   "shop.chip_buy_rate": "{name} — {perUnit} za {price}z",
   "shop.chip_buy": "{name} — {price}z",
   "shop.chip_sell": "{name} — {price}z",
+  "exchange.row.buy": "Na prodej",
+  "exchange.row.sell": "Vykupuje",
+  "exchange.row.craft": "Umí vyrobit",
+  "exchange.ambiguous_give": "Buď konkrétnější — zkus `buy`, `sell`, `use` nebo klikni na čip.",
   "recipe.need_more": "potřebuješ {required} ks {item}, ale máš jen {have}.",
 
   "use.no_arg": "co použít?",

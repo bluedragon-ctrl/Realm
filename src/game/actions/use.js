@@ -8,6 +8,7 @@ import { sendStats } from '../messages.js';
 import { describeRoomToAll } from './look.js';
 import { awardXp } from '../xp.js';
 import { isSelfToken } from '../targeting.js';
+import { runExchange } from '../exchange.js';
 
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
@@ -19,37 +20,20 @@ function resolveInteraction(sourceInst, targetInst) {
   if (tdef.unlocks && tdef.unlocks.key === sourceInst.defId) {
     return { kind: 'unlock', spec: tdef.unlocks };
   }
-  if (tdef.recipes && tdef.recipes[sourceInst.defId]) {
-    return { kind: 'recipe', spec: tdef.recipes[sourceInst.defId] };
-  }
+  const exchanges = tdef.exchanges ?? [];
+  const match = exchanges.find(e =>
+    e.flavor === 'craft' &&
+    e.inputs.some(x => x.item === sourceInst.defId)
+  );
+  if (match) return { kind: 'craft', entry: match };
   return null;
 }
 
 function runInteraction(actor, sourceInst, targetInst, interaction) {
-  const { kind, spec } = interaction;
   const lang = actor.lang;
-
-  if (kind === 'recipe') {
-    const required = spec.count ?? 1;
-    if (required > 1) {
-      const have = actor.inventory.filter(i => i.defId === sourceInst.defId).length;
-      if (have < required) {
-        actor.session.send({
-          kind: 'error',
-          text: s('recipe.need_more', lang, {
-            item: t(sourceInst.def.name, lang),
-            required,
-            have,
-          }),
-        });
-        return;
-      }
-    }
-  }
-
-  runVerb({ actor, def: spec.verb, targetName: targetInst.def.nameAcc ?? targetInst.def.name });
-
-  if (kind === 'unlock') {
+  if (interaction.kind === 'unlock') {
+    const spec = interaction.spec;
+    runVerb({ actor, def: spec.verb, targetName: targetInst.def.nameAcc ?? targetInst.def.name });
     applyEffect({ type: 'unlock', exit: spec.exit }, { actor });
     actor.session.send({
       kind: 'system',
@@ -65,25 +49,8 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
     awardXp(actor, spec.xp ?? 2, 'unlock');
     return;
   }
-
-  if (kind === 'recipe') {
-    const required = spec.count ?? 1;
-    const result = applyEffect({ type: 'produce', item: spec.produces }, { actor });
-    if (result?.produced) {
-      actor.session.send({
-        kind: 'system',
-        tone: 'good',
-        text: s('produce.you_made', lang, { item: t(result.name, lang) }),
-      });
-    }
-    if (spec.consume) {
-      const toConsume = required;
-      const matches = actor.inventory.filter(i => i.defId === sourceInst.defId).slice(0, toConsume);
-      for (const inst of matches) removeFromList(actor.inventory, inst);
-    }
-    actor.dirty = true;
-    sendStats(actor);
-    if (result?.produced) awardXp(actor, spec.xp ?? 2, 'produce');
+  if (interaction.kind === 'craft') {
+    runExchange(actor, targetInst, interaction.entry, { units: 1 });
     return;
   }
 }
