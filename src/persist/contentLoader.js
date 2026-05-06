@@ -102,46 +102,12 @@ function makeNpcValidator(knownRooms) {
       }
     }
 
-    if (def.shop != null) {
-      checkObject(def.shop, ctx, 'shop');
-      const validateEntry = (entry, label) => {
-        checkObject(entry, ctx, label);
-        check(typeof entry.item === 'string', ctx, `${label}.item must be a string`);
-        check(typeof entry.price === 'number' && Number.isInteger(entry.price) && entry.price >= 0, ctx,
-          `${label}.price must be a non-negative integer`);
-        if (entry.perUnit != null) {
-          check(typeof entry.perUnit === 'number' && Number.isInteger(entry.perUnit) && entry.perUnit >= 1, ctx,
-            `${label}.perUnit must be a positive integer`);
-        }
-      };
-      if (def.shop.sells != null) {
-        checkArray(def.shop.sells, ctx, 'shop.sells');
-        def.shop.sells.forEach((e, i) => validateEntry(e, `shop.sells[${i}]`));
-      }
-      if (def.shop.buys != null) {
-        checkArray(def.shop.buys, ctx, 'shop.buys');
-        def.shop.buys.forEach((e, i) => validateEntry(e, `shop.buys[${i}]`));
-      }
-    }
+    check(def.shop == null, ctx, `'shop' is no longer supported — use 'exchanges'`);
   };
 }
 
 export async function loadNpcs(knownRooms) {
   return loadDir('npc', path.resolve('content/npcs'), makeNpcValidator(knownRooms));
-}
-
-export function validateNpcShops(npcs, items) {
-  for (const def of npcs.values()) {
-    if (!def.shop) continue;
-    const ctx = `npc '${def.id}'`;
-    for (const list of ['sells', 'buys']) {
-      const entries = def.shop[list] ?? [];
-      for (const entry of entries) {
-        check(items.has(entry.item), ctx,
-          `shop.${list} references unknown item '${entry.item}'`);
-      }
-    }
-  }
 }
 
 const ALLOWED_FLAVORS = new Set(['buy', 'sell', 'craft']);
@@ -279,19 +245,7 @@ function validateItemInteractions(items, knownRooms) {
           `unlocks exit '${u.exit}' but room '${roomId}' lockedExits.${u.exit} = ${JSON.stringify(declared ?? null)} (expected '${def.id}')`);
       }
     }
-    if (def.recipes != null) {
-      checkObject(def.recipes, ctx, 'recipes');
-      for (const [reagentId, spec] of Object.entries(def.recipes)) {
-        check(items.has(reagentId), ctx, `recipe references unknown reagent '${reagentId}'`);
-        check(spec.produces && items.has(spec.produces), ctx,
-          `recipe[${reagentId}].produces references unknown item '${spec.produces}'`);
-        checkObject(spec.verb, ctx, `recipe[${reagentId}].verb`);
-        if (spec.count != null) {
-          check(typeof spec.count === 'number' && Number.isInteger(spec.count) && spec.count >= 1, ctx,
-            `recipe[${reagentId}].count must be a positive integer`);
-        }
-      }
-    }
+    check(def.recipes == null, ctx, `'recipes' is no longer supported — use 'exchanges'`);
   }
 }
 

@@ -31,14 +31,6 @@
     "spd": 6
   },
   "respawn": { "ticks": 600 },
-  "shop": {
-    "sells": [
-      { "item": "potion.beer", "price": 3 }
-    ],
-    "buys": [
-      { "item": "item.rat_tail", "price": 1, "perUnit": 1 }
-    ]
-  },
   "behaviors": [
     {
       "primitive": "say",

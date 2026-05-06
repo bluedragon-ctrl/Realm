@@ -24,29 +24,6 @@ function serializeExchanges(host, lang) {
   }));
 }
 
-function serializeShop(npc, lang) {
-  if (!npc.shop) return null;
-  const out = {};
-  const map = (entry) => {
-    const def = world.itemDefs.get(entry.item);
-    if (!def) return null;
-    return {
-      itemId: entry.item,
-      name: t(def.name, lang),
-      price: entry.price,
-      perUnit: entry.perUnit ?? 1,
-    };
-  };
-  if (Array.isArray(npc.shop.sells) && npc.shop.sells.length) {
-    out.sells = npc.shop.sells.map(map).filter(Boolean);
-  }
-  if (Array.isArray(npc.shop.buys) && npc.shop.buys.length) {
-    out.buys = npc.shop.buys.map(map).filter(Boolean);
-  }
-  if (!out.sells && !out.buys) return null;
-  return out;
-}
-
 function exitDisplay(exitKey, lang) {
   const named = dirName(exitKey, lang);
   if (named && named !== `dir.${exitKey}`) return named;
@@ -139,16 +116,12 @@ function sendTargetInfo(actor, target) {
     const isFriendly = target.disposition === 'friendly';
     const effectsForClient = isFriendly ? [] : serializeActiveEffectsForClient(target, lang)
       .map(e => ({ defId: e.defId, name: e.name, icon: e.icon, kind: e.kind }));
-    const shop = serializeShop(target, lang);
     const exchanges = serializeExchanges(target, lang);
     actor.session.send({
       kind: 'target-info',
       name: t(target.name, lang),
       subtitle,
       description: t(target.long, lang) || t(target.short, lang) || s('look.npc_no_desc', lang),
-      shop,
-      shopSellsLabel: shop ? s('shop.sells_label', lang) : undefined,
-      shopBuysLabel: shop ? s('shop.buys_label', lang) : undefined,
       exchanges,
       exchangeRowLabels: exchanges ? {
         buy: s('exchange.row.buy', lang),

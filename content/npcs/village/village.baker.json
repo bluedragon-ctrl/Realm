@@ -31,14 +31,6 @@
     "spd": 6
   },
   "respawn": { "ticks": 600 },
-  "shop": {
-    "sells": [
-      { "item": "item.pie", "price": 1 }
-    ],
-    "buys": [
-      { "item": "forest.red_berries", "price": 1, "perUnit": 3 }
-    ]
-  },
   "behaviors": [
     {
       "primitive": "say",
