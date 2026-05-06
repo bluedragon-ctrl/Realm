@@ -150,6 +150,9 @@ export function validateExchanges(host, hostCtx, items) {
           `${side} references unknown item '${e.item}'`);
       }
     }
+    if (entry.flavor === 'craft') {
+      check(entry.verb != null, ctx, `craft entries require a 'verb' block (so onlookers see the action)`);
+    }
     if (entry.verb != null) checkObject(entry.verb, ctx, 'verb');
     if (entry.xp != null) {
       check(Number.isInteger(entry.xp) && entry.xp >= 0, ctx,
