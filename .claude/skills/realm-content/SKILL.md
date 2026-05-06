@@ -64,18 +64,18 @@ Build a mental map of:
 
 ## Step 2 — File naming and folder layout
 
-| Type             | ID pattern                                    | Example                  |
-|------------------|-----------------------------------------------|--------------------------|
-| Room             | `<region>.<place>`                            | `forest.meadow`          |
-| NPC              | `<region>.<creature>` (region where it lives) | `home.rat`               |
-| Item (zone-tied) | `<region>.<name>`                             | `forest.iron_sword`      |
-| Item (generic)   | `<category>.<name>` (`item`, `potion`, `amulet`) | `potion.heal`         |
-| Effect           | `effect.<name>`                               | `effect.poison`          |
-| Spell            | `spell.<name>`                                | `spell.heal`             |
+| Type            | ID pattern                                       | Example                  |
+|-----------------|--------------------------------------------------|--------------------------|
+| Room            | `<region>.<place>`                               | `forest.meadow`          |
+| NPC             | `<region>.<creature>` (region where it lives)    | `home.rat`               |
+| Item (fixture)  | `<region>.<name>` (bound to that region's rooms) | `home.cauldron`          |
+| Item (anything else) | `<category>.<name>` (`item`, `potion`)      | `item.iron_sword`, `potion.heal` |
+| Effect          | `effect.<name>`                                  | `effect.poison`          |
+| Spell           | `spell.<name>`                                   | `spell.heal`             |
 
 IDs always match the filename without `.json`. Lowercase, snake_case, ASCII only. **Enforced at boot** — `contentLoader.js` throws if filename ≠ `id`.
 
-For NPCs the prefix is the **region the NPC lives in** (e.g. `home.rat`, not `basement.rat`). For items, use a region prefix when the item is tied to a zone (`forest.copper_key`); use a category prefix (`item`, `potion`, `amulet`) when the item is generic and could appear anywhere.
+For NPCs the prefix is the **region the NPC lives in** (e.g. `home.rat`, not `basement.rat`). For items, the **only** zone-tied items are fixtures (room props that physically belong to a specific room). Everything else — keys, weapons, herbs, scrolls, even region-flavoured loot like a kobold axe — uses a category prefix (`item.` or `potion.`), because a "forest" sword can show up in the mine and a "mine" key can open a village door.
 
 **Current regions:** `home`, `forest`, `mine`. Add a new region only per the threshold above.
 
@@ -89,12 +89,11 @@ content/npcs/<region>/<region>.<creature>.json
 content/items/
   consumables/   potions, herbs, food, scrolls, reagents (anything used up)
   wearables/     weapons, armor, amulets (anything with a `wearable` block)
-  fixtures/      room props (`pickable: false`, `weight: 99`)
-  <region>/      non-categorical region-tied items (keys, rocks, toys bound to a zone)
-  _generic/      parking lot for items that don't fit any category yet — goal: stay empty
+  fixtures/      room props (`pickable: false`, `weight: 99`) — keep zone prefix
+  _generic/      anything else: keys, tools, toys, misc loot (uses `item.<name>` id)
 ```
 
-**Item folder rule: category beats region.** A wearable goes in `wearables/` even if it's region-tied (e.g. `forest.iron_sword.json` lives in `wearables/`). A consumable goes in `consumables/` regardless of region. Only items that fit no category use the region folder. `_generic/` is a holding pen — nothing should stay there long; find it a category or a region.
+**Item folder rule: category first.** Wearables go in `wearables/`, consumables in `consumables/`, fixtures in `fixtures/`. Everything else lives in `_generic/` with an `item.<name>` id — there is no per-region item folder anymore.
 
 ## Step 3 — Exit keys
 
@@ -212,6 +211,49 @@ Only use primitives from this list. Unknown primitives crash at boot.
 
 Hostile aggressive NPCs need at minimum: one `attack` behavior + one `emote` behavior.
 
+## Exchanges (trade and craft)
+
+Trading, vendor buyback, and crafting all share one schema: an `exchanges: [...]` array. It lives on **NPCs** (vendors, merchants) and on **fixture items** (cauldron, forge, anvil). Each entry is one explicit transaction.
+
+```json
+{
+  "id": "smith.forge_iron_sword",
+  "flavor": "craft",
+  "inputs":  [{ "item": "item.iron_ore", "count": 2 }, { "gold": 5 }],
+  "outputs": [{ "item": "item.iron_sword" }],
+  "xp": 5,
+  "verb": {
+    "en": { "to_target": {
+      "self":   "{target} hammers your ore into a fresh iron sword.",
+      "others": "{actor} hands {target} ore; {target} forges a sword."
+    }},
+    "cs": { "to_target": {
+      "self":   "{target} ti z rudy vykove čerstvý železný meč.",
+      "others": "{actor} podává {target} rudu; {target} kove meč."
+    }}
+  }
+}
+```
+
+**Fields:**
+- `id` — unique within the host (`<host_short>.<action>`, e.g. `smith.buy_rope`, `cauldron.brew_mana`).
+- `flavor` — `"buy"` (player gives gold, gets item), `"sell"` (player gives item, gets gold), `"craft"` (player gives items, gets items). Drives chip color and command routing.
+- `inputs` / `outputs` — arrays of `{ item, count? }` or `{ gold }`. `count` defaults to 1.
+- `xp` — optional, awarded on success.
+- `verb` — same verb-shape as socials. **Required for `craft`** (boot will reject crafts without it). Optional for `buy`/`sell` — falls back to a generic broadcast.
+
+**How players trigger them:**
+- `buy <item>` / `sell <item>` — match by item id on the room's NPC exchanges.
+- `use <item> on <fixture>` — runs the matching `craft` exchange on the fixture.
+- `give <thing> to <target>` — auto-routes to a matching exchange when the gift fits one (e.g. `give 3 red_berries to baker` triggers the sell exchange); otherwise falls back to plain item transfer.
+- Inspect chips on NPCs and craft fixtures show all available exchanges grouped by flavor.
+
+**When to add exchanges:**
+- Vendor NPC sells a generic item → one `buy` entry.
+- Vendor NPC buys a player loot drop → one `sell` entry.
+- Fixture transforms inputs → outputs → one `craft` entry per recipe (must include `verb`).
+- Don't invent new flavors; if you need something exotic, raise it before coding.
+
 ## Item tags reference
 
 Common tags — use existing ones rather than inventing new ones:
@@ -245,6 +287,7 @@ Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hp
 - [ ] No `null` exit values anywhere
 - [ ] Both `en` and `cs` filled in for all text fields (Czech: readable > literal)
 - [ ] Filename matches `id` exactly (boot will fail otherwise)
-- [ ] Items placed in the right folder (`consumables/`, `wearables/`, `fixtures/`, `<region>/`, or — last resort — `_generic/`)
+- [ ] Items placed in the right folder (`consumables/`, `wearables/`, `fixtures/`, or `_generic/`); only fixtures use a region prefix in their id
+- [ ] Any `craft` exchange has a `verb` block (boot enforces this); `buy`/`sell` may omit it
 
 See `references/schemas.md` for complete JSON schemas.

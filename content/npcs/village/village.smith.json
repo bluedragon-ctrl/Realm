@@ -41,14 +41,14 @@
     {
       "id": "smith.sell_ore",
       "flavor": "sell",
-      "inputs":  [{ "item": "mine.iron_ore", "count": 1 }],
+      "inputs":  [{ "item": "item.iron_ore", "count": 1 }],
       "outputs": [{ "gold": 5 }]
     },
     {
       "id": "smith.forge_iron_sword",
       "flavor": "craft",
-      "inputs":  [{ "item": "mine.iron_ore", "count": 5 }, { "gold": 20 }],
-      "outputs": [{ "item": "forest.iron_sword" }],
+      "inputs":  [{ "item": "item.iron_ore", "count": 5 }, { "gold": 20 }],
+      "outputs": [{ "item": "item.iron_sword" }],
       "xp": 5,
       "verb": {
         "en": {

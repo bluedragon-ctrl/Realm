@@ -41,7 +41,7 @@
     {
       "id": "baker.sell_red_berries",
       "flavor": "sell",
-      "inputs":  [{ "item": "forest.red_berries", "count": 3 }],
+      "inputs":  [{ "item": "item.red_berries", "count": 3 }],
       "outputs": [{ "gold": 1 }]
     }
   ],

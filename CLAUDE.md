@@ -33,7 +33,7 @@ Discuss the plan and propose options **before** writing code for any change that
 - **Naming (content IDs and filenames):**
   - Rooms: `<region>.<name>` (e.g. `home.cottage`, `forest.meadow`).
   - NPCs: `<region>.<name>` — region is where the NPC lives (e.g. `home.rat`, not `basement.rat`).
-  - Items: either `<region>.<name>` (zone-tied, e.g. `forest.iron_sword`) or `<category>.<name>` for generics where `category` is `item` or `potion` (e.g. `potion.heal`, `item.small_rusty_key`, `item.amulet_regen`).
+  - Items: either `<region>.<name>` (zone-tied, e.g. `item.iron_sword`) or `<category>.<name>` for generics where `category` is `item` or `potion` (e.g. `potion.heal`, `item.small_rusty_key`, `item.amulet_regen`).
   - Effects, spells: `effect.<name>` and `spell.<name>` (e.g. `effect.poison`, `spell.heal`).
   - Filename always equals the id plus `.json`. Lowercase, snake_case, ASCII.
 - **Atomic JSON writes:** always go through `writeJsonAtomic` (tmp file + rename). Never `fs.writeFile` directly to a state file.

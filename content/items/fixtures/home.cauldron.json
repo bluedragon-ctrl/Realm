@@ -27,7 +27,7 @@
     {
       "id": "cauldron.brew_mana",
       "flavor": "craft",
-      "inputs":  [{ "item": "forest.blue_flower", "count": 1 }],
+      "inputs":  [{ "item": "item.blue_flower", "count": 1 }],
       "outputs": [{ "item": "potion.mana" }],
       "xp": 2,
       "verb": {
@@ -48,7 +48,7 @@
     {
       "id": "cauldron.brew_heal",
       "flavor": "craft",
-      "inputs":  [{ "item": "forest.red_berries", "count": 3 }],
+      "inputs":  [{ "item": "item.red_berries", "count": 3 }],
       "outputs": [{ "item": "potion.heal" }],
       "xp": 2,
       "verb": {

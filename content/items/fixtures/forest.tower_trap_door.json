@@ -25,7 +25,7 @@
   },
   "unlocks": {
     "exit": "d",
-    "key": "forest.copper_key",
+    "key": "item.copper_key",
     "consume": true,
     "verb": {
       "en": {
