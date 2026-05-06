@@ -30,6 +30,18 @@ function exitDisplay(exitKey, lang) {
   return exitKey;
 }
 
+const EXIT_ORDER = ['n', 'ne', 'e', 'se', 's', 'sw', 'w', 'nw', 'u', 'd'];
+function exitSortIndex(key) {
+  const i = EXIT_ORDER.indexOf(key.toLowerCase());
+  return i === -1 ? EXIT_ORDER.length : i;
+}
+function compareExitKeys(a, b) {
+  const ia = exitSortIndex(a);
+  const ib = exitSortIndex(b);
+  if (ia !== ib) return ia - ib;
+  return a.localeCompare(b);
+}
+
 export function describeRoomToAll(roomId) {
   for (const a of actorsInRoom(roomId)) {
     if (a.kind === 'player' && a.session) describeRoom(a);
@@ -59,8 +71,17 @@ export function describeRoom(actor) {
       });
     }
   }
-  const exitKeys = Object.keys(room.exits ?? {}).filter(k => !isExitLocked(room, k));
-  const exits = exitKeys.map(k => ({ key: k, label: exitDisplay(k, lang) }));
+  const exitKeys = Object.keys(room.exits ?? {})
+    .filter(k => !isExitLocked(room, k))
+    .sort(compareExitKeys);
+  const exits = exitKeys.map(k => {
+    const targetRoom = getRoom(room.exits[k]);
+    return {
+      key: k,
+      label: exitDisplay(k, lang),
+      target: targetRoom ? t(targetRoom.name, lang) : null,
+    };
+  });
   const itemGroups = new Map();
   for (const inst of itemsInRoom(room.id)) {
     const stateKey = !inst.state || Object.keys(inst.state).length === 0 ? '' : JSON.stringify(inst.state);
