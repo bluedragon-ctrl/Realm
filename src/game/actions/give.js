@@ -3,6 +3,7 @@ import { findItemInList, transferItem, splitOnKeyword } from '../items.js';
 import { s, t } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
+import { runExchange } from '../exchange.js';
 
 function parseGiveArgs(args) {
   const split = splitOnKeyword(args, 'to');
@@ -29,6 +30,32 @@ function parseGoldGive(itemQuery) {
   return { amount };
 }
 
+function parseCountedItemGive(itemQuery) {
+  const parts = itemQuery.trim().split(/\s+/);
+  if (parts.length < 2 || !/^\d+$/.test(parts[0])) return null;
+  const count = parseInt(parts[0], 10);
+  if (!Number.isFinite(count) || count <= 0) return null;
+  return { count, itemQuery: parts.slice(1).join(' ') };
+}
+
+function findExchangeForGoldGive(target, amount) {
+  const exchanges = target.exchanges ?? [];
+  return exchanges.filter(e =>
+    e.inputs.length === 1 &&
+    e.inputs[0].gold === amount
+  );
+}
+
+function findExchangeForItemGive(target, itemDefId, count) {
+  const exchanges = target.exchanges ?? [];
+  return exchanges.filter(e => {
+    const inp = e.inputs.find(x => x.item === itemDefId);
+    if (!inp) return false;
+    const need = inp.count ?? 1;
+    return need === count;
+  });
+}
+
 export default function give(actor, args) {
   if (!args || args.length < 2) {
     actor.session.send({ kind: 'error', text: s('give.usage', actor.lang) });
@@ -51,6 +78,17 @@ export default function give(actor, args) {
     if (target === actor) {
       actor.session.send({ kind: 'error', text: s('give.to_self', actor.lang) });
       return;
+    }
+    if (target.kind === 'npc' && Array.isArray(target.exchanges)) {
+      const matches = findExchangeForGoldGive(target, goldGive.amount);
+      if (matches.length === 1) {
+        runExchange(actor, target, matches[0], { units: 1 });
+        return;
+      }
+      if (matches.length > 1) {
+        actor.session.send({ kind: 'error', text: s('exchange.ambiguous_give', actor.lang) });
+        return;
+      }
     }
     if (target.kind !== 'player') {
       actor.session.send({ kind: 'error', text: s('give.gold.target_invalid', actor.lang) });
@@ -82,9 +120,17 @@ export default function give(actor, args) {
     return;
   }
 
-  const inst = findItemInList(actor.inventory, itemQuery);
+  let count = 1;
+  let resolvedItemQuery = itemQuery;
+  const counted = parseCountedItemGive(itemQuery);
+  if (counted) {
+    count = counted.count;
+    resolvedItemQuery = counted.itemQuery;
+  }
+
+  const inst = findItemInList(actor.inventory, resolvedItemQuery);
   if (!inst) {
-    actor.session.send({ kind: 'error', text: s('error.no_such_item_inv', actor.lang, { query: itemQuery }) });
+    actor.session.send({ kind: 'error', text: s('error.no_such_item_inv', actor.lang, { query: resolvedItemQuery }) });
     return;
   }
 
@@ -95,6 +141,23 @@ export default function give(actor, args) {
   }
   if (target === actor) {
     actor.session.send({ kind: 'error', text: s('give.to_self', actor.lang) });
+    return;
+  }
+
+  if (target.kind === 'npc' && Array.isArray(target.exchanges)) {
+    const matches = findExchangeForItemGive(target, inst.defId, count);
+    if (matches.length === 1) {
+      runExchange(actor, target, matches[0], { units: 1 });
+      return;
+    }
+    if (matches.length > 1) {
+      actor.session.send({ kind: 'error', text: s('exchange.ambiguous_give', actor.lang) });
+      return;
+    }
+  }
+
+  if (count !== 1) {
+    actor.session.send({ kind: 'error', text: s('exchange.ambiguous_give', actor.lang) });
     return;
   }
 
