@@ -35,8 +35,8 @@
         "others": "{actor} si strčí bonbon do pusy."
       },
       "to_target": {
-        "self": "podáš bonbon {target} a ten si ho strčí do pusy.",
-        "others": "{actor} podává bonbon {target} a ten si ho strčí do pusy."
+        "self": "podáš bonbon {target.dat} a ten si ho strčí do pusy.",
+        "others": "{actor} podává bonbon {target.dat} a ten si ho strčí do pusy."
       }
     },
     "effect": { "type": "heal", "mp": 1 },

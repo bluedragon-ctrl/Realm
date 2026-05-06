@@ -1,5 +1,6 @@
 import { world } from './world.js';
 import { nameVariants } from '../i18n.js';
+import { allNameVariants } from './declension.js';
 import { WEARABLE_SLOTS, ALLOWED_BONUS_KEYS } from './wearableMeta.js';
 import { findItemInList } from './items.js';
 
@@ -71,8 +72,7 @@ export function findEquippedWearable(actor, query) {
     const def = world.itemDefs.get(defId);
     if (!def?.wearable) continue;
     const variants = [
-      ...nameVariants(def.name),
-      ...nameVariants(def.nameAcc),
+      ...allNameVariants(def),
       defId.toLowerCase(),
       slot,
     ];

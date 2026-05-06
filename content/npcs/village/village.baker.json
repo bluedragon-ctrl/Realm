@@ -8,6 +8,8 @@
     "en": "the baker",
     "cs": "pekařku"
   },
+  "nameDat": { "en": "the baker", "cs": "pekařce" },
+  "nameGen": { "en": "the baker", "cs": "pekařky" },
   "title": {
     "en": "baker",
     "cs": "pekařka"
@@ -19,7 +21,7 @@
   },
   "long": {
     "en": "A cheerful, rosy-cheeked woman in a white apron with flour on her nose and her sleeves rolled up. Her strong arms have kneaded dough since before dawn, and she greets every visitor like an old friend. She sells small pies for one gold each, and pays a gold for every three handfuls of red berries you bring her for her tarts.",
-    "cs": "Veselá pekařka s růžovými tvářemi v bílé zástěře, mouku má na nose a rukávy vyhrnuté. Její silné paže hnětou těsto už od svítání a každého návštěvníka vítá jako starého přítele. Prodává malé koláče po jednom zlatě a za každé tři hrsti červených bobulí na své tartaletky platí jeden zlatý."
+    "cs": "Veselá pekařka s růžovými tvářemi v bílé zástěře, mouku má na nose a rukávy vyhrnuté. Její silné paže hnětou těsto už od svítání a každého návštěvníka vítá jako starého přítele. Prodává malé koláče po jednom zlatém a za každé tři hrsti červených bobulí na své koláčky platí jeden zlatý."
   },
   "disposition": "friendly",
   "aggressive": false,
@@ -70,7 +72,7 @@
           "Best pies in three villages, if I do say so myself."
         ],
         "cs": [
-          "Čerstvé koláče, miláčku, jen po jednom zlatě!",
+          "Čerstvé koláče, miláčku, jen po jednom zlatém!",
           "Přines mi červené bobule, drahoušku — tři za zlatý.",
           "Pozor na mouku, zlatíčko, je všude.",
           "Nejlepší koláče ze tří vesnic, troufám si říct."

@@ -2,6 +2,7 @@ import { broadcastToRoom } from './world.js';
 import { sendStats } from './messages.js';
 import { s } from '../i18n.js';
 import { POINTS_PER_LEVEL, ensureAllocationFields } from './leveling.js';
+import { pointsPhrase } from './format.js';
 
 export function xpToNext(level) {
   return 10 * level * level;
@@ -55,7 +56,7 @@ function levelUp(actor) {
     actor.session.send({
       kind: 'system',
       tone: 'good',
-      text: s('xp.points_granted', actor.lang, { points: POINTS_PER_LEVEL }),
+      text: s('xp.points_granted', actor.lang, { points: pointsPhrase(POINTS_PER_LEVEL, actor.lang) }),
     });
   }
 

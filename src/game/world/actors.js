@@ -3,6 +3,7 @@
 
 import { world } from './state.js';
 import { nameVariants } from '../../i18n.js';
+import { allNameVariants } from '../declension.js';
 
 export function actorsInRoom(roomId) {
   return world.actorsByRoom.get(roomId) ?? new Set();
@@ -39,7 +40,7 @@ export function findActor(name) {
 }
 
 function actorVariants(a) {
-  return [...nameVariants(a.name), ...(a.kind === 'npc' ? nameVariants(a.title) : [])];
+  return [...allNameVariants(a), ...(a.kind === 'npc' ? nameVariants(a.title) : [])];
 }
 
 export function findInRoom(roomId, query) {

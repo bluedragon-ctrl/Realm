@@ -37,6 +37,9 @@ export function makePlayerActor(record, session, isAdmin) {
   if (typeof record.xp !== 'number') record.xp = 0;
   if (typeof record.level !== 'number') record.level = 1;
   if (typeof record.gold !== 'number' || record.gold < 0) record.gold = 0;
+  if (record.nameForms == null || typeof record.nameForms !== 'object') {
+    record.nameForms = { acc: null, dat: null, gen: null, voc: null };
+  }
   if (!Array.isArray(record.visitedRooms)) record.visitedRooms = [];
   const visitedRooms = new Set(record.visitedRooms);
   const inventory = [];
@@ -47,6 +50,7 @@ export function makePlayerActor(record, session, isAdmin) {
   const actor = {
     kind: 'player',
     name: record.name,
+    nameForms: record.nameForms,
     location: null,
     session,
     isAdmin,
@@ -91,6 +95,9 @@ export function makeNpcActor(def, homeLocation = null) {
     baseStats: { ...stats },
     name: def.name,
     nameAcc: def.nameAcc ?? def.name,
+    nameDat: def.nameDat ?? def.name,
+    nameGen: def.nameGen ?? def.name,
+    nameVoc: def.nameVoc ?? def.name,
     title: def.title ?? def.name,
     short: def.short ?? '',
     long: def.long ?? '',

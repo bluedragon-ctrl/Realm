@@ -2,6 +2,8 @@
   "id": "mine.kobold_chief",
   "name": { "en": "the Kobold Chief", "cs": "koboldí náčelník" },
   "nameAcc": { "en": "the Kobold Chief", "cs": "koboldího náčelníka" },
+  "nameDat": { "en": "the Kobold Chief", "cs": "koboldímu náčelníkovi" },
+  "nameGen": { "en": "the Kobold Chief", "cs": "koboldího náčelníka" },
   "title": { "en": "Kobold Chief", "cs": "koboldí náčelník" },
   "location": "mine.chief_hall",
   "count": 1,
@@ -11,7 +13,7 @@
   },
   "long": {
     "en": "The biggest kobold you have ever seen, nearly waist-high, with dark red scales and a scarred face. On its head sits a crown made from bent nails and a copper ring. It carries a heavy axe with a chipped blade. It watches you from the throne with eyes that are completely still — not nervous or twitchy like the other kobolds, just calculating.",
-    "cs": "Největší kobold, jakého jsi kdy viděl, téměř do pasu, s tmavě červenými šupinami a zjizveným obličejem. Na hlavě mu sedí koruna z ohnutých hřebíků a měděného prstenu. Nese těžkou sekeru s vyštípenou čepelí. Sleduje tě z trůnu očima, které jsou úplně klidné — žádná nervozita ani přešlapování jako ostatní koboldové, jen chladný výpočet."
+    "cs": "Největší kobold, jakého jsi kdy viděl, sahá ti skoro do pasu, má tmavě červené šupiny a zjizvený obličej. Na hlavě mu sedí koruna z ohnutých hřebíků a měděného prstenu. Nese těžkou sekeru s vyštípenou čepelí. Sleduje tě z trůnu očima, které jsou úplně klidné — žádná nervozita ani přešlapování jako u ostatních koboldů, jen chladný výpočet."
   },
   "disposition": "hostile",
   "aggressive": true,
@@ -46,8 +48,8 @@
           "{actor} brings a crushing blow down on {target}!"
         ],
         "cs": [
-          "{actor} zarazí sekeru do {target} oběma rukama!",
-          "{actor} zařve a zasekne sekeru na {target}!",
+          "{actor} zarazí sekeru do {target.gen} oběma rukama!",
+          "{actor} zařve a zasekne sekeru do {target.gen}!",
           "{actor} zasadí drtivou ránu na {target}!"
         ]
       }
@@ -65,7 +67,7 @@
         ],
         "cs": [
           "zařve a bouchne se do hrudi.",
-          "zaburácel na stráže chraplavým hlasem.",
+          "zaburácí na stráže chraplavým hlasem.",
           "zvedne sekeru a těžce dupne nohou.",
           "přehlédne komnatu a vydá hluboké zavrčení."
         ]

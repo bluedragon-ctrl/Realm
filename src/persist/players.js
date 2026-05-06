@@ -25,7 +25,7 @@ export async function playerExists(name) {
   }
 }
 
-export async function createPlayer(name, startLocation, lang = 'en') {
+export async function createPlayer(name, startLocation, lang = 'en', nameForms = null) {
   if (await playerExists(name)) {
     throw new Error(`player '${name}' already exists`);
   }
@@ -37,6 +37,7 @@ export async function createPlayer(name, startLocation, lang = 'en') {
     lastSeen: now,
     location: startLocation,
     lang,
+    nameForms: nameForms ?? { acc: null, dat: null, gen: null, voc: null },
   };
   await savePlayer(record);
   return record;

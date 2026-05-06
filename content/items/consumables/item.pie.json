@@ -34,8 +34,8 @@
         "others": "{actor} sní malý koláč."
       },
       "to_target": {
-        "self": "podáš malý koláč {target} a ten ho sní.",
-        "others": "{actor} podává malý koláč {target} a ten ho sní."
+        "self": "podáš malý koláč {target.dat} a ten ho sní.",
+        "others": "{actor} podává malý koláč {target.dat} a ten ho sní."
       }
     },
     "effect": { "type": "heal", "amount": 1 },

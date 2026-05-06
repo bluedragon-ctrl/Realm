@@ -2,6 +2,8 @@
   "id": "village.rat",
   "name": { "en": "a cellar rat", "cs": "sklepní krysa" },
   "nameAcc": { "en": "the cellar rat", "cs": "sklepní krysu" },
+  "nameDat": { "en": "the cellar rat", "cs": "sklepní kryse" },
+  "nameGen": { "en": "the cellar rat", "cs": "sklepní krysy" },
   "title": { "en": "cellar rat", "cs": "sklepní krysa" },
   "location": "village.cellar",
   "count": 3,
@@ -45,7 +47,7 @@
         "cs": [
           "{actor} se přihrne a kousne {target}!",
           "{actor} skočí na {target} s vyceněnými zuby!",
-          "{actor} se mihne k {target} a chňapne po kotníku!"
+          "{actor} se mihne k {target.dat} a chňapne po kotníku!"
         ]
       }
     },

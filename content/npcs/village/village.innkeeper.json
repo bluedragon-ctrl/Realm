@@ -8,6 +8,8 @@
     "en": "the innkeeper",
     "cs": "hostinského"
   },
+  "nameDat": { "en": "the innkeeper", "cs": "hostinskému" },
+  "nameGen": { "en": "the innkeeper", "cs": "hostinského" },
   "title": {
     "en": "innkeeper",
     "cs": "hostinský"

@@ -14,7 +14,7 @@
   },
   "long": {
     "en": "A round loaf with a crisp brown crust and a soft fluffy inside. It still smells of the oven. Eating it fills the belly and lifts the spirits.",
-    "cs": "Kulatý bochník s křupavou hnědou kůrkou a měkkou nadýchanou střídou. Stále voní pecí. Když ho sníš, zaplníš si břicho a zvedne ti to náladu."
+    "cs": "Kulatý bochník s křupavou hnědou kůrkou a měkkým nadýchaným vnitřkem. Stále voní pecí. Když ho sníš, zaženeš hlad a zvedne ti to náladu."
   },
   "tags": ["food", "consumable"],
   "weight": 1,
@@ -35,8 +35,8 @@
         "others": "{actor} ulomí kus chleba a sní ho."
       },
       "to_target": {
-        "self": "podáš bochník chleba {target} a ten si ulomí kus a sní ho.",
-        "others": "{actor} podává bochník chleba {target} a ten si ulomí kus a sní ho."
+        "self": "podáš bochník chleba {target.dat} a ten si ulomí kus a sní ho.",
+        "others": "{actor} podává bochník chleba {target.dat} a ten si ulomí kus a sní ho."
       }
     },
     "effect": { "type": "heal", "amount": 2 },

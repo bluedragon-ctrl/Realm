@@ -2,6 +2,8 @@
   "id": "forest.fox_pup",
   "name": { "en": "a fox pup", "cs": "liščí mládě" },
   "nameAcc": { "en": "the fox pup", "cs": "liščí mládě" },
+  "nameDat": { "en": "the fox pup", "cs": "liščímu mláděti" },
+  "nameGen": { "en": "the fox pup", "cs": "liščího mláděte" },
   "title": { "en": "fox pup", "cs": "liščí mládě" },
   "location": "forest.fox_glade",
   "count": 2,
