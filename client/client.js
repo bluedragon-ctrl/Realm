@@ -401,7 +401,16 @@ function renderRoomInInspect(msg) {
     row.appendChild(lab);
     msg.exits.forEach((ex, i) => {
       if (i > 0) row.append(' ');
-      row.appendChild(makeChip(ex.label, 'exit', () => sendInput(ex.key)));
+      const group = document.createElement('span');
+      group.className = 'inspect-exit';
+      group.appendChild(makeChip(ex.label, 'exit', () => sendInput(ex.key)));
+      if (ex.target) {
+        const dest = document.createElement('span');
+        dest.className = 'inspect-exit-dest';
+        dest.textContent = ` → ${ex.target}`;
+        group.appendChild(dest);
+      }
+      row.appendChild(group);
     });
     inspectBody.appendChild(row);
   }
