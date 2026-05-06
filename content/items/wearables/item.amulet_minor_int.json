@@ -1,0 +1,25 @@
+{
+  "id": "item.amulet_minor_int",
+  "name": {
+    "en": "a small charm of insight",
+    "cs": "drobný amulet vhledu"
+  },
+  "nameAcc": {
+    "en": "the small charm of insight",
+    "cs": "drobný amulet vhledu"
+  },
+  "short": {
+    "en": "A small wooden charm with a single carved rune.",
+    "cs": "Drobný dřevěný amulet s jedinou vyřezanou runou."
+  },
+  "long": {
+    "en": "A polished wooden disc on a leather cord, carved with a single neat rune. It is light and warm to the touch. While you wear it, your thoughts feel a little clearer.",
+    "cs": "Leštěný dřevěný kotouč na kožené šňůrce s jednou pečlivě vyřezanou runou. Je lehký a na dotyk teplý. Když ho nosíš, myšlenky máš o trochu jasnější."
+  },
+  "tags": ["amulet", "magic"],
+  "weight": 0,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "int": 1 }
+  }
+}

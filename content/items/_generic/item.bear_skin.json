@@ -1,0 +1,21 @@
+{
+  "id": "item.bear_skin",
+  "name": {
+    "en": "a bear skin",
+    "cs": "medvědí kůže"
+  },
+  "nameAcc": {
+    "en": "the bear skin",
+    "cs": "medvědí kůži"
+  },
+  "short": {
+    "en": "A heavy brown bear skin, still warm.",
+    "cs": "Těžká hnědá medvědí kůže, ještě teplá."
+  },
+  "long": {
+    "en": "A thick pelt of dark-brown fur, rolled up and surprisingly heavy. The leather underside is rough and smells of the wild. A trapper or tanner would surely pay well for it.",
+    "cs": "Hustá kožešina tmavě hnědé srsti, srolovaná a překvapivě těžká. Spodní strana je drsná a voní divočinou. Lovec nebo koželuh by za ni jistě dobře zaplatil."
+  },
+  "tags": ["trophy"],
+  "weight": 3
+}

@@ -1,0 +1,45 @@
+{
+  "id": "item.hearty_soup",
+  "name": {
+    "en": "a bowl of hearty soup",
+    "cs": "miska vydatné polévky"
+  },
+  "nameAcc": {
+    "en": "the bowl of hearty soup",
+    "cs": "misku vydatné polévky"
+  },
+  "short": {
+    "en": "A wooden bowl of thick, steaming soup.",
+    "cs": "Dřevěná miska husté, kouřící polévky."
+  },
+  "long": {
+    "en": "A heavy wooden bowl filled with thick soup — meat, root vegetables, and barley swimming in dark broth. It smells wonderful and steams in the cold air. A good bowl will warm you to the bones.",
+    "cs": "Těžká dřevěná miska plná husté polévky — maso, kořenová zelenina a kroupy plavou v tmavém vývaru. Báječně voní a v chladném vzduchu se z ní kouří. Dobrá miska tě prohřeje až do morku kostí."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you eat the hearty soup. It is hot and rich, and warmth spreads through you.",
+        "others": "{actor} eats a bowl of hearty soup."
+      },
+      "to_target": {
+        "self": "you hand the bowl of hearty soup to {target}, who eats it eagerly.",
+        "others": "{actor} hands the bowl of hearty soup to {target}, who eats it eagerly."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sníš vydatnou polévku. Je horká a sytá a rozlije se ti v těle teplo.",
+        "others": "{actor} sní misku vydatné polévky."
+      },
+      "to_target": {
+        "self": "podáš misku vydatné polévky {target} a ten ji dychtivě vyjí.",
+        "others": "{actor} podává misku vydatné polévky {target} a ten ji dychtivě vyjí."
+      }
+    },
+    "effect": { "type": "heal", "amount": 5, "mp": 5 },
+    "consumable": true
+  }
+}
