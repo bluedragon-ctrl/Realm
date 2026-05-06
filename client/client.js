@@ -21,6 +21,15 @@ const dirSepEl = document.getElementById('dir-sep');
 const useFixtureBtn = document.getElementById('use-fixture-btn');
 const useOnBtn = document.getElementById('use-on-btn');
 const consumablesBtn = document.getElementById('consumables-btn');
+const statusStrip = document.getElementById('status-strip');
+const stripHpRow = document.getElementById('strip-hp');
+const stripHpFill = stripHpRow.querySelector('.strip-fill');
+const stripHpNum = stripHpRow.querySelector('.strip-num');
+const stripHpLabel = stripHpRow.querySelector('.strip-label');
+const stripMpRow = document.getElementById('strip-mp');
+const stripMpFill = stripMpRow.querySelector('.strip-fill');
+const stripMpNum = stripMpRow.querySelector('.strip-num');
+const stripMpLabel = stripMpRow.querySelector('.strip-label');
 
 let ws = null;
 let loggedIn = false;
@@ -150,6 +159,20 @@ function renderStats(msg) {
   const hpPct = s.hpMax > 0 ? Math.max(0, Math.min(100, (s.hp / s.hpMax) * 100)) : 0;
   const mpPct = s.mpMax > 0 ? Math.max(0, Math.min(100, (s.mp / s.mpMax) * 100)) : 0;
   const hpClass = hpPct < 30 ? 'low' : hpPct < 60 ? 'mid' : '';
+
+  // Mirror HP/MP into the always-visible bottom-left status strip.
+  stripHpLabel.textContent = labels.hp ?? 'HP';
+  stripHpNum.textContent = `${s.hp ?? 0}/${s.hpMax ?? 0}`;
+  stripHpFill.className = `strip-fill hp ${hpClass}`;
+  stripHpFill.style.width = `${hpPct}%`;
+  if (s.mpMax > 0) {
+    stripMpRow.hidden = false;
+    stripMpLabel.textContent = labels.mp ?? 'MP';
+    stripMpNum.textContent = `${s.mp ?? 0}/${s.mpMax}`;
+    stripMpFill.style.width = `${mpPct}%`;
+  } else {
+    stripMpRow.hidden = true;
+  }
 
   playerStatsEl.innerHTML = '';
   if (typeof msg.level === 'number') {
@@ -305,6 +328,7 @@ function renderStats(msg) {
   }));
 
   playerPanel.hidden = false;
+  statusStrip.hidden = false;
 }
 
 function makeCollapsibleSection(key, title, buildBody) {
@@ -608,6 +632,7 @@ function connect() {
     whoEl.textContent = 'not connected';
     quickbar.hidden = true;
     playerPanel.hidden = true;
+    statusStrip.hidden = true;
     inspectPanel.hidden = true;
   });
   ws.addEventListener('error', () => appendText('error', 'connection error'));
