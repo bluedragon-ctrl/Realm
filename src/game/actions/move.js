@@ -3,6 +3,7 @@ import { describeRoom, describeRoomToAll } from './look.js';
 import { s, t, dirName } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { clearAggroOnLeave, applyAggressionOnEnter } from '../combat.js';
+import { clearPlayerAttackQueue } from '../playerCombatState.js';
 import { awardXp, markRoomVisited } from '../xp.js';
 
 const DIR_ALIASES = {
@@ -67,6 +68,7 @@ export default function move(actor, args) {
 
   placeActor(actor, targetId);
   actor.dirty = true;
+  clearPlayerAttackQueue(actor);
   clearAggroOnLeave(actor, sourceId);
   applyAggressionOnEnter(actor, targetId);
 

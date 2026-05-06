@@ -1,0 +1,27 @@
+{
+  "id": "item.greatsword",
+  "name": {
+    "en": "a greatsword",
+    "cs": "obouruční meč"
+  },
+  "nameAcc": {
+    "en": "the greatsword",
+    "cs": "obouruční meč"
+  },
+  "short": {
+    "en": "A huge two-handed sword lies here.",
+    "cs": "Leží tu obrovský obouruční meč."
+  },
+  "long": {
+    "en": "A long, heavy sword that needs both hands. The blade is broad and polished. Each swing is slow, but it cuts deep.",
+    "cs": "Dlouhý a těžký meč, který potřebuje obě ruce. Čepel je široká a leštěná. Každý švih je pomalý, ale řeže hluboko."
+  },
+  "tags": ["weapon"],
+  "weight": 7,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "2d6+ATK",
+    "cost": 18,
+    "bonus": { "attack": 3 }
+  }
+}
