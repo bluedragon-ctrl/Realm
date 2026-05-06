@@ -3,6 +3,27 @@ import { findItemInList } from '../items.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
 import { t, s, dirName } from '../../i18n.js';
 
+function serializeExchanges(host, lang) {
+  const list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
+  if (!Array.isArray(list) || list.length === 0) return null;
+  const formatSide = (side) => side.map(e => {
+    if (e.gold != null) return { kind: 'gold', amount: e.gold };
+    const def = world.itemDefs.get(e.item);
+    return {
+      kind: 'item',
+      id: e.item,
+      name: def ? t(def.name, lang) : e.item,
+      count: e.count ?? 1,
+    };
+  });
+  return list.map(e => ({
+    id: e.id,
+    flavor: e.flavor,
+    inputs: formatSide(e.inputs),
+    outputs: formatSide(e.outputs),
+  }));
+}
+
 function serializeShop(npc, lang) {
   if (!npc.shop) return null;
   const out = {};
@@ -119,6 +140,7 @@ function sendTargetInfo(actor, target) {
     const effectsForClient = isFriendly ? [] : serializeActiveEffectsForClient(target, lang)
       .map(e => ({ defId: e.defId, name: e.name, icon: e.icon, kind: e.kind }));
     const shop = serializeShop(target, lang);
+    const exchanges = serializeExchanges(target, lang);
     actor.session.send({
       kind: 'target-info',
       name: t(target.name, lang),
@@ -127,6 +149,12 @@ function sendTargetInfo(actor, target) {
       shop,
       shopSellsLabel: shop ? s('shop.sells_label', lang) : undefined,
       shopBuysLabel: shop ? s('shop.buys_label', lang) : undefined,
+      exchanges,
+      exchangeRowLabels: exchanges ? {
+        buy: s('exchange.row.buy', lang),
+        sell: s('exchange.row.sell', lang),
+        craft: s('exchange.row.craft', lang),
+      } : undefined,
       stats: isFriendly || !target.stats ? null : { ...target.stats },
       statLabels: {
         hp: s('panel.hp', lang),
@@ -194,10 +222,17 @@ export default function look(actor, args) {
 
 function sendItemInfo(actor, inst) {
   const lang = actor.lang;
+  const exchanges = serializeExchanges(inst, lang);
   actor.session.send({
     kind: 'target-info',
     name: t(inst.def.name, lang),
     subtitle: '',
     description: t(inst.def.long, lang) || t(inst.def.short, lang) || s('look.npc_no_desc', lang),
+    exchanges,
+    exchangeRowLabels: exchanges ? {
+      buy: s('exchange.row.buy', lang),
+      sell: s('exchange.row.sell', lang),
+      craft: s('exchange.row.craft', lang),
+    } : undefined,
   });
 }
