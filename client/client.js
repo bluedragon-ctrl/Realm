@@ -955,8 +955,7 @@ function openUseInventoryOnSubmenu(anchorEl, roomItem) {
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
     openRoomItemPopover(anchorEl, roomItem);
   }));
-  const inv = (Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [])
-    .filter(it => it.usable);
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
   if (inv.length === 0) {
     const empty = document.createElement('div');
     empty.style.padding = '4px';
@@ -986,11 +985,9 @@ function openInventoryItemPopover(anchorEl, item, ev) {
       sendInput(`wear ${item.name}`); closePopover();
     }));
   }
-  if (item.usable) {
-    popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
-      openUseSubmenu(anchorEl, item);
-    }));
-  }
+  popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
+    openUseSubmenu(anchorEl, item);
+  }));
   popover.appendChild(popoverButton(labels.dropButton ?? 'Drop', '', () => {
     sendInput(`drop ${item.name}`); closePopover();
   }));
@@ -1005,12 +1002,19 @@ function openUseSubmenu(anchorEl, item) {
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
     openInventoryItemPopover(anchorEl, item);
   }));
-  popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
-    sendInput(`use ${item.name}`); closePopover();
-  }));
-  for (const target of currentRoomTargets()) {
-    popover.appendChild(popoverButton(target, '', () => {
-      sendInput(`use ${item.name} on ${target}`); closePopover();
+  if (item.usable) {
+    popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+      sendInput(`use ${item.name}`); closePopover();
+    }));
+    for (const target of currentRoomTargets()) {
+      popover.appendChild(popoverButton(target, '', () => {
+        sendInput(`use ${item.name} on ${target}`); closePopover();
+      }));
+    }
+  }
+  for (const roomItem of (lastRoomMsg?.items ?? [])) {
+    popover.appendChild(popoverButton(roomItem.name, '', () => {
+      sendInput(`use ${item.name} on ${roomItem.name}`); closePopover();
     }));
   }
   positionPopover(anchorEl);
@@ -1254,8 +1258,7 @@ function openUseFixturePicker(anchorEl, ev) {
 
 function openUseOnPicker(anchorEl, ev) {
   ev?.stopPropagation();
-  const inv = (Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [])
-    .filter(it => it.usable);
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
   startPopover(anchorEl, labels.useOnPickerTitle ?? 'Use which item?');
   if (inv.length === 0) {
     const empty = document.createElement('div');
@@ -1280,13 +1283,15 @@ function openUseOnTargetPicker(anchorEl, item) {
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
     openUseOnPicker(anchorEl);
   }));
-  popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
-    sendInput(`use ${item.name}`); closePopover();
-  }));
-  for (const target of currentRoomTargets()) {
-    popover.appendChild(popoverButton(target, '', () => {
-      sendInput(`use ${item.name} on ${target}`); closePopover();
+  if (item.usable) {
+    popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+      sendInput(`use ${item.name}`); closePopover();
     }));
+    for (const target of currentRoomTargets()) {
+      popover.appendChild(popoverButton(target, '', () => {
+        sendInput(`use ${item.name} on ${target}`); closePopover();
+      }));
+    }
   }
   for (const roomItem of (lastRoomMsg?.items ?? [])) {
     popover.appendChild(popoverButton(roomItem.name, '', () => {
