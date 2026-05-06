@@ -655,3 +655,15 @@ html, body {
   #status-strip { justify-content: stretch; }
   #status-strip .strip-bar { flex: 1 1 0; }
 }
+
+.vitals-line {
+  display: flex;
+  gap: 14px;
+  font-size: 13px;
+  margin: 6px 0 8px;
+  max-width: var(--stats-block-width);
+}
+.vitals-line .vital-label { color: var(--dim); margin-right: 4px; }
+.vitals-line .vital-value { color: var(--fg); font-variant-numeric: tabular-nums; }
+.vitals-line .vital-value.hp.mid { color: var(--hp-mid); }
+.vitals-line .vital-value.hp.low { color: var(--hp-low); }

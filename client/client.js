@@ -198,10 +198,31 @@ function renderStats(msg) {
     wrap.appendChild(btn);
     playerStatsEl.appendChild(wrap);
   }
-  playerStatsEl.appendChild(makeBar(labels.hp ?? 'HP', `${s.hp}/${s.hpMax}`, hpPct, `hp ${hpClass}`));
+  const vitals = document.createElement('div');
+  vitals.className = 'vitals-line';
+  const hpSpan = document.createElement('span');
+  const hpLab = document.createElement('span');
+  hpLab.className = 'vital-label';
+  hpLab.textContent = labels.hp ?? 'HP';
+  const hpVal = document.createElement('span');
+  hpVal.className = `vital-value hp ${hpClass}`;
+  hpVal.textContent = `${s.hp ?? 0}/${s.hpMax ?? 0}`;
+  hpSpan.appendChild(hpLab);
+  hpSpan.appendChild(hpVal);
+  vitals.appendChild(hpSpan);
   if (s.mpMax > 0) {
-    playerStatsEl.appendChild(makeBar(labels.mp ?? 'MP', `${s.mp}/${s.mpMax}`, mpPct, 'mp'));
+    const mpSpan = document.createElement('span');
+    const mpLab = document.createElement('span');
+    mpLab.className = 'vital-label';
+    mpLab.textContent = labels.mp ?? 'MP';
+    const mpVal = document.createElement('span');
+    mpVal.className = 'vital-value mp';
+    mpVal.textContent = `${s.mp}/${s.mpMax}`;
+    mpSpan.appendChild(mpLab);
+    mpSpan.appendChild(mpVal);
+    vitals.appendChild(mpSpan);
   }
+  playerStatsEl.appendChild(vitals);
   const grid = document.createElement('div');
   grid.className = 'stat-grid';
   for (const [key, val] of [
