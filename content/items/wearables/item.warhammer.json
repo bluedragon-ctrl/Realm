@@ -1,0 +1,28 @@
+{
+  "id": "item.warhammer",
+  "name": {
+    "en": "a warhammer",
+    "cs": "válečné kladivo"
+  },
+  "nameAcc": {
+    "en": "the warhammer",
+    "cs": "válečné kladivo"
+  },
+  "short": {
+    "en": "A heavy warhammer lies here.",
+    "cs": "Leží tu těžké válečné kladivo."
+  },
+  "long": {
+    "en": "A two-handed hammer with an iron head. It is slow to swing but hits very hard, and the blow leaves the target staggering.",
+    "cs": "Obouruční kladivo se železnou hlavou. Pomalu se s ním švihá, ale udeří velmi tvrdě a po ráně se cíl potácí."
+  },
+  "tags": ["weapon"],
+  "weight": 6,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d8+ATK",
+    "cost": 14,
+    "bonus": { "attack": 2 },
+    "onHit": { "applyEffect": "effect.slow", "chance": 0.4 }
+  }
+}

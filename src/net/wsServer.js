@@ -11,6 +11,7 @@ import { describeRoom, describeRoomToAll } from '../game/actions/look.js';
 import { sendStats } from '../game/messages.js';
 import { serializeInventory } from '../game/items.js';
 import { applyAggressionOnEnter } from '../game/combat.js';
+import { clearPlayerAttackQueue } from '../game/playerCombatState.js';
 import { s, DEFAULT_LANG } from '../i18n.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -107,6 +108,7 @@ async function handleClose(session) {
   } catch (err) {
     console.error(`failed to save ${actor.name} on disconnect:`, err);
   }
+  clearPlayerAttackQueue(actor);
   removeActor(actor);
   session.actor = null;
   if (lastRoom) describeRoomToAll(lastRoom);

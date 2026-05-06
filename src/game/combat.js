@@ -8,6 +8,7 @@ import { sendStats } from './messages.js';
 import { applyActiveEffect } from './activeEffects.js';
 import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.js';
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
+import { clearPlayerAttackQueue } from './playerCombatState.js';
 
 const MAX_DODGE = 50;
 
@@ -210,6 +211,8 @@ function handleNpcDeath(killer, npc) {
 }
 
 function handlePlayerDeath(killer, victim) {
+  clearPlayerAttackQueue(victim);
+  victim.nextAttackAt = 0;
   const oldRoom = victim.location;
 
   broadcastToRoom(oldRoom, (recipient) => ({
