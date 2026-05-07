@@ -40,6 +40,8 @@
 
   "narration.leaves": "{name} leaves {direction}.",
   "narration.arrives": "{name} arrives.",
+  "npc.wander.leaves": "{actor} wanders off to the {dir}.",
+  "npc.wander.arrives": "{actor} wanders in from the {dir}.",
   "narration.appears": "{name} appears.",
   "narration.vanishes": "{name} vanishes.",
   "narration.you_arrive": "you arrive at {room}.",

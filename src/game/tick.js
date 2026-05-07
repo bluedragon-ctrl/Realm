@@ -60,6 +60,7 @@ function checkRequires(actor, requires) {
 
 function pickBehavior(actor) {
   for (const b of actor.behaviors) {
+    if (b.primitive === 'wander') continue;
     const cost = b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12;
     if (actor.energy < cost) continue;
     if (!checkRequires(actor, b.requires)) continue;

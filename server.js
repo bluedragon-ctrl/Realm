@@ -3,6 +3,7 @@ import { loadStrings } from './src/persist/contentLoader.js';
 import { setStringTables } from './src/i18n.js';
 import { startWsServer } from './src/net/wsServer.js';
 import { startTick, flushDirty } from './src/game/tick.js';
+import { startWanderTick } from './src/game/wandering.js';
 import { describeRoomToAll } from './src/game/actions/look.js';
 
 const PORT = Number(process.env.PORT ?? 8080);
@@ -15,6 +16,7 @@ async function main() {
   });
   await startWsServer(PORT);
   startTick();
+  startWanderTick();
 
   const shutdown = async () => {
     console.log('\nshutting down...');
