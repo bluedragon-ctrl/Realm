@@ -1,0 +1,79 @@
+{
+  "id": "forest.boar",
+  "name": { "en": "a wild boar", "cs": "divoký kanec" },
+  "nameAcc": { "en": "the wild boar", "cs": "divokého kance" },
+  "nameDat": { "en": "the wild boar", "cs": "divokému kanci" },
+  "nameGen": { "en": "the wild boar", "cs": "divokého kance" },
+  "title": { "en": "wild boar", "cs": "divoký kanec" },
+  "location": "forest.deep_forest",
+  "short": {
+    "en": "A heavy wild boar with bristly black fur and sharp tusks paws at the ground.",
+    "cs": "Mohutný divoký kanec s naježenou černou srstí a ostrými kly hrabe v zemi."
+  },
+  "long": {
+    "en": "A big, barrel-chested boar with thick black bristles, small dark eyes, and a pair of curved yellow tusks. It snorts loudly and paws at the ground, head low. It does not look like it wants to share the path.",
+    "cs": "Velký, mohutný kanec s hustými černými štětinami, drobnýma tmavýma očima a dvojicí zahnutých žlutých klů. Hlasitě funí a hrabe nohou v zemi, hlavu skloněnou. Nevypadá, že by se chtěl o cestu dělit."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 22, "hpMax": 22,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 2, "int": 0,
+    "spd": 5
+  },
+  "respawn": { "ticks": 500 },
+  "xp": 18,
+  "goldDrop": { "formula": "1d4", "chance": 0.2 },
+  "loot": [
+    { "defId": "item.boar_tusk", "chance": 0.5 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "wander",
+      "chance": 0.3,
+      "cost": 16,
+      "scope": { "region": "forest", "tags": ["outdoor"] }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "gore", "cs": "trknutí" },
+      "chance": 1.0,
+      "cost": 16,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lowers its head and gores {target} with its tusks!",
+          "{actor} charges forward and rams {target}!",
+          "{actor} swings its head and slashes {target} with a tusk!"
+        ],
+        "cs": [
+          "{actor} skloní hlavu a trkne {target.acc} kly!",
+          "{actor} se vrhne vpřed a nabere {target.acc}!",
+          "{actor} máchne hlavou a sekne {target.acc} klem!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 8,
+      "lines": {
+        "en": [
+          "snorts loudly and shakes its head.",
+          "paws at the dirt and grunts.",
+          "lifts its snout and sniffs the air.",
+          "stamps a hoof and gives a low rumbling growl."
+        ],
+        "cs": [
+          "hlasitě zafuní a zatřese hlavou.",
+          "hrabe v hlíně a chrochtá.",
+          "zvedne rypák a nasává vzduch.",
+          "dupne kopytem a vydá nízké hrdelní zavrčení."
+        ]
+      }
+    }
+  ]
+}
