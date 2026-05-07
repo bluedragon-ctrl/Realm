@@ -118,7 +118,7 @@ function sendExpiredFeedback(actor, def) {
 function fireTick(actor, inst, def) {
   const spec = def.tick?.effect;
   if (!spec) return;
-  if (spec.type === 'damage' && damageHandler && inst.casterName) {
+  if (spec.type === 'damage' && spec.stat !== 'mp' && damageHandler && inst.casterName) {
     const caster = world.actorsByName.get(inst.casterName.toLowerCase());
     if (caster && caster.location === actor.location && caster.stats?.hp > 0 && caster !== actor) {
       damageHandler(caster, actor, spec.amount ?? 1);

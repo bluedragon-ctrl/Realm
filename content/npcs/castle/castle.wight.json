@@ -35,7 +35,10 @@
       "cost": 14,
       "damage": "1d6+ATK",
       "requires": "aggro_target",
-      "onHit": { "applyEffect": "effect.bleeding", "chance": 0.3 },
+      "onHit": [
+        { "applyEffect": "effect.mana_burn", "chance": 0.4 },
+        { "applyEffect": "effect.bleeding", "chance": 0.2 }
+      ],
       "templates": {
         "en": [
           "{actor} reaches out and brushes {target} with cold, dry fingers!",

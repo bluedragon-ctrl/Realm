@@ -128,6 +128,8 @@
   "attack.dead_target": "{target} už je poražen.",
   "combat.you_hit": "udeříš {target} za {amount} poškození.",
   "combat.target_hit_you": "{actor} tě udeří za {amount} poškození.",
+  "combat.you_burned_mp": "vytáhneš {amount} many z {target}.",
+  "combat.target_burned_your_mp": "{actor} ti vytáhne {amount} many.",
   "combat.you_missed": "zaútočíš na {target}, ale mineš.",
   "combat.target_missed_you": "{actor} na tebe zaútočí, ale mine.",
   "combat.miss_observed": "{actor} zaútočí na {target}, ale mine.",
