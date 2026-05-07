@@ -1,0 +1,71 @@
+{
+  "id": "castle.shambling_zombie",
+  "name": { "en": "a shambling zombie", "cs": "vrávorající zombie" },
+  "nameAcc": { "en": "the shambling zombie", "cs": "vrávorající zombii" },
+  "nameDat": { "en": "the shambling zombie", "cs": "vrávorající zombii" },
+  "nameGen": { "en": "the shambling zombie", "cs": "vrávorající zombie" },
+  "title": { "en": "shambling zombie", "cs": "vrávorající zombie" },
+  "locations": {
+    "castle.cloister": 1,
+    "castle.crypt_stair": 1
+  },
+  "short": {
+    "en": "A grey, slow-moving corpse drags itself forward, leaving a smear behind.",
+    "cs": "Šedá, pomalu se pohybující mrtvola se vleče vpřed a za sebou nechává šmouhu."
+  },
+  "long": {
+    "en": "Once a man, now mostly grey skin stretched over old bone. Its eyes are milky and it does not seem to see well, but it always finds a way toward warm things. Its arms hang heavy and its hands are dark with old, dried blood. Its breath, when it comes, smells of damp earth.",
+    "cs": "Kdysi to byl člověk, teď je to hlavně šedá kůže napjatá přes staré kosti. Oči má mléčné a zdá se, že špatně vidí, ale teplé věci vždycky nějak najde. Paže mu visí těžce a ruce má tmavé od staré zaschlé krve. Když vydechne, dech mu páchne vlhkou hlínou."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 50, "hpMax": 50,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 2, "int": 0,
+    "magicResist": 30,
+    "spd": 4
+  },
+  "respawn": { "ticks": 600 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "heavy claw", "cs": "těžký dráp" },
+      "chance": 1.0,
+      "cost": 18,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "onHit": { "applyEffect": "effect.bleeding", "chance": 0.5 },
+      "templates": {
+        "en": [
+          "{actor} swings a heavy arm at {target} and tears with broken nails!",
+          "{actor} lunges and rakes {target} with grey, splintered fingers!",
+          "{actor} grabs at {target} and bites down on a shoulder!"
+        ],
+        "cs": [
+          "{actor} máchne těžkou paží po {target.dat} a trhá zlomenými nehty!",
+          "{actor} vyrazí a hrabe po {target.dat} šedými roztříštěnými prsty!",
+          "{actor} se chytí {target.gen} a zakousne se mu do ramene!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.04,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lets out a low, wet groan.",
+          "shuffles forward a step and stops, swaying.",
+          "drags one foot heavily across the stone."
+        ],
+        "cs": [
+          "vydá hluboký vlhký sten.",
+          "udělá šouravý krok vpřed a zastaví se, kymácí se.",
+          "těžce vleče jednu nohu po kameni."
+        ]
+      }
+    }
+  ]
+}

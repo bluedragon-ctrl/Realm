@@ -1,0 +1,20 @@
+{
+  "id": "forest.broken_road",
+  "name": {
+    "en": "Broken Road",
+    "cs": "Rozbitá cesta"
+  },
+  "short": {
+    "en": "A cracked stone road climbing east toward dark ruins on a ridge.",
+    "cs": "Popraskaná kamenná cesta stoupá na východ k temným zříceninám na hřebeni."
+  },
+  "long": {
+    "en": "Old paving stones lie cracked and half-buried in tall grass. Broken statues sit on either side of the road — a horse with no rider, a knight with no head. The road climbs slowly up a long ridge. To the east, the silhouette of a ruined castle stands black against the sky. Birds avoid this place, and the wind is the only sound.",
+    "cs": "Staré dlažební kameny leží popraskané a napůl zahrabané ve vysoké trávě. Po obou stranách cesty stojí rozbité sochy — kůň bez jezdce, rytíř bez hlavy. Cesta pomalu stoupá po dlouhém hřebeni. Na východě se proti obloze rýsuje černá silueta zřícené pevnosti. Ptáci se tomuto místu vyhýbají a jediným zvukem je vítr."
+  },
+  "exits": {
+    "w": "forest.hill",
+    "e": "castle.gatehouse"
+  },
+  "tags": ["outdoor", "forest", "ruins"]
+}

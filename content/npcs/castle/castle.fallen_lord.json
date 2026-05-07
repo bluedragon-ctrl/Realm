@@ -1,0 +1,119 @@
+{
+  "id": "castle.fallen_lord",
+  "name": { "en": "the fallen lord", "cs": "padlý pán" },
+  "nameAcc": { "en": "the fallen lord", "cs": "padlého pána" },
+  "nameDat": { "en": "the fallen lord", "cs": "padlému pánovi" },
+  "nameGen": { "en": "the fallen lord", "cs": "padlého pána" },
+  "title": { "en": "fallen lord", "cs": "padlý pán" },
+  "location": "castle.tomb",
+  "count": 1,
+  "short": {
+    "en": "A tall figure half in armor and half in mist, sword in hand and eyes burning cold blue.",
+    "cs": "Vysoká postava napůl ve zbroji a napůl v mlze, meč v ruce a oči planou chladnou modří."
+  },
+  "long": {
+    "en": "The lord of this castle, killed long ago and never quite gone. From the waist up he is a man in heavy plate, helm open, face hollow and grey. From the waist down he trails away into a slow moving column of mist. He carries a great sword in one hand and a battered round shield in the other, and the air around him is so cold it hurts to breathe.",
+    "cs": "Pán tohoto hradu, dávno zabitý a nikdy úplně neodešlý. Od pasu nahoru je to muž v těžké plátové zbroji, přilbice otevřená, tvář pohublá a šedá. Od pasu dolů se rozplývá v pomalu se pohybující sloup mlhy. V jedné ruce drží velký meč, ve druhé obitý kulatý štít, a vzduch kolem něj je tak chladný, že dýchání bolí."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 120, "hpMax": 120,
+    "mp": 0, "mpMax": 0,
+    "attack": 10, "defense": 6, "int": 0,
+    "magicResist": 50,
+    "accuracy": 20,
+    "spd": 5
+  },
+  "respawn": { "ticks": 3000 },
+  "behaviors": [
+    {
+      "primitive": "cast",
+      "spell": "spell.fortify",
+      "target": "self",
+      "chance": 0.15,
+      "cost": 14,
+      "requires": { "type": "low_hp", "ratio": 0.5 }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "spectral chill", "cs": "přízračný chlad" },
+      "chance": 0.4,
+      "cost": 22,
+      "damage": "1d8+ATK",
+      "ignoreDef": true,
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} reaches out with a misty hand and a freezing wind passes straight through {target}'s armor!",
+          "{actor} draws a slow breath and a cold that ignores steel settles into {target}'s bones!",
+          "{actor} touches {target} lightly and the chill bypasses every plate of armor!"
+        ],
+        "cs": [
+          "{actor} natáhne mlhavou ruku a mrazivý vichr projde přímo skrz zbroj {target.gen}!",
+          "{actor} se pomalu nadechne a do kostí {target.gen} se usadí chlad, kterému ocel nevadí!",
+          "{actor} se lehce dotkne {target.gen} a mráz projde kolem každé desky zbroje!"
+        ]
+      }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "shield slam", "cs": "úder štítem" },
+      "chance": 0.5,
+      "cost": 20,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "onHit": { "applyEffect": "effect.bleeding", "chance": 0.5 },
+      "templates": {
+        "en": [
+          "{actor} steps in and slams his round shield into {target} with a heavy thud!",
+          "{actor} drives the rim of his shield into {target} hard enough to crack ribs!",
+          "{actor} smashes his shield forward and catches {target} square in the chest!"
+        ],
+        "cs": [
+          "{actor} udělá krok vpřed a těžce udeří kulatým štítem do {target.gen}!",
+          "{actor} zaboří okraj štítu do {target.gen} tak silně, že praská žebra!",
+          "{actor} vyrazí štítem dopředu a zasáhne {target} přímo do hrudi!"
+        ]
+      }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "great sword cleave", "cs": "sek velkým mečem" },
+      "chance": 1.0,
+      "cost": 22,
+      "damage": "1d10+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} brings his great sword down on {target} in a long, terrible arc!",
+          "{actor} swings his great sword two-handed and the blade catches {target} across the side!",
+          "{actor} drives the point of his great sword straight at {target}'s chest!"
+        ],
+        "cs": [
+          "{actor} sek velkým mečem v dlouhém strašném oblouku dopadne na {target}!",
+          "{actor} mávne velkým mečem oběma rukama a čepel zasáhne {target} z boku!",
+          "{actor} vede špici velkého meče přímo na hruď {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.04,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lets out a long, cold sigh that makes the torches flicker.",
+          "tilts his hollow face slowly toward you.",
+          "drifts a step closer, the lower half of him trailing mist across the stone."
+        ],
+        "cs": [
+          "vydá dlouhý chladný vzdech a pochodně zaplápolají.",
+          "pomalu nakloní svou pohublou tvář směrem k tobě.",
+          "popojde o krok blíž, jeho spodní polovina za sebou táhne mlhu po kameni."
+        ]
+      }
+    }
+  ]
+}

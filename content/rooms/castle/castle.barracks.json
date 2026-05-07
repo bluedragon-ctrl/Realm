@@ -1,0 +1,20 @@
+{
+  "id": "castle.barracks",
+  "name": {
+    "en": "Barracks",
+    "cs": "Strážnice"
+  },
+  "short": {
+    "en": "A long room with rotting bunks and rusted weapon racks.",
+    "cs": "Dlouhá místnost se shnilými palandami a zrezivělými stojany na zbraně."
+  },
+  "long": {
+    "en": "Wooden bunks line the walls in two rows, blankets long since rotted to grey rags. Weapon racks hold a few snapped spears and one rust-eaten helmet. The air smells of old metal and dust. A heavy door at the far end is marked with a sword-and-shield crest carved into the wood.",
+    "cs": "Dřevěné palandy lemují stěny ve dvou řadách, deky se dávno proměnily v šedé hadry. Stojany na zbraně drží několik zlomených kopí a jednu helmu rozežranou rzí. Vzduch páchne starým kovem a prachem. Těžké dveře na druhém konci jsou označeny znakem meče a štítu vyřezaným do dřeva."
+  },
+  "exits": {
+    "w": "castle.courtyard",
+    "e": "castle.armoury"
+  },
+  "tags": ["indoor", "castle", "ruins"]
+}

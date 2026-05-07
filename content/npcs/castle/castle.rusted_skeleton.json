@@ -1,0 +1,72 @@
+{
+  "id": "castle.rusted_skeleton",
+  "name": { "en": "a rusted skeleton", "cs": "rezavý kostlivec" },
+  "nameAcc": { "en": "the rusted skeleton", "cs": "rezavého kostlivce" },
+  "nameDat": { "en": "the rusted skeleton", "cs": "rezavému kostlivci" },
+  "nameGen": { "en": "the rusted skeleton", "cs": "rezavého kostlivce" },
+  "title": { "en": "rusted skeleton", "cs": "rezavý kostlivec" },
+  "locations": {
+    "castle.gatehouse": 2,
+    "castle.courtyard": 1
+  },
+  "short": {
+    "en": "A skeleton in rusted mail stands watch, its sword resting on the cobbles.",
+    "cs": "Kostlivec v zrezivělé zbroji drží stráž, meč mu spočívá na dlažbě."
+  },
+  "long": {
+    "en": "A skeleton wrapped in chainmail eaten through with rust. Its bones are stained brown from the iron, and its sword is pitted from years in the open air. Cold blue light flickers in its eye sockets. It moves stiffly but without sound.",
+    "cs": "Kostlivec zahalený v kroužkové zbroji prožrané rzí. Kosti má hnědé od železa a meč je poďobaný léty pod širým nebem. V očních důlcích mu blikají chladné modré jiskry. Pohybuje se ztuha, ale bez jediného zvuku."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 22, "hpMax": 22,
+    "mp": 0, "mpMax": 0,
+    "attack": 4, "defense": 2, "int": 0,
+    "magicResist": 50,
+    "spd": 6
+  },
+  "respawn": { "ticks": 400 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "slash", "cs": "sek" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swings its rusted sword at {target}!",
+          "{actor} lunges and slashes at {target} with a bony arm!",
+          "{actor} brings its blade down on {target} in a slow, heavy arc!"
+        ],
+        "cs": [
+          "{actor} máchne zrezivělým mečem po {target.dat}!",
+          "{actor} vyrazí vpřed a sekne po {target.dat} kostnatou rukou!",
+          "{actor} zasadí pomalý těžký úder svým mečem na {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "rattles its mail with a dry clinking sound.",
+          "turns its skull slowly, scanning the room.",
+          "stamps a foot, sending a small shower of rust to the floor.",
+          "grinds its jaw open and shut without a sound."
+        ],
+        "cs": [
+          "zachřestí zbrojí suchým cinkáním.",
+          "pomalu otáčí lebkou a prohlíží místnost.",
+          "dupne nohou a na zem se sype malá sprška rzi.",
+          "rozevře a sevře čelist beze zvuku."
+        ]
+      }
+    }
+  ]
+}
