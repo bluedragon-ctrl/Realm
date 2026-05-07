@@ -5,8 +5,10 @@
   "nameDat": { "en": "the skeleton warrior", "cs": "kostlivci bojovníkovi" },
   "nameGen": { "en": "the skeleton warrior", "cs": "kostlivce bojovníka" },
   "title": { "en": "skeleton warrior", "cs": "kostlivec bojovník" },
-  "location": "forest.tower_cellar",
-  "count": 1,
+  "locations": {
+    "forest.tower_cellar": 1,
+    "forest.tower_crypt": 1
+  },
   "short": {
     "en": "A skeleton warrior stands in the middle of the cellar, sword raised.",
     "cs": "Uprostřed sklepa stojí kostlivec bojovník se zdviženým mečem."
@@ -25,11 +27,12 @@
     "magicResist": 50,
     "spd": 10
   },
-  "respawn": { "ticks": 900 },
+  "respawn": { "ticks": 300 },
   "xp": 20,
   "goldDrop": { "formula": "1d6", "chance": 0.3 },
   "loot": [
-    { "defId": "item.iron_sword", "chance": 1.0 }
+    { "defId": "item.iron_sword", "chance": 0.35 },
+    { "defId": "potion.mana", "chance": 0.5 }
   ],
   "behaviors": [
     {
