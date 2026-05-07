@@ -157,7 +157,24 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
     if (!silent) sendStats(actor);
     resisted = true;
   } else if (effectType === 'damage' && target && target !== actor) {
-    applyDamageToList(actor, spell, [target]);
+    if (spell.effect.stat === 'mp') {
+      const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
+      const amount = Math.max(1, roll(formula, { actor, target }));
+      const result = applyEffect({ ...spell.effect, amount }, { actor, target });
+      registerAttackAggro(actor, target);
+      if (!silent) {
+        const dealt = result?.dealt ?? 0;
+        if (dealt > 0) {
+          actor.session?.send({ kind: 'system', tone: 'bad', text: s('combat.you_burned_mp', actor.lang, { target: resolveName(target, 'gen', actor.lang), amount: dealt }) });
+          if (target.session && target !== actor) {
+            target.session.send({ kind: 'system', tone: 'bad', text: s('combat.target_burned_your_mp', target.lang, { actor: resolveName(actor, 'nom', target.lang), amount: dealt }) });
+          }
+        }
+        sendStats(actor);
+      }
+    } else {
+      applyDamageToList(actor, spell, [target]);
+    }
   } else if (effectType === 'apply_effect') {
     const recipient = target ?? actor;
     applyActiveEffect(recipient, spell.effect.effectId, EFFECT_SOURCE.SPELL, actor.name);

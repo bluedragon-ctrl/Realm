@@ -128,6 +128,8 @@
   "attack.dead_target": "{target} is already defeated.",
   "combat.you_hit": "you hit {target} for {amount} damage.",
   "combat.target_hit_you": "{actor} hits you for {amount} damage.",
+  "combat.you_burned_mp": "you drain {amount} MP from {target}.",
+  "combat.target_burned_your_mp": "{actor} drains {amount} MP from you.",
   "combat.you_missed": "you swing at {target} but miss.",
   "combat.target_missed_you": "{actor} swings at you but misses.",
   "combat.miss_observed": "{actor} swings at {target} but misses.",
