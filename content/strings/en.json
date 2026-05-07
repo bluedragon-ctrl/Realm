@@ -27,6 +27,8 @@
   "move.broken_exit": "that exit leads nowhere (broken link).",
   "move.locked": "it's locked.",
   "unlock.success": "{target} unlocks with a soft click.",
+  "chest.need_key": "you need {key} to open this.",
+  "chest.opened": "the chest swings open and its contents spill onto the floor.",
   "produce.you_made": "you receive {item}.",
 
   "say.no_arg": "say what?",

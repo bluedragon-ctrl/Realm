@@ -1,6 +1,6 @@
 import { sendStats } from './messages.js';
 import { s, t } from '../i18n.js';
-import { world, unlockExit } from './world.js';
+import { world, unlockExit, placeItemInRoom, removeItemFromRoom, addGoldToRoom } from './world.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { resolveName } from './declension.js';
@@ -40,6 +40,35 @@ const EFFECTS = {
     const dealt = Math.min(recipient.stats.hp, Math.max(0, amount ?? 0));
     recipient.stats.hp -= dealt;
     return { dealt };
+  },
+  open_chest({ key, loot, gold }, { actor, fixture, room }) {
+    if (!actor || !room) return { opened: false };
+    if (key) {
+      const idx = actor.inventory?.findIndex(i => i.defId === key) ?? -1;
+      if (idx < 0) return { opened: false, missingKey: key };
+      actor.inventory.splice(idx, 1);
+      actor.dirty = true;
+    }
+    const dropped = [];
+    for (const entry of loot ?? []) {
+      if (Math.random() < (entry.chance ?? 1.0)) {
+        const def = world.itemDefs.get(entry.defId);
+        if (!def) continue;
+        const count = entry.count ?? 1;
+        for (let i = 0; i < count; i++) {
+          const inst = makeItemInstance(def);
+          placeItemInRoom(inst, room);
+          dropped.push(inst);
+        }
+      }
+    }
+    let goldAmount = 0;
+    if (gold) {
+      goldAmount = Math.max(0, roll(gold, { actor }));
+      if (goldAmount > 0) addGoldToRoom(room, goldAmount);
+    }
+    if (fixture) removeItemFromRoom(fixture, room);
+    return { opened: true, dropped, goldAmount };
   },
   heal({ amount, hp, mp }, { actor, target }) {
     const recipient = target ?? actor;

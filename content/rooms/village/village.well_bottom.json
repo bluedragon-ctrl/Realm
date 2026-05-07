@@ -1,0 +1,20 @@
+{
+  "id": "village.well_bottom",
+  "name": {
+    "en": "Bottom of the well",
+    "cs": "Dno studny"
+  },
+  "short": {
+    "en": "A wet stone shaft with a shallow pool. A low tunnel runs west.",
+    "cs": "Vlhká kamenná šachta s mělkou tůní. Na západ vede nízká chodba."
+  },
+  "long": {
+    "en": "The walls of the shaft are slick with moss and the air is cold. A shallow pool covers most of the floor, fed by water trickling between the stones. The rope from above hangs down to your shoulder. A low tunnel cuts west into the dark, just tall enough to crouch through.",
+    "cs": "Stěny šachty jsou kluzké mechem a vzduch je chladný. Většinu podlahy pokrývá mělká tůň, kterou napájí voda prosakující mezi kameny. Provaz seshora visí ti až k rameni. Nízká chodba se tu zařezává na západ do tmy, akorát vysoká, aby se dalo projít přikrčeně."
+  },
+  "exits": {
+    "u": "village.square",
+    "w": "village.well_grotto"
+  },
+  "tags": ["indoor", "village", "dark", "wet"]
+}

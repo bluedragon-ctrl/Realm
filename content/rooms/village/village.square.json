@@ -16,7 +16,11 @@
     "n": "village.lane",
     "s": "village.smith",
     "w": "village.pub",
-    "e": "village.orchard"
+    "e": "village.orchard",
+    "d": "village.well_bottom"
+  },
+  "lockedExits": {
+    "d": "village.well"
   },
   "tags": ["outdoor", "village", "safe"]
 }

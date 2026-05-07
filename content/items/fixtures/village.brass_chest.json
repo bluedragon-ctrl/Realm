@@ -1,0 +1,53 @@
+{
+  "id": "village.brass_chest",
+  "name": {
+    "en": "a small brass-bound chest",
+    "cs": "malá truhla okovaná mosazí"
+  },
+  "nameAcc": {
+    "en": "the small brass-bound chest",
+    "cs": "malou truhlu okovanou mosazí"
+  },
+  "short": {
+    "en": "A small wooden chest bound in green-tinged brass sits on the stone.",
+    "cs": "Na kameni stojí malá dřevěná truhla okovaná mosazí, na okrajích zelená měděnkou."
+  },
+  "long": {
+    "en": "A wooden chest no bigger than a loaf of bread, bound at the corners with strips of brass that have gone green at the edges. The lock is plain but solid, the same dull green as a key you may have seen before. Whoever hid it here meant for someone with the right key to find it.",
+    "cs": "Dřevěná truhla velká sotva jako bochník chleba, v rozích okovaná mosaznými pásy, které na okrajích zezelenaly měděnkou. Zámek je prostý, ale pevný, stejně matně zelený jako klíč, který už možná znáš. Kdo ji sem ukryl, počítal s tím, že ji najde někdo se správným klíčem."
+  },
+  "tags": ["fixture", "container"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "village.well_grotto",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you fit the green brass key into the lock, turn it, and lift the lid.",
+        "others": "{actor} fits a green brass key into a chest, turns it, and lifts the lid."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zasuneš zelený mosazný klíč do zámku, otočíš jím a zvedneš víko.",
+        "others": "{actor} zasune zelený mosazný klíč do zámku truhly, otočí jím a zvedne víko."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "open_chest",
+      "key": "item.green_brass_key",
+      "loot": [
+        { "defId": "item.amulet_minor_int", "chance": 1.0 },
+        { "defId": "potion.heal", "count": 2, "chance": 1.0 },
+        { "defId": "item.heal_scroll", "chance": 0.5 },
+        { "defId": "item.spark_scroll", "chance": 0.5 },
+        { "defId": "item.shield_scroll", "chance": 0.5 }
+      ],
+      "gold": "3d10+10"
+    }
+  }
+}

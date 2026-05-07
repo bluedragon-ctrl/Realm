@@ -1,0 +1,21 @@
+{
+  "id": "item.toad_hide",
+  "name": {
+    "en": "a toad hide",
+    "cs": "ropuší kůže"
+  },
+  "nameAcc": {
+    "en": "the toad hide",
+    "cs": "ropuší kůži"
+  },
+  "short": {
+    "en": "A thick warty hide, still slick with pond water.",
+    "cs": "Tlustá bradavičnatá kůže, stále kluzká od vody z tůně."
+  },
+  "long": {
+    "en": "A heavy slab of warty green hide, peeled from a very large toad. The skin is tough and rubbery and smells of pond water. A tanner or alchemist would probably know what to do with it.",
+    "cs": "Těžký kus bradavičnaté zelené kůže, stažený z velmi velké ropuchy. Kůže je tvrdá a pružná a páchne vodou z tůně. Koželuh nebo alchymista by si s ní jistě věděl rady."
+  },
+  "tags": ["trophy"],
+  "weight": 2
+}
