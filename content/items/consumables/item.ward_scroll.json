@@ -1,0 +1,40 @@
+{
+  "id": "item.ward_scroll",
+  "name": {
+    "en": "a pale scroll",
+    "cs": "bledý svitek"
+  },
+  "nameAcc": {
+    "en": "the pale scroll",
+    "cs": "bledý svitek"
+  },
+  "short": {
+    "en": "A pale scroll tied with a thin white cord sits here.",
+    "cs": "Na zemi leží bledý svitek uvázaný tenkou bílou šňůrkou."
+  },
+  "long": {
+    "en": "A scroll of thin pale paper, soft to the touch. The words inside are written in a faint ink that catches the light like frost on glass.",
+    "cs": "Svitek z tenkého bledého papíru, měkký na dotek. Slova uvnitř jsou psána bledým inkoustem, který ve světle září jako mráz na skle."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. A ring of pale light pulses once and fades into you.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A brief ring of pale light pulses in the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Kroužek bledého světla jednou pulzuje a vsákne se do tebe.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Ve vzduchu jednou pulzuje kroužek bledého světla."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.ward"
+    }
+  }
+}
