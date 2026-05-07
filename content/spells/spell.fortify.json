@@ -7,28 +7,28 @@
   "mpCost": 2,
   "target": "friendly",
   "description": {
-    "en": "Strengthen yourself or an ally, raising attack for a short time.",
-    "cs": "Posílí tebe nebo spojence a na chvíli zvýší útok."
+    "en": "Harden yourself or an ally, raising defense for a short time.",
+    "cs": "Posílí obranu tebe nebo spojence na krátký čas."
   },
   "verb": {
     "en": {
       "no_target": {
-        "self": "you press a fist to your chest and speak a word of strength. Your arms feel ready.",
-        "others": "{actor} presses a fist to their chest and speaks a word of strength."
+        "self": "you trace a slow circle in the air and a faint golden glow settles over you.",
+        "others": "{actor} traces a slow circle in the air and a faint golden glow settles over them."
       },
       "to_target": {
-        "self": "you press a fist to your chest and speak a word of strength toward {target}.",
-        "others": "{actor} presses a fist to their chest and speaks a word of strength toward {target}."
+        "self": "you trace a slow circle in the air and a faint golden glow drifts toward {target}.",
+        "others": "{actor} traces a slow circle in the air and a faint golden glow drifts toward {target}."
       }
     },
     "cs": {
       "no_target": {
-        "self": "přiložíš pěst k hrudi a vyřkneš slovo síly. Paže se ti napnou.",
-        "others": "{actor} přiloží pěst k hrudi a vyřkne slovo síly."
+        "self": "pomalu narýsuješ kruh ve vzduchu a slabá zlatá záře se usadí kolem tebe.",
+        "others": "{actor} pomalu narýsuje kruh ve vzduchu a slabá zlatá záře se usadí kolem něj."
       },
       "to_target": {
-        "self": "přiložíš pěst k hrudi a vyřkneš slovo síly směrem k {target}.",
-        "others": "{actor} přiloží pěst k hrudi a vyřkne slovo síly směrem k {target}."
+        "self": "pomalu narýsuješ kruh ve vzduchu a slabá zlatá záře se snese k {target}.",
+        "others": "{actor} pomalu narýsuje kruh ve vzduchu a slabá zlatá záře se snese k {target}."
       }
     }
   },
