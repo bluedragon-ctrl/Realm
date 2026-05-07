@@ -1,0 +1,36 @@
+{
+  "id": "spell.fortify",
+  "name": {
+    "en": "Fortify",
+    "cs": "Posílení"
+  },
+  "mpCost": 2,
+  "target": "friendly",
+  "description": {
+    "en": "Strengthen yourself or an ally, raising attack for a short time.",
+    "cs": "Posílí tebe nebo spojence a na chvíli zvýší útok."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you press a fist to your chest and speak a word of strength. Your arms feel ready.",
+        "others": "{actor} presses a fist to their chest and speaks a word of strength."
+      },
+      "to_target": {
+        "self": "you press a fist to your chest and speak a word of strength toward {target}.",
+        "others": "{actor} presses a fist to their chest and speaks a word of strength toward {target}."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přiložíš pěst k hrudi a vyřkneš slovo síly. Paže se ti napnou.",
+        "others": "{actor} přiloží pěst k hrudi a vyřkne slovo síly."
+      },
+      "to_target": {
+        "self": "přiložíš pěst k hrudi a vyřkneš slovo síly směrem k {target}.",
+        "others": "{actor} přiloží pěst k hrudi a vyřkne slovo síly směrem k {target}."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.fortify" }
+}

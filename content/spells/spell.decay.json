@@ -1,0 +1,29 @@
+{
+  "id": "spell.decay",
+  "name": {
+    "en": "Decay",
+    "cs": "Rozklad"
+  },
+  "mpCost": 5,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Curse the target with a rotting weakness that eats away at them over time.",
+    "cs": "Prokleje cíl shnilou slabostí, která ho postupně oslabuje."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you whisper a dark word and a sickly grey shimmer settles over {target}.",
+        "others": "{actor} whispers a dark word and a sickly grey shimmer settles over {target}."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "zašeptáš temné slovo a nezdravý šedý třpyt se usadí na {target}.",
+        "others": "{actor} zašeptá temné slovo a nezdravý šedý třpyt se usadí na {target}."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.decay" }
+}

@@ -1,0 +1,26 @@
+{
+  "id": "item.amulet_wolf_fang",
+  "name": {
+    "en": "a wolf fang amulet",
+    "cs": "amulet z vlčího tesáku"
+  },
+  "nameAcc": {
+    "en": "the wolf fang amulet",
+    "cs": "amulet z vlčího tesáku"
+  },
+  "short": {
+    "en": "A long wolf fang on a thin strip of leather.",
+    "cs": "Dlouhý vlčí tesák na tenkém proužku kůže."
+  },
+  "long": {
+    "en": "A single long wolf fang hanging on a thin leather strip. The tip is still sharp and the root is stained dark. While you wear it, small cuts seem to close a little faster.",
+    "cs": "Jediný dlouhý vlčí tesák na tenkém koženém proužku. Špička je stále ostrá a kořen je tmavě zbarven. Když ho nosíš, drobná zranění se hojí o trochu rychleji."
+  },
+  "tags": ["amulet"],
+  "weight": 1,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "hpMax": 2 },
+    "effects": ["effect.regen"]
+  }
+}
