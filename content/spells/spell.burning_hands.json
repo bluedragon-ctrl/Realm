@@ -4,7 +4,7 @@
     "en": "Burning Hands",
     "cs": "Hořící ruce"
   },
-  "mpCost": 8,
+  "mpCost": 6,
   "target": "hostile_room",
   "harmful": true,
   "description": {
