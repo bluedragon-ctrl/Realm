@@ -1,4 +1,4 @@
-import { getRoom, placeActor, broadcastToRoom, isExitLocked } from '../world.js';
+import { getRoom, placeActor, broadcastToRoom, isExitLocked, actorsInRoom } from '../world.js';
 import { describeRoom, describeRoomToAll } from './look.js';
 import { s, t, dirName } from '../../i18n.js';
 import { sendStats } from '../messages.js';
@@ -57,6 +57,11 @@ export default function move(actor, args) {
 
   const sourceId = room.id;
 
+  const followers = [];
+  for (const a of actorsInRoom(sourceId)) {
+    if (a !== actor && a.following === actor.id) followers.push(a);
+  }
+
   broadcastToRoom(sourceId, (recipient) => ({
     kind: 'emote',
     source: 'ambient',
@@ -78,16 +83,24 @@ export default function move(actor, args) {
     text: s('narration.arrives', recipient.lang, { name: actor.name }),
   }), actor);
 
-  actor.session.send({ kind: 'room-transition' });
-  describeRoom(actor);
-  sendStats(actor);
-  const roomName = t(target.name, actor.lang);
-  actor.session.send({ kind: 'system', text: s('narration.you_arrive', actor.lang, { room: roomName }) });
+  if (actor.session) {
+    actor.session.send({ kind: 'room-transition' });
+    describeRoom(actor);
+    sendStats(actor);
+    const roomName = t(target.name, actor.lang);
+    actor.session.send({ kind: 'system', text: s('narration.you_arrive', actor.lang, { room: roomName }) });
+  }
 
   describeRoomToAll(sourceId);
   describeRoomToAll(targetId);
 
-  if (markRoomVisited(actor, targetId)) {
+  for (const f of followers) {
+    if (f.location !== sourceId) continue;
+    if (f.kind === 'npc' && f.alive === false) continue;
+    move(f, [exitKey]);
+  }
+
+  if (actor.kind === 'player' && markRoomVisited(actor, targetId)) {
     awardXp(actor, 2, 'discover_room');
   }
 }

@@ -1,4 +1,4 @@
-import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM } from './world.js';
+import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors } from './world.js';
 import { applyEffect, setDamageRouteHandler } from './effects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
@@ -166,6 +166,19 @@ function handleNpcDeath(killer, npc) {
 
   npc.alive = false;
   unregisterWanderer(npc);
+  npc.following = null;
+  for (const other of allActors()) {
+    if (other === npc) continue;
+    if (other.following !== npc.id) continue;
+    other.following = null;
+    if (other.kind === 'player') other.dirty = true;
+    if (other.session) {
+      other.session.send({
+        kind: 'system',
+        text: s('follow.leader_left', other.lang, { name: resolveName(npc, 'acc', other.lang) }),
+      });
+    }
+  }
 
   if (room && world.actorsByRoom.has(room)) {
     world.actorsByRoom.get(room).delete(npc);
@@ -227,6 +240,20 @@ function handleNpcDeath(killer, npc) {
 function handlePlayerDeath(killer, victim) {
   clearPlayerAttackQueue(victim);
   victim.nextAttackAt = 0;
+  victim.following = null;
+  victim.dirty = true;
+  for (const other of allActors()) {
+    if (other === victim) continue;
+    if (other.following !== victim.id) continue;
+    other.following = null;
+    if (other.kind === 'player') other.dirty = true;
+    if (other.session) {
+      other.session.send({
+        kind: 'system',
+        text: s('follow.leader_left', other.lang, { name: resolveName(victim, 'acc', other.lang) }),
+      });
+    }
+  }
   const oldRoom = victim.location;
 
   broadcastToRoom(oldRoom, (recipient) => ({

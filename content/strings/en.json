@@ -135,6 +135,12 @@
   "combat.you_respawn": "you wake at home, weakened but alive.",
   "combat.player_died_observed": "{name} collapses, defeated.",
   "flee.no_exits": "you have nowhere to flee.",
+  "follow.now_following": "You start following {name}.",
+  "follow.stopped": "You stop following.",
+  "follow.not_following": "You aren't following anyone.",
+  "follow.no_target": "There's nobody here called {name}.",
+  "follow.self": "You can't follow yourself.",
+  "follow.leader_left": "You stop following {name}.",
   "give.others": "{actor} gives {item} to {target}.",
 
   "buy.usage": "buy what?",
