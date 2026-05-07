@@ -5,29 +5,14 @@ import { sendStats } from '../messages.js';
 import { describeRoomToAll } from './look.js';
 import { sourceForActor } from '../sources.js';
 import { resolveName } from '../declension.js';
-import { goldPhrase } from '../format.js';
-
-const GOLD_WORDS = new Set(['gold', 'coin', 'coins', 'zlato', 'zlaťák', 'zlaťáky', 'mince']);
-
-function parseGoldArgs(args) {
-  if (args.length !== 2) return null;
-  const a = args[0].toLowerCase();
-  const b = args[1].toLowerCase();
-  let amountStr = null, word = null;
-  if (/^\d+$/.test(a) && GOLD_WORDS.has(b)) { amountStr = a; word = b; }
-  else if (GOLD_WORDS.has(a) && /^\d+$/.test(b)) { amountStr = b; word = a; }
-  if (!amountStr) return null;
-  const amount = parseInt(amountStr, 10);
-  if (!Number.isFinite(amount) || amount <= 0) return null;
-  return { amount, word };
-}
+import { goldPhrase, parseAmountGold } from '../format.js';
 
 export default function drop(actor, args) {
   if (!args || args.length === 0) {
     actor.session.send({ kind: 'error', text: s('drop.no_arg', actor.lang) });
     return;
   }
-  const goldArgs = parseGoldArgs(args);
+  const goldArgs = parseAmountGold(args);
   if (goldArgs) {
     if ((actor.gold ?? 0) < goldArgs.amount) {
       actor.session.send({ kind: 'error', text: s('drop.gold.not_enough', actor.lang, { amount: goldArgs.amount, gold: goldPhrase(actor.gold ?? 0, actor.lang) }) });

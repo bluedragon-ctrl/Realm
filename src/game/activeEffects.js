@@ -3,6 +3,7 @@ import { applyEffect } from './effects.js';
 import { sendStats } from './messages.js';
 import { recomputeStats } from './wearables.js';
 import { t, s } from '../i18n.js';
+import { WEARABLE_SOURCE_PREFIX } from './contentMeta.js';
 
 function makeInstance(defId, source, casterName) {
   const def = world.effectDefs.get(defId);
@@ -60,7 +61,7 @@ export function removeEffectsBySource(actor, source) {
 
 export function syncWearableEffects(actor) {
   const list = ensureList(actor);
-  actor.activeEffects = list.filter(e => !e.source.startsWith('wearable:'));
+  actor.activeEffects = list.filter(e => !e.source.startsWith(WEARABLE_SOURCE_PREFIX));
   const equipped = actor.record?.equipped ?? {};
   for (const slot of Object.keys(equipped)) {
     const defId = equipped[slot];
@@ -68,7 +69,7 @@ export function syncWearableEffects(actor) {
     const itemDef = world.itemDefs.get(defId);
     const effects = itemDef?.wearable?.effects ?? [];
     for (const effId of effects) {
-      applyActiveEffect(actor, effId, `wearable:${defId}`);
+      applyActiveEffect(actor, effId, `${WEARABLE_SOURCE_PREFIX}${defId}`);
     }
   }
 }
@@ -192,7 +193,7 @@ export function serializeActiveEffectsForClient(actor, lang) {
 export function serializeActiveEffectsForSave(actor) {
   const list = actor.activeEffects ?? [];
   return list
-    .filter(e => !e.source.startsWith('wearable:'))
+    .filter(e => !e.source.startsWith(WEARABLE_SOURCE_PREFIX))
     .map(e => ({
       defId: e.defId,
       source: e.source,
@@ -209,7 +210,7 @@ export function normalizeSavedActiveEffects(saved) {
     if (!e || typeof e !== 'object') continue;
     if (typeof e.defId !== 'string') continue;
     if (!world.effectDefs.has(e.defId)) continue;
-    if (typeof e.source !== 'string' || e.source.startsWith('wearable:')) continue;
+    if (typeof e.source !== 'string' || e.source.startsWith(WEARABLE_SOURCE_PREFIX)) continue;
     out.push({
       defId: e.defId,
       source: e.source,

@@ -3,6 +3,10 @@
 
 export const START_ROOM = 'home.yard';
 
+// Where players reappear after death. Distinct from START_ROOM (which is the room a brand-new
+// character is placed in on first login).
+export const RESPAWN_ROOM = 'home.cottage';
+
 export const world = {
   rooms: new Map(),
   npcDefs: new Map(),

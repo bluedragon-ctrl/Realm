@@ -5,14 +5,7 @@ import { sendStats } from '../messages.js';
 import { describeRoom, describeRoomToAll } from './look.js';
 import { sourceForActor } from '../sources.js';
 import { resolveName } from '../declension.js';
-import { goldPhrase } from '../format.js';
-
-const GOLD_WORDS = new Set(['gold', 'coin', 'coins', 'zlato', 'zlaťák', 'zlaťáky', 'mince']);
-
-function isGoldQuery(args) {
-  if (!args.length) return false;
-  return args.some(w => GOLD_WORDS.has(w.toLowerCase()));
-}
+import { goldPhrase, isGoldQuery } from '../format.js';
 
 export default function take(actor, args) {
   if (!args || args.length === 0) {

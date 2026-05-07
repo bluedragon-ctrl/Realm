@@ -1,5 +1,5 @@
-import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom } from './world.js';
-import { applyEffect } from './effects.js';
+import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM } from './world.js';
+import { applyEffect, setDamageRouteHandler } from './effects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
@@ -13,6 +13,7 @@ import { fillPlaceholders } from './verbs.js';
 import { goldPhrase } from './format.js';
 import { clearPlayerAttackQueue } from './playerCombatState.js';
 import { unregisterWanderer } from './wandering.js';
+import { EFFECT_SOURCE } from './contentMeta.js';
 
 const MAX_DODGE = 50;
 
@@ -75,7 +76,7 @@ export function executeAttack(actor, action, target) {
     for (const hit of hits) {
       if (!hit.applyEffect) continue;
       if (Math.random() < (hit.chance ?? 1.0)) {
-        applyActiveEffect(target, hit.applyEffect, 'combat', actor.name);
+        applyActiveEffect(target, hit.applyEffect, EFFECT_SOURCE.COMBAT, actor.name);
         applied = true;
       }
     }
@@ -86,7 +87,7 @@ export function executeAttack(actor, action, target) {
 export function applyDamageWithFeedback(actor, target, amount) {
   if (!target?.stats || target.stats.hp <= 0) return 0;
 
-  const result = applyEffect({ type: 'damage', amount }, { actor, target });
+  const result = applyEffect({ type: 'damage', amount, _raw: true }, { actor, target });
   const dealt = result?.dealt ?? 0;
 
   if (actor.session) {
@@ -233,7 +234,7 @@ function handlePlayerDeath(killer, victim) {
 
   // Move home, restore HP — world state updated immediately so others see the change
   victim.dying = true;
-  placeActor(victim, 'home.cottage');
+  placeActor(victim, RESPAWN_ROOM);
   victim.stats.hp = Math.ceil(victim.stats.hpMax / 2);
   victim.dirty = true;
 
@@ -254,21 +255,23 @@ function handlePlayerDeath(killer, victim) {
     });
     sendStats(victim);
     describeRoom(victim);
-    const home = getRoom('home.cottage');
+    const home = getRoom(RESPAWN_ROOM);
     if (home) {
       victim.session?.send({
         kind: 'system',
         text: s('narration.you_arrive', victim.lang, { room: t(home.name, victim.lang) }),
       });
     }
-    describeRoomToAll('home.cottage');
+    describeRoomToAll(RESPAWN_ROOM);
   }, 5000);
 }
 
 export function applyAggressionOnEnter(player, roomId) {
   if (!player || player.kind !== 'player' || !roomId) return;
-  for (const npc of world.npcsByInstance.values()) {
-    if (npc.location !== roomId) continue;
+  const peers = world.actorsByRoom.get(roomId);
+  if (!peers) return;
+  for (const npc of peers) {
+    if (npc.kind !== 'npc') continue;
     if (!npc.aggressive) continue;
     if (npc.alive === false) continue;
     if (!npc.aggroAgainst) npc.aggroAgainst = new Set();
@@ -278,8 +281,10 @@ export function applyAggressionOnEnter(player, roomId) {
 }
 
 export function clearAggroOnLeave(actor, fromRoomId) {
-  for (const npc of world.npcsByInstance.values()) {
-    if (npc.location !== fromRoomId) continue;
+  const peers = world.actorsByRoom.get(fromRoomId);
+  if (!peers) return;
+  for (const npc of peers) {
+    if (npc.kind !== 'npc') continue;
     if (!npc.aggroAgainst?.has(actor)) continue;
     npc.aggroAgainst.delete(actor);
     if (npc.aggroAgainst.size === 0) {
@@ -290,13 +295,16 @@ export function clearAggroOnLeave(actor, fromRoomId) {
   }
 }
 
+// Reservoir-sample one in-room, alive aggro target without materializing an array.
 export function aggroTargetInRoom(npc) {
   if (!npc.aggroAgainst || npc.aggroAgainst.size === 0) return null;
-  const candidates = [];
+  let chosen = null;
+  let n = 0;
   for (const a of npc.aggroAgainst) {
-    if (a.location === npc.location && a.session && a.stats?.hp > 0) candidates.push(a);
+    if (a.location !== npc.location || !a.session || !(a.stats?.hp > 0)) continue;
+    n++;
+    if (Math.floor(Math.random() * n) === 0) chosen = a;
   }
-  if (candidates.length === 0) return null;
-  return candidates[Math.floor(Math.random() * candidates.length)];
+  return chosen;
 }
 

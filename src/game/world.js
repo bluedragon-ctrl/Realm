@@ -6,15 +6,16 @@
 //   world/npcs.js    — NPC spawn/despawn + respawn queue
 //   world/load.js    — boot orchestration
 
-export { world, START_ROOM, getRoom, isAdmin } from './world/state.js';
+export { world, START_ROOM, RESPAWN_ROOM, getRoom, isAdmin } from './world/state.js';
 export { unlockExit, isExitUnlocked, isExitLocked } from './world/exits.js';
 export {
   actorsInRoom, placeActor, removeActor, registerActor,
   findActor, findInRoom, playersInRoom, broadcastToRoom, allActors,
+  invalidateActorVariants,
 } from './world/actors.js';
 export {
   itemsInRoom, placeItemInRoom, removeItemFromRoom,
-  countItemsInWorldMemory, countItemsInRoomMemory, countItemsTotal,
+  countItemsInWorldMemory, countItemsInRoomMemory,
   spawnAllItems, respawnItemsTick,
   getGoldInRoom, addGoldToRoom, takeGoldFromRoom, clearGoldInRoom,
 } from './world/items.js';
