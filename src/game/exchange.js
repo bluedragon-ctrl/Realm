@@ -165,7 +165,7 @@ export function runExchange(actor, host, entry, { units = 1 } = {}) {
   consumeInputs(actor, entry, units);
 
   if (entry.verb) {
-    runVerb({ actor, def: entry.verb, targetName: hostDisplayName(host, actor.lang) });
+    runVerb({ actor, def: entry.verb, targetName: hostName(host, 'nom', actor.lang) });
   } else {
     broadcastDefault(actor, host, entry, units);
   }
