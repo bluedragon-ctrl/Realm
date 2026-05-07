@@ -1,0 +1,21 @@
+{
+  "id": "item.boar_tusk",
+  "name": {
+    "en": "a curved boar tusk",
+    "cs": "zahnutý kančí kel"
+  },
+  "nameAcc": {
+    "en": "the boar tusk",
+    "cs": "kančí kel"
+  },
+  "short": {
+    "en": "A thick yellow tusk, sharp at the tip.",
+    "cs": "Tlustý žlutý kel, ostrý na špičce."
+  },
+  "long": {
+    "en": "A heavy curved tusk, the colour of old ivory and stained brown at the root. The tip is worn but still sharp enough to scratch. Hunters keep them as trophies; carvers turn them into handles and small ornaments.",
+    "cs": "Těžký zahnutý kel, barvy staré slonoviny, u kořene zbarvený do hněda. Špička je obroušená, ale stále dost ostrá na to, aby škrábala. Lovci si je nechávají jako trofeje; řezbáři z nich vyrábějí rukojeti a malé ozdoby."
+  },
+  "tags": ["trophy"],
+  "weight": 1
+}
