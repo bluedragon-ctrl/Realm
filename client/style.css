@@ -185,6 +185,21 @@ html, body {
   font-size: 12px;
   font-style: italic;
 }
+.inventory-subgroup + .inventory-subgroup {
+  margin-top: 6px;
+}
+.inventory-subgroup-title {
+  font-size: 11px;
+  color: var(--dim);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  margin-bottom: 3px;
+}
+.inventory-subgroup-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+}
 
 .equipment-grid {
   display: flex;

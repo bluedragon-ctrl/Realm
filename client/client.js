@@ -321,18 +321,53 @@ function renderStats(msg) {
   }));
 
   playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
-    if (Array.isArray(msg.inventory) && msg.inventory.length > 0) {
-      msg.inventory.forEach((item, i) => {
-        if (i > 0) body.append(' ');
-        const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-        const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
-        body.appendChild(chip);
+    const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
+    const consumables = inv.filter(i => i.consumable);
+    const others = inv.filter(i => !i.consumable);
+    const wearables = Array.isArray(msg.equipment?.inInventory) ? msg.equipment.inInventory : [];
+
+    const buildItemChip = (item) => {
+      const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+      const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
+      return chip;
+    };
+    const buildWearableChip = (w) => {
+      const label = w.count > 1 ? `${w.name} ×${w.count}` : w.name;
+      return makeChip(label, 'item', () => sendInput(`wear ${w.name}`));
+    };
+
+    const subgroup = (titleText, items, builder) => {
+      const wrap = document.createElement('div');
+      wrap.className = 'inventory-subgroup';
+      const h = document.createElement('div');
+      h.className = 'inventory-subgroup-title';
+      h.textContent = titleText;
+      wrap.appendChild(h);
+      const row = document.createElement('div');
+      row.className = 'inventory-subgroup-row';
+      items.forEach((it, i) => {
+        if (i > 0) row.append(' ');
+        row.appendChild(builder(it));
       });
-    } else {
+      wrap.appendChild(row);
+      return wrap;
+    };
+
+    if (consumables.length === 0 && wearables.length === 0 && others.length === 0) {
       const empty = document.createElement('span');
       empty.className = 'empty';
       empty.textContent = labels.inventoryEmpty ?? '(empty)';
       body.appendChild(empty);
+      return;
+    }
+    if (consumables.length > 0) {
+      body.appendChild(subgroup(labels.inventoryConsumables ?? 'Consumables', consumables, buildItemChip));
+    }
+    if (wearables.length > 0) {
+      body.appendChild(subgroup(labels.inventoryEquipment ?? 'Equipment', wearables, buildWearableChip));
+    }
+    if (others.length > 0) {
+      body.appendChild(subgroup(labels.inventoryOther ?? 'Other items', others, buildItemChip));
     }
   }));
 
