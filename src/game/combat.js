@@ -55,8 +55,8 @@ export function executeAttack(actor, action, target) {
   }
 
   const raw = roll(action.damage ?? '1', { actor, target });
-  const def = target.stats.defense ?? 0;
-  const final = Math.max(1, raw - def);
+  // ignoreDef on the behavior bypasses target DEF (armor-piercing attacks).
+  const final = action.ignoreDef ? Math.max(1, raw) : Math.max(1, raw - (target.stats.defense ?? 0));
 
   const tmpl = action.templates;
   if (tmpl) {

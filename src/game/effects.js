@@ -41,9 +41,17 @@ const EFFECTS = {
     unlockExit(roomId, exit);
     return { unlocked: true, room: roomId, exit };
   },
-  damage({ amount, _raw }, { actor, target }) {
+  damage({ amount, stat = 'hp', _raw }, { actor, target }) {
     const recipient = target ?? actor;
     if (!recipient.stats) return { dealt: 0 };
+    if (stat === 'mp') {
+      // MP drain bypasses the combat feedback path — apply directly and update HUD only.
+      const raw = Math.max(0, amount ?? 0);
+      const dealt = Math.min(recipient.stats.mp, raw);
+      recipient.stats.mp = Math.max(0, recipient.stats.mp - dealt);
+      if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
+      return { dealt };
+    }
     // When called from a content slot (use.effect, etc.) with a real other-actor target,
     // route through the combat feedback path so aggro/death/HUD updates fire correctly.
     // `_raw` is set by applyDamageWithFeedback itself to mark the inner raw subtraction.
@@ -83,6 +91,17 @@ const EFFECTS = {
     }
     if (fixture) removeItemFromRoom(fixture, room);
     return { opened: true, dropped, goldAmount };
+  },
+  drain({ amount, formula, ratio = 0.5 }, { actor, target }) {
+    if (!target || target === actor || !target.stats) return { dealt: 0, healed: 0 };
+    const raw = Math.max(0, evalAmount(formula ?? amount, { actor }));
+    const dealt = damageRouteHandler ? damageRouteHandler(actor, target, raw) : 0;
+    const healed = Math.floor(dealt * ratio);
+    if (healed > 0 && actor.stats) {
+      actor.stats.hp = Math.min(actor.stats.hpMax, actor.stats.hp + healed);
+      if (actor.kind === 'player' && actor.session) sendStats(actor);
+    }
+    return { dealt, healed };
   },
   heal({ amount, hp, mp }, { actor, target }) {
     const recipient = target ?? actor;
