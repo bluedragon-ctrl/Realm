@@ -32,7 +32,9 @@
   "goldDrop": { "formula": "1d4", "chance": 0.7 },
   "loot": [
     { "defId": "item.rusty_dagger", "chance": 0.05 },
-    { "defId": "item.rusty_helmet", "chance": 0.05 }
+    { "defId": "item.rusty_helmet", "chance": 0.05 },
+    { "defId": "item.wooden_club", "chance": 0.05 },
+    { "defId": "item.short_sword", "chance": 0.05 }
   ],
   "behaviors": [
     {

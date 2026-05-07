@@ -1,0 +1,27 @@
+{
+  "id": "item.bone_staff",
+  "name": {
+    "en": "a bone staff",
+    "cs": "kostěná hůl"
+  },
+  "nameAcc": {
+    "en": "the bone staff",
+    "cs": "kostěnou hůl"
+  },
+  "short": {
+    "en": "A pale staff carved from bone lies here.",
+    "cs": "Leží tu bledá hůl vyřezaná z kosti."
+  },
+  "long": {
+    "en": "A long staff carved from a single piece of pale bone. Faint runes run along its length and glow softly when you look at them sideways. The grip is wrapped in dark cloth. It feels cold to the touch.",
+    "cs": "Dlouhá hůl vyřezaná z jediného kusu bledé kosti. Po celé délce se táhnou slabé runy, které tiše září, když se na ně podíváš úkosem. Rukojeť je obtočená tmavou látkou. Na dotek je chladná."
+  },
+  "tags": ["weapon", "magic"],
+  "weight": 2,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d4+ATK",
+    "cost": 14,
+    "bonus": { "int": 2, "magicResist": 10, "mpMax": 5 }
+  }
+}

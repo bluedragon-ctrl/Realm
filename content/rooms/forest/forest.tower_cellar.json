@@ -13,7 +13,8 @@
     "cs": "Sklepení je nízké a stísněné, vzduch je těžký zápachem starého kouře a něčeho ostrého, co se těžko pojmenuje. Podél zdí stojí rozpadlé police, na nichž leží pár rozbitých sklenic a rozsypaných knih. Uprostřed stojí velký kamenný stůl, jehož povrch je opálený a popraskaný. Ať se zde děly jakékoli pokusy, skončily špatně."
   },
   "exits": {
-    "u": "forest.tower_entry"
+    "u": "forest.tower_entry",
+    "d": "forest.tower_crypt"
   },
   "tags": ["indoor", "forest", "tower", "dark", "cellar"]
 }
