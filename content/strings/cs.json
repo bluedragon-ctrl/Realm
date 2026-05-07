@@ -259,6 +259,7 @@
   "spells.target.friendly": "spojenec",
   "spells.target.hostile": "nepřítel",
   "spells.target.hostile_room": "všichni nepřátelé v místnosti",
+  "spells.target.friendly_room": "všichni spojenci v místnosti",
   "spells.target.any": "kdokoli",
   "spells.range": "{min}–{max} {unit}",
   "spells.range_one": "{value} {unit}",

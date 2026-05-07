@@ -26,7 +26,7 @@
     }
   },
   "effect": {
-    "type": "damage_room_hostiles",
+    "type": "damage_room_enemies",
     "formula": "1d4+INT/4",
     "applyEffect": "effect.burning"
   }

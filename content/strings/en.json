@@ -259,6 +259,7 @@
   "spells.target.friendly": "friendly",
   "spells.target.hostile": "hostile",
   "spells.target.hostile_room": "all hostiles in room",
+  "spells.target.friendly_room": "all allies in room",
   "spells.target.any": "any",
   "spells.range": "{min}–{max} {unit}",
   "spells.range_one": "{value} {unit}",

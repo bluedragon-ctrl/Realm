@@ -1,4 +1,5 @@
-import { world, broadcastToRoom, actorsInRoom } from '../world.js';
+import { world, broadcastToRoom } from '../world.js';
+import { roomEnemiesOf, roomFriendliesOf } from '../aoe.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
 import { applyActiveEffect } from '../activeEffects.js';
@@ -137,20 +138,38 @@ export default function cast(actor, args) {
     return;
   }
 
-  if (spell.effect?.type === 'damage_room_hostiles') {
+  if (spell.effect?.type === 'damage_room_enemies') {
     const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
-    const hostiles = [];
-    for (const a of actorsInRoom(actor.location)) {
-      if (a.kind === 'npc' && a.disposition === 'hostile' && a.alive !== false) hostiles.push(a);
-    }
-    for (const tgt of hostiles) {
+    for (const tgt of roomEnemiesOf(actor)) {
+      if (spell.harmful && resists(tgt)) {
+        broadcastResist(actor, tgt);
+        registerAttackAggro(actor, tgt);
+        continue;
+      }
       const amount = Math.max(1, roll(formula, { actor, target: tgt }));
       applyDamageWithFeedback(actor, tgt, amount);
       if (tgt.alive !== false && tgt.stats?.hp > 0 && spell.effect.applyEffect) {
         applyActiveEffect(tgt, spell.effect.applyEffect, 'spell', actor.name);
       }
     }
+    sendStats(actor);
     awardXp(actor, castXp, 'cast');
+    return;
+  }
+
+  if (spell.effect?.type === 'heal_room_friendlies') {
+    const friendlies = roomFriendliesOf(actor);
+    let healedAlly = false;
+    for (const tgt of friendlies) {
+      const result = applyEffect({ ...spell.effect, type: 'heal' }, { actor, target: tgt });
+      if (tgt !== actor && (result?.hpRestored ?? 0) > 0) healedAlly = true;
+      if (spell.effect.applyEffect) {
+        applyActiveEffect(tgt, spell.effect.applyEffect, 'spell', actor.name);
+      }
+      if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
+    }
+    sendStats(actor);
+    awardXp(actor, healedAlly ? 2 : castXp, healedAlly ? 'heal_friendly' : 'cast');
     return;
   }
 
@@ -194,12 +213,16 @@ function validateSpellTarget(actor, spell, target) {
       actor.session.send({ kind: 'error', text: s('cast.bad_target', actor.lang) });
       return false;
     }
-    let count = 0;
-    for (const a of actorsInRoom(actor.location)) {
-      if (a.kind === 'npc' && a.disposition === 'hostile' && a.alive !== false) { count++; break; }
-    }
-    if (count === 0) {
+    if (roomEnemiesOf(actor).length === 0) {
       actor.session.send({ kind: 'system', text: s('cast.no_hostiles', actor.lang) });
+      return false;
+    }
+    return true;
+  }
+
+  if (kind === 'friendly_room') {
+    if (target && target !== actor) {
+      actor.session.send({ kind: 'error', text: s('cast.bad_target', actor.lang) });
       return false;
     }
     return true;
