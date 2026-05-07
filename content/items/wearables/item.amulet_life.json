@@ -1,0 +1,25 @@
+{
+  "id": "item.amulet_life",
+  "name": {
+    "en": "an amber amulet",
+    "cs": "jantarový amulet"
+  },
+  "nameAcc": {
+    "en": "the amber amulet",
+    "cs": "jantarový amulet"
+  },
+  "short": {
+    "en": "A round bead of warm amber on a braided cord.",
+    "cs": "Kulatý korálek teplého jantaru na splétané šňůře."
+  },
+  "long": {
+    "en": "A smooth bead of amber the size of a thumb, hanging on a braided cord. It glows faintly orange in firelight and feels warm in your hand. While you wear it, you feel a little tougher.",
+    "cs": "Hladký korálek jantaru velikosti palce na splétané šňůře. Ve světle ohně slabě oranžově září a v ruce je příjemně teplý. Když ho nosíš, cítíš se o trochu odolnější."
+  },
+  "tags": ["amulet"],
+  "weight": 1,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "hpMax": 5 }
+  }
+}
