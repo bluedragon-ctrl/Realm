@@ -135,6 +135,12 @@
   "combat.you_respawn": "probouzíš se doma — slabě, ale naživu.",
   "combat.player_died_observed": "{name} padá k zemi.",
   "flee.no_exits": "není kam utéct.",
+  "follow.now_following": "Začínáš následovat {name}.",
+  "follow.stopped": "Přestáváš někoho následovat.",
+  "follow.not_following": "Nikoho nenásleduješ.",
+  "follow.no_target": "Tady není nikdo jménem {name}.",
+  "follow.self": "Sebe sám následovat nemůžeš.",
+  "follow.leader_left": "Přestáváš následovat {name}.",
   "give.others": "{actor} dává {item} {target}.",
 
   "buy.usage": "co koupit?",

@@ -39,6 +39,23 @@ export function findActor(name) {
   return world.actorsByName.get(name.toLowerCase());
 }
 
+export function actorId(actor) {
+  if (actor.kind === 'player') return `p:${actor.name.toLowerCase()}`;
+  if (actor.kind === 'npc') return `n:${actor.instanceId}`;
+  return null;
+}
+
+export function findActorById(id) {
+  if (typeof id !== 'string') return null;
+  const colon = id.indexOf(':');
+  if (colon < 0) return null;
+  const kind = id.slice(0, colon);
+  const key = id.slice(colon + 1);
+  if (kind === 'p') return world.actorsByName.get(key) ?? null;
+  if (kind === 'n') return world.npcsByInstance.get(Number(key)) ?? null;
+  return null;
+}
+
 function actorVariants(a) {
   if (a._variants) return a._variants;
   const v = [...allNameVariants(a), ...(a.kind === 'npc' ? nameVariants(a.title) : [])];

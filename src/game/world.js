@@ -11,7 +11,7 @@ export { unlockExit, isExitUnlocked, isExitLocked } from './world/exits.js';
 export {
   actorsInRoom, placeActor, removeActor, registerActor,
   findActor, findInRoom, playersInRoom, broadcastToRoom, allActors,
-  invalidateActorVariants,
+  invalidateActorVariants, actorId, findActorById,
 } from './world/actors.js';
 export {
   itemsInRoom, placeItemInRoom, removeItemFromRoom,

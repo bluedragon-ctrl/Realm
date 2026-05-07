@@ -49,6 +49,7 @@ export function makePlayerActor(record, session, isAdmin) {
   }
   const actor = {
     kind: 'player',
+    id: `p:${record.name.toLowerCase()}`,
     name: record.name,
     nameForms: record.nameForms,
     location: null,
@@ -60,6 +61,7 @@ export function makePlayerActor(record, session, isAdmin) {
     energy: 0,
     inventory,
     visitedRooms,
+    following: null,
     get xp() { return record.xp; },
     get level() { return record.level; },
     get gold() { return record.gold; },
@@ -92,9 +94,11 @@ export function makeNpcActor(def, homeLocation = null) {
   const behaviors = def.behaviors ?? [];
   const _resolvedCosts = behaviors.map(b => b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12);
   const _maxCost = _resolvedCosts.length ? Math.max(12, ..._resolvedCosts) : 12;
+  const instanceId = nextNpcInstanceId++;
   return {
     kind: 'npc',
-    instanceId: nextNpcInstanceId++,
+    id: `n:${instanceId}`,
+    instanceId,
     defId: def.id,
     homeLocation: homeLocation ?? def.location ?? null,
     baseStats: { ...stats },
@@ -121,5 +125,6 @@ export function makeNpcActor(def, homeLocation = null) {
     activeEffects: [],
     pack: def.pack ?? null,
     exchanges: def.exchanges ?? null,
+    following: null,
   };
 }
