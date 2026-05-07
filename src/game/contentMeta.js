@@ -19,7 +19,7 @@ export const WEARABLE_SOURCE_PREFIX = 'wearable:';
 export const SPELL_TARGETS = new Set(['self', 'friendly', 'hostile', 'hostile_room', 'friendly_room', 'any']);
 
 // ---------- wearables ----------
-export const WEARABLE_SLOTS = ['body', 'head', 'weapon', 'amulet'];
+export const WEARABLE_SLOTS = ['body', 'head', 'weapon', 'amulet', 'ring'];
 export const WEARABLE_SLOT_SET = new Set(WEARABLE_SLOTS);
 
 export const ALLOWED_BONUS_KEYS = new Set([

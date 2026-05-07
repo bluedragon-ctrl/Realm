@@ -74,6 +74,7 @@ export function buildPanelLabels(lang) {
       head: s('panel.slot_head', lang),
       weapon: s('panel.slot_weapon', lang),
       amulet: s('panel.slot_amulet', lang),
+      ring: s('panel.slot_ring', lang),
     },
   };
 }
