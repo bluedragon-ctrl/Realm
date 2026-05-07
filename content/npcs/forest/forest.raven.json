@@ -1,0 +1,76 @@
+{
+  "id": "forest.raven",
+  "name": { "en": "a black raven", "cs": "černý havran" },
+  "nameAcc": { "en": "the black raven", "cs": "černého havrana" },
+  "nameDat": { "en": "the black raven", "cs": "černému havranovi" },
+  "nameGen": { "en": "the black raven", "cs": "černého havrana" },
+  "title": { "en": "black raven", "cs": "černý havran" },
+  "locations": {
+    "forest.tower_upper": 3
+  },
+  "short": {
+    "en": "A glossy black raven hops along a broken wall, watching you with sharp eyes.",
+    "cs": "Lesklý černý havran poskakuje po rozbité zdi a sleduje tě ostrýma očima."
+  },
+  "long": {
+    "en": "A big black raven with shiny feathers and a heavy beak. It tilts its head as it watches you, then ruffles its wings and shifts its weight from foot to foot. The bird looks clever and not at all afraid.",
+    "cs": "Velký černý havran s lesklým peřím a těžkým zobákem. Naklání hlavu a sleduje tě, pak načechrá křídla a přešlápne z nohy na nohu. Pták vypadá chytře a vůbec se nebojí."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 6, "hpMax": 6,
+    "mp": 0, "mpMax": 0,
+    "attack": 0, "defense": 0, "int": 0,
+    "evasion": 30,
+    "magicResist": 60,
+    "spd": 7
+  },
+  "respawn": { "ticks": 400 },
+  "xp": 8,
+  "loot": [
+    { "defId": "item.raven_feather", "chance": 0.4 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "peck", "cs": "klovnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts down and pecks at {target}!",
+          "{actor} flaps its wings and stabs at {target} with its beak!",
+          "{actor} swoops past and rakes {target} with its claws!"
+        ],
+        "cs": [
+          "{actor} se snese dolů a klovne {target.acc}!",
+          "{actor} zamává křídly a bodne po {target.dat} zobákem!",
+          "{actor} prosviští kolem a škrábne {target.acc} drápky!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.1,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lets out a harsh, croaking call.",
+          "hops sideways along the broken wall and ruffles its feathers.",
+          "tilts its head and stares at you with one bright eye.",
+          "spreads its wings wide and snaps its beak."
+        ],
+        "cs": [
+          "vydá drsné, krákavé zavolání.",
+          "poskočí stranou po rozbité zdi a načechrá peří.",
+          "nakloní hlavu a hledí na tebe jedním lesklým okem.",
+          "rozepne křídla doširoka a cvakne zobákem."
+        ]
+      }
+    }
+  ]
+}

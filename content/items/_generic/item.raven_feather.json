@@ -1,0 +1,21 @@
+{
+  "id": "item.raven_feather",
+  "name": {
+    "en": "a black raven feather",
+    "cs": "černé havraní pero"
+  },
+  "nameAcc": {
+    "en": "the black raven feather",
+    "cs": "černé havraní pero"
+  },
+  "short": {
+    "en": "A long, glossy black feather.",
+    "cs": "Dlouhé, lesklé černé pero."
+  },
+  "long": {
+    "en": "A jet-black feather, light as air, with a shimmer of deep blue when the light catches it. Alchemists and scribes prize raven feathers for their fine quill tips.",
+    "cs": "Uhlově černé pero, lehké jako vzduch, s nádechem sytě modré, když na něj dopadne světlo. Alchymisté a písaři si havraní pera cení pro jejich jemnou špičku."
+  },
+  "tags": ["reagent", "trophy"],
+  "weight": 0
+}

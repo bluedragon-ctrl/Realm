@@ -6,11 +6,11 @@
   },
   "short": {
     "en": "A large dark cave that smells of wet fur and damp stone.",
-    "cs": "Velká tmavá jeskyně, voní v ní mokrá srst a stará krev."
+    "cs": "Velká tmavá jeskyně, voní v ní mokrá srst a vlhký kámen."
   },
   "long": {
     "en": "The cave is wide and low, the walls slick with moisture. The floor is littered with bones — animals long since picked clean. A dented iron helmet, streaked with rust, lies among the bones in the corner. The whole place smells strongly of bear. The only way out is north.",
-    "cs": "Jeskyně je široká a nízká, stěny jsou kluzké vlhkostí. Podlaha je pokrytá kostmi — zvířecími i alespoň jednou sadou, která vypadá lidsky. V rohu mezi kostmi leží promáčknutá železná přilba pokrytá rzí. Celé místo páchne medvědem. Jediná cesta ven vede na sever."
+    "cs": "Jeskyně je široká a nízká, stěny jsou kluzké vlhkostí. Podlaha je posetá kostmi — zvířata jsou už dávno ohlodaná dočista. V rohu mezi kostmi leží promáčknutá železná přilba pokrytá rzí. Celé místo páchne medvědem. Jediná cesta ven vede na sever."
   },
   "exits": {
     "n": "forest.deep_forest"
