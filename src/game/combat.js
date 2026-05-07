@@ -174,8 +174,22 @@ function handleNpcDeath(killer, npc) {
 
   const def = world.npcDefs.get(npc.defId);
 
-  if (killer?.kind === 'player' && def?.xp) {
-    awardXp(killer, def.xp, 'kill');
+  if (def?.xp) {
+    const players = [];
+    if (room && world.actorsByRoom.has(room)) {
+      for (const a of world.actorsByRoom.get(room)) {
+        if (a.kind === 'player') players.push(a);
+      }
+    }
+    if (killer?.kind === 'player' && !players.includes(killer)) players.push(killer);
+    if (players.length > 0) {
+      const share = Math.floor(def.xp / players.length);
+      const remainder = def.xp - share * players.length;
+      for (const p of players) {
+        const amount = (p === killer ? share + remainder : share);
+        if (amount > 0) awardXp(p, amount, 'kill');
+      }
+    }
   }
 
   if (room && def?.loot) {
