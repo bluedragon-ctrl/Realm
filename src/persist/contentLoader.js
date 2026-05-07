@@ -107,6 +107,24 @@ function makeNpcValidator(knownRooms) {
       if (b.primitive === 'interact' || b.primitive === 'give_item' || b.primitive === 'flee') {
         checkLines(b.templates, bctx);
       }
+      if (b.primitive === 'wander') {
+        check(typeof b.chance === 'number' && b.chance >= 0 && b.chance <= 1, bctx,
+          `wander.chance must be a number between 0 and 1`);
+        if (b.scope != null) {
+          checkObject(b.scope, bctx, 'wander.scope');
+          if (b.scope.region != null) {
+            check(typeof b.scope.region === 'string' && b.scope.region.length > 0, bctx,
+              `wander.scope.region must be a non-empty string`);
+          }
+          if (b.scope.tags != null) {
+            checkArray(b.scope.tags, bctx, 'wander.scope.tags');
+            for (const tag of b.scope.tags) {
+              check(typeof tag === 'string' && tag.length > 0, bctx,
+                `wander.scope.tags entries must be non-empty strings`);
+            }
+          }
+        }
+      }
     }
 
     check(def.shop == null, ctx, `'shop' is no longer supported — use 'exchanges'`);

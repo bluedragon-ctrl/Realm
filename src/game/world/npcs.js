@@ -4,6 +4,7 @@
 import { world } from './state.js';
 import { placeActor } from './actors.js';
 import { makeNpcActor } from '../actors.js';
+import { registerWanderer, unregisterWanderer } from '../wandering.js';
 
 const npcRespawnQueue = [];
 let _onNpcRespawn = null;
@@ -13,6 +14,7 @@ export function spawnNpc(def, locationOverride = null) {
   const npc = makeNpcActor(def, location);
   world.npcsByInstance.set(npc.instanceId, npc);
   placeActor(npc, location);
+  registerWanderer(npc, def);
   return npc;
 }
 
@@ -21,6 +23,7 @@ export function despawnNpc(npc) {
     world.actorsByRoom.get(npc.location).delete(npc);
   }
   world.npcsByInstance.delete(npc.instanceId);
+  unregisterWanderer(npc);
 }
 
 function spawnPlacements(def) {

@@ -40,6 +40,8 @@
 
   "narration.leaves": "{name} odchází {direction}.",
   "narration.arrives": "{name} přichází.",
+  "npc.wander.leaves": "{actor} se loudá pryč směrem na {dir}.",
+  "npc.wander.arrives": "{actor} se loudá dovnitř ze směru {dir}.",
   "narration.appears": "{name} se objevuje.",
   "narration.vanishes": "{name} mizí.",
   "narration.you_arrive": "přicházíš do: {room}.",

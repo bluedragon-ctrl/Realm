@@ -12,6 +12,7 @@ import { resolveName } from './declension.js';
 import { fillPlaceholders } from './verbs.js';
 import { goldPhrase } from './format.js';
 import { clearPlayerAttackQueue } from './playerCombatState.js';
+import { unregisterWanderer } from './wandering.js';
 
 const MAX_DODGE = 50;
 
@@ -163,6 +164,7 @@ function handleNpcDeath(killer, npc) {
   }));
 
   npc.alive = false;
+  unregisterWanderer(npc);
 
   if (room && world.actorsByRoom.has(room)) {
     world.actorsByRoom.get(room).delete(npc);

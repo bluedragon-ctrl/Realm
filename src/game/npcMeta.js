@@ -14,4 +14,5 @@ export const PRIMITIVE_NAMES = new Set([
   'interact',
   'give_item',
   'flee',
+  'wander',
 ]);
