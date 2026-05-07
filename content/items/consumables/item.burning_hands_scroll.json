@@ -1,0 +1,40 @@
+{
+  "id": "item.burning_hands_scroll",
+  "name": {
+    "en": "a charred scroll",
+    "cs": "ohořelý svitek"
+  },
+  "nameAcc": {
+    "en": "the charred scroll",
+    "cs": "ohořelý svitek"
+  },
+  "short": {
+    "en": "A scroll with scorched edges lies here, smelling faintly of smoke.",
+    "cs": "Leží tu svitek s ohořelými okraji a slabě páchne kouřem."
+  },
+  "long": {
+    "en": "A thick scroll, its edges blackened as if it had once been very close to a fire. The writing inside glows faintly with a small flame symbol.",
+    "cs": "Silný svitek s okraji zčernalými, jako by byl kdysi blízko ohně. Písmo uvnitř slabě svítí a zobrazuje malý plamínek."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The flame symbol flares hot and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A burst of warmth ripples through the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Symbol plamene se rozžhaví a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduchem proletí závan tepla."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.burning_hands"
+    }
+  }
+}

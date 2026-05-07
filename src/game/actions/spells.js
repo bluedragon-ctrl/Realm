@@ -12,7 +12,7 @@ function effectDetail(spell, actor) {
   const lang = actor.lang;
   const eff = spell.effect;
   if (!eff) return null;
-  if (eff.type === 'damage') {
+  if (eff.type === 'damage' || eff.type === 'damage_room_hostiles') {
     const { min, max } = formulaRange(eff.formula ?? '0', { actor });
     return s('spells.detail.damage', lang, {
       formula: eff.formula ?? '?',

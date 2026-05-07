@@ -1084,7 +1084,7 @@ function openSpellPopover(anchorEl, spell, ev) {
   ev?.stopPropagation();
   const targetKind = spell.target ?? 'any';
 
-  if (targetKind === 'self') {
+  if (targetKind === 'self' || targetKind === 'hostile_room') {
     sendInput(`cast ${spell.id}`);
     return;
   }

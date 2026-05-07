@@ -1,4 +1,4 @@
-import { world, broadcastToRoom } from '../world.js';
+import { world, broadcastToRoom, actorsInRoom } from '../world.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
 import { applyActiveEffect } from '../activeEffects.js';
@@ -137,6 +137,23 @@ export default function cast(actor, args) {
     return;
   }
 
+  if (spell.effect?.type === 'damage_room_hostiles') {
+    const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
+    const hostiles = [];
+    for (const a of actorsInRoom(actor.location)) {
+      if (a.kind === 'npc' && a.disposition === 'hostile' && a.alive !== false) hostiles.push(a);
+    }
+    for (const tgt of hostiles) {
+      const amount = Math.max(1, roll(formula, { actor, target: tgt }));
+      applyDamageWithFeedback(actor, tgt, amount);
+      if (tgt.alive !== false && tgt.stats?.hp > 0 && spell.effect.applyEffect) {
+        applyActiveEffect(tgt, spell.effect.applyEffect, 'spell', actor.name);
+      }
+    }
+    awardXp(actor, castXp, 'cast');
+    return;
+  }
+
   if (spell.effect?.type === 'apply_effect') {
     const recipient = target ?? actor;
     applyActiveEffect(recipient, spell.effect.effectId, 'spell', actor.name);
@@ -167,6 +184,22 @@ function validateSpellTarget(actor, spell, target) {
   if (kind === 'self') {
     if (!isSelf) {
       actor.session.send({ kind: 'error', text: s('cast.bad_target', actor.lang) });
+      return false;
+    }
+    return true;
+  }
+
+  if (kind === 'hostile_room') {
+    if (target && target !== actor) {
+      actor.session.send({ kind: 'error', text: s('cast.bad_target', actor.lang) });
+      return false;
+    }
+    let count = 0;
+    for (const a of actorsInRoom(actor.location)) {
+      if (a.kind === 'npc' && a.disposition === 'hostile' && a.alive !== false) { count++; break; }
+    }
+    if (count === 0) {
+      actor.session.send({ kind: 'system', text: s('cast.no_hostiles', actor.lang) });
       return false;
     }
     return true;
