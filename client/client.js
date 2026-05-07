@@ -34,6 +34,7 @@ const stripMpLabel = stripMpRow.querySelector('.strip-label');
 let ws = null;
 let loggedIn = false;
 let lastRoomMsg = null;
+let lockedTarget = null;
 let lastStatsMsg = null;
 let labels = {};
 let socialList = [];
@@ -111,7 +112,19 @@ function makeChip(label, cls, onClick) {
 
 function sendInput(text) {
   if (!ws || ws.readyState !== WebSocket.OPEN || !loggedIn) return;
+  const m = /^\s*(attack|kill|hit)\s+(.+?)\s*$/i.exec(text);
+  if (m) lockedTarget = m[2].toLowerCase();
   ws.send(JSON.stringify({ kind: 'input', text }));
+}
+
+function lockedTargetStillHostileHere() {
+  if (!lockedTarget || !lastRoomMsg?.npcs) return null;
+  for (const n of lastRoomMsg.npcs) {
+    if (typeof n === 'string') continue;
+    if ((n.disposition ?? 'neutral') !== 'hostile') continue;
+    if (n.name.toLowerCase() === lockedTarget) return n.name;
+  }
+  return null;
 }
 
 function fillInput(prefix) {
@@ -685,6 +698,7 @@ function handle(msg) {
       dismissDeathOverlay();
       if (pendingRoomTransition) { appendRoomSep(msg.name); pendingRoomTransition = false; }
       lastRoomMsg = msg;
+      if (!lockedTargetStillHostileHere()) lockedTarget = null;
       renderRoomInInspect(msg);
       renderDirButtons(msg);
       refreshActionButtons();
@@ -1159,6 +1173,11 @@ function openSpellPopover(anchorEl, spell, ev) {
 
 function openAttackPicker(anchorEl, ev) {
   ev?.stopPropagation();
+  const lockedName = lockedTargetStillHostileHere();
+  if (lockedName) {
+    sendInput(`attack ${lockedName}`);
+    return;
+  }
   const targets = currentRoomTargets();
   const hostiles = currentRoomTargets({ hostileOnly: true });
   if (targets.length === 1 && hostiles.length === 1) {
