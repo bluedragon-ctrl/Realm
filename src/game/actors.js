@@ -1,4 +1,4 @@
-import { PLAYER_DEFAULT_STATS, NPC_DEFAULT_STATS, normalizeStats } from './stats.js';
+import { PLAYER_DEFAULT_STATS, NPC_DEFAULT_STATS, normalizeStats, DEFAULT_COSTS } from './stats.js';
 import { normalizeLang } from '../i18n.js';
 import { ensureAllocationFields } from './leveling.js';
 import { instanceFromSaved, makeItemInstance } from './items.js';
@@ -87,6 +87,11 @@ export function makeNpcActor(def, homeLocation = null) {
     const itemDef = world.itemDefs.get(startId);
     if (itemDef) inventory.push(makeItemInstance(itemDef));
   }
+  // Precompute per-behavior cost + max — these are immutable for the NPC's lifetime and
+  // the tick loop reads them every tick.
+  const behaviors = def.behaviors ?? [];
+  const _resolvedCosts = behaviors.map(b => b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12);
+  const _maxCost = _resolvedCosts.length ? Math.max(12, ..._resolvedCosts) : 12;
   return {
     kind: 'npc',
     instanceId: nextNpcInstanceId++,
@@ -109,7 +114,9 @@ export function makeNpcActor(def, homeLocation = null) {
     stats,
     energy: 0,
     inventory,
-    behaviors: def.behaviors ?? [],
+    behaviors,
+    _resolvedCosts,
+    _maxCost,
     alive: true,
     activeEffects: [],
     pack: def.pack ?? null,

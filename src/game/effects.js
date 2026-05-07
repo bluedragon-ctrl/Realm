@@ -11,6 +11,12 @@ function evalAmount(value, ctx) {
   return 0;
 }
 
+// Set by combat.js so the `damage` effect can route through applyDamageWithFeedback when
+// applied to a non-self target (preserves aggro + UI feedback + death). Same indirection as
+// activeEffects.setEffectDamageHandler — kept here to avoid combat → effects cycles.
+let damageRouteHandler = null;
+export function setDamageRouteHandler(fn) { damageRouteHandler = fn; }
+
 const EFFECTS = {
   teach_spell({ spell }, { actor }) {
     if (!spell || !actor?.knownSpells) return { learned: false };
@@ -26,6 +32,7 @@ const EFFECTS = {
     const inst = makeItemInstance(def);
     actor.inventory.push(inst);
     actor.dirty = true;
+    if (actor.kind === 'player' && actor.session) sendStats(actor);
     return { produced: def.id, name: def.name, instance: inst };
   },
   unlock({ room, exit }, { actor }) {
@@ -34,9 +41,16 @@ const EFFECTS = {
     unlockExit(roomId, exit);
     return { unlocked: true, room: roomId, exit };
   },
-  damage({ amount }, { actor, target }) {
+  damage({ amount, _raw }, { actor, target }) {
     const recipient = target ?? actor;
     if (!recipient.stats) return { dealt: 0 };
+    // When called from a content slot (use.effect, etc.) with a real other-actor target,
+    // route through the combat feedback path so aggro/death/HUD updates fire correctly.
+    // `_raw` is set by applyDamageWithFeedback itself to mark the inner raw subtraction.
+    if (!_raw && damageRouteHandler && actor && target && target !== actor) {
+      const dealt = damageRouteHandler(actor, target, Math.max(0, amount ?? 0));
+      return { dealt };
+    }
     const dealt = Math.min(recipient.stats.hp, Math.max(0, amount ?? 0));
     recipient.stats.hp -= dealt;
     return { dealt };

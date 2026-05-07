@@ -5,6 +5,7 @@ import { executeAttack } from '../combat.js';
 import { resolveName } from '../declension.js';
 import { sendStats } from '../messages.js';
 import { clearPlayerAttackQueue } from '../playerCombatState.js';
+import { resolveActorTarget } from '../targeting.js';
 
 export function buildPlayerAttack(actor) {
   const weaponId = actor.record?.equipped?.weapon;
@@ -45,11 +46,8 @@ export default function attack(actor, args) {
     return;
   }
   const query = args.join(' ');
-  const target = findInRoom(actor.location, query);
-  if (!target) {
-    actor.session.send({ kind: 'error', text: s('error.no_such_target', actor.lang, { query }) });
-    return;
-  }
+  const target = resolveActorTarget(actor, query);
+  if (!target) return;
   if (target === actor) {
     actor.session.send({ kind: 'error', text: s('attack.no_target_self', actor.lang) });
     return;

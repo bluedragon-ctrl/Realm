@@ -64,6 +64,21 @@ export function allNameVariants(source) {
   return out;
 }
 
+// Pick the best match in `items` for the lowercase `query`, ranked exact > substring > word.
+// `getVariants(item)` returns the lowercase strings to consider. Used by every name-fuzzy
+// command (find item / actor / spell / equipped wearable) so all of them share one ranking.
+export function pickByVariants(items, query, getVariants) {
+  const q = query.toLowerCase();
+  let exact = null, sub = null, word = null;
+  for (const item of items) {
+    const variants = getVariants(item);
+    if (variants.some(v => v === q)) return item;
+    if (sub == null && variants.some(v => v.includes(q))) sub = item;
+    if (word == null && variants.some(v => v.split(/\s+/).some(w => w === q))) word = item;
+  }
+  return exact ?? sub ?? word ?? null;
+}
+
 // Build a nameForms object from positional admin args. Empty / nullish entries
 // fall back to nominative via resolveName.
 export function makeNameForms({ acc, dat, gen, voc } = {}) {

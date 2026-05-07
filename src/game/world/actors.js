@@ -3,7 +3,7 @@
 
 import { world } from './state.js';
 import { nameVariants } from '../../i18n.js';
-import { allNameVariants } from '../declension.js';
+import { allNameVariants, pickByVariants } from '../declension.js';
 
 export function actorsInRoom(roomId) {
   return world.actorsByRoom.get(roomId) ?? new Set();
@@ -40,22 +40,19 @@ export function findActor(name) {
 }
 
 function actorVariants(a) {
-  return [...allNameVariants(a), ...(a.kind === 'npc' ? nameVariants(a.title) : [])];
+  if (a._variants) return a._variants;
+  const v = [...allNameVariants(a), ...(a.kind === 'npc' ? nameVariants(a.title) : [])];
+  a._variants = v;
+  return v;
+}
+
+// Invalidate the cached lowercase-variant list for an actor. Call after rename or lang change.
+export function invalidateActorVariants(actor) {
+  if (actor) actor._variants = null;
 }
 
 export function findInRoom(roomId, query) {
-  const q = query.toLowerCase();
-  let exact = null, sub = null, word = null;
-  for (const a of actorsInRoom(roomId)) {
-    const variants = actorVariants(a);
-    for (const v of variants) {
-      if (v === q) { exact = a; break; }
-    }
-    if (exact) break;
-    if (sub == null && variants.some(v => v.includes(q))) sub = a;
-    if (word == null && variants.some(v => v.split(/\s+/).some(w => w === q))) word = a;
-  }
-  return exact ?? sub ?? word ?? null;
+  return pickByVariants(actorsInRoom(roomId), query, actorVariants);
 }
 
 export function playersInRoom(roomId) {

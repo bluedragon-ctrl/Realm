@@ -2,7 +2,7 @@
 
 import { t } from '../../i18n.js';
 import { world } from '../world.js';
-import { WEARABLE_SLOTS } from '../wearableMeta.js';
+import { WEARABLE_SLOTS } from '../contentMeta.js';
 
 export function buildEquipment(actor) {
   const lang = actor.lang;

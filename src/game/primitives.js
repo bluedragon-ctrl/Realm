@@ -3,14 +3,11 @@ import { transferItem } from './items.js';
 import { t, s, pickListIndex, tListAt, dirName } from '../i18n.js';
 import { sendStats } from './messages.js';
 import { sourceForActor } from './sources.js';
-import { executeAttack, aggroTargetInRoom, applyDamageWithFeedback } from './combat.js';
+import { executeAttack, aggroTargetInRoom } from './combat.js';
 import { describeRoomToAll } from './actions/look.js';
-import { runVerb, hasForm, fillPlaceholders } from './verbs.js';
-import { applyEffect } from './effects.js';
-import { applyActiveEffect } from './activeEffects.js';
+import { fillPlaceholders } from './verbs.js';
 import { resolveName } from './declension.js';
-import { roll } from './dice.js';
-import { roomEnemiesOf, roomFriendliesOf } from './aoe.js';
+import { castSpell } from './actions/cast.js';
 
 const PRIMITIVES = {
   say(actor, behavior) {
@@ -83,129 +80,61 @@ const PRIMITIVES = {
   },
   flee(actor, behavior) {
     if (actor.alive === false) return;
-    const room = world.rooms.get(actor.location);
-    const exitKeys = Object.keys(room?.exits ?? {});
-    if (exitKeys.length === 0) return;
-    const exitKey = exitKeys[Math.floor(Math.random() * exitKeys.length)];
-    const targetId = room.exits[exitKey];
-    if (!targetId) return;
+    movePrimitive(actor, behavior, { mandatoryEmote: true, clearAttacked: true });
+  },
+  wait() {},
+  move(actor, behavior) {
+    if (actor.alive === false) return;
+    movePrimitive(actor, behavior, { mandatoryEmote: false, clearAttacked: false });
+  },
+  cast(actor, behavior) {
+    const spell = world.spellDefs?.get(behavior.spell);
+    if (!spell) return;
+    let target = null;
+    const effectType = spell.effect?.type;
+    const isAoe = effectType === 'damage_room_enemies' || effectType === 'heal_room_friendlies';
+    if (!isAoe) {
+      if (behavior.target === 'aggro_target') {
+        target = aggroTargetInRoom(actor);
+        if (!target) return;
+      } else {
+        target = actor;
+      }
+    }
+    castSpell(actor, spell, target, { silent: true });
+  },
+};
 
-    const sourceRoom = actor.location;
+// Shared move/flee body. Picks a random exit, broadcasts the templated emote (going through
+// fillPlaceholders so {actor.gen}/{target.dat} etc. work the same as in any verb form),
+// then relocates the NPC and refreshes the two affected rooms.
+function movePrimitive(actor, behavior, { mandatoryEmote, clearAttacked }) {
+  const room = world.rooms.get(actor.location);
+  const exitKeys = Object.keys(room?.exits ?? {});
+  if (exitKeys.length === 0) return;
+  const exitKey = exitKeys[Math.floor(Math.random() * exitKeys.length)];
+  const targetId = room.exits[exitKey];
+  if (!targetId) return;
+
+  const sourceRoom = actor.location;
+  if (mandatoryEmote || behavior.templates) {
     const idx = pickListIndex(behavior.templates);
     broadcastToRoom(sourceRoom, (recipient) => {
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const dir = dirName(exitKey, lang) || exitKey;
       const tmpl = tListAt(behavior.templates, lang, idx);
-      const filled = tmpl.replace(/\{actor\}/g, from).replace(/\{direction\}/g, dir);
+      const filled = fillPlaceholders(tmpl, { actor, lang, params: { actor: from, direction: dir } });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: filled };
     });
+  }
 
-    placeActor(actor, targetId);
-    actor.wasAttacked = false;
+  placeActor(actor, targetId);
+  if (clearAttacked) actor.wasAttacked = false;
 
-    describeRoomToAll(sourceRoom);
-    describeRoomToAll(targetId);
-  },
-  wait() {},
-  move(actor, behavior) {
-    if (actor.alive === false) return;
-    const room = world.rooms.get(actor.location);
-    const exitKeys = Object.keys(room?.exits ?? {});
-    if (exitKeys.length === 0) return;
-    const exitKey = exitKeys[Math.floor(Math.random() * exitKeys.length)];
-    const targetId = room.exits[exitKey];
-    if (!targetId) return;
-
-    const sourceRoom = actor.location;
-    if (behavior.templates) {
-      const idx = pickListIndex(behavior.templates);
-      broadcastToRoom(sourceRoom, (recipient) => {
-        const lang = recipient.lang;
-        const from = t(actor.name, lang);
-        const dir = dirName(exitKey, lang) || exitKey;
-        const tmpl = tListAt(behavior.templates, lang, idx);
-        const filled = tmpl.replace(/\{actor\}/g, from).replace(/\{direction\}/g, dir);
-        return { kind: 'emote', source: sourceForActor(actor, recipient), text: filled };
-      });
-    }
-
-    placeActor(actor, targetId);
-    describeRoomToAll(sourceRoom);
-    describeRoomToAll(targetId);
-  },
-  cast(actor, behavior) {
-    const spell = world.spellDefs?.get(behavior.spell);
-    if (!spell) return;
-    const mpCost = spell.mpCost ?? 0;
-    if ((actor.stats?.mp ?? 0) < mpCost) return;
-
-    const effectType = spell.effect?.type;
-    const isAoeDamage = effectType === 'damage_room_enemies';
-    const isAoeHeal = effectType === 'heal_room_friendlies';
-
-    if (isAoeDamage) {
-      const enemies = roomEnemiesOf(actor);
-      if (enemies.length === 0) return;
-      if (!hasForm(spell.verb, 'en', 'no_target')) return;
-      actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
-      runVerb({ actor, def: spell.verb, targetActor: null });
-      const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
-      for (const tgt of enemies) {
-        const amount = Math.max(1, roll(formula, { actor, target: tgt }));
-        applyDamageWithFeedback(actor, tgt, amount);
-        if (tgt.alive !== false && tgt.stats?.hp > 0 && spell.effect.applyEffect) {
-          applyActiveEffect(tgt, spell.effect.applyEffect, 'spell', actor.name);
-          if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
-        }
-      }
-      return;
-    }
-
-    if (isAoeHeal) {
-      if (!hasForm(spell.verb, 'en', 'no_target')) return;
-      actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
-      runVerb({ actor, def: spell.verb, targetActor: null });
-      for (const tgt of roomFriendliesOf(actor)) {
-        applyEffect({ ...spell.effect, type: 'heal' }, { actor, target: tgt });
-        if (spell.effect.applyEffect) {
-          applyActiveEffect(tgt, spell.effect.applyEffect, 'spell', actor.name);
-        }
-        if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
-      }
-      return;
-    }
-
-    let target = actor;
-    if (behavior.target === 'aggro_target') {
-      target = aggroTargetInRoom(actor);
-      if (!target) return;
-    }
-
-    const formKey = (target === actor) ? 'no_target' : 'to_target';
-    if (!hasForm(spell.verb, 'en', formKey)) return;
-
-    actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
-
-    runVerb({ actor, def: spell.verb, targetActor: target === actor ? null : target });
-
-    if (spell.effect?.type === 'damage' && target !== actor) {
-      const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
-      const amount = Math.max(1, roll(formula, { actor, target }));
-      applyDamageWithFeedback(actor, target, amount);
-      return;
-    }
-    if (spell.effect?.type === 'apply_effect') {
-      applyActiveEffect(target, spell.effect.effectId, 'spell', actor.name);
-      if (target.kind === 'player' && target.session) sendStats(target);
-      return;
-    }
-    if (spell.effect) {
-      applyEffect(spell.effect, { actor, target });
-      if (target.kind === 'player' && target.session) sendStats(target);
-    }
-  },
-};
+  describeRoomToAll(sourceRoom);
+  describeRoomToAll(targetId);
+}
 
 export function runPrimitive(actor, behavior) {
   const fn = PRIMITIVES[behavior.primitive];

@@ -9,6 +9,7 @@ import { describeRoomToAll } from './look.js';
 import { awardXp } from '../xp.js';
 import { isSelfToken } from '../targeting.js';
 import { runExchange } from '../exchange.js';
+import { EFFECT_SOURCE } from '../contentMeta.js';
 
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
@@ -132,7 +133,7 @@ export default function use(actor, args) {
 
   if (useDef.effect?.type === 'apply_effect') {
     const recipient = targetActor ?? actor;
-    applyActiveEffect(recipient, useDef.effect.effectId, 'consumable', actor.name);
+    applyActiveEffect(recipient, useDef.effect.effectId, EFFECT_SOURCE.CONSUMABLE, actor.name);
     if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
     if (actor !== recipient && actor.kind === 'player') sendStats(actor);
   } else {
