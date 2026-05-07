@@ -1,0 +1,36 @@
+{
+  "id": "spell.ward",
+  "name": {
+    "en": "Ward",
+    "cs": "Ochrana"
+  },
+  "mpCost": 2,
+  "target": "friendly",
+  "description": {
+    "en": "Wrap yourself or an ally in an arcane barrier, raising defense for a short time.",
+    "cs": "Obalí tebe nebo spojence magickou bariérou a na chvíli zvýší obranu."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you speak a word of warding and a ring of pale light tightens around you.",
+        "others": "{actor} speaks a word of warding and a ring of pale light tightens around them."
+      },
+      "to_target": {
+        "self": "you speak a word of warding and a ring of pale light tightens around {target}.",
+        "others": "{actor} speaks a word of warding and a ring of pale light tightens around {target}."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vyřkneš ochranné slovo a kroužek bledého světla se stáhne kolem tebe.",
+        "others": "{actor} vyřkne ochranné slovo a kroužek bledého světla se stáhne kolem něj."
+      },
+      "to_target": {
+        "self": "vyřkneš ochranné slovo a kroužek bledého světla se stáhne kolem {target}.",
+        "others": "{actor} vyřkne ochranné slovo a kroužek bledého světla se stáhne kolem {target}."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.fortify" }
+}
