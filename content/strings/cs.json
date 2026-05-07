@@ -27,6 +27,8 @@
   "move.broken_exit": "tento východ nikam nevede (přerušené spojení).",
   "move.locked": "je zamčeno.",
   "unlock.success": "{target} se s tichým cvaknutím odemyká.",
+  "chest.need_key": "k otevření potřebuješ {key}.",
+  "chest.opened": "truhla se rozletí a její obsah se vysype na zem.",
   "produce.you_made": "získáváš {item}.",
 
   "say.no_arg": "říct co?",

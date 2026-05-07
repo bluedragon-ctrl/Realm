@@ -22,5 +22,24 @@
   "spawn": {
     "location": "village.square",
     "count": 1
+  },
+  "unlocks": {
+    "exit": "d",
+    "key": "item.long_rope",
+    "consume": true,
+    "verb": {
+      "en": {
+        "to_target": {
+          "self": "you tie the long rope to {target} and lower it down the dark shaft.",
+          "others": "{actor} ties a long rope to {target} and lowers it down the shaft."
+        }
+      },
+      "cs": {
+        "to_target": {
+          "self": "přivážeš dlouhý provaz ke studni a spustíš ho dolů do tmavé šachty.",
+          "others": "{actor} přiváže dlouhý provaz ke studni a spustí ho dolů do šachty."
+        }
+      }
+    }
   }
 }

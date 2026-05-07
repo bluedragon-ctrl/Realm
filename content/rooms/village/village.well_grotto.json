@@ -1,0 +1,19 @@
+{
+  "id": "village.well_grotto",
+  "name": {
+    "en": "Hidden grotto",
+    "cs": "Skrytá jeskyňka"
+  },
+  "short": {
+    "en": "A small dry alcove off the well shaft.",
+    "cs": "Malý suchý výklenek u studniční šachty."
+  },
+  "long": {
+    "en": "The tunnel opens into a tiny dry chamber. Dust lies thick on the floor and the air smells of stone. Someone hid this place a long time ago — the kind of spot you only find if you know to look for it. A flat stone in the middle has been used as a low table.",
+    "cs": "Chodba ústí do drobné suché komůrky. Na podlaze leží silná vrstva prachu a ve vzduchu je cítit kámen. Tohle místo někdo dávno schoval — takové, které najdeš, jen když ho hledáš. Plochý kámen uprostřed byl používán jako nízký stůl."
+  },
+  "exits": {
+    "e": "village.well_bottom"
+  },
+  "tags": ["indoor", "village", "dark", "secret"]
+}

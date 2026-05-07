@@ -1,0 +1,110 @@
+{
+  "id": "village.toad_king",
+  "name": { "en": "the toad king", "cs": "ropuší král" },
+  "nameAcc": { "en": "the toad king", "cs": "ropušího krále" },
+  "nameDat": { "en": "the toad king", "cs": "ropušímu králi" },
+  "nameGen": { "en": "the toad king", "cs": "ropušího krále" },
+  "title": { "en": "toad king", "cs": "ropuší král" },
+  "location": "village.well_bottom",
+  "count": 1,
+  "short": {
+    "en": "An enormous warty toad squats in the pool, eyes the size of saucers.",
+    "cs": "Obrovská bradavičnatá ropucha dřepí v tůni, oči jako talíře."
+  },
+  "long": {
+    "en": "A toad as big as a sheep, hunched in the shallow pool. Its hide is thick and warty, slick with green water. Yellow eyes follow you without blinking. A long pink tongue flicks out and back, faster than something this big should be able to move. The smell of pond rot fills the air.",
+    "cs": "Ropucha velká jako ovce, krčí se v mělké tůni. Kůži má tlustou a bradavičnatou, kluzkou od zelené vody. Žluté oči tě sledují bez mrknutí. Dlouhý růžový jazyk vyšlehne a zase se schová, rychleji, než by se od něčeho tak velkého čekalo. Vzduch páchne hnijícím rybníkem."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 55, "hpMax": 55,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 3, "int": 0,
+    "magicResist": 20,
+    "spd": 4
+  },
+  "respawn": { "ticks": 900 },
+  "xp": 65,
+  "goldDrop": { "formula": "2d6+4", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.toad_hide", "chance": 1.0 },
+    { "defId": "potion.heal", "chance": 0.5 },
+    { "defId": "potion.mana", "chance": 0.4 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "tongue lash", "cs": "švih jazykem" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} snaps its long tongue at {target} like a wet whip!",
+          "{actor} lashes its sticky tongue across {target}!",
+          "{actor} flicks its tongue and slaps {target} hard!"
+        ],
+        "cs": [
+          "{actor} švihne dlouhým jazykem na {target.acc} jako mokrým bičem!",
+          "{actor} přetáhne lepkavým jazykem přes {target.acc}!",
+          "{actor} vyšlehne jazykem a tvrdě pleskne {target.acc}!"
+        ]
+      }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "gulp", "cs": "polknutí" },
+      "chance": 0.25,
+      "cost": 22,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lunges with its huge mouth wide open and crunches down on {target}!",
+          "{actor} surges forward and tries to gulp {target} whole!"
+        ],
+        "cs": [
+          "{actor} se vrhne s otevřenou tlamou a zakousne se do {target.gen}!",
+          "{actor} se vymrští dopředu a snaží se {target.acc} celou polknout!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.1,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lets out a deep wet croak that echoes off the stones.",
+          "puffs out its throat and the pool ripples around it.",
+          "blinks slowly, both eyes at once.",
+          "shifts its weight and water sloshes against the walls."
+        ],
+        "cs": [
+          "vydá hluboké mokré zakvákání, které se odrazí od kamenů.",
+          "nafoukne hrdlo a kolem něj se rozechvějí vlnky v tůni.",
+          "pomalu mrkne, obě oči naráz.",
+          "přesune váhu a voda šplíchne o stěny."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "hops once with a heavy splash, settling into a crouch.",
+          "scrapes a webbed foot across the wet stone."
+        ],
+        "cs": [
+          "jednou skočí s těžkým žbluňknutím a znovu se přikrčí.",
+          "škrábne plovací nohou po mokrém kameni."
+        ]
+      }
+    }
+  ]
+}
