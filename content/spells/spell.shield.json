@@ -1,0 +1,36 @@
+{
+  "id": "spell.shield",
+  "name": {
+    "en": "Shield",
+    "cs": "Štít"
+  },
+  "mpCost": 2,
+  "target": "friendly",
+  "description": {
+    "en": "Wraps the target in a shimmering ward, raising defense for a short time.",
+    "cs": "Obklopí cíl třpytivou ochranou a na chvíli zvýší obranu."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you trace a sigil in the air and a shimmering ward settles around you.",
+        "others": "{actor} traces a sigil in the air and a shimmering ward settles around them."
+      },
+      "to_target": {
+        "self": "you trace a sigil in the air and a shimmering ward settles around {target}.",
+        "others": "{actor} traces a sigil in the air and a shimmering ward settles around {target}."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "nakreslíš ve vzduchu znak a kolem tebe se usadí třpytivá ochrana.",
+        "others": "{actor} nakreslí ve vzduchu znak a kolem něj se usadí třpytivá ochrana."
+      },
+      "to_target": {
+        "self": "nakreslíš ve vzduchu znak a kolem {target} se usadí třpytivá ochrana.",
+        "others": "{actor} nakreslí ve vzduchu znak a kolem {target} se usadí třpytivá ochrana."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.shield" }
+}
