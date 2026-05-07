@@ -1,0 +1,71 @@
+{
+  "id": "castle.skeleton_guard",
+  "name": { "en": "a skeleton guard", "cs": "kostlivec strážce" },
+  "nameAcc": { "en": "the skeleton guard", "cs": "kostlivce strážce" },
+  "nameDat": { "en": "the skeleton guard", "cs": "kostlivci strážci" },
+  "nameGen": { "en": "the skeleton guard", "cs": "kostlivce strážce" },
+  "title": { "en": "skeleton guard", "cs": "kostlivec strážce" },
+  "locations": {
+    "castle.barracks": 2
+  },
+  "short": {
+    "en": "A skeleton guard in plate and shield, watching the door.",
+    "cs": "Kostlivec strážce ve zbroji se štítem, hlídá dveře."
+  },
+  "long": {
+    "en": "A heavier skeleton than the ones outside, dressed in old steel plate over chainmail. A round shield, badly dented but still solid, is strapped to its left arm. It carries a long sword and stands the way a real soldier stands — feet apart, weight balanced. Cold blue lights flicker in its eyes.",
+    "cs": "Mohutnější kostlivec než ti venku, oblečený ve staré ocelové zbroji přes kroužkovou košili. Na levé ruce má připásaný kulatý štít, silně promáčknutý, ale stále pevný. Drží dlouhý meč a stojí, jako stojí skutečný voják — nohy od sebe, váha vyvážená. V očích mu blikají chladná modrá světla."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 35, "hpMax": 35,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 4, "int": 0,
+    "magicResist": 50,
+    "spd": 5
+  },
+  "respawn": { "ticks": 600 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "sword swing", "cs": "úder mečem" },
+      "chance": 1.0,
+      "cost": 16,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} steps forward and cuts at {target} with a long sword!",
+          "{actor} brings its sword down in a heavy two-handed swing at {target}!",
+          "{actor} drives its blade toward {target} with cold precision!"
+        ],
+        "cs": [
+          "{actor} udělá krok vpřed a sekne po {target.dat} dlouhým mečem!",
+          "{actor} udeří mečem v těžkém oboustranném máchu na {target}!",
+          "{actor} vede čepel proti {target.dat} s chladnou přesností!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "raises its shield a little higher and watches you.",
+          "shifts its grip on the sword, bones grinding inside the gauntlet.",
+          "scrapes the tip of its blade across the stone floor.",
+          "stands very still, the way a soldier stands on watch."
+        ],
+        "cs": [
+          "zvedne štít o něco výš a sleduje tě.",
+          "přehmátne na meči, kosti uvnitř rukavice tichounce zaskřípou.",
+          "zatáhne špičkou meče po kamenné podlaze.",
+          "stojí naprosto klidně, jako voják na hlídce."
+        ]
+      }
+    }
+  ]
+}

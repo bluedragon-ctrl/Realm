@@ -1,0 +1,21 @@
+{
+  "id": "item.captain_signet",
+  "name": {
+    "en": "a heavy signet ring",
+    "cs": "těžký pečetní prsten"
+  },
+  "nameAcc": {
+    "en": "the heavy signet ring",
+    "cs": "těžký pečetní prsten"
+  },
+  "short": {
+    "en": "A heavy iron ring set with a flat black stone, marked with a sword and tower.",
+    "cs": "Těžký železný prsten s plochým černým kamenem, označený mečem a věží."
+  },
+  "long": {
+    "en": "A thick iron band, big enough to fit over a gauntlet. The flat black stone in the centre is carved with a sword crossed over a tower — the same crest you saw on the great hall banners and the tomb door. It is heavy enough to feel like a key.",
+    "cs": "Tlustý železný kroužek, dost velký, aby se vešel přes železnou rukavici. Plochý černý kámen uprostřed je vyřezaný mečem překříženým přes věž — stejný znak, jaký jsi viděl na praporech v sále a na dveřích hrobky. Je tak těžký, že připomíná klíč."
+  },
+  "tags": ["key"],
+  "weight": 1
+}

@@ -1,0 +1,19 @@
+{
+  "id": "castle.tomb",
+  "name": {
+    "en": "Tomb of the Lord",
+    "cs": "Hrobka pána"
+  },
+  "short": {
+    "en": "A great stone chamber holding a cracked sarcophagus and a standing armored figure.",
+    "cs": "Velká kamenná komnata s prasklým sarkofágem a stojící postavou ve zbroji."
+  },
+  "long": {
+    "en": "The chamber is high-ceilinged and circular, its walls carved with the deeds of a long-dead lord. A great stone sarcophagus stands in the middle, its lid cracked open. Beside it, half-armoured and half-mist, stands the lord himself — sword in hand, eyes burning a cold blue. The air feels heavy, as if something were watching from every wall.",
+    "cs": "Komnata má vysoký strop a kruhový tvar, do stěn jsou vytesány skutky dávno mrtvého pána. Uprostřed stojí velký kamenný sarkofág, jeho víko je prasklé a pootevřené. Vedle něj stojí sám pán — napůl ve zbroji, napůl z mlhy — meč v ruce, oči planou chladnou modří. Vzduch je těžký, jako by se ze všech stěn dívalo něco neviditelného."
+  },
+  "exits": {
+    "u": "castle.crypt_stair"
+  },
+  "tags": ["indoor", "castle", "ruins", "dark"]
+}

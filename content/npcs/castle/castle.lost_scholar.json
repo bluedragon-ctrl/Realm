@@ -1,0 +1,67 @@
+{
+  "id": "castle.lost_scholar",
+  "name": { "en": "the lost scholar", "cs": "ztracený učenec" },
+  "nameAcc": { "en": "the lost scholar", "cs": "ztraceného učence" },
+  "nameDat": { "en": "the lost scholar", "cs": "ztracenému učenci" },
+  "nameGen": { "en": "the lost scholar", "cs": "ztraceného učence" },
+  "title": { "en": "lost scholar", "cs": "ztracený učenec" },
+  "location": "castle.library",
+  "count": 1,
+  "short": {
+    "en": "A pale, drifting figure in scholar's robes, half-reading, half-watching you.",
+    "cs": "Bledá postava v učeneckém rouchu pluje vzduchem, napůl čte, napůl tě pozoruje."
+  },
+  "long": {
+    "en": "A thin man in long robes that hang the wrong way, as if a wind no one else can feel were blowing on him. You can see the bookshelves through his chest. His eyes are dark and tired and a little kind, but his hands move with quick, careful magic. He has been here a very long time and he does not like to be interrupted.",
+    "cs": "Hubený muž v dlouhém rouchu, které vlaje špatným směrem, jako by na něj foukal vítr, který nikdo jiný necítí. Knihovnu za ním je vidět skrz jeho hruď. Oči má tmavé, unavené a trochu laskavé, ale jeho ruce se pohybují rychlou opatrnou magií. Je tu velmi dlouho a nemá rád, když ho někdo vyruší."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 45, "hpMax": 45,
+    "mp": 30, "mpMax": 30,
+    "attack": 6, "defense": 2, "int": 4,
+    "magicResist": 70,
+    "accuracy": 15,
+    "spd": 6
+  },
+  "respawn": { "ticks": 1500 },
+  "behaviors": [
+    {
+      "primitive": "cast",
+      "spell": "spell.wither",
+      "target": "aggro_target",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": "aggro_target"
+    },
+    {
+      "primitive": "cast",
+      "spell": "spell.life_drain",
+      "target": "aggro_target",
+      "chance": 1.0,
+      "cost": 18,
+      "requires": "aggro_target"
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "turns a transparent page without touching it.",
+          "mutters a single word in a language you do not know.",
+          "looks up briefly and then back down at the empty air in front of him.",
+          "drifts a little to one side, robes flowing the wrong way."
+        ],
+        "cs": [
+          "obrátí průhlednou stránku, aniž by se jí dotkl.",
+          "zamumlá jediné slovo v jazyce, který neznáš.",
+          "krátce zvedne pohled a pak ho zase sklopí k prázdnému vzduchu před sebou.",
+          "lehce se posune stranou, roucho mu vlaje špatným směrem."
+        ]
+      }
+    }
+  ]
+}

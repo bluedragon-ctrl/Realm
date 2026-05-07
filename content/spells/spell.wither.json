@@ -1,0 +1,29 @@
+{
+  "id": "spell.wither",
+  "name": {
+    "en": "Wither",
+    "cs": "Úpadek"
+  },
+  "mpCost": 0,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Whispers an old curse that weakens the target's strikes for a while.",
+    "cs": "Zašeptá starou kletbu, která na chvíli oslabí údery cíle."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you whisper an old, dry word and {target} feels their strength begin to fade.",
+        "others": "{actor} whispers an old, dry word and {target} sags as something inside them fades."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "zašeptáš staré, suché slovo a {target} cítí, jak mu síla začíná ubývat.",
+        "others": "{actor} zašeptá staré, suché slovo a {target} se prohne, jak v něm něco vyhasne."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.decay" }
+}

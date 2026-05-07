@@ -1,0 +1,23 @@
+{
+  "id": "castle.crypt_stair",
+  "name": {
+    "en": "Crypt Stair",
+    "cs": "Schody do hrobky"
+  },
+  "short": {
+    "en": "A narrow stone staircase spiralling down to a sealed iron door.",
+    "cs": "Úzké kamenné schody, které se točí dolů k zavřeným železným dveřím."
+  },
+  "long": {
+    "en": "A spiral staircase descends from the great hall into the rock under the castle. The walls are smooth granite, very cold to the touch. At the bottom of the stair stands an iron door, its surface carved with the same crest you saw upstairs — a sword crossed over a tower. A keyhole is set in its centre, shaped for a heavy ring.",
+    "cs": "Točité schody klesají z velkého sálu do skály pod hradem. Stěny jsou z hladké žuly, na dotek velmi chladné. Na konci schodiště stojí železné dveře, do jejichž povrchu je vyrytý stejný znak, jaký jsi viděl nahoře — meč překřížený přes věž. Uprostřed je klíčová dírka tvarovaná pro těžký prsten."
+  },
+  "exits": {
+    "s": "castle.great_hall",
+    "d": "castle.tomb"
+  },
+  "lockedExits": {
+    "d": "castle.tomb_door"
+  },
+  "tags": ["indoor", "castle", "ruins", "dark"]
+}

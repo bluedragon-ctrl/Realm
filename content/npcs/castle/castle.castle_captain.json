@@ -1,0 +1,101 @@
+{
+  "id": "castle.castle_captain",
+  "name": { "en": "the castle captain", "cs": "hradní kapitán" },
+  "nameAcc": { "en": "the castle captain", "cs": "hradního kapitána" },
+  "nameDat": { "en": "the castle captain", "cs": "hradnímu kapitánovi" },
+  "nameGen": { "en": "the castle captain", "cs": "hradního kapitána" },
+  "title": { "en": "castle captain", "cs": "hradní kapitán" },
+  "location": "castle.armoury",
+  "count": 1,
+  "short": {
+    "en": "A tall figure in tarnished plate stands silent in the middle of the armoury.",
+    "cs": "Vysoká postava ve zčernalé plátové zbroji mlčky stojí uprostřed zbrojnice."
+  },
+  "long": {
+    "en": "A skeleton in heavy steel plate, much of it black with old tarnish but still solid. A great sword rests across his shoulder and a long shield is strapped to his other arm. His helm is closed; through the visor, two cold blue points of light watch you steadily. He stands the way a real captain stands — patient, settled, ready.",
+    "cs": "Kostlivec v těžké ocelové zbroji, většinou zčernalé starým nájezdem, ale stále pevné. Velký meč mu spočívá přes rameno, na druhé paži má připnutý dlouhý štít. Přilbu má sklopenou; přes hledí tě klidně sledují dva chladné modré body světla. Stojí, jak stojí skutečný kapitán — trpělivě, vyrovnaně, připraveně."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 60, "hpMax": 60,
+    "mp": 0, "mpMax": 0,
+    "attack": 7, "defense": 5, "int": 0,
+    "magicResist": 30,
+    "accuracy": 15,
+    "spd": 5
+  },
+  "respawn": { "ticks": 1500 },
+  "loot": [
+    { "defId": "item.captain_signet", "chance": 1 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "cast",
+      "spell": "spell.fortify",
+      "target": "self",
+      "chance": 0.15,
+      "cost": 14,
+      "requires": "aggro_target"
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "shield bash", "cs": "úder štítem" },
+      "chance": 0.4,
+      "cost": 16,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "onHit": { "applyEffect": "effect.bleeding", "chance": 0.4 },
+      "templates": {
+        "en": [
+          "{actor} steps in and slams his shield into {target} with a loud crack!",
+          "{actor} drives the rim of his shield into {target}'s ribs!",
+          "{actor} smashes his shield forward and catches {target} hard!"
+        ],
+        "cs": [
+          "{actor} udělá krok vpřed a hlasitě udeří štítem do {target.gen}!",
+          "{actor} zaboří okraj štítu do žeber {target.gen}!",
+          "{actor} vyrazí štítem dopředu a tvrdě zasáhne {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "great sword cleave", "cs": "sek velkým mečem" },
+      "chance": 1.0,
+      "cost": 20,
+      "damage": "1d8+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} brings his great sword down on {target} in a heavy two-handed cleave!",
+          "{actor} swings his great sword in a wide arc and catches {target} on the side!",
+          "{actor} drives the blade of his great sword straight down at {target}!"
+        ],
+        "cs": [
+          "{actor} zasadí na {target} těžký oboustranný sek velkým mečem!",
+          "{actor} mávne velkým mečem v širokém oblouku a zasáhne {target} z boku!",
+          "{actor} vede čepel velkého meče přímo dolů na {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "rests the flat of his great sword across his shoulder and watches you.",
+          "settles his weight and the plate of his armor creaks softly.",
+          "lifts his shield a little, the painted crest worn down to bare metal."
+        ],
+        "cs": [
+          "položí plochu velkého meče přes rameno a sleduje tě.",
+          "přenese váhu a desky jeho zbroje tiše zaskřípou.",
+          "trochu pozvedne štít, malovaný znak je obnažený až na holý kov."
+        ]
+      }
+    }
+  ]
+}
