@@ -6,7 +6,7 @@ import { world } from './world.js';
 import { normalizeEquipped, recomputeStats } from './wearables.js';
 import { normalizeSavedActiveEffects, syncWearableEffects } from './activeEffects.js';
 
-const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark'];
+const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark', 'spell.burning_hands'];
 
 let nextNpcInstanceId = 1;
 

@@ -1,0 +1,15 @@
+{
+  "id": "effect.burning",
+  "name": {
+    "en": "Burning",
+    "cs": "Hoření"
+  },
+  "kind": "debuff",
+  "icon": "🔥",
+  "tick": {
+    "every": 1,
+    "pulses": 3,
+    "effect": { "type": "damage", "amount": 2 }
+  },
+  "stack": "refresh"
+}

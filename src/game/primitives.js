@@ -10,6 +10,7 @@ import { applyEffect } from './effects.js';
 import { applyActiveEffect } from './activeEffects.js';
 import { resolveName } from './declension.js';
 import { roll } from './dice.js';
+import { roomEnemiesOf, roomFriendliesOf } from './aoe.js';
 
 const PRIMITIVES = {
   say(actor, behavior) {
@@ -138,6 +139,42 @@ const PRIMITIVES = {
     if (!spell) return;
     const mpCost = spell.mpCost ?? 0;
     if ((actor.stats?.mp ?? 0) < mpCost) return;
+
+    const effectType = spell.effect?.type;
+    const isAoeDamage = effectType === 'damage_room_enemies';
+    const isAoeHeal = effectType === 'heal_room_friendlies';
+
+    if (isAoeDamage) {
+      const enemies = roomEnemiesOf(actor);
+      if (enemies.length === 0) return;
+      if (!hasForm(spell.verb, 'en', 'no_target')) return;
+      actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
+      runVerb({ actor, def: spell.verb, targetActor: null });
+      const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
+      for (const tgt of enemies) {
+        const amount = Math.max(1, roll(formula, { actor, target: tgt }));
+        applyDamageWithFeedback(actor, tgt, amount);
+        if (tgt.alive !== false && tgt.stats?.hp > 0 && spell.effect.applyEffect) {
+          applyActiveEffect(tgt, spell.effect.applyEffect, 'spell', actor.name);
+          if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
+        }
+      }
+      return;
+    }
+
+    if (isAoeHeal) {
+      if (!hasForm(spell.verb, 'en', 'no_target')) return;
+      actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
+      runVerb({ actor, def: spell.verb, targetActor: null });
+      for (const tgt of roomFriendliesOf(actor)) {
+        applyEffect({ ...spell.effect, type: 'heal' }, { actor, target: tgt });
+        if (spell.effect.applyEffect) {
+          applyActiveEffect(tgt, spell.effect.applyEffect, 'spell', actor.name);
+        }
+        if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
+      }
+      return;
+    }
 
     let target = actor;
     if (behavior.target === 'aggro_target') {

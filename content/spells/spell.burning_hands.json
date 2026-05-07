@@ -1,0 +1,33 @@
+{
+  "id": "spell.burning_hands",
+  "name": {
+    "en": "Burning Hands",
+    "cs": "Hořící ruce"
+  },
+  "mpCost": 8,
+  "target": "hostile_room",
+  "harmful": true,
+  "description": {
+    "en": "Sweep your hands wide and send a fan of orange flame across the whole room.",
+    "cs": "Rozevřeš ruce a po celé místnosti se rozlétne vějíř oranžových plamenů."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you sweep your hands wide and a fan of orange flame washes across the room.",
+        "others": "{actor} sweeps their hands wide and a fan of orange flame washes across the room."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozevřeš ruce doširoka a po místnosti se rozlétne vějíř oranžových plamenů.",
+        "others": "{actor} rozevře ruce doširoka a po místnosti se rozlétne vějíř oranžových plamenů."
+      }
+    }
+  },
+  "effect": {
+    "type": "damage_room_enemies",
+    "formula": "1d4+INT/4",
+    "applyEffect": "effect.burning"
+  }
+}
