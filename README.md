@@ -313,6 +313,7 @@ The verb becomes a command and a popover button automatically. No code change.
 | Item disposal (mimic vendor) | planned |
 | Light system + day/night cycle | planned |
 | Light/visibility spells, light sources | planned |
+| Perception (derived bonus from items/effects, no new stat) | planned |
 | New areas (river, marsh, deep mine) | planned |
 | Summoning, player pets | planned |
 | Server events | planned |
