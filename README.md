@@ -306,6 +306,15 @@ The verb becomes a command and a popover button automatically. No code change.
 | Magic (spells as content, MP costs) | done |
 | Loot tables, monster spawns | done |
 | Stabilisation, testing, basic gameplay content | in progress |
+| Aggro overhaul (threat priority, taunt/calm) | planned |
+| Out-of-combat monster regen | planned |
+| Actor positions (stand/sit/sleep) | planned |
+| Right-side panel rework, configurable cast menu | planned |
+| Item disposal (mimic vendor) | planned |
+| Light system + day/night cycle | planned |
+| Light/visibility spells, light sources | planned |
+| New areas (river, marsh, deep mine) | planned |
+| Summoning, player pets | planned |
 | Server events | planned |
 | Quests / dialogue trees | deferred |
 | SQLite migration | deferred until performance pain |
