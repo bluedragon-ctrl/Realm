@@ -304,7 +304,8 @@ The verb becomes a command and a popover button automatically. No code change.
 | Items + inventory + simple item interaction loop | done |
 | Combat (attack verb, HP changes, monster death) | done |
 | Magic (spells as content, MP costs) | done |
+| Loot tables, monster spawns | done |
 | Stabilisation, testing, basic gameplay content | in progress |
-| Loot tables, monster spawns, server events | planned |
-| Quests / dialogue trees | planned |
+| Server events | planned |
+| Quests / dialogue trees | deferred |
 | SQLite migration | deferred until performance pain |
