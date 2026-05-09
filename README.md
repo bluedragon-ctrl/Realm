@@ -307,6 +307,7 @@ The verb becomes a command and a popover button automatically. No code change.
 | Loot tables, monster spawns | done |
 | Stabilisation, testing, basic gameplay content | in progress |
 | Aggro overhaul (threat priority, taunt/calm) | planned |
+| Cast cooldown (shared action queue with attack, enables slow/strong spells) | planned |
 | Out-of-combat monster regen | planned |
 | Actor positions (stand/sit/sleep) | planned |
 | Right-side panel rework, configurable cast menu | planned |
