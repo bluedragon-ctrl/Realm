@@ -295,28 +295,72 @@ The verb becomes a command and a popover button automatically. No code change.
 
 ## Roadmap
 
-| Phase | Status |
+Ordered by priority within each status. Preparation tasks land before the systems they unblock; the combat/aggro/perception cluster comes before the light + content phase per the project's current direction.
+
+### Done
+
+| Phase |
+|---|
+| Walk + chat + persistence |
+| i18n (en/cs) |
+| World tick + ambient NPCs |
+| Click-to-interact UI (popover) |
+| Items + inventory + simple item interaction loop |
+| Combat (attack verb, HP changes, monster death) |
+| Magic (spells as content, MP costs) |
+| Loot tables, monster spawns |
+
+### In progress
+
+| Phase |
+|---|
+| Stabilisation, testing, basic gameplay content |
+
+### Planned — combat & system cleanup (next)
+
+| Phase |
+|---|
+| Aggro overhaul (threat priority, taunt/calm) |
+| Cast cooldown (shared action queue with attack, enables slow/strong spells) |
+| Perception (derived bonus + check primitive; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) |
+| Out-of-combat monster regen |
+| Actor positions (stand/sit/sleep) |
+
+### Planned — UI / UX polish
+
+| Phase |
+|---|
+| Right-side panel rework, configurable cast menu |
+| Item disposal (mimic vendor) |
+
+### Planned — pre-light preparation
+
+| Phase |
+|---|
+| Pre-light content audit (rooms: `outdoor` + `lightBase`; NPCs: `vision`; items: `lightSource`) — see `docs/superpowers/plans/2026-05-09-pre-light-content-audit.md` |
+
+### Planned — light & exploration content
+
+| Phase |
+|---|
+| Light system (visual-only v1) |
+| Light/visibility spells, light sources |
+| Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) |
+| Discovered-secrets tracking (IDed secrets, player save records discovered IDs) |
+| New areas (river, marsh, deep mine) |
+
+### Planned — later systems
+
+| Phase |
+|---|
+| Day/night cycle (world clock, dusk/dawn for outdoor rooms) |
+| Summoning, player pets |
+| Server events |
+
+### Deferred
+
+| Phase | Reason |
 |---|---|
-| Walk + chat + persistence | done |
-| i18n (en/cs) | done |
-| World tick + ambient NPCs | done |
-| Click-to-interact UI (popover) | done |
-| Items + inventory + simple item interaction loop | done |
-| Combat (attack verb, HP changes, monster death) | done |
-| Magic (spells as content, MP costs) | done |
-| Loot tables, monster spawns | done |
-| Stabilisation, testing, basic gameplay content | in progress |
-| Aggro overhaul (threat priority, taunt/calm) | planned |
-| Out-of-combat monster regen | planned |
-| Actor positions (stand/sit/sleep) | planned |
-| Right-side panel rework, configurable cast menu | planned |
-| Item disposal (mimic vendor) | planned |
-| Light system + day/night cycle | planned |
-| Light/visibility spells, light sources | planned |
-| Perception (derived bonus from items/effects, no new stat) | planned |
-| Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) | planned |
-| New areas (river, marsh, deep mine) | planned |
-| Summoning, player pets | planned |
-| Server events | planned |
-| Quests / dialogue trees | deferred |
-| SQLite migration | deferred until performance pain |
+| Quests / dialogue trees | content-heavy, lands once exploration content is real |
+| Internet-readiness security pass (passwords + hashing, TLS for HTTP/WS, input sanitation, rate limiting, session/auth model) | until exposure beyond LAN is planned — current `data/admins.json` + LAN-only stance is explicit |
+| SQLite migration | until performance pain (cross-player queries, transactions, event log) |
