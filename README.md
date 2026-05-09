@@ -315,6 +315,7 @@ The verb becomes a command and a popover button automatically. No code change.
 | Light/visibility spells, light sources | planned |
 | Perception (derived bonus from items/effects, no new stat) | planned |
 | Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) | planned |
+| Discovered-secrets tracking (IDed secrets, player save records discovered IDs) | planned |
 | New areas (river, marsh, deep mine) | planned |
 | Summoning, player pets | planned |
 | Server events | planned |
