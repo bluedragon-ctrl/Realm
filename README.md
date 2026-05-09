@@ -362,4 +362,5 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Phase | Reason |
 |---|---|
 | Quests / dialogue trees | content-heavy, lands once exploration content is real |
+| Internet-readiness security pass (passwords + hashing, TLS for HTTP/WS, input sanitation, rate limiting, session/auth model) | until exposure beyond LAN is planned — current `data/admins.json` + LAN-only stance is explicit |
 | SQLite migration | until performance pain (cross-player queries, transactions, event log) |
