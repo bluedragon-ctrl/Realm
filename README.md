@@ -308,9 +308,9 @@ The verb becomes a command and a popover button automatically. No code change.
 | Stabilisation, testing, basic gameplay content | in progress |
 | Aggro overhaul (threat priority, taunt/calm) | planned |
 | Cast cooldown (shared action queue with attack, enables slow/strong spells) | planned |
+| Perception (derived bonus + check primitive; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) | planned |
 | Out-of-combat monster regen | planned |
 | Actor positions (stand/sit/sleep) | planned |
-| Perception (derived bonus from items/effects, no new stat) | planned |
 | Right-side panel rework, configurable cast menu | planned |
 | Item disposal (mimic vendor) | planned |
 | Light system + day/night cycle | planned |
