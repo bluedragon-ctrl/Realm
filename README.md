@@ -310,11 +310,11 @@ The verb becomes a command and a popover button automatically. No code change.
 | Cast cooldown (shared action queue with attack, enables slow/strong spells) | planned |
 | Out-of-combat monster regen | planned |
 | Actor positions (stand/sit/sleep) | planned |
+| Perception (derived bonus from items/effects, no new stat) | planned |
 | Right-side panel rework, configurable cast menu | planned |
 | Item disposal (mimic vendor) | planned |
 | Light system + day/night cycle | planned |
 | Light/visibility spells, light sources | planned |
-| Perception (derived bonus from items/effects, no new stat) | planned |
 | Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) | planned |
 | Discovered-secrets tracking (IDed secrets, player save records discovered IDs) | planned |
 | New areas (river, marsh, deep mine) | planned |
