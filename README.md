@@ -313,11 +313,12 @@ The verb becomes a command and a popover button automatically. No code change.
 | Actor positions (stand/sit/sleep) | planned |
 | Right-side panel rework, configurable cast menu | planned |
 | Item disposal (mimic vendor) | planned |
-| Light system + day/night cycle | planned |
+| Light system (visual-only v1) | planned |
 | Light/visibility spells, light sources | planned |
 | Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) | planned |
 | Discovered-secrets tracking (IDed secrets, player save records discovered IDs) | planned |
 | New areas (river, marsh, deep mine) | planned |
+| Day/night cycle (world clock, dusk/dawn for outdoor rooms) | planned |
 | Summoning, player pets | planned |
 | Server events | planned |
 | Quests / dialogue trees | deferred |
