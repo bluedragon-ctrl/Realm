@@ -314,15 +314,19 @@ function renderStats(msg) {
     playerStatsEl.appendChild(effectsRow);
   }
 
-  // Collapsibles in order: spells, inventory, equipment
+  // Tab bar: Spells / Items / Gear
+  const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
+  const invConsumables = inv.filter(i => i.consumable);
+  const invGear = inv.filter(i => i.wearable);
+  const invOthers = inv.filter(i => !i.consumable && !i.wearable);
 
-  playerStatsEl.appendChild(makeCollapsibleSection('spells', labels.spellbookTitle ?? 'Spells', (body) => {
+  function buildSpellsTab(el) {
     const spells = Array.isArray(msg.knownSpells) ? msg.knownSpells : [];
     if (spells.length === 0) {
       const empty = document.createElement('span');
       empty.className = 'empty';
       empty.textContent = labels.spellbookEmpty ?? '(none)';
-      body.appendChild(empty);
+      el.appendChild(empty);
       return;
     }
     for (const spell of spells) {
@@ -352,21 +356,17 @@ function renderStats(msg) {
         desc.textContent = spell.description;
         row.appendChild(desc);
       }
-      body.appendChild(row);
+      el.appendChild(row);
     }
-  }));
+  }
 
-  const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
-  const invConsumables = inv.filter(i => i.consumable);
-  const invEquipment = inv.filter(i => i.wearable);
-  const invOthers = inv.filter(i => !i.consumable && !i.wearable);
-  playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
+  function buildItemsTab(el) {
     const filterKey = 'realm.panel.inventory.filter';
     let activeFilter = localStorage.getItem(filterKey) ?? 'all';
     const pillFilters = [
       { key: 'all', label: labels.filterAll ?? 'All' },
       { key: 'usable', label: labels.filterUsable ?? 'Usable' },
-      { key: 'equipment', label: labels.filterEquipment ?? 'Equipment' },
+      { key: 'gear', label: labels.filterGear ?? 'Gear' },
       { key: 'other', label: labels.filterOther ?? 'Other' },
     ];
     const pillsRow = document.createElement('div');
@@ -375,7 +375,7 @@ function renderStats(msg) {
     const renderInvList = () => {
       listEl.innerHTML = '';
       const items = activeFilter === 'usable' ? invConsumables
-        : activeFilter === 'equipment' ? invEquipment
+        : activeFilter === 'gear' ? invGear
         : activeFilter === 'other' ? invOthers
         : inv;
       if (items.length === 0) {
@@ -414,12 +414,12 @@ function renderStats(msg) {
       });
       pillsRow.appendChild(pill);
     }
-    body.appendChild(pillsRow);
+    el.appendChild(pillsRow);
     renderInvList();
-    body.appendChild(listEl);
-  }));
+    el.appendChild(listEl);
+  }
 
-  playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
+  function buildGearTab(el) {
     const eq = msg.equipment ?? { slots: [], inInventory: [] };
     const slotLabels = labels.slotLabels ?? {};
     const slotEmpty = labels.slotEmpty ?? '—';
@@ -436,40 +436,48 @@ function renderStats(msg) {
       row.appendChild(slotLabel);
       row.appendChild(itemEl);
       row.addEventListener('click', (ev) => openEquipmentSlotPopover(row, slotInfo, eq.inInventory, ev));
-      body.appendChild(row);
+      el.appendChild(row);
     }
-  }));
+  }
+
+  const tabKey = 'realm.panel.tab';
+  let activeTab = localStorage.getItem(tabKey) ?? 'spells';
+  const tabDefs = [
+    { key: 'spells', label: labels.spellbookTitle ?? 'Spells', build: buildSpellsTab },
+    { key: 'items', label: labels.inventoryTitle ?? 'Items', build: buildItemsTab },
+    { key: 'gear', label: labels.gearTitle ?? 'Gear', build: buildGearTab },
+  ];
+
+  const tabBar = document.createElement('div');
+  tabBar.className = 'panel-tabs';
+  const tabContent = document.createElement('div');
+  tabContent.className = 'panel-tab-content';
+
+  const buildActiveTab = () => {
+    tabContent.innerHTML = '';
+    (tabDefs.find(t => t.key === activeTab) ?? tabDefs[0]).build(tabContent);
+  };
+
+  for (const def of tabDefs) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `panel-tab${activeTab === def.key ? ' active' : ''}`;
+    btn.textContent = def.label;
+    btn.addEventListener('click', () => {
+      activeTab = def.key;
+      localStorage.setItem(tabKey, def.key);
+      for (const b of tabBar.querySelectorAll('.panel-tab')) b.classList.toggle('active', b === btn);
+      buildActiveTab();
+    });
+    tabBar.appendChild(btn);
+  }
+
+  buildActiveTab();
+  playerStatsEl.appendChild(tabBar);
+  playerStatsEl.appendChild(tabContent);
 
   playerPanel.hidden = false;
   statusStrip.hidden = false;
-}
-
-function makeCollapsibleSection(key, title, buildBody) {
-  const stateKey = `realm.panel.${key}.collapsed`;
-  const collapsed = localStorage.getItem(stateKey) === 'true';
-
-  const section = document.createElement('div');
-  section.className = 'inventory-section';
-
-  const header = document.createElement('h4');
-  header.className = 'collapsible';
-  if (collapsed) header.classList.add('collapsed');
-  header.appendChild(document.createTextNode(title));
-
-  const body = document.createElement('div');
-  if (collapsed) body.style.display = 'none';
-  buildBody(body);
-
-  header.addEventListener('click', () => {
-    const nowCollapsed = !header.classList.contains('collapsed');
-    header.classList.toggle('collapsed', nowCollapsed);
-    body.style.display = nowCollapsed ? 'none' : '';
-    localStorage.setItem(stateKey, String(nowCollapsed));
-  });
-
-  section.appendChild(header);
-  section.appendChild(body);
-  return section;
 }
 
 function renderRoomInInspect(msg) {

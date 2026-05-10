@@ -151,83 +151,39 @@ html, body {
   align-items: baseline;
 }
 
-.inventory-section {
+/* Panel tab bar (Spells / Items / Gear) */
+.panel-tabs {
+  display: flex;
+  border-bottom: 1px solid var(--border);
   margin-top: 10px;
-  padding-top: 8px;
-  border-top: 1px solid var(--border);
 }
-.inventory-section h4 {
-  margin: 0 0 6px 0;
-  font-size: 12px;
+.panel-tab {
+  flex: 1;
+  background: transparent;
+  border: none;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -1px;
+  padding: 5px 2px;
+  font-family: inherit;
+  font-size: 11px;
   color: var(--dim);
+  cursor: pointer;
   text-transform: uppercase;
   letter-spacing: 0.05em;
-  font-weight: 600;
+  transition: color 0.1s, border-color 0.1s;
 }
-.inventory-section h4.collapsible {
-  cursor: pointer;
-  user-select: none;
+.panel-tab:hover { color: var(--fg); }
+.panel-tab.active {
+  color: var(--accent);
+  border-bottom-color: var(--accent);
 }
-.inventory-section h4.collapsible::before {
-  content: '▼';
-  display: inline-block;
-  width: 1em;
-  font-size: 0.75em;
-  color: var(--dim);
-  margin-right: 2px;
-  transition: transform 0.1s ease;
+.panel-tab-content {
+  padding-top: 8px;
 }
-.inventory-section h4.collapsible.collapsed::before {
-  transform: rotate(-90deg);
-}
-.inventory-section h4.collapsible:hover { color: var(--fg); }
-.inventory-section .empty {
+.panel-tab-content .empty {
   color: var(--dim);
   font-size: 12px;
   font-style: italic;
-}
-.inventory-subgroup + .inventory-subgroup {
-  margin-top: 6px;
-}
-.inventory-subgroup-title {
-  font-size: 11px;
-  color: var(--dim);
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  margin-bottom: 3px;
-}
-.inventory-subgroup-row {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
-}
-
-.equipment-grid {
-  display: flex;
-  flex-direction: column;
-  gap: 3px;
-}
-.equipment-slot-row {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  font-size: 12px;
-}
-.equipment-slot-label {
-  color: var(--dim);
-  width: 60px;
-  flex-shrink: 0;
-  text-transform: uppercase;
-  letter-spacing: 0.04em;
-  font-size: 11px;
-}
-.equipment-inventory-row {
-  margin-top: 8px;
-  padding-top: 6px;
-  border-top: 1px dashed var(--border);
-  display: flex;
-  flex-wrap: wrap;
-  gap: 4px;
 }
 
 /* Panel list rows (spells, inventory items) */
