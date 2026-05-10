@@ -1,0 +1,28 @@
+{
+  "id": "spell.fortify",
+  "name": {
+    "en": "Fortify",
+    "cs": "Opevnění"
+  },
+  "mpCost": 0,
+  "target": "self",
+  "description": {
+    "en": "Locks armor and shield into a hardened stance for a long time.",
+    "cs": "Zpevní zbroj a štít do tvrdého postoje na delší dobu."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you set your feet, lock your shield, and a heavy stillness settles over your armor.",
+        "others": "{actor} sets their feet, locks their shield, and a heavy stillness settles over their armor."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zapřeš se, zaklesneš štít a kolem tvé zbroje se usadí těžké ticho.",
+        "others": "{actor} se zapře, zaklesne štít a kolem jeho zbroje se usadí těžké ticho."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.fortify" }
+}

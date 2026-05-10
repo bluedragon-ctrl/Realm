@@ -8,6 +8,8 @@
     "en": "the innkeeper",
     "cs": "hostinského"
   },
+  "nameDat": { "en": "the innkeeper", "cs": "hostinskému" },
+  "nameGen": { "en": "the innkeeper", "cs": "hostinského" },
   "title": {
     "en": "innkeeper",
     "cs": "hostinský"
@@ -43,6 +45,12 @@
       "flavor": "sell",
       "inputs":  [{ "item": "item.rat_tail", "count": 1 }],
       "outputs": [{ "gold": 1 }]
+    },
+    {
+      "id": "innkeeper.buy_hearty_soup",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 5 }],
+      "outputs": [{ "item": "item.hearty_soup" }]
     }
   ],
   "behaviors": [
@@ -56,7 +64,7 @@
           "Stew today, fresh bread tomorrow.",
           "A quiet day. The way I like it.",
           "Mind the step on your way out.",
-          "Rats! I hate the things. A copper for every tail you bring me — I mean it.",
+          "Rats! I can't stand the things. A copper for every tail you bring me — I mean it.",
           "The cellar's overrun again. Bring me rat tails and I'll pay you."
         ],
         "cs": [

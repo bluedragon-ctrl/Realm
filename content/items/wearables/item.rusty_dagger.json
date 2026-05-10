@@ -21,6 +21,8 @@
   "spawn": { "location": "home.garden", "count": 1, "respawnTicks": 200 },
   "wearable": {
     "slot": "weapon",
-    "bonus": { "attack": 1 }
+    "damage": "1d4+ATK",
+    "cost": 9,
+    "bonus": { "attack": 1, "accuracy": 8 }
   }
 }

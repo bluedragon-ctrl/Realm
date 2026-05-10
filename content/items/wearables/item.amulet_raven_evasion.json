@@ -1,0 +1,25 @@
+{
+  "id": "item.amulet_raven_evasion",
+  "name": {
+    "en": "a raven feather amulet",
+    "cs": "amulet z havraních per"
+  },
+  "nameAcc": {
+    "en": "the raven feather amulet",
+    "cs": "amulet z havraních per"
+  },
+  "short": {
+    "en": "A light amulet made of black raven feathers.",
+    "cs": "Lehký amulet z černých havraních per."
+  },
+  "long": {
+    "en": "Five glossy raven feathers are bound together with a leather cord. The amulet is so light you barely feel it. While you wear it, you move just a little quicker out of harm's way.",
+    "cs": "Pět lesklých havraních per je svázáno koženou šňůrkou. Amulet je tak lehký, že ho sotva cítíš. Když ho nosíš, o trochu rychleji uskakuješ před nebezpečím."
+  },
+  "tags": ["amulet", "magic"],
+  "weight": 0,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "evasion": 5 }
+  }
+}

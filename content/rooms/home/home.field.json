@@ -1,7 +1,7 @@
 {
   "id": "home.field",
   "name": {
-    "en": "Field Crossroads",
+    "en": "Field crossroads",
     "cs": "Polní rozcestí"
   },
   "short": {
@@ -9,7 +9,7 @@
     "cs": "Polní cesta přes pole, vede na východ a na západ."
   },
   "long": {
-    "en": "A wide field on both sides of a dusty road. The air smells like dry grass and warm earth. The road goes east and west. Both ends disappear into a dark forest far away. The yard gate is to the north.",
+    "en": "A wide field on both sides of a dusty road. The air smells like dry grass and warm earth. The road goes east and west. Both ends vanish into the distant forest. The yard gate is to the north.",
     "cs": "Po obou stranách prašné cesty se rozkládá široké pole. Vzduch voní suchou trávou a teplou zemí. Cesta vede na východ a na západ. Oba konce mizí v dalekém tmavém lese. Na severu jsou vrátka do dvora."
   },
   "exits": {

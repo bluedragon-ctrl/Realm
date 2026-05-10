@@ -1,0 +1,27 @@
+{
+  "id": "item.hunting_spear",
+  "name": {
+    "en": "a hunting spear",
+    "cs": "lovecké kopí"
+  },
+  "nameAcc": {
+    "en": "the hunting spear",
+    "cs": "lovecké kopí"
+  },
+  "short": {
+    "en": "A long hunting spear lies here.",
+    "cs": "Leží tu dlouhé lovecké kopí."
+  },
+  "long": {
+    "en": "A long wooden spear with an iron tip. The shaft is light and the reach is good. Easier to hit small, quick animals.",
+    "cs": "Dlouhé dřevěné kopí se železným hrotem. Násada je lehká a dosah je dobrý. Snadněji zasáhneš malá rychlá zvířata."
+  },
+  "tags": ["weapon"],
+  "weight": 2,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d6+ATK",
+    "cost": 11,
+    "bonus": { "attack": 1, "accuracy": 6 }
+  }
+}

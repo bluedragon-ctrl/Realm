@@ -1,0 +1,93 @@
+{
+  "id": "forest.skeleton_lord",
+  "name": { "en": "a skeleton lord", "cs": "kostlivý pán" },
+  "nameAcc": { "en": "the skeleton lord", "cs": "kostlivého pána" },
+  "nameDat": { "en": "the skeleton lord", "cs": "kostlivému pánovi" },
+  "nameGen": { "en": "the skeleton lord", "cs": "kostlivého pána" },
+  "title": { "en": "skeleton lord", "cs": "kostlivý pán" },
+  "location": "forest.tower_tomb",
+  "count": 1,
+  "short": {
+    "en": "A tall skeleton in a tattered dark cloak, holding a pale bone staff.",
+    "cs": "Vysoký kostlivec v potrhaném tmavém plášti, drží bledou kostěnou hůl."
+  },
+  "long": {
+    "en": "A skeleton taller than a grown man, draped in a dark cloak that hangs in tatters. Its empty eye sockets glow with a bright green light, brighter than the warriors above. Both bony hands grip a pale staff carved from bone, and faint runes trail along the wood. It does not move much, but the air around it feels cold and heavy.",
+    "cs": "Kostlivec vyšší než dospělý muž, oblečený do tmavého pláště, který visí v cárech. Prázdné oční důlky září jasně zelenou barvou, jasněji než u bojovníků nahoře. V obou kostnatých rukou svírá bledou hůl vyřezanou z kosti, po dřevě se táhnou slabé runy. Skoro se nehýbe, ale vzduch kolem něj je chladný a těžký."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 35, "hpMax": 35,
+    "mp": 100, "mpMax": 100,
+    "attack": 3, "defense": 2, "int": 8,
+    "magicResist": 60,
+    "spd": 8
+  },
+  "respawn": { "ticks": 600 },
+  "xp": 70,
+  "goldDrop": { "formula": "2d6+5", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.bone_staff", "chance": 0.5 },
+    { "defId": "item.burning_hands_scroll", "chance": 0.5 },
+    { "defId": "potion.mana", "chance": 1.0 },
+    { "defId": "potion.heal", "chance": 0.5 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "cast",
+      "spell": "spell.burning_hands",
+      "chance": 0.35,
+      "cost": 18,
+      "requires": "aggro_target"
+    },
+    {
+      "primitive": "cast",
+      "spell": "spell.spark",
+      "target": "aggro_target",
+      "chance": 1.0,
+      "cost": 14,
+      "requires": "aggro_target"
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "bony slash", "cs": "kostnatý sek" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swings the bone staff at {target} like a club!",
+          "{actor} cracks {target} with the heavy end of the staff!",
+          "{actor} drives a bony fist into {target}!"
+        ],
+        "cs": [
+          "{actor} zamáchne kostěnou holí na {target} jako kyjem!",
+          "{actor} udeří {target.acc} těžkým koncem hole!",
+          "{actor} zarazí kostnatou pěst do {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "rasps out words in a language no one alive remembers.",
+          "raises the staff and the runes flare brighter for a moment.",
+          "tilts its skull and the green light in its sockets pulses.",
+          "lets out a long dry hiss that echoes off the stone."
+        ],
+        "cs": [
+          "zachrčí slova v jazyce, který už nikdo živý nepamatuje.",
+          "zvedne hůl a runy na okamžik silněji zazáří.",
+          "nakloní lebku a zelené světlo v důlcích zapulzuje.",
+          "vydá dlouhý suchý sykot, který se odrazí od kamene."
+        ]
+      }
+    }
+  ]
+}

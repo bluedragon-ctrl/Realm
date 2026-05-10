@@ -9,6 +9,7 @@ import { describeRoomToAll } from './look.js';
 import { awardXp } from '../xp.js';
 import { isSelfToken } from '../targeting.js';
 import { runExchange } from '../exchange.js';
+import { EFFECT_SOURCE } from '../contentMeta.js';
 
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
@@ -117,19 +118,34 @@ export default function use(actor, args) {
     return;
   }
 
+  if (useDef.effect?.type === 'open_chest') {
+    const keyId = useDef.effect.key;
+    const hasKey = !keyId || (actor.inventory?.some(i => i.defId === keyId) ?? false);
+    if (!hasKey) {
+      const keyDef = world.itemDefs.get(keyId);
+      const keyName = keyDef ? t(keyDef.name, actor.lang) : keyId;
+      actor.session.send({ kind: 'error', text: s('chest.need_key', actor.lang, { key: keyName }) });
+      return;
+    }
+  }
+
   runVerb({ actor, def: useDef, targetActor });
 
   if (useDef.effect?.type === 'apply_effect') {
     const recipient = targetActor ?? actor;
-    applyActiveEffect(recipient, useDef.effect.effectId, 'consumable', actor.name);
+    applyActiveEffect(recipient, useDef.effect.effectId, EFFECT_SOURCE.CONSUMABLE, actor.name);
     if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
     if (actor !== recipient && actor.kind === 'player') sendStats(actor);
   } else {
-    const result = applyEffect(useDef.effect, { actor, target: targetActor });
+    const result = applyEffect(useDef.effect, { actor, target: targetActor, fixture: inst, room: actor.location });
     if (useDef.effect?.type === 'heal') {
       sendHealFeedback(actor, targetActor, result);
     } else if (useDef.effect?.type === 'unlock' && result?.unlocked) {
       describeRoomToAll(actor.location);
+    } else if (useDef.effect?.type === 'open_chest' && result?.opened) {
+      actor.session?.send({ kind: 'system', tone: 'good', text: s('chest.opened', actor.lang) });
+      describeRoomToAll(actor.location);
+      awardXp(actor, 5, 'open_chest');
     } else if (useDef.effect?.type === 'teach_spell') {
       if (result?.learned) {
         const spellDef = world.spellDefs.get(useDef.effect.spell);

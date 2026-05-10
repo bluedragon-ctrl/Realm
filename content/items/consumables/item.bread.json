@@ -1,0 +1,45 @@
+{
+  "id": "item.bread",
+  "name": {
+    "en": "a loaf of bread",
+    "cs": "bochník chleba"
+  },
+  "nameAcc": {
+    "en": "the loaf of bread",
+    "cs": "bochník chleba"
+  },
+  "short": {
+    "en": "A small loaf of fresh brown bread.",
+    "cs": "Malý bochník čerstvého tmavého chleba."
+  },
+  "long": {
+    "en": "A round loaf with a crisp brown crust and a soft fluffy inside. It still smells of the oven. Eating it fills the belly and lifts the spirits.",
+    "cs": "Kulatý bochník s křupavou hnědou kůrkou a měkkým nadýchaným vnitřkem. Stále voní pecí. Když ho sníš, zaženeš hlad a zvedne ti to náladu."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you tear off a piece of bread and eat it. It's warm and fresh.",
+        "others": "{actor} tears off a piece of bread and eats it."
+      },
+      "to_target": {
+        "self": "you offer the loaf of bread to {target}, who tears off a piece and eats it.",
+        "others": "{actor} offers the loaf of bread to {target}, who tears off a piece and eats it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "ulomíš kus chleba a sníš ho. Je teplý a čerstvý.",
+        "others": "{actor} ulomí kus chleba a sní ho."
+      },
+      "to_target": {
+        "self": "podáš bochník chleba {target.dat} a ten si ulomí kus a sní ho.",
+        "others": "{actor} podává bochník chleba {target.dat} a ten si ulomí kus a sní ho."
+      }
+    },
+    "effect": { "type": "heal", "amount": 2 },
+    "consumable": true
+  }
+}

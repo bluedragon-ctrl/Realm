@@ -1,0 +1,29 @@
+{
+  "id": "spell.poison_dart",
+  "name": {
+    "en": "Poison Dart",
+    "cs": "Jedový šíp"
+  },
+  "mpCost": 3,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Send a dart of poison into the target, causing damage over time.",
+    "cs": "Vystřelí jedový šíp do cíle, který ho pak postupně poškozuje."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you snap your fingers and a thin dart of green light stings {target}.",
+        "others": "{actor} snaps their fingers and a thin dart of green light stings {target}."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "lusknete prsty a tenký jedový šíp zelené záře bodne {target}.",
+        "others": "{actor} luskne prsty a tenký jedový šíp zelené záře bodne {target}."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.poison" }
+}

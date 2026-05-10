@@ -45,6 +45,8 @@ Every content creation task follows the same steps:
 
 For **edits** (rebalancing a mob, rewriting a description, swapping an exit), the scan is lighter: read only the file being edited and any directly affected neighbours. Skip exit re-wiring unless the edit changes connectivity.
 
+**Renaming an item display name?** Grep for the *old* display name across `content/` before committing — NPC `craft` and `exchange` `verb` templates may quote the item name inline, and those won't follow an id-based rename. Example: when *"bear skin armor"* was renamed, the smith's craft verb still said *"a heavy bear skin armor takes shape"* and had to be patched separately.
+
 ## Step 1 — Scan live state
 
 Content is organized in **per-region subfolders** for rooms and NPCs, and a hybrid layout for items (see Step 2). Use recursive globs:
@@ -103,7 +105,26 @@ New rooms must have at least one exit that connects back into the existing map.
 
 ## Step 4 — Czech text
 
-Write Czech text naturally — short, plain sentences. **Sense beats precision**: a translation that reads natural and conveys the meaning is better than a stiff word-for-word rendering. Use nominative for `{actor}` and `{target}` placeholders; items can declare optional `nameAcc` (accusative) for use as direct objects in templates. When unsure, follow patterns in existing files — but don't preserve a literal English construction at the cost of readability.
+Write Czech text naturally — short, plain sentences. **Sense beats precision**: a translation that reads natural and conveys the meaning is better than a stiff word-for-word rendering.
+
+**Name forms.** Czech-target NPCs and items declare declined forms alongside `name`. All optional; missing forms fall back to nominative.
+
+| Field     | Case (pád)         | When it's used                                                  |
+|-----------|--------------------|-----------------------------------------------------------------|
+| `name`    | nominative (1.)    | subject — `{target} se zhroutí`                                 |
+| `nameAcc` | accusative (4.)    | direct object — `kousne {target}`, after `na`/`pro`             |
+| `nameDat` | dative (3.)        | indirect object — `dáváš X {target.dat}`, after `k`/`proti`/`po`|
+| `nameGen` | genitive (2.)      | possession + after `do`/`od`/`u`/`bez` — `do ruky {target.gen}` |
+| `nameVoc` | vocative (5.)      | direct address — rare; use for "Petře!" lines                   |
+
+**Template placeholders.** Plain `{actor}` is nominative; plain `{target}` is accusative (the default for direct-object slots). Use a dotted suffix to pick a specific case:
+
+- `{target.dat}` — after `k`, `proti`, `po`, with verbs `dát`, `podat`, `ukázat`
+- `{target.gen}` — possessive ("X's leg/lips/feet"), after `do`, `od`, `u`, `bez`
+- `{actor.gen}` — `kouzlo {actor.gen}` ("X's spell")
+- `{target.nom}` / `{actor.acc}` — explicit overrides when needed
+
+The same syntax works in NPC verb templates (attack, give_item, interact, craft) and in item.use templates. When you write a new template with `{target}` or `{actor}`, decide which case the surrounding Czech requires and pick the right suffix. See [references/czech-cases.md](references/czech-cases.md) for the preposition-to-case lookup, declined-form examples, and the dat≈loc shortcut for `po + loc` templates.
 
 ## Step 5 — Style guide
 
@@ -114,6 +135,55 @@ Write Czech text naturally — short, plain sentences. **Sense beats precision**
 - NPC `long`: 2–3 sentences. Appearance + demeanor. No backstory paragraphs.
 - Item `short`: one sentence — what the item looks like sitting in the room.
 - Item `long`: 2–3 sentences. Physical detail + hint at use, if any.
+
+### Naming and spelling
+
+- **Room names: sentence case.** *"Berry patch"*, *"The bakery"*, *"Cobbled lane"* — capitalize only the first word and proper nouns. Title-Case room names look out of place against the otherwise-lowercase UI tone.
+- **NPC names: lowercase common nouns.** *"the kobold chief"*, *"the baker"*, *"a grey wolf"*. Capitalize only true proper names.
+- **UK English spelling.** `armour`, `colour`, `centre`, `grey`, `spilt`. The codebase is already UK; don't drift.
+- **Gender-neutral NPC speech.** Players can be any gender. No *"lad"*, *"lass"*, *"young man"*. Use *"friend"*, *"careful now"*, *"dear"* (gender-neutral term-of-endearment), or just drop the address.
+
+### Articles and countability
+
+Display names are wrapped in *a* / *the* by the engine, so the noun must be countable.
+
+- ❌ *"a leather armour"* — `armour` is uncountable, the article is ungrammatical.
+- ✅ *"a suit of leather armour"*, or rename to a countable garment (*jerkin, vest, cloak*).
+
+Same trap for *cloth, mail, gear, rope* (collective), *fruit* (often), *advice*, etc. When in doubt, try saying *"two leather armours"* aloud — if it sounds wrong, the singular is uncountable.
+
+### Kid-friendly register
+
+Realm is for kids. Action verbs in combat (*lunges, snaps, sinks teeth*) are fine — soften the *aftermath* and *descriptions*, not the action itself.
+
+| Avoid                          | Prefer                                              |
+|--------------------------------|-----------------------------------------------------|
+| `blood`, `bloody`, `blood-stained` | `damp stone`, `dried leaves`, `well-used`, `dirt-crusted` |
+| `reeks`, `stinks`              | `smells strongly of`                                |
+| `vile`, `disgusting`           | `awful`, `bad`                                      |
+| `gore`, `corpse`, `human bones`| omit, or `bones long since picked clean`            |
+| `kill`, `killed`, `dies`       | `defeats`, `collapses`, `crumples and lies still`   |
+| `wounds do not close`          | `wounds bleed for a long time`                      |
+
+The bar isn't sanitized — it's *gentle*. A bear cave can still feel dangerous; it just doesn't need human skeletons in it.
+
+### Internal consistency
+
+Quick contradictions that slip through if you don't re-read your own room/item:
+
+- **Indoors:** things hang *from rafters / beams / the ceiling*, not *"from the roof"*.
+- **Trees:** can't be *"heavy with fruit"* and have *"fallen blossoms"* in the same scene — fruit and flower are different seasons.
+- **Self-referential lore:** if an NPC's `long` claims *"sells X for N gold"*, the actual `exchanges` block must match. Same for prices and quantities.
+- **Articles agreement:** *"a iron trap door"* — check `a` vs `an` against the next word's sound.
+
+### Czech possessives shortcut
+
+English *"{target}'s feet"* is a possessive — in Czech the slot needs the **genitive**, not accusative. Write the CS template with `{target.gen}` and a noun in the order that fits Czech word order:
+
+- EN: `"sniffs at {target}'s boots curiously."`
+- CS: `"zvědavě čenichá u nohou {target.gen}."`
+
+When porting an EN template that uses `{target}'s X`, pick `{target.gen}` on the CS side automatically — it's the most common reason you reach for genitive.
 
 ## NPC balancing reference
 
@@ -289,5 +359,11 @@ Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hp
 - [ ] Filename matches `id` exactly (boot will fail otherwise)
 - [ ] Items placed in the right folder (`consumables/`, `wearables/`, `fixtures/`, or `_generic/`); only fixtures use a region prefix in their id
 - [ ] Any `craft` exchange has a `verb` block (boot enforces this); `buy`/`sell` may omit it
+- [ ] Room names in **sentence case**; NPC common-noun names lowercase
+- [ ] UK spelling (`armour`, `colour`, `centre`, `grey`); no US drift
+- [ ] Display names are countable (no `"a leather armour"` — use `"a suit of leather armour"`)
+- [ ] Register stays kid-friendly (no `blood`/`vile`/`reeks`/`human bones`); see register table in Step 5
+- [ ] No accidental contradictions (no `"from the roof"` indoors, no `"fallen blossoms"` next to fruit-bearing trees)
+- [ ] If you renamed an item display name, grepped the old name across `content/` for inline references in NPC verb templates
 
 See `references/schemas.md` for complete JSON schemas.

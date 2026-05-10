@@ -1,0 +1,29 @@
+{
+  "id": "spell.frost",
+  "name": {
+    "en": "Frost",
+    "cs": "Mráz"
+  },
+  "mpCost": 4,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Hurl a shard of ice that damages and slows the target.",
+    "cs": "Vrhne střep ledu, který zasáhne a zpomalí cíl."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you thrust out your hand and a jagged shard of ice flies at {target}.",
+        "others": "{actor} thrusts out a hand and a jagged shard of ice flies at {target}."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "vztáhneš ruku a ostrý střep ledu se vrhne na {target}.",
+        "others": "{actor} vztáhne ruku a ostrý střep ledu se vrhne na {target}."
+      }
+    }
+  },
+  "effect": { "type": "damage", "formula": "1d4+INT/4", "applyEffect": "effect.slow" }
+}

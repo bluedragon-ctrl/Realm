@@ -1,0 +1,12 @@
+{
+  "id": "effect.fortify",
+  "name": {
+    "en": "Fortified",
+    "cs": "Opevněn"
+  },
+  "kind": "buff",
+  "icon": "🪖",
+  "duration": 25,
+  "statMod": { "defense": 8 },
+  "stack": "refresh"
+}

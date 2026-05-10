@@ -1,0 +1,25 @@
+{
+  "id": "item.ring_copper",
+  "name": {
+    "en": "a copper ring",
+    "cs": "měděný prsten"
+  },
+  "nameAcc": {
+    "en": "the copper ring",
+    "cs": "měděný prsten"
+  },
+  "short": {
+    "en": "A plain ring of dull copper.",
+    "cs": "Prostý prsten z matné mědi."
+  },
+  "long": {
+    "en": "A plain band of copper, slightly tarnished and worn smooth at the edges. Nothing special to look at, but while you wear it you feel a little harder to hurt.",
+    "cs": "Prostý měděný kroužek, lehce zašlý a na okrajích uhlazen opotřebením. Nic zvláštního na pohled, ale když ho nosíš, cítíš se o trochu odolnější."
+  },
+  "tags": ["ring"],
+  "weight": 0,
+  "wearable": {
+    "slot": "ring",
+    "bonus": { "hpMax": 3 }
+  }
+}

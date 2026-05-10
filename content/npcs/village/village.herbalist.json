@@ -8,6 +8,8 @@
     "en": "the herbalist",
     "cs": "bylinkářku"
   },
+  "nameDat": { "en": "the herbalist", "cs": "bylinkářce" },
+  "nameGen": { "en": "the herbalist", "cs": "bylinkářky" },
   "title": {
     "en": "herbalist",
     "cs": "bylinkářka"
@@ -31,6 +33,80 @@
     "spd": 6
   },
   "respawn": { "ticks": 600 },
+  "exchanges": [
+    {
+      "id": "herbalist.buy_heal_potion",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 10 }],
+      "outputs": [{ "item": "potion.heal" }]
+    },
+    {
+      "id": "herbalist.buy_mana_potion",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 10 }],
+      "outputs": [{ "item": "potion.mana" }]
+    },
+    {
+      "id": "herbalist.sell_red_mushroom",
+      "flavor": "sell",
+      "inputs":  [{ "item": "item.poison_mushroom", "count": 1 }],
+      "outputs": [{ "gold": 5 }]
+    },
+    {
+      "id": "herbalist.sell_blue_flower",
+      "flavor": "sell",
+      "inputs":  [{ "item": "item.blue_flower", "count": 1 }],
+      "outputs": [{ "gold": 2 }]
+    },
+    {
+      "id": "herbalist.buy_amulet_minor_int",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 50 }],
+      "outputs": [{ "item": "item.amulet_minor_int" }]
+    },
+    {
+      "id": "herbalist.craft_amulet_raven_evasion",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.raven_feather", "count": 5 }],
+      "outputs": [{ "item": "item.amulet_raven_evasion" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand five raven feathers to {target}. {target} binds them with a leather cord and ties the amulet around your neck.",
+            "others": "{actor} hands five raven feathers to {target}, who binds them into an amulet."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš pět havraních per {target}. {target} je sváže koženou šňůrkou a uváže ti amulet kolem krku.",
+            "others": "{actor} podává pět havraních per {target}, která z nich sváže amulet."
+          }
+        }
+      }
+    },
+    {
+      "id": "herbalist.craft_amulet_boar_def",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.boar_tusk", "count": 2 }],
+      "outputs": [{ "item": "item.amulet_boar_def" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand two boar tusks to {target}. {target} polishes them, threads a leather cord through the roots, and gives you the amulet.",
+            "others": "{actor} hands two boar tusks to {target}, who threads them onto a leather cord."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš dva kančí kly {target}. {target} je vyleští, provleče skrz kořeny koženou šňůru a podá ti amulet.",
+            "others": "{actor} podává dva kančí kly {target}, která je provleče na koženou šňůru."
+          }
+        }
+      }
+    }
+  ],
   "behaviors": [
     {
       "primitive": "say",

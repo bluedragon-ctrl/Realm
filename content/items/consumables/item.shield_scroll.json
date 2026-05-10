@@ -1,0 +1,40 @@
+{
+  "id": "item.shield_scroll",
+  "name": {
+    "en": "a crisp scroll",
+    "cs": "pevný svitek"
+  },
+  "nameAcc": {
+    "en": "the crisp scroll",
+    "cs": "pevný svitek"
+  },
+  "short": {
+    "en": "A crisp scroll tied with a silver thread sits here.",
+    "cs": "Na zemi leží pevný svitek uvázaný stříbrnou nití."
+  },
+  "long": {
+    "en": "A scroll of clean white paper, edges firm and unblemished. The writing inside glows faintly with a pale silver shield.",
+    "cs": "Svitek z čistě bílého papíru s pevnými okraji bez poskvrny. Písmo uvnitř slabě svítí bledým stříbrným štítem."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The silver shield flares brightly and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A pale silver light shimmers in the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Stříbrný štít jasně vzplane a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Ve vzduchu se zatřpytí bledé stříbrné světlo."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.shield"
+    }
+  }
+}

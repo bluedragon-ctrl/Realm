@@ -1,0 +1,20 @@
+{
+  "id": "castle.cloister",
+  "name": {
+    "en": "Cloister",
+    "cs": "Křížová chodba"
+  },
+  "short": {
+    "en": "A long covered walkway around a small dead garden.",
+    "cs": "Dlouhá krytá chodba kolem malé uschlé zahrady."
+  },
+  "long": {
+    "en": "Stone arches frame a dead garden where dry rose stems still cling to a leaning trellis. Moss has grown over half the columns. The flagstones are uneven, and small dark shapes — hands, you realise — twitch in the corners. A doorway to the west leads into a quiet, book-smelling room.",
+    "cs": "Kamenné oblouky rámují uschlou zahradu, kde se suché šípkové stonky stále drží šikmé mříže. Mech pokrývá polovinu sloupů. Dlažba je nerovná a v rozích sebou cukají malé tmavé tvary — uvědomíš si, že to jsou ruce. Dveře na západ vedou do tiché místnosti vonící starými knihami."
+  },
+  "exits": {
+    "n": "castle.courtyard",
+    "w": "castle.library"
+  },
+  "tags": ["indoor", "castle", "ruins"]
+}

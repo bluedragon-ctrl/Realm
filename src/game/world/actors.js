@@ -3,6 +3,7 @@
 
 import { world } from './state.js';
 import { nameVariants } from '../../i18n.js';
+import { allNameVariants, pickByVariants } from '../declension.js';
 
 export function actorsInRoom(roomId) {
   return world.actorsByRoom.get(roomId) ?? new Set();
@@ -38,23 +39,37 @@ export function findActor(name) {
   return world.actorsByName.get(name.toLowerCase());
 }
 
+export function actorId(actor) {
+  if (actor.kind === 'player') return `p:${actor.name.toLowerCase()}`;
+  if (actor.kind === 'npc') return `n:${actor.instanceId}`;
+  return null;
+}
+
+export function findActorById(id) {
+  if (typeof id !== 'string') return null;
+  const colon = id.indexOf(':');
+  if (colon < 0) return null;
+  const kind = id.slice(0, colon);
+  const key = id.slice(colon + 1);
+  if (kind === 'p') return world.actorsByName.get(key) ?? null;
+  if (kind === 'n') return world.npcsByInstance.get(Number(key)) ?? null;
+  return null;
+}
+
 function actorVariants(a) {
-  return [...nameVariants(a.name), ...(a.kind === 'npc' ? nameVariants(a.title) : [])];
+  if (a._variants) return a._variants;
+  const v = [...allNameVariants(a), ...(a.kind === 'npc' ? nameVariants(a.title) : [])];
+  a._variants = v;
+  return v;
+}
+
+// Invalidate the cached lowercase-variant list for an actor. Call after rename or lang change.
+export function invalidateActorVariants(actor) {
+  if (actor) actor._variants = null;
 }
 
 export function findInRoom(roomId, query) {
-  const q = query.toLowerCase();
-  let exact = null, sub = null, word = null;
-  for (const a of actorsInRoom(roomId)) {
-    const variants = actorVariants(a);
-    for (const v of variants) {
-      if (v === q) { exact = a; break; }
-    }
-    if (exact) break;
-    if (sub == null && variants.some(v => v.includes(q))) sub = a;
-    if (word == null && variants.some(v => v.split(/\s+/).some(w => w === q))) word = a;
-  }
-  return exact ?? sub ?? word ?? null;
+  return pickByVariants(actorsInRoom(roomId), query, actorVariants);
 }
 
 export function playersInRoom(roomId) {

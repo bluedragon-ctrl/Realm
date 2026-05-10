@@ -34,6 +34,7 @@ const stripMpLabel = stripMpRow.querySelector('.strip-label');
 let ws = null;
 let loggedIn = false;
 let lastRoomMsg = null;
+let lockedTarget = null;
 let lastStatsMsg = null;
 let labels = {};
 let socialList = [];
@@ -111,7 +112,19 @@ function makeChip(label, cls, onClick) {
 
 function sendInput(text) {
   if (!ws || ws.readyState !== WebSocket.OPEN || !loggedIn) return;
+  const m = /^\s*(attack|kill|hit)\s+(.+?)\s*$/i.exec(text);
+  if (m) lockedTarget = m[2].toLowerCase();
   ws.send(JSON.stringify({ kind: 'input', text }));
+}
+
+function lockedTargetStillHostileHere() {
+  if (!lockedTarget || !lastRoomMsg?.npcs) return null;
+  for (const n of lastRoomMsg.npcs) {
+    if (typeof n === 'string') continue;
+    if ((n.disposition ?? 'neutral') !== 'hostile') continue;
+    if (n.name.toLowerCase() === lockedTarget) return n.name;
+  }
+  return null;
 }
 
 function fillInput(prefix) {
@@ -131,6 +144,24 @@ function makeBar(label, num, pct, cls) {
   return wrap;
 }
 
+let attackCooldownTimer = null;
+function applyAttackCooldown(ms) {
+  const btn = document.getElementById('attack-btn');
+  if (!btn) return;
+  if (attackCooldownTimer) { clearTimeout(attackCooldownTimer); attackCooldownTimer = null; }
+  btn.classList.remove('cooldown');
+  btn.style.removeProperty('--cd-ms');
+  if (ms <= 0) return;
+  void btn.offsetWidth;
+  btn.style.setProperty('--cd-ms', `${ms}ms`);
+  btn.classList.add('cooldown');
+  attackCooldownTimer = setTimeout(() => {
+    btn.classList.remove('cooldown');
+    btn.style.removeProperty('--cd-ms');
+    attackCooldownTimer = null;
+  }, ms);
+}
+
 function renderStats(msg) {
   lastStatsMsg = msg;
   labels = msg.labels ?? labels;
@@ -143,6 +174,7 @@ function renderStats(msg) {
   if (fleeBtn && labels.fleeButton) fleeBtn.textContent = labels.fleeButton;
   const attackBtn = document.getElementById('attack-btn');
   if (attackBtn && labels.attackButton) attackBtn.textContent = labels.attackButton;
+  applyAttackCooldown(msg.attackCooldownMs ?? 0);
   const spellBtn = document.getElementById('spell-btn');
   if (spellBtn) {
     if (labels.castButton) spellBtn.textContent = `${labels.castButton} ▶`;
@@ -189,8 +221,9 @@ function renderStats(msg) {
     btn.type = 'button';
     btn.className = 'chip unspent-points';
     btn.textContent = (labels.unspentPoints ?? '★ {count}').replace('{count}', msg.unspentPoints);
-    btn.title = (labels.unspentPointsTooltip ?? '{count} unspent point(s) — click to train.')
-      .replace('{count}', msg.unspentPoints);
+    const tooltipPhrase = msg.unspentPointsPhrase ?? msg.unspentPoints;
+    btn.title = (labels.unspentPointsTooltip ?? '{count} — click to train.')
+      .replace('{count}', tooltipPhrase);
     btn.addEventListener('click', (ev) => {
       ev.stopPropagation();
       openTrainPopover(btn, msg);
@@ -246,7 +279,7 @@ function renderStats(msg) {
     playerStatsEl.appendChild(goldRow);
   }
 
-  // Collapsibles in order: effects, spells, inventory, equipment
+  // Collapsibles in order: effects, spells, consumables, other items, equipment
   playerStatsEl.appendChild(makeCollapsibleSection('effects', labels.effectsTitle ?? 'Effects', (body) => {
     const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
     if (effects.length === 0) {
@@ -300,20 +333,34 @@ function renderStats(msg) {
     }
   }));
 
-  playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
-    if (Array.isArray(msg.inventory) && msg.inventory.length > 0) {
-      msg.inventory.forEach((item, i) => {
-        if (i > 0) body.append(' ');
-        const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-        const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
-        body.appendChild(chip);
-      });
-    } else {
+  const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
+  const consumables = inv.filter(i => i.consumable);
+  const others = inv.filter(i => !i.consumable);
+  const buildItemChip = (item) => {
+    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+    const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
+    return chip;
+  };
+  const buildItemList = (body, items) => {
+    if (items.length === 0) {
       const empty = document.createElement('span');
       empty.className = 'empty';
       empty.textContent = labels.inventoryEmpty ?? '(empty)';
       body.appendChild(empty);
+      return;
     }
+    items.forEach((it, i) => {
+      if (i > 0) body.append(' ');
+      body.appendChild(buildItemChip(it));
+    });
+  };
+
+  playerStatsEl.appendChild(makeCollapsibleSection('consumables', labels.inventoryConsumables ?? 'Consumables', (body) => {
+    buildItemList(body, consumables);
+  }));
+
+  playerStatsEl.appendChild(makeCollapsibleSection('other_items', labels.inventoryOther ?? 'Other items', (body) => {
+    buildItemList(body, others);
   }));
 
   playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
@@ -630,6 +677,7 @@ function handle(msg) {
       dismissDeathOverlay();
       if (pendingRoomTransition) { appendRoomSep(msg.name); pendingRoomTransition = false; }
       lastRoomMsg = msg;
+      if (!lockedTargetStillHostileHere()) lockedTarget = null;
       renderRoomInInspect(msg);
       renderDirButtons(msg);
       refreshActionButtons();
@@ -935,8 +983,7 @@ function openUseInventoryOnSubmenu(anchorEl, roomItem) {
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
     openRoomItemPopover(anchorEl, roomItem);
   }));
-  const inv = (Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [])
-    .filter(it => it.usable);
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
   if (inv.length === 0) {
     const empty = document.createElement('div');
     empty.style.padding = '4px';
@@ -966,11 +1013,9 @@ function openInventoryItemPopover(anchorEl, item, ev) {
       sendInput(`wear ${item.name}`); closePopover();
     }));
   }
-  if (item.usable) {
-    popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
-      openUseSubmenu(anchorEl, item);
-    }));
-  }
+  popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => {
+    openUseSubmenu(anchorEl, item);
+  }));
   popover.appendChild(popoverButton(labels.dropButton ?? 'Drop', '', () => {
     sendInput(`drop ${item.name}`); closePopover();
   }));
@@ -985,12 +1030,19 @@ function openUseSubmenu(anchorEl, item) {
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
     openInventoryItemPopover(anchorEl, item);
   }));
-  popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
-    sendInput(`use ${item.name}`); closePopover();
-  }));
-  for (const target of currentRoomTargets()) {
-    popover.appendChild(popoverButton(target, '', () => {
-      sendInput(`use ${item.name} on ${target}`); closePopover();
+  if (item.usable) {
+    popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+      sendInput(`use ${item.name}`); closePopover();
+    }));
+    for (const target of currentRoomTargets()) {
+      popover.appendChild(popoverButton(target, '', () => {
+        sendInput(`use ${item.name} on ${target}`); closePopover();
+      }));
+    }
+  }
+  for (const roomItem of (lastRoomMsg?.items ?? [])) {
+    popover.appendChild(popoverButton(roomItem.name, '', () => {
+      sendInput(`use ${item.name} on ${roomItem.name}`); closePopover();
     }));
   }
   positionPopover(anchorEl);
@@ -1060,7 +1112,7 @@ function openSpellPopover(anchorEl, spell, ev) {
   ev?.stopPropagation();
   const targetKind = spell.target ?? 'any';
 
-  if (targetKind === 'self') {
+  if (targetKind === 'self' || targetKind === 'hostile_room' || targetKind === 'friendly_room') {
     sendInput(`cast ${spell.id}`);
     return;
   }
@@ -1100,6 +1152,11 @@ function openSpellPopover(anchorEl, spell, ev) {
 
 function openAttackPicker(anchorEl, ev) {
   ev?.stopPropagation();
+  const lockedName = lockedTargetStillHostileHere();
+  if (lockedName) {
+    sendInput(`attack ${lockedName}`);
+    return;
+  }
   const targets = currentRoomTargets();
   const hostiles = currentRoomTargets({ hostileOnly: true });
   if (targets.length === 1 && hostiles.length === 1) {
@@ -1234,8 +1291,7 @@ function openUseFixturePicker(anchorEl, ev) {
 
 function openUseOnPicker(anchorEl, ev) {
   ev?.stopPropagation();
-  const inv = (Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [])
-    .filter(it => it.usable);
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
   startPopover(anchorEl, labels.useOnPickerTitle ?? 'Use which item?');
   if (inv.length === 0) {
     const empty = document.createElement('div');
@@ -1260,13 +1316,15 @@ function openUseOnTargetPicker(anchorEl, item) {
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
     openUseOnPicker(anchorEl);
   }));
-  popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
-    sendInput(`use ${item.name}`); closePopover();
-  }));
-  for (const target of currentRoomTargets()) {
-    popover.appendChild(popoverButton(target, '', () => {
-      sendInput(`use ${item.name} on ${target}`); closePopover();
+  if (item.usable) {
+    popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+      sendInput(`use ${item.name}`); closePopover();
     }));
+    for (const target of currentRoomTargets()) {
+      popover.appendChild(popoverButton(target, '', () => {
+        sendInput(`use ${item.name} on ${target}`); closePopover();
+      }));
+    }
   }
   for (const roomItem of (lastRoomMsg?.items ?? [])) {
     popover.appendChild(popoverButton(roomItem.name, '', () => {

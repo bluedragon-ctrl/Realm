@@ -4,6 +4,7 @@
 import { t } from '../../i18n.js';
 import { getRoom, world } from '../world.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
+import { freePointsPhrase } from '../format.js';
 
 function buildWearableOnHitEffects(actor, lang) {
   const out = [];
@@ -52,6 +53,7 @@ export function buildStatsMsg(actor) {
     xpToNext: xpToNext(actor.record.level ?? 1),
     gold: actor.gold ?? 0,
     unspentPoints: actor.record?.unspentPoints ?? 0,
+    unspentPointsPhrase: freePointsPhrase(actor.record?.unspentPoints ?? 0, actor.lang),
     allocated: { ...(actor.record?.allocated ?? {}) },
     labels: buildPanelLabels(actor.lang),
     socials: buildSocialButtons(actor.lang),
@@ -62,6 +64,7 @@ export function buildStatsMsg(actor) {
       ...serializeActiveEffectsForClient(actor, actor.lang),
       ...buildWearableOnHitEffects(actor, actor.lang),
     ],
+    attackCooldownMs: Math.max(0, (actor.nextAttackAt ?? 0) - Date.now()),
   };
 }
 

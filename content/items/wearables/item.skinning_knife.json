@@ -1,0 +1,28 @@
+{
+  "id": "item.skinning_knife",
+  "name": {
+    "en": "a skinning knife",
+    "cs": "stahovací nůž"
+  },
+  "nameAcc": {
+    "en": "the skinning knife",
+    "cs": "stahovací nůž"
+  },
+  "short": {
+    "en": "A small curved knife lies here.",
+    "cs": "Leží tu malý zahnutý nůž."
+  },
+  "long": {
+    "en": "A small knife with a curved blade. Hunters use it to skin animals. The edge is very sharp and leaves cuts that bleed for a while.",
+    "cs": "Malý nůž se zahnutou čepelí. Lovci s ním stahují zvěř. Ostří je velmi ostré a zanechává dlouhé, pomalé řezy."
+  },
+  "tags": ["weapon"],
+  "weight": 1,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d4+ATK",
+    "cost": 9,
+    "bonus": { "attack": 1, "accuracy": 6 },
+    "onHit": { "applyEffect": "effect.bleeding", "chance": 0.3 }
+  }
+}

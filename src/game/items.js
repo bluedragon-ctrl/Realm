@@ -1,4 +1,5 @@
 import { nameVariants } from '../i18n.js';
+import { allNameVariants } from './declension.js';
 
 let nextItemInstanceId = 1;
 
@@ -27,8 +28,7 @@ export function serializeInventory(list) {
 
 function itemMatches(inst, q) {
   const variants = [
-    ...nameVariants(inst.def.name),
-    ...nameVariants(inst.def.nameAcc),
+    ...allNameVariants(inst.def),
     ...nameVariants(inst.def.title),
     inst.defId.toLowerCase(),
   ];

@@ -1,4 +1,4 @@
-import { PLAYER_DEFAULT_STATS, NPC_DEFAULT_STATS, normalizeStats } from './stats.js';
+import { PLAYER_DEFAULT_STATS, NPC_DEFAULT_STATS, normalizeStats, DEFAULT_COSTS } from './stats.js';
 import { normalizeLang } from '../i18n.js';
 import { ensureAllocationFields } from './leveling.js';
 import { instanceFromSaved, makeItemInstance } from './items.js';
@@ -6,7 +6,7 @@ import { world } from './world.js';
 import { normalizeEquipped, recomputeStats } from './wearables.js';
 import { normalizeSavedActiveEffects, syncWearableEffects } from './activeEffects.js';
 
-const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark'];
+const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark', 'spell.burning_hands'];
 
 let nextNpcInstanceId = 1;
 
@@ -37,6 +37,9 @@ export function makePlayerActor(record, session, isAdmin) {
   if (typeof record.xp !== 'number') record.xp = 0;
   if (typeof record.level !== 'number') record.level = 1;
   if (typeof record.gold !== 'number' || record.gold < 0) record.gold = 0;
+  if (record.nameForms == null || typeof record.nameForms !== 'object') {
+    record.nameForms = { acc: null, dat: null, gen: null, voc: null };
+  }
   if (!Array.isArray(record.visitedRooms)) record.visitedRooms = [];
   const visitedRooms = new Set(record.visitedRooms);
   const inventory = [];
@@ -46,7 +49,9 @@ export function makePlayerActor(record, session, isAdmin) {
   }
   const actor = {
     kind: 'player',
+    id: `p:${record.name.toLowerCase()}`,
     name: record.name,
+    nameForms: record.nameForms,
     location: null,
     session,
     isAdmin,
@@ -56,6 +61,7 @@ export function makePlayerActor(record, session, isAdmin) {
     energy: 0,
     inventory,
     visitedRooms,
+    following: null,
     get xp() { return record.xp; },
     get level() { return record.level; },
     get gold() { return record.gold; },
@@ -83,14 +89,24 @@ export function makeNpcActor(def, homeLocation = null) {
     const itemDef = world.itemDefs.get(startId);
     if (itemDef) inventory.push(makeItemInstance(itemDef));
   }
+  // Precompute per-behavior cost + max — these are immutable for the NPC's lifetime and
+  // the tick loop reads them every tick.
+  const behaviors = def.behaviors ?? [];
+  const _resolvedCosts = behaviors.map(b => b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12);
+  const _maxCost = _resolvedCosts.length ? Math.max(12, ..._resolvedCosts) : 12;
+  const instanceId = nextNpcInstanceId++;
   return {
     kind: 'npc',
-    instanceId: nextNpcInstanceId++,
+    id: `n:${instanceId}`,
+    instanceId,
     defId: def.id,
     homeLocation: homeLocation ?? def.location ?? null,
     baseStats: { ...stats },
     name: def.name,
     nameAcc: def.nameAcc ?? def.name,
+    nameDat: def.nameDat ?? def.name,
+    nameGen: def.nameGen ?? def.name,
+    nameVoc: def.nameVoc ?? def.name,
     title: def.title ?? def.name,
     short: def.short ?? '',
     long: def.long ?? '',
@@ -102,10 +118,13 @@ export function makeNpcActor(def, homeLocation = null) {
     stats,
     energy: 0,
     inventory,
-    behaviors: def.behaviors ?? [],
+    behaviors,
+    _resolvedCosts,
+    _maxCost,
     alive: true,
     activeEffects: [],
     pack: def.pack ?? null,
     exchanges: def.exchanges ?? null,
+    following: null,
   };
 }

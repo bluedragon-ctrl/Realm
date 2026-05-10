@@ -1,0 +1,25 @@
+{
+  "id": "item.ring_mana",
+  "name": {
+    "en": "a ring of the scholar",
+    "cs": "prsten učence"
+  },
+  "nameAcc": {
+    "en": "the ring of the scholar",
+    "cs": "prsten učence"
+  },
+  "short": {
+    "en": "A thin silver ring with a tiny blue gem set flat into the band.",
+    "cs": "Tenký stříbrný prsten s malým modrým drahokamem zasazeným do obroučky."
+  },
+  "long": {
+    "en": "A thin band of silver with a tiny blue gem pressed flat into it. The gem is cold to the touch even in warm weather. While you wear it, your head feels clearer and your mana pool feels a little deeper.",
+    "cs": "Tenká stříbrná obroučka s malým modrým drahokamem zatlačeným do ní. Drahokam je chladný na dotek i za teplého počasí. Když ho nosíš, mysl máš jasnější a zásobník many o trochu hlubší."
+  },
+  "tags": ["ring", "magic"],
+  "weight": 0,
+  "wearable": {
+    "slot": "ring",
+    "bonus": { "mpMax": 3 }
+  }
+}

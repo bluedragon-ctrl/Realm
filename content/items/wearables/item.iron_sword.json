@@ -14,12 +14,14 @@
   },
   "long": {
     "en": "A broad iron sword, old but still sharp. The blade is nicked in places but the edge holds.",
-    "cs": "Široký železný meč, starý, ale stále ostrý. Čepel má místy záseky, ale hrot drží."
+    "cs": "Široký železný meč, starý, ale stále ostrý. Čepel má místy záseky, ale ostří drží."
   },
   "tags": ["weapon"],
   "weight": 3,
   "wearable": {
     "slot": "weapon",
-    "stats": { "atk": 2 }
+    "damage": "1d6+ATK",
+    "cost": 12,
+    "bonus": { "attack": 2 }
   }
 }

@@ -1,0 +1,25 @@
+{
+  "id": "item.amulet_boar_def",
+  "name": {
+    "en": "a boar tusk amulet",
+    "cs": "amulet z kančích klů"
+  },
+  "nameAcc": {
+    "en": "the boar tusk amulet",
+    "cs": "amulet z kančích klů"
+  },
+  "short": {
+    "en": "A heavy amulet made from two curved boar tusks.",
+    "cs": "Těžký amulet ze dvou zahnutých kančích klů."
+  },
+  "long": {
+    "en": "Two curved boar tusks hang side by side from a thick leather cord. The ivory is polished smooth and feels solid in your hand. While you wear it, blows seem to glance off you a little easier.",
+    "cs": "Dva zahnuté kančí kly visí vedle sebe na silné kožené šňůře. Slonovina je vyleštěná a v ruce působí pevně. Když ho nosíš, rány po tobě o něco snáz sklouznou."
+  },
+  "tags": ["amulet"],
+  "weight": 1,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "defense": 1 }
+  }
+}

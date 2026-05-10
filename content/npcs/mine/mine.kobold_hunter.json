@@ -2,6 +2,8 @@
   "id": "mine.kobold_hunter",
   "name": { "en": "a kobold hunter", "cs": "koboldí lovec" },
   "nameAcc": { "en": "the kobold hunter", "cs": "koboldího lovce" },
+  "nameDat": { "en": "the kobold hunter", "cs": "koboldímu lovci" },
+  "nameGen": { "en": "the kobold hunter", "cs": "koboldího lovce" },
   "title": { "en": "kobold hunter", "cs": "koboldí lovec" },
   "locations": {
     "mine.east_tunnel": 2,
@@ -31,7 +33,9 @@
   "goldDrop": { "formula": "1d4", "chance": 0.7 },
   "loot": [
     { "defId": "item.rusty_dagger", "chance": 0.05 },
-    { "defId": "item.rusty_helmet", "chance": 0.05 }
+    { "defId": "item.rusty_helmet", "chance": 0.05 },
+    { "defId": "item.wooden_club", "chance": 0.05 },
+    { "defId": "item.short_sword", "chance": 0.05 }
   ],
   "behaviors": [
     {

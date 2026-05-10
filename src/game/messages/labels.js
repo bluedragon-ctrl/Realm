@@ -34,6 +34,9 @@ export function buildPanelLabels(lang) {
     lookButton: s('panel.look_button', lang),
     inventoryTitle: s('panel.inventory', lang),
     inventoryEmpty: s('panel.inventory_empty', lang),
+    inventoryConsumables: s('panel.inventory_consumables', lang),
+    inventoryEquipment: s('panel.inventory_equipment', lang),
+    inventoryOther: s('panel.inventory_other', lang),
     pickUpButton: s('panel.pickup_button', lang),
     useButton: s('panel.use_button', lang),
     useItemOnButton: s('panel.use_item_on_button', lang),
@@ -71,6 +74,7 @@ export function buildPanelLabels(lang) {
       head: s('panel.slot_head', lang),
       weapon: s('panel.slot_weapon', lang),
       amulet: s('panel.slot_amulet', lang),
+      ring: s('panel.slot_ring', lang),
     },
   };
 }

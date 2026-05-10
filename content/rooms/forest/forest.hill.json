@@ -9,12 +9,13 @@
     "cs": "Malý holý kopec se zbytky staré věže."
   },
   "long": {
-    "en": "The hill is bare and windswept, with short grass and loose stones underfoot. The ruin of a stone tower looms ahead — most of its upper walls have crumbled, but the base looks solid. A dark doorway opens to the north. The forest spreads out in every direction below.",
-    "cs": "Kopec je holý a větrný, pod nohama je krátká tráva a volné kameny. Vpředu se tyčí zřícenina kamenné věže — většina horních zdí se zhroutila, ale základy vypadají pevně. Na sever se otevírá tmavý vchod. Les se rozkládá na všechny strany dolů."
+    "en": "The hill is bare and windswept, with short grass and loose stones underfoot. The ruin of a stone tower looms ahead — most of its upper walls have crumbled, but the base looks solid. A dark doorway opens to the north. To the east, a cracked old road runs along the ridge toward what looks like a much larger ruin. The forest spreads out in every direction below.",
+    "cs": "Kopec je holý a větrný, pod nohama je krátká tráva a volné kameny. Vpředu se tyčí zřícenina kamenné věže — většina horních zdí se zhroutila, ale základy vypadají pevně. Na sever se otevírá tmavý vchod. Na východ vede po hřebeni popraskaná stará cesta směrem k něčemu, co vypadá jako mnohem větší zřícenina. Les se rozkládá na všechny strany dolů."
   },
   "exits": {
     "s": "forest.clearing",
-    "n": "forest.tower_entry"
+    "n": "forest.tower_entry",
+    "e": "forest.broken_road"
   },
   "tags": ["outdoor", "forest", "hill"]
 }

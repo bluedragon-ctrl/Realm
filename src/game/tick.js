@@ -1,14 +1,15 @@
 import { world, allActors, actorsInRoom, countItemsInWorldMemory, countItemsInRoomMemory, placeItemInRoom, processNpcRespawns, processConditionalSpawns } from './world.js';
 import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
-import { DEFAULT_COSTS } from './stats.js';
 import { serializeInventory, makeItemInstance } from './items.js';
 import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler } from './activeEffects.js';
 import { applyDamageWithFeedback } from './combat.js';
+import { setDamageRouteHandler } from './effects.js';
 import { sendStats } from './messages.js';
 import { pushTargetInfo } from './actions/look.js';
 
 setEffectDamageHandler(applyDamageWithFeedback);
+setDamageRouteHandler(applyDamageWithFeedback);
 
 const TICK_MS = 1000;
 const FLUSH_EVERY_TICKS = 50;
@@ -17,6 +18,7 @@ let tickCount = 0;
 let timer = null;
 
 async function flushDirty() {
+  const tasks = [];
   for (const actor of world.actorsByName.values()) {
     if (actor.kind !== 'player' || !actor.dirty) continue;
     actor.record.location = actor.location;
@@ -24,13 +26,15 @@ async function flushDirty() {
     actor.record.inventory = serializeInventory(actor.inventory);
     actor.record.gold = actor.gold ?? 0;
     const snapshot = { ...actor.record, activeEffects: serializeActiveEffectsForSave(actor) };
-    try {
-      await savePlayer(snapshot);
-      actor.dirty = false;
-    } catch (err) {
-      console.error(`failed to save player ${actor.name}:`, err);
-    }
+    actor.dirty = false;
+    tasks.push(
+      savePlayer(snapshot).catch(err => {
+        console.error(`failed to save player ${actor.name}:`, err);
+        actor.dirty = true;
+      }),
+    );
   }
+  if (tasks.length) await Promise.all(tasks);
 }
 
 function checkRequires(actor, requires) {
@@ -59,22 +63,15 @@ function checkRequires(actor, requires) {
 }
 
 function pickBehavior(actor) {
-  for (const b of actor.behaviors) {
-    const cost = b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12;
-    if (actor.energy < cost) continue;
+  const costs = actor._resolvedCosts;
+  for (let i = 0; i < actor.behaviors.length; i++) {
+    const b = actor.behaviors[i];
+    if (b.primitive === 'wander') continue;
+    if (actor.energy < costs[i]) continue;
     if (!checkRequires(actor, b.requires)) continue;
-    if (Math.random() < (b.chance ?? 1)) return b;
+    if (Math.random() < (b.chance ?? 1)) return { behavior: b, cost: costs[i] };
   }
   return null;
-}
-
-function maxBehaviorCost(actor) {
-  let max = 12;
-  for (const b of actor.behaviors) {
-    const cost = b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12;
-    if (cost > max) max = cost;
-  }
-  return max;
 }
 
 function tickActor(actor) {
@@ -95,13 +92,11 @@ function tickActor(actor) {
 
   const chosen = pickBehavior(actor);
   if (chosen) {
-    const cost = chosen.cost ?? DEFAULT_COSTS[chosen.primitive] ?? 12;
-    actor.energy -= cost;
-    runPrimitive(actor, chosen);
+    actor.energy -= chosen.cost;
+    runPrimitive(actor, chosen.behavior);
   }
   if (actor.energy < 0) actor.energy = 0;
-  const cap = maxBehaviorCost(actor);
-  if (actor.energy > cap) actor.energy = cap;
+  if (actor.energy > actor._maxCost) actor.energy = actor._maxCost;
 }
 
 function maybeRespawnItems() {

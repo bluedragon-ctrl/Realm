@@ -10,10 +10,11 @@
   },
   "long": {
     "en": "The cellar is low and cramped, the air thick with the smell of old smoke and something sharp that is hard to name. Broken shelves line the walls, still holding a few shattered jars and crumbled books. A large stone table stands in the middle, its surface scorched and cracked. Whatever experiments happened here ended badly.",
-    "cs": "Sklepení je nízké a stísněné, vzduch je těžký zápachem starého kouře a něčeho ostrého, co se těžko pojmenuje. Podél zdí stojí rozpadlé police, na nichž leží pár rozbitých sklenic a rozsypaných knih. Uprostřed stojí velký kamenný stůl, jehož povrch je opálený a popraskany. Ať se zde děly jakékoli pokusy, skončily špatně."
+    "cs": "Sklepení je nízké a stísněné, vzduch je těžký zápachem starého kouře a něčeho ostrého, co se těžko pojmenuje. Podél zdí stojí rozpadlé police, na nichž leží pár rozbitých sklenic a rozsypaných knih. Uprostřed stojí velký kamenný stůl, jehož povrch je opálený a popraskaný. Ať se zde děly jakékoli pokusy, skončily špatně."
   },
   "exits": {
-    "u": "forest.tower_entry"
+    "u": "forest.tower_entry",
+    "d": "forest.tower_crypt"
   },
   "tags": ["indoor", "forest", "tower", "dark", "cellar"]
 }

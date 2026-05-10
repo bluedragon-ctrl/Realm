@@ -1,0 +1,25 @@
+{
+  "id": "item.ring_iron",
+  "name": {
+    "en": "an iron ring",
+    "cs": "železný prsten"
+  },
+  "nameAcc": {
+    "en": "the iron ring",
+    "cs": "železný prsten"
+  },
+  "short": {
+    "en": "A wide, plain ring of dark iron.",
+    "cs": "Široký prostý prsten z tmavého železa."
+  },
+  "long": {
+    "en": "A wide band of dark iron, heavy and a bit clumsy to wear. The surface is rough and unpolished. While you wear it, blows seem to land a little softer.",
+    "cs": "Široká obroučka z tmavého železa, těžká a trochu neohrabaná. Povrch je hrubý a neleštěný. Když ho nosíš, rány dopadají o trochu měkčeji."
+  },
+  "tags": ["ring"],
+  "weight": 1,
+  "wearable": {
+    "slot": "ring",
+    "bonus": { "defense": 1 }
+  }
+}

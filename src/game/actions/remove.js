@@ -1,10 +1,11 @@
 import { broadcastToRoom } from '../world.js';
-import { s, t } from '../../i18n.js';
+import { s } from '../../i18n.js';
 import { findEquippedWearable, recomputeStats } from '../wearables.js';
 import { syncWearableEffects } from '../activeEffects.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 import { makeItemInstance } from '../items.js';
+import { resolveName } from '../declension.js';
 
 export default function removeWearable(actor, args) {
   if (!args || args.length === 0) {
@@ -25,7 +26,7 @@ export default function removeWearable(actor, args) {
   actor.dirty = true;
 
   broadcastToRoom(actor.location, (recipient) => {
-    const item = t(def.nameAcc ?? def.name, recipient.lang);
+    const item = resolveName(def, 'acc', recipient.lang);
     if (recipient === actor) {
       return { kind: 'system', text: s('remove.self', recipient.lang, { item }) };
     }

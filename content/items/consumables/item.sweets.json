@@ -1,0 +1,45 @@
+{
+  "id": "item.sweets",
+  "name": {
+    "en": "a handful of sweets",
+    "cs": "hrst sladkostí"
+  },
+  "nameAcc": {
+    "en": "the handful of sweets",
+    "cs": "hrst sladkostí"
+  },
+  "short": {
+    "en": "A small paper twist of bright honey sweets.",
+    "cs": "Malý papírový sáček s jasně barevnými medovými bonbony."
+  },
+  "long": {
+    "en": "A small twist of waxed paper holding a few bright sweets — honey, berry, and one that tastes of mint. They are small and sticky and they make the head feel a little brighter.",
+    "cs": "Malý sáček z voskovaného papíru s pár jasně barevnými bonbony — medový, lesní a jeden mátový. Jsou drobné a lepkavé a po nich se ti v hlavě trošku rozjasní."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pop a sweet into your mouth. Your head feels a little clearer.",
+        "others": "{actor} pops a sweet into their mouth."
+      },
+      "to_target": {
+        "self": "you offer a sweet to {target}, who pops it into their mouth.",
+        "others": "{actor} offers a sweet to {target}, who pops it into their mouth."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "strčíš si bonbon do pusy. V hlavě se ti trochu rozjasní.",
+        "others": "{actor} si strčí bonbon do pusy."
+      },
+      "to_target": {
+        "self": "podáš bonbon {target.dat} a ten si ho strčí do pusy.",
+        "others": "{actor} podává bonbon {target.dat} a ten si ho strčí do pusy."
+      }
+    },
+    "effect": { "type": "heal", "mp": 1 },
+    "consumable": true
+  }
+}

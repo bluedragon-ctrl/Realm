@@ -1,0 +1,22 @@
+{
+  "id": "castle.courtyard",
+  "name": {
+    "en": "Castle Courtyard",
+    "cs": "Hradní nádvoří"
+  },
+  "short": {
+    "en": "A wide courtyard choked with weeds, with passages leading deeper into the castle.",
+    "cs": "Široké nádvoří zarostlé plevelem, s průchody, které vedou hlouběji do hradu."
+  },
+  "long": {
+    "en": "The central yard is open to the sky. Weeds push up between the flagstones; a dry fountain stands in the middle, its basin cracked. A broken statue of a stern lord watches over everything with one arm missing. Doorways open in three directions: a wide hall to the north, a guardroom to the east, and a row of arched cloisters to the south.",
+    "cs": "Vnitřní nádvoří je otevřené k obloze. Mezi dlažebními kameny prorůstá plevel; uprostřed stojí vyschlá fontána s prasklým bazénem. Zlomená socha přísného pána s chybějící rukou bdí nad vším. Dveře se otevírají do tří směrů: široký sál na severu, strážnice na východě a řada klenutých arkád na jihu."
+  },
+  "exits": {
+    "w": "castle.gatehouse",
+    "n": "castle.great_hall",
+    "e": "castle.barracks",
+    "s": "castle.cloister"
+  },
+  "tags": ["outdoor", "castle", "ruins"]
+}

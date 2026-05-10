@@ -2,6 +2,8 @@
   "id": "forest.bear",
   "name": { "en": "a big brown bear", "cs": "velký hnědý medvěd" },
   "nameAcc": { "en": "the big brown bear", "cs": "velkého hnědého medvěda" },
+  "nameDat": { "en": "the big brown bear", "cs": "velkému hnědému medvědovi" },
+  "nameGen": { "en": "the big brown bear", "cs": "velkého hnědého medvěda" },
   "title": { "en": "big brown bear", "cs": "velký hnědý medvěd" },
   "location": "forest.cave",
   "count": 1,
@@ -10,7 +12,7 @@
     "cs": "Obrovský hnědý medvěd sedí v zadní části jeskyně a sleduje tě."
   },
   "long": {
-    "en": "An enormous bear with thick dark-brown fur matted with mud and old blood. Its shoulders are as high as a man's chest. Long curved claws have scored deep marks into the cave floor. Its small dark eyes fix on you the moment you enter.",
+    "en": "An enormous bear with thick dark-brown fur matted with mud and dried leaves. Its shoulders are as high as a man's chest. Long curved claws have scored deep marks into the cave floor. Its small dark eyes fix on you the moment you enter.",
     "cs": "Obrovský medvěd s hustou tmavě hnědou srstí, která je zlepená blátem a starou krví. Jeho ramena sahají muži až k hrudi. Dlouhé zahnuté drápy vyrýly hluboké rýhy do podlahy jeskyně. Malé tmavé oči tě zaměří hned ve chvíli, kdy vstoupíš."
   },
   "disposition": "hostile",
@@ -24,6 +26,9 @@
   },
   "respawn": { "ticks": 1800 },
   "xp": 35,
+  "loot": [
+    { "defId": "item.bear_skin", "chance": 1.0 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",
@@ -40,8 +45,8 @@
         ],
         "cs": [
           "{actor} se vztyčí a dopadne oběma tlapami na {target}!",
-          "{actor} šmáhne po {target} obrovským drátem!",
-          "{actor} se vrhne a zabodne zuby do {target}!"
+          "{actor} máchne po {target.dat} obrovským drápem!",
+          "{actor} se vrhne a zabodne zuby do {target.gen}!"
         ]
       }
     },

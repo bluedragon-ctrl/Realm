@@ -2,6 +2,8 @@
   "id": "home.bee",
   "name": { "en": "a bee", "cs": "včela" },
   "nameAcc": { "en": "the bee", "cs": "včelu" },
+  "nameDat": { "en": "the bee", "cs": "včele" },
+  "nameGen": { "en": "the bee", "cs": "včely" },
   "title": { "en": "bee", "cs": "včela" },
   "location": "home.garden",
   "short": {

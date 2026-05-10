@@ -2,6 +2,8 @@
   "id": "mine.kobold_guard",
   "name": { "en": "a kobold guard", "cs": "koboldí stráž" },
   "nameAcc": { "en": "the kobold guard", "cs": "koboldí stráž" },
+  "nameDat": { "en": "the kobold guard", "cs": "koboldí stráži" },
+  "nameGen": { "en": "the kobold guard", "cs": "koboldí stráže" },
   "title": { "en": "kobold guard", "cs": "koboldí stráž" },
   "location": "mine.chief_hall",
   "count": 2,
@@ -28,7 +30,9 @@
   "xp": 14,
   "goldDrop": { "formula": "2d3+1", "chance": 0.85 },
   "loot": [
-    { "defId": "item.rusty_helmet", "chance": 0.05 }
+    { "defId": "item.rusty_helmet", "chance": 0.05 },
+    { "defId": "item.wooden_club", "chance": 0.05 },
+    { "defId": "item.short_sword", "chance": 0.05 }
   ],
   "behaviors": [
     {
@@ -46,8 +50,8 @@
         ],
         "cs": [
           "{actor} zamáchne železným kyjem na {target}!",
-          "{actor} zasadí těžkou ránu do {target}!",
-          "{actor} se rozběhne a vrazí kyj do {target}!"
+          "{actor} zasadí těžkou ránu do {target.gen}!",
+          "{actor} se rozběhne a vrazí kyj do {target.gen}!"
         ]
       }
     },

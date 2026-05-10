@@ -1,5 +1,5 @@
-import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom } from './world.js';
-import { applyEffect } from './effects.js';
+import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors } from './world.js';
+import { applyEffect, setDamageRouteHandler } from './effects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
@@ -8,19 +8,23 @@ import { sendStats } from './messages.js';
 import { applyActiveEffect } from './activeEffects.js';
 import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.js';
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
+import { resolveName } from './declension.js';
+import { fillPlaceholders } from './verbs.js';
+import { goldPhrase } from './format.js';
+import { clearPlayerAttackQueue } from './playerCombatState.js';
+import { unregisterWanderer } from './wandering.js';
+import { EFFECT_SOURCE } from './contentMeta.js';
 
 const MAX_DODGE = 50;
 const MAX_CRIT = 50;
 const CRIT_MULTIPLIER = 2;
 
 function targetDisplay(target, lang) {
-  if (target.kind === 'npc') return t(target.nameAcc ?? target.name, lang);
-  return target.name;
+  return resolveName(target, 'acc', lang);
 }
 
 function actorDisplay(actor, lang) {
-  if (actor.kind === 'npc') return t(actor.name, lang);
-  return actor.name;
+  return resolveName(actor, 'nom', lang);
 }
 
 export function executeAttack(actor, action, target) {
@@ -57,19 +61,14 @@ export function executeAttack(actor, action, target) {
 
   let raw = roll(action.damage ?? '1', { actor, target });
   if (crit) raw *= CRIT_MULTIPLIER;
-  const def = target.stats.defense ?? 0;
-  const final = Math.max(1, raw - def);
+  const final = action.ignoreDef ? Math.max(1, raw) : Math.max(1, raw - (target.stats.defense ?? 0));
 
   const tmpl = action.templates;
   if (tmpl) {
     const idx = pickListIndex(tmpl);
     broadcastToRoom(actor.location, (recipient) => {
       const lang = recipient.lang;
-      const from = t(actor.name, lang);
-      const tname = targetDisplay(target, lang);
-      const line = tListAt(tmpl, lang, idx)
-        .replace(/\{actor\}/g, from)
-        .replace(/\{target\}/g, tname);
+      const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
     });
   }
@@ -100,7 +99,7 @@ export function executeAttack(actor, action, target) {
     for (const hit of hits) {
       if (!hit.applyEffect) continue;
       if (Math.random() < (hit.chance ?? 1.0)) {
-        applyActiveEffect(target, hit.applyEffect, 'combat', actor.name);
+        applyActiveEffect(target, hit.applyEffect, EFFECT_SOURCE.COMBAT, actor.name);
         applied = true;
       }
     }
@@ -111,7 +110,7 @@ export function executeAttack(actor, action, target) {
 export function applyDamageWithFeedback(actor, target, amount) {
   if (!target?.stats || target.stats.hp <= 0) return 0;
 
-  const result = applyEffect({ type: 'damage', amount }, { actor, target });
+  const result = applyEffect({ type: 'damage', amount, _raw: true }, { actor, target });
   const dealt = result?.dealt ?? 0;
 
   if (actor.session) {
@@ -184,11 +183,25 @@ function handleNpcDeath(killer, npc) {
     kind: 'emote',
     tone: 'death',
     text: s('combat.target_dies_observed', recipient.lang, {
-      target: targetDisplay(npc, recipient.lang),
+      target: resolveName(npc, 'nom', recipient.lang),
     }),
   }));
 
   npc.alive = false;
+  unregisterWanderer(npc);
+  npc.following = null;
+  for (const other of allActors()) {
+    if (other === npc) continue;
+    if (other.following !== npc.id) continue;
+    other.following = null;
+    if (other.kind === 'player') other.dirty = true;
+    if (other.session) {
+      other.session.send({
+        kind: 'system',
+        text: s('follow.leader_left', other.lang, { name: resolveName(npc, 'acc', other.lang) }),
+      });
+    }
+  }
 
   if (room && world.actorsByRoom.has(room)) {
     world.actorsByRoom.get(room).delete(npc);
@@ -197,8 +210,22 @@ function handleNpcDeath(killer, npc) {
 
   const def = world.npcDefs.get(npc.defId);
 
-  if (killer?.kind === 'player' && def?.xp) {
-    awardXp(killer, def.xp, 'kill');
+  if (def?.xp) {
+    const players = [];
+    if (room && world.actorsByRoom.has(room)) {
+      for (const a of world.actorsByRoom.get(room)) {
+        if (a.kind === 'player') players.push(a);
+      }
+    }
+    if (killer?.kind === 'player' && !players.includes(killer)) players.push(killer);
+    if (players.length > 0) {
+      const share = Math.floor(def.xp / players.length);
+      const remainder = def.xp - share * players.length;
+      for (const p of players) {
+        const amount = (p === killer ? share + remainder : share);
+        if (amount > 0) awardXp(p, amount, 'kill');
+      }
+    }
   }
 
   if (room && def?.loot) {
@@ -218,8 +245,8 @@ function handleNpcDeath(killer, npc) {
         kind: 'system',
         tone: 'good',
         text: s('loot.gold_dropped', recipient.lang, {
-          target: targetDisplay(npc, recipient.lang),
-          amount,
+          target: resolveName(npc, 'nom', recipient.lang),
+          amount: goldPhrase(amount, recipient.lang),
         }),
       }));
     }
@@ -234,6 +261,22 @@ function handleNpcDeath(killer, npc) {
 }
 
 function handlePlayerDeath(killer, victim) {
+  clearPlayerAttackQueue(victim);
+  victim.nextAttackAt = 0;
+  victim.following = null;
+  victim.dirty = true;
+  for (const other of allActors()) {
+    if (other === victim) continue;
+    if (other.following !== victim.id) continue;
+    other.following = null;
+    if (other.kind === 'player') other.dirty = true;
+    if (other.session) {
+      other.session.send({
+        kind: 'system',
+        text: s('follow.leader_left', other.lang, { name: resolveName(victim, 'acc', other.lang) }),
+      });
+    }
+  }
   const oldRoom = victim.location;
 
   broadcastToRoom(oldRoom, (recipient) => ({
@@ -255,7 +298,7 @@ function handlePlayerDeath(killer, victim) {
 
   // Move home, restore HP — world state updated immediately so others see the change
   victim.dying = true;
-  placeActor(victim, 'home.cottage');
+  placeActor(victim, RESPAWN_ROOM);
   victim.stats.hp = Math.ceil(victim.stats.hpMax / 2);
   victim.dirty = true;
 
@@ -276,21 +319,23 @@ function handlePlayerDeath(killer, victim) {
     });
     sendStats(victim);
     describeRoom(victim);
-    const home = getRoom('home.cottage');
+    const home = getRoom(RESPAWN_ROOM);
     if (home) {
       victim.session?.send({
         kind: 'system',
         text: s('narration.you_arrive', victim.lang, { room: t(home.name, victim.lang) }),
       });
     }
-    describeRoomToAll('home.cottage');
+    describeRoomToAll(RESPAWN_ROOM);
   }, 5000);
 }
 
 export function applyAggressionOnEnter(player, roomId) {
   if (!player || player.kind !== 'player' || !roomId) return;
-  for (const npc of world.npcsByInstance.values()) {
-    if (npc.location !== roomId) continue;
+  const peers = world.actorsByRoom.get(roomId);
+  if (!peers) return;
+  for (const npc of peers) {
+    if (npc.kind !== 'npc') continue;
     if (!npc.aggressive) continue;
     if (npc.alive === false) continue;
     if (!npc.aggroAgainst) npc.aggroAgainst = new Set();
@@ -300,8 +345,10 @@ export function applyAggressionOnEnter(player, roomId) {
 }
 
 export function clearAggroOnLeave(actor, fromRoomId) {
-  for (const npc of world.npcsByInstance.values()) {
-    if (npc.location !== fromRoomId) continue;
+  const peers = world.actorsByRoom.get(fromRoomId);
+  if (!peers) return;
+  for (const npc of peers) {
+    if (npc.kind !== 'npc') continue;
     if (!npc.aggroAgainst?.has(actor)) continue;
     npc.aggroAgainst.delete(actor);
     if (npc.aggroAgainst.size === 0) {
@@ -312,13 +359,16 @@ export function clearAggroOnLeave(actor, fromRoomId) {
   }
 }
 
+// Reservoir-sample one in-room, alive aggro target without materializing an array.
 export function aggroTargetInRoom(npc) {
   if (!npc.aggroAgainst || npc.aggroAgainst.size === 0) return null;
-  const candidates = [];
+  let chosen = null;
+  let n = 0;
   for (const a of npc.aggroAgainst) {
-    if (a.location === npc.location && a.session && a.stats?.hp > 0) candidates.push(a);
+    if (a.location !== npc.location || !a.session || !(a.stats?.hp > 0)) continue;
+    n++;
+    if (Math.floor(Math.random() * n) === 0) chosen = a;
   }
-  if (candidates.length === 0) return null;
-  return candidates[Math.floor(Math.random() * candidates.length)];
+  return chosen;
 }
 

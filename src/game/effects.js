@@ -1,14 +1,21 @@
 import { sendStats } from './messages.js';
 import { s, t } from '../i18n.js';
-import { world, unlockExit } from './world.js';
+import { world, unlockExit, placeItemInRoom, removeItemFromRoom, addGoldToRoom } from './world.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
+import { resolveName } from './declension.js';
 
 function evalAmount(value, ctx) {
   if (typeof value === 'number') return value;
   if (typeof value === 'string') return roll(value, ctx);
   return 0;
 }
+
+// Set by combat.js so the `damage` effect can route through applyDamageWithFeedback when
+// applied to a non-self target (preserves aggro + UI feedback + death). Same indirection as
+// activeEffects.setEffectDamageHandler — kept here to avoid combat → effects cycles.
+let damageRouteHandler = null;
+export function setDamageRouteHandler(fn) { damageRouteHandler = fn; }
 
 const EFFECTS = {
   teach_spell({ spell }, { actor }) {
@@ -25,6 +32,7 @@ const EFFECTS = {
     const inst = makeItemInstance(def);
     actor.inventory.push(inst);
     actor.dirty = true;
+    if (actor.kind === 'player' && actor.session) sendStats(actor);
     return { produced: def.id, name: def.name, instance: inst };
   },
   unlock({ room, exit }, { actor }) {
@@ -33,12 +41,67 @@ const EFFECTS = {
     unlockExit(roomId, exit);
     return { unlocked: true, room: roomId, exit };
   },
-  damage({ amount }, { actor, target }) {
+  damage({ amount, stat = 'hp', _raw }, { actor, target }) {
     const recipient = target ?? actor;
     if (!recipient.stats) return { dealt: 0 };
+    if (stat === 'mp') {
+      // MP drain bypasses the combat feedback path — apply directly and update HUD only.
+      const raw = Math.max(0, amount ?? 0);
+      const dealt = Math.min(recipient.stats.mp, raw);
+      recipient.stats.mp = Math.max(0, recipient.stats.mp - dealt);
+      if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
+      return { dealt };
+    }
+    // When called from a content slot (use.effect, etc.) with a real other-actor target,
+    // route through the combat feedback path so aggro/death/HUD updates fire correctly.
+    // `_raw` is set by applyDamageWithFeedback itself to mark the inner raw subtraction.
+    if (!_raw && damageRouteHandler && actor && target && target !== actor) {
+      const dealt = damageRouteHandler(actor, target, Math.max(0, amount ?? 0));
+      return { dealt };
+    }
     const dealt = Math.min(recipient.stats.hp, Math.max(0, amount ?? 0));
     recipient.stats.hp -= dealt;
     return { dealt };
+  },
+  open_chest({ key, loot, gold }, { actor, fixture, room }) {
+    if (!actor || !room) return { opened: false };
+    if (key) {
+      const idx = actor.inventory?.findIndex(i => i.defId === key) ?? -1;
+      if (idx < 0) return { opened: false, missingKey: key };
+      actor.inventory.splice(idx, 1);
+      actor.dirty = true;
+    }
+    const dropped = [];
+    for (const entry of loot ?? []) {
+      if (Math.random() < (entry.chance ?? 1.0)) {
+        const def = world.itemDefs.get(entry.defId);
+        if (!def) continue;
+        const count = entry.count ?? 1;
+        for (let i = 0; i < count; i++) {
+          const inst = makeItemInstance(def);
+          placeItemInRoom(inst, room);
+          dropped.push(inst);
+        }
+      }
+    }
+    let goldAmount = 0;
+    if (gold) {
+      goldAmount = Math.max(0, roll(gold, { actor }));
+      if (goldAmount > 0) addGoldToRoom(room, goldAmount);
+    }
+    if (fixture) removeItemFromRoom(fixture, room);
+    return { opened: true, dropped, goldAmount };
+  },
+  drain({ amount, formula, ratio = 0.5 }, { actor, target }) {
+    if (!target || target === actor || !target.stats) return { dealt: 0, healed: 0 };
+    const raw = Math.max(0, evalAmount(formula ?? amount, { actor }));
+    const dealt = damageRouteHandler ? damageRouteHandler(actor, target, raw) : 0;
+    const healed = Math.floor(dealt * ratio);
+    if (healed > 0 && actor.stats) {
+      actor.stats.hp = Math.min(actor.stats.hpMax, actor.stats.hp + healed);
+      if (actor.kind === 'player' && actor.session) sendStats(actor);
+    }
+    return { dealt, healed };
   },
   heal({ amount, hp, mp }, { actor, target }) {
     const recipient = target ?? actor;
@@ -70,8 +133,7 @@ export function applyEffect(effectDef, ctx) {
 }
 
 function actorDisplayName(a, lang) {
-  const n = a.kind === 'npc' ? (a.nameAcc ?? a.name) : a.name;
-  return t(n, lang);
+  return resolveName(a, 'acc', lang);
 }
 
 function healSelfMessage(lang, hp, mp) {

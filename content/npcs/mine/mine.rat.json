@@ -2,6 +2,8 @@
   "id": "mine.rat",
   "name": { "en": "a giant rat", "cs": "obří krysa" },
   "nameAcc": { "en": "the giant rat", "cs": "obří krysu" },
+  "nameDat": { "en": "the giant rat", "cs": "obří kryse" },
+  "nameGen": { "en": "the giant rat", "cs": "obří krysy" },
   "title": { "en": "giant rat", "cs": "obří krysa" },
   "locations": {
     "mine.west_tunnel": 4,
@@ -47,7 +49,7 @@
         "cs": [
           "{actor} se přihrne a kousne {target}!",
           "{actor} skočí na {target} s vyceněnými zuby!",
-          "{actor} se mihne k {target} a chňapne po kotníku!"
+          "{actor} se mihne k {target.dat} a chňapne po kotníku!"
         ]
       }
     },

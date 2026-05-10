@@ -1,0 +1,12 @@
+{
+  "id": "effect.shield",
+  "name": {
+    "en": "Shield",
+    "cs": "Štít"
+  },
+  "kind": "buff",
+  "icon": "🛡️",
+  "duration": 30,
+  "statMod": { "defense": 5 },
+  "stack": "refresh"
+}

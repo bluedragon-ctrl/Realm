@@ -2,16 +2,18 @@
   "id": "mine.giant_centipede",
   "name": { "en": "a giant centipede", "cs": "obří stonožka" },
   "nameAcc": { "en": "the giant centipede", "cs": "obří stonožku" },
+  "nameDat": { "en": "the giant centipede", "cs": "obří stonožce" },
+  "nameGen": { "en": "the giant centipede", "cs": "obří stonožky" },
   "title": { "en": "giant centipede", "cs": "obří stonožka" },
   "location": "mine.centipede_pit",
   "count": 1,
   "short": {
     "en": "A huge many-legged creature as long as a person, rippling along the rock.",
-    "cs": "Obrovský mnohonožkový tvor tak dlouhý jako člověk, vlní se po skále."
+    "cs": "Obrovský mnohonohý tvor tak dlouhý jako člověk, vlní se po skále."
   },
   "long": {
     "en": "A centipede the length of a grown person, its glossy black body covered in armoured segments. Dozens of legs move in a rippling wave as it moves. Its jaws drip with venom — even kobolds give this creature a wide berth. The body is thick enough that you can see it breathing.",
-    "cs": "Stonožka tak dlouhá jako dospělý člověk, lesklé černé tělo pokryté pancéřovitými články. Desítky noh se pohybují ve vlnivém pohybu. Z čelistí jí kape jed — i koboldové se tomuto tvorovi vyhýbají obloukem. Tělo je tak silné, že vidíš jak dýchá."
+    "cs": "Stonožka tak dlouhá jako dospělý člověk, lesklé černé tělo pokryté pancéřovými články. Desítky noh se vlní jedna za druhou. Z čelistí jí kape jed — i koboldové se tomuto tvorovi vyhýbají obloukem. Tělo je tak silné, že vidíš, jak dýchá."
   },
   "disposition": "hostile",
   "aggressive": true,
@@ -30,7 +32,7 @@
   "behaviors": [
     {
       "primitive": "attack",
-      "name": { "en": "venomous bite", "cs": "jedovatý kousnutí" },
+      "name": { "en": "venomous bite", "cs": "jedovaté kousnutí" },
       "chance": 1.0,
       "cost": 18,
       "damage": "1d4+ATK",
@@ -44,7 +46,7 @@
         ],
         "cs": [
           "{actor} vymrští se a kousne {target} kapajícími čelistmi!",
-          "{actor} se stočí a zabodne tesáky do {target}!",
+          "{actor} se stočí a zabodne tesáky do {target.gen}!",
           "{actor} zaútočí na {target} s nečekanou rychlostí!"
         ]
       }
@@ -64,7 +66,7 @@
           "vlní se po skalní stěně.",
           "zaklepe nohama k sobě suchým zvukem.",
           "pomalu se stočí a rozstočí ve stínech.",
-          "kymácí hlavou sem a tam a pozoruje."
+          "kývá hlavou sem a tam a pozoruje."
         ]
       }
     }

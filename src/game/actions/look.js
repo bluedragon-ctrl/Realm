@@ -1,11 +1,16 @@
 import { getRoom, actorsInRoom, findInRoom, itemsInRoom, isExitLocked, getGoldInRoom, world } from '../world.js';
 import { findItemInList } from '../items.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
+import { canAfford } from '../exchange.js';
 import { t, s, dirName } from '../../i18n.js';
 
-function serializeExchanges(host, lang) {
-  const list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
+function serializeExchanges(host, lang, actor) {
+  let list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
   if (!Array.isArray(list) || list.length === 0) return null;
+  if (actor) {
+    list = list.filter(e => e.flavor !== 'craft' || canAfford(actor, e, 1).ok);
+    if (list.length === 0) return null;
+  }
   const formatSide = (side) => side.map(e => {
     if (e.gold != null) return { kind: 'gold', amount: e.gold };
     const def = world.itemDefs.get(e.item);
@@ -137,7 +142,7 @@ function sendTargetInfo(actor, target) {
     const isFriendly = target.disposition === 'friendly';
     const effectsForClient = isFriendly ? [] : serializeActiveEffectsForClient(target, lang)
       .map(e => ({ defId: e.defId, name: e.name, icon: e.icon, kind: e.kind }));
-    const exchanges = serializeExchanges(target, lang);
+    const exchanges = serializeExchanges(target, lang, actor);
     actor.session.send({
       kind: 'target-info',
       name: t(target.name, lang),
@@ -216,7 +221,7 @@ export default function look(actor, args) {
 
 function sendItemInfo(actor, inst) {
   const lang = actor.lang;
-  const exchanges = serializeExchanges(inst, lang);
+  const exchanges = serializeExchanges(inst, lang, actor);
   actor.session.send({
     kind: 'target-info',
     name: t(inst.def.name, lang),

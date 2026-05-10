@@ -1,0 +1,19 @@
+{
+  "id": "forest.tower_tomb",
+  "name": {
+    "en": "Tower tomb",
+    "cs": "Hrobka věže"
+  },
+  "short": {
+    "en": "A cold round chamber with a single carved sarcophagus in the middle.",
+    "cs": "Chladná kruhová komnata s jediným zdobeným sarkofágem uprostřed."
+  },
+  "long": {
+    "en": "The bottom chamber is round and cold. A single large stone sarcophagus stands in the middle, its lid carved with a name worn smooth by time. Faint runes glow on the floor around it, the only light in the room. The walls are hung with tattered banners that crumble at a touch.",
+    "cs": "Spodní komnata je kruhová a chladná. Uprostřed stojí jediný velký kamenný sarkofág, jeho víko je zdobené jménem, které čas vyhladil. Na podlaze kolem něj slabě svítí runy, jediné světlo v místnosti. Na zdech visí potrhané prapory, které se rozpadají při doteku."
+  },
+  "exits": {
+    "u": "forest.tower_crypt"
+  },
+  "tags": ["indoor", "forest", "tower", "dark", "tomb"]
+}

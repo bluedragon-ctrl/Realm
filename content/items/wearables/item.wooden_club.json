@@ -1,0 +1,27 @@
+{
+  "id": "item.wooden_club",
+  "name": {
+    "en": "a wooden club",
+    "cs": "dřevěný kyj"
+  },
+  "nameAcc": {
+    "en": "the wooden club",
+    "cs": "dřevěný kyj"
+  },
+  "short": {
+    "en": "A heavy wooden club lies here.",
+    "cs": "Leží tu těžký dřevěný kyj."
+  },
+  "long": {
+    "en": "A thick wooden club. The end is knobbly and hard. Simple but heavy enough to hurt.",
+    "cs": "Tlustý dřevěný kyj. Konec je hrbolatý a tvrdý. Jednoduchý, ale dost těžký, aby bolel."
+  },
+  "tags": ["weapon"],
+  "weight": 2,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d4+ATK",
+    "cost": 10,
+    "bonus": {}
+  }
+}

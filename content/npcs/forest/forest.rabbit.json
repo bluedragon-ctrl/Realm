@@ -2,6 +2,8 @@
   "id": "forest.rabbit",
   "name": { "en": "a brown rabbit", "cs": "hnědý králík" },
   "nameAcc": { "en": "the brown rabbit", "cs": "hnědého králíka" },
+  "nameDat": { "en": "the brown rabbit", "cs": "hnědému králíkovi" },
+  "nameGen": { "en": "the brown rabbit", "cs": "hnědého králíka" },
   "title": { "en": "brown rabbit", "cs": "hnědý králík" },
   "location": "forest.berry_patch",
   "count": 3,
@@ -39,7 +41,7 @@
           "{actor} thumps {target} hard with a back paw!"
         ],
         "cs": [
-          "{actor} kopne do {target} silnýma zadníma nohama!",
+          "{actor} kopne do {target.gen} silnýma zadníma nohama!",
           "{actor} tvrdě udeří {target} zadní tlapou!"
         ]
       }

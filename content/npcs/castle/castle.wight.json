@@ -1,0 +1,73 @@
+{
+  "id": "castle.wight",
+  "name": { "en": "a wight", "cs": "umrlec" },
+  "nameAcc": { "en": "the wight", "cs": "umrlce" },
+  "nameDat": { "en": "the wight", "cs": "umrlci" },
+  "nameGen": { "en": "the wight", "cs": "umrlce" },
+  "title": { "en": "wight", "cs": "umrlec" },
+  "locations": {
+    "castle.great_hall": 2
+  },
+  "short": {
+    "en": "A tall, dry corpse in old court clothes, watching you with cold blue eyes.",
+    "cs": "Vysoká vyschlá mrtvola ve starém dvorském oděvu tě sleduje chladnýma modrýma očima."
+  },
+  "long": {
+    "en": "Once a noble of this castle, now stretched and dry like old leather. It still wears its faded surcoat over rusted mail, and a thin sword hangs at its side. Its skin has pulled back from its teeth and its eyes glow with a steady cold light. When it moves, the air around it goes a little colder.",
+    "cs": "Kdysi šlechtic tohoto hradu, nyní vyschlý a napjatý jako stará kůže. Stále nosí vybledlý kabátec přes rezavou kroužkovou zbroj a u boku mu visí tenký meč. Kůže se mu stáhla nad zuby a oči mu září ustáleným chladným světlem. Když se pohne, vzduch kolem něj na chvíli zchladne."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 30, "hpMax": 30,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 3, "int": 0,
+    "magicResist": 40,
+    "spd": 6
+  },
+  "respawn": { "ticks": 700 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "chilling touch", "cs": "mrazivý dotek" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "onHit": [
+        { "applyEffect": "effect.mana_burn", "chance": 0.4 },
+        { "applyEffect": "effect.bleeding", "chance": 0.2 }
+      ],
+      "templates": {
+        "en": [
+          "{actor} reaches out and brushes {target} with cold, dry fingers!",
+          "{actor} draws a thin sword and cuts at {target}!",
+          "{actor} lays a freezing hand on {target} and the warmth runs out of the room!"
+        ],
+        "cs": [
+          "{actor} natáhne ruku a chladnými suchými prsty se dotkne {target.gen}!",
+          "{actor} vytáhne tenký meč a sekne po {target.dat}!",
+          "{actor} položí na {target} ledovou ruku a teplo z místnosti vyprchá!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "watches you with eyes that do not blink.",
+          "tilts its head slightly, as if remembering something.",
+          "draws a long, slow breath that makes no sound."
+        ],
+        "cs": [
+          "sleduje tě očima, které nemrkají.",
+          "lehce nakloní hlavu, jako by si na něco vzpomínal.",
+          "se zhluboka pomalu nadechne, ale neozve se ani zvuk."
+        ]
+      }
+    }
+  ]
+}

@@ -17,6 +17,7 @@ import use from './actions/use.js';
 import cast from './actions/cast.js';
 import attack from './actions/attack.js';
 import flee from './actions/flee.js';
+import { follow, unfollow } from './actions/follow.js';
 import wear from './actions/wear.js';
 import removeWearable from './actions/remove.js';
 import equipment from './actions/equipment.js';
@@ -56,6 +57,8 @@ const COMMANDS = {
   cast, c: cast,
   attack, kill: attack, hit: attack,
   flee, f: flee,
+  follow,
+  unfollow,
   wear, equip: wear,
   remove: removeWearable, unwear: removeWearable,
   equipment, eq: equipment,

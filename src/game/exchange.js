@@ -3,6 +3,8 @@ import { makeItemInstance, removeFromList } from './items.js';
 import { runVerb } from './verbs.js';
 import { sendStats } from './messages.js';
 import { sourceForActor } from './sources.js';
+import { resolveName } from './declension.js';
+import { goldPhrase } from './format.js';
 import { awardXp } from './xp.js';
 import { s, t } from '../i18n.js';
 
@@ -61,9 +63,8 @@ export function canAfford(actor, entry, units = 1) {
   return { ok: true };
 }
 
-function hostDisplayName(host, lang) {
-  if (host.kind === 'npc') return t(host.nameAcc ?? host.name, lang);
-  return t(host.def.nameAcc ?? host.def.name, lang);
+function hostName(host, kase, lang) {
+  return resolveName(host.kind === 'npc' ? host : host.def, kase, lang);
 }
 
 function consumeInputs(actor, entry, units) {
@@ -104,15 +105,17 @@ function broadcastDefault(actor, host, entry, units) {
     const def = world.itemDefs.get(itemOutput.item);
     const price = goldInput.gold * units;
     broadcastToRoom(actor.location, (recipient) => {
-      const itemName = t(def.nameAcc ?? def.name, recipient.lang);
-      const npcName = hostDisplayName(host, recipient.lang);
+      const itemName = resolveName(def, 'acc', recipient.lang);
+      // "od {npc}" — genitive after the preposition `od`.
+      const npcGen = hostName(host, 'gen', recipient.lang);
+      const priceP = goldPhrase(price, recipient.lang);
       if (recipient === actor) {
-        return { kind: 'system', tone: 'good', text: s('shop.bought_self', recipient.lang, { item: itemName, price, npc: npcName }) };
+        return { kind: 'system', tone: 'good', text: s('shop.bought_self', recipient.lang, { item: itemName, price: priceP, npc: npcGen }) };
       }
       return {
         kind: 'emote',
         source: sourceForActor(actor, recipient),
-        text: s('shop.bought_others', recipient.lang, { actor: actor.name, item: itemName, npc: npcName }),
+        text: s('shop.bought_others', recipient.lang, { actor: actor.name, item: itemName, npc: npcGen }),
       };
     });
     return;
@@ -123,15 +126,17 @@ function broadcastDefault(actor, host, entry, units) {
     const totalConsume = (itemInput.count ?? 1) * units;
     const totalGold = goldOutput.gold * units;
     broadcastToRoom(actor.location, (recipient) => {
-      const itemName = t(def.nameAcc ?? def.name, recipient.lang);
-      const npcName = hostDisplayName(host, recipient.lang);
+      const itemName = resolveName(def, 'acc', recipient.lang);
+      // "prodáváš {item} {npc}" — dative recipient of the sale.
+      const npcDat = hostName(host, 'dat', recipient.lang);
+      const goldP = goldPhrase(totalGold, recipient.lang);
       if (recipient === actor) {
-        return { kind: 'system', tone: 'good', text: s('shop.sold_self', recipient.lang, { count: totalConsume, item: itemName, gold: totalGold, npc: npcName }) };
+        return { kind: 'system', tone: 'good', text: s('shop.sold_self', recipient.lang, { count: totalConsume, item: itemName, gold: goldP, npc: npcDat }) };
       }
       return {
         kind: 'emote',
         source: sourceForActor(actor, recipient),
-        text: s('shop.sold_others', recipient.lang, { actor: actor.name, count: totalConsume, item: itemName, npc: npcName }),
+        text: s('shop.sold_others', recipient.lang, { actor: actor.name, count: totalConsume, item: itemName, npc: npcDat }),
       };
     });
     return;
@@ -142,7 +147,10 @@ export function runExchange(actor, host, entry, { units = 1 } = {}) {
   const aff = canAfford(actor, entry, units);
   if (!aff.ok) {
     if (aff.missing.gold != null) {
-      actor.session.send({ kind: 'error', text: s('shop.no_gold', actor.lang, { price: aff.missing.gold + (actor.gold ?? 0), gold: actor.gold ?? 0 }) });
+      actor.session.send({ kind: 'error', text: s('shop.no_gold', actor.lang, {
+        price: goldPhrase(aff.missing.gold + (actor.gold ?? 0), actor.lang),
+        gold: goldPhrase(actor.gold ?? 0, actor.lang),
+      }) });
     } else {
       const def = world.itemDefs.get(aff.missing.item);
       if (entry.flavor === 'sell') {
@@ -157,7 +165,7 @@ export function runExchange(actor, host, entry, { units = 1 } = {}) {
   consumeInputs(actor, entry, units);
 
   if (entry.verb) {
-    runVerb({ actor, def: entry.verb, targetName: hostDisplayName(host, actor.lang) });
+    runVerb({ actor, def: entry.verb, targetName: hostName(host, 'nom', actor.lang) });
   } else {
     broadcastDefault(actor, host, entry, units);
   }

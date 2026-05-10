@@ -1,0 +1,29 @@
+{
+  "id": "spell.bleed",
+  "name": {
+    "en": "Bloodthorn",
+    "cs": "Krvavý trn"
+  },
+  "mpCost": 4,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Open wounds on the target that bleed for damage over time.",
+    "cs": "Otevře na cíli rány, ze kterých krvácí a postupně slábne."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you snap your fingers and thin red lines trace across {target}.",
+        "others": "{actor} snaps their fingers and thin red lines trace across {target}."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "lusknete prsty a tenké červené čáry se vyryjí do {target}.",
+        "others": "{actor} luskne prsty a tenké červené čáry se vyryjí do {target}."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.bleeding" }
+}

@@ -22,5 +22,29 @@
     "location": "forest.meadow",
     "count": 3,
     "respawnTicks": 300
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you breathe in the sweet scent of the blue flower. Your mind feels a little clearer.",
+        "others": "{actor} breathes in the scent of a small blue flower."
+      },
+      "to_target": {
+        "self": "you hold the blue flower up to {target}, who breathes in its scent.",
+        "others": "{actor} holds a blue flower up to {target}, who breathes in its scent."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vdechneš sladkou vůni modrého květu. Mysl ti trochu zbystří.",
+        "others": "{actor} vdechuje vůni malého modrého květu."
+      },
+      "to_target": {
+        "self": "podržíš modrý květ {target.dat} u nosu a ten se nadechne jeho vůně.",
+        "others": "{actor} podržuje modrý květ {target.dat} u nosu a ten se nadechne jeho vůně."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "heal", "mp": 1 }
   }
 }

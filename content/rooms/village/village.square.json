@@ -1,7 +1,7 @@
 {
   "id": "village.square",
   "name": {
-    "en": "Village Square",
+    "en": "Village square",
     "cs": "Náves"
   },
   "short": {
@@ -16,7 +16,11 @@
     "n": "village.lane",
     "s": "village.smith",
     "w": "village.pub",
-    "e": "village.orchard"
+    "e": "village.orchard",
+    "d": "village.well_bottom"
+  },
+  "lockedExits": {
+    "d": "village.well"
   },
   "tags": ["outdoor", "village", "safe"]
 }

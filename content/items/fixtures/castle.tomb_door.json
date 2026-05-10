@@ -1,0 +1,45 @@
+{
+  "id": "castle.tomb_door",
+  "name": {
+    "en": "an iron tomb door",
+    "cs": "železné dveře hrobky"
+  },
+  "nameAcc": {
+    "en": "the iron tomb door",
+    "cs": "železné dveře hrobky"
+  },
+  "short": {
+    "en": "A heavy iron door at the foot of the stair, carved with a sword and tower.",
+    "cs": "Těžké železné dveře na konci schodiště, vyryté mečem a věží."
+  },
+  "long": {
+    "en": "A thick iron door set into the granite at the bottom of the stair. Its surface is carved with a sword crossed over a tower — the crest of the lord whose castle this was. A keyhole shaped for a heavy ring sits in the centre. The door is too solid to break.",
+    "cs": "Tlusté železné dveře zasazené do žuly na konci schodiště. Na povrchu je vyrytý meč překřížený přes věž — znak pána, jemuž tento hrad patřil. Uprostřed je klíčová dírka tvarovaná pro těžký prsten. Dveře jsou příliš pevné na rozbití."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "castle.crypt_stair",
+    "count": 1
+  },
+  "unlocks": {
+    "exit": "d",
+    "key": "item.captain_signet",
+    "consume": false,
+    "verb": {
+      "en": {
+        "to_target": {
+          "self": "you press the heavy signet ring into {target}, turn it, and the iron door swings slowly inward.",
+          "others": "{actor} presses a heavy signet ring into {target}, turns it, and the iron door swings slowly inward."
+        }
+      },
+      "cs": {
+        "to_target": {
+          "self": "vtiskneš těžký pečetní prsten do {target}, otočíš jím a železné dveře se pomalu rozevřou dovnitř.",
+          "others": "{actor} vtiskne těžký pečetní prsten do {target}, otočí jím a železné dveře se pomalu rozevřou dovnitř."
+        }
+      }
+    }
+  }
+}

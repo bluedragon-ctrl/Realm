@@ -12,14 +12,14 @@ function effectDetail(spell, actor) {
   const lang = actor.lang;
   const eff = spell.effect;
   if (!eff) return null;
-  if (eff.type === 'damage') {
+  if (eff.type === 'damage' || eff.type === 'damage_room_enemies') {
     const { min, max } = formulaRange(eff.formula ?? '0', { actor });
     return s('spells.detail.damage', lang, {
       formula: eff.formula ?? '?',
       range: rangeText(Math.max(1, min), Math.max(1, max), lang, 'damage'),
     });
   }
-  if (eff.type === 'heal') {
+  if (eff.type === 'heal' || eff.type === 'heal_room_friendlies') {
     const formula = eff.amount ?? eff.hp ?? eff.mp ?? '0';
     const { min, max } = formulaRange(formula, { actor });
     return s('spells.detail.heal', lang, {

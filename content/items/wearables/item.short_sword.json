@@ -1,0 +1,27 @@
+{
+  "id": "item.short_sword",
+  "name": {
+    "en": "a short sword",
+    "cs": "krátký meč"
+  },
+  "nameAcc": {
+    "en": "the short sword",
+    "cs": "krátký meč"
+  },
+  "short": {
+    "en": "A short sword lies here.",
+    "cs": "Leží tu krátký meč."
+  },
+  "long": {
+    "en": "A plain short sword with a straight blade. Light and quick in the hand. The grip is wrapped in dark leather.",
+    "cs": "Obyčejný krátký meč s rovnou čepelí. V ruce lehký a rychlý. Rukojeť je obtočená tmavou kůží."
+  },
+  "tags": ["weapon"],
+  "weight": 2,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d6+ATK",
+    "cost": 10,
+    "bonus": { "attack": 1, "accuracy": 4 }
+  }
+}

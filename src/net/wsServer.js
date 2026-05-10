@@ -4,13 +4,15 @@ import path from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { WebSocketServer } from 'ws';
 import { loadPlayer, savePlayer } from '../persist/players.js';
-import { world, isAdmin, registerActor, removeActor, placeActor, findActor } from '../game/world.js';
+import { world, isAdmin, registerActor, removeActor, placeActor, findActor, allActors } from '../game/world.js';
 import { makePlayerActor } from '../game/actors.js';
 import { runCommand } from '../game/commands.js';
 import { describeRoom, describeRoomToAll } from '../game/actions/look.js';
 import { sendStats } from '../game/messages.js';
 import { serializeInventory } from '../game/items.js';
 import { applyAggressionOnEnter } from '../game/combat.js';
+import { clearPlayerAttackQueue } from '../game/playerCombatState.js';
+import { resolveName } from '../game/declension.js';
 import { s, DEFAULT_LANG } from '../i18n.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -106,6 +108,19 @@ async function handleClose(session) {
     await savePlayer(actor.record);
   } catch (err) {
     console.error(`failed to save ${actor.name} on disconnect:`, err);
+  }
+  clearPlayerAttackQueue(actor);
+  for (const other of allActors()) {
+    if (other === actor) continue;
+    if (other.following !== actor.id) continue;
+    other.following = null;
+    if (other.kind === 'player') other.dirty = true;
+    if (other.session) {
+      other.session.send({
+        kind: 'system',
+        text: s('follow.leader_left', other.lang, { name: resolveName(actor, 'acc', other.lang) }),
+      });
+    }
   }
   removeActor(actor);
   session.actor = null;

@@ -1,0 +1,52 @@
+{
+  "id": "castle.crawling_hand",
+  "name": { "en": "a crawling hand", "cs": "lezoucí ruka" },
+  "nameAcc": { "en": "the crawling hand", "cs": "lezoucí ruku" },
+  "nameDat": { "en": "the crawling hand", "cs": "lezoucí ruce" },
+  "nameGen": { "en": "the crawling hand", "cs": "lezoucí ruky" },
+  "title": { "en": "crawling hand", "cs": "lezoucí ruka" },
+  "locations": {
+    "castle.cloister": 2
+  },
+  "short": {
+    "en": "A pale, severed hand scuttles across the stones on its fingers.",
+    "cs": "Bledá uťatá ruka se na prstech rychle plíží po kameni."
+  },
+  "long": {
+    "en": "A grey, bony hand cut off at the wrist, scuttling along the floor like a fast spider. The fingers move on their own, dragging the rest along. Where the wrist should bleed there is only old, dry stump. It does not seem afraid of anything.",
+    "cs": "Šedá kostnatá ruka uťatá v zápěstí, která se po podlaze pohybuje jako rychlý pavouk. Prsty se hýbou samy a táhnou zbytek za sebou. Tam, kde by mělo zápěstí krvácet, je jen starý suchý pahýl. Nezdá se, že by se něčeho bála."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 8, "hpMax": 8,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 0, "int": 0,
+    "magicResist": 0,
+    "spd": 8
+  },
+  "respawn": { "ticks": 250 },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "claw", "cs": "škrábnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} springs at {target} and digs its nails into an ankle!",
+          "{actor} scuttles up {target} and claws at the calf!",
+          "{actor} clamps onto {target} with cold, bony fingers!"
+        ],
+        "cs": [
+          "{actor} skočí po {target.dat} a zaboří nehty do kotníku!",
+          "{actor} vyšplhá po {target.dat} a podrápe lýtko!",
+          "{actor} se zakousne do {target.gen} chladnými kostnatými prsty!"
+        ]
+      }
+    }
+  ]
+}

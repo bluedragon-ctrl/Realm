@@ -35,8 +35,8 @@
         "others": "{actor} odzátkává malou lahvičku a vypíjí lektvar many."
       },
       "to_target": {
-        "self": "přiložíš lahvičku k ústům {target} a naliješ lektvar dovnitř.",
-        "others": "{actor} přikládá malou lahvičku k ústům {target} a nalévá dovnitř lektvar many."
+        "self": "přiložíš lahvičku k ústům {target.gen} a naliješ lektvar dovnitř.",
+        "others": "{actor} přikládá malou lahvičku k ústům {target.gen} a nalévá dovnitř lektvar many."
       }
     },
     "effect": { "type": "heal", "mp": 5 },

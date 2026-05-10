@@ -1,0 +1,15 @@
+{
+  "id": "effect.mana_burn",
+  "name": {
+    "en": "Mana Burn",
+    "cs": "Spalování many"
+  },
+  "kind": "debuff",
+  "icon": "🫧",
+  "tick": {
+    "every": 2,
+    "pulses": 4,
+    "effect": { "type": "damage", "stat": "mp", "amount": 2 }
+  },
+  "stack": "refresh"
+}

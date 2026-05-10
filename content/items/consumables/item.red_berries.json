@@ -42,8 +42,8 @@
         "others": "{actor} si vhodí pár červených bobulí do úst."
       },
       "to_target": {
-        "self": "podáš červené bobule {target} a ten je sní.",
-        "others": "{actor} podává hrst červených bobulí {target} a ten je sní."
+        "self": "podáš červené bobule {target.dat} a ten je sní.",
+        "others": "{actor} podává hrst červených bobulí {target.dat} a ten je sní."
       }
     },
     "consumable": true,

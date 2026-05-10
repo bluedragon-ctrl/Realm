@@ -1,9 +1,12 @@
-import { findInRoom, broadcastToRoom } from '../world.js';
+import { broadcastToRoom } from '../world.js';
 import { findItemInList, transferItem, splitOnKeyword } from '../items.js';
 import { s, t } from '../../i18n.js';
+import { resolveName } from '../declension.js';
+import { goldPhrase, parseAmountGoldQuery } from '../format.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 import { runExchange } from '../exchange.js';
+import { resolveActorTarget } from '../targeting.js';
 
 function parseGiveArgs(args) {
   const split = splitOnKeyword(args, 'to');
@@ -12,22 +15,6 @@ function parseGiveArgs(args) {
     return { itemQuery: args.slice(0, -1).join(' '), targetQuery: args[args.length - 1] };
   }
   return null;
-}
-
-const GOLD_WORDS = new Set(['gold', 'coin', 'coins', 'zlato', 'zlaťák', 'zlaťáky', 'mince']);
-
-function parseGoldGive(itemQuery) {
-  const parts = itemQuery.trim().split(/\s+/);
-  if (parts.length !== 2) return null;
-  const a = parts[0].toLowerCase();
-  const b = parts[1].toLowerCase();
-  let amountStr = null;
-  if (/^\d+$/.test(a) && GOLD_WORDS.has(b)) amountStr = a;
-  else if (GOLD_WORDS.has(a) && /^\d+$/.test(b)) amountStr = b;
-  if (!amountStr) return null;
-  const amount = parseInt(amountStr, 10);
-  if (!Number.isFinite(amount) || amount <= 0) return null;
-  return { amount };
 }
 
 function parseCountedItemGive(itemQuery) {
@@ -68,13 +55,10 @@ export default function give(actor, args) {
   }
   const { itemQuery, targetQuery } = parsed;
 
-  const goldGive = parseGoldGive(itemQuery);
+  const goldGive = parseAmountGoldQuery(itemQuery);
   if (goldGive) {
-    const target = findInRoom(actor.location, targetQuery);
-    if (!target) {
-      actor.session.send({ kind: 'error', text: s('error.no_such_target', actor.lang, { query: targetQuery }) });
-      return;
-    }
+    const target = resolveActorTarget(actor, targetQuery);
+    if (!target) return;
     if (target === actor) {
       actor.session.send({ kind: 'error', text: s('give.to_self', actor.lang) });
       return;
@@ -95,7 +79,7 @@ export default function give(actor, args) {
       return;
     }
     if ((actor.gold ?? 0) < goldGive.amount) {
-      actor.session.send({ kind: 'error', text: s('give.gold.not_enough', actor.lang, { amount: goldGive.amount, gold: actor.gold ?? 0 }) });
+      actor.session.send({ kind: 'error', text: s('give.gold.not_enough', actor.lang, { amount: goldGive.amount, gold: goldPhrase(actor.gold ?? 0, actor.lang) }) });
       return;
     }
     actor.gold = (actor.gold ?? 0) - goldGive.amount;
@@ -103,16 +87,18 @@ export default function give(actor, args) {
     actor.dirty = true;
     target.dirty = true;
     broadcastToRoom(actor.location, (recipient) => {
+      const targetDat = resolveName(target, 'dat', recipient.lang);
+      const amount = goldPhrase(goldGive.amount, recipient.lang);
       if (recipient === actor) {
-        return { kind: 'system', text: s('give.gold.self', recipient.lang, { amount: goldGive.amount, target: target.name }) };
+        return { kind: 'system', text: s('give.gold.self', recipient.lang, { amount, target: targetDat }) };
       }
       if (recipient === target) {
-        return { kind: 'system', tone: 'good', text: s('give.gold.recipient', recipient.lang, { amount: goldGive.amount, actor: actor.name }) };
+        return { kind: 'system', tone: 'good', text: s('give.gold.recipient', recipient.lang, { amount, actor: actor.name }) };
       }
       return {
         kind: 'emote',
         source: sourceForActor(actor, recipient),
-        text: s('give.gold.others', recipient.lang, { actor: actor.name, amount: goldGive.amount, target: target.name }),
+        text: s('give.gold.others', recipient.lang, { actor: actor.name, amount, target: targetDat }),
       };
     });
     sendStats(actor);
@@ -134,11 +120,8 @@ export default function give(actor, args) {
     return;
   }
 
-  const target = findInRoom(actor.location, targetQuery);
-  if (!target) {
-    actor.session.send({ kind: 'error', text: s('error.no_such_target', actor.lang, { query: targetQuery }) });
-    return;
-  }
+  const target = resolveActorTarget(actor, targetQuery);
+  if (!target) return;
   if (target === actor) {
     actor.session.send({ kind: 'error', text: s('give.to_self', actor.lang) });
     return;
@@ -166,12 +149,10 @@ export default function give(actor, args) {
   if (target.kind === 'player') target.dirty = true;
 
   broadcastToRoom(actor.location, (recipient) => {
-    const item = t(inst.def.nameAcc ?? inst.def.name, recipient.lang);
-    const targetName = target.kind === 'npc'
-      ? t(target.nameAcc ?? target.name, recipient.lang)
-      : target.name;
+    const item = resolveName(inst.def, 'acc', recipient.lang);
+    const targetDat = resolveName(target, 'dat', recipient.lang);
     if (recipient === actor) {
-      return { kind: 'system', text: s('give.self', recipient.lang, { item, target: targetName }) };
+      return { kind: 'system', text: s('give.self', recipient.lang, { item, target: targetDat }) };
     }
     if (recipient === target) {
       return { kind: 'system', text: s('give.recipient', recipient.lang, { item, actor: actor.name }) };
@@ -179,7 +160,7 @@ export default function give(actor, args) {
     return {
       kind: 'emote',
       source: sourceForActor(actor, recipient),
-      text: s('give.others', recipient.lang, { actor: actor.name, item, target: targetName }),
+      text: s('give.others', recipient.lang, { actor: actor.name, item, target: targetDat }),
     };
   });
 
