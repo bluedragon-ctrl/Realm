@@ -65,6 +65,7 @@ export function buildStatsMsg(actor) {
       ...buildWearableOnHitEffects(actor, actor.lang),
     ],
     actionCooldownMs: Math.max(0, (actor.nextActionAt ?? 0) - Date.now()),
+    queuedAction: actor.queuedAction?.kind ?? null,
   };
 }
 

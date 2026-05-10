@@ -475,10 +475,14 @@ html, body {
 #quickbar button.danger:hover { background: #4a2a2a; border-color: #884444; }
 #quickbar button.combat { color: #ffcc88; border-color: #6a4a22; }
 #quickbar button.combat:hover { background: #3a2e1f; border-color: #a07040; }
-#quickbar #attack-btn { position: relative; overflow: hidden; }
-#quickbar #attack-btn.cooldown { opacity: 0.6; cursor: wait; }
-#quickbar #attack-btn.cooldown:hover { background: #232327; border-color: #6a4a22; }
-#quickbar #attack-btn.cooldown::after {
+#quickbar #attack-btn,
+#quickbar #spell-btn { position: relative; overflow: hidden; }
+#quickbar #attack-btn.cooldown,
+#quickbar #spell-btn.cooldown { opacity: 0.6; cursor: wait; }
+#quickbar #attack-btn.cooldown:hover,
+#quickbar #spell-btn.cooldown:hover { background: #232327; border-color: #6a4a22; }
+#quickbar #attack-btn.cooldown::after,
+#quickbar #spell-btn.cooldown::after {
   content: '';
   position: absolute;
   left: 0; top: 0; bottom: 0;
@@ -490,6 +494,14 @@ html, body {
 @keyframes attack-cooldown-sweep {
   from { width: 100%; }
   to { width: 0; }
+}
+#quickbar #attack-btn.queued,
+#quickbar #spell-btn.queued { border-color: #c87820; animation: action-queued-pulse 0.9s ease-in-out infinite; }
+#quickbar #attack-btn.cooldown:not(.queued),
+#quickbar #spell-btn.cooldown:not(.queued) { opacity: 0.35; }
+@keyframes action-queued-pulse {
+  0%, 100% { opacity: 0.55; }
+  50% { opacity: 0.85; }
 }
 #quickbar .quickbar-sep {
   width: 1px;

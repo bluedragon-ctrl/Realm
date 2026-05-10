@@ -310,13 +310,13 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Magic (spells as content, MP costs) |
 | Loot tables, monster spawns |
 | Stabilisation, testing, basic gameplay content |
+| Cast cooldown (shared action queue with attack, enables slow/strong spells) |
 
 ### Planned — combat & system cleanup (next)
 
 | Phase |
 |---|
 | Aggro overhaul (threat priority, taunt/calm; introduces stubbed `canPerceive(observer, target)` helper consumed by acquisition and targeting) |
-| Cast cooldown (shared action queue with attack, enables slow/strong spells) |
 | Perception (derived bonus + check primitive, extends `canPerceive`; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) |
 | Out-of-combat monster regen (rate scales with actor position once positions land) |
 | Actor positions (stand/sit/sleep; sleep blocks passive perception via `canPerceive`, reactive aggro on attack still wakes; combat auto-stands; couples with OOC regen) |
