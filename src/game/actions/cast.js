@@ -13,8 +13,16 @@ import { awardXp } from '../xp.js';
 import { resolveActorTarget } from '../targeting.js';
 import { resolveName, pickByVariants } from '../declension.js';
 import { EFFECT_SOURCE } from '../contentMeta.js';
+import { clearPlayerActionQueue } from '../playerCombatState.js';
+import { DEFAULT_COSTS } from '../stats.js';
 
 const MAX_RESIST = 95;
+
+function castCooldownMs(spell, actor) {
+  const cost = spell.actionCost ?? DEFAULT_COSTS.cast;
+  const spd = actor.stats?.spd ?? 6;
+  return Math.max(0, Math.round((cost / spd) * 1000));
+}
 
 function resists(target) {
   if (!target?.stats) return false;
@@ -194,6 +202,10 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
     awardXp(actor, healedAlly ? 2 : castXp, healedAlly ? 'heal_friendly' : 'cast');
   }
 
+  if (actor.kind === 'player') {
+    actor.nextActionAt = Date.now() + castCooldownMs(spell, actor);
+  }
+
   return { ok: true, resisted, healedAlly };
 }
 
@@ -219,6 +231,23 @@ export default function cast(actor, args) {
   }
 
   if (!validateSpellTarget(actor, spell, target)) return;
+
+  const remaining = (actor.nextActionAt ?? 0) - Date.now();
+  if (remaining > 0) {
+    clearPlayerActionQueue(actor);
+    const timer = setTimeout(() => {
+      actor.queuedAction = null;
+      let resolvedTarget = null;
+      if (targetQuery) {
+        resolvedTarget = resolveActorTarget(actor, targetQuery);
+        if (!resolvedTarget) return;
+      }
+      if (!validateSpellTarget(actor, spell, resolvedTarget)) return;
+      castSpell(actor, spell, resolvedTarget);
+    }, remaining);
+    actor.queuedAction = { timer };
+    return;
+  }
 
   castSpell(actor, spell, target);
 }

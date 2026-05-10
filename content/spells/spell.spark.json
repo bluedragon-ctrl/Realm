@@ -5,6 +5,7 @@
     "cs": "Jiskra"
   },
   "mpCost": 3,
+  "actionCost": 12,
   "target": "hostile",
   "harmful": true,
   "description": {

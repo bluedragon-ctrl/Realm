@@ -309,11 +309,6 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Combat (attack verb, HP changes, monster death) |
 | Magic (spells as content, MP costs) |
 | Loot tables, monster spawns |
-
-### In progress
-
-| Phase |
-|---|
 | Stabilisation, testing, basic gameplay content |
 
 ### Planned — combat & system cleanup (next)

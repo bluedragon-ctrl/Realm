@@ -5,6 +5,7 @@
     "cs": "Uzdravení"
   },
   "mpCost": 2,
+  "actionCost": 12,
   "target": "friendly",
   "description": {
     "en": "Restore a small amount of HP to yourself or an ally.",

@@ -5,6 +5,7 @@
     "cs": "Opevnění"
   },
   "mpCost": 0,
+  "actionCost": 12,
   "target": "self",
   "description": {
     "en": "Locks armor and shield into a hardened stance for a long time.",

@@ -5,6 +5,7 @@
     "cs": "Hořící ruce"
   },
   "mpCost": 6,
+  "actionCost": 12,
   "target": "hostile_room",
   "harmful": true,
   "description": {

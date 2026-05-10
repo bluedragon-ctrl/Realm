@@ -5,6 +5,7 @@
     "cs": "Krvavý trn"
   },
   "mpCost": 4,
+  "actionCost": 12,
   "target": "hostile",
   "harmful": true,
   "description": {

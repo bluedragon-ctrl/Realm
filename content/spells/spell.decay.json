@@ -5,6 +5,7 @@
     "cs": "Rozklad"
   },
   "mpCost": 5,
+  "actionCost": 12,
   "target": "hostile",
   "harmful": true,
   "description": {

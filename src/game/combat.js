@@ -11,7 +11,7 @@ import { s, t, tListAt, pickListIndex } from '../i18n.js';
 import { resolveName } from './declension.js';
 import { fillPlaceholders } from './verbs.js';
 import { goldPhrase } from './format.js';
-import { clearPlayerAttackQueue } from './playerCombatState.js';
+import { clearPlayerActionQueue } from './playerCombatState.js';
 import { unregisterWanderer } from './wandering.js';
 import { EFFECT_SOURCE } from './contentMeta.js';
 
@@ -261,8 +261,8 @@ function handleNpcDeath(killer, npc) {
 }
 
 function handlePlayerDeath(killer, victim) {
-  clearPlayerAttackQueue(victim);
-  victim.nextAttackAt = 0;
+  clearPlayerActionQueue(victim);
+  victim.nextActionAt = 0;
   victim.following = null;
   victim.dirty = true;
   for (const other of allActors()) {

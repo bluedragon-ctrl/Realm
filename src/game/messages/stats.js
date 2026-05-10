@@ -64,7 +64,7 @@ export function buildStatsMsg(actor) {
       ...serializeActiveEffectsForClient(actor, actor.lang),
       ...buildWearableOnHitEffects(actor, actor.lang),
     ],
-    attackCooldownMs: Math.max(0, (actor.nextAttackAt ?? 0) - Date.now()),
+    actionCooldownMs: Math.max(0, (actor.nextActionAt ?? 0) - Date.now()),
   };
 }
 
