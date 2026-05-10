@@ -320,7 +320,7 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase |
 |---|
-| Aggro overhaul (threat priority, taunt/calm) |
+| Aggro overhaul (threat priority, taunt/calm; consumes perception + light for acquisition) |
 | Cast cooldown (shared action queue with attack, enables slow/strong spells) |
 | Perception (derived bonus + check primitive; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) |
 | Out-of-combat monster regen |
