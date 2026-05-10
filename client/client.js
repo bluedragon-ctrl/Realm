@@ -182,11 +182,13 @@ function renderStats(msg) {
   if (fleeBtn && labels.fleeButton) fleeBtn.textContent = labels.fleeButton;
   const attackBtn = document.getElementById('attack-btn');
   if (attackBtn && labels.attackButton) attackBtn.textContent = labels.attackButton;
+  if (attackBtn) attackBtn.classList.toggle('queued', msg.queuedAction === 'attack');
   applyActionCooldown(msg.actionCooldownMs ?? 0);
   const spellBtn = document.getElementById('spell-btn');
   if (spellBtn) {
     if (labels.castButton) spellBtn.textContent = `${labels.castButton} ▶`;
     spellBtn.hidden = !(Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0);
+    spellBtn.classList.toggle('queued', msg.queuedAction === 'cast');
   }
   if (labels.useFixtureButton) useFixtureBtn.textContent = labels.useFixtureButton;
   if (labels.useOnButton) useOnBtn.textContent = labels.useOnButton;

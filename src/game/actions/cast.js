@@ -245,7 +245,7 @@ export default function cast(actor, args) {
       if (!validateSpellTarget(actor, spell, resolvedTarget)) return;
       castSpell(actor, spell, resolvedTarget);
     }, remaining);
-    actor.queuedAction = { timer };
+    actor.queuedAction = { timer, kind: 'cast' };
     return;
   }
 

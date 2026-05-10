@@ -75,7 +75,7 @@ export default function attack(actor, args) {
       if (!next) return;
       fireAttack(actor, next);
     }, remaining);
-    actor.queuedAction = { timer, query };
+    actor.queuedAction = { timer, query, kind: 'attack' };
     return;
   }
 
