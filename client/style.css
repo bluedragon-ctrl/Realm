@@ -198,6 +198,14 @@ html, body {
   gap: 5px;
   flex-wrap: wrap;
 }
+.quickbar-cb {
+  width: 12px;
+  height: 12px;
+  flex-shrink: 0;
+  accent-color: var(--accent);
+  cursor: pointer;
+  margin-right: 4px;
+}
 .panel-list-row-name {
   font-size: 13px;
   color: var(--fg);
