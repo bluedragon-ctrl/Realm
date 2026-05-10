@@ -26,6 +26,7 @@
     "hp": 10, "hpMax": 10,
     "mp": 0, "mpMax": 0,
     "attack": 2, "defense": 1, "int": 0,
+    "accuracy": 8,
     "evasion": 15,
     "spd": 4
   },

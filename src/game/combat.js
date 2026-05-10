@@ -16,6 +16,8 @@ import { unregisterWanderer } from './wandering.js';
 import { EFFECT_SOURCE } from './contentMeta.js';
 
 const MAX_DODGE = 50;
+const MAX_CRIT = 50;
+const CRIT_MULTIPLIER = 2;
 
 function targetDisplay(target, lang) {
   return resolveName(target, 'acc', lang);
@@ -54,8 +56,11 @@ export function executeAttack(actor, action, target) {
     return;
   }
 
-  const raw = roll(action.damage ?? '1', { actor, target });
-  // ignoreDef on the behavior bypasses target DEF (armor-piercing attacks).
+  const critChance = Math.max(0, Math.min(MAX_CRIT, acc - eva));
+  const crit = critChance > 0 && Math.floor(Math.random() * 100) + 1 <= critChance;
+
+  let raw = roll(action.damage ?? '1', { actor, target });
+  if (crit) raw *= CRIT_MULTIPLIER;
   const final = action.ignoreDef ? Math.max(1, raw) : Math.max(1, raw - (target.stats.defense ?? 0));
 
   const tmpl = action.templates;
@@ -65,6 +70,24 @@ export function executeAttack(actor, action, target) {
       const lang = recipient.lang;
       const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
+    });
+  }
+
+  if (crit) {
+    broadcastToRoom(actor.location, (recipient) => {
+      const lang = recipient.lang;
+      let text;
+      if (recipient === actor) {
+        text = s('combat.you_crit', lang, { target: targetDisplay(target, lang) });
+      } else if (recipient === target) {
+        text = s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
+      } else {
+        text = s('combat.crit_observed', lang, {
+          actor: actorDisplay(actor, lang),
+          target: targetDisplay(target, lang),
+        });
+      }
+      return { kind: 'emote', tone: 'combat', source: sourceForActor(actor, recipient), text };
     });
   }
 
