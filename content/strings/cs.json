@@ -252,6 +252,7 @@
   "panel.effects_empty": "(žádné)",
   "panel.filter_all": "Vše",
   "panel.filter_usable": "Spotřební",
+  "panel.filter_equipment": "Výbava",
   "panel.filter_other": "Ostatní",
   "effect.tick.heal_hp": "{name} ti obnovuje {amount} HP.",
   "effect.tick.heal_mp": "{name} ti obnovuje {amount} MP.",

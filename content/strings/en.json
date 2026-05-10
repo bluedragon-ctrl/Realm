@@ -252,6 +252,7 @@
   "panel.effects_empty": "(none)",
   "panel.filter_all": "All",
   "panel.filter_usable": "Usable",
+  "panel.filter_equipment": "Equipment",
   "panel.filter_other": "Other",
   "effect.tick.heal_hp": "{name} restores {amount} HP.",
   "effect.tick.heal_mp": "{name} restores {amount} MP.",

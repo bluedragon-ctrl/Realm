@@ -358,13 +358,15 @@ function renderStats(msg) {
 
   const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
   const invConsumables = inv.filter(i => i.consumable);
-  const invOthers = inv.filter(i => !i.consumable);
+  const invEquipment = inv.filter(i => i.wearable);
+  const invOthers = inv.filter(i => !i.consumable && !i.wearable);
   playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
     const filterKey = 'realm.panel.inventory.filter';
     let activeFilter = localStorage.getItem(filterKey) ?? 'all';
     const pillFilters = [
       { key: 'all', label: labels.filterAll ?? 'All' },
       { key: 'usable', label: labels.filterUsable ?? 'Usable' },
+      { key: 'equipment', label: labels.filterEquipment ?? 'Equipment' },
       { key: 'other', label: labels.filterOther ?? 'Other' },
     ];
     const pillsRow = document.createElement('div');
@@ -373,6 +375,7 @@ function renderStats(msg) {
     const renderInvList = () => {
       listEl.innerHTML = '';
       const items = activeFilter === 'usable' ? invConsumables
+        : activeFilter === 'equipment' ? invEquipment
         : activeFilter === 'other' ? invOthers
         : inv;
       if (items.length === 0) {

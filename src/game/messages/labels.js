@@ -64,6 +64,7 @@ export function buildPanelLabels(lang) {
     attackPickerEmpty: s('panel.attack_picker_empty', lang),
     filterAll: s('panel.filter_all', lang),
     filterUsable: s('panel.filter_usable', lang),
+    filterEquipment: s('panel.filter_equipment', lang),
     filterOther: s('panel.filter_other', lang),
     equipmentTitle: s('panel.equipment', lang),
     equipmentEmpty: s('panel.equipment_empty', lang),
