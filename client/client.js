@@ -320,6 +320,26 @@ function renderStats(msg) {
   const invGear = inv.filter(i => i.wearable);
   const invOthers = inv.filter(i => !i.consumable && !i.wearable);
 
+  const SPELL_HIDDEN_KEY = 'realm.quickbar.spells.hidden';
+  const CONSUMABLE_HIDDEN_KEY = 'realm.quickbar.consumables.hidden';
+  function loadHidden(key) { try { return new Set(JSON.parse(localStorage.getItem(key) ?? '[]')); } catch { return new Set(); } }
+  function saveHidden(key, set) { localStorage.setItem(key, JSON.stringify([...set])); }
+
+  function makeQuickbarCheckbox(id, hiddenKey) {
+    const hidden = loadHidden(hiddenKey);
+    const cb = document.createElement('input');
+    cb.type = 'checkbox';
+    cb.className = 'quickbar-cb';
+    cb.checked = !hidden.has(id);
+    cb.title = 'Show in quick bar';
+    cb.addEventListener('change', () => {
+      const h = loadHidden(hiddenKey);
+      if (cb.checked) h.delete(id); else h.add(id);
+      saveHidden(hiddenKey, h);
+    });
+    return cb;
+  }
+
   function buildSpellsTab(el) {
     const spells = Array.isArray(msg.knownSpells) ? msg.knownSpells : [];
     if (spells.length === 0) {
@@ -334,6 +354,7 @@ function renderStats(msg) {
       row.className = 'panel-list-row';
       const top = document.createElement('div');
       top.className = 'panel-list-row-top';
+      top.appendChild(makeQuickbarCheckbox(spell.id, SPELL_HIDDEN_KEY));
       const nameEl = document.createElement('span');
       nameEl.className = 'panel-list-row-name';
       nameEl.textContent = spell.name;
@@ -388,6 +409,7 @@ function renderStats(msg) {
       for (const item of items) {
         const row = document.createElement('div');
         row.className = 'panel-list-row';
+        if (item.consumable) row.appendChild(makeQuickbarCheckbox(item.defId, CONSUMABLE_HIDDEN_KEY));
         const nameEl = document.createElement('span');
         nameEl.className = 'panel-list-row-name';
         nameEl.textContent = item.name;
@@ -1226,7 +1248,8 @@ function openAttackPicker(anchorEl, ev) {
 
 function openSpellPicker(anchorEl, ev) {
   ev?.stopPropagation();
-  const spells = lastStatsMsg?.knownSpells ?? [];
+  const hidden = (() => { try { return new Set(JSON.parse(localStorage.getItem('realm.quickbar.spells.hidden') ?? '[]')); } catch { return new Set(); } })();
+  const spells = (lastStatsMsg?.knownSpells ?? []).filter(s => !hidden.has(s.id));
   if (spells.length === 0) return;
   const currentMp = lastStatsMsg?.stats?.mp ?? 0;
   const sorted = [...spells].sort((a, b) => {
@@ -1381,8 +1404,9 @@ function openUseOnTargetPicker(anchorEl, item) {
 
 function openConsumablesPicker(anchorEl, ev) {
   ev?.stopPropagation();
+  const hidden = (() => { try { return new Set(JSON.parse(localStorage.getItem('realm.quickbar.consumables.hidden') ?? '[]')); } catch { return new Set(); } })();
   const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
-  const consumables = inv.filter(it => it.consumable);
+  const consumables = inv.filter(it => it.consumable && !hidden.has(it.defId));
   startPopover(anchorEl, labels.consumablesPickerTitle ?? 'Consume what?');
   if (consumables.length === 0) {
     const empty = document.createElement('div');

@@ -311,6 +311,8 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Loot tables, monster spawns |
 | Stabilisation, testing, basic gameplay content |
 | Cast cooldown (shared action queue with attack, enables slow/strong spells) |
+| Right-side panel rework (Spells/Inventory/Gear tab bar, list views, effects inline in stats block) |
+| Configurable cast/consumable quick-bar slots (per-spell/item checkbox, persisted in localStorage) |
 
 ### Planned — combat & system cleanup (next)
 
@@ -325,7 +327,6 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase |
 |---|
-| Right-side panel rework, configurable cast menu |
 | Item disposal (mimic vendor) |
 
 ### Planned — pre-light preparation
