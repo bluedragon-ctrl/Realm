@@ -80,15 +80,6 @@ export function maxHateInRoom(npc) {
   return seen ? max : 0;
 }
 
-// Iterator helper — yields [actor, hate] pairs for in-room entries.
-export function* aggroEntriesInRoom(npc) {
-  if (!npc.aggroAgainst) return;
-  for (const [actor, hate] of npc.aggroAgainst) {
-    if (actor.location !== npc.location) continue;
-    yield [actor, hate];
-  }
-}
-
 // Pick highest-hate in-room alive perceivable actor. Current target keeps ties.
 export function aggroTargetInRoom(npc) {
   if (!npc.aggroAgainst || npc.aggroAgainst.size === 0) return null;
