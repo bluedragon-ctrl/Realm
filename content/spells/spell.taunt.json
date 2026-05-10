@@ -1,0 +1,29 @@
+{
+  "id": "spell.taunt",
+  "name": {
+    "en": "Taunt",
+    "cs": "Provokace"
+  },
+  "mpCost": 2,
+  "actionCost": 12,
+  "target": "hostile",
+  "description": {
+    "en": "Force a foe to focus its full rage on you instead of your friends.",
+    "cs": "Donutí nepřítele soustředit veškerou zuřivost na tebe místo na tvé přátele."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you shout a sharp taunt at {target} and bare your teeth.",
+        "others": "{actor} shouts a sharp taunt at {target} and bares their teeth."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "křikneš na {target} ostrý výsměch a vyceníš zuby.",
+        "others": "{actor} křikne na {target} ostrý výsměch a vycení zuby."
+      }
+    }
+  },
+  "effect": { "type": "taunt" }
+}

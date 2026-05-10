@@ -1,9 +1,10 @@
 import { sendStats } from './messages.js';
 import { s, t } from '../i18n.js';
-import { world, unlockExit, placeItemInRoom, removeItemFromRoom, addGoldToRoom } from './world.js';
+import { world, unlockExit, placeItemInRoom, removeItemFromRoom, addGoldToRoom, broadcastToRoom } from './world.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { resolveName } from './declension.js';
+import { setHate, getHate, maxHateInRoom, clearHateTable } from './aggro.js';
 
 function evalAmount(value, ctx) {
   if (typeof value === 'number') return value;
@@ -102,6 +103,75 @@ const EFFECTS = {
       if (actor.kind === 'player' && actor.session) sendStats(actor);
     }
     return { dealt, healed };
+  },
+  taunt(_def, { actor, target }) {
+    if (!actor || !target || target.kind !== 'npc' || target.alive === false) return { ok: false };
+    const ceiling = maxHateInRoom(target);
+    setHate(target, actor, ceiling + 500);
+    target.disposition = 'hostile';
+    target.aggressive = true;
+    target.wasAttacked = true;
+    target.currentTarget = actor;
+    if (actor.kind === 'player') actor.target = target;
+    if (actor.session) {
+      actor.session.send({
+        kind: 'system', tone: 'combat',
+        text: s('aggro.taunt_success_self', actor.lang, { npc: resolveName(target, 'acc', actor.lang) }),
+      });
+    }
+    broadcastToRoom(target.location, (recipient) => {
+      if (recipient === actor) return null;
+      const lang = recipient.lang;
+      return {
+        kind: 'emote', tone: 'combat',
+        text: s('aggro.taunt_success_others', lang, {
+          actor: resolveName(actor, 'nom', lang),
+          npc: resolveName(target, 'acc', lang),
+        }),
+      };
+    });
+    return { ok: true };
+  },
+  pacify({ power = 30 }, { actor, target }) {
+    if (!actor || !target || target.kind !== 'npc' || target.alive === false) return { ok: false };
+    const maxHate = maxHateInRoom(target);
+    if (maxHate >= power) {
+      if (actor.session) {
+        actor.session.send({
+          kind: 'system', tone: 'flavor',
+          text: s('aggro.pacify_fizzle', actor.lang, { npc: resolveName(target, 'nom', actor.lang) }),
+        });
+      }
+      return { ok: false, fizzled: true };
+    }
+    clearHateTable(target);
+    setHate(target, actor, -power);
+    target.currentTarget = null;
+    target.wasAttacked = false;
+    broadcastToRoom(target.location, (recipient) => {
+      const lang = recipient.lang;
+      return {
+        kind: 'emote', tone: 'good',
+        text: s('aggro.pacify_success', lang, { npc: resolveName(target, 'nom', lang) }),
+      };
+    });
+    return { ok: true };
+  },
+  fade(_def, { actor }) {
+    if (!actor) return { ok: false };
+    let touched = 0;
+    for (const npc of world.npcsByInstance.values()) {
+      if (!npc.aggroAgainst?.has(actor)) continue;
+      if (getHate(npc, actor) <= 0) continue;
+      setHate(npc, actor, 0);
+      if (npc.currentTarget === actor) npc.currentTarget = null;
+      touched++;
+    }
+    if (actor.session) {
+      const key = touched > 0 ? 'aggro.fade_success' : 'aggro.fade_no_effect';
+      actor.session.send({ kind: 'system', tone: touched > 0 ? 'good' : 'flavor', text: s(key, actor.lang) });
+    }
+    return { ok: true, touched };
   },
   heal({ amount, hp, mp }, { actor, target }) {
     const recipient = target ?? actor;

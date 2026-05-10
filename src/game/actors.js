@@ -6,7 +6,7 @@ import { world } from './world.js';
 import { normalizeEquipped, recomputeStats } from './wearables.js';
 import { normalizeSavedActiveEffects, syncWearableEffects } from './activeEffects.js';
 
-const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark', 'spell.burning_hands'];
+const ADMIN_GRANTED_SPELLS = ['spell.heal', 'spell.spark', 'spell.burning_hands', 'spell.taunt', 'spell.pacify', 'spell.fade'];
 
 let nextNpcInstanceId = 1;
 
@@ -75,6 +75,7 @@ export function makePlayerActor(record, session, isAdmin) {
     get lang() { return record.lang; },
     set lang(v) { record.lang = normalizeLang(v); },
     inspecting: null,
+    target: null,
   };
   recomputeStats(actor);
   syncWearableEffects(actor);
@@ -112,6 +113,8 @@ export function makeNpcActor(def, homeLocation = null) {
     long: def.long ?? '',
     disposition: def.disposition ?? 'neutral',
     aggressive: !!def.aggressive,
+    defDisposition: def.disposition ?? 'neutral',
+    defAggressive: !!def.aggressive,
     mood: def.mood ?? 'calm',
     location: null,
     session: null,

@@ -10,6 +10,7 @@ import { awardXp } from '../xp.js';
 import { isSelfToken } from '../targeting.js';
 import { runExchange } from '../exchange.js';
 import { EFFECT_SOURCE } from '../contentMeta.js';
+import { applyHealerAggro } from '../combat.js';
 
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
@@ -140,6 +141,7 @@ export default function use(actor, args) {
     const result = applyEffect(useDef.effect, { actor, target: targetActor, fixture: inst, room: actor.location });
     if (useDef.effect?.type === 'heal') {
       sendHealFeedback(actor, targetActor, result);
+      applyHealerAggro(actor, targetActor ?? actor, result?.hpRestored ?? 0);
     } else if (useDef.effect?.type === 'unlock' && result?.unlocked) {
       describeRoomToAll(actor.location);
     } else if (useDef.effect?.type === 'open_chest' && result?.opened) {
