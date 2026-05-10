@@ -289,22 +289,15 @@ function renderStats(msg) {
     playerStatsEl.appendChild(goldRow);
   }
 
-  // Collapsibles in order: effects, spells, consumables, other items, equipment
-  playerStatsEl.appendChild(makeCollapsibleSection('effects', labels.effectsTitle ?? 'Effects', (body) => {
-    const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
-    if (effects.length === 0) {
-      const empty = document.createElement('span');
-      empty.className = 'empty';
-      empty.textContent = labels.effectsEmpty ?? '(none)';
-      body.appendChild(empty);
-      return;
-    }
+  const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
+  if (effects.length > 0) {
+    const effectsRow = document.createElement('div');
+    effectsRow.className = 'effects-inline';
     effects.forEach((eff, i) => {
-      if (i > 0) body.append(' ');
+      if (i > 0) effectsRow.append(' ');
       const chip = document.createElement('span');
       chip.className = `chip effect ${eff.kind || 'neutral'}`;
-      const iconText = eff.icon ? `${eff.icon} ` : '';
-      chip.textContent = `${iconText}${eff.name}`;
+      chip.textContent = `${eff.icon ? eff.icon + ' ' : ''}${eff.name}`;
       if (eff.pulsesLeft != null) {
         const counter = document.createElement('span');
         counter.className = 'effect-counter';
@@ -316,125 +309,175 @@ function renderStats(msg) {
         counter.textContent = `${eff.chancePct}%`;
         chip.appendChild(counter);
       }
-      body.appendChild(chip);
+      effectsRow.appendChild(chip);
     });
-  }));
+    playerStatsEl.appendChild(effectsRow);
+  }
 
-  playerStatsEl.appendChild(makeCollapsibleSection('spells', labels.spellbookTitle ?? 'Spells', (body) => {
-    if (Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0) {
-      msg.knownSpells.forEach((spell, i) => {
-        if (i > 0) body.append(' ');
-        const chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'chip spell';
-        chip.textContent = spell.name;
-        const mp = document.createElement('span');
-        mp.className = 'mp-cost';
-        mp.textContent = `${spell.mpCost}MP`;
-        chip.appendChild(mp);
-        chip.addEventListener('click', (ev) => openSpellPopover(chip, spell, ev));
-        body.appendChild(chip);
-      });
-    } else {
+  // Tab bar: Spells / Items / Gear
+  const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
+  const invConsumables = inv.filter(i => i.consumable);
+  const invGear = inv.filter(i => i.wearable);
+  const invOthers = inv.filter(i => !i.consumable && !i.wearable);
+
+  function buildSpellsTab(el) {
+    const spells = Array.isArray(msg.knownSpells) ? msg.knownSpells : [];
+    if (spells.length === 0) {
       const empty = document.createElement('span');
       empty.className = 'empty';
       empty.textContent = labels.spellbookEmpty ?? '(none)';
-      body.appendChild(empty);
-    }
-  }));
-
-  const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
-  const consumables = inv.filter(i => i.consumable);
-  const others = inv.filter(i => !i.consumable);
-  const buildItemChip = (item) => {
-    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-    const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
-    return chip;
-  };
-  const buildItemList = (body, items) => {
-    if (items.length === 0) {
-      const empty = document.createElement('span');
-      empty.className = 'empty';
-      empty.textContent = labels.inventoryEmpty ?? '(empty)';
-      body.appendChild(empty);
+      el.appendChild(empty);
       return;
     }
-    items.forEach((it, i) => {
-      if (i > 0) body.append(' ');
-      body.appendChild(buildItemChip(it));
-    });
-  };
+    for (const spell of spells) {
+      const row = document.createElement('div');
+      row.className = 'panel-list-row';
+      const top = document.createElement('div');
+      top.className = 'panel-list-row-top';
+      const nameEl = document.createElement('span');
+      nameEl.className = 'panel-list-row-name';
+      nameEl.textContent = spell.name;
+      const badges = document.createElement('span');
+      badges.className = 'panel-list-row-badges';
+      const targetBadge = document.createElement('span');
+      targetBadge.className = 'panel-badge target';
+      targetBadge.textContent = spell.targetLabel ?? spell.target;
+      const mpBadge = document.createElement('span');
+      mpBadge.className = 'panel-badge mp';
+      mpBadge.textContent = `${spell.mpCost} MP`;
+      badges.appendChild(targetBadge);
+      badges.appendChild(mpBadge);
+      top.appendChild(nameEl);
+      top.appendChild(badges);
+      row.appendChild(top);
+      if (spell.description) {
+        const desc = document.createElement('div');
+        desc.className = 'panel-list-row-desc';
+        desc.textContent = spell.description;
+        row.appendChild(desc);
+      }
+      el.appendChild(row);
+    }
+  }
 
-  playerStatsEl.appendChild(makeCollapsibleSection('consumables', labels.inventoryConsumables ?? 'Consumables', (body) => {
-    buildItemList(body, consumables);
-  }));
+  function buildItemsTab(el) {
+    const filterKey = 'realm.panel.inventory.filter';
+    let activeFilter = localStorage.getItem(filterKey) ?? 'all';
+    const pillFilters = [
+      { key: 'all', label: labels.filterAll ?? 'All' },
+      { key: 'usable', label: labels.filterUsable ?? 'Usable' },
+      { key: 'gear', label: labels.filterGear ?? 'Gear' },
+      { key: 'other', label: labels.filterOther ?? 'Other' },
+    ];
+    const pillsRow = document.createElement('div');
+    pillsRow.className = 'filter-pills';
+    const listEl = document.createElement('div');
+    const renderInvList = () => {
+      listEl.innerHTML = '';
+      const items = activeFilter === 'usable' ? invConsumables
+        : activeFilter === 'gear' ? invGear
+        : activeFilter === 'other' ? invOthers
+        : inv;
+      if (items.length === 0) {
+        const empty = document.createElement('span');
+        empty.className = 'empty';
+        empty.textContent = labels.inventoryEmpty ?? '(empty)';
+        listEl.appendChild(empty);
+        return;
+      }
+      for (const item of items) {
+        const row = document.createElement('div');
+        row.className = 'panel-list-row';
+        const nameEl = document.createElement('span');
+        nameEl.className = 'panel-list-row-name';
+        nameEl.textContent = item.name;
+        row.appendChild(nameEl);
+        if (item.count > 1) {
+          const countEl = document.createElement('span');
+          countEl.className = 'panel-list-row-count';
+          countEl.textContent = `×${item.count}`;
+          row.appendChild(countEl);
+        }
+        listEl.appendChild(row);
+      }
+    };
+    for (const f of pillFilters) {
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = `filter-pill${activeFilter === f.key ? ' active' : ''}`;
+      pill.textContent = f.label;
+      pill.addEventListener('click', () => {
+        activeFilter = f.key;
+        localStorage.setItem(filterKey, f.key);
+        for (const p of pillsRow.querySelectorAll('.filter-pill')) p.classList.toggle('active', p === pill);
+        renderInvList();
+      });
+      pillsRow.appendChild(pill);
+    }
+    el.appendChild(pillsRow);
+    renderInvList();
+    el.appendChild(listEl);
+  }
 
-  playerStatsEl.appendChild(makeCollapsibleSection('other_items', labels.inventoryOther ?? 'Other items', (body) => {
-    buildItemList(body, others);
-  }));
-
-  playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
+  function buildGearTab(el) {
     const eq = msg.equipment ?? { slots: [], inInventory: [] };
     const slotLabels = labels.slotLabels ?? {};
-    const slotEmpty = labels.slotEmpty ?? '(empty)';
-    const grid = document.createElement('div');
-    grid.className = 'equipment-grid';
-    eq.slots.forEach((slotInfo) => {
-      const row = document.createElement('div');
-      row.className = 'equipment-slot-row';
-      const label = document.createElement('span');
-      label.className = 'equipment-slot-label';
-      label.textContent = `${slotLabels[slotInfo.slot] ?? slotInfo.slot}:`;
-      row.appendChild(label);
-      const chipCls = slotInfo.defId ? 'item' : 'fixture';
-      const chipText = slotInfo.defId ? slotInfo.name : slotEmpty;
-      const chip = makeChip(chipText, chipCls, (ev) => openEquipmentSlotPopover(chip, slotInfo, eq.inInventory, ev));
-      row.appendChild(chip);
-      grid.appendChild(row);
-    });
-    body.appendChild(grid);
-    if (Array.isArray(eq.inInventory) && eq.inInventory.length > 0) {
-      const chipsRow = document.createElement('div');
-      chipsRow.className = 'equipment-inventory-row';
-      eq.inInventory.forEach((w, i) => {
-        if (i > 0) chipsRow.append(' ');
-        const label = w.count > 1 ? `${w.name} ×${w.count}` : w.name;
-        chipsRow.appendChild(makeChip(label, 'item', () => sendInput(`wear ${w.name}`)));
-      });
-      body.appendChild(chipsRow);
+    const slotEmpty = labels.slotEmpty ?? '—';
+    for (const slotInfo of eq.slots) {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'equipment-row';
+      const slotLabel = document.createElement('span');
+      slotLabel.className = 'equipment-row-slot';
+      slotLabel.textContent = slotLabels[slotInfo.slot] ?? slotInfo.slot;
+      const itemEl = document.createElement('span');
+      itemEl.className = `equipment-row-item${slotInfo.defId ? '' : ' empty'}`;
+      itemEl.textContent = slotInfo.name ?? slotEmpty;
+      row.appendChild(slotLabel);
+      row.appendChild(itemEl);
+      row.addEventListener('click', (ev) => openEquipmentSlotPopover(row, slotInfo, eq.inInventory, ev));
+      el.appendChild(row);
     }
-  }));
+  }
+
+  const tabKey = 'realm.panel.tab';
+  let activeTab = localStorage.getItem(tabKey) ?? 'spells';
+  const tabDefs = [
+    { key: 'spells', label: labels.spellbookTitle ?? 'Spells', build: buildSpellsTab },
+    { key: 'items', label: labels.inventoryTitle ?? 'Items', build: buildItemsTab },
+    { key: 'gear', label: labels.gearTitle ?? 'Gear', build: buildGearTab },
+  ];
+
+  const tabBar = document.createElement('div');
+  tabBar.className = 'panel-tabs';
+  const tabContent = document.createElement('div');
+  tabContent.className = 'panel-tab-content';
+
+  const buildActiveTab = () => {
+    tabContent.innerHTML = '';
+    (tabDefs.find(t => t.key === activeTab) ?? tabDefs[0]).build(tabContent);
+  };
+
+  for (const def of tabDefs) {
+    const btn = document.createElement('button');
+    btn.type = 'button';
+    btn.className = `panel-tab${activeTab === def.key ? ' active' : ''}`;
+    btn.textContent = def.label;
+    btn.addEventListener('click', () => {
+      activeTab = def.key;
+      localStorage.setItem(tabKey, def.key);
+      for (const b of tabBar.querySelectorAll('.panel-tab')) b.classList.toggle('active', b === btn);
+      buildActiveTab();
+    });
+    tabBar.appendChild(btn);
+  }
+
+  buildActiveTab();
+  playerStatsEl.appendChild(tabBar);
+  playerStatsEl.appendChild(tabContent);
 
   playerPanel.hidden = false;
   statusStrip.hidden = false;
-}
-
-function makeCollapsibleSection(key, title, buildBody) {
-  const stateKey = `realm.panel.${key}.collapsed`;
-  const collapsed = localStorage.getItem(stateKey) === 'true';
-
-  const section = document.createElement('div');
-  section.className = 'inventory-section';
-
-  const header = document.createElement('h4');
-  header.className = 'collapsible';
-  if (collapsed) header.classList.add('collapsed');
-  header.appendChild(document.createTextNode(title));
-
-  const body = document.createElement('div');
-  if (collapsed) body.style.display = 'none';
-  buildBody(body);
-
-  header.addEventListener('click', () => {
-    const nowCollapsed = !header.classList.contains('collapsed');
-    header.classList.toggle('collapsed', nowCollapsed);
-    body.style.display = nowCollapsed ? 'none' : '';
-    localStorage.setItem(stateKey, String(nowCollapsed));
-  });
-
-  section.appendChild(header);
-  section.appendChild(body);
-  return section;
 }
 
 function renderRoomInInspect(msg) {
@@ -1085,26 +1128,18 @@ function openEquipmentSlotPopover(anchorEl, slotInfo, inInventory, ev) {
   ev?.stopPropagation();
   const slotLabels = labels.slotLabels ?? {};
   const slotName = slotLabels[slotInfo.slot] ?? slotInfo.slot;
+  startPopover(anchorEl, slotName);
 
   if (slotInfo.defId) {
-    startPopover(anchorEl, `${slotName}: ${slotInfo.name}`);
-    popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
-      sendInput(`look ${slotInfo.name}`); closePopover();
-    }));
-    popover.appendChild(popoverButton(labels.removeButton ?? 'Remove', '', () => {
+    popover.appendChild(popoverButton(`✓ ${slotInfo.name}`, 'equipped', () => {
       sendInput(`remove ${slotInfo.name}`); closePopover();
     }));
-    positionPopover(anchorEl);
-    return;
   }
 
-  startPopover(anchorEl, `${labels.wearButton ?? 'Wear'}: ${slotName}`);
-  const candidates = (inInventory || []).filter(w => w.slot === slotInfo.slot);
-  if (candidates.length === 0) {
+  const candidates = (inInventory || []).filter(w => w.slot === slotInfo.slot && w.defId !== slotInfo.defId);
+  if (candidates.length === 0 && !slotInfo.defId) {
     const empty = document.createElement('div');
-    empty.style.padding = '4px';
-    empty.style.color = 'var(--dim)';
-    empty.style.fontSize = '12px';
+    empty.className = 'picker-empty';
     empty.textContent = labels.equipmentEmpty ?? '(none)';
     popover.appendChild(empty);
   } else {

@@ -145,7 +145,10 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   }
 
   actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
-  if (actor.kind === 'player') actor.dirty = true;
+  if (actor.kind === 'player') {
+    actor.dirty = true;
+    actor.nextActionAt = Date.now() + castCooldownMs(spell, actor);
+  }
 
   runVerb({ actor, def: spell.verb, targetActor: isToTarget ? target : null });
 
@@ -200,10 +203,6 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
 
   if (!silent && actor.kind === 'player' && !resisted) {
     awardXp(actor, healedAlly ? 2 : castXp, healedAlly ? 'heal_friendly' : 'cast');
-  }
-
-  if (actor.kind === 'player') {
-    actor.nextActionAt = Date.now() + castCooldownMs(spell, actor);
   }
 
   return { ok: true, resisted, healedAlly };

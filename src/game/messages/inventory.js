@@ -11,7 +11,6 @@ function stateKey(state) {
 export function buildInventory(actor) {
   const groups = new Map();
   for (const inst of actor.inventory) {
-    if (inst.def?.wearable) continue;
     const key = `${inst.defId}:${stateKey(inst.state)}`;
     const existing = groups.get(key);
     if (existing) {
