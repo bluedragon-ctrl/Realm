@@ -5,6 +5,7 @@
     "cs": "Vysátí života"
   },
   "mpCost": 0,
+  "actionCost": 12,
   "target": "hostile",
   "harmful": true,
   "description": {

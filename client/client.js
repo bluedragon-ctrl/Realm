@@ -144,21 +144,29 @@ function makeBar(label, num, pct, cls) {
   return wrap;
 }
 
-let attackCooldownTimer = null;
-function applyAttackCooldown(ms) {
-  const btn = document.getElementById('attack-btn');
-  if (!btn) return;
-  if (attackCooldownTimer) { clearTimeout(attackCooldownTimer); attackCooldownTimer = null; }
-  btn.classList.remove('cooldown');
-  btn.style.removeProperty('--cd-ms');
-  if (ms <= 0) return;
-  void btn.offsetWidth;
-  btn.style.setProperty('--cd-ms', `${ms}ms`);
-  btn.classList.add('cooldown');
-  attackCooldownTimer = setTimeout(() => {
+let actionCooldownTimer = null;
+function applyActionCooldown(ms) {
+  const btns = [document.getElementById('attack-btn'), document.getElementById('spell-btn')];
+  if (actionCooldownTimer) { clearTimeout(actionCooldownTimer); actionCooldownTimer = null; }
+  for (const btn of btns) {
+    if (!btn) continue;
     btn.classList.remove('cooldown');
     btn.style.removeProperty('--cd-ms');
-    attackCooldownTimer = null;
+  }
+  if (ms <= 0) return;
+  for (const btn of btns) {
+    if (!btn) continue;
+    void btn.offsetWidth;
+    btn.style.setProperty('--cd-ms', `${ms}ms`);
+    btn.classList.add('cooldown');
+  }
+  actionCooldownTimer = setTimeout(() => {
+    for (const btn of btns) {
+      if (!btn) continue;
+      btn.classList.remove('cooldown');
+      btn.style.removeProperty('--cd-ms');
+    }
+    actionCooldownTimer = null;
   }, ms);
 }
 
@@ -174,7 +182,7 @@ function renderStats(msg) {
   if (fleeBtn && labels.fleeButton) fleeBtn.textContent = labels.fleeButton;
   const attackBtn = document.getElementById('attack-btn');
   if (attackBtn && labels.attackButton) attackBtn.textContent = labels.attackButton;
-  applyAttackCooldown(msg.attackCooldownMs ?? 0);
+  applyActionCooldown(msg.actionCooldownMs ?? 0);
   const spellBtn = document.getElementById('spell-btn');
   if (spellBtn) {
     if (labels.castButton) spellBtn.textContent = `${labels.castButton} ▶`;

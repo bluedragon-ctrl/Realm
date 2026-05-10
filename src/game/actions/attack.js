@@ -4,7 +4,7 @@ import { DEFAULT_PLAYER_ATTACK } from '../stats.js';
 import { executeAttack } from '../combat.js';
 import { resolveName } from '../declension.js';
 import { sendStats } from '../messages.js';
-import { clearPlayerAttackQueue } from '../playerCombatState.js';
+import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { resolveActorTarget } from '../targeting.js';
 
 export function buildPlayerAttack(actor) {
@@ -27,7 +27,7 @@ function attackCooldownMs(action, actor) {
 function fireAttack(actor, target) {
   const action = buildPlayerAttack(actor);
   executeAttack(actor, action, target);
-  actor.nextAttackAt = Date.now() + attackCooldownMs(action, actor);
+  actor.nextActionAt = Date.now() + attackCooldownMs(action, actor);
   if (actor.session) sendStats(actor);
 }
 
@@ -66,16 +66,16 @@ export default function attack(actor, args) {
     return;
   }
 
-  const remaining = (actor.nextAttackAt ?? 0) - Date.now();
+  const remaining = (actor.nextActionAt ?? 0) - Date.now();
   if (remaining > 0) {
-    clearPlayerAttackQueue(actor);
+    clearPlayerActionQueue(actor);
     const timer = setTimeout(() => {
-      actor.queuedAttack = null;
+      actor.queuedAction = null;
       const next = resolveTarget(actor, query);
       if (!next) return;
       fireAttack(actor, next);
     }, remaining);
-    actor.queuedAttack = { timer, query };
+    actor.queuedAction = { timer, query };
     return;
   }
 

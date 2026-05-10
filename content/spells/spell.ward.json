@@ -5,6 +5,7 @@
     "cs": "Ochrana"
   },
   "mpCost": 2,
+  "actionCost": 12,
   "target": "friendly",
   "description": {
     "en": "Wrap yourself or an ally in an arcane barrier, raising defense for a short time.",

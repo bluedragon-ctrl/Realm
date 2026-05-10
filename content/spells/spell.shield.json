@@ -5,6 +5,7 @@
     "cs": "Štít"
   },
   "mpCost": 2,
+  "actionCost": 12,
   "target": "friendly",
   "description": {
     "en": "Wraps the target in a shimmering ward, raising defense for a short time.",

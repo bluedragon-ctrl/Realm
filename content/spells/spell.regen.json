@@ -5,6 +5,7 @@
     "cs": "Regenerace"
   },
   "mpCost": 1,
+  "actionCost": 12,
   "target": "friendly",
   "description": {
     "en": "Slowly restore HP over time.",
