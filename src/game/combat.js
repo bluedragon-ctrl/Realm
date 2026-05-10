@@ -1,4 +1,4 @@
-import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors } from './world.js';
+import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors, actorsInRoom } from './world.js';
 import { applyEffect, setDamageRouteHandler } from './effects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
@@ -196,21 +196,21 @@ function emitPackJoin(roomId, joiners, attacker) {
   });
 }
 
-// Healer aggro: when a player heals someone in combat, every NPC fighting the healed
-// actor adds floor(hp/4) hate against the healer. Self-heal exempt; off-room NPCs
-// (cross-room healing not currently possible) ignored.
+// Healer aggro: when a player heals someone in combat, every NPC in the healed actor's
+// room that has the healed actor on its hate table adds floor(hp/4) hate against the
+// healer. Heals under 4 HP therefore generate no aggro (intentional minimum). Self-heal
+// exempt; cross-room healing isn't possible today and we don't model it here.
 export function applyHealerAggro(healer, healed, hpRestored) {
   if (!healer || !healed || healer === healed) return;
   if (healer.kind !== 'player') return;
-  if (!(hpRestored > 0)) return;
+  if (!(hpRestored > 0) || !healed.location) return;
   const share = Math.floor(hpRestored / 4);
   if (share <= 0) return;
-  for (const npc of world.npcsByInstance.values()) {
-    if (npc.alive === false) continue;
-    if (npc.location !== healed.location) continue;
-    if (!hasAggroEntry(npc, healed)) continue;
-    addHate(npc, healer, share);
-    npc.disposition = 'hostile';
+  for (const peer of actorsInRoom(healed.location)) {
+    if (peer.kind !== 'npc' || peer.alive === false) continue;
+    if (!hasAggroEntry(peer, healed)) continue;
+    addHate(peer, healer, share);
+    peer.disposition = 'hostile';
   }
 }
 
@@ -373,9 +373,13 @@ export function applyAggressionOnEnter(player, roomId) {
   if (!player || player.kind !== 'player' || !roomId) return;
   const peers = world.actorsByRoom.get(roomId);
   if (!peers) return;
+  // Only originally-aggressive NPCs auto-acquire entering players. A neutral mob whose
+  // runtime `aggressive` got flipped by combat (registerAttackAggro) ignores newcomers —
+  // same rule as the passive-aggression tick. Prevents "the rat you angered now hunts
+  // every stranger who walks in" surprises.
   for (const npc of peers) {
     if (npc.kind !== 'npc') continue;
-    if (!npc.aggressive) continue;
+    if (!npc.defAggressive) continue;
     if (npc.alive === false) continue;
     addHate(npc, player, 1);
     npc.disposition = 'hostile';

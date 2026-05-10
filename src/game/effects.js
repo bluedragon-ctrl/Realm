@@ -1,10 +1,10 @@
 import { sendStats } from './messages.js';
 import { s, t } from '../i18n.js';
-import { world, unlockExit, placeItemInRoom, removeItemFromRoom, addGoldToRoom, broadcastToRoom } from './world.js';
+import { world, unlockExit, placeItemInRoom, removeItemFromRoom, addGoldToRoom, broadcastToRoom, actorsInRoom } from './world.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { resolveName } from './declension.js';
-import { setHate, getHate, maxHateInRoom, clearHateTable } from './aggro.js';
+import { setHate, getHate, maxHateInRoom, clearHateTable, removeFromTable } from './aggro.js';
 
 function evalAmount(value, ctx) {
   if (typeof value === 'number') return value;
@@ -158,13 +158,15 @@ const EFFECTS = {
     return { ok: true };
   },
   fade(_def, { actor }) {
-    if (!actor) return { ok: false };
+    if (!actor?.location) return { ok: false };
     let touched = 0;
-    for (const npc of world.npcsByInstance.values()) {
-      if (!npc.aggroAgainst?.has(actor)) continue;
-      if (getHate(npc, actor) <= 0) continue;
-      setHate(npc, actor, 0);
-      if (npc.currentTarget === actor) npc.currentTarget = null;
+    // Only NPCs in the caster's room can have positive hate against them (clearAggroOnLeave
+    // strips entries when a player leaves), so a room-scoped pass is both faster and complete.
+    for (const peer of actorsInRoom(actor.location)) {
+      if (peer.kind !== 'npc' || peer.alive === false) continue;
+      if (getHate(peer, actor) <= 0) continue;
+      removeFromTable(peer, actor);
+      if (peer.currentTarget === actor) peer.currentTarget = null;
       touched++;
     }
     if (actor.session) {
