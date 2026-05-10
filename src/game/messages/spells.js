@@ -1,6 +1,6 @@
 // Build the spellbook list shown in the player panel.
 
-import { t } from '../../i18n.js';
+import { t, s } from '../../i18n.js';
 import { world } from '../world.js';
 
 export function buildKnownSpells(actor) {
@@ -13,6 +13,7 @@ export function buildKnownSpells(actor) {
       name: t(def.name, actor.lang),
       mpCost: def.mpCost ?? 0,
       target: def.target ?? 'any',
+      targetLabel: s(`spells.target.${def.target ?? 'any'}`, actor.lang),
       description: def.description ? t(def.description, actor.lang) : '',
     });
   }

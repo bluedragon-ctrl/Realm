@@ -321,87 +321,123 @@ function renderStats(msg) {
   }));
 
   playerStatsEl.appendChild(makeCollapsibleSection('spells', labels.spellbookTitle ?? 'Spells', (body) => {
-    if (Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0) {
-      msg.knownSpells.forEach((spell, i) => {
-        if (i > 0) body.append(' ');
-        const chip = document.createElement('button');
-        chip.type = 'button';
-        chip.className = 'chip spell';
-        chip.textContent = spell.name;
-        const mp = document.createElement('span');
-        mp.className = 'mp-cost';
-        mp.textContent = `${spell.mpCost}MP`;
-        chip.appendChild(mp);
-        chip.addEventListener('click', (ev) => openSpellPopover(chip, spell, ev));
-        body.appendChild(chip);
-      });
-    } else {
+    const spells = Array.isArray(msg.knownSpells) ? msg.knownSpells : [];
+    if (spells.length === 0) {
       const empty = document.createElement('span');
       empty.className = 'empty';
       empty.textContent = labels.spellbookEmpty ?? '(none)';
       body.appendChild(empty);
+      return;
+    }
+    for (const spell of spells) {
+      const row = document.createElement('div');
+      row.className = 'panel-list-row';
+      const top = document.createElement('div');
+      top.className = 'panel-list-row-top';
+      const nameEl = document.createElement('span');
+      nameEl.className = 'panel-list-row-name';
+      nameEl.textContent = spell.name;
+      const badges = document.createElement('span');
+      badges.className = 'panel-list-row-badges';
+      const targetBadge = document.createElement('span');
+      targetBadge.className = 'panel-badge target';
+      targetBadge.textContent = spell.targetLabel ?? spell.target;
+      const mpBadge = document.createElement('span');
+      mpBadge.className = 'panel-badge mp';
+      mpBadge.textContent = `${spell.mpCost} MP`;
+      badges.appendChild(targetBadge);
+      badges.appendChild(mpBadge);
+      top.appendChild(nameEl);
+      top.appendChild(badges);
+      row.appendChild(top);
+      if (spell.description) {
+        const desc = document.createElement('div');
+        desc.className = 'panel-list-row-desc';
+        desc.textContent = spell.description;
+        row.appendChild(desc);
+      }
+      body.appendChild(row);
     }
   }));
 
   const inv = Array.isArray(msg.inventory) ? msg.inventory : [];
-  const consumables = inv.filter(i => i.consumable);
-  const others = inv.filter(i => !i.consumable);
-  const buildItemChip = (item) => {
-    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-    const chip = makeChip(label, 'item', (ev) => openInventoryItemPopover(chip, item, ev));
-    return chip;
-  };
-  const buildItemList = (body, items) => {
-    if (items.length === 0) {
-      const empty = document.createElement('span');
-      empty.className = 'empty';
-      empty.textContent = labels.inventoryEmpty ?? '(empty)';
-      body.appendChild(empty);
-      return;
+  const invConsumables = inv.filter(i => i.consumable);
+  const invOthers = inv.filter(i => !i.consumable);
+  playerStatsEl.appendChild(makeCollapsibleSection('inventory', labels.inventoryTitle ?? 'Inventory', (body) => {
+    const filterKey = 'realm.panel.inventory.filter';
+    let activeFilter = localStorage.getItem(filterKey) ?? 'all';
+    const pillFilters = [
+      { key: 'all', label: labels.filterAll ?? 'All' },
+      { key: 'usable', label: labels.filterUsable ?? 'Usable' },
+      { key: 'other', label: labels.filterOther ?? 'Other' },
+    ];
+    const pillsRow = document.createElement('div');
+    pillsRow.className = 'filter-pills';
+    const listEl = document.createElement('div');
+    const renderInvList = () => {
+      listEl.innerHTML = '';
+      const items = activeFilter === 'usable' ? invConsumables
+        : activeFilter === 'other' ? invOthers
+        : inv;
+      if (items.length === 0) {
+        const empty = document.createElement('span');
+        empty.className = 'empty';
+        empty.textContent = labels.inventoryEmpty ?? '(empty)';
+        listEl.appendChild(empty);
+        return;
+      }
+      for (const item of items) {
+        const row = document.createElement('div');
+        row.className = 'panel-list-row';
+        const nameEl = document.createElement('span');
+        nameEl.className = 'panel-list-row-name';
+        nameEl.textContent = item.name;
+        row.appendChild(nameEl);
+        if (item.count > 1) {
+          const countEl = document.createElement('span');
+          countEl.className = 'panel-list-row-count';
+          countEl.textContent = `×${item.count}`;
+          row.appendChild(countEl);
+        }
+        listEl.appendChild(row);
+      }
+    };
+    for (const f of pillFilters) {
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = `filter-pill${activeFilter === f.key ? ' active' : ''}`;
+      pill.textContent = f.label;
+      pill.addEventListener('click', () => {
+        activeFilter = f.key;
+        localStorage.setItem(filterKey, f.key);
+        for (const p of pillsRow.querySelectorAll('.filter-pill')) p.classList.toggle('active', p === pill);
+        renderInvList();
+      });
+      pillsRow.appendChild(pill);
     }
-    items.forEach((it, i) => {
-      if (i > 0) body.append(' ');
-      body.appendChild(buildItemChip(it));
-    });
-  };
-
-  playerStatsEl.appendChild(makeCollapsibleSection('consumables', labels.inventoryConsumables ?? 'Consumables', (body) => {
-    buildItemList(body, consumables);
-  }));
-
-  playerStatsEl.appendChild(makeCollapsibleSection('other_items', labels.inventoryOther ?? 'Other items', (body) => {
-    buildItemList(body, others);
+    body.appendChild(pillsRow);
+    renderInvList();
+    body.appendChild(listEl);
   }));
 
   playerStatsEl.appendChild(makeCollapsibleSection('equipment', labels.equipmentTitle ?? 'Equipment', (body) => {
     const eq = msg.equipment ?? { slots: [], inInventory: [] };
     const slotLabels = labels.slotLabels ?? {};
-    const slotEmpty = labels.slotEmpty ?? '(empty)';
-    const grid = document.createElement('div');
-    grid.className = 'equipment-grid';
-    eq.slots.forEach((slotInfo) => {
-      const row = document.createElement('div');
-      row.className = 'equipment-slot-row';
-      const label = document.createElement('span');
-      label.className = 'equipment-slot-label';
-      label.textContent = `${slotLabels[slotInfo.slot] ?? slotInfo.slot}:`;
-      row.appendChild(label);
-      const chipCls = slotInfo.defId ? 'item' : 'fixture';
-      const chipText = slotInfo.defId ? slotInfo.name : slotEmpty;
-      const chip = makeChip(chipText, chipCls, (ev) => openEquipmentSlotPopover(chip, slotInfo, eq.inInventory, ev));
-      row.appendChild(chip);
-      grid.appendChild(row);
-    });
-    body.appendChild(grid);
-    if (Array.isArray(eq.inInventory) && eq.inInventory.length > 0) {
-      const chipsRow = document.createElement('div');
-      chipsRow.className = 'equipment-inventory-row';
-      eq.inInventory.forEach((w, i) => {
-        if (i > 0) chipsRow.append(' ');
-        const label = w.count > 1 ? `${w.name} ×${w.count}` : w.name;
-        chipsRow.appendChild(makeChip(label, 'item', () => sendInput(`wear ${w.name}`)));
-      });
-      body.appendChild(chipsRow);
+    const slotEmpty = labels.slotEmpty ?? '—';
+    for (const slotInfo of eq.slots) {
+      const row = document.createElement('button');
+      row.type = 'button';
+      row.className = 'equipment-row';
+      const slotLabel = document.createElement('span');
+      slotLabel.className = 'equipment-row-slot';
+      slotLabel.textContent = slotLabels[slotInfo.slot] ?? slotInfo.slot;
+      const itemEl = document.createElement('span');
+      itemEl.className = `equipment-row-item${slotInfo.defId ? '' : ' empty'}`;
+      itemEl.textContent = slotInfo.name ?? slotEmpty;
+      row.appendChild(slotLabel);
+      row.appendChild(itemEl);
+      row.addEventListener('click', (ev) => openEquipmentSlotPopover(row, slotInfo, eq.inInventory, ev));
+      body.appendChild(row);
     }
   }));
 
@@ -1085,26 +1121,18 @@ function openEquipmentSlotPopover(anchorEl, slotInfo, inInventory, ev) {
   ev?.stopPropagation();
   const slotLabels = labels.slotLabels ?? {};
   const slotName = slotLabels[slotInfo.slot] ?? slotInfo.slot;
+  startPopover(anchorEl, slotName);
 
   if (slotInfo.defId) {
-    startPopover(anchorEl, `${slotName}: ${slotInfo.name}`);
-    popover.appendChild(popoverButton(labels.lookButton ?? 'Look', 'primary', () => {
-      sendInput(`look ${slotInfo.name}`); closePopover();
-    }));
-    popover.appendChild(popoverButton(labels.removeButton ?? 'Remove', '', () => {
+    popover.appendChild(popoverButton(`✓ ${slotInfo.name}`, 'equipped', () => {
       sendInput(`remove ${slotInfo.name}`); closePopover();
     }));
-    positionPopover(anchorEl);
-    return;
   }
 
-  startPopover(anchorEl, `${labels.wearButton ?? 'Wear'}: ${slotName}`);
-  const candidates = (inInventory || []).filter(w => w.slot === slotInfo.slot);
-  if (candidates.length === 0) {
+  const candidates = (inInventory || []).filter(w => w.slot === slotInfo.slot && w.defId !== slotInfo.defId);
+  if (candidates.length === 0 && !slotInfo.defId) {
     const empty = document.createElement('div');
-    empty.style.padding = '4px';
-    empty.style.color = 'var(--dim)';
-    empty.style.fontSize = '12px';
+    empty.className = 'picker-empty';
     empty.textContent = labels.equipmentEmpty ?? '(none)';
     popover.appendChild(empty);
   } else {
