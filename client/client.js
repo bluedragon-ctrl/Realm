@@ -289,22 +289,15 @@ function renderStats(msg) {
     playerStatsEl.appendChild(goldRow);
   }
 
-  // Collapsibles in order: effects, spells, consumables, other items, equipment
-  playerStatsEl.appendChild(makeCollapsibleSection('effects', labels.effectsTitle ?? 'Effects', (body) => {
-    const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
-    if (effects.length === 0) {
-      const empty = document.createElement('span');
-      empty.className = 'empty';
-      empty.textContent = labels.effectsEmpty ?? '(none)';
-      body.appendChild(empty);
-      return;
-    }
+  const effects = Array.isArray(msg.activeEffects) ? msg.activeEffects : [];
+  if (effects.length > 0) {
+    const effectsRow = document.createElement('div');
+    effectsRow.className = 'effects-inline';
     effects.forEach((eff, i) => {
-      if (i > 0) body.append(' ');
+      if (i > 0) effectsRow.append(' ');
       const chip = document.createElement('span');
       chip.className = `chip effect ${eff.kind || 'neutral'}`;
-      const iconText = eff.icon ? `${eff.icon} ` : '';
-      chip.textContent = `${iconText}${eff.name}`;
+      chip.textContent = `${eff.icon ? eff.icon + ' ' : ''}${eff.name}`;
       if (eff.pulsesLeft != null) {
         const counter = document.createElement('span');
         counter.className = 'effect-counter';
@@ -316,9 +309,12 @@ function renderStats(msg) {
         counter.textContent = `${eff.chancePct}%`;
         chip.appendChild(counter);
       }
-      body.appendChild(chip);
+      effectsRow.appendChild(chip);
     });
-  }));
+    playerStatsEl.appendChild(effectsRow);
+  }
+
+  // Collapsibles in order: spells, inventory, equipment
 
   playerStatsEl.appendChild(makeCollapsibleSection('spells', labels.spellbookTitle ?? 'Spells', (body) => {
     const spells = Array.isArray(msg.knownSpells) ? msg.knownSpells : [];
