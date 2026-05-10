@@ -14,6 +14,8 @@ import { goldPhrase } from './format.js';
 import { clearPlayerActionQueue } from './playerCombatState.js';
 import { unregisterWanderer } from './wandering.js';
 import { EFFECT_SOURCE } from './contentMeta.js';
+import { addHate, removeFromTable, hasAggroEntry, onAggroOnset } from './aggro.js';
+export { aggroTargetInRoom, hasInRoomTarget } from './aggro.js';
 
 const MAX_DODGE = 50;
 const MAX_CRIT = 50;
@@ -92,6 +94,7 @@ export function executeAttack(actor, action, target) {
   }
 
   applyDamageWithFeedback(actor, target, final);
+  if (actor.kind === 'player') actor.target = target;
 
   if (action.onHit && target.stats?.hp > 0) {
     const hits = Array.isArray(action.onHit) ? action.onHit : [action.onHit];
@@ -134,7 +137,7 @@ export function applyDamageWithFeedback(actor, target, amount) {
     });
   }
 
-  registerAttackAggro(actor, target);
+  registerAttackAggro(actor, target, dealt);
 
   if (actor.kind === 'player') sendStats(actor);
   if (target.kind === 'player') sendStats(target);
@@ -148,27 +151,66 @@ export function applyDamageWithFeedback(actor, target, amount) {
   return dealt;
 }
 
-export function registerAttackAggro(actor, target) {
+// Records an attack on `target` by `actor`. `hate` is the amount added to the hate table
+// — damage uses the dealt amount, misses/resists use 1. Flips the NPC to hostile, marks
+// `wasAttacked`, sets the player's tagged target, and propagates pack aggro.
+export function registerAttackAggro(actor, target, hate = 1) {
   if (!target || target.kind !== 'npc' || actor.kind !== 'player') return;
-  if (!target.aggroAgainst) target.aggroAgainst = new Set();
-  target.aggroAgainst.add(actor);
+  addHate(target, actor, Math.max(1, hate));
   target.disposition = 'hostile';
   target.aggressive = true;
   target.wasAttacked = true;
+  actor.target = target;
 
   if (target.pack) {
     const peers = world.actorsByRoom.get(target.location);
     if (peers) {
+      const joined = [];
       for (const peer of peers) {
         if (peer === target) continue;
         if (peer.kind !== 'npc' || peer.alive === false) continue;
         if (peer.pack !== target.pack) continue;
-        if (!peer.aggroAgainst) peer.aggroAgainst = new Set();
-        peer.aggroAgainst.add(actor);
+        if (hasAggroEntry(peer, actor)) continue;
+        addHate(peer, actor, 1);
         peer.disposition = 'hostile';
         peer.aggressive = true;
+        joined.push(peer);
       }
+      if (joined.length > 0) emitPackJoin(target.location, joined, actor);
     }
+  }
+}
+
+function emitPackJoin(roomId, joiners, attacker) {
+  broadcastToRoom(roomId, (recipient) => {
+    const lang = recipient.lang;
+    const names = joiners.map(n => resolveName(n, 'nom', lang)).join(', ');
+    return {
+      kind: 'emote',
+      tone: 'combat',
+      text: s('aggro.pack_joins', lang, {
+        joiners: names,
+        target: recipient === attacker ? s('aggro.you', lang) : resolveName(attacker, 'dat', lang),
+      }),
+    };
+  });
+}
+
+// Healer aggro: when a player heals someone in combat, every NPC fighting the healed
+// actor adds floor(hp/4) hate against the healer. Self-heal exempt; off-room NPCs
+// (cross-room healing not currently possible) ignored.
+export function applyHealerAggro(healer, healed, hpRestored) {
+  if (!healer || !healed || healer === healed) return;
+  if (healer.kind !== 'player') return;
+  if (!(hpRestored > 0)) return;
+  const share = Math.floor(hpRestored / 4);
+  if (share <= 0) return;
+  for (const npc of world.npcsByInstance.values()) {
+    if (npc.alive === false) continue;
+    if (npc.location !== healed.location) continue;
+    if (!hasAggroEntry(npc, healed)) continue;
+    addHate(npc, healer, share);
+    npc.disposition = 'hostile';
   }
 }
 
@@ -192,6 +234,7 @@ function handleNpcDeath(killer, npc) {
   npc.following = null;
   for (const other of allActors()) {
     if (other === npc) continue;
+    if (other.target === npc) other.target = null;
     if (other.following !== npc.id) continue;
     other.following = null;
     if (other.kind === 'player') other.dirty = true;
@@ -264,6 +307,7 @@ function handlePlayerDeath(killer, victim) {
   clearPlayerActionQueue(victim);
   victim.nextActionAt = 0;
   victim.following = null;
+  victim.target = null;
   victim.dirty = true;
   for (const other of allActors()) {
     if (other === victim) continue;
@@ -285,15 +329,10 @@ function handlePlayerDeath(killer, victim) {
     text: s('combat.player_died_observed', recipient.lang, { name: victim.name }),
   }), victim);
 
-  // Clear from all NPC aggro
   for (const npc of world.npcsByInstance.values()) {
     if (!npc.aggroAgainst?.has(victim)) continue;
-    npc.aggroAgainst.delete(victim);
-    if (npc.aggroAgainst.size === 0) {
-      const def = world.npcDefs.get(npc.defId);
-      npc.disposition = def?.disposition ?? 'neutral';
-      npc.aggressive = !!def?.aggressive;
-    }
+    removeFromTable(npc, victim);
+    if (npc.currentTarget === victim) npc.currentTarget = null;
   }
 
   // Move home, restore HP — world state updated immediately so others see the change
@@ -338,8 +377,7 @@ export function applyAggressionOnEnter(player, roomId) {
     if (npc.kind !== 'npc') continue;
     if (!npc.aggressive) continue;
     if (npc.alive === false) continue;
-    if (!npc.aggroAgainst) npc.aggroAgainst = new Set();
-    npc.aggroAgainst.add(player);
+    addHate(npc, player, 1);
     npc.disposition = 'hostile';
   }
 }
@@ -350,25 +388,33 @@ export function clearAggroOnLeave(actor, fromRoomId) {
   for (const npc of peers) {
     if (npc.kind !== 'npc') continue;
     if (!npc.aggroAgainst?.has(actor)) continue;
-    npc.aggroAgainst.delete(actor);
-    if (npc.aggroAgainst.size === 0) {
-      const def = world.npcDefs.get(npc.defId);
-      npc.disposition = def?.disposition ?? 'neutral';
-      npc.aggressive = !!def?.aggressive;
-    }
+    removeFromTable(npc, actor);
+    if (npc.currentTarget === actor) npc.currentTarget = null;
+  }
+  if (actor.kind === 'player' && actor.target?.location !== actor.location) {
+    actor.target = null;
   }
 }
 
-// Reservoir-sample one in-room, alive aggro target without materializing an array.
-export function aggroTargetInRoom(npc) {
-  if (!npc.aggroAgainst || npc.aggroAgainst.size === 0) return null;
-  let chosen = null;
-  let n = 0;
-  for (const a of npc.aggroAgainst) {
-    if (a.location !== npc.location || !a.session || !(a.stats?.hp > 0)) continue;
-    n++;
-    if (Math.floor(Math.random() * n) === 0) chosen = a;
-  }
-  return chosen;
-}
+// Onset listener — emits "the rat growls at you" when any NPC's hate against an
+// in-room player crosses non-positive → positive. Registered once at module load.
+onAggroOnset((npc, actor) => {
+  if (!npc?.location || actor?.location !== npc.location) return;
+  if (actor.kind !== 'player') return;
+  broadcastToRoom(npc.location, (recipient) => {
+    const lang = recipient.lang;
+    const npcName = resolveName(npc, 'nom', lang);
+    if (recipient === actor) {
+      return { kind: 'emote', tone: 'combat', text: s('aggro.onset_self', lang, { npc: npcName }) };
+    }
+    return {
+      kind: 'emote',
+      tone: 'combat',
+      text: s('aggro.onset_others', lang, {
+        npc: npcName,
+        target: resolveName(actor, 'acc', lang),
+      }),
+    };
+  });
+});
 

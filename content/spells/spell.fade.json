@@ -1,0 +1,29 @@
+{
+  "id": "spell.fade",
+  "name": {
+    "en": "Fade",
+    "cs": "Zmizení"
+  },
+  "mpCost": 2,
+  "actionCost": 12,
+  "target": "self",
+  "description": {
+    "en": "Slip out of every nearby foe's notice for a moment. They will turn on whoever else is fighting them.",
+    "cs": "Na okamžik se ztratíš z dohledu všech nepřátel kolem. Obrátí se proti tomu, kdo s nimi ještě bojuje."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you step into a shadow and quiet your breath.",
+        "others": "{actor} steps into a shadow and seems to fade for a moment."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "ustoupíš do stínu a ztišíš dech.",
+        "others": "{actor} ustoupí do stínu a na chvíli jakoby zmizel."
+      }
+    }
+  },
+  "effect": { "type": "fade" }
+}

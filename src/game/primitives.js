@@ -76,6 +76,7 @@ const PRIMITIVES = {
   attack(actor, behavior) {
     const target = aggroTargetInRoom(actor);
     if (!target) return;
+    actor.currentTarget = target;
     executeAttack(actor, behavior, target);
   },
   flee(actor, behavior) {

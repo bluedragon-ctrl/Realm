@@ -1,0 +1,29 @@
+{
+  "id": "spell.pacify",
+  "name": {
+    "en": "Pacify",
+    "cs": "Uklidnění"
+  },
+  "mpCost": 3,
+  "actionCost": 12,
+  "target": "hostile",
+  "description": {
+    "en": "Calm an angry foe with soothing words. Works only if it has not yet built up too much rage.",
+    "cs": "Uklidní rozzlobeného nepřítele klidnými slovy. Funguje, jen pokud ještě není příliš rozzuřen."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you murmur soothing words toward {target}, your palms raised in peace.",
+        "others": "{actor} murmurs soothing words toward {target}, palms raised in peace."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "klidně promlouváš k {target} a zvedáš dlaně na znamení míru.",
+        "others": "{actor} klidně promlouvá k {target} a zvedá dlaně na znamení míru."
+      }
+    }
+  },
+  "effect": { "type": "pacify", "power": 30 }
+}

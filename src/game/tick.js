@@ -3,7 +3,8 @@ import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
 import { serializeInventory, makeItemInstance } from './items.js';
 import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler } from './activeEffects.js';
-import { applyDamageWithFeedback } from './combat.js';
+import { applyDamageWithFeedback, hasInRoomTarget } from './combat.js';
+import { addHate } from './aggro.js';
 import { setDamageRouteHandler } from './effects.js';
 import { sendStats } from './messages.js';
 import { pushTargetInfo } from './actions/look.js';
@@ -42,13 +43,8 @@ function checkRequires(actor, requires) {
   const type = typeof requires === 'string' ? requires : requires?.type;
   const params = typeof requires === 'object' ? requires : {};
   switch (type) {
-    case 'aggro_target': {
-      if (!actor.aggroAgainst || actor.aggroAgainst.size === 0) return false;
-      for (const target of actor.aggroAgainst) {
-        if (target.location === actor.location && target.session && target.stats?.hp > 0) return true;
-      }
-      return false;
-    }
+    case 'aggro_target':
+      return hasInRoomTarget(actor);
     case 'was_attacked':
       return !!actor.wasAttacked;
     case 'low_hp': {
@@ -89,6 +85,18 @@ function tickActor(actor) {
 
   if (actor.kind !== 'npc') return;
   actor.energy += actor.stats.spd;
+
+  // Passive aggression: only NPCs flagged aggressive in their def hunt on sight. Provoked
+  // neutrals have aggressive=true at runtime but do not auto-acquire new players, so we
+  // gate on the def-original flag. This is also what makes pacify's negative-hate cooldown
+  // tick back to zero for bears and wolves.
+  if (actor.defAggressive) {
+    for (const peer of actorsInRoom(actor.location)) {
+      if (peer.kind !== 'player' || !peer.session) continue;
+      if (!(peer.stats?.hp > 0)) continue;
+      addHate(actor, peer, 1);
+    }
+  }
 
   const chosen = pickBehavior(actor);
   if (chosen) {

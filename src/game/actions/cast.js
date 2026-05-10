@@ -3,7 +3,7 @@ import { roomEnemiesOf, roomFriendliesOf } from '../aoe.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
 import { applyActiveEffect } from '../activeEffects.js';
-import { applyDamageWithFeedback, registerAttackAggro } from '../combat.js';
+import { applyDamageWithFeedback, registerAttackAggro, applyHealerAggro } from '../combat.js';
 import { roll } from '../dice.js';
 import { splitOnKeyword } from '../items.js';
 import { s, t } from '../../i18n.js';
@@ -105,7 +105,9 @@ function applyHealToList(actor, spell, targets) {
   const applyId = spell.effect.applyEffect;
   for (const tgt of targets) {
     const result = applyEffect({ ...spell.effect, type: 'heal' }, { actor, target: tgt });
-    if (tgt !== actor && (result?.hpRestored ?? 0) > 0) healedAlly = true;
+    const hp = result?.hpRestored ?? 0;
+    if (tgt !== actor && hp > 0) healedAlly = true;
+    applyHealerAggro(actor, tgt, hp);
     if (applyId) applyActiveEffect(tgt, applyId, EFFECT_SOURCE.SPELL, actor.name);
     if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
   }
@@ -195,7 +197,9 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
     const result = applyEffect(spell.effect, { actor, target });
     if (effectType === 'heal') {
       if (!silent) sendHealFeedback(actor, target, result);
-      if (target && target !== actor && (result?.hpRestored ?? 0) > 0) healedAlly = true;
+      const hp = result?.hpRestored ?? 0;
+      if (target && target !== actor && hp > 0) healedAlly = true;
+      applyHealerAggro(actor, target ?? actor, hp);
     } else if (!silent) {
       sendStats(actor);
     }
