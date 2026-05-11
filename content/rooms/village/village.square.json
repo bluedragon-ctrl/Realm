@@ -17,10 +17,7 @@
     "s": "village.smith",
     "w": "village.pub",
     "e": "village.orchard",
-    "d": "village.well_bottom"
-  },
-  "lockedExits": {
-    "d": "village.well"
+    "d": { "to": "village.well_bottom", "hidden": { "dc": 5, "id": "village.well_passage" } }
   },
   "tags": ["outdoor", "village", "safe"]
 }
