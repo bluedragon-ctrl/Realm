@@ -19,14 +19,17 @@ const DIR_ALIASES = {
   sw: 'sw', southwest: 'sw',
 };
 
-function resolveExit(room, exitInput) {
+function resolveExit(room, exitInput, actor) {
   const exits = room.exits ?? {};
-  if (exits[exitInput]) return exitInput;
+  const hidden = room.hiddenExits ?? {};
+  const foundSecrets = new Set(actor.record?.foundSecrets ?? []);
+  const visible = (k) => !hidden[k] || foundSecrets.has(hidden[k].id);
+  if (exits[exitInput] && visible(exitInput)) return exitInput;
   const canonical = DIR_ALIASES[exitInput.toLowerCase()];
-  if (canonical && exits[canonical]) return canonical;
+  if (canonical && exits[canonical] && visible(canonical)) return canonical;
   const lower = exitInput.toLowerCase();
   for (const key of Object.keys(exits)) {
-    if (key.toLowerCase() === lower) return key;
+    if (key.toLowerCase() === lower && visible(key)) return key;
   }
   return null;
 }
@@ -39,7 +42,7 @@ export default function move(actor, args) {
   const exitInput = args.join(' ');
   const room = getRoom(actor.location);
   if (!room) return;
-  const exitKey = resolveExit(room, exitInput);
+  const exitKey = resolveExit(room, exitInput, actor);
   if (!exitKey) {
     actor.session.send({ kind: 'error', text: s('move.unknown_exit', actor.lang, { exit: exitInput }) });
     return;
