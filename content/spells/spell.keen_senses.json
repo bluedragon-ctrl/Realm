@@ -1,0 +1,29 @@
+{
+  "id": "spell.keen_senses",
+  "name": {
+    "en": "Keen Senses",
+    "cs": "Bystré smysly"
+  },
+  "mpCost": 3,
+  "actionCost": 12,
+  "target": "self",
+  "description": {
+    "en": "Sharpen your senses for a short time, boosting perception.",
+    "cs": "Na krátký čas zostří tvé smysly a zvýší vnímání."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "your senses sharpen.",
+        "others": "{actor}'s eyes glint with sudden focus."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "tvé smysly se zostří.",
+        "others": "{actor} náhle zaostří pohled."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.keen_senses" }
+}

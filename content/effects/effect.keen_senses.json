@@ -1,0 +1,12 @@
+{
+  "id": "effect.keen_senses",
+  "name": {
+    "en": "keen senses",
+    "cs": "bystré smysly"
+  },
+  "kind": "buff",
+  "icon": "👁️",
+  "duration": 30,
+  "statMod": { "perception": 4 },
+  "stack": "refresh"
+}
