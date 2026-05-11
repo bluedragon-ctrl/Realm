@@ -50,6 +50,7 @@ export function buildPanelLabels(lang) {
     castButton: s('panel.cast_button', lang),
     attackButton: s('panel.attack_button', lang),
     fleeButton: s('panel.flee_button', lang),
+    searchButton: s('panel.search_button', lang),
     useFixtureButton: s('panel.use_fixture_button', lang),
     useOnButton: s('panel.use_on_button', lang),
     consumablesButton: s('panel.consumables_button', lang),
