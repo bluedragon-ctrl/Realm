@@ -19,5 +19,8 @@
   "lockedExits": {
     "d": "home.trap_door"
   },
+  "hiddenFixtures": {
+    "home.trap_door": { "dc": 3, "id": "home.trap_door_perception" }
+  },
   "tags": ["safe", "indoor", "home"]
 }

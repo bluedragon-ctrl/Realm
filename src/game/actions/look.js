@@ -64,6 +64,9 @@ export function describeRoom(actor) {
     return;
   }
   const lang = actor.lang;
+  const foundSecrets = new Set(actor.record?.foundSecrets ?? []);
+  const hiddenExits = room.hiddenExits ?? {};
+  const hiddenFixtures = room.hiddenFixtures ?? {};
   const players = [];
   const npcs = [];
   for (const a of actorsInRoom(room.id)) {
@@ -78,6 +81,7 @@ export function describeRoom(actor) {
   }
   const exitKeys = Object.keys(room.exits ?? {})
     .filter(k => !isExitLocked(room, k))
+    .filter(k => !hiddenExits[k] || foundSecrets.has(hiddenExits[k].id))
     .sort(compareExitKeys);
   const exits = exitKeys.map(k => {
     const targetRoom = getRoom(room.exits[k]);
@@ -89,6 +93,8 @@ export function describeRoom(actor) {
   });
   const itemGroups = new Map();
   for (const inst of itemsInRoom(room.id)) {
+    const hf = hiddenFixtures[inst.defId];
+    if (hf && !foundSecrets.has(hf.id ?? inst.defId)) continue;
     const stateKey = !inst.state || Object.keys(inst.state).length === 0 ? '' : JSON.stringify(inst.state);
     const key = `${inst.defId}:${stateKey}`;
     const existing = itemGroups.get(key);

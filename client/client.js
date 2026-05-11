@@ -180,6 +180,8 @@ function renderStats(msg) {
   // Update quickbar button labels per language
   const fleeBtn = document.getElementById('flee-btn');
   if (fleeBtn && labels.fleeButton) fleeBtn.textContent = labels.fleeButton;
+  const searchBtn = document.getElementById('search-btn');
+  if (searchBtn && labels.searchButton) searchBtn.textContent = labels.searchButton;
   const attackBtn = document.getElementById('attack-btn');
   if (attackBtn && labels.attackButton) attackBtn.textContent = labels.attackButton;
   if (attackBtn) attackBtn.classList.toggle('queued', msg.queuedAction === 'attack');
@@ -275,6 +277,7 @@ function renderStats(msg) {
     [labels.eva ?? 'EVA', s.evasion],
     [labels.int ?? 'INT', s.int],
     [labels.mres ?? 'MRES', s.magicResist],
+    [labels.perception ?? 'PER', s.perception ?? 0],
   ]) {
     const span = document.createElement('span');
     span.textContent = `${key} ${val ?? '?'}`;
@@ -815,7 +818,7 @@ form.addEventListener('submit', (ev) => {
 const VERB_LIST = [
   'look', 'l', 'go', 'say', 'emote', 'who', 'help', 'quit', 'lang',
   'take', 'get', 'pick', 'drop', 'inventory', 'inv', 'give', 'buy', 'sell',
-  'use', 'cast', 'attack', 'kill', 'hit', 'flee',
+  'use', 'cast', 'attack', 'kill', 'hit', 'flee', 'search',
   'wear', 'equip', 'remove', 'unwear', 'equipment', 'eq',
   'n', 's', 'e', 'w', 'u', 'd', 'ne', 'nw', 'se', 'sw',
   'north', 'south', 'east', 'west', 'up', 'down',

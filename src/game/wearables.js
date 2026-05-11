@@ -31,6 +31,8 @@ export function recomputeStats(actor) {
   const base = actor.record?.baseStats ?? actor.baseStats;
   if (!base) return;
   const computed = { ...base };
+  const level = actor.record?.level ?? 1;
+  computed.perception = (computed.int ?? 0) + Math.floor(level / 2);
   for (const { def } of equippedSlots(actor)) {
     const bonus = def?.wearable?.bonus;
     if (!bonus) continue;
