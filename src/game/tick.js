@@ -8,6 +8,7 @@ import { addHate } from './aggro.js';
 import { setDamageRouteHandler } from './effects.js';
 import { sendStats } from './messages.js';
 import { pushTargetInfo } from './actions/look.js';
+import { getTick, bumpTick } from './clock.js';
 
 setEffectDamageHandler(applyDamageWithFeedback);
 setDamageRouteHandler(applyDamageWithFeedback);
@@ -15,7 +16,6 @@ setDamageRouteHandler(applyDamageWithFeedback);
 const TICK_MS = 1000;
 const FLUSH_EVERY_TICKS = 50;
 
-let tickCount = 0;
 let timer = null;
 
 async function flushDirty() {
@@ -108,6 +108,7 @@ function tickActor(actor) {
 }
 
 function maybeRespawnItems() {
+  const tickCount = getTick();
   for (const def of world.itemDefs.values()) {
     const respawnTicks = def.spawn?.respawnTicks ?? 0;
     if (respawnTicks <= 0) continue;
@@ -132,14 +133,14 @@ function maybeRespawnItems() {
 }
 
 function broadcastTick() {
-  const msg = { kind: 'tick', count: tickCount };
+  const msg = { kind: 'tick', count: getTick() };
   for (const a of world.actorsByName.values()) {
     if (a.kind === 'player' && a.session) a.session.send(msg);
   }
 }
 
 function onTick() {
-  tickCount++;
+  const tickCount = bumpTick();
   for (const actor of allActors()) {
     tickActor(actor);
   }
