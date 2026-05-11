@@ -1,10 +1,10 @@
 {
-  "id": "forest.skeleton_lord",
-  "name": { "en": "a skeleton lord", "cs": "kostlivý pán" },
-  "nameAcc": { "en": "the skeleton lord", "cs": "kostlivého pána" },
-  "nameDat": { "en": "the skeleton lord", "cs": "kostlivému pánovi" },
-  "nameGen": { "en": "the skeleton lord", "cs": "kostlivého pána" },
-  "title": { "en": "skeleton lord", "cs": "kostlivý pán" },
+  "id": "forest.skeleton_mage",
+  "name": { "en": "a skeleton mage", "cs": "kostlivý mág" },
+  "nameAcc": { "en": "the skeleton mage", "cs": "kostlivého mága" },
+  "nameDat": { "en": "the skeleton mage", "cs": "kostlivému mágovi" },
+  "nameGen": { "en": "the skeleton mage", "cs": "kostlivého mága" },
+  "title": { "en": "skeleton mage", "cs": "kostlivý mág" },
   "location": "forest.tower_tomb",
   "count": 1,
   "short": {

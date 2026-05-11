@@ -9,12 +9,12 @@
     "cs": "Prašná krypta pod sklepením, podél zdí stojí popraskané kamenné rakve."
   },
   "long": {
-    "en": "A narrow stone stair from above lands on a dusty floor. Old stone coffins lean against the walls, their lids cracked open or broken to one side. Bones lie scattered around them. The air is colder here, and very still. Another stair leads further down into the dark.",
-    "cs": "Úzké kamenné schodiště shora ústí na zaprášenou podlahu. Podél zdí se opírají staré kamenné rakve, jejich víka jsou popraskaná nebo odsunutá ke straně. Kolem se válí roztroušené kosti. Vzduch je tu chladnější a úplně tichý. Další schodiště vede ještě hlouběji do tmy."
+    "en": "A narrow stone stair from above lands on a dusty floor. Old stone coffins lean against the walls, their lids cracked open or broken to one side. Bones lie scattered around them. The air is colder here, and very still. The back wall is built of larger stones than the rest, and one of them sits a little out of place.",
+    "cs": "Úzké kamenné schodiště shora ústí na zaprášenou podlahu. Podél zdí se opírají staré kamenné rakve, jejich víka jsou popraskaná nebo odsunutá ke straně. Kolem se válí roztroušené kosti. Vzduch je tu chladnější a úplně tichý. Zadní stěna je postavena z větších kamenů než zbytek a jeden z nich sedí trochu mimo."
   },
   "exits": {
     "u": "forest.tower_cellar",
-    "d": "forest.tower_tomb"
+    "d": { "to": "forest.tower_tomb", "hidden": { "dc": 4, "id": "forest.tower_tomb_passage" } }
   },
   "tags": ["indoor", "forest", "tower", "dark", "crypt"]
 }

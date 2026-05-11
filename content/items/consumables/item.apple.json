@@ -1,0 +1,46 @@
+{
+  "id": "item.apple",
+  "name": {
+    "en": "an apple",
+    "cs": "jablko"
+  },
+  "nameAcc": {
+    "en": "the apple",
+    "cs": "jablko"
+  },
+  "short": {
+    "en": "A round red apple, just fallen from the tree.",
+    "cs": "Kulaté červené jablko, čerstvě spadlé ze stromu."
+  },
+  "long": {
+    "en": "A crisp red apple with a short stalk. The skin is a little dusty from falling but the fruit inside is firm and sweet. A quick bite picks you up.",
+    "cs": "Křupavé červené jablko s krátkým stopkem. Slupka je trochu zaprášená od pádu, ale dužina uvnitř je pevná a sladká. Rychlé zakousnutí tě osvěží."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "spawn": { "location": "village.orchard", "count": 2, "respawnTicks": 1800 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you crunch into the apple. It's sweet and refreshing.",
+        "others": "{actor} takes a big bite of the apple."
+      },
+      "to_target": {
+        "self": "you offer the apple to {target}, who takes a bite.",
+        "others": "{actor} offers the apple to {target}, who takes a bite."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zakousneš se do jablka. Je sladké a osvěžující.",
+        "others": "{actor} se velkým soustem zakousne do jablka."
+      },
+      "to_target": {
+        "self": "podáš jablko {target.dat} a ten se zakousne.",
+        "others": "{actor} podává jablko {target.dat} a ten se zakousne."
+      }
+    },
+    "effect": { "type": "heal", "amount": 2 },
+    "consumable": true
+  }
+}

@@ -1,0 +1,37 @@
+{
+  "id": "forest.warning_tree",
+  "name": {
+    "en": "an old oak with carved warnings",
+    "cs": "starý dub s vyřezanými varováními"
+  },
+  "nameAcc": {
+    "en": "the carved oak",
+    "cs": "vyřezávaný dub"
+  },
+  "short": {
+    "en": "An old oak stands at the path's edge, its bark scratched and carved with crude warnings.",
+    "cs": "Na kraji pěšiny stojí starý dub, kůru má posekanou a vyřezané hrubé výstrahy."
+  },
+  "long": {
+    "en": "A thick old oak with cracked grey bark. Generations of hunters and travellers have carved short warnings into the trunk with knives. Most of them are old enough that the wood has begun to grow over the marks.",
+    "cs": "Tlustý starý dub s popraskanou šedou kůrou. Generace lovců a poutníků vyřezaly do kmene nožem krátká varování. Většina je tak stará, že kůra už začala zarůstat zpátky."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "forest.entry", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you read the carvings on the oak. Many are short and rough: 'big boar east — do not run', 'cave bear — stay clear', 'tower walks at night — turn back'.",
+        "others": "{actor} runs a finger over the old carvings on the oak."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přečteš si nápisy na dubu. Většinou jsou krátké a hrubé: „velký kanec na východě — neutíkej“, „medvěd v jeskyni — vyhni se“, „věž v noci chodí — vrať se“.",
+        "others": "{actor} přejede prstem po starých nápisech na dubu."
+      }
+    }
+  }
+}

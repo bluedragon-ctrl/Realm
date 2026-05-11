@@ -44,8 +44,13 @@ export function makeItemValidator(knownRooms, knownEffects) {
         const hits = Array.isArray(def.wearable.onHit) ? def.wearable.onHit : [def.wearable.onHit];
         for (const hit of hits) {
           checkObject(hit, ctx, 'wearable.onHit');
-          check(typeof hit.applyEffect === 'string' && knownEffects.has(hit.applyEffect), ctx,
-            `wearable.onHit.applyEffect references unknown effect '${hit.applyEffect}'`);
+          if (hit.applyEffect != null) {
+            check(typeof hit.applyEffect === 'string' && knownEffects.has(hit.applyEffect), ctx,
+              `wearable.onHit.applyEffect references unknown effect '${hit.applyEffect}'`);
+          } else {
+            check(hit.effect != null && typeof hit.effect === 'object' && typeof hit.effect.type === 'string', ctx,
+              `wearable.onHit entry must have either 'applyEffect' (active effect id) or 'effect' (inline effect object with type)`);
+          }
         }
       }
       if (def.wearable.damage != null) {

@@ -1,0 +1,46 @@
+{
+  "id": "item.honey",
+  "name": {
+    "en": "a small jar of honey",
+    "cs": "malá sklenička medu"
+  },
+  "nameAcc": {
+    "en": "the small jar of honey",
+    "cs": "malou skleničku medu"
+  },
+  "short": {
+    "en": "A small clay jar sealed with a wax plug, full of dark golden honey.",
+    "cs": "Malá hliněná sklenička zapečetěná voskovou zátkou, plná tmavě zlatého medu."
+  },
+  "long": {
+    "en": "A small clay jar with a tight wax plug. Dark golden honey gleams inside. A spoonful is said to clear a foggy head and ease a sore body.",
+    "cs": "Malá hliněná nádoba s těsnou voskovou zátkou. Uvnitř se třpytí tmavě zlatý med. Říká se, že lžička medu rozjasní zákal v hlavě a uleví unavenému tělu."
+  },
+  "tags": ["consumable", "food"],
+  "weight": 0,
+  "spawn": { "location": "home.garden", "count": 3, "respawnTicks": 1800 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the wax plug and lick a fingerful of honey. It is warm and sweetly thick.",
+        "others": "{actor} pulls the wax plug from a small jar and tastes the honey inside."
+      },
+      "to_target": {
+        "self": "you hold the jar out to {target} and they take a careful lick of honey.",
+        "others": "{actor} offers {target} a little honey from a small jar."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš voskovou zátku a olízneš prst plný medu. Je teplý a sladce hustý.",
+        "others": "{actor} vytáhne voskovou zátku z malé skleničky a ochutná med uvnitř."
+      },
+      "to_target": {
+        "self": "podáš skleničku {target.dat} a ten si opatrně olízne trochu medu.",
+        "others": "{actor} nabídne {target.dat} trochu medu z malé skleničky."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "heal", "hp": 1, "mp": 1 }
+  }
+}

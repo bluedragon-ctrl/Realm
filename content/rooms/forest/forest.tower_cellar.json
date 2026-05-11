@@ -16,8 +16,5 @@
     "u": "forest.tower_entry",
     "d": "forest.tower_crypt"
   },
-  "tags": ["indoor", "forest", "tower", "dark", "cellar"],
-  "hiddenFixtures": {
-    "forest.loose_stone": { "dc": 10, "id": "forest.tower_cellar_alcove" }
-  }
+  "tags": ["indoor", "forest", "tower", "dark", "cellar"]
 }

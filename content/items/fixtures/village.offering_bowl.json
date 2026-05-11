@@ -1,0 +1,40 @@
+{
+  "id": "village.offering_bowl",
+  "name": {
+    "en": "a stone offering bowl",
+    "cs": "kamenná obětní miska"
+  },
+  "nameAcc": {
+    "en": "the stone offering bowl",
+    "cs": "kamennou obětní misku"
+  },
+  "short": {
+    "en": "A worn stone bowl on the shrine step, holding a few old coins and a sprig of lavender.",
+    "cs": "Ohlozená kamenná miska na schůdku svatyňky s pár starými mincemi a větvičkou levandule."
+  },
+  "long": {
+    "en": "A shallow bowl of smooth grey stone, worn by many hands. A few old coins rest at the bottom beside a dry sprig of lavender. The water inside is perfectly clear and still — it never seems to go dry, and it never seems to go stale.",
+    "cs": "Mělká miska z hladkého šedého kamene, ohlazená od mnoha rukou. Na dně leží pár starých mincí vedle suchého stonku levandule. Voda uvnitř je dokonale čistá a klidná — nikdy nevyschne a nikdy nezplesniví."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "grantsXp": 5,
+  "spawn": { "location": "village.shrine", "count": 1, "respawnTicks": 7200 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you cup your hands, dip them into the bowl, and drink. The water is cool and faintly sweet. A quiet calm moves through you from head to foot.",
+        "others": "{actor} kneels at the shrine, drinks from the stone bowl, and rises looking steadier."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sepneš ruce, ponoříš je do misky a napiješ se. Voda je chladná a lehce sladká. Tichý klid tě prostoupí od hlavy až k patě.",
+        "others": "{actor} poklekne u svatyňky, napije se z kamenné misky a vstane s klidnějším výrazem."
+      }
+    },
+    "consumable": false,
+    "effect": { "type": "heal", "hp": 6, "mp": 6, "removeFixture": true }
+  }
+}

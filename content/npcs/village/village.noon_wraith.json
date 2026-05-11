@@ -1,0 +1,128 @@
+{
+  "id": "village.noon_wraith",
+  "name": {
+    "en": "the noon wraith",
+    "cs": "polednice"
+  },
+  "nameAcc": {
+    "en": "the noon wraith",
+    "cs": "polednici"
+  },
+  "nameDat": { "en": "the noon wraith", "cs": "polednici" },
+  "nameGen": { "en": "the noon wraith", "cs": "polednice" },
+  "title": {
+    "en": "noon wraith",
+    "cs": "polednice"
+  },
+  "location": "village.noon_glade",
+  "count": 1,
+  "short": {
+    "en": "A pale figure stands at the centre of the clearing, perfectly still.",
+    "cs": "Bledá postava stojí uprostřed mýtinky, nehybná jako kámen."
+  },
+  "long": {
+    "en": "A tall, thin woman in long white linen that does not move in any breeze. Her face is smooth and blank, like a mask carved from chalk. Her eyes are open but there is nothing behind them — just flat white, and heat. She has been here since before the village, since before the road, since before anyone remembers. When she turns her head toward you, the air gets thick.",
+    "cs": "Vysoká štíhlá žena v dlouhém bílém plátně, které se ve větru nehýbe. Tvář má hladkou a prázdnou jako maska vyřezaná z křídy. Oči má otevřené, ale nic za nimi není — jen ploché bílé a horko. Je tu od doby, než vznikla vesnice, před silnicí, před čímkoli, na co se někdo pamatuje. Když k tobě otočí hlavu, vzduch zhoustne."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 50, "hpMax": 50,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 0, "int": 0,
+    "magicResist": 55,
+    "spd": 6
+  },
+  "respawn": { "ticks": 900 },
+  "xp": 72,
+  "goldDrop": { "formula": "2d6+5", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.life_drain_dagger", "chance": 0.2 },
+    { "defId": "potion.mana", "chance": 0.65 },
+    { "defId": "potion.heal", "chance": 0.35 },
+    { "defId": "item.ward_scroll", "chance": 0.25 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "withering grasp", "cs": "vysušující sevření" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} reaches through {target} with cold white hands!",
+          "{actor} grabs {target} and the warmth drains from their limbs!",
+          "{actor} touches {target} and the air goes cold around them!"
+        ],
+        "cs": [
+          "{actor} projede studenýma bílýma rukama skrz {target.acc}!",
+          "{actor} uchopí {target.acc} a teplo mu unikne z končetin!",
+          "{actor} se dotkne {target.gen} a vzduch kolem zchladne!"
+        ]
+      }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "noon gaze", "cs": "polední pohled" },
+      "chance": 0.35,
+      "cost": 26,
+      "damage": "2d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} fixes its blank gaze on {target} and the world blurs white!",
+          "{actor} stares into {target} — the noon sun presses down like a weight!",
+          "{actor}'s eyes burn white and {target} staggers under the heat!"
+        ],
+        "cs": [
+          "{actor} upře prázdný pohled na {target.acc} a svět zběli!",
+          "{actor} hledí do {target.gen} — polední slunce tlačí dolů jako závaží!",
+          "Oči {actor.gen} se rozžhnou bíle a {target} se potácí pod žárem!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.1,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "flickers at the edge of sight, closer than before.",
+          "drifts sideways without walking, white robes trailing in no wind.",
+          "tilts its head as if listening to something far away.",
+          "the wheat at the clearing's edge bends inward, toward it.",
+          "a sound like a spinning wheel rises from nowhere and fades."
+        ],
+        "cs": [
+          "zabliká na okraji vidění, blíže než dřív.",
+          "proklouzne stranou, aniž by kráčela, bílé šaty vlají v bezvětří.",
+          "nakloní hlavu, jako by naslouchala něčemu dalekému.",
+          "obilí na okraji mýtiny se ohne dovnitř, k ní.",
+          "odnikud se ozve zvuk přeslice a zase zmizí."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.05,
+      "cost": 12,
+      "lines": {
+        "en": [
+          "What are you spinning?",
+          "Where are you going?",
+          "What are you weaving?",
+          "How long have you been here?"
+        ],
+        "cs": [
+          "Co předeš?",
+          "Kam jdeš?",
+          "Co tkaš?",
+          "Jak dlouho tu jsi?"
+        ]
+      }
+    }
+  ]
+}

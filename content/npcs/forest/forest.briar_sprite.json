@@ -1,0 +1,148 @@
+{
+  "id": "forest.briar_sprite",
+  "name": { "en": "the briar sprite", "cs": "trnová víla" },
+  "nameAcc": { "en": "the briar sprite", "cs": "trnovou vílu" },
+  "nameDat": { "en": "the briar sprite", "cs": "trnové víle" },
+  "nameGen": { "en": "the briar sprite", "cs": "trnové víly" },
+  "title": { "en": "briar sprite", "cs": "trnová víla" },
+  "location": "forest.briar_path",
+  "count": 1,
+  "short": {
+    "en": "A small green-skinned sprite sits cross-legged among the thorns.",
+    "cs": "Mezi trny sedí drobná zelenokožá víla se zkříženýma nohama."
+  },
+  "long": {
+    "en": "A small sprite no taller than your knee, with skin the green of old moss and hair like fine red thorns. She sits among the brambles as though they cradle her on purpose, and the briars do seem to lean toward her when she breathes. Her eyes are bright and quick. She knows this forest better than anything alive in it.",
+    "cs": "Drobná víla, vyšší sotva po koleno, s kůží zelenou jako starý mech a vlasy jako jemné červené trny. Sedí mezi ostružinami, jako by ji ostny chovaly v náručí, a trní se k ní opravdu naklání, když dýchá. Oči má jasné a hbité. Tenhle les zná lépe než cokoli, co v něm žije."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 12, "hpMax": 12,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 4,
+    "magicResist": 70,
+    "spd": 7
+  },
+  "respawn": { "ticks": 1200 },
+  "exchanges": [
+    {
+      "id": "briar_sprite.craft_rose_oil",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.rose_petals", "count": 3 }],
+      "outputs": [{ "item": "potion.rose_oil" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand three rose petals to {target}. She presses them between her green palms, hums once, and a clear amber drop forms in a glass vial for you.",
+            "others": "{actor} hands three rose petals to {target}, who presses them and hums until a drop of amber oil forms."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš tři růžové lístky {target.dat}. Stiskne je mezi zelenými dlaněmi, jednou si zazpívá a v drobné lahvičce se ti utvoří kapka jantarového oleje.",
+            "others": "{actor} podává tři růžové lístky {target.dat}, která je stiskne a zpívá si, dokud se neutvoří kapka jantarového oleje."
+          }
+        }
+      }
+    },
+    {
+      "id": "briar_sprite.craft_thorns_potion",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.ironwort", "count": 3 }],
+      "outputs": [{ "item": "potion.thorns" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand three sprigs of ironwort to {target}. She crushes the tough leaves between her thumbs and lets the dark juice drip into a green vial.",
+            "others": "{actor} hands three sprigs of ironwort to {target}, who crushes them and lets the dark juice drip into a green vial."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš tři snítky železníku {target.dat}. Houževnaté lístky rozmačká mezi palci a tmavou šťávu nechá kapat do zelené lahvičky.",
+            "others": "{actor} podává tři snítky železníku {target.dat}, která je rozmačká a nechá tmavou šťávu kapat do zelené lahvičky."
+          }
+        }
+      }
+    },
+    {
+      "id": "briar_sprite.craft_pacify_scroll",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.rose_petals", "count": 12 }],
+      "outputs": [{ "item": "item.pacify_scroll" }],
+      "xp": 8,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you pour twelve rose petals into {target}'s small green hands. She closes her eyes, whispers over them for a long moment, and gives you a soft pale scroll bound with a vine.",
+            "others": "{actor} pours twelve rose petals into {target}'s hands. She whispers over them a long while and produces a small pale scroll."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vysypeš dvanáct růžových lístků do zelených dlaní {target.gen}. Zavře oči, dlouho nad nimi šeptá a podá ti měkký bledý svitek převázaný úponkem.",
+            "others": "{actor} vysype dvanáct růžových lístků do dlaní {target.gen}. Ta nad nimi dlouho šeptá a podá mu drobný bledý svitek."
+          }
+        }
+      }
+    }
+  ],
+  "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.08,
+      "cost": 12,
+      "lines": {
+        "en": [
+          "Bring me rose petals, traveller. I have work for them.",
+          "The brambles bloom for me. Pluck their petals and I will brew for you.",
+          "Three petals for an oil. Twelve for a scroll. The bushes know their share.",
+          "Beware the bear in her cave — east through the deep wood. Her claws remember.",
+          "Three wolves run the rocky den. They hunt as one. Strike one, the others come.",
+          "North through the gorge lies the mine. The kobolds tap and tap. They have lost something they will not name.",
+          "The old tower has three floors below the door. The deepest holds the mage himself.",
+          "The thorns remember every face that passes.",
+          "Your blood smells like the village."
+        ],
+        "cs": [
+          "Přines mi růžové lístky, poutníku. Mám pro ně práci.",
+          "Trny pro mě kvetou. Otrhej jejich lístky a uvařím ti za to.",
+          "Tři lístky za olej. Dvanáct za svitek. Keře znají svůj díl.",
+          "Pozor na medvědici v jeskyni — na východ přes hluboký les. Její drápy si pamatují.",
+          "Tři vlci běhají kamenitým doupětem. Loví jako jeden. Udeř jednoho, přijdou druzí.",
+          "Na sever přes rokli leží důl. Skřítci tam ťukají a ťukají. Něco ztratili a neřeknou co.",
+          "Stará věž má tři patra pod prahem. Nejhlubší ukrývá samotného mága.",
+          "Trny si pamatují každou tvář, která projde kolem.",
+          "Tvá krev voní vesnicí."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "flickers in and out of the thorns like a green will-o'-the-wisp.",
+          "braids a tiny ring of thornwood between her fingers.",
+          "vanishes into the brambles for a moment, then reappears at a different bush.",
+          "sniffs the air, head tilted like a fox.",
+          "the briars lean toward her wherever she walks.",
+          "hums a tune that does not quite repeat."
+        ],
+        "cs": [
+          "se mihá mezi trny jako zelený bludný plamínek.",
+          "splétá mezi prsty drobný kroužek z trnového dřeva.",
+          "na okamžik zmizí v ostružinách a objeví se u jiného keře.",
+          "začichá ve vzduchu, hlavu nakloněnou jako liška.",
+          "trny se k ní naklánějí, kudy projde.",
+          "pobrukuje si melodii, která se nikdy úplně neopakuje."
+        ]
+      }
+    }
+  ]
+}

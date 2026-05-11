@@ -1,0 +1,45 @@
+{
+  "id": "forest.cache_stone",
+  "name": {
+    "en": "a flat boulder with a crack in it",
+    "cs": "plochý balvan s trhlinou"
+  },
+  "nameAcc": {
+    "en": "the flat boulder",
+    "cs": "plochý balvan"
+  },
+  "short": {
+    "en": "A flat boulder, its crack packed tight with old leaves.",
+    "cs": "Plochý balvan s trhlinou nacpanou starým listím."
+  },
+  "long": {
+    "en": "A broad flat stone with a deep crack running across its top. Someone has pressed old leaves into the crack — from a distance it just looks like dead plant matter filling a gap in the rock. Looking more carefully, the leaves have been packed in deliberately.",
+    "cs": "Široký plochý kámen s hlubokou trhlinou přes vršek. Někdo do ní nacpal staré listí — z dálky to vypadá jen jako mrtvé rostliny v puklině. Při bližším pohledu je vidět, že listí bylo záměrně napěchováno."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "forest.rocky_outcrop", "count": 1, "respawnTicks": 7200 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you scoop out the old leaves and reach into the crack. Your fingers find something wrapped in oilskin.",
+        "others": "{actor} scoops out the leaves packed into the crack and pulls something out."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vyhrneš staré listí a sáhneš do trhliny. Prsty nahmatají něco zabalené do naolejované kůže.",
+        "others": "{actor} vyhrne listí z trhliny v kameni a vytáhne cosi ven."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "open_chest",
+      "loot": [
+        { "defId": "potion.heal", "chance": 1.0 }
+      ],
+      "gold": "2d6"
+    }
+  }
+}

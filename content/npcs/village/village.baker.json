@@ -20,8 +20,8 @@
     "cs": "Kulatá pekařka obsypaná moukou si pobrukuje u pece s vřelým úsměvem."
   },
   "long": {
-    "en": "A cheerful, rosy-cheeked woman in a white apron with flour on her nose and her sleeves rolled up. Her strong arms have kneaded dough since before dawn, and she greets every visitor like an old friend. She sells small pies for one gold each, and buys red berries — one gold for every three.",
-    "cs": "Veselá pekařka s růžovými tvářemi v bílé zástěře, mouku má na nose a rukávy vyhrnuté. Její silné paže hnětou těsto už od svítání a každého návštěvníka vítá jako starého přítele. Prodává malé koláče po jednom zlatém a za každé tři hrsti červených bobulí na své koláčky platí jeden zlatý."
+    "en": "A cheerful, rosy-cheeked woman in a white apron with flour on her nose and her sleeves rolled up. Her strong arms have kneaded dough since before dawn, and she greets every visitor like an old friend. She sells small pies for one gold each, buys red berries — one gold for every three — and pays two gold for jars of honey.",
+    "cs": "Veselá pekařka s růžovými tvářemi v bílé zástěře, mouku má na nose a rukávy vyhrnuté. Její silné paže hnětou těsto už od svítání a každého návštěvníka vítá jako starého přítele. Prodává malé koláče po jednom zlatém, za každé tři hrsti červených bobulí platí jeden zlatý a za skleničku medu dá dva zlaté."
   },
   "disposition": "friendly",
   "aggressive": false,
@@ -57,6 +57,12 @@
       "flavor": "buy",
       "inputs":  [{ "gold": 2 }],
       "outputs": [{ "item": "item.sweets" }]
+    },
+    {
+      "id": "baker.sell_honey",
+      "flavor": "sell",
+      "inputs":  [{ "item": "item.honey", "count": 1 }],
+      "outputs": [{ "gold": 2 }]
     }
   ],
   "behaviors": [
@@ -69,13 +75,15 @@
           "Fresh pies, dear, just one gold each!",
           "Bring me red berries, sweetheart — three for a gold.",
           "Mind the flour, love, it gets everywhere.",
-          "Best pies in three villages, if I do say so myself."
+          "Best pies in three villages, if I do say so myself.",
+          "Got honey? I will pay two gold for a jar — it makes the best pastry glaze."
         ],
         "cs": [
           "Čerstvé koláče, miláčku, jen po jednom zlatém!",
           "Přines mi červené bobule, drahoušku — tři za zlatý.",
           "Pozor na mouku, zlatíčko, je všude.",
-          "Nejlepší koláče ze tří vesnic, troufám si říct."
+          "Nejlepší koláče ze tří vesnic, troufám si říct.",
+          "Máš med? Za skleničku dám dva zlaté — na glazuru na pečivo není nic lepšího."
         ]
       }
     },

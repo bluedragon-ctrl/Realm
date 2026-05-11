@@ -5,12 +5,12 @@
     "cs": "Náves"
   },
   "short": {
-    "en": "A small square with a stone well in the middle.",
-    "cs": "Malá náves s kamennou studnou uprostřed."
+    "en": "A small cobbled square at the heart of the village.",
+    "cs": "Malá dlážděná náves uprostřed vesnice."
   },
   "long": {
-    "en": "A round square paved with worn stones. In the middle stands an old well with a wooden bucket on a rope. A cobbled lane leads north between flowerboxes, the smithy stands to the south, and a small pub sits to the west. To the east the road runs out under apple trees toward the edge of the village.",
-    "cs": "Kulatá náves dlážděná otřelými kameny. Uprostřed stojí stará studna s dřevěným vědrem na provaze. Na sever vede mezi truhlíky květin dlážděná ulička, na jihu stojí kovárna a na západě malý hostinec. Na východ vede cesta pod jabloně k okraji vesnice."
+    "en": "A round square paved with worn stones. A cobbled lane leads north between flowerboxes, the smithy stands to the south, and a small pub sits to the west. To the east the road runs out under apple trees toward the edge of the village.",
+    "cs": "Kulatá náves dlážděná otřelými kameny. Na sever vede mezi truhlíky květin dlážděná ulička, na jihu stojí kovárna a na západě malý hostinec. Na východ vede cesta pod jabloně k okraji vesnice."
   },
   "exits": {
     "n": "village.lane",

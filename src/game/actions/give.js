@@ -5,7 +5,7 @@ import { resolveName } from '../declension.js';
 import { goldPhrase, parseAmountGoldQuery } from '../format.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
-import { runExchange } from '../exchange.js';
+import { runExchange, runSinkExchange } from '../exchange.js';
 import { resolveActorTarget } from '../targeting.js';
 
 function parseGiveArgs(args) {
@@ -36,7 +36,7 @@ function findExchangeForGoldGive(target, amount) {
 function findExchangeForItemGive(target, itemDefId, count) {
   const exchanges = target.exchanges ?? [];
   return exchanges.filter(e => {
-    const inp = e.inputs.find(x => x.item === itemDefId);
+    const inp = (e.inputs ?? []).find(x => x.item === itemDefId);
     if (!inp) return false;
     const need = inp.count ?? 1;
     return need === count;
@@ -136,6 +136,13 @@ export default function give(actor, args) {
     if (matches.length > 1) {
       actor.session.send({ kind: 'error', text: s('exchange.ambiguous_give', actor.lang) });
       return;
+    }
+    if (count === 1) {
+      const sinkEntry = target.exchanges.find(e => e.flavor === 'sink');
+      if (sinkEntry) {
+        runSinkExchange(actor, target, sinkEntry, inst);
+        return;
+      }
     }
   }
 

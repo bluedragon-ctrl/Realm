@@ -1,0 +1,22 @@
+{
+  "id": "item.rose_petals",
+  "name": {
+    "en": "a handful of rose petals",
+    "cs": "hrst růžových okvětních lístků"
+  },
+  "nameAcc": {
+    "en": "the rose petals",
+    "cs": "růžové okvětní lístky"
+  },
+  "short": {
+    "en": "A handful of soft red petals from a wild rose, faintly sweet.",
+    "cs": "Hrst měkkých červených lístků z divoké růže, slabě sladce voní."
+  },
+  "long": {
+    "en": "A small bundle of red rose petals, gathered from the wild roses that grow among the briars. They are soft, faintly sweet, and stain the fingers a little. The briar sprite values them above almost anything.",
+    "cs": "Drobný svazek červených okvětních lístků, otrhaných z divokých růží mezi ostružinami. Jsou měkké, slabě sladce voní a trochu barví prsty. Trnová víla si jich cení nade vše."
+  },
+  "tags": ["ingredient"],
+  "weight": 0,
+  "spawn": { "location": "forest.briar_path", "count": 3, "respawnTicks": 600 }
+}

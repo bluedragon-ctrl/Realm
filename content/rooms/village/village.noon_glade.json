@@ -1,0 +1,19 @@
+{
+  "id": "village.noon_glade",
+  "name": {
+    "en": "The Noon Glade",
+    "cs": "Polední mýtina"
+  },
+  "short": {
+    "en": "A circular clearing in the deep wheat, breathlessly still.",
+    "cs": "Kruhová mýtinka v hlubokém obilí, smrtelně tichá."
+  },
+  "long": {
+    "en": "A perfect circle of bare earth in the middle of the deep wheat, as if nothing has ever grown here. The air is thick and hot. No wind moves the stalks at the edge. No bird sings. The sun hangs directly overhead and the shadows are sharp and black. Something has been here a very long time.",
+    "cs": "Dokonalý kruh holé země uprostřed hlubokého obilí, jako by tu nikdy nic nevyrostlo. Vzduch je hustý a horký. Žádný vítr nehne stébly na okraji. Žádný pták nezpívá. Slunce visí přímo nad hlavou a stíny jsou ostré a černé. Něco tu žije velmi, velmi dlouho."
+  },
+  "exits": {
+    "s": "village.wheat_path"
+  },
+  "tags": ["outdoor", "village", "boss"]
+}

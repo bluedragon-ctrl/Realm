@@ -27,6 +27,9 @@
   },
   "respawn": { "ticks": 1500 },
   "xp": 18,
+  "loot": [
+    { "defId": "item.wolf_fang", "chance": 0.8 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",

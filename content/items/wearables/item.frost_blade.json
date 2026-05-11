@@ -1,0 +1,28 @@
+{
+  "id": "item.frost_blade",
+  "name": {
+    "en": "a frost blade",
+    "cs": "mrazivá čepel"
+  },
+  "nameAcc": {
+    "en": "the frost blade",
+    "cs": "mrazivou čepel"
+  },
+  "short": {
+    "en": "A great sword with a pale grey-white blade, cold to the touch even through the scabbard.",
+    "cs": "Velký meč s bledou šedobílou čepelí, chladnou na dotek i přes pochvu."
+  },
+  "long": {
+    "en": "A heavy two-handed sword whose blade has gone the colour of winter ice — dull grey-white and slightly frosted along the edge. The dark leather grip never warms up no matter how long you hold it. When you swing it the cold follows the arc, and anything the blade touches feels the chill long after the hit.",
+    "cs": "Těžký obouruční meč, jehož čepel má barvu zimního ledu — matně šedobílá, s lehkým jíním podél ostří. Tmavá kožená rukojeť se nikdy neohřeje, ať ji držíš sebedéle. Když s mečem zamácháš, chlad sleduje oblouk — a co čepel zasáhne, pocítí mráz ještě dlouho po ráně."
+  },
+  "tags": ["weapon", "magic"],
+  "weight": 7,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "2d8+ATK",
+    "cost": 20,
+    "bonus": { "attack": 3 },
+    "onHit": { "applyEffect": "effect.mana_burn", "chance": 0.3 }
+  }
+}

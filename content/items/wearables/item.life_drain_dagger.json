@@ -1,0 +1,28 @@
+{
+  "id": "item.life_drain_dagger",
+  "name": {
+    "en": "a life drain dagger",
+    "cs": "životopijná dýka"
+  },
+  "nameAcc": {
+    "en": "the life drain dagger",
+    "cs": "životopijnou dýku"
+  },
+  "short": {
+    "en": "A slim dagger with a blade the colour of dried blood.",
+    "cs": "Štíhlá dýka s tmavou čepelí barvy zaschlé krve."
+  },
+  "long": {
+    "en": "A slim, well-balanced dagger with a blade so dark it seems to drink the light around it. The leather grip is warm even in cold air, as if the weapon has its own slow heartbeat. When the blade finds its mark, something passes through it — not just steel, but hunger.",
+    "cs": "Štíhlá, dobře vyvážená dýka s čepelí tak tmavou, jako by pohlcovala světlo kolem sebe. Kožená rukojeť je teplá i ve studeném vzduchu, jako by zbraň měla vlastní pomalý tep. Když čepel zasáhne cíl, projde jí cosi — nejen ocel, ale hlad."
+  },
+  "tags": ["weapon", "magic"],
+  "weight": 2,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d4+ATK",
+    "cost": 14,
+    "bonus": { "attack": 1 },
+    "onHit": { "effect": { "type": "life_drain", "formula": "1d4", "ratio": 0.5 }, "chance": 0.35 }
+  }
+}

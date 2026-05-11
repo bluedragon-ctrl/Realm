@@ -28,7 +28,9 @@
   "respawn": { "ticks": 700 },
   "xp": 3,
   "loot": [
-    { "defId": "item.rat_tail", "chance": 0.9 }
+    { "defId": "item.rat_tail", "chance": 0.9 },
+    { "defId": "item.ring_copper", "chance": 0.1 },
+    { "defId": "item.ring_mana", "chance": 0.1 }
   ],
   "behaviors": [
     {

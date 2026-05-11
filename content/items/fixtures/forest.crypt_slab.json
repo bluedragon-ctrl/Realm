@@ -1,0 +1,37 @@
+{
+  "id": "forest.crypt_slab",
+  "name": {
+    "en": "a cracked stone slab",
+    "cs": "popraskaná kamenná deska"
+  },
+  "nameAcc": {
+    "en": "the stone slab",
+    "cs": "kamennou desku"
+  },
+  "short": {
+    "en": "A cracked stone slab leans against the crypt wall, an old inscription carved across its face.",
+    "cs": "O zeď krypty se opírá popraskaná kamenná deska s vytesaným starým nápisem."
+  },
+  "long": {
+    "en": "A heavy slab of grey stone, broken across the middle but still standing against the wall. An inscription is carved into the face in old straight letters, half-eaten by damp and time.",
+    "cs": "Těžká deska ze šedého kamene, popraskaná napůl, ale stále se opírající o zeď. Do líce jsou vytesány starým rovným písmem nápisy, napůl rozežrané vlhkem a časem."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "forest.tower_crypt", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you trace the letters on the slab and read what is left: 'Here below lies the master of the tower. He bound the cold and the spark to his will. Do not wake him.'",
+        "others": "{actor} traces the worn letters on the cracked slab."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přejedeš prstem po písmenech a přečteš, co zbylo: „Pod touto deskou leží pán věže. Spoutal chlad i jiskru. Neprobouzej ho.“",
+        "others": "{actor} přejede prstem po ohlazených písmenech na popraskané desce."
+      }
+    }
+  }
+}

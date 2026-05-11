@@ -18,6 +18,7 @@
   },
   "tags": ["ring"],
   "weight": 1,
+  "spawn": { "location": "forest.fox_den", "count": 1, "respawnTicks": 3600 },
   "wearable": {
     "slot": "ring",
     "bonus": { "defense": 1 }

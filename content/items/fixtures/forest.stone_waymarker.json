@@ -1,0 +1,37 @@
+{
+  "id": "forest.stone_waymarker",
+  "name": {
+    "en": "a carved stone waymarker",
+    "cs": "kamenný směrovník"
+  },
+  "nameAcc": {
+    "en": "the stone waymarker",
+    "cs": "kamenný směrovník"
+  },
+  "short": {
+    "en": "A weather-beaten stone marker stands at the top of the hill.",
+    "cs": "Na vrcholu kopce stojí kámen ohlodaný počasím."
+  },
+  "long": {
+    "en": "A squat block of grey stone with three arrows carved into its sides. One points north to a leaning shape on the horizon — an old tower. One points east along a broken road that disappears into the rocks. The third points back south, into the forest.",
+    "cs": "Hranatý šedý kámen se třemi šipkami vytesanými do stran. Jedna ukazuje na sever ke skloněnému tvaru na obzoru — staré věži. Druhá na východ podél rozbité cesty, která mizí mezi skalami. Třetí ukazuje zpět na jih, do lesa."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "forest.hill", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you read the worn marks on the stone. North: 'tower — the old mage'. East: 'broken road — keep — turn back at night'. South: 'forest, home'.",
+        "others": "{actor} traces the worn carvings on the waymarker."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přečteš si ohlazené nápisy na kameni. Sever: „věž — starý mág“. Východ: „rozbitá cesta — hrad — v noci se vrať“. Jih: „les, domov“.",
+        "others": "{actor} přejede prstem po ohlazených nápisech na směrovníku."
+      }
+    }
+  }
+}

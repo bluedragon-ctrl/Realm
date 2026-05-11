@@ -27,6 +27,10 @@
     "spd": 8
   },
   "respawn": { "ticks": 250 },
+  "loot": [
+    { "defId": "item.ring_copper", "chance": 0.05 },
+    { "defId": "item.ring_mana", "chance": 0.05 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",

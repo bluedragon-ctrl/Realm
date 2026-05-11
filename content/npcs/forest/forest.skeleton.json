@@ -6,8 +6,7 @@
   "nameGen": { "en": "the skeleton warrior", "cs": "kostlivce bojovníka" },
   "title": { "en": "skeleton warrior", "cs": "kostlivec bojovník" },
   "locations": {
-    "forest.tower_cellar": 1,
-    "forest.tower_crypt": 1
+    "forest.tower_cellar": 1
   },
   "short": {
     "en": "A skeleton warrior stands in the middle of the cellar, sword raised.",

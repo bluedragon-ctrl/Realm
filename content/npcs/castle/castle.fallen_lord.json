@@ -27,6 +27,14 @@
     "spd": 5
   },
   "respawn": { "ticks": 3000 },
+  "loot": [
+    { "defId": "item.amulet_strength", "chance": 0.5 },
+    { "defId": "item.amulet_life", "chance": 0.25 },
+    { "defId": "potion.heal", "chance": 1.0 },
+    { "defId": "potion.heal", "chance": 1.0 },
+    { "defId": "potion.heal", "chance": 1.0 },
+    { "defId": "item.frost_blade", "chance": 0.3 }
+  ],
   "behaviors": [
     {
       "primitive": "cast",

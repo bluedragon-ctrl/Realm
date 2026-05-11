@@ -1,0 +1,23 @@
+{
+  "id": "home.working_table",
+  "name": {
+    "en": "a working table",
+    "cs": "pracovní stůl"
+  },
+  "nameAcc": {
+    "en": "the working table",
+    "cs": "pracovní stůl"
+  },
+  "short": {
+    "en": "A heavy oak table scarred with old cuts, stained with wax and tallow.",
+    "cs": "Těžký dubový stůl posetý starými zářezy, pokapaný voskem a lojem."
+  },
+  "long": {
+    "en": "A solid table of dark old oak. Its surface is covered in deep knife marks and waxy drips. Candle moulds and small tools hang on the wall above it. Someone who knows what they are doing could make candles here.",
+    "cs": "Pevný stůl z tmavého starého dubu. Povrch je pokrytý hlubokými stopami od nože a voskovými odkapky. Na stěně nad ním visí formy na svíčky a drobné nástroje. Někdo, kdo ví, co dělá, by tu mohl vyrábět svíčky."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "home.cottage", "count": 1 }
+}
