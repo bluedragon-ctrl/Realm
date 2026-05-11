@@ -1,0 +1,26 @@
+{
+  "id": "item.amulet_keen_senses",
+  "name": {
+    "en": "an amulet of keen senses",
+    "cs": "amulet bystrých smyslů"
+  },
+  "nameAcc": {
+    "en": "the amulet of keen senses",
+    "cs": "amulet bystrých smyslů"
+  },
+  "short": {
+    "en": "A small silver amulet etched with an open eye.",
+    "cs": "Malý stříbrný amulet vyrytý otevřeným okem."
+  },
+  "long": {
+    "en": "A silver disc on a thin chain, engraved with a single open eye that seems to catch the light from any angle. Wearing it sharpens what you notice around you.",
+    "cs": "Stříbrný disk na tenkém řetízku, vyrytý jediným otevřeným okem, které jakoby zachycuje světlo z každého úhlu. Když ho nosíš, začneš si všímat více věcí kolem sebe."
+  },
+  "tags": ["amulet", "magic"],
+  "weight": 1,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "perception": 2 }
+  },
+  "spawn": { "location": "forest.tower_cellar", "count": 1 }
+}
