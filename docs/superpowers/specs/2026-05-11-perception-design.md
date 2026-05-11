@@ -64,7 +64,14 @@ Stub only. `canPerceive(observer, target)` in `src/game/perception.js` keeps ret
 
 ### Hidden exit
 
-Exit value becomes an object form when hidden. Bare-string form continues to work for visible exits.
+Authoring shape: exit value is an object form when hidden; bare-string form continues to work for visible exits.
+
+**Runtime shape (post-load):** the room loader normalizes object-form exits into two parallel maps so runtime code that reads `room.exits[key] -> targetId` (notably `move.js`, `validateRoomGraph`, `isExitLocked`) continues to work unchanged:
+
+- `room.exits[key] = targetId` (string, as today).
+- `room.hiddenExits[key] = { dc, id }` (new optional map; absent on visible exits).
+
+Renderer and `search` consult `room.hiddenExits`; movement consults `room.hiddenExits[exitKey]` together with `actor.record.foundSecrets` to decide whether the exit is treated as nonexistent.
 
 ```json
 "exits": {
@@ -156,7 +163,7 @@ Three room edits plus one item and one spell.
 1. **`village.square` — well passage.** Drop `lockedExits.d` from the room and remove the rope-key wiring from `village.well`. Convert `exits.d` to `{ "to": "village.well_bottom", "hidden": { "dc": 5, "id": "village.well_passage" } }`. DC 5 (easy). Exercises easy-tier finding with default new-player stats.
 2. **`home.shack` — trap door.** Drop `lockedExits.d` and remove the trap-door-key wiring from `home.trap_door`. Convert `exits.d` to `{ "to": "home.basement", "hidden": { "dc": 3, "id": "home.trap_door_perception" } }`. DC 3 (trivial).
 3. **`forest.fox_glade` — fox den.** New room `content/rooms/forest/forest.fox_den.json` (cosy den, no fixtures, exit `u` back to `forest.fox_glade`). Add `exits.d` on `forest.fox_glade` = `{ "to": "forest.fox_den", "hidden": { "dc": 4, "id": "forest.fox_den_entrance" } }`. Update `content/npcs/forest/forest.fox_pup.json`: `location` and `pack` change from `forest.fox_glade` → `forest.fox_den`. DC 4 (trivial).
-4. **`item.amulet_keen_senses`** — new wearable, slot `neck`, `wearable.bonus = { perception: 2 }`. Spawn block places one instance in `forest.tower_cellar` (visible floor item) so the fox den isn't double-loaded.
+4. **`item.amulet_keen_senses`** — new wearable, slot `amulet`, `wearable.bonus = { perception: 2 }`. Spawn block places one instance in `forest.tower_cellar` (visible floor item) so the fox den isn't double-loaded.
 5. **`forest.tower_cellar` — hidden alcove.** Add a hidden fixture placement: a decorative "loose stone in the wall" fixture (new fixture def `forest.loose_stone`, look-only, no inventory). Hidden block `{ "dc": 10, "id": "forest.tower_cellar_alcove" }`. DC 10 (medium). Provides the medium-tier test target so the amulet's +2 and the keen-senses spell's +4 have something concrete to unlock.
 6. **`spell.keen_senses`** — new self-target spell. Applies `effect.keen_senses` (new effect def), `statMod: { perception: 4 }`, `duration` ~30 ticks, MP cost ~3. Added to `ADMIN_GRANTED_SPELLS` in `src/game/actors.js`.
 
