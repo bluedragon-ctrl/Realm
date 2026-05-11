@@ -8,6 +8,7 @@ export const PLAYER_DEFAULT_STATS = Object.freeze({
   accuracy: 0,
   evasion: 0,
   spd: 6,
+  perception: 0,
 });
 
 export const NPC_DEFAULT_STATS = Object.freeze({
@@ -20,6 +21,7 @@ export const NPC_DEFAULT_STATS = Object.freeze({
   accuracy: 0,
   evasion: 0,
   spd: 6,
+  perception: 0,
 });
 
 export function normalizeStats(input, defaults) {
