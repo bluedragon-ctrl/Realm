@@ -16,7 +16,8 @@
     "w": "forest.sunlit_path",
     "n": "forest.berry_patch",
     "s": "forest.mushroom_hollow",
-    "e": "forest.rocky_outcrop"
+    "e": "forest.rocky_outcrop",
+    "d": { "to": "forest.fox_den", "hidden": { "dc": 4, "id": "forest.fox_den_entrance" } }
   },
   "tags": ["outdoor", "forest", "bright"]
 }

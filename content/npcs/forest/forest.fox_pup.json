@@ -5,9 +5,9 @@
   "nameDat": { "en": "the fox pup", "cs": "liščímu mláděti" },
   "nameGen": { "en": "the fox pup", "cs": "liščího mláděte" },
   "title": { "en": "fox pup", "cs": "liščí mládě" },
-  "location": "forest.fox_glade",
+  "location": "forest.fox_den",
   "count": 2,
-  "pack": "forest.fox_glade",
+  "pack": "forest.fox_den",
   "short": {
     "en": "A small fluffy fox pup tumbles in the grass.",
     "cs": "Malé chlupaté liščí mládě dovádí v trávě."

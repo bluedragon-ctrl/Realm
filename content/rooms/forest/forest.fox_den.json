@@ -1,0 +1,14 @@
+{
+  "id": "forest.fox_den",
+  "name": { "en": "Fox den", "cs": "Liščí doupě" },
+  "short": {
+    "en": "A cosy den under tangled roots.",
+    "cs": "Útulné doupě pod spletenými kořeny."
+  },
+  "long": {
+    "en": "A round chamber hollowed under the roots of an old birch. Soft moss carpets the floor and the air smells of warm fur and dry leaves. A narrow passage climbs back up to the glade above.",
+    "cs": "Kulatá komůrka vyhloubená pod kořeny staré břízy. Měkký mech pokrývá zem a vzduch voní teplou srstí a suchým listím. Úzká chodba stoupá zpět nahoru na mýtinu."
+  },
+  "exits": { "u": "forest.fox_glade" },
+  "tags": ["indoor", "forest", "safe"]
+}
