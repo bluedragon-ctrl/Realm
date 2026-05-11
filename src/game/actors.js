@@ -17,6 +17,8 @@ export function makePlayerActor(record, session, isAdmin) {
   record.lang = normalizeLang(record.lang);
   if (!Array.isArray(record.inventory)) record.inventory = [];
   if (!Array.isArray(record.knownSpells)) record.knownSpells = [];
+  if (!Array.isArray(record.foundSecrets)) record.foundSecrets = [];
+  record.foundSecrets = record.foundSecrets.filter(x => typeof x === 'string');
   if (isAdmin) {
     for (const sid of ADMIN_GRANTED_SPELLS) {
       if (world.spellDefs.has(sid) && !record.knownSpells.includes(sid)) record.knownSpells.push(sid);
