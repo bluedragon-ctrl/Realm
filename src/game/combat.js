@@ -384,6 +384,7 @@ function handlePlayerDeath(killer, victim) {
     tone: 'death',
     text: s('combat.you_died', victim.lang),
   });
+  sendStats(victim);
 
   if (oldRoom) describeRoomToAll(oldRoom);
 
