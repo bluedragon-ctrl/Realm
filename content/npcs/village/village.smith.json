@@ -65,6 +65,27 @@
       "outputs": [{ "item": "item.iron_helmet" }]
     },
     {
+      "id": "smith.craft_toad_hide_armor",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.toad_hide", "count": 2 }, { "gold": 30 }],
+      "outputs": [{ "item": "item.toad_hide_armor" }],
+      "xp": 6,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand two toad hides and thirty gold to {target}. He soaks them, stretches them flat, and stitches them into a suit of slick, warty armour.",
+            "others": "{actor} hands two toad hides and gold to {target}. The smith soaks and stitches the hides into a suit of toad-hide armour."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš dvě ropuší kůže a třicet zlatých {target.dat}. Namočí je, napne a sešije do kluzké bradavičnaté zbroje.",
+            "others": "{actor} podává dvě ropuší kůže a zlaté {target.dat}. Kovář kůže namočí a sešije do zbroje z ropuší kůže."
+          }
+        }
+      }
+    },
+    {
       "id": "smith.craft_bear_skin_armor",
       "flavor": "craft",
       "inputs":  [{ "item": "item.bear_skin", "count": 1 }, { "gold": 50 }],

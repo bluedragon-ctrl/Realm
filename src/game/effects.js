@@ -19,6 +19,11 @@ function evalAmount(value, ctx) {
 let damageRouteHandler = null;
 export function setDamageRouteHandler(fn) { damageRouteHandler = fn; }
 
+// Set by activeEffects.js so the `cleanse` effect can iterate and strip debuff active effects
+// without effects.js importing activeEffects.js (cycle).
+let cleanseHandler = null;
+export function setCleanseHandler(fn) { cleanseHandler = fn; }
+
 const EFFECTS = {
   teach_spell({ spell }, { actor }) {
     if (!spell || !actor?.knownSpells) return { learned: false };
@@ -177,7 +182,7 @@ const EFFECTS = {
     }
     return { ok: true, touched };
   },
-  heal({ amount, hp, mp }, { actor, target }) {
+  heal({ amount, hp, mp, removeFixture }, { actor, target, fixture, room }) {
     const recipient = target ?? actor;
     if (!recipient.stats) return { hpRestored: 0, mpRestored: 0 };
     const ctx = { actor };
@@ -187,10 +192,36 @@ const EFFECTS = {
     const mpBefore = recipient.stats.mp;
     recipient.stats.hp = Math.min(recipient.stats.hpMax, recipient.stats.hp + hpAmount);
     recipient.stats.mp = Math.min(recipient.stats.mpMax, recipient.stats.mp + mpAmount);
+    if (removeFixture && fixture) removeItemFromRoom(fixture, room);
     return {
       hpRestored: recipient.stats.hp - hpBefore,
       mpRestored: recipient.stats.mp - mpBefore,
+      fixtureRemoved: !!(removeFixture && fixture),
     };
+  },
+  cleanse(_def, { actor, target }) {
+    const recipient = target ?? actor;
+    if (!recipient || !cleanseHandler) return { removed: 0 };
+    const removed = cleanseHandler(recipient);
+    if (recipient.kind === 'player' && recipient.session) {
+      const key = removed > 0 ? 'cleanse.removed' : 'cleanse.nothing';
+      const tone = removed > 0 ? 'good' : 'flavor';
+      recipient.session.send({ kind: 'system', tone, text: s(key, recipient.lang, { count: removed }) });
+    }
+    return { removed };
+  },
+  life_drain({ formula, ratio = 0.5 }, { actor, target }) {
+    if (!target?.stats || !actor?.stats || target === actor) return { dealt: 0, healed: 0 };
+    const raw = Math.max(0, evalAmount(formula, { actor }));
+    const dealt = Math.min(target.stats.hp, raw);
+    target.stats.hp -= dealt;
+    if (target.kind === 'player' && target.session) sendStats(target);
+    const healed = Math.floor(dealt * ratio);
+    if (healed > 0) {
+      actor.stats.hp = Math.min(actor.stats.hpMax, actor.stats.hp + healed);
+      if (actor.kind === 'player' && actor.session) sendStats(actor);
+    }
+    return { dealt, healed };
   },
 };
 

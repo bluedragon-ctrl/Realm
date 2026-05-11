@@ -59,6 +59,31 @@ export function removeEffectsBySource(actor, source) {
   if (actor.activeEffects.length !== before) markDirty(actor);
 }
 
+// Strips all `kind: "debuff"` active effects from the actor, skipping wearable-applied
+// effects (those are tied to equipped gear — re-applied on next equip sync). Used by the
+// `cleanse` effect type in effects.js, wired via setCleanseHandler in tick.js.
+export function removeDebuffs(actor) {
+  const list = ensureList(actor);
+  const before = list.length;
+  let hadStatMod = false;
+  actor.activeEffects = list.filter(e => {
+    if (e.source?.startsWith(WEARABLE_SOURCE_PREFIX)) return true;
+    const def = world.effectDefs.get(e.defId);
+    if (!def) return true;
+    if (def.kind === 'debuff') {
+      if (def.statMod) hadStatMod = true;
+      return false;
+    }
+    return true;
+  });
+  const removed = before - actor.activeEffects.length;
+  if (removed > 0) {
+    markDirty(actor);
+    if (hadStatMod) recomputeStats(actor);
+  }
+  return removed;
+}
+
 export function syncWearableEffects(actor) {
   const list = ensureList(actor);
   actor.activeEffects = list.filter(e => !e.source.startsWith(WEARABLE_SOURCE_PREFIX));

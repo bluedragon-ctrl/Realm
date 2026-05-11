@@ -1,0 +1,45 @@
+{
+  "id": "potion.thorns",
+  "name": {
+    "en": "a thorns potion",
+    "cs": "trnový lektvar"
+  },
+  "nameAcc": {
+    "en": "the thorns potion",
+    "cs": "trnový lektvar"
+  },
+  "short": {
+    "en": "A small green vial full of dark liquid with tiny thorns floating inside.",
+    "cs": "Malá zelená lahvička s tmavou tekutinou, v níž plavou drobné trny."
+  },
+  "long": {
+    "en": "A small dark green vial. Inside, a thick liquid the colour of crushed leaves moves slowly. Tiny thorn fragments drift through it. Drinking it makes the skin briefly prickle and harden, and any blow that lands draws blood from the striker.",
+    "cs": "Malá tmavě zelená lahvička. Uvnitř pomalu kolotá hustá tekutina barvy rozmačkaných listů. Plavou v ní drobné úlomky trnů. Po vypití kůže na chvíli pichlavě ztvrdne a každá rána, která dopadne, krvácí toho, kdo ji uštědřil."
+  },
+  "tags": ["consumable", "potion"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the stopper and drink the thorns potion. Your skin prickles all over, sharp and tight, as if tiny thorns have just pushed through from the inside.",
+        "others": "{actor} drinks a dark green potion. The air around them seems to bristle for a moment."
+      },
+      "to_target": {
+        "self": "you hand the thorns potion to {target}, who drinks it.",
+        "others": "{actor} hands a small green potion to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš zátku a vypiješ trnový lektvar. Po celém těle ti zatrnka kůže, ostře a napjatě, jako by se právě zevnitř prodraly drobné trny.",
+        "others": "{actor} vypije tmavě zelený lektvar. Vzduch kolem něj se na okamžik zježí."
+      },
+      "to_target": {
+        "self": "podáš trnový lektvar {target.dat} a ten ho vypije.",
+        "others": "{actor} podává malý zelený lektvar {target.dat} a ten ho vypije."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "apply_effect", "effectId": "effect.thorns" }
+  }
+}

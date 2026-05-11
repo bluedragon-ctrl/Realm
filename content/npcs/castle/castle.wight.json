@@ -27,6 +27,10 @@
     "spd": 6
   },
   "respawn": { "ticks": 700 },
+  "loot": [
+    { "defId": "potion.mana", "chance": 0.7 },
+    { "defId": "item.ward_scroll", "chance": 0.2 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",

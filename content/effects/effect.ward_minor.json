@@ -1,0 +1,12 @@
+{
+  "id": "effect.ward_minor",
+  "name": {
+    "en": "Warded",
+    "cs": "Chráněn"
+  },
+  "kind": "buff",
+  "icon": "🛡️",
+  "duration": 30,
+  "statMod": { "defense": 3 },
+  "stack": "refresh"
+}

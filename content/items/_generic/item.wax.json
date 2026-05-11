@@ -1,0 +1,22 @@
+{
+  "id": "item.wax",
+  "name": {
+    "en": "a lump of beeswax",
+    "cs": "hrudka včelího vosku"
+  },
+  "nameAcc": {
+    "en": "the lump of beeswax",
+    "cs": "hrudku včelího vosku"
+  },
+  "short": {
+    "en": "A pale yellow lump of beeswax, soft and faintly sweet-smelling.",
+    "cs": "Bledě žlutá hrudka včelího vosku, měkká a slabě vonící."
+  },
+  "long": {
+    "en": "A small lump of soft beeswax, pale yellow and faintly sweet. It is warm to the touch. Good for making candles.",
+    "cs": "Malá hrudka měkkého včelího vosku, bledě žlutá a slabě sladká. Na dotek je teplá. Hodí se na výrobu svíček."
+  },
+  "tags": ["ingredient"],
+  "weight": 0,
+  "spawn": { "location": "home.garden", "count": 2, "respawnTicks": 3600 }
+}

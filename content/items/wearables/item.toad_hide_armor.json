@@ -1,0 +1,25 @@
+{
+  "id": "item.toad_hide_armor",
+  "name": {
+    "en": "a suit of toad-hide armour",
+    "cs": "zbroj z ropuší kůže"
+  },
+  "nameAcc": {
+    "en": "the suit of toad-hide armour",
+    "cs": "zbroj z ropuší kůže"
+  },
+  "short": {
+    "en": "A suit of armour cut from warty, slick toad hide.",
+    "cs": "Zbroj vystřižená z bradavičnaté kluzké ropuší kůže."
+  },
+  "long": {
+    "en": "A suit of armour stitched from the thick hide of the well toad. The outer surface is warty and faintly slick, and spells seem to skid off it the same way blows do. It is lighter than bear-hide and offers less raw protection, but fighters who rely on staying quick find it suits them better.",
+    "cs": "Zbroj sešitá z tlusté kůže studniční ropuchy. Vnější povrch je bradavičnatý a lehce kluzký, kouzla po ní kloužou stejně jako rány. Je lehčí než medvědí kůže a poskytuje menší přímou ochranu, ale bojovníkům, kteří spoléhají na pohyblivost, sedí lépe."
+  },
+  "tags": ["armor"],
+  "weight": 2,
+  "wearable": {
+    "slot": "body",
+    "bonus": { "defense": 1, "magicResist": 15, "evasion": 10 }
+  }
+}

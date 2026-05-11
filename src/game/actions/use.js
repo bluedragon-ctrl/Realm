@@ -142,6 +142,7 @@ export default function use(actor, args) {
     if (useDef.effect?.type === 'heal') {
       sendHealFeedback(actor, targetActor, result);
       applyHealerAggro(actor, targetActor ?? actor, result?.hpRestored ?? 0);
+      if (result?.fixtureRemoved) describeRoomToAll(actor.location);
     } else if (useDef.effect?.type === 'unlock' && result?.unlocked) {
       describeRoomToAll(actor.location);
     } else if (useDef.effect?.type === 'open_chest' && result?.opened) {

@@ -16,5 +16,8 @@
     "w": "forest.fox_glade",
     "e": "forest.wolf_den"
   },
+  "hiddenFixtures": {
+    "forest.cache_stone": { "dc": 3, "id": "forest.rocky_outcrop_cache" }
+  },
   "tags": ["outdoor", "forest", "stone"]
 }

@@ -13,8 +13,8 @@
     "cs": "Kostlivec strážce ve zbroji se štítem, hlídá dveře."
   },
   "long": {
-    "en": "A heavier skeleton than the ones outside, dressed in old steel plate over chainmail. A round shield, badly dented but still solid, is strapped to its left arm. It carries a long sword and stands the way a real soldier stands — feet apart, weight balanced. Cold blue lights flicker in its eyes.",
-    "cs": "Mohutnější kostlivec než ti venku, oblečený ve staré ocelové zbroji přes kroužkovou košili. Na levé ruce má připásaný kulatý štít, silně promáčknutý, ale stále pevný. Drží dlouhý meč a stojí, jako stojí skutečný voják — nohy od sebe, váha vyvážená. V očích mu blikají chladná modrá světla."
+    "en": "A heavier skeleton than the ones outside, dressed in old steel plate over chainmail. A round shield, badly dented but still solid, is strapped to its left arm. Some carry a long sword; others a heavy iron mace. Either way it stands the way a real soldier stands — feet apart, weight balanced. Cold blue lights flicker in its eyes.",
+    "cs": "Mohutnější kostlivec než ti venku, oblečený ve staré ocelové zbroji přes kroužkovou košili. Na levé ruce má připásaný kulatý štít, silně promáčknutý, ale stále pevný. Někteří drží dlouhý meč, jiní těžký železný palcát. Tak jako tak stojí, jak stojí skutečný voják — nohy od sebe, váha vyvážená. V očích mu blikají chladná modrá světla."
   },
   "disposition": "hostile",
   "aggressive": true,
@@ -27,7 +27,30 @@
     "spd": 5
   },
   "respawn": { "ticks": 600 },
+  "loot": [
+    { "defId": "item.iron_mace", "chance": 0.5 }
+  ],
   "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "mace blow", "cs": "úder palcátem" },
+      "chance": 0.3,
+      "cost": 16,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} steps in and swings its iron mace at {target} with a heavy blow!",
+          "{actor} brings the mace down on {target} in a crushing overhead swing!",
+          "{actor} drives the knobbed head of its mace straight at {target}!"
+        ],
+        "cs": [
+          "{actor} udělá krok vpřed a švihem udeří palcátem na {target}!",
+          "{actor} přitáhne palcát a udeří na {target} drtivým máchnutím shora!",
+          "{actor} zaměří hrbolatou hlavou palcátu přímo na {target}!"
+        ]
+      }
+    },
     {
       "primitive": "attack",
       "name": { "en": "sword swing", "cs": "úder mečem" },
@@ -55,13 +78,13 @@
       "lines": {
         "en": [
           "raises its shield a little higher and watches you.",
-          "shifts its grip on the sword, bones grinding inside the gauntlet.",
+          "shifts its grip on its weapon, bones grinding inside the gauntlet.",
           "scrapes the tip of its blade across the stone floor.",
           "stands very still, the way a soldier stands on watch."
         ],
         "cs": [
           "zvedne štít o něco výš a sleduje tě.",
-          "přehmátne na meči, kosti uvnitř rukavice tichounce zaskřípou.",
+          "přehmátne na zbrani, kosti uvnitř rukavice tichounce zaskřípou.",
           "zatáhne špičkou meče po kamenné podlaze.",
           "stojí naprosto klidně, jako voják na hlídce."
         ]

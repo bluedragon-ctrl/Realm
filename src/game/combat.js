@@ -101,13 +101,26 @@ export function executeAttack(actor, action, target) {
     const hits = Array.isArray(action.onHit) ? action.onHit : [action.onHit];
     let applied = false;
     for (const hit of hits) {
-      if (!hit.applyEffect) continue;
-      if (Math.random() < (hit.chance ?? 1.0)) {
+      if (target.stats.hp <= 0) break;
+      if (Math.random() >= (hit.chance ?? 1.0)) continue;
+      if (hit.applyEffect) {
         applyActiveEffect(target, hit.applyEffect, EFFECT_SOURCE.COMBAT, actor.name);
         applied = true;
+      } else if (hit.effect) {
+        const result = applyEffect(hit.effect, { actor, target });
+        if (result?.healed > 0) {
+          if (actor.kind === 'player' && actor.session) {
+            actor.session.send({ kind: 'system', tone: 'good', text: s('combat.drain_proc_self', actor.lang, { amount: result.healed }) });
+          }
+          if (target.kind === 'player' && target.session) {
+            target.session.send({ kind: 'system', tone: 'bad', text: s('combat.drain_proc_target', target.lang, { actor: actorDisplay(actor, target.lang), amount: result.dealt }) });
+          }
+        }
+        applied = true;
+        if (target.stats.hp <= 0) { handleDeath(actor, target); break; }
       }
     }
-    if (applied && target.kind === 'player' && target.session) sendStats(target);
+    if (applied && target.stats?.hp > 0 && target.kind === 'player' && target.session) sendStats(target);
   }
 }
 
@@ -148,6 +161,26 @@ export function applyDamageWithFeedback(actor, target, amount) {
   if (target.kind === 'player') sendStats(target);
 
   if (actor.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
+
+  if (dealt > 0 && actor && actor !== target && actor.stats?.hp > 0 && target.activeEffects?.length) {
+    let reflectAmount = 0;
+    for (const eff of target.activeEffects) {
+      const def = world.effectDefs.get(eff.defId);
+      if (def?.reflect > 0) reflectAmount += def.reflect;
+    }
+    if (reflectAmount > 0) {
+      const reflectDealt = Math.min(actor.stats.hp, reflectAmount);
+      actor.stats.hp -= reflectDealt;
+      if (actor.kind === 'player' && actor.session) {
+        actor.session.send({ kind: 'system', tone: 'bad', text: s('combat.thorns_received', actor.lang, { amount: reflectDealt }) });
+        sendStats(actor);
+      }
+      if (target.kind === 'player' && target.session) {
+        target.session.send({ kind: 'system', tone: 'good', text: s('combat.thorns_returned', target.lang, { actor: actorDisplay(actor, target.lang), amount: reflectDealt }) });
+      }
+      if (actor.stats.hp <= 0) handleDeath(target, actor);
+    }
+  }
 
   if (target.stats.hp <= 0) {
     handleDeath(actor, target);

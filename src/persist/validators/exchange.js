@@ -1,6 +1,6 @@
 import { check, checkEnum, checkObject, checkArray } from '../validate.js';
 
-const ALLOWED_FLAVORS = new Set(['buy', 'sell', 'craft']);
+const ALLOWED_FLAVORS = new Set(['buy', 'sell', 'craft', 'sink']);
 
 function validateExchangeSide(side, ctx, label) {
   checkArray(side, ctx, label);
@@ -32,16 +32,21 @@ export function validateExchanges(host, hostCtx, items) {
     check(typeof entry.id === 'string' && entry.id.length > 0, hostCtx,
       `exchanges[${i}].id must be a non-empty string`);
     checkEnum(entry.flavor, ALLOWED_FLAVORS, hostCtx, `exchanges[${i}].flavor`);
-    validateExchangeSide(entry.inputs, hostCtx, `exchanges[${i}].inputs`);
-    validateExchangeSide(entry.outputs, hostCtx, `exchanges[${i}].outputs`);
-    for (const side of ['inputs', 'outputs']) {
-      for (const e of entry[side]) {
-        if (e.item) check(items.has(e.item), ctx,
-          `${side} references unknown item '${e.item}'`);
+    if (entry.flavor === 'sink') {
+      check(entry.verb != null, ctx, `sink entries require a 'verb' block`);
+      validateExchangeSide(entry.outputs, hostCtx, `exchanges[${i}].outputs`);
+    } else {
+      validateExchangeSide(entry.inputs, hostCtx, `exchanges[${i}].inputs`);
+      validateExchangeSide(entry.outputs, hostCtx, `exchanges[${i}].outputs`);
+      for (const side of ['inputs', 'outputs']) {
+        for (const e of entry[side]) {
+          if (e.item) check(items.has(e.item), ctx,
+            `${side} references unknown item '${e.item}'`);
+        }
       }
-    }
-    if (entry.flavor === 'craft') {
-      check(entry.verb != null, ctx, `craft entries require a 'verb' block (so onlookers see the action)`);
+      if (entry.flavor === 'craft') {
+        check(entry.verb != null, ctx, `craft entries require a 'verb' block (so onlookers see the action)`);
+      }
     }
     if (entry.verb != null) checkObject(entry.verb, ctx, 'verb');
     if (entry.xp != null) {

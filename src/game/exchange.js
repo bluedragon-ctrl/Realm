@@ -38,7 +38,7 @@ export function findExchanges(roomId, { flavor, inputItem, outputItem } = {}) {
   for (const host of hostsInRoom(roomId)) {
     for (const entry of getExchanges(host)) {
       if (flavor && entry.flavor !== flavor) continue;
-      if (inputItem && !entry.inputs.some(x => x.item === inputItem)) continue;
+      if (inputItem && !(entry.inputs ?? []).some(x => x.item === inputItem)) continue;
       if (outputItem && !entry.outputs.some(x => x.item === outputItem)) continue;
       out.push({ host, entry });
     }
@@ -141,6 +141,17 @@ function broadcastDefault(actor, host, entry, units) {
     });
     return;
   }
+}
+
+export function runSinkExchange(actor, host, entry, inst) {
+  removeFromList(actor.inventory, inst);
+  for (const out of entry.outputs) {
+    if (out.gold != null) actor.gold = (actor.gold ?? 0) + out.gold;
+  }
+  runVerb({ actor, def: entry.verb, targetActor: host, params: { item: inst.def.nameAcc ?? inst.def.name } });
+  if (entry.xp && entry.xp > 0) awardXp(actor, entry.xp, 'sink');
+  actor.dirty = true;
+  sendStats(actor);
 }
 
 export function runExchange(actor, host, entry, { units = 1 } = {}) {

@@ -27,6 +27,13 @@
     "spd": 6
   },
   "respawn": { "ticks": 1500 },
+  "loot": [
+    { "defId": "item.decay_scroll", "chance": 0.15 },
+    { "defId": "item.life_drain_scroll", "chance": 0.15 },
+    { "defId": "item.fade_scroll", "chance": 0.15 },
+    { "defId": "item.frost_scroll", "chance": 0.15 },
+    { "defId": "item.amulet_regen", "chance": 0.15 }
+  ],
   "behaviors": [
     {
       "primitive": "cast",

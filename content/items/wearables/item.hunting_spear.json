@@ -18,6 +18,7 @@
   },
   "tags": ["weapon"],
   "weight": 2,
+  "spawn": { "location": "castle.armoury", "count": 1, "respawnTicks": 3600 },
   "wearable": {
     "slot": "weapon",
     "damage": "1d6+ATK",

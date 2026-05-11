@@ -86,6 +86,27 @@
       }
     },
     {
+      "id": "herbalist.craft_amulet_wolf_fang",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.wolf_fang", "count": 5 }],
+      "outputs": [{ "item": "item.amulet_wolf_fang" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand five wolf fangs to {target}. {target} drills a hole through each one and threads them onto a leather cord, tying the amulet around your neck.",
+            "others": "{actor} hands five wolf fangs to {target}, who threads them onto a leather cord and makes an amulet."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš pět vlčích tesáků {target}. {target} každý provrtá a navleče na koženou šňůru, pak ti amulet uváže kolem krku.",
+            "others": "{actor} podává pět vlčích tesáků {target}, která je navleče na koženou šňůru a udělá z nich amulet."
+          }
+        }
+      }
+    },
+    {
       "id": "herbalist.craft_amulet_boar_def",
       "flavor": "craft",
       "inputs":  [{ "item": "item.boar_tusk", "count": 2 }],
@@ -102,6 +123,27 @@
           "to_target": {
             "self": "podáš dva kančí kly {target}. {target} je vyleští, provleče skrz kořeny koženou šňůru a podá ti amulet.",
             "others": "{actor} podává dva kančí kly {target}, která je provleče na koženou šňůru."
+          }
+        }
+      }
+    },
+    {
+      "id": "herbalist.craft_ward_potion",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.ironwort", "count": 3 }],
+      "outputs": [{ "item": "potion.ward" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand three sprigs of ironwort to {target}. {target} grinds the tough leaves, simmers them with a pinch of grey ash, and pours the cloudy result into a small glass vial for you.",
+            "others": "{actor} hands three sprigs of ironwort to {target}, who grinds and brews them into a small cloudy potion."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš tři snítky železníku {target.dat}. {target} houževnaté listy rozdrtí, povaří je se špetkou šedého popela a kalnou tekutinu naleje do drobné skleněné lahvičky.",
+            "others": "{actor} podává tři snítky železníku {target.dat}, která je rozdrtí a uvaří z nich drobný kalný lektvar."
           }
         }
       }

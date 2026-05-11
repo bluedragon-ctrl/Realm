@@ -1,0 +1,75 @@
+{
+  "id": "forest.broken_soldier",
+  "name": { "en": "a broken soldier", "cs": "polámaný voják" },
+  "nameAcc": { "en": "the broken soldier", "cs": "polámaného vojáka" },
+  "nameDat": { "en": "the broken soldier", "cs": "polámanému vojákovi" },
+  "nameGen": { "en": "the broken soldier", "cs": "polámaného vojáka" },
+  "title": { "en": "broken soldier", "cs": "polámaný voják" },
+  "location": "forest.broken_road",
+  "count": 1,
+  "short": {
+    "en": "A gaunt figure in rusted armour shambles along the broken road.",
+    "cs": "Po rozbité cestě se vleče vyhublá postava v rezavém brnění."
+  },
+  "long": {
+    "en": "A thin, grey-skinned figure dressed in dented iron and rust. One pauldron is missing, the other hangs by a strap. The face under the rim of the helmet is sunken and hollow, and the eyes catch no light. A short sword hangs at the hip. The soldier walks the road like he is still on patrol, long after the keep stopped sending orders.",
+    "cs": "Štíhlá postava se šedou kůží, oblečená do promáčknutého železa a rzi. Jedno chránítko ramene chybí, druhé visí na řemínku. Tvář pod okrajem helmy je propadlá a vyhublá, oči nezachytí žádné světlo. U boku má krátký meč. Voják chodí po cestě, jako by stále hlídkoval, dlouho potom, co hrad přestal vydávat rozkazy."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 18, "hpMax": 18,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "magicResist": 10,
+    "spd": 5
+  },
+  "respawn": { "ticks": 600 },
+  "xp": 15,
+  "goldDrop": { "formula": "1d4+1", "chance": 0.5 },
+  "loot": [
+    { "defId": "item.iron_helmet", "chance": 0.3 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "weary thrust", "cs": "unavené bodnutí" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} thrusts a rusted short sword at {target}!",
+          "{actor} stabs at {target} with slow, mechanical motion!",
+          "{actor} swings the dented blade at {target}!"
+        ],
+        "cs": [
+          "{actor} bodne rezavým krátkým mečem po {target.dat}!",
+          "{actor} pomalu a mechanicky bodne po {target.dat}!",
+          "{actor} zamáchne promáčknutou čepelí na {target.acc}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "shuffles back and forth as if marching on patrol.",
+          "rasps something that might have been a name long ago.",
+          "the rusted armour creaks with every slow step.",
+          "lifts the helmet a finger's width and a stale breath escapes."
+        ],
+        "cs": [
+          "šourá se sem a tam, jako by hlídkoval.",
+          "zachrčí cosi, co snad kdysi bývalo jménem.",
+          "rezavé brnění vrže s každým pomalým krokem.",
+          "nadzvedne přilbu na šíři prstu a unikne mu zatuchlý dech."
+        ]
+      }
+    }
+  ]
+}

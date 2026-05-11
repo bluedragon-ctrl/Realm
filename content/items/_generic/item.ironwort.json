@@ -1,0 +1,22 @@
+{
+  "id": "item.ironwort",
+  "name": {
+    "en": "a sprig of ironwort",
+    "cs": "snítka železníku"
+  },
+  "nameAcc": {
+    "en": "the sprig of ironwort",
+    "cs": "snítku železníku"
+  },
+  "short": {
+    "en": "A tough, grey-green herb with leaves like little iron blades.",
+    "cs": "Houževnatá šedozelená bylina s lístky jako drobné železné čepele."
+  },
+  "long": {
+    "en": "A small, sturdy herb that grows on stony slopes. The leaves are hard and grey-green, with edges that prickle the fingers. Brewed correctly, ironwort hardens the skin for a short time. The herbalist will pay attention to it.",
+    "cs": "Drobná houževnatá bylina, která roste na kamenitých svazích. Lístky jsou tvrdé a šedozelené, s okraji, které píchají do prstů. Správně uvařený železník na chvíli ztvrdí kůži. Bylinkářka o něj má zájem."
+  },
+  "tags": ["ingredient", "herb"],
+  "weight": 0,
+  "spawn": { "location": "forest.tangled_slope", "count": 3, "respawnTicks": 2400 }
+}

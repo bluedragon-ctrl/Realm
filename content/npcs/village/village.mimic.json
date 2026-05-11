@@ -1,0 +1,85 @@
+{
+  "id": "village.mimic",
+  "name": { "en": "the mimic", "cs": "mimik" },
+  "nameAcc": { "en": "the mimic", "cs": "mimika" },
+  "nameDat": { "en": "the mimic", "cs": "mimikovi" },
+  "nameGen": { "en": "the mimic", "cs": "mimika" },
+  "title": { "en": "mimic", "cs": "mimik" },
+  "location": "village.pub",
+  "count": 1,
+  "short": {
+    "en": "A small wooden chest in the corner blinks at you with bright copper eyes.",
+    "cs": "Malá dřevěná truhla v rohu na tebe mrká jasnýma měděnýma očima."
+  },
+  "long": {
+    "en": "A creature shaped exactly like a small wooden chest, settled in the corner as if it has always been there. Two round copper eyes sit just above where the lock would be, and a row of small square teeth lines the lid. When the fire crackles it shifts and rattles softly. The regulars leave it alone and it leaves them alone. It seems very interested in what you might be carrying.",
+    "cs": "Tvor vypadající přesně jako malá dřevěná truhla, usazený v rohu jako by tam byl odnepaměti. Těsně nad místem, kde by měl být zámek, sedí dvě kulatá měděná oka, a podél víka je řada malých hranatých zubů. Když praská oheň, trochu se zavrtí a zacinkne. Štamgasti ho nechávají být a on nechává být je. Zdá se moc zvědavý, co třeba máš u sebe."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 12, "hpMax": 12,
+    "mp": 0, "mpMax": 0,
+    "attack": 0, "defense": 0, "int": 0,
+    "spd": 4
+  },
+  "exchanges": [
+    {
+      "id": "mimic.eat_item",
+      "flavor": "sink",
+      "outputs": [{ "gold": 1 }],
+      "xp": 1,
+      "verb": {
+        "en": { "to_target": {
+          "self": "You drop {item} into {target}'s gaping lid. A gold coin rolls out from somewhere inside.",
+          "others": "{actor} drops {item} into {target}'s lid. A coin rolls out."
+        }},
+        "cs": { "to_target": {
+          "self": "Hodíš {item} do rozevřeného víka {target.gen}. Odněkud zevnitř se vykulí zlatá mince.",
+          "others": "{actor} hodí {item} do víka {target.gen}. Vykutálí se mince."
+        }}
+      }
+    }
+  ],
+  "behaviors": [
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "rattles softly in the corner.",
+          "blinks its copper eyes slowly.",
+          "opens its lid a crack and peers around the room.",
+          "shifts with a wooden creak and settles again."
+        ],
+        "cs": [
+          "tiše zarachotí v rohu.",
+          "pomalu zamrká měděnýma očima.",
+          "pootevře víko a rozhlédne se po místnosti.",
+          "zavrtí se se dřevěným skřípnutím a usadí se zpátky."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.05,
+      "cost": 14,
+      "lines": {
+        "en": [
+          "Something to spare? Odds and ends welcome.",
+          "Nothing too heavy. Nothing too sharp. Well — sharp is fine actually.",
+          "I don't bite. I just chew.",
+          "One gold per item. Fair's fair."
+        ],
+        "cs": [
+          "Máš něco navíc? Brak a vetešiny vítány.",
+          "Nic moc těžkého. Nic moc ostrého. No — ostré vlastně nevadí.",
+          "Nekousám. Jen žuju.",
+          "Jedna zlatá za kus. Fér je fér."
+        ]
+      }
+    }
+  ]
+}

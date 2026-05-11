@@ -1,0 +1,12 @@
+{
+  "id": "effect.thorns",
+  "name": {
+    "en": "Thornskin",
+    "cs": "Trnitá kůže"
+  },
+  "kind": "buff",
+  "icon": "🌹",
+  "duration": 30,
+  "reflect": 1,
+  "stack": "refresh"
+}

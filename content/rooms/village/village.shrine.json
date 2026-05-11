@@ -9,8 +9,8 @@
     "cs": "Malá kamenná svatyňka u cesty, v záhonu lučních květů."
   },
   "long": {
-    "en": "A simple stone shrine no taller than a child stands at the side of the road in a patch of wildflowers. A worn offering bowl sits on the step, holding a few coins and a sprig of dried lavender. Bees drift between the blossoms. The cobbled road runs back south into the lane, and continues north out of the village toward distant hills.",
-    "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí u cesty v záhonu lučních květů. Na schůdku leží otřelá obětní miska s pár drobnými mincemi a větvičkou sušené levandule. Mezi květy poletují včely. Dlážděná cesta vede zpátky na jih do uličky a pokračuje na sever z vesnice ven k dalekým kopcům."
+    "en": "A simple stone shrine no taller than a child stands at the side of the road in a patch of wildflowers. Bees drift between the blossoms. The cobbled road runs back south into the lane, and continues north out of the village toward distant hills.",
+    "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí u cesty v záhonu lučních květů. Mezi květy poletují včely. Dlážděná cesta vede zpátky na jih do uličky a pokračuje na sever z vesnice ven k dalekým kopcím."
   },
   "exits": {
     "s": "village.lane"

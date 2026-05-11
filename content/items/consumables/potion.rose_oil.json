@@ -1,0 +1,45 @@
+{
+  "id": "potion.rose_oil",
+  "name": {
+    "en": "a vial of rose oil",
+    "cs": "lahvička růžového oleje"
+  },
+  "nameAcc": {
+    "en": "the rose oil",
+    "cs": "lahvičku růžového oleje"
+  },
+  "short": {
+    "en": "A small glass vial of clear amber oil that smells strongly of wild roses.",
+    "cs": "Drobná skleněná lahvička s čirým jantarovým olejem, který silně voní po divokých růžích."
+  },
+  "long": {
+    "en": "A slender glass vial sealed with a wax stopper. Inside, a clear amber oil catches the light like honey. The smell is sharp and sweet, the wild roses of summer pressed into a single drop. Drinking it clears the body of curses, poisons, and bleeding wounds.",
+    "cs": "Štíhlá skleněná lahvička zapečetěná voskovou zátkou. Uvnitř se třpytí čirý jantarový olej jako med. Vůně je ostrá a sladká, jako by všechny letní divoké růže byly vlisovány do jediné kapky. Po vypití zbaví tělo kleteb, jedů i krvácejících ran."
+  },
+  "tags": ["consumable", "potion"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the wax stopper and swallow the rose oil. The taste of summer floods your senses, and a cool clarity moves through you.",
+        "others": "{actor} drinks a vial of amber oil and breathes out a warm, rose-scented sigh."
+      },
+      "to_target": {
+        "self": "you hand the vial of rose oil to {target}, who drinks it.",
+        "others": "{actor} hands a small amber vial to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš voskovou zátku a vypiješ růžový olej. Chuť léta ti zaplaví smysly a tělem ti projde chladná čistota.",
+        "others": "{actor} vypije lahvičku jantarového oleje a vydechne teplý, růžemi vonící vzdech."
+      },
+      "to_target": {
+        "self": "podáš lahvičku růžového oleje {target.dat} a ten ji vypije.",
+        "others": "{actor} podává drobnou jantarovou lahvičku {target.dat} a ten ji vypije."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "cleanse" }
+  }
+}
