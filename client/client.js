@@ -18,8 +18,7 @@ const deathOverlay = document.getElementById('death-overlay');
 const deathCountEl = document.getElementById('death-count');
 const dirButtonsEl = document.getElementById('dir-buttons');
 const dirSepEl = document.getElementById('dir-sep');
-const useFixtureBtn = document.getElementById('use-fixture-btn');
-const useOnBtn = document.getElementById('use-on-btn');
+const useBtn = document.getElementById('use-btn');
 const consumablesBtn = document.getElementById('consumables-btn');
 const statusStrip = document.getElementById('status-strip');
 const stripHpRow = document.getElementById('strip-hp');
@@ -192,8 +191,7 @@ function renderStats(msg) {
     spellBtn.hidden = !(Array.isArray(msg.knownSpells) && msg.knownSpells.length > 0);
     spellBtn.classList.toggle('queued', msg.queuedAction === 'cast');
   }
-  if (labels.useFixtureButton) useFixtureBtn.textContent = labels.useFixtureButton;
-  if (labels.useOnButton) useOnBtn.textContent = labels.useOnButton;
+  if (labels.useButtonQuickbar) useBtn.textContent = labels.useButtonQuickbar;
   if (labels.consumablesButton) consumablesBtn.textContent = labels.consumablesButton;
   refreshActionButtons();
   whoEl.textContent = msg.isAdmin ? `${msg.name} (admin)` : msg.name;
@@ -906,8 +904,7 @@ quickbar.addEventListener('click', (ev) => {
   if (btn.id === 'attack-btn') { openAttackPicker(btn, ev); return; }
   if (btn.id === 'spell-btn') { openSpellPicker(btn, ev); return; }
   if (btn.id === 'look-btn') { openLookPicker(btn, ev); return; }
-  if (btn.id === 'use-fixture-btn') { openUseFixturePicker(btn, ev); return; }
-  if (btn.id === 'use-on-btn') { openUseOnPicker(btn, ev); return; }
+  if (btn.id === 'use-btn') { openUsePicker(btn, ev); return; }
   if (btn.id === 'consumables-btn') { openConsumablesPicker(btn, ev); return; }
   if (btn.dataset.cmd) sendInput(btn.dataset.cmd);
   else if (btn.dataset.prefix) fillInput(btn.dataset.prefix);
@@ -1112,9 +1109,9 @@ function openUseSubmenu(anchorEl, item) {
     popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
       sendInput(`use ${item.name}`); closePopover();
     }));
-    for (const target of currentRoomTargets()) {
-      popover.appendChild(popoverButton(target, '', () => {
-        sendInput(`use ${item.name} on ${target}`); closePopover();
+    for (const t of currentRoomTargets()) {
+      popover.appendChild(popoverButton(t.name, t.disposition === 'hostile' ? 'attack' : '', () => {
+        sendInput(`use ${item.name} on ${t.name}`); closePopover();
       }));
     }
   }
@@ -1140,9 +1137,9 @@ function openGiveSubmenu(anchorEl, item) {
     empty.textContent = '(no one here)';
     popover.appendChild(empty);
   } else {
-    for (const target of targets) {
-      popover.appendChild(popoverButton(target, '', () => {
-        sendInput(`give ${item.name} to ${target}`); closePopover();
+    for (const t of targets) {
+      popover.appendChild(popoverButton(t.name, t.disposition === 'hostile' ? 'attack' : '', () => {
+        sendInput(`give ${item.name} to ${t.name}`); closePopover();
       }));
     }
   }
@@ -1194,13 +1191,13 @@ function openSpellPopover(anchorEl, spell, ev) {
       return;
     }
     if (hostiles.length === 1) {
-      sendInput(`cast ${spell.id} on ${hostiles[0]}`);
+      sendInput(`cast ${spell.id} on ${hostiles[0].name}`);
       return;
     }
     startPopover(anchorEl, `${labels.castButton ?? 'Cast'}: ${spell.name} (${spell.mpCost}MP)`);
-    for (const target of hostiles) {
-      popover.appendChild(popoverButton(target, 'attack', () => {
-        sendInput(`cast ${spell.id} on ${target}`); closePopover();
+    for (const t of hostiles) {
+      popover.appendChild(popoverButton(t.name, 'attack', () => {
+        sendInput(`cast ${spell.id} on ${t.name}`); closePopover();
       }));
     }
     positionPopover(anchorEl);
@@ -1212,9 +1209,9 @@ function openSpellPopover(anchorEl, spell, ev) {
   popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
     sendInput(`cast ${spell.id}`); closePopover();
   }));
-  for (const target of candidates) {
-    popover.appendChild(popoverButton(target, '', () => {
-      sendInput(`cast ${spell.id} on ${target}`); closePopover();
+  for (const t of candidates) {
+    popover.appendChild(popoverButton(t.name, t.disposition === 'hostile' ? 'attack' : '', () => {
+      sendInput(`cast ${spell.id} on ${t.name}`); closePopover();
     }));
   }
   positionPopover(anchorEl);
@@ -1230,7 +1227,7 @@ function openAttackPicker(anchorEl, ev) {
   const targets = currentRoomTargets();
   const hostiles = currentRoomTargets({ hostileOnly: true });
   if (targets.length === 1 && hostiles.length === 1) {
-    sendInput(`attack ${targets[0]}`);
+    sendInput(`attack ${targets[0].name}`);
     return;
   }
   startPopover(anchorEl, labels.attackPickerTitle ?? 'Attack who?');
@@ -1240,9 +1237,9 @@ function openAttackPicker(anchorEl, ev) {
     empty.textContent = labels.attackPickerEmpty ?? '(no targets)';
     popover.appendChild(empty);
   } else {
-    for (const target of targets) {
-      popover.appendChild(popoverButton(target, 'attack', () => {
-        sendInput(`attack ${target}`); closePopover();
+    for (const t of targets) {
+      popover.appendChild(popoverButton(t.name, t.disposition === 'hostile' ? 'attack' : '', () => {
+        sendInput(`attack ${t.name}`); closePopover();
       }));
     }
   }
@@ -1341,40 +1338,27 @@ function openLookPicker(anchorEl, ev) {
   positionPopover(anchorEl);
 }
 
-function openUseFixturePicker(anchorEl, ev) {
+function openUsePicker(anchorEl, ev) {
   ev?.stopPropagation();
   const fixtures = (lastRoomMsg?.items ?? []).filter(it => it.usable && it.pickable === false);
-  startPopover(anchorEl, labels.useFixturePickerTitle ?? 'Use what?');
-  if (fixtures.length === 0) {
-    const empty = document.createElement('div');
-    empty.className = 'picker-empty';
-    empty.textContent = labels.useFixturePickerEmpty ?? '(nothing usable here)';
-    popover.appendChild(empty);
-  } else {
-    for (const f of fixtures) {
-      popover.appendChild(popoverButton(f.name, '', () => {
-        sendInput(`use ${f.name}`); closePopover();
-      }));
-    }
-  }
-  positionPopover(anchorEl);
-}
-
-function openUseOnPicker(anchorEl, ev) {
-  ev?.stopPropagation();
   const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
-  startPopover(anchorEl, labels.useOnPickerTitle ?? 'Use which item?');
-  if (inv.length === 0) {
+  startPopover(anchorEl, labels.usePickerTitle ?? 'Use what?');
+  if (fixtures.length === 0 && inv.length === 0) {
     const empty = document.createElement('div');
     empty.className = 'picker-empty';
-    empty.textContent = labels.noItemsLabel ?? '(no items)';
+    empty.textContent = labels.usePickerEmpty ?? '(nothing to use)';
     popover.appendChild(empty);
     positionPopover(anchorEl);
     return;
   }
+  for (const f of fixtures) {
+    popover.appendChild(popoverButton(f.name, '', () => {
+      sendInput(`use ${f.name}`); closePopover();
+    }));
+  }
   for (const item of inv) {
-    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-    popover.appendChild(popoverButton(label, '', () => {
+    const base = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+    popover.appendChild(popoverButton(`${base} ▶`, '', () => {
       openUseOnTargetPicker(anchorEl, item);
     }));
   }
@@ -1385,15 +1369,15 @@ function openUseOnTargetPicker(anchorEl, item) {
   const tmpl = labels.useOnTargetTitle ?? 'Use {item} on…';
   startPopover(anchorEl, tmpl.replace('{item}', item.name));
   popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => {
-    openUseOnPicker(anchorEl);
+    openUsePicker(anchorEl);
   }));
   if (item.usable) {
     popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
       sendInput(`use ${item.name}`); closePopover();
     }));
-    for (const target of currentRoomTargets()) {
-      popover.appendChild(popoverButton(target, '', () => {
-        sendInput(`use ${item.name} on ${target}`); closePopover();
+    for (const t of currentRoomTargets()) {
+      popover.appendChild(popoverButton(t.name, t.disposition === 'hostile' ? 'attack' : '', () => {
+        sendInput(`use ${item.name} on ${t.name}`); closePopover();
       }));
     }
   }
@@ -1435,11 +1419,11 @@ function currentRoomTargets(opts = {}) {
       const disposition = typeof n === 'string' ? 'neutral' : (n.disposition ?? 'neutral');
       if (opts.hostileOnly && disposition !== 'hostile') continue;
       if (opts.excludeHostile && disposition === 'hostile') continue;
-      out.push(name);
+      out.push({ name, disposition });
     }
   }
   if (!opts.hostileOnly && lastRoomMsg?.others) {
-    out.push(...lastRoomMsg.others);
+    for (const name of lastRoomMsg.others) out.push({ name, disposition: 'friendly' });
   }
   return out;
 }

@@ -2,6 +2,7 @@ import { getRoom, actorsInRoom, findInRoom, itemsInRoom, isExitLocked, getGoldIn
 import { findItemInList } from '../items.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
 import { canAfford } from '../exchange.js';
+import { getHate } from '../aggro.js';
 import { t, s, dirName } from '../../i18n.js';
 
 function serializeExchanges(host, lang, actor) {
@@ -73,9 +74,12 @@ export function describeRoom(actor) {
     if (a === actor) continue;
     if (a.kind === 'player') players.push(a.name);
     else if (a.kind === 'npc') {
+      const baseDisposition = a.disposition ?? 'neutral';
+      const hate = getHate(a, actor);
+      const effective = baseDisposition === 'hostile' && hate < 0 ? 'neutral' : baseDisposition;
       npcs.push({
         name: t(a.name, lang),
-        disposition: a.disposition ?? 'neutral',
+        disposition: effective,
       });
     }
   }

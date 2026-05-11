@@ -5,6 +5,7 @@ import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { resolveName } from './declension.js';
 import { setHate, getHate, maxHateInRoom, clearHateTable, removeFromTable } from './aggro.js';
+import { describeRoomToAll } from './actions/look.js';
 
 function evalAmount(value, ctx) {
   if (typeof value === 'number') return value;
@@ -155,6 +156,7 @@ const EFFECTS = {
         text: s('aggro.pacify_success', lang, { npc: resolveName(target, 'nom', lang) }),
       };
     });
+    describeRoomToAll(target.location);
     return { ok: true };
   },
   fade(_def, { actor }) {

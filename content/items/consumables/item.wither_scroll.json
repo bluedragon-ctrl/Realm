@@ -1,0 +1,40 @@
+{
+  "id": "item.wither_scroll",
+  "name": {
+    "en": "a brittle scroll",
+    "cs": "křehký svitek"
+  },
+  "nameAcc": {
+    "en": "the brittle scroll",
+    "cs": "křehký svitek"
+  },
+  "short": {
+    "en": "A dry, brittle scroll lies here.",
+    "cs": "Leží tu suchý, křehký svitek."
+  },
+  "long": {
+    "en": "A scroll of dry parchment, so brittle it crackles at the slightest touch. A withered branch is sketched across its centre.",
+    "cs": "Svitek suchého pergamenu, tak křehkého, že při sebemenším doteku praská. Uprostřed je načrtnutá uschlá větev."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The withered branch curls inward and crumbles.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A faint dry rustle hangs briefly in the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Uschlá větev se stočí dovnitř a rozpadne se.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduchem se na okamžik nese slabé suché šustění."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.wither"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "item.taunt_scroll",
+  "name": {
+    "en": "a brash red scroll",
+    "cs": "křiklavě červený svitek"
+  },
+  "nameAcc": {
+    "en": "the brash red scroll",
+    "cs": "křiklavě červený svitek"
+  },
+  "short": {
+    "en": "A bright red scroll lies here, almost daring you to pick it up.",
+    "cs": "Leží tu jasně červený svitek, jakoby tě vyzýval, abys ho zvedl."
+  },
+  "long": {
+    "en": "A scroll bound in bright red cord, the parchment loud against the dark. A bared snarl is scrawled across its centre.",
+    "cs": "Svitek převázaný jasně červenou šňůrou, pergamen křiklavý proti tmě. Uprostřed je načmáraný vyceněný úšklebek."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The scrawled snarl flares red and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. The air briefly rings with a sharp, taunting note."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Načmáraný úšklebek rudě vzplane a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduch nakrátko zazvoní ostrým výsměchem."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.taunt"
+    }
+  }
+}

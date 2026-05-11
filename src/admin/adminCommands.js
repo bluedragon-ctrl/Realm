@@ -1,14 +1,16 @@
 import { loadRooms, loadNpcs, loadStrings, loadSocials, loadItems, loadSpells, loadEffects } from '../persist/contentLoader.js';
 import { createPlayer, loadPlayer, savePlayer } from '../persist/players.js';
-import { world, START_ROOM, despawnAllNpcs, spawnAllNpcs, spawnAllItems } from '../game/world.js';
+import { world, START_ROOM, despawnAllNpcs, spawnAllNpcs, spawnAllItems, placeItemInRoom, spawnNpc, getRoom } from '../game/world.js';
 import { parseCommand, executeHandler } from '../game/dispatch.js';
 import { clearSocialButtonCache, sendStats } from '../game/messages.js';
-import { s, normalizeLang, setStringTables } from '../i18n.js';
+import { s, normalizeLang, setStringTables, t } from '../i18n.js';
 import { resetAllocations, ensureAllocationFields } from '../game/leveling.js';
 import { recomputeStats } from '../game/wearables.js';
 import { PLAYER_DEFAULT_STATS, normalizeStats } from '../game/stats.js';
 import { makeNameForms } from '../game/declension.js';
 import { pointsPhrase } from '../game/format.js';
+import { makeItemInstance } from '../game/items.js';
+import { describeRoomToAll } from '../game/actions/look.js';
 
 export function isAdminCommand(line) {
   return line.startsWith('@');
@@ -19,6 +21,8 @@ const ADMIN_HANDLERS = {
   'reload': reloadCmd,
   'who': adminWhoCmd,
   'reset-stats': resetStatsCmd,
+  'spawn-item': spawnItemCmd,
+  'spawn-npc': spawnNpcCmd,
 };
 
 export async function runAdminCommand(actor, line) {
@@ -94,6 +98,53 @@ async function adminWhoCmd(actor) {
   actor.session.send({
     kind: 'system',
     text: `${s('admin.who_header', actor.lang, { count: lines.length })}\n${lines.join('\n')}`,
+  });
+}
+
+async function spawnItemCmd(actor, args) {
+  const defId = args[0];
+  if (!defId) {
+    actor.session.send({ kind: 'error', text: s('admin.spawn_item_usage', actor.lang) });
+    return;
+  }
+  const def = world.itemDefs.get(defId);
+  if (!def) {
+    actor.session.send({ kind: 'error', text: s('admin.spawn_item_no_such', actor.lang, { defId }) });
+    return;
+  }
+  const room = actor.location;
+  const inst = makeItemInstance(def);
+  placeItemInRoom(inst, room);
+  describeRoomToAll(room);
+  actor.session.send({
+    kind: 'system',
+    tone: 'good',
+    text: s('admin.spawn_item_done', actor.lang, { name: t(def.name, actor.lang), room }),
+  });
+}
+
+async function spawnNpcCmd(actor, args) {
+  const defId = args[0];
+  if (!defId) {
+    actor.session.send({ kind: 'error', text: s('admin.spawn_npc_usage', actor.lang) });
+    return;
+  }
+  const def = world.npcDefs.get(defId);
+  if (!def) {
+    actor.session.send({ kind: 'error', text: s('admin.spawn_npc_no_such', actor.lang, { defId }) });
+    return;
+  }
+  const room = args[1] ?? actor.location;
+  if (!getRoom(room)) {
+    actor.session.send({ kind: 'error', text: s('admin.spawn_npc_no_room', actor.lang, { room }) });
+    return;
+  }
+  const npc = spawnNpc(def, room);
+  describeRoomToAll(room);
+  actor.session.send({
+    kind: 'system',
+    tone: 'good',
+    text: s('admin.spawn_npc_done', actor.lang, { name: t(npc.name, actor.lang), room }),
   });
 }
 

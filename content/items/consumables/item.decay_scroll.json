@@ -1,0 +1,40 @@
+{
+  "id": "item.decay_scroll",
+  "name": {
+    "en": "a mouldering scroll",
+    "cs": "zplesnivělý svitek"
+  },
+  "nameAcc": {
+    "en": "the mouldering scroll",
+    "cs": "zplesnivělý svitek"
+  },
+  "short": {
+    "en": "A scroll spotted with grey mould lies here.",
+    "cs": "Leží tu svitek pokrytý šedou plísní."
+  },
+  "long": {
+    "en": "A scroll of grey-spotted parchment. The writing inside is half-eaten by mould, yet the shape of a sickly sigil still holds.",
+    "cs": "Svitek šedě skvrnitého pergamenu. Písmo uvnitř je napůl strávené plísní, ale obrys neduživého znaku stále drží."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The sickly sigil oozes grey and dissolves.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A faint stale dampness hangs in the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Neduživý znak vyteče šedí a rozpadne se.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduchem se nese slabý zatuchlý pach."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.decay"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "item.frost_scroll",
+  "name": {
+    "en": "a frost-rimed scroll",
+    "cs": "mrazem pokrytý svitek"
+  },
+  "nameAcc": {
+    "en": "the frost-rimed scroll",
+    "cs": "mrazem pokrytý svitek"
+  },
+  "short": {
+    "en": "A scroll glittering with thin frost lies here.",
+    "cs": "Leží tu svitek pokrytý tenkou jinovatkou."
+  },
+  "long": {
+    "en": "A pale blue scroll edged with thin frost that never seems to melt. The writing inside glows faintly with a small snowflake.",
+    "cs": "Bledě modrý svitek s okraji pokrytými jinovatkou, která jakoby netála. Písmo uvnitř slabě svítí malou sněhovou vločkou."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The snowflake flares blue-white and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A chill ripples briefly through the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Sněhová vločka se modrobíle rozhoří a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduchem proletí krátký mráz."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.frost"
+    }
+  }
+}
