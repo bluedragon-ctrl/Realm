@@ -16,6 +16,7 @@ export function buildPanelLabels(lang) {
     acc: s('panel.acc', lang),
     eva: s('panel.eva', lang),
     spd: s('panel.spd', lang),
+    perception: s('panel.perception', lang),
     panelTitle: s('panel.player_info', lang),
     gold: s('panel.gold', lang),
     unspentPoints: s('panel.unspent_points', lang, { count: '{count}' }),
