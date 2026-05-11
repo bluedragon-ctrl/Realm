@@ -48,6 +48,10 @@ export const DEFAULT_COSTS = Object.freeze({
   flee: 12,
 });
 
+export const DEFAULT_NPC_REGEN = Object.freeze({ hp: 1, mp: 1 });
+
+export const LULL_TICKS = 6;
+
 export const DEFAULT_PLAYER_ATTACK = Object.freeze({
   primitive: 'attack',
   name: { en: 'attack', cs: 'útok' },
