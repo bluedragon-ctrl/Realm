@@ -1,4 +1,4 @@
-import { PLAYER_DEFAULT_STATS, NPC_DEFAULT_STATS, normalizeStats, DEFAULT_COSTS } from './stats.js';
+import { PLAYER_DEFAULT_STATS, NPC_DEFAULT_STATS, normalizeStats, DEFAULT_COSTS, DEFAULT_NPC_REGEN } from './stats.js';
 import { normalizeLang } from '../i18n.js';
 import { ensureAllocationFields } from './leveling.js';
 import { instanceFromSaved, makeItemInstance } from './items.js';
@@ -95,6 +95,10 @@ export function makeNpcActor(def, homeLocation = null) {
   const behaviors = def.behaviors ?? [];
   const _resolvedCosts = behaviors.map(b => b.cost ?? DEFAULT_COSTS[b.primitive] ?? 12);
   const _maxCost = _resolvedCosts.length ? Math.max(12, ..._resolvedCosts) : 12;
+  const regen = Object.freeze({
+    hp: def.regen?.hp ?? DEFAULT_NPC_REGEN.hp,
+    mp: def.regen?.mp ?? DEFAULT_NPC_REGEN.mp,
+  });
   const instanceId = nextNpcInstanceId++;
   return {
     kind: 'npc',
@@ -124,6 +128,8 @@ export function makeNpcActor(def, homeLocation = null) {
     behaviors,
     _resolvedCosts,
     _maxCost,
+    regen,
+    lastCombatTick: -Infinity,
     alive: true,
     activeEffects: [],
     pack: def.pack ?? null,

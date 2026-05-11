@@ -15,6 +15,7 @@ import { clearPlayerActionQueue } from './playerCombatState.js';
 import { unregisterWanderer } from './wandering.js';
 import { EFFECT_SOURCE } from './contentMeta.js';
 import { addHate, removeFromTable, hasAggroEntry, onAggroOnset } from './aggro.js';
+import { getTick } from './clock.js';
 export { aggroTargetInRoom, hasInRoomTarget } from './aggro.js';
 
 const MAX_DODGE = 50;
@@ -112,6 +113,10 @@ export function executeAttack(actor, action, target) {
 
 export function applyDamageWithFeedback(actor, target, amount) {
   if (!target?.stats || target.stats.hp <= 0) return 0;
+
+  const tick = getTick();
+  if (actor?.kind === 'npc') actor.lastCombatTick = tick;
+  if (target?.kind === 'npc') target.lastCombatTick = tick;
 
   const result = applyEffect({ type: 'damage', amount, _raw: true }, { actor, target });
   const dealt = result?.dealt ?? 0;
