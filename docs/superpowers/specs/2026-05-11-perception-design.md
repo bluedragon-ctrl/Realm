@@ -90,23 +90,28 @@ Movement attempt through a hidden-and-unfound exit returns the existing no-exit-
 
 ### Hidden fixture
 
-Fixtures are items placed in `room.items`. Add an optional `hidden` block on the room-level placement entry (not on the item def, so a fixture def can be hidden in one room and visible in another).
+In this codebase, fixtures are items with `tags: ["fixture"]` placed by the item def's own `spawn.location` (see `content/items/fixtures/*.json`). The hidden flag is declared on the **room** that hosts the fixture, not on the item def — so the same fixture def can be hidden in one room and visible in another.
+
+New optional room block, keyed by item def id:
 
 ```json
-"items": [
-  { "id": "forest.hollow_oak", "hidden": { "dc": 10 } }
-]
+"hiddenFixtures": {
+  "forest.loose_stone": { "dc": 10, "id": "forest.tower_cellar_alcove" }
+}
 ```
 
-- `hidden.dc` — integer, required.
-- `hidden.id` — string, optional. Defaults to the fixture's def id. Author must override when a room places two of the same fixture def and needs to disambiguate.
+- Key — item def id of the fixture.
+- Value `dc` — integer, required.
+- Value `id` — string, optional. Defaults to the item def id (the key) when omitted. A room may override the id if it cares to disambiguate; v1 content does not need this.
+
+At describe-room time the renderer filters every item instance in the room: if `inst.defId` is a key in `room.hiddenFixtures` and the recipient's `foundSecrets` does not include the resolved secret id, the instance is omitted from the room view. Effectively all instances of that def are hidden together by the same gate, which suits v1 (one fixture per gate).
 
 ### Renderer filter
 
 Per-recipient. In `describeRoomToAll` and any `look <room>` path:
 
-- Exit lists filter out exits whose `hidden.id` is not in the recipient's `foundSecrets`.
-- Room item lists filter out fixture placements whose `hidden.id` is not in `foundSecrets`.
+- Exit lists filter out exits whose `room.hiddenExits[key].id` is not in the recipient's `foundSecrets`.
+- Room item lists filter out item instances whose `defId` is a key in `room.hiddenFixtures` and whose resolved secret id is not in `foundSecrets`.
 
 Uses the existing per-recipient broadcast-builder pattern. Two players standing in the same room may see different exit/fixture lists.
 
@@ -114,8 +119,8 @@ Uses the existing per-recipient broadcast-builder pattern. Two players standing 
 
 - `ALLOWED_BONUS_KEYS` gains `perception`.
 - Room validator accepts object-form exits with `to` and optional `hidden { dc, id }`.
-- Room validator accepts `hidden { dc, id? }` on item placements.
-- Room loader rejects duplicate hidden ids within a room.
+- Room validator accepts top-level `hiddenFixtures` map: keys are item def ids, values are `{ dc, id? }`.
+- Room loader rejects duplicate secret ids across `hiddenExits` + `hiddenFixtures` within a single room.
 
 No new content tree. Hidden flags sit inline in existing room files, same pattern as `outdoor`/`lightBase` from the pre-light audit.
 
