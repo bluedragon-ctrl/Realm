@@ -314,13 +314,13 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Right-side panel rework (Spells/Inventory/Gear tab bar, list views, effects inline in stats block) |
 | Configurable cast/consumable quick-bar slots (per-spell/item checkbox, persisted in localStorage) |
 | Aggro overhaul (DikuMUD-style hate table, healer aggro, passive aggression tick, tagged target, taunt/pacify/fade spells; stubbed `canPerceive(observer, target)` helper consumed by acquisition and targeting) |
+| Perception (derived bonus + check primitive, extends `canPerceive`; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) |
+| Out-of-combat monster regen (1 HP/MP per tick after `LULL_TICKS` lull; position scaling deferred to actor positions) |
 
 ### Planned — combat & system cleanup (next)
 
 | Phase |
 |---|
-| Perception (derived bonus + check primitive, extends `canPerceive`; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) |
-| Out-of-combat monster regen (rate scales with actor position once positions land) |
 | Actor positions (stand/sit/sleep; sleep blocks passive perception via `canPerceive`, reactive aggro on attack still wakes; combat auto-stands; couples with OOC regen) |
 
 ### Planned — UI / UX polish
