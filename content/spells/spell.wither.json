@@ -4,7 +4,7 @@
     "en": "Wither",
     "cs": "Úpadek"
   },
-  "mpCost": 0,
+  "mpCost": 3,
   "actionCost": 12,
   "target": "hostile",
   "harmful": true,

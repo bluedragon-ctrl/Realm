@@ -136,6 +136,7 @@
   "combat.thorns_returned": "your thorns prick {actor} for {amount} HP.",
   "cleanse.removed": "a cool clarity washes through you — {count} affliction lifts.",
   "cleanse.nothing": "you drink the potion, but feel only a faint coolness — nothing was wrong.",
+  "use.cant_afford": "you can't afford that — {amount} gold needed.",
   "combat.you_missed": "you swing at {target} but miss.",
   "combat.target_missed_you": "{actor} swings at you but misses.",
   "combat.miss_observed": "{actor} swings at {target} but misses.",
@@ -300,7 +301,7 @@
 
   "spells.empty": "you don't know any spells yet.",
   "spells.header": "── spellbook ({count}) ──",
-  "spells.entry": "{name} — {mp} MP, {target}. {description}",
+  "spells.entry": "{name} — {mp} MP, action {action}, {target}. {description}",
   "spells.target.self": "self",
   "spells.target.friendly": "friendly",
   "spells.target.hostile": "hostile",
@@ -311,7 +312,11 @@
   "spells.range_one": "{value} {unit}",
   "spells.detail.damage": "formula: {formula}   range: {range}",
   "spells.detail.heal": "formula: {formula}   range: {range}",
+  "spells.detail.drain": "formula: {formula}   range: {range}   returns {ratio}% as HP",
   "spells.detail.apply": "effect: {icon} {name} — {pulses}× {amount} {unit} every {every} ticks",
+  "spells.detail.apply_stats": "effect: {icon} {name} — {mods} ({duration} ticks)",
+  "spells.detail.apply_reflect": "effect: {icon} {name} — reflects {amount} dmg ({duration} ticks)",
+  "spells.detail.apply_duration": "effect: {icon} {name} ({duration} ticks)",
   "spells.detail.apply_simple": "effect: {icon} {name}",
   "spells.detail.apply_unknown": "effect: {id} (unknown)",
 

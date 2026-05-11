@@ -16,7 +16,7 @@
     "en": "A small fox pup with a soft, dust-grey coat that has only just begun to redden. Its ears look too big for its head and its short tail is constantly in motion. It pounces at blades of grass and tumbles over its own paws.",
     "cs": "Malé liščí mládě s měkkou prachově šedou srstí, která teprve začíná rezavět. Uši má příliš velké pro svou hlavu a krátký ocas se mu neustále hýbe. Vrhá se po stéblech trávy a padá přes vlastní tlapky."
   },
-  "disposition": "neutral",
+  "disposition": "friendly",
   "aggressive": false,
   "mood": "calm",
   "stats": {
@@ -56,13 +56,23 @@
           "pounces on a fallen leaf and rolls over.",
           "chases its own short tail in a tight circle.",
           "yips and bumps into its sibling.",
-          "flops down in the grass with a small huff."
+          "flops down in the grass with a small huff.",
+          "trots over to sniff at a visitor's boots, tail wagging.",
+          "rolls onto its back and shows a fluffy belly.",
+          "wriggles closer for a careful sniff, then bounds away.",
+          "nibbles softly at a finger and licks the air.",
+          "presses its small head against a stranger's hand."
         ],
         "cs": [
           "vrhne se na spadlý list a převalí se.",
           "honí si v těsném kruhu vlastní krátký ocas.",
           "zaštěká a vrazí do svého sourozence.",
-          "se s tichým odfrknutím sveze do trávy."
+          "se s tichým odfrknutím sveze do trávy.",
+          "přiběhne k návštěvníkovi a čmuchá mu na botách, ocas vrtí.",
+          "převalí se na záda a ukáže huňaté bříško.",
+          "připlazí se opatrně k čichu a zase rychle odběhne.",
+          "tiše okusuje něčí prst a olízne vzduch.",
+          "přitiskne drobnou hlavu k cizí ruce."
         ]
       }
     }

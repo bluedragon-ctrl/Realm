@@ -4,7 +4,7 @@
     "en": "Life Drain",
     "cs": "Vysátí života"
   },
-  "mpCost": 0,
+  "mpCost": 4,
   "actionCost": 12,
   "target": "hostile",
   "harmful": true,

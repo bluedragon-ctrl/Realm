@@ -1,0 +1,80 @@
+{
+  "id": "forest.giant_spider",
+  "name": { "en": "a giant spider", "cs": "obří pavouk" },
+  "nameAcc": { "en": "the giant spider", "cs": "obřího pavouka" },
+  "nameDat": { "en": "the giant spider", "cs": "obřímu pavoukovi" },
+  "nameGen": { "en": "the giant spider", "cs": "obřího pavouka" },
+  "title": { "en": "giant spider", "cs": "obří pavouk" },
+  "location": "forest.spider_lair",
+  "count": 1,
+  "short": {
+    "en": "A dog-sized spider crouches in the webs, eight black eyes fixed on you.",
+    "cs": "Pavouk velký jako pes se krčí v pavučinách, osm černých očí upírá na tebe."
+  },
+  "long": {
+    "en": "A bristly black spider as big as a herding dog, hunched in the centre of the webs. Eight glassy eyes catch what little light there is. Its fangs are long and curved, with a yellow drop of venom hanging from one tip. The legs twitch and reposition without ever quite stopping. The whole web seems to listen when it moves.",
+    "cs": "Štětinatý černý pavouk velký jako ovčácký pes, schoulený uprostřed pavučin. Osm sklovitých očí zachytí každý záblesk světla. Tesáky má dlouhé a zahnuté, ze špičky jednoho z nich visí žlutá kapka jedu. Nohy mu cukají a přesouvají se, aniž by se kdy úplně zastavily. Když se pohne, celá pavučina jako by naslouchala."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 28, "hpMax": 28,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 2, "int": 0,
+    "magicResist": 10,
+    "spd": 4
+  },
+  "respawn": { "ticks": 700 },
+  "xp": 28,
+  "goldDrop": { "formula": "1d6+2", "chance": 0.5 },
+  "loot": [
+    { "defId": "item.spider_silk", "chance": 1.0 },
+    { "defId": "item.spider_silk", "chance": 0.5 },
+    { "defId": "potion.heal", "chance": 0.25 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "venomous bite", "cs": "jedovaté kousnutí" },
+      "chance": 1.0,
+      "cost": 16,
+      "damage": "1d4+ATK",
+      "onHit": { "applyEffect": "effect.poison", "chance": 0.6 },
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lunges forward and sinks its dripping fangs into {target}!",
+          "{actor} skitters in and bites {target} with a wet click of fangs!",
+          "{actor} rears up and stabs its venomous fangs into {target}!"
+        ],
+        "cs": [
+          "{actor} se vrhne dopředu a zaboří kapající tesáky do {target.gen}!",
+          "{actor} přiběhne a kousne {target.acc} s mokrým cvaknutím tesáků!",
+          "{actor} se vzepne a zaryje jedovaté tesáky do {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.1,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "drops a short distance on a single thread, then climbs back up.",
+          "taps the webs with one bristly leg, listening.",
+          "shifts in place and the whole web trembles around it.",
+          "rubs its fangs together with a dry clicking sound.",
+          "folds its legs under itself and goes very still."
+        ],
+        "cs": [
+          "spadne kousek dolů na jediném vlákně a zase vyleze nahoru.",
+          "ťukne štětinatou nohou do pavučin a naslouchá.",
+          "přesune se na místě a celá pavučina se kolem něj zachvěje.",
+          "tře o sebe tesáky se suchým cvakavým zvukem.",
+          "složí nohy pod sebe a úplně se zastaví."
+        ]
+      }
+    }
+  ]
+}

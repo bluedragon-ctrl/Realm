@@ -1,0 +1,19 @@
+{
+  "id": "forest.spider_lair",
+  "name": {
+    "en": "Spider lair",
+    "cs": "Pavoučí doupě"
+  },
+  "short": {
+    "en": "A low rocky chamber thick with grey webbing.",
+    "cs": "Nízká skalní komora hustě pokrytá šedým pavučinovým vláknem."
+  },
+  "long": {
+    "en": "A low chamber hollowed out of the rock, ceiling barely high enough to stand. Thick grey webs hang from every corner, layered upon themselves like old curtains. The floor crunches with dry husks of beetles and small bones. Something has been living here for a very long time. The only way out is north, back to the mushroom hollow.",
+    "cs": "Nízká komora vytesaná do skály, strop sotva tak vysoký, aby ses napřímil. Z každého kouta visí husté šedé pavučiny, vrstvené přes sebe jako staré závěsy. Podlaha křupe pod suchými krunýři brouků a drobnými kostmi. Něco tu žije už hodně dlouho. Jediná cesta ven vede na sever, zpět do houbové prohlubně."
+  },
+  "exits": {
+    "n": "forest.mushroom_hollow"
+  },
+  "tags": ["forest", "dark", "cave"]
+}
