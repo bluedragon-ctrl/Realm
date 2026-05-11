@@ -277,7 +277,6 @@ function renderStats(msg) {
     [labels.eva ?? 'EVA', s.evasion],
     [labels.int ?? 'INT', s.int],
     [labels.mres ?? 'MRES', s.magicResist],
-    [labels.spd ?? 'SPD', s.spd],
     [labels.perception ?? 'PER', s.perception ?? 0],
   ]) {
     const span = document.createElement('span');
