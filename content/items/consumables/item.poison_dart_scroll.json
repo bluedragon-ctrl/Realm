@@ -1,0 +1,40 @@
+{
+  "id": "item.poison_dart_scroll",
+  "name": {
+    "en": "a green-flecked scroll",
+    "cs": "zeleně skvrnitý svitek"
+  },
+  "nameAcc": {
+    "en": "the green-flecked scroll",
+    "cs": "zeleně skvrnitý svitek"
+  },
+  "short": {
+    "en": "A scroll dotted with sickly green specks lies here.",
+    "cs": "Leží tu svitek pokrytý chorobně zelenými tečkami."
+  },
+  "long": {
+    "en": "A scroll of yellow-brown parchment freckled with sickly green specks. A thin dart-glyph is inked across its centre.",
+    "cs": "Svitek žlutohnědého pergamenu se chorobně zelenými tečkami. Uprostřed je zakreslena tenká rune šípu."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The dart-glyph hisses green and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A bitter green tang clings to the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Rune šípu zelenavě zasyčí a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduchem se nese hořký zelený nádech."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.poison_dart"
+    }
+  }
+}

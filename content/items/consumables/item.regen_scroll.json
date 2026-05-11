@@ -1,0 +1,40 @@
+{
+  "id": "item.regen_scroll",
+  "name": {
+    "en": "a leaf-pressed scroll",
+    "cs": "lístkem vylisovaný svitek"
+  },
+  "nameAcc": {
+    "en": "the leaf-pressed scroll",
+    "cs": "lístkem vylisovaný svitek"
+  },
+  "short": {
+    "en": "A scroll with a pressed green leaf bound to it lies here.",
+    "cs": "Leží tu svitek se zalisovaným zeleným lístkem."
+  },
+  "long": {
+    "en": "A scroll of soft cream parchment with a single pressed green leaf bound under its cord. The writing inside curls like new growth.",
+    "cs": "Svitek měkkého krémového pergamenu s jediným zalisovaným zeleným lístkem pod šňůrkou. Písmo uvnitř se vine jako nové výhonky."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The pressed leaf seems to breathe once and fade.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A faint green warmth passes through the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Lístek jakoby se jednou nadechl a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduchem proletí slabé zelené teplo."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.regen"
+    }
+  }
+}

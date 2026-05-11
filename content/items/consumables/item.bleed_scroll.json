@@ -1,0 +1,40 @@
+{
+  "id": "item.bleed_scroll",
+  "name": {
+    "en": "a blood-stained scroll",
+    "cs": "krví potřísněný svitek"
+  },
+  "nameAcc": {
+    "en": "the blood-stained scroll",
+    "cs": "krví potřísněný svitek"
+  },
+  "short": {
+    "en": "A scroll splotched with dried red lies here.",
+    "cs": "Leží tu svitek pokrytý zaschlými červenými skvrnami."
+  },
+  "long": {
+    "en": "A scroll of pale parchment marked with dried red stains. A jagged thorn-glyph is inked across its centre.",
+    "cs": "Svitek bledého pergamenu se zaschlými červenými skvrnami. Uprostřed je zakreslena ostrá rune trnu."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The thorn-glyph flushes red and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A faint coppery smell drifts on the air."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Trnová rune zrudne a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduchem se nese slabý kovový pach."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.bleed"
+    }
+  }
+}

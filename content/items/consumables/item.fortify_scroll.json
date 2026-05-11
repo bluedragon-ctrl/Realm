@@ -1,0 +1,40 @@
+{
+  "id": "item.fortify_scroll",
+  "name": {
+    "en": "an iron-grey scroll",
+    "cs": "železně šedý svitek"
+  },
+  "nameAcc": {
+    "en": "the iron-grey scroll",
+    "cs": "železně šedý svitek"
+  },
+  "short": {
+    "en": "A scroll heavy as a small stone lies here.",
+    "cs": "Leží tu svitek těžký jako malý kámen."
+  },
+  "long": {
+    "en": "A thick scroll of iron-grey parchment, surprisingly heavy. A blocky shield-glyph is stamped at its centre.",
+    "cs": "Silný svitek železně šedého pergamenu, překvapivě těžký. Uprostřed je vyražen hranatý znak štítu."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The shield-glyph rings like struck steel and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. The air rings briefly like struck steel."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Znak štítu zazvoní jako úder do oceli a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduch nakrátko zazvoní jako úder do oceli."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.fortify"
+    }
+  }
+}

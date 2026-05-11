@@ -216,12 +216,10 @@
   "panel.cast_button": "Cast",
   "panel.attack_button": "Attack",
   "panel.flee_button": "Flee",
-  "panel.use_fixture_button": "Use ▶",
-  "panel.use_on_button": "Use on ▶",
+  "panel.use_picker_button": "Use ▶",
   "panel.consumables_button": "Consumables ▶",
-  "panel.use_fixture_picker_title": "Use what?",
-  "panel.use_fixture_picker_empty": "(nothing usable here)",
-  "panel.use_on_picker_title": "Use which item?",
+  "panel.use_picker_title": "Use what?",
+  "panel.use_picker_empty": "(nothing to use)",
   "panel.use_on_target_title": "Use {item} on…",
   "panel.consumables_picker_title": "Consume what?",
   "panel.spell_picker_title": "Cast which spell?",
@@ -341,6 +339,13 @@
   "admin.reset_stats_usage": "@reset-stats <player>",
   "admin.reset_stats_no_such": "no such player '{name}'.",
   "admin.reset_stats_done": "reset {name}: refunded {refunded}; now has {total} unspent.",
+  "admin.spawn_item_usage": "@spawn-item <itemDefId>",
+  "admin.spawn_item_no_such": "no such item def '{defId}'.",
+  "admin.spawn_item_done": "spawned '{name}' in {room}.",
+  "admin.spawn_npc_usage": "@spawn-npc <npcDefId> [room]",
+  "admin.spawn_npc_no_such": "no such NPC def '{defId}'.",
+  "admin.spawn_npc_no_room": "no such room '{room}'.",
+  "admin.spawn_npc_done": "spawned '{name}' in {room}.",
 
-  "help.text": "── commands ──────────────────────────────────────────\n\n  [ movement ]\n  look [target]             describe surroundings or someone\n  n s e w u d               move  (also: north south east west up down)\n  go <exit>                 move through a named exit\n\n  [ talking ]\n  say <text>   (\"<text>)    speak to the room\n  emote <text> (:<text>)    perform an action\n  wave/bow/hug/pet/smile/…  social actions  (try with a name: 'bow guard')\n\n  [ items ]\n  take <item>               pick up from the ground\n  drop <item>               drop from your inventory\n  inventory (i)             list what you carry\n  give <item> to <target>   hand an item to someone\n  give <N> gold to <player> hand gold to another player\n  drop <N> gold             drop a pile of gold\n  use <item> [on <target>]  use an item, optionally on someone\n  wear / equip <item>       put on a wearable\n  remove / unwear <item>    take off a wearable\n  equipment (eq)            show worn items\n\n  [ combat ]\n  attack <target>           attack an NPC  (also: kill, hit)\n  cast <spell> [on <target>]  cast a known spell\n  flee (f)                  run through a random exit\n\n  [ reference ]\n  stats (st)                show your stats with explanations\n  spells (sp)               show known spells with damage/effects\n  train <stat> (tr)         spend an unspent point on atk|def|int|mr|acc|eva|hp|mp\n\n  [ other ]\n  who                       list players online\n  lang [code]               show or set language  (en | cs)\n  help (?)                  show this list\n  quit (q)                  disconnect\n\n  [ tips ]\n  Tab                       complete commands and target names\n  ↑ / ↓ arrows              scroll command history\n  click chips               interact with NPCs and items\n  scroll up in console      locks auto-scroll; ↓ button to resume\n\n── admin ─────────────────────────────────────────────\n  @create-player <name> [lang] [acc dat gen voc]\n                            create a character; cs may declare declined forms\n  @reload                   reload world content from disk\n  @who                      list players with locations\n  @reset-stats <player>     refund all stat points to the player"
+  "help.text": "── commands ──────────────────────────────────────────\n\n  [ movement ]\n  look [target]             describe surroundings or someone\n  n s e w u d               move  (also: north south east west up down)\n  go <exit>                 move through a named exit\n\n  [ talking ]\n  say <text>   (\"<text>)    speak to the room\n  emote <text> (:<text>)    perform an action\n  wave/bow/hug/pet/smile/…  social actions  (try with a name: 'bow guard')\n\n  [ items ]\n  take <item>               pick up from the ground\n  drop <item>               drop from your inventory\n  inventory (i)             list what you carry\n  give <item> to <target>   hand an item to someone\n  give <N> gold to <player> hand gold to another player\n  drop <N> gold             drop a pile of gold\n  use <item> [on <target>]  use an item, optionally on someone\n  wear / equip <item>       put on a wearable\n  remove / unwear <item>    take off a wearable\n  equipment (eq)            show worn items\n\n  [ combat ]\n  attack <target>           attack an NPC  (also: kill, hit)\n  cast <spell> [on <target>]  cast a known spell\n  flee (f)                  run through a random exit\n\n  [ reference ]\n  stats (st)                show your stats with explanations\n  spells (sp)               show known spells with damage/effects\n  train <stat> (tr)         spend an unspent point on atk|def|int|mr|acc|eva|hp|mp\n\n  [ other ]\n  who                       list players online\n  lang [code]               show or set language  (en | cs)\n  help (?)                  show this list\n  quit (q)                  disconnect\n\n  [ tips ]\n  Tab                       complete commands and target names\n  ↑ / ↓ arrows              scroll command history\n  click chips               interact with NPCs and items\n  scroll up in console      locks auto-scroll; ↓ button to resume\n\n── admin ─────────────────────────────────────────────\n  @create-player <name> [lang] [acc dat gen voc]\n                            create a character; cs may declare declined forms\n  @reload                   reload world content from disk\n  @who                      list players with locations\n  @reset-stats <player>     refund all stat points to the player\n  @spawn-item <itemDefId>   spawn an item in your current room\n  @spawn-npc <npcDefId> [room]  spawn an NPC here (or in <room>)"
 }

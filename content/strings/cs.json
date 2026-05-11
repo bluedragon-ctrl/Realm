@@ -216,12 +216,10 @@
   "panel.cast_button": "Seslat",
   "panel.attack_button": "Zaútočit",
   "panel.flee_button": "Utéct",
-  "panel.use_fixture_button": "Použít ▶",
-  "panel.use_on_button": "Použít na ▶",
+  "panel.use_picker_button": "Použít ▶",
   "panel.consumables_button": "Spotřební ▶",
-  "panel.use_fixture_picker_title": "Co použít?",
-  "panel.use_fixture_picker_empty": "(nic se tu nedá použít)",
-  "panel.use_on_picker_title": "Který předmět použít?",
+  "panel.use_picker_title": "Co použít?",
+  "panel.use_picker_empty": "(nic se tu nedá použít)",
   "panel.use_on_target_title": "Použít {item} na…",
   "panel.consumables_picker_title": "Co spotřebovat?",
   "panel.spell_picker_title": "Které kouzlo seslat?",
@@ -342,6 +340,13 @@
   "admin.reset_stats_usage": "@reset-stats <hráč>",
   "admin.reset_stats_no_such": "hráč '{name}' neexistuje.",
   "admin.reset_stats_done": "reset {name}: vráceno {refunded}; nyní volných: {total}.",
+  "admin.spawn_item_usage": "@spawn-item <idDefinice>",
+  "admin.spawn_item_no_such": "definice předmětu '{defId}' neexistuje.",
+  "admin.spawn_item_done": "vyvolán '{name}' v {room}.",
+  "admin.spawn_npc_usage": "@spawn-npc <idDefinice> [místnost]",
+  "admin.spawn_npc_no_such": "definice NPC '{defId}' neexistuje.",
+  "admin.spawn_npc_no_room": "místnost '{room}' neexistuje.",
+  "admin.spawn_npc_done": "vyvolán '{name}' v {room}.",
 
-  "help.text": "── příkazy ───────────────────────────────────────────\n\n  [ pohyb ]\n  look [cíl]                popíše okolí nebo někoho\n  n s e w u d               pohyb  (také: north south east west up down)\n  go <východ>               pohyb pojmenovaným východem\n\n  [ mluvení ]\n  say <text>   (\"<text>)    mluvit do místnosti\n  emote <text> (:<text>)    provést akci\n  wave/bow/hug/pet/smile/…  sociální akce  (zkus s jménem: 'bow guard')\n\n  [ předměty ]\n  take <předmět>            sebrat ze země\n  drop <předmět>            položit z inventáře\n  inventory (i)             seznam toho, co neseš\n  give <předmět> to <cíl>   dát předmět někomu\n  give <N> gold to <hráč>   předat zlato jinému hráči\n  drop <N> gold             položit hromádku zlata\n  use <předmět> [on <cíl>]  použít předmět, případně na někoho\n  wear / equip <předmět>    obléct výstroj\n  remove / unwear <předmět> sundat výstroj\n  equipment (eq)            zobrazí výstroj\n\n  [ boj ]\n  attack <cíl>              zaútočit na NPC  (také: kill, hit)\n  cast <kouzlo> [on <cíl>]  seslat známé kouzlo\n  flee (f)                  utéct náhodným východem\n\n  [ reference ]\n  stats (st)                zobrazí tvé staty s vysvětlením\n  spells (sp)               zobrazí známá kouzla s poškozením/efekty\n  train <stat> (tr)         utratí volný bod na atk|def|int|mr|acc|eva|hp|mp\n\n  [ ostatní ]\n  who                       seznam hráčů online\n  lang [kód]                zobrazí nebo nastaví jazyk  (en | cs)\n  help (?)                  tento seznam\n  quit (q)                  odpojit se\n\n  [ tipy ]\n  Tab                       doplní příkazy a jména cílů\n  ↑ / ↓ šipky               historie příkazů\n  klikni na čip             interakce s NPC a předměty\n  scroll nahoru v konzoli   zamkne auto-scroll; tlačítko ↓ pro pokračování\n\n── admin ─────────────────────────────────────────────\n  @create-player <jméno> [jazyk] [acc dat gen voc]\n                            vytvoří postavu; pro cs lze zadat skloňované tvary\n  @reload                   načte obsah světa z disku\n  @who                      seznam hráčů s lokacemi\n  @reset-stats <hráč>       vrátí hráči všechny statové body"
+  "help.text": "── příkazy ───────────────────────────────────────────\n\n  [ pohyb ]\n  look [cíl]                popíše okolí nebo někoho\n  n s e w u d               pohyb  (také: north south east west up down)\n  go <východ>               pohyb pojmenovaným východem\n\n  [ mluvení ]\n  say <text>   (\"<text>)    mluvit do místnosti\n  emote <text> (:<text>)    provést akci\n  wave/bow/hug/pet/smile/…  sociální akce  (zkus s jménem: 'bow guard')\n\n  [ předměty ]\n  take <předmět>            sebrat ze země\n  drop <předmět>            položit z inventáře\n  inventory (i)             seznam toho, co neseš\n  give <předmět> to <cíl>   dát předmět někomu\n  give <N> gold to <hráč>   předat zlato jinému hráči\n  drop <N> gold             položit hromádku zlata\n  use <předmět> [on <cíl>]  použít předmět, případně na někoho\n  wear / equip <předmět>    obléct výstroj\n  remove / unwear <předmět> sundat výstroj\n  equipment (eq)            zobrazí výstroj\n\n  [ boj ]\n  attack <cíl>              zaútočit na NPC  (také: kill, hit)\n  cast <kouzlo> [on <cíl>]  seslat známé kouzlo\n  flee (f)                  utéct náhodným východem\n\n  [ reference ]\n  stats (st)                zobrazí tvé staty s vysvětlením\n  spells (sp)               zobrazí známá kouzla s poškozením/efekty\n  train <stat> (tr)         utratí volný bod na atk|def|int|mr|acc|eva|hp|mp\n\n  [ ostatní ]\n  who                       seznam hráčů online\n  lang [kód]                zobrazí nebo nastaví jazyk  (en | cs)\n  help (?)                  tento seznam\n  quit (q)                  odpojit se\n\n  [ tipy ]\n  Tab                       doplní příkazy a jména cílů\n  ↑ / ↓ šipky               historie příkazů\n  klikni na čip             interakce s NPC a předměty\n  scroll nahoru v konzoli   zamkne auto-scroll; tlačítko ↓ pro pokračování\n\n── admin ─────────────────────────────────────────────\n  @create-player <jméno> [jazyk] [acc dat gen voc]\n                            vytvoří postavu; pro cs lze zadat skloňované tvary\n  @reload                   načte obsah světa z disku\n  @who                      seznam hráčů s lokacemi\n  @reset-stats <hráč>       vrátí hráči všechny statové body\n  @spawn-item <idDefinice>  vyvolá předmět v aktuální místnosti\n  @spawn-npc <idDefinice> [místnost]  vyvolá NPC zde (nebo v <místnost>)"
 }

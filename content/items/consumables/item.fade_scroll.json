@@ -1,0 +1,40 @@
+{
+  "id": "item.fade_scroll",
+  "name": {
+    "en": "a shadow-dark scroll",
+    "cs": "stínový svitek"
+  },
+  "nameAcc": {
+    "en": "the shadow-dark scroll",
+    "cs": "stínový svitek"
+  },
+  "short": {
+    "en": "A scroll so dark it seems to drink the light lies here.",
+    "cs": "Leží tu svitek tak tmavý, že jakoby pohlcoval světlo."
+  },
+  "long": {
+    "en": "A scroll of near-black parchment. The writing inside is barely visible, as though it would rather not be seen.",
+    "cs": "Svitek téměř černého pergamenu. Písmo uvnitř je sotva vidět, jakoby se nechtělo nechat spatřit."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The dark glyph quietly drains away.",
+        "others": "{actor} unrolls a scroll and reads it aloud. The light dims around them for a heartbeat."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Temná rune tiše vyhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Světlo kolem něj na okamžik potemní."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.fade"
+    }
+  }
+}

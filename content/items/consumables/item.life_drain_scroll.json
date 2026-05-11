@@ -1,0 +1,40 @@
+{
+  "id": "item.life_drain_scroll",
+  "name": {
+    "en": "a cold-touched scroll",
+    "cs": "chladem dotčený svitek"
+  },
+  "nameAcc": {
+    "en": "the cold-touched scroll",
+    "cs": "chladem dotčený svitek"
+  },
+  "short": {
+    "en": "A scroll that feels unnaturally cold to the touch lies here.",
+    "cs": "Leží tu svitek, který je nepřirozeně studený na dotek."
+  },
+  "long": {
+    "en": "A bone-pale scroll that drinks the warmth from your hand. A pair of clutching fingers is sketched at its centre.",
+    "cs": "Kostnatě bledý svitek, který ti vysává teplo z ruky. Uprostřed je načrtnuta dvojice svírajících se prstů."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The sketched fingers close once and fade.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A brief, hollow cold drifts past."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Načrtnuté prsty se jednou sevřou a zhasnou.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Kolem se mihne krátké duté chladno."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.life_drain"
+    }
+  }
+}

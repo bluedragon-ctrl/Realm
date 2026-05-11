@@ -1,0 +1,40 @@
+{
+  "id": "item.keen_senses_scroll",
+  "name": {
+    "en": "a sharp-edged scroll",
+    "cs": "ostrohranný svitek"
+  },
+  "nameAcc": {
+    "en": "the sharp-edged scroll",
+    "cs": "ostrohranný svitek"
+  },
+  "short": {
+    "en": "A scroll with unnervingly crisp edges lies here.",
+    "cs": "Leží tu svitek se znepokojivě ostrými hranami."
+  },
+  "long": {
+    "en": "A scroll of crisp white parchment, its edges sharp as a fresh blade. A stylised open eye is drawn at its centre.",
+    "cs": "Svitek z čistého bílého pergamenu s okraji ostrými jako čerstvé ostří. Uprostřed je nakresleno stylizované otevřené oko."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The drawn eye seems to blink and fade.",
+        "others": "{actor} unrolls a scroll and reads it aloud. For a moment the air feels unusually clear."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Nakreslené oko jakoby mrklo a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Na okamžik se vzduch zdá nezvykle čistý."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.keen_senses"
+    }
+  }
+}

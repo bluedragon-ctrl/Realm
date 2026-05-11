@@ -1,0 +1,40 @@
+{
+  "id": "item.pacify_scroll",
+  "name": {
+    "en": "a soft-bound scroll",
+    "cs": "měkce svázaný svitek"
+  },
+  "nameAcc": {
+    "en": "the soft-bound scroll",
+    "cs": "měkce svázaný svitek"
+  },
+  "short": {
+    "en": "A scroll tied with pale linen lies here.",
+    "cs": "Leží tu svitek převázaný světlým plátnem."
+  },
+  "long": {
+    "en": "A cream-coloured scroll tied with a length of pale linen. A simple open palm is inked at its centre.",
+    "cs": "Krémově zbarvený svitek převázaný kusem světlého plátna. Uprostřed je nakreslená prostá otevřená dlaň."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The open palm gently fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A quiet calm settles for a moment."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Otevřená dlaň jemně zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Na okamžik se rozhostí tiché ticho."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.pacify"
+    }
+  }
+}
