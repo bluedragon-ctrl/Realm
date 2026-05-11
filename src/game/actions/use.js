@@ -130,6 +130,16 @@ export default function use(actor, args) {
     }
   }
 
+  if (useDef.cost?.gold > 0) {
+    if ((actor.gold ?? 0) < useDef.cost.gold) {
+      actor.session.send({ kind: 'error', text: s('use.cant_afford', actor.lang, { amount: useDef.cost.gold }) });
+      return;
+    }
+    actor.gold -= useDef.cost.gold;
+    actor.dirty = true;
+    sendStats(actor);
+  }
+
   runVerb({ actor, def: useDef, targetActor });
 
   if (useDef.effect?.type === 'apply_effect') {

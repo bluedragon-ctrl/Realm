@@ -2,6 +2,28 @@ import { s, t } from '../../i18n.js';
 import { world } from '../world.js';
 import { formulaRange } from '../dice.js';
 
+const STAT_LABELS = {
+  defense: 'DEF',
+  attack: 'ATK',
+  int: 'INT',
+  evasion: 'EVA',
+  accuracy: 'ACC',
+  magicResist: 'MR',
+  hp: 'HP',
+  mp: 'MP',
+  spd: 'SPD',
+};
+
+function statModSummary(statMod) {
+  const parts = [];
+  for (const [stat, value] of Object.entries(statMod)) {
+    const sign = value >= 0 ? '+' : '';
+    const label = STAT_LABELS[stat] ?? stat.toUpperCase();
+    parts.push(`${label} ${sign}${value}`);
+  }
+  return parts.join(', ');
+}
+
 function rangeText(min, max, lang, kind) {
   const unit = s(kind === 'damage' ? 'stats.unit.dmg' : 'stats.unit.hp', lang);
   if (min === max) return s('spells.range_one', lang, { value: min, unit });
@@ -27,11 +49,22 @@ function effectDetail(spell, actor) {
       range: rangeText(min, max, lang, 'heal'),
     });
   }
+  if (eff.type === 'drain') {
+    const formula = eff.formula ?? eff.amount ?? '0';
+    const { min, max } = formulaRange(String(formula), { actor });
+    const ratio = Math.round((eff.ratio ?? 0.5) * 100);
+    return s('spells.detail.drain', lang, {
+      formula: String(formula),
+      range: rangeText(Math.max(1, min), Math.max(1, max), lang, 'damage'),
+      ratio,
+    });
+  }
   if (eff.type === 'apply_effect') {
     const def = world.effectDefs.get(eff.effectId);
     if (!def) return s('spells.detail.apply_unknown', lang, { id: eff.effectId });
     const name = t(def.name, lang);
     const icon = def.icon ?? '';
+    const duration = def.duration ?? 0;
     const tick = def.tick;
     if (tick && tick.effect) {
       const inner = tick.effect;
@@ -45,6 +78,16 @@ function effectDetail(spell, actor) {
       return s('spells.detail.apply', lang, {
         name, icon, pulses, every, amount, unit,
       });
+    }
+    if (def.statMod) {
+      const mods = statModSummary(def.statMod);
+      return s('spells.detail.apply_stats', lang, { name, icon, mods, duration });
+    }
+    if (def.reflect) {
+      return s('spells.detail.apply_reflect', lang, { name, icon, amount: def.reflect, duration });
+    }
+    if (duration > 0) {
+      return s('spells.detail.apply_duration', lang, { name, icon, duration });
     }
     return s('spells.detail.apply_simple', lang, { name, icon });
   }
@@ -67,6 +110,7 @@ export default function spells(actor) {
     lines.push(s('spells.entry', lang, {
       name: t(def.name, lang),
       mp: def.mpCost ?? 0,
+      action: def.actionCost ?? 12,
       target: s(`spells.target.${def.target ?? 'any'}`, lang),
       description: def.description ? t(def.description, lang) : '',
     }));

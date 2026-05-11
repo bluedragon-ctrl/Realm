@@ -13,8 +13,8 @@
     "cs": "Ohlozená kamenná miska na schůdku svatyňky s pár starými mincemi a větvičkou levandule."
   },
   "long": {
-    "en": "A shallow bowl of smooth grey stone, worn by many hands. A few old coins rest at the bottom beside a dry sprig of lavender. The water inside is perfectly clear and still — it never seems to go dry, and it never seems to go stale.",
-    "cs": "Mělká miska z hladkého šedého kamene, ohlazená od mnoha rukou. Na dně leží pár starých mincí vedle suchého stonku levandule. Voda uvnitř je dokonale čistá a klidná — nikdy nevyschne a nikdy nezplesniví."
+    "en": "A shallow bowl of smooth grey stone, worn by many hands. A few old coins rest at the bottom beside a dry sprig of lavender. The water inside is perfectly clear and still — it never seems to go dry, and it never seems to go stale. Travellers who drop ten gold as an offering and drink leave the shrine lighter in body and spirit.",
+    "cs": "Mělká miska z hladkého šedého kamene, ohlazená od mnoha rukou. Na dně leží pár starých mincí vedle suchého stonku levandule. Voda uvnitř je dokonale čistá a klidná — nikdy nevyschne a nikdy nezplesniví. Poutníci, kteří jako obětinu vhodí deset zlatých a napijí se, odcházejí od svatyňky lehčí na těle i duchu."
   },
   "tags": ["fixture"],
   "weight": 99,
@@ -24,17 +24,18 @@
   "use": {
     "en": {
       "no_target": {
-        "self": "you cup your hands, dip them into the bowl, and drink. The water is cool and faintly sweet. A quiet calm moves through you from head to foot.",
-        "others": "{actor} kneels at the shrine, drinks from the stone bowl, and rises looking steadier."
+        "self": "you drop ten gold into the bowl as an offering, cup your hands, dip them into the water, and drink. The water is cool and faintly sweet. A quiet calm moves through you from head to foot.",
+        "others": "{actor} drops a small offering of coins into the stone bowl, drinks from it, and rises looking steadier."
       }
     },
     "cs": {
       "no_target": {
-        "self": "sepneš ruce, ponoříš je do misky a napiješ se. Voda je chladná a lehce sladká. Tichý klid tě prostoupí od hlavy až k patě.",
-        "others": "{actor} poklekne u svatyňky, napije se z kamenné misky a vstane s klidnějším výrazem."
+        "self": "vhodíš do misky deset zlatých jako obětinu, sepneš ruce, ponoříš je do vody a napiješ se. Voda je chladná a lehce sladká. Tichý klid tě prostoupí od hlavy až k patě.",
+        "others": "{actor} vhodí do kamenné misky drobnou obětinu, napije se a vstane s klidnějším výrazem."
       }
     },
     "consumable": false,
+    "cost": { "gold": 10 },
     "effect": { "type": "heal", "hp": 6, "mp": 6, "removeFixture": true }
   }
 }

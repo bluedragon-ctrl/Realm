@@ -136,6 +136,7 @@
   "combat.thorns_returned": "tvé trny bodly {actor.acc} za {amount} životů.",
   "cleanse.removed": "tělem ti projde chladná čistota — {count} neduh mizí.",
   "cleanse.nothing": "vypiješ lektvar, ale cítíš jen slabý chlad — nic nebylo špatně.",
+  "use.cant_afford": "na to nemáš — potřebuješ {amount} zlatých.",
   "combat.you_missed": "zaútočíš na {target}, ale mineš.",
   "combat.target_missed_you": "{actor} na tebe zaútočí, ale mine.",
   "combat.miss_observed": "{actor} zaútočí na {target}, ale mine.",
@@ -300,7 +301,7 @@
 
   "spells.empty": "zatím neumíš žádná kouzla.",
   "spells.header": "── kniha kouzel ({count}) ──",
-  "spells.entry": "{name} — {mp} MP, {target}. {description}",
+  "spells.entry": "{name} — {mp} MP, akce {action}, {target}. {description}",
   "spells.target.self": "sebe",
   "spells.target.friendly": "spojenec",
   "spells.target.hostile": "nepřítel",
@@ -311,7 +312,11 @@
   "spells.range_one": "{value} {unit}",
   "spells.detail.damage": "vzorec: {formula}   rozsah: {range}",
   "spells.detail.heal": "vzorec: {formula}   rozsah: {range}",
+  "spells.detail.drain": "vzorec: {formula}   rozsah: {range}   vrací {ratio} % jako životy",
   "spells.detail.apply": "efekt: {icon} {name} — {pulses}× {amount} {unit} každých {every} ticků",
+  "spells.detail.apply_stats": "efekt: {icon} {name} — {mods} ({duration} ticků)",
+  "spells.detail.apply_reflect": "efekt: {icon} {name} — odráží {amount} poškození ({duration} ticků)",
+  "spells.detail.apply_duration": "efekt: {icon} {name} ({duration} ticků)",
   "spells.detail.apply_simple": "efekt: {icon} {name}",
   "spells.detail.apply_unknown": "efekt: {id} (neznámý)",
 

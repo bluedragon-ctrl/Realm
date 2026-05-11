@@ -2,18 +2,19 @@
   "id": "forest.mushroom_hollow",
   "name": {
     "en": "Mushroom hollow",
-    "cs": "Houbová prohlubeň"
+    "cs": "Houboviště"
   },
   "short": {
     "en": "A damp green hollow dotted with bright mushrooms.",
     "cs": "Vlhká zelená prohlubeň posetá pestrými houbami."
   },
   "long": {
-    "en": "The ground sinks into a damp hollow shaded by old ferns. Moss covers everything in a thick green carpet, and bright red mushrooms with white spots push up through the moss in clusters. The air is cool and smells of wet earth. A faint, slightly sour scent hangs over the mushrooms. The path back up to the glade leads north.",
-    "cs": "Země se propadá do vlhké prohlubně zastíněné starými kapradinami. Vše pokrývá hustý zelený koberec mechu a v něm vyrážejí v trsech jasně červené houby s bílými tečkami. Vzduch je chladný a páchne mokrou zemí. Nad houbami se vznáší slabá, lehce nakyslá vůně. Stezka zpět nahoru na mýtinu vede na sever."
+    "en": "The ground sinks into a damp hollow shaded by old ferns. Moss covers everything in a thick green carpet, and bright red mushrooms with white spots push up through the moss in clusters. The air is cool and smells of wet earth. A faint, slightly sour scent hangs over the mushrooms. The path back up to the glade leads north. To the south, a low dark opening in the rocks is half-curtained with thick grey webbing.",
+    "cs": "Země se propadá do vlhké prohlubně zastíněné starými kapradinami. Vše pokrývá hustý zelený koberec mechu a v něm vyrážejí v trsech jasně červené houby s bílými tečkami. Vzduch je chladný a páchne mokrou zemí. Nad houbami se vznáší slabá, lehce nakyslá vůně. Stezka zpět nahoru na mýtinu vede na sever. Na jihu se ve skalách otevírá nízký tmavý otvor, napůl zatažený hustým šedým pavoučím vláknem."
   },
   "exits": {
-    "n": "forest.fox_glade"
+    "n": "forest.fox_glade",
+    "s": "forest.spider_lair"
   },
   "tags": ["outdoor", "forest", "damp"]
 }
