@@ -12,6 +12,7 @@ export function validateRoomGraph(rooms) {
         `exits.${exitKey} object form requires string 'to'`);
       if (rawValue.hidden != null) {
         checkObject(rawValue.hidden, ctx, `exits.${exitKey}.hidden`);
+        check(rawValue.hidden.dc != null, ctx, `exits.${exitKey}.hidden.dc is required`);
         checkPositiveInt(rawValue.hidden.dc, ctx, `exits.${exitKey}.hidden.dc`);
         check(typeof rawValue.hidden.id === 'string' && rawValue.hidden.id.length > 0,
           ctx, `exits.${exitKey}.hidden.id must be a non-empty string`);
@@ -35,6 +36,7 @@ export function validateRoomGraph(rooms) {
       checkObject(room.hiddenFixtures, ctx, 'hiddenFixtures');
       for (const [defId, value] of Object.entries(room.hiddenFixtures)) {
         checkObject(value, ctx, `hiddenFixtures.${defId}`);
+        check(value.dc != null, ctx, `hiddenFixtures.${defId}.dc is required`);
         checkPositiveInt(value.dc, ctx, `hiddenFixtures.${defId}.dc`);
         if (value.id != null) {
           check(typeof value.id === 'string' && value.id.length > 0,
