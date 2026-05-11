@@ -60,6 +60,16 @@ export function makeNpcValidator(knownRooms) {
       }
     }
 
+    if (def.regen != null) {
+      checkObject(def.regen, ctx, 'regen');
+      for (const key of Object.keys(def.regen)) {
+        check(key === 'hp' || key === 'mp', ctx, `regen.${key} is not allowed (only hp, mp)`);
+        const v = def.regen[key];
+        check(typeof v === 'number' && Number.isInteger(v) && v >= 0, ctx,
+          `regen.${key} must be a non-negative integer`);
+      }
+    }
+
     check(def.shop == null, ctx, `'shop' is no longer supported — use 'exchanges'`);
   };
 }
