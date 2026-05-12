@@ -3,7 +3,7 @@ import {
   check, checkRequired, checkEnum, checkLocalizedText,
   checkPositiveInt, checkObject, checkArray, checkLines,
 } from '../validate.js';
-import { PRIMITIVE_NAMES, DISPOSITIONS } from '../../game/contentMeta.js';
+import { PRIMITIVE_NAMES, DISPOSITIONS, POSITIONS } from '../../game/contentMeta.js';
 import { checkOptionalNameForms } from './common.js';
 
 export function makeNpcValidator(knownRooms) {
@@ -26,6 +26,9 @@ export function makeNpcValidator(knownRooms) {
       checkPositiveInt(def.count, ctx, 'count');
     }
     checkEnum(def.disposition, DISPOSITIONS, ctx, 'disposition');
+    if (def.position != null) {
+      checkEnum(def.position, POSITIONS, ctx, 'position');
+    }
     if (def.spawn?.requires) {
       check(def.spawn.requires === 'room_clear', ctx,
         `spawn.requires must be 'room_clear' (got '${def.spawn.requires}')`);
