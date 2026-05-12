@@ -13,24 +13,41 @@
     "cs": "Železný hák zaražený do zdi v úrovni hlavy, začernalý starými sazemi."
   },
   "long": {
-    "en": "An iron bracket bolted into the rock at head height. Years of lantern-smoke have blackened the stone above it. A stub of yellow candle wax still clings to the cup at the bottom. A lantern would hang here easily, if anyone had one to hang.",
-    "cs": "Železný hák zaražený do skály v úrovni hlavy. Léta dýmu z lucerny začernily kámen nad ním. V mističce dole se stále drží oharek žlutého vosku. Lucerna by sem zavěšení sedla snadno, kdyby ji někdo měl."
+    "en": "An iron bracket bolted into the rock at head height. Years of lantern-smoke have blackened the stone above it. A stub of yellow candle wax still clings to the cup at the bottom, with a clean wick poking up from the middle. A lantern would hang here easily — for now, the wax stub is enough to light if you have a spark.",
+    "cs": "Železný hák zaražený do skály v úrovni hlavy. Léta dýmu z lucerny začernily kámen nad ním. V mističce dole se stále drží oharek žlutého vosku a uprostřed z něj trčí čistý knot. Lucerna by sem zavěšení sedla snadno — pro tuto chvíli stačí zapálit oharek vosku, pokud máš jiskru."
   },
   "tags": ["fixture"],
   "weight": 99,
   "pickable": false,
   "spawn": { "location": "mine.deep_hall", "count": 1 },
+  "lightSource": { "level": "light", "toggle": true },
+  "lit": false,
   "use": {
     "en": {
       "no_target": {
-        "self": "you run a finger over the hook. The bracket is solid, the wax stub still soft. Someone hung a lantern here for many years.",
-        "others": "{actor} reaches up and runs a finger along the rusted hook."
+        "self": "you strike a spark into the wax stub on the hook. The wick catches and steady yellow light pushes back the dark.",
+        "others": "{actor} strikes a spark into the lantern-hook stub. A steady yellow light pushes back the dark."
       }
     },
     "cs": {
       "no_target": {
-        "self": "přejedeš prstem po háku. Hák drží pevně, oharek vosku je ještě měkký. Tady někdo dlouhá léta věšel lucernu.",
-        "others": "{actor} natáhne ruku a přejede prstem po rezavém háku."
+        "self": "vykřesáš jiskru do voskového oharku na háku. Knot chytne a klidné žluté světlo zatlačí tmu.",
+        "others": "{actor} vykřese jiskru do oharku na háku. Klidné žluté světlo zatlačí tmu."
+      }
+    },
+    "effect": { "type": "toggle_light" }
+  },
+  "useExtinguish": {
+    "en": {
+      "no_target": {
+        "self": "you pinch out the wick on the hook. The light dies and the hall sinks back into thick darkness.",
+        "others": "{actor} pinches out the candle on the lantern hook. The hall sinks back into thick darkness."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "uškubneš knot na háku. Světlo zhasne a síň se vrátí do husté tmy.",
+        "others": "{actor} uškubne plamínek na háku. Síň se vrátí do husté tmy."
       }
     }
   }

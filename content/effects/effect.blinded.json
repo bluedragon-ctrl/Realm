@@ -1,0 +1,13 @@
+{
+  "id": "effect.blinded",
+  "name": {
+    "en": "Blinded",
+    "cs": "Oslepení"
+  },
+  "kind": "debuff",
+  "icon": "🫥",
+  "duration": 40,
+  "perception": "blind",
+  "exclusiveGroup": "vision_alter",
+  "stack": "refresh"
+}

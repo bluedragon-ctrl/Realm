@@ -1,0 +1,40 @@
+{
+  "id": "item.nightvision_scroll",
+  "name": {
+    "en": "an owl-eye scroll",
+    "cs": "svitek sovího oka"
+  },
+  "nameAcc": {
+    "en": "the owl-eye scroll",
+    "cs": "svitek sovího oka"
+  },
+  "short": {
+    "en": "A scroll of pale parchment with a wide golden eye drawn at its centre.",
+    "cs": "Svitek bledého pergamenu s velkým zlatým okem nakresleným uprostřed."
+  },
+  "long": {
+    "en": "A scroll of pale parchment tied with a strip of brown ribbon. A wide golden eye, drawn with care, gazes out from the centre — a single owl-eye, round and patient. The ink shimmers faintly even in the dark.",
+    "cs": "Svitek bledého pergamenu převázaný proužkem hnědé stuhy. Uprostřed pečlivě nakreslené velké zlaté oko — jediné soví oko, kulaté a trpělivé. Inkoust se slabě třpytí i ve tmě."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The drawn eye widens, then sinks into the parchment.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A golden eye on the parchment widens and fades."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Nakreslené oko se rozšíří a vsákne se do pergamenu.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Zlaté oko na pergamenu se rozšíří a zmizí."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.nightvision"
+    }
+  }
+}

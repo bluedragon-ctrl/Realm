@@ -321,12 +321,9 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Dark-gate pack-join + aggro-onset broadcasts (third-party observers in dark rooms no longer see the named NPC growl / pack-join lines; participants still get their personal named lines) |
 | Light / darkness / shadow spells (caster-attached active effects: `spell.light` floor=light, `spell.darkness` ceiling=dark, `spell.shadow` ceiling=dim; mutually exclusive via new `exclusiveGroup` field on effect defs; `effect.darknessSource` ceiling pass added to `light.js`; learned via scrolls) |
 | Dark-narration pass (extracted `isDarkObserver` to `light.js`; NPC primitive broadcasts — say/emote/interact/give_item/move — skip dark observers; combat attack templates, miss/crit lines, and aggro onset all anonymize for the dark target via `combat.missed_by_unseen` / `combat.crit_by_unseen` / `aggro.onset_self_dark`; NPC wander narration skipped for dark observers; dark room sends anonymized `name: "somewhere dark"` in `room` and `stats` messages so the top-bar location label, inspect heading, and console room separator all hide the actual room name; new `narration.you_arrive_dark` replaces named arrival in dark) |
-
-### Planned — combat & system cleanup (next)
-
-| Phase |
-|---|
-| Actor positions (stand/sit/sleep; sleep blocks passive perception via `canPerceive`, reactive aggro on attack still wakes; combat auto-stands; couples with OOC regen) |
+| Actor positions (stand/sit/sleep; sleep blocks passive perception via `canPerceive`; reactive aggro on attack auto-wakes; social verbs targeting a sleeper wake them; combat auto-stands a sitter and wakes a sleeper; sit/sleep blocked while in combat; `requireStanding` gate on move/attack/cast/flee/use/search; per-position OOC regen via `PLAYER_REGEN_PERIOD` — sit ≈ 30 HP/min, sleep ≈ 60 HP/min) |
+| Toggleable light fixtures (new `lightSource.toggle` flag on item defs + `inst.state.lit` + new `toggle_light` effect type; `use` runs the lighting verb-shape, currently-lit fixtures run a sibling `useExtinguish` form; `castle.iron_brazier`, `castle.offering_plinth`, `castle.reading_lectern`, `mine.lantern_hook` upgraded with `light`-level toggles) |
+| `spell.blindness` / `spell.nightvision` (effect defs `effect.blinded` / `effect.nightvision` with `perception` set; spells route through the existing `apply_effect` path so they work on both players and NPCs; learned via scrolls) |
 
 ### Planned — UI / UX polish
 
@@ -338,8 +335,6 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase |
 |---|
-| Light-producing room fixtures (lit forge in the smithy, hearth in the cottage, brazier in halls — author as `activeLight[]` entries set by the room def at load; toggleable via `extinguish`/`light` verbs later) |
-| `spell.blindness` / `spell.nightvision` (effect defs with `perception: "blind" \| "nightvision"` already validated; pure content authoring) |
 | NPC sight in low light (`perceivedLight` extends to read `actor.def.vision`: `low_light` → clamp up to dim only if effective light is dim, `nightvision` → clamp up to dim always, `blind` → clamp to dark + a `usesNonVisualTargeting` flag for blind NPCs that still acquire targets; `canPerceive(observer, target)` consumes the result) |
 | Combat to-hit penalties in dim/dark (`executeAttack` reads `perceivedLight(attacker, attacker.room)` once and applies `lightToHitModifier(level)` — `light` → 0, `dim` → small malus, `dark` → large malus / auto-miss for sighted attackers; blind-vision NPCs bypass via the flag above) |
 | Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) |

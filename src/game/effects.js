@@ -210,6 +210,15 @@ const EFFECTS = {
     }
     return { removed };
   },
+  toggle_light(_def, { fixture }) {
+    if (!fixture) return { toggled: false };
+    const ls = fixture.def?.lightSource;
+    if (!ls?.toggle) return { toggled: false };
+    fixture.state = fixture.state ?? {};
+    const wasLit = !!fixture.state.lit;
+    fixture.state.lit = !wasLit;
+    return { toggled: true, lit: !wasLit, wasLit };
+  },
   life_drain({ formula, ratio = 0.5 }, { actor, target }) {
     if (!target?.stats || !actor?.stats || target === actor) return { dealt: 0, healed: 0 };
     const raw = Math.max(0, evalAmount(formula, { actor }));

@@ -1,0 +1,30 @@
+{
+  "id": "spell.blindness",
+  "name": {
+    "en": "Blindness",
+    "cs": "Slepota"
+  },
+  "mpCost": 4,
+  "actionCost": 12,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Wrap the target's eyes in a film of shadow. While it lasts, they cannot see.",
+    "cs": "Zahalí cíli oči stínovým závojem. Dokud kouzlo trvá, nevidí."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you flick your fingers and a smear of dark spreads across {target}'s eyes.",
+        "others": "{actor} flicks their fingers and a smear of dark spreads across {target}'s eyes."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "luskneš prsty a {target} přes oči přejede temný stín.",
+        "others": "{actor} luskne prsty a {target} přes oči přejede temný stín."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.blinded" }
+}
