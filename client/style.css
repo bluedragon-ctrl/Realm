@@ -837,7 +837,9 @@ html, body {
 
 .inspect-panel-dim {
   background-image: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18));
+  filter: saturate(0.35);
 }
 .inspect-panel-dark {
   background-image: linear-gradient(rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.42));
+  filter: saturate(0);
 }

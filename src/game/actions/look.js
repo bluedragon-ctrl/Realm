@@ -171,7 +171,7 @@ export function describeRoom(actor) {
       exits,
       noExitsLabel: s('room.no_exits', lang),
       npcsLabel: s('room.npcs_label', lang),
-      npcs: npcs.map(n => ({ name: n.name, disposition: 'neutral' })),
+      npcs,
       othersLabel: s('room.others_label', lang),
       others: players,
       itemsLabel: s('room.items_label', lang),
