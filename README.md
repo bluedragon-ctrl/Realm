@@ -317,6 +317,7 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Perception (derived bonus + check primitive, extends `canPerceive`; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) |
 | Out-of-combat monster regen (1 HP/MP per tick after `LULL_TICKS` lull; position scaling deferred to actor positions) |
 | Pre-light content audit (rooms: `outdoor` + `lightBase`; NPCs: `vision`; first light items: `item.candle` + `item.lantern`; `utility` wearable slot) — see `docs/superpowers/plans/2026-05-09-pre-light-content-audit-decisions.md` |
+| Light system v1, visual-only (per-actor `effectiveLight` / `perceivedLight` / `canPerceiveRoom`; `light` / `dim` / `dark` room rendering; dim/dark gate on `look <target>`; dark rooms anonymize attacker narration; inventory + own stats always visible) — see `docs/superpowers/specs/2026-05-12-light-system-design.md` |
 
 ### Planned — combat & system cleanup (next)
 
@@ -334,8 +335,7 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase |
 |---|
-| Light system (visual-only v1) |
-| Light/visibility spells, light sources |
+| NPC sight & combat in low light (NPCs read `vision` to gate `canPerceive`; dim/dark to-hit penalties; `spell.light` / `spell.darkness` / `spell.blindness` / `spell.nightvision`; light-producing room fixtures) |
 | Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) |
 | Discovered-secrets tracking (IDed secrets, player save records discovered IDs) |
 | New areas (river, marsh, deep mine) |
