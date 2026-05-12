@@ -20,8 +20,8 @@
     },
     "cs": {
       "to_target": {
-        "self": "křikneš na {target} ostrý výsměch a vyceníš zuby.",
-        "others": "{actor} křikne na {target} ostrý výsměch a vycení zuby."
+        "self": "křikneš na {target} ostrá slova a vyceníš zuby.",
+        "others": "{actor} křikne na {target} ostrá slova a vycení zuby."
       }
     }
   },

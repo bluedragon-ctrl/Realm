@@ -2,7 +2,7 @@
   "id": "spell.wither",
   "name": {
     "en": "Wither",
-    "cs": "Úpadek"
+    "cs": "Vyčerpání"
   },
   "mpCost": 3,
   "actionCost": 12,

@@ -22,7 +22,7 @@
     "cs": {
       "to_target": {
         "self": "přitiskneš chladné prsty na {target} a cítíš, jak se ti teplo vrací do kostí.",
-        "others": "{actor} přitiskne chladné prsty na {target} a do {actor.gen} se vrátí slabé teplo."
+        "others": "{actor} přitiskne chladné prsty na {target} a do žil se mu vrátí slabé teplo."
       }
     }
   },

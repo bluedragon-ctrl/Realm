@@ -21,7 +21,7 @@
     "cs": {
       "no_target": {
         "self": "tvé smysly se zostří.",
-        "others": "{actor} náhle zaostří pohled."
+        "others": "{actor} náhle zostří pohled."
       }
     }
   },
