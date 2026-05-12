@@ -16,6 +16,7 @@ import { unregisterWanderer } from './wandering.js';
 import { EFFECT_SOURCE } from './contentMeta.js';
 import { addHate, removeFromTable, hasAggroEntry, onAggroOnset } from './aggro.js';
 import { getTick } from './clock.js';
+import { setPosition } from './positionGate.js';
 export { aggroTargetInRoom, hasInRoomTarget } from './aggro.js';
 
 const MAX_DODGE = 50;
@@ -130,6 +131,11 @@ export function applyDamageWithFeedback(actor, target, amount) {
   const tick = getTick();
   if (actor?.kind === 'npc') actor.lastCombatTick = tick;
   if (target?.kind === 'npc') target.lastCombatTick = tick;
+
+  if (target.position && target.position !== 'stand') {
+    const was = target.position;
+    setPosition(target, 'stand', was === 'sleep' ? 'woken' : 'stood');
+  }
 
   const result = applyEffect({ type: 'damage', amount, _raw: true }, { actor, target });
   const dealt = result?.dealt ?? 0;
