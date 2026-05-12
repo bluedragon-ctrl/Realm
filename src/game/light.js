@@ -1,6 +1,7 @@
 import { world, actorsInRoom, itemsInRoom } from './world.js';
+import { equippedSlots } from './wearables.js';
 
-// Order matters: index = brightness rank. Higher = brighter.
+// Index doubles as brightness rank: 0=dark, 1=dim, 2=light.
 export const LIGHT_LEVELS = ['dark', 'dim', 'light'];
 export const LEVEL_RANK = Object.freeze(
   Object.fromEntries(LIGHT_LEVELS.map((lvl, i) => [lvl, i]))
@@ -40,6 +41,7 @@ function readEffectFloor(actor) {
   return best;
 }
 
+// Equipped wearables: iterate via equippedSlots; worn item defs are looked up by defId.
 function readActorInventoryFloor(actor) {
   const inv = actor.inventory ?? [];
   let best = null;
@@ -48,10 +50,8 @@ function readActorInventoryFloor(actor) {
     if (!lvl) continue;
     if (!best || LEVEL_RANK[lvl] > LEVEL_RANK[best]) best = lvl;
   }
-  // Equipped wearables live in actor.equipment as { slot: instance } (see wearables.js).
-  const eq = actor.equipment ?? {};
-  for (const inst of Object.values(eq)) {
-    const lvl = readItemFloor(inst);
+  for (const { def } of equippedSlots(actor)) {
+    const lvl = def?.lightSource?.level;
     if (!lvl) continue;
     if (!best || LEVEL_RANK[lvl] > LEVEL_RANK[best]) best = lvl;
   }
