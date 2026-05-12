@@ -834,3 +834,10 @@ html, body {
 .vitals-line .vital-value { color: var(--fg); font-variant-numeric: tabular-nums; }
 .vitals-line .vital-value.hp.mid { color: var(--hp-mid); }
 .vitals-line .vital-value.hp.low { color: var(--hp-low); }
+
+.inspect-panel-dim {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.18), rgba(0, 0, 0, 0.18));
+}
+.inspect-panel-dark {
+  background-image: linear-gradient(rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.42));
+}
