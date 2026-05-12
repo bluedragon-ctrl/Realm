@@ -309,7 +309,9 @@ export default function look(actor, args) {
     return;
   }
 
-  const itemInRoom = findItemInList(itemsInRoom(actor.location), query);
+  const room = getRoom(actor.location);
+  const perceivedHere = canPerceiveRoom(actor, room);
+  const itemInRoom = perceivedHere === 'dark' ? null : findItemInList(itemsInRoom(actor.location), query);
   const itemInInv = findItemInList(actor.inventory, query);
   const item = itemInRoom ?? itemInInv;
   if (item) {
