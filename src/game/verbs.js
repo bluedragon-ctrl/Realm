@@ -2,6 +2,7 @@ import { broadcastToRoom } from './world.js';
 import { t } from '../i18n.js';
 import { sourceForActor } from './sources.js';
 import { resolveName } from './declension.js';
+import { setPosition } from './positionGate.js';
 
 /**
  * Run a verb-shaped def (social or item.use) as a per-recipient broadcast.
@@ -21,6 +22,9 @@ import { resolveName } from './declension.js';
  */
 export function runVerb({ actor, def, targetActor, targetName, params = {} }) {
   const isToTarget = (targetName != null) || (targetActor && targetActor !== actor);
+  if (isToTarget && targetActor && targetActor !== actor && targetActor.position === 'sleep') {
+    setPosition(targetActor, 'stand', 'woken');
+  }
   const formKey = isToTarget ? 'to_target' : 'no_target';
 
   broadcastToRoom(actor.location, (recipient) => {

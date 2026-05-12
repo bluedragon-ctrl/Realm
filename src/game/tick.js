@@ -9,7 +9,7 @@ import { setDamageRouteHandler, setCleanseHandler } from './effects.js';
 import { sendStats } from './messages.js';
 import { pushTargetInfo } from './actions/look.js';
 import { getTick, bumpTick } from './clock.js';
-import { LULL_TICKS } from './stats.js';
+import { LULL_TICKS, PLAYER_REGEN_PERIOD } from './stats.js';
 
 setEffectDamageHandler(applyDamageWithFeedback);
 setDamageRouteHandler(applyDamageWithFeedback);
@@ -72,6 +72,22 @@ function pickBehavior(actor) {
   return null;
 }
 
+function tickPlayerRegen(actor) {
+  const period = PLAYER_REGEN_PERIOD[actor.position];
+  if (!period) return;
+  const since = getTick() - (actor.lastCombatTick ?? -Infinity);
+  if (since < LULL_TICKS) return;
+  if ((since - LULL_TICKS) % period !== 0) return;
+  const stats = actor.stats;
+  const hpBefore = stats.hp;
+  const mpBefore = stats.mp;
+  if (stats.hp < stats.hpMax) stats.hp = Math.min(stats.hpMax, stats.hp + 1);
+  if (stats.mp < stats.mpMax) stats.mp = Math.min(stats.mpMax, stats.mp + 1);
+  if ((stats.hp !== hpBefore || stats.mp !== mpBefore) && actor.session) {
+    sendStats(actor);
+  }
+}
+
 function tickActor(actor) {
   if (actor.kind === 'npc' && !actor.alive) return;
 
@@ -85,32 +101,38 @@ function tickActor(actor) {
     }
   }
 
+  if (actor.kind === 'player') {
+    tickPlayerRegen(actor);
+    return;
+  }
   if (actor.kind !== 'npc') return;
   actor.energy += actor.stats.spd;
 
-  // Passive aggression: only NPCs flagged aggressive in their def hunt on sight. Provoked
-  // neutrals have aggressive=true at runtime but do not auto-acquire new players, so we
-  // gate on the def-original flag. This is also what makes pacify's negative-hate cooldown
-  // tick back to zero for bears and wolves.
-  if (actor.defAggressive) {
-    for (const peer of actorsInRoom(actor.location)) {
-      if (peer.kind !== 'player' || !peer.session) continue;
-      if (!(peer.stats?.hp > 0)) continue;
-      addHate(actor, peer, 1);
+  if (actor.position !== 'sleep') {
+    // Passive aggression: only NPCs flagged aggressive in their def hunt on sight. Provoked
+    // neutrals have aggressive=true at runtime but do not auto-acquire new players, so we
+    // gate on the def-original flag. This is also what makes pacify's negative-hate cooldown
+    // tick back to zero for bears and wolves.
+    if (actor.defAggressive) {
+      for (const peer of actorsInRoom(actor.location)) {
+        if (peer.kind !== 'player' || !peer.session) continue;
+        if (!(peer.stats?.hp > 0)) continue;
+        addHate(actor, peer, 1);
+      }
     }
-  }
 
-  if (hasInRoomTarget(actor)) {
-    actor.lastCombatTick = getTick();
-  }
+    if (hasInRoomTarget(actor)) {
+      actor.lastCombatTick = getTick();
+    }
 
-  const chosen = pickBehavior(actor);
-  if (chosen) {
-    actor.energy -= chosen.cost;
-    runPrimitive(actor, chosen.behavior);
+    const chosen = pickBehavior(actor);
+    if (chosen) {
+      actor.energy -= chosen.cost;
+      runPrimitive(actor, chosen.behavior);
+    }
+    if (actor.energy < 0) actor.energy = 0;
+    if (actor.energy > actor._maxCost) actor.energy = actor._maxCost;
   }
-  if (actor.energy < 0) actor.energy = 0;
-  if (actor.energy > actor._maxCost) actor.energy = actor._maxCost;
 
   const tick = getTick();
   if (actor.alive && actor.regen && (tick - actor.lastCombatTick) >= LULL_TICKS) {

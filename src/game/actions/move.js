@@ -5,6 +5,7 @@ import { sendStats } from '../messages.js';
 import { clearAggroOnLeave, applyAggressionOnEnter } from '../combat.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { awardXp, markRoomVisited } from '../xp.js';
+import { requireStanding } from '../positionGate.js';
 
 const DIR_ALIASES = {
   n: 'n', north: 'n',
@@ -35,6 +36,11 @@ function resolveExit(room, exitInput, actor) {
 }
 
 export default function move(actor, args) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   if (!args || args.length === 0) {
     actor.session.send({ kind: 'error', text: s('move.no_arg', actor.lang) });
     return;

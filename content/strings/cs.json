@@ -373,5 +373,24 @@
   "admin.spawn_npc_no_room": "místnost '{room}' neexistuje.",
   "admin.spawn_npc_done": "vyvolán '{name}' v {room}.",
 
+  "position.stand.self": "Postavíš se.",
+  "position.stand.others": "{actor} se postaví.",
+  "position.sit.self": "Sedneš si.",
+  "position.sit.others": "{actor} si sedne.",
+  "position.sleep.self": "Lehneš si a usneš.",
+  "position.sleep.others": "{actor} si lehne a usne.",
+  "position.woken.self": "Probudíš se!",
+  "position.woken.others": "{actor} se probudí!",
+  "position.stood.self": "Vyskočíš na nohy.",
+  "position.stood.others": "{actor} vyskočí na nohy.",
+  "position.must_stand": "Nejdřív se postav.",
+  "position.must_wake": "Spíš.",
+  "position.in_combat": "Ne uprostřed boje.",
+  "position.already.stand": "Už stojíš.",
+  "position.already.sit": "Už sedíš.",
+  "position.already.sleep": "Už spíš.",
+  "position.suffix.sit": "(sedí)",
+  "position.suffix.sleep": "(spí)",
+
   "help.text": "── příkazy ───────────────────────────────────────────\n\n  [ pohyb ]\n  look [cíl]                popíše okolí nebo někoho\n  n s e w u d               pohyb  (také: north south east west up down)\n  go <východ>               pohyb pojmenovaným východem\n\n  [ mluvení ]\n  say <text>   (\"<text>)    mluvit do místnosti\n  emote <text> (:<text>)    provést akci\n  wave/bow/hug/pet/smile/…  sociální akce  (zkus s jménem: 'bow guard')\n\n  [ předměty ]\n  take <předmět>            sebrat ze země\n  drop <předmět>            položit z inventáře\n  inventory (i)             seznam toho, co neseš\n  give <předmět> to <cíl>   dát předmět někomu\n  give <N> gold to <hráč>   předat zlato jinému hráči\n  drop <N> gold             položit hromádku zlata\n  use <předmět> [on <cíl>]  použít předmět, případně na někoho\n  wear / equip <předmět>    obléct výstroj\n  remove / unwear <předmět> sundat výstroj\n  equipment (eq)            zobrazí výstroj\n\n  [ boj ]\n  attack <cíl>              zaútočit na NPC  (také: kill, hit)\n  cast <kouzlo> [on <cíl>]  seslat známé kouzlo\n  flee (f)                  utéct náhodným východem\n\n  [ reference ]\n  stats (st)                zobrazí tvé staty s vysvětlením\n  spells (sp)               zobrazí známá kouzla s poškozením/efekty\n  train <stat> (tr)         utratí volný bod na atk|def|int|mr|acc|eva|hp|mp\n\n  [ ostatní ]\n  who                       seznam hráčů online\n  lang [kód]                zobrazí nebo nastaví jazyk  (en | cs)\n  help (?)                  tento seznam\n  quit (q)                  odpojit se\n\n  [ tipy ]\n  Tab                       doplní příkazy a jména cílů\n  ↑ / ↓ šipky               historie příkazů\n  klikni na čip             interakce s NPC a předměty\n  scroll nahoru v konzoli   zamkne auto-scroll; tlačítko ↓ pro pokračování\n\n── admin ─────────────────────────────────────────────\n  @create-player <jméno> [jazyk] [acc dat gen voc]\n                            vytvoří postavu; pro cs lze zadat skloňované tvary\n  @reload                   načte obsah světa z disku\n  @who                      seznam hráčů s lokacemi\n  @reset-stats <hráč>       vrátí hráči všechny statové body\n  @spawn-item <idDefinice>  vyvolá předmět v aktuální místnosti\n  @spawn-npc <idDefinice> [místnost]  vyvolá NPC zde (nebo v <místnost>)"
 }

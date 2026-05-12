@@ -27,6 +27,9 @@ export const ALLOWED_BONUS_KEYS = new Set([
   'perception',
 ]);
 
+// ---------- positions ----------
+export const POSITIONS = new Set(['stand', 'sit', 'sleep']);
+
 // ---------- npcs ----------
 export const DISPOSITIONS = new Set(['friendly', 'neutral', 'hostile']);
 

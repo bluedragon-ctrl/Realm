@@ -596,12 +596,7 @@ function renderRoomInInspect(msg) {
       const name = typeof n === 'string' ? n : n.name;
       const disposition = typeof n === 'string' ? 'neutral' : (n.disposition ?? 'neutral');
       const cssClass = disposition === 'hostile' ? 'npc hostile' : 'npc';
-      let chip;
-      if (disposition === 'hostile') {
-        chip = makeChip(`⚔️ ${name}`, cssClass, () => sendInput(`attack ${name}`));
-      } else {
-        chip = makeChip(name, cssClass, (ev) => openActorPopover(chip, name, ev, { disposition, kind: 'npc' }));
-      }
+      const chip = makeChip(name, cssClass, (ev) => openActorPopover(chip, name, ev, { disposition, kind: 'npc' }));
       row.appendChild(chip);
     });
     inspectBody.appendChild(row);

@@ -52,6 +52,15 @@ export const DEFAULT_NPC_REGEN = Object.freeze({ hp: 1, mp: 1 });
 
 export const LULL_TICKS = 6;
 
+// Player out-of-combat regen, keyed by position. Value is the tick period
+// between +1 HP / +1 MP grants. `null` disables regen for that position.
+// Sitting heals ~30 HP/min, sleeping ~60 HP/min.
+export const PLAYER_REGEN_PERIOD = Object.freeze({
+  stand: null,
+  sit: 4,
+  sleep: 1,
+});
+
 export const DEFAULT_PLAYER_ATTACK = Object.freeze({
   primitive: 'attack',
   name: { en: 'attack', cs: 'útok' },

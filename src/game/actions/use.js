@@ -11,6 +11,7 @@ import { isSelfToken } from '../targeting.js';
 import { runExchange } from '../exchange.js';
 import { EFFECT_SOURCE } from '../contentMeta.js';
 import { applyHealerAggro } from '../combat.js';
+import { requireStanding } from '../positionGate.js';
 
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
@@ -58,6 +59,11 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
 }
 
 export default function use(actor, args) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   if (!args || args.length === 0) {
     actor.session.send({ kind: 'error', text: s('use.no_arg', actor.lang) });
     return;

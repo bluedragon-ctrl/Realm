@@ -15,6 +15,7 @@ import { resolveName, pickByVariants } from '../declension.js';
 import { EFFECT_SOURCE } from '../contentMeta.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { DEFAULT_COSTS } from '../stats.js';
+import { requireStanding } from '../positionGate.js';
 
 const MAX_RESIST = 95;
 
@@ -257,6 +258,13 @@ export default function cast(actor, args) {
 
 function validateSpellTarget(actor, spell, target) {
   const kind = spell.target ?? 'any';
+  if (kind === 'hostile' || kind === 'hostile_room') {
+    const gate = requireStanding(actor);
+    if (!gate.ok) {
+      actor.session.send({ kind: 'error', text: gate.msg });
+      return false;
+    }
+  }
   const isSelf = !target || target === actor;
 
   if (kind === 'self') {
