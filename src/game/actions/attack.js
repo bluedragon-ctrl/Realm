@@ -6,6 +6,7 @@ import { resolveName } from '../declension.js';
 import { sendStats } from '../messages.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { resolveActorTarget } from '../targeting.js';
+import { requireStanding } from '../positionGate.js';
 
 export function buildPlayerAttack(actor) {
   const weaponId = actor.record?.equipped?.weapon;
@@ -41,6 +42,11 @@ function resolveTarget(actor, query) {
 }
 
 export default function attack(actor, args) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   if (!args || args.length === 0) {
     actor.session.send({ kind: 'error', text: s('attack.no_arg', actor.lang) });
     return;

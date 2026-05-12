@@ -1,8 +1,14 @@
 import { getRoom, broadcastToRoom, world } from '../world.js';
 import { describeRoomToAll } from './look.js';
 import { s, t, dirName } from '../../i18n.js';
+import { requireStanding } from '../positionGate.js';
 
 export default function search(actor) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   const room = getRoom(actor.location);
   if (!room) return;
   const lang = actor.lang;

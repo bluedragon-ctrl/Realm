@@ -1,8 +1,14 @@
 import { getRoom } from '../world.js';
 import { s } from '../../i18n.js';
 import move from './move.js';
+import { requireStanding } from '../positionGate.js';
 
 export default function flee(actor) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   const room = getRoom(actor.location);
   const exitKeys = Object.keys(room?.exits ?? {});
   if (exitKeys.length === 0) {
