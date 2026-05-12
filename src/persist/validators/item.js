@@ -69,6 +69,12 @@ export function makeItemValidator(knownRooms, knownEffects) {
     if (def.lightSource != null) {
       checkObject(def.lightSource, ctx, 'lightSource');
       checkEnum(def.lightSource.level, LIGHT_LEVEL_SET, ctx, 'lightSource.level');
+      if (def.lightSource.toggle) {
+        check(def.use?.effect?.type === 'toggle_light', ctx,
+          `lightSource.toggle requires use.effect.type === 'toggle_light'`);
+        check(def.useExtinguish && typeof def.useExtinguish === 'object', ctx,
+          `lightSource.toggle requires a 'useExtinguish' verb-shape def`);
+      }
     }
     if (def.use?.effect?.type === 'apply_effect') {
       const eid = def.use.effect.effectId;

@@ -139,7 +139,13 @@ export default function use(actor, args) {
   }
 
   const formKey = (!targetActor || targetActor === actor) ? 'no_target' : 'to_target';
-  if (!hasForm(useDef, actor.lang, formKey)) {
+  // For toggleable light fixtures we narrate the action that's about to happen:
+  // currently lit → useExtinguish (we're putting it out); currently unlit → use (we're lighting).
+  let verbDef = useDef;
+  if (useDef.effect?.type === 'toggle_light' && inst.state?.lit && inst.def.useExtinguish) {
+    verbDef = inst.def.useExtinguish;
+  }
+  if (!hasForm(verbDef, actor.lang, formKey)) {
     actor.session.send({ kind: 'error', text: s('use.cant', actor.lang) });
     return;
   }
@@ -165,7 +171,7 @@ export default function use(actor, args) {
     sendStats(actor);
   }
 
-  runVerb({ actor, def: useDef, targetActor });
+  runVerb({ actor, def: verbDef, targetActor });
 
   if (useDef.effect?.type === 'apply_effect') {
     const recipient = targetActor ?? actor;
@@ -184,6 +190,8 @@ export default function use(actor, args) {
       actor.session?.send({ kind: 'system', tone: 'good', text: s('chest.opened', actor.lang) });
       describeRoomToAll(actor.location);
       awardXp(actor, 5, 'open_chest');
+    } else if (useDef.effect?.type === 'toggle_light' && result?.toggled) {
+      describeRoomToAll(actor.location);
     } else if (useDef.effect?.type === 'teach_spell') {
       if (result?.learned) {
         const spellDef = world.spellDefs.get(useDef.effect.spell);

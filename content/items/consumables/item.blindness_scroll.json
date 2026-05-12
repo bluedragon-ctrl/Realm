@@ -1,0 +1,40 @@
+{
+  "id": "item.blindness_scroll",
+  "name": {
+    "en": "a shadow-dark scroll",
+    "cs": "stínově temný svitek"
+  },
+  "nameAcc": {
+    "en": "the shadow-dark scroll",
+    "cs": "stínově temný svitek"
+  },
+  "short": {
+    "en": "A rolled scroll of charcoal-dark parchment, its ink almost lost in the gloom.",
+    "cs": "Svitek pergamenu temného jako uhel, inkoust se v šeru téměř ztrácí."
+  },
+  "long": {
+    "en": "A scroll of parchment dyed almost black, tied with a strip of grey linen. A closed eye is drawn at its centre in faint silver ink. It feels heavier than it should.",
+    "cs": "Svitek pergamenu zbarvený do téměř černé, převázaný proužkem šedého plátna. Uprostřed je slabým stříbrným inkoustem nakresleno zavřené oko. Působí těžší, než by měl."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the dark scroll and whisper its words. The drawn eye blinks shut and sinks into the parchment.",
+        "others": "{actor} unrolls a dark scroll and whispers it aloud. A silver eye on the parchment blinks and fades."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš temný svitek a šeptem přečteš jeho slova. Nakreslené oko se zavře a vsákne se do pergamenu.",
+        "others": "{actor} rozvine temný svitek a šeptem ho přečte. Stříbrné oko na pergamenu mrkne a zmizí."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.blindness"
+    }
+  }
+}

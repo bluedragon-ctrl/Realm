@@ -1,0 +1,37 @@
+{
+  "id": "spell.nightvision",
+  "name": {
+    "en": "Nightvision",
+    "cs": "Noční vidění"
+  },
+  "mpCost": 3,
+  "actionCost": 12,
+  "target": "any",
+  "description": {
+    "en": "Sharpen the target's eyes to see in the dim and the dark for a long time.",
+    "cs": "Zaostří cíli zrak, aby na dlouhou dobu viděl v šeru i ve tmě."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you trace a slow circle around each eye. The world brightens — shapes lift out of the gloom.",
+        "others": "{actor} traces a slow circle around each eye. Their pupils widen as if drinking in the dark."
+      },
+      "to_target": {
+        "self": "you trace a slow circle around each of {target}'s eyes. Their pupils widen, drinking in the dark.",
+        "others": "{actor} traces a slow circle around each of {target}'s eyes. Their pupils widen, drinking in the dark."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "pomalu obkroužíš každé oko prstem. Svět se rozjasní — tvary vystoupí ze šera.",
+        "others": "{actor} si pomalu obkrouží každé oko prstem. Zorničky se rozšíří, jako by pily tmu."
+      },
+      "to_target": {
+        "self": "pomalu obkroužíš {target} každé oko. Zorničky se rozšíří, jako by pily tmu.",
+        "others": "{actor} pomalu obkrouží {target} každé oko. Zorničky se rozšíří, jako by pily tmu."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.nightvision" }
+}

@@ -13,24 +13,41 @@
     "cs": "Těžký dubový pult se opírá o spadlou polici, nahoře stále leží otevřená kniha."
   },
   "long": {
-    "en": "A heavy oak lectern, the kind a scholar would stand at to read. One foot is broken and it leans against a fallen shelf. An open book lies on the slanted top — most of the ink has faded, but a careful drawing of a circle within a circle is still clear in the corner of one page. The scholar drifts past it now and then without touching it.",
-    "cs": "Těžký dubový pult, u jakého by stál učenec při čtení. Jedna noha je zlomená a pult se opírá o spadlou polici. Na nakloněné desce leží otevřená kniha — většina inkoustu vybledla, ale v rohu jedné stránky je stále zřetelná pečlivá kresba kruhu v kruhu. Učenec kolem pultu občas propluje, ale nedotkne se ho."
+    "en": "A heavy oak lectern, the kind a scholar would stand at to read. One foot is broken and it leans against a fallen shelf. An open book lies on the slanted top — most of the ink has faded, but a careful drawing of a circle within a circle is still clear in the corner of one page. A brass reading-candle holder is fixed to the side, with a fresh white candle waiting in it. The scholar drifts past it now and then without touching it.",
+    "cs": "Těžký dubový pult, u jakého by stál učenec při čtení. Jedna noha je zlomená a pult se opírá o spadlou polici. Na nakloněné desce leží otevřená kniha — většina inkoustu vybledla, ale v rohu jedné stránky je stále zřetelná pečlivá kresba kruhu v kruhu. Po straně je připevněn mosazný držák na svíci a v něm čeká čerstvá bílá svíčka. Učenec kolem pultu občas propluje, ale nedotkne se ho."
   },
   "tags": ["fixture"],
   "weight": 99,
   "pickable": false,
   "spawn": { "location": "castle.library", "count": 1 },
+  "lightSource": { "level": "light", "toggle": true },
+  "lit": false,
   "use": {
     "en": {
       "no_target": {
-        "self": "you peer at the open book on the lectern. The ink is faded and the pages crumble at a touch. The scholar's eyes flick toward you for a moment, then return to his reading.",
-        "others": "{actor} leans over the lectern and studies the open book."
+        "self": "you strike a flame and touch it to the reading candle. The wick catches and steady white light spreads across the open page.",
+        "others": "{actor} lights the reading candle on the lectern. Steady white light spreads over the open book."
       }
     },
     "cs": {
       "no_target": {
-        "self": "nakloníš se nad otevřenou knihu na pultu. Inkoust je vybledlý a stránky se při doteku drolí. Učencovy oči se na chvíli stočí k tobě a pak se vrátí ke čtení.",
-        "others": "{actor} se nakloní nad pult a studuje otevřenou knihu."
+        "self": "vykřesáš plamen a přiložíš ho ke čtecí svíci. Knot chytne a po otevřené stránce se rozlije klidné bílé světlo.",
+        "others": "{actor} zapálí čtecí svíci na pultu. Po otevřené knize se rozlije klidné bílé světlo."
+      }
+    },
+    "effect": { "type": "toggle_light" }
+  },
+  "useExtinguish": {
+    "en": {
+      "no_target": {
+        "self": "you lick your thumb and finger and pinch out the reading candle. The library sinks back into dusty gloom.",
+        "others": "{actor} pinches out the reading candle on the lectern. The library sinks back into dusty gloom."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "navlhčíš si prsty a uškubneš plamínek čtecí svíce. Knihovna se vrátí do zaprášeného šera.",
+        "others": "{actor} uškubne plamínek čtecí svíce. Knihovna se vrátí do zaprášeného šera."
       }
     }
   }

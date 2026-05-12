@@ -1,0 +1,13 @@
+{
+  "id": "effect.nightvision",
+  "name": {
+    "en": "Nightvision",
+    "cs": "Noční vidění"
+  },
+  "kind": "buff",
+  "icon": "🦉",
+  "duration": 120,
+  "perception": "nightvision",
+  "exclusiveGroup": "vision_alter",
+  "stack": "refresh"
+}

@@ -20,17 +20,34 @@
   "weight": 99,
   "pickable": false,
   "spawn": { "location": "castle.tomb", "count": 1 },
+  "lightSource": { "level": "light", "toggle": true },
+  "lit": false,
   "use": {
     "en": {
       "no_target": {
-        "self": "you brush dust from the plinth and trace the carved letters with a finger. The stone is cold and patient. Whatever waits here, waits for an offering.",
-        "others": "{actor} kneels by the stone plinth and brushes the dust from its surface."
+        "self": "you set a votive candle into the old wax ring and coax a flame from it. A soft glow rises from the plinth and fills the tomb.",
+        "others": "{actor} sets a votive candle on the plinth and lights it. A soft glow rises and fills the tomb."
       }
     },
     "cs": {
       "no_target": {
-        "self": "smeteš z desky prach a prstem přejedeš vytesaná písmena. Kámen je chladný a trpělivý. Ať tu čeká cokoli, čeká to na obětinu.",
-        "others": "{actor} si klekne ke kamenné desce a smete z ní prach."
+        "self": "postavíš obětní svíci do starého kruhu vosku a vyloudíš z ní plamínek. Jemná záře stoupá od desky a rozlévá se po hrobce.",
+        "others": "{actor} postaví obětní svíci na desku a zapálí ji. Jemná záře stoupá a rozlévá se po hrobce."
+      }
+    },
+    "effect": { "type": "toggle_light" }
+  },
+  "useExtinguish": {
+    "en": {
+      "no_target": {
+        "self": "you cup the candle flame in your palm and snuff it out. The glow fades and dust settles back over the plinth.",
+        "others": "{actor} snuffs out the candle on the plinth. The glow fades and dust settles back over the stone."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přikryješ plamen dlaní a udusíš ho. Záře pohasne a na desku se znovu usadí prach.",
+        "others": "{actor} udusí plamen svíce na desce. Záře pohasne a prach se znovu usadí."
       }
     }
   }

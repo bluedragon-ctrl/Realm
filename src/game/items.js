@@ -4,6 +4,9 @@ import { allNameVariants } from './declension.js';
 let nextItemInstanceId = 1;
 
 export function makeItemInstance(def, state = {}) {
+  if (def.lightSource?.toggle && state.lit === undefined) {
+    state.lit = !!def.lit;
+  }
   return {
     instanceId: nextItemInstanceId++,
     defId: def.id,

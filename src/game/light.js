@@ -26,7 +26,9 @@ export function clampDown(current, ceiling) {
 
 function readItemFloor(inst) {
   const ls = inst?.def?.lightSource;
-  return ls?.level;
+  if (!ls?.level) return undefined;
+  if (ls.toggle && !inst?.state?.lit) return undefined;
+  return ls.level;
 }
 
 function readEffectFloor(actor) {

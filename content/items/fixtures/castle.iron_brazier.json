@@ -20,17 +20,34 @@
   "weight": 99,
   "pickable": false,
   "spawn": { "location": "castle.great_hall", "count": 1 },
+  "lightSource": { "level": "light", "toggle": true },
+  "lit": false,
   "use": {
     "en": {
       "no_target": {
-        "self": "you crouch by the brazier and stir the cold ash. A faint smell of old charcoal rises. Nothing here would light by itself.",
-        "others": "{actor} crouches by the iron brazier and stirs the ash with a finger."
+        "self": "you strike sparks into the brazier. The dry wood catches, then roars up, throwing warm light across the hall.",
+        "others": "{actor} strikes sparks into the brazier. The wood catches and flames leap up, lighting the hall."
       }
     },
     "cs": {
       "no_target": {
-        "self": "přidřepneš ke koši na oheň a prohrabeš studený popel. Vzlíná z něj slabý pach starého uhlí. Sám od sebe by tu nic nevzplálo.",
-        "others": "{actor} se přidřepne k železnému koši na oheň a prstem prohrábne popel."
+        "self": "vykřesáš jiskry do koše na oheň. Suché dřevo chytne, vzplane a po síni se rozlije teplé světlo.",
+        "others": "{actor} vykřese jiskry do koše. Dřevo chytne, plameny vyšlehnou a osvětlí síň."
+      }
+    },
+    "effect": { "type": "toggle_light" }
+  },
+  "useExtinguish": {
+    "en": {
+      "no_target": {
+        "self": "you smother the brazier with the iron lid. The flames die back into smoke and glowing embers.",
+        "others": "{actor} smothers the brazier. The flames die back and the hall dims."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přiklopíš koš železným víkem. Plameny zhasnou a zůstane jen kouř a žhavé uhlíky.",
+        "others": "{actor} přiklopí koš víkem. Plameny zhasnou a v síni se stmí."
       }
     }
   }
