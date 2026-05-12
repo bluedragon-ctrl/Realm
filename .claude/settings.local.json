@@ -1,0 +1,19 @@
+{
+  "permissions": {
+    "allow": [
+      "WebSearch",
+      "WebFetch(domain:raw.githubusercontent.com)",
+      "Bash(git add *)",
+      "Bash(git commit -m ' *)",
+      "Bash(git commit *)",
+      "Bash(node -e \"import\\('./src/game/light.js'\\).then\\(m => console.log\\(Object.keys\\(m\\).sort\\(\\)\\)\\)\")",
+      "Bash(node -e ' *)",
+      "Bash(xargs grep \"\\\\.equipment\\\\s*=\")",
+      "PowerShell(cd \"C:\\\\Users\\\\michal.valvoda\\\\OneDrive - Dr. Max BDC, s.r.o\\\\Dokumenty\\\\_Private\\\\Development\\\\Realm\\\\.claude\\\\worktrees\\\\distracted-shockley-a8f9f8\"; $proc = Start-Process node -ArgumentList \"server.js\" -PassThru -NoNewWindow -RedirectStandardOutput \"$env:TEMP\\\\realm-boot.txt\" -RedirectStandardError \"$env:TEMP\\\\realm-boot-err.txt\"; Start-Sleep -Seconds 3; $proc.Kill\\(\\); Get-Content \"$env:TEMP\\\\realm-boot.txt\"; Get-Content \"$env:TEMP\\\\realm-boot-err.txt\")",
+      "Bash(netstat -ano)",
+      "Bash(findstr :8080)",
+      "Bash(taskkill /PID 29388 /F)",
+      "Bash(timeout 4 node server.js)"
+    ]
+  }
+}
