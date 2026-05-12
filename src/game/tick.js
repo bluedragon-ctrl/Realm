@@ -76,9 +76,10 @@ function pickBehavior(actor) {
 function tickPlayerRegen(actor) {
   const period = PLAYER_REGEN_PERIOD[actor.position];
   if (!period) return;
-  const since = getTick() - (actor.lastCombatTick ?? -Infinity);
+  const tick = getTick();
+  const since = tick - (actor.lastCombatTick ?? -Infinity);
   if (since < LULL_TICKS) return;
-  if ((since - LULL_TICKS) % period !== 0) return;
+  if (tick % period !== 0) return;
   const stats = actor.stats;
   const hpBefore = stats.hp;
   const mpBefore = stats.mp;

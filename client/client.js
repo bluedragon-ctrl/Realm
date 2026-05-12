@@ -306,21 +306,11 @@ function renderStats(msg) {
         counter.className = 'effect-counter';
         counter.textContent = `⏱ ${eff.pulsesLeft}`;
         chip.appendChild(counter);
-        if (typeof eff.nextTickIn === 'number' && eff.nextTickIn > 0) {
-          const timer = document.createElement('span');
-          timer.className = 'effect-timer';
-          timer.style.animationDuration = `${eff.nextTickIn * 1000}ms`;
-          chip.appendChild(timer);
-        }
       } else if (typeof eff.ticksLeft === 'number' && eff.ticksLeft > 0) {
         const counter = document.createElement('span');
         counter.className = 'effect-counter';
         counter.textContent = `⏱ ${eff.ticksLeft}s`;
         chip.appendChild(counter);
-        const timer = document.createElement('span');
-        timer.className = 'effect-timer';
-        timer.style.animationDuration = `${eff.ticksLeft * 1000}ms`;
-        chip.appendChild(timer);
       } else if (eff.chancePct != null) {
         const counter = document.createElement('span');
         counter.className = 'effect-counter';
