@@ -30,7 +30,7 @@ function rangeText(min, max, lang, kind) {
   return s('spells.range', lang, { min, max, unit });
 }
 
-function effectDetail(spell, actor) {
+export function effectDetail(spell, actor) {
   const lang = actor.lang;
   const eff = spell.effect;
   if (!eff) return null;

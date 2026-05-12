@@ -329,6 +329,11 @@
   "spells.detail.apply_simple": "effect: {icon} {name}",
   "spells.detail.apply_unknown": "effect: {id} (unknown)",
 
+  "item.detail.damage": "damage: {formula}",
+  "item.detail.bonus": "bonus: {mods}",
+  "item.detail.on_hit": "on hit: {chance}% chance — {effect}",
+  "item.detail.on_use": "on use: {effect}",
+
   "xp.gained": "you earn {amount} XP.",
   "xp.level_up": "── LEVEL {level} REACHED ──",
   "xp.level_up_observed": "── {name} reached level {level} ──",

@@ -199,13 +199,39 @@ html, body {
   flex-wrap: wrap;
 }
 .quickbar-cb {
-  width: 12px;
-  height: 12px;
+  width: 11px;
+  height: 11px;
   flex-shrink: 0;
-  accent-color: var(--accent);
+  accent-color: var(--dim);
   cursor: pointer;
-  margin-right: 4px;
+  margin: 0;
+  opacity: 0.5;
 }
+.quickbar-cb:hover, .quickbar-cb:checked { opacity: 0.9; }
+.panel-list-row-info {
+  background: none;
+  border: none;
+  color: var(--dim);
+  cursor: pointer;
+  font-size: 13px;
+  line-height: 1;
+  padding: 0 2px;
+  opacity: 0.6;
+}
+.panel-list-row-info:hover { opacity: 1; color: var(--accent); }
+.panel-list-row-actions {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  margin-left: auto;
+}
+.panel-list-row.item-row {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.panel-list-row.spell-row { display: flex; flex-direction: column; }
+.panel-list-row.spell-row .panel-list-row-actions { align-self: flex-end; margin-top: 2px; }
 .panel-list-row-name {
   font-size: 13px;
   color: var(--fg);

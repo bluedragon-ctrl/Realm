@@ -329,6 +329,11 @@
   "spells.detail.apply_simple": "efekt: {icon} {name}",
   "spells.detail.apply_unknown": "efekt: {id} (neznámý)",
 
+  "item.detail.damage": "poškození: {formula}",
+  "item.detail.bonus": "bonus: {mods}",
+  "item.detail.on_hit": "při zásahu: {chance}% šance — {effect}",
+  "item.detail.on_use": "při použití: {effect}",
+
   "xp.gained": "získáváš {amount} XP.",
   "xp.level_up": "── ÚROVEŇ {level} DOSAŽENA ──",
   "xp.level_up_observed": "── {name} – úroveň {level} ──",

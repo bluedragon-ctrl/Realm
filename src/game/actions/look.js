@@ -3,12 +3,35 @@ import { findItemInList } from '../items.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
 import { canAfford } from '../exchange.js';
 import { getHate } from '../aggro.js';
+import { findKnownSpell } from './cast.js';
+import { effectDetail } from './spells.js';
 import { t, s, dirName } from '../../i18n.js';
 
 function withPositionSuffix(name, position, lang) {
   if (!position || position === 'stand') return name;
   const suffix = s(`position.suffix.${position}`, lang);
   return suffix ? `${name} ${suffix}` : name;
+}
+
+const STAT_LABELS = {
+  attack: 'ATK', defense: 'DEF', int: 'INT', evasion: 'EVA',
+  accuracy: 'ACC', magicResist: 'MR', hp: 'HP', mp: 'MP', spd: 'SPD',
+};
+
+function bonusSummary(bonus) {
+  const parts = [];
+  for (const [stat, value] of Object.entries(bonus)) {
+    const sign = value >= 0 ? '+' : '';
+    parts.push(`${STAT_LABELS[stat] ?? stat.toUpperCase()} ${sign}${value}`);
+  }
+  return parts.join(', ');
+}
+
+function applyEffectShortText(applyId, lang) {
+  const def = world.effectDefs.get(applyId);
+  if (!def) return applyId;
+  const icon = def.icon ?? '';
+  return `${icon ? icon + ' ' : ''}${t(def.name, lang)}`;
 }
 
 function serializeExchanges(host, lang, actor) {
@@ -232,17 +255,64 @@ export default function look(actor, args) {
     return;
   }
 
+  const spell = findKnownSpell(actor, query);
+  if (spell) {
+    sendSpellInfo(actor, spell);
+    actor.session.send({ kind: 'system', text: s('narration.you_look_at', actor.lang, { target: t(spell.name, actor.lang) }) });
+    return;
+  }
+
   actor.session.send({ kind: 'error', text: s('error.no_such_target', actor.lang, { query }) });
+}
+
+function sendSpellInfo(actor, spell) {
+  const lang = actor.lang;
+  const targetLabel = s(`spells.target.${spell.target ?? 'any'}`, lang);
+  const mpCost = spell.mpCost ?? 0;
+  const details = [];
+  const detail = effectDetail(spell, actor);
+  if (detail) details.push(detail);
+  actor.session.send({
+    kind: 'target-info',
+    name: t(spell.name, lang),
+    subtitle: `${mpCost} ${s('panel.mp', lang)} · ${targetLabel}`,
+    description: spell.description ? t(spell.description, lang) : '',
+    details,
+  });
 }
 
 function sendItemInfo(actor, inst) {
   const lang = actor.lang;
   const exchanges = serializeExchanges(inst, lang, actor);
+  const def = inst.def;
+  const details = [];
+  const w = def.wearable;
+  if (w) {
+    if (w.damage) {
+      details.push(s('item.detail.damage', lang, { formula: String(w.damage) }));
+    }
+    if (w.bonus && Object.keys(w.bonus).length > 0) {
+      details.push(s('item.detail.bonus', lang, { mods: bonusSummary(w.bonus) }));
+    }
+    if (w.onHit?.applyEffect) {
+      const chance = Math.round((w.onHit.chance ?? 1) * 100);
+      details.push(s('item.detail.on_hit', lang, {
+        chance,
+        effect: applyEffectShortText(w.onHit.applyEffect, lang),
+      }));
+    }
+  }
+  if (def.use?.effect) {
+    const fake = { effect: def.use.effect };
+    const text = effectDetail(fake, actor);
+    if (text) details.push(s('item.detail.on_use', lang, { effect: text }));
+  }
   actor.session.send({
     kind: 'target-info',
-    name: t(inst.def.name, lang),
+    name: t(def.name, lang),
     subtitle: '',
-    description: t(inst.def.long, lang) || t(inst.def.short, lang) || s('look.npc_no_desc', lang),
+    description: t(def.long, lang) || t(def.short, lang) || s('look.npc_no_desc', lang),
+    details,
     exchanges,
     exchangeRowLabels: exchanges ? {
       buy: s('exchange.row.buy', lang),
