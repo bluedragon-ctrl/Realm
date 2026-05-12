@@ -534,6 +534,10 @@ function renderRoomInInspect(msg) {
   backBtn.hidden = true;
   inspectBody.innerHTML = '';
 
+  inspectPanel.classList.remove('inspect-panel-light', 'inspect-panel-dim', 'inspect-panel-dark');
+  const light = msg.light ?? 'light';
+  inspectPanel.classList.add(`inspect-panel-${light}`);
+
   const name = document.createElement('div'); name.className = 'inspect-name'; name.textContent = msg.name;
   inspectBody.appendChild(name);
 
@@ -594,9 +598,10 @@ function renderRoomInInspect(msg) {
     msg.npcs.forEach((n, i) => {
       if (i > 0) row.append(' ');
       const name = typeof n === 'string' ? n : n.name;
+      const label = typeof n === 'string' ? n : (n.display ?? n.name);
       const disposition = typeof n === 'string' ? 'neutral' : (n.disposition ?? 'neutral');
       const cssClass = disposition === 'hostile' ? 'npc hostile' : 'npc';
-      const chip = makeChip(name, cssClass, (ev) => openActorPopover(chip, name, ev, { disposition, kind: 'npc' }));
+      const chip = makeChip(label, cssClass, (ev) => openActorPopover(chip, name, ev, { disposition, kind: 'npc' }));
       row.appendChild(chip);
     });
     inspectBody.appendChild(row);
@@ -607,9 +612,11 @@ function renderRoomInInspect(msg) {
     const lab = document.createElement('span'); lab.className = 'inspect-row-label';
     lab.textContent = `${msg.othersLabel ?? 'also here'}: `;
     row.appendChild(lab);
-    msg.others.forEach((n, i) => {
+    msg.others.forEach((p, i) => {
       if (i > 0) row.append(' ');
-      const chip = makeChip(n, 'player', (ev) => openActorPopover(chip, n, ev, { disposition: 'friendly', kind: 'player' }));
+      const name = typeof p === 'string' ? p : p.name;
+      const label = typeof p === 'string' ? p : (p.display ?? p.name);
+      const chip = makeChip(label, 'player', (ev) => openActorPopover(chip, name, ev, { disposition: 'friendly', kind: 'player' }));
       row.appendChild(chip);
     });
     inspectBody.appendChild(row);
@@ -872,7 +879,7 @@ function buildTabCandidates(val) {
   }
 
   const npcNames = (lastRoomMsg?.npcs ?? []).map(n => typeof n === 'string' ? n : n.name);
-  const playerNames = lastRoomMsg?.others ?? [];
+  const playerNames = (lastRoomMsg?.others ?? []).map(p => typeof p === 'string' ? p : p.name);
   const roomItems = (lastRoomMsg?.items ?? []).map(i => i.name);
   const invItems = (lastStatsMsg?.inventory ?? []).map(i => i.name);
   const spellIds = (lastStatsMsg?.knownSpells ?? []).map(s => s.id);
@@ -1359,7 +1366,8 @@ function openLookPicker(anchorEl, ev) {
   popover.appendChild(popoverButton('Room', 'primary', () => { sendInput('look'); closePopover(); }));
   for (const n of (lastRoomMsg?.npcs ?? [])) {
     const name = typeof n === 'string' ? n : n.name;
-    popover.appendChild(popoverButton(name, '', () => { sendInput(`look ${name}`); closePopover(); }));
+    const label = typeof n === 'string' ? n : (n.display ?? n.name);
+    popover.appendChild(popoverButton(label, '', () => { sendInput(`look ${name}`); closePopover(); }));
   }
   for (const item of (lastRoomMsg?.items ?? [])) {
     popover.appendChild(popoverButton(item.name, '', () => { sendInput(`look ${item.name}`); closePopover(); }));
@@ -1538,7 +1546,10 @@ function currentRoomTargets(opts = {}) {
     }
   }
   if (!opts.hostileOnly && lastRoomMsg?.others) {
-    for (const name of lastRoomMsg.others) out.push({ name, disposition: 'friendly' });
+    for (const p of lastRoomMsg.others) {
+      const name = typeof p === 'string' ? p : p.name;
+      out.push({ name, disposition: 'friendly' });
+    }
   }
   return out;
 }

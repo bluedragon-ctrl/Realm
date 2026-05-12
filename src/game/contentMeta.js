@@ -18,6 +18,11 @@ export const WEARABLE_SOURCE_PREFIX = 'wearable:';
 // ---------- spells ----------
 export const SPELL_TARGETS = new Set(['self', 'friendly', 'hostile', 'hostile_room', 'friendly_room', 'any']);
 
+// ---------- light ----------
+export const LIGHT_LEVEL_SET = new Set(['light', 'dim', 'dark']);
+export const PERCEPTION_KINDS = new Set(['blind', 'nightvision']);
+export const VISION_KINDS = new Set(['low_light', 'nightvision', 'blind']);
+
 // ---------- wearables ----------
 export const WEARABLE_SLOTS = ['body', 'head', 'weapon', 'amulet', 'ring', 'utility'];
 export const WEARABLE_SLOT_SET = new Set(WEARABLE_SLOTS);

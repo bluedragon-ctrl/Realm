@@ -1,8 +1,8 @@
 import path from 'node:path';
 import {
-  check, checkLocalizedText, checkObject, checkArray,
+  check, checkLocalizedText, checkObject, checkArray, checkEnum,
 } from '../validate.js';
-import { WEARABLE_SLOT_SET, ALLOWED_BONUS_KEYS } from '../../game/contentMeta.js';
+import { WEARABLE_SLOT_SET, ALLOWED_BONUS_KEYS, LIGHT_LEVEL_SET } from '../../game/contentMeta.js';
 import { checkOptionalNameForms } from './common.js';
 
 export function makeItemValidator(knownRooms, knownEffects) {
@@ -65,6 +65,10 @@ export function makeItemValidator(knownRooms, knownEffects) {
         check(Number.isInteger(def.wearable.cost) && def.wearable.cost > 0, ctx,
           `wearable.cost must be a positive integer`);
       }
+    }
+    if (def.lightSource != null) {
+      checkObject(def.lightSource, ctx, 'lightSource');
+      checkEnum(def.lightSource.level, LIGHT_LEVEL_SET, ctx, 'lightSource.level');
     }
     if (def.use?.effect?.type === 'apply_effect') {
       const eid = def.use.effect.effectId;

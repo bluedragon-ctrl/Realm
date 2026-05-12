@@ -9,6 +9,9 @@ import { playerExists, createPlayer } from '../../persist/players.js';
 
 export async function loadWorld() {
   world.rooms = await loadRooms();
+  for (const room of world.rooms.values()) {
+    room.activeLight = [];
+  }
   world.admins = await loadAdmins();
   world.npcDefs = await loadNpcs(world.rooms);
   world.socials = await loadSocials();

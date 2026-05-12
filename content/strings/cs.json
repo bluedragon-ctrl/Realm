@@ -55,6 +55,8 @@
   "look.npc_no_desc": "(bez popisu)",
   "look.you_see_nothing": "nevidíš nic zvláštního.",
   "look.adventurer_subtitle": "dobrodruh",
+  "look.too_dark": "Je příliš tma, nepoznáš, kdo to je.",
+  "look.target_dim_hint": "V přítmí nepoznáš podrobnosti.",
 
   "take.no_arg": "co sebrat?",
   "take.self": "sebereš {item}.",
@@ -147,6 +149,7 @@
   "combat.you_died": "tentokrát to nevyšlo.",
   "combat.you_respawn": "probouzíš se doma — slabě, ale naživu.",
   "combat.player_died_observed": "{name} padá k zemi.",
+  "combat.hit_by_unseen": "Něco tě uhodí ze tmy!",
   "aggro.onset_self": "{npc} si tě začíná všímat.",
   "aggro.onset_others": "{npc} si začíná všímat {target}.",
   "aggro.pack_joins": "{joiners} se přidávají do boje proti {target}!",
@@ -208,6 +211,8 @@
   "room.others_label": "také zde",
   "room.items_label": "na zemi",
   "room.no_exits": "žádné",
+  "room.dark": "Je tu příliš tma, nic nevidíš.",
+  "room.dim_hint": "Je obtížné dobře vidět.",
 
   "panel.player_info": "Postava",
   "panel.inspect": "Prohlížení",

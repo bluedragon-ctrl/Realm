@@ -6,6 +6,7 @@ import { getHate } from '../aggro.js';
 import { findKnownSpell } from './cast.js';
 import { effectDetail } from './spells.js';
 import { t, s, dirName } from '../../i18n.js';
+import { canPerceiveRoom } from '../light.js';
 
 function withPositionSuffix(name, position, lang) {
   if (!position || position === 'stand') return name;
@@ -93,7 +94,19 @@ export function describeRoom(actor) {
     });
     return;
   }
+  const perceived = canPerceiveRoom(actor, room);
   const lang = actor.lang;
+
+  if (perceived === 'dark') {
+    actor.session.send({
+      kind: 'room',
+      light: 'dark',
+      name: t(room.name, lang),
+      short: s('room.dark', lang),
+    });
+    return;
+  }
+
   const foundSecrets = new Set(actor.record?.foundSecrets ?? []);
   const hiddenExits = room.hiddenExits ?? {};
   const hiddenFixtures = room.hiddenFixtures ?? {};
@@ -101,13 +114,16 @@ export function describeRoom(actor) {
   const npcs = [];
   for (const a of actorsInRoom(room.id)) {
     if (a === actor) continue;
-    if (a.kind === 'player') players.push(withPositionSuffix(a.name, a.position, lang));
-    else if (a.kind === 'npc') {
+    if (a.kind === 'player') {
+      players.push({ name: a.name, display: withPositionSuffix(a.name, a.position, lang) });
+    } else if (a.kind === 'npc') {
       const baseDisposition = a.disposition ?? 'neutral';
       const hate = getHate(a, actor);
       const effective = baseDisposition === 'hostile' && hate < 0 ? 'neutral' : baseDisposition;
+      const bareName = t(a.name, lang);
       npcs.push({
-        name: withPositionSuffix(t(a.name, lang), a.position, lang),
+        name: bareName,
+        display: withPositionSuffix(bareName, a.position, lang),
         disposition: effective,
       });
     }
@@ -147,8 +163,37 @@ export function describeRoom(actor) {
   }
   const items = [...itemGroups.values()];
   const gold = getGoldInRoom(room.id);
+
+  if (perceived === 'dim') {
+    actor.session.send({
+      kind: 'room',
+      light: 'dim',
+      name: t(room.name, lang),
+      short: `${s('room.dim_hint', lang)} ${t(room.short, lang)}`,
+      exitsLabel: s('room.exits_label', lang),
+      exits,
+      noExitsLabel: s('room.no_exits', lang),
+      npcsLabel: s('room.npcs_label', lang),
+      npcs,
+      othersLabel: s('room.others_label', lang),
+      others: players,
+      itemsLabel: s('room.items_label', lang),
+      items: items.map(i => ({
+        instanceId: i.instanceId,
+        defId: i.defId,
+        name: i.name,
+        count: i.count,
+        pickable: i.pickable,
+      })),
+      gold,
+      goldLabel: s('room.gold_label', lang),
+    });
+    return;
+  }
+
   actor.session.send({
     kind: 'room',
+    light: 'light',
     name: t(room.name, lang),
     short: t(room.short, lang),
     long: t(room.long, lang),
@@ -172,6 +217,12 @@ export function pushTargetInfo(actor, target) {
 
 function sendTargetInfo(actor, target) {
   const lang = actor.lang;
+  const room = getRoom(actor.location);
+  const perceived = canPerceiveRoom(actor, room);
+  if (perceived === 'dark') {
+    actor.session.send({ kind: 'system', text: s('look.too_dark', lang) });
+    return;
+  }
   if (target.kind === 'npc') {
     actor.inspecting = target;
     let subtitle = t(target.title ?? target.name, lang);
@@ -182,6 +233,15 @@ function sendTargetInfo(actor, target) {
     const effectsForClient = isFriendly ? [] : serializeActiveEffectsForClient(target, lang)
       .map(e => ({ defId: e.defId, name: e.name, icon: e.icon, kind: e.kind }));
     const exchanges = serializeExchanges(target, lang, actor);
+    if (perceived === 'dim') {
+      actor.session.send({
+        kind: 'target-info',
+        name: t(target.name, lang),
+        subtitle,
+        description: s('look.target_dim_hint', lang),
+      });
+      return;
+    }
     actor.session.send({
       kind: 'target-info',
       name: t(target.name, lang),
@@ -212,6 +272,15 @@ function sendTargetInfo(actor, target) {
   }
   if (target.kind === 'player') {
     actor.inspecting = null;
+    if (perceived === 'dim') {
+      actor.session.send({
+        kind: 'target-info',
+        name: target.name,
+        subtitle: s('look.adventurer_subtitle', lang),
+        description: s('look.target_dim_hint', lang),
+      });
+      return;
+    }
     actor.session.send({
       kind: 'target-info',
       name: target.name,
@@ -245,7 +314,9 @@ export default function look(actor, args) {
     return;
   }
 
-  const itemInRoom = findItemInList(itemsInRoom(actor.location), query);
+  const room = getRoom(actor.location);
+  const perceivedHere = canPerceiveRoom(actor, room);
+  const itemInRoom = perceivedHere === 'dark' ? null : findItemInList(itemsInRoom(actor.location), query);
   const itemInInv = findItemInList(actor.inventory, query);
   const item = itemInRoom ?? itemInInv;
   if (item) {
