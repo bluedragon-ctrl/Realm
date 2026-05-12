@@ -352,10 +352,9 @@ function renderStats(msg) {
     }
     for (const spell of spells) {
       const row = document.createElement('div');
-      row.className = 'panel-list-row';
+      row.className = 'panel-list-row spell-row';
       const top = document.createElement('div');
       top.className = 'panel-list-row-top';
-      top.appendChild(makeQuickbarCheckbox(spell.id, SPELL_HIDDEN_KEY));
       const nameEl = document.createElement('span');
       nameEl.className = 'panel-list-row-name';
       nameEl.textContent = spell.name;
@@ -378,6 +377,20 @@ function renderStats(msg) {
         desc.textContent = spell.description;
         row.appendChild(desc);
       }
+      const actions = document.createElement('span');
+      actions.className = 'panel-list-row-actions';
+      const info = document.createElement('button');
+      info.type = 'button';
+      info.className = 'panel-list-row-info';
+      info.textContent = 'ⓘ';
+      info.title = labels.lookButton ?? 'Look';
+      info.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        sendInput(`look ${spell.name}`);
+      });
+      actions.appendChild(info);
+      actions.appendChild(makeQuickbarCheckbox(spell.id, SPELL_HIDDEN_KEY));
+      row.appendChild(actions);
       el.appendChild(row);
     }
   }
@@ -409,8 +422,7 @@ function renderStats(msg) {
       }
       for (const item of items) {
         const row = document.createElement('div');
-        row.className = 'panel-list-row';
-        if (item.consumable) row.appendChild(makeQuickbarCheckbox(item.defId, CONSUMABLE_HIDDEN_KEY));
+        row.className = 'panel-list-row item-row';
         const nameEl = document.createElement('span');
         nameEl.className = 'panel-list-row-name';
         nameEl.textContent = item.name;
@@ -421,6 +433,20 @@ function renderStats(msg) {
           countEl.textContent = `×${item.count}`;
           row.appendChild(countEl);
         }
+        const actions = document.createElement('span');
+        actions.className = 'panel-list-row-actions';
+        const info = document.createElement('button');
+        info.type = 'button';
+        info.className = 'panel-list-row-info';
+        info.textContent = 'ⓘ';
+        info.title = labels.lookButton ?? 'Look';
+        info.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          sendInput(`look ${item.name}`);
+        });
+        actions.appendChild(info);
+        if (item.consumable) actions.appendChild(makeQuickbarCheckbox(item.defId, CONSUMABLE_HIDDEN_KEY));
+        row.appendChild(actions);
         listEl.appendChild(row);
       }
     };
@@ -613,6 +639,14 @@ function renderTargetInfo(msg) {
     const desc = document.createElement('div'); desc.className = 'inspect-desc';
     desc.textContent = msg.description;
     inspectBody.appendChild(desc);
+  }
+  if (Array.isArray(msg.details) && msg.details.length > 0) {
+    for (const line of msg.details) {
+      const row = document.createElement('div');
+      row.className = 'inspect-desc';
+      row.textContent = line;
+      inspectBody.appendChild(row);
+    }
   }
   if (msg.stats) {
     const labels = msg.statLabels ?? {};
