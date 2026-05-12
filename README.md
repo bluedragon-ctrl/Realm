@@ -335,7 +335,13 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase |
 |---|
-| NPC sight & combat in low light (NPCs read `vision` to gate `canPerceive`; dim/dark to-hit penalties; `spell.light` / `spell.darkness` / `spell.blindness` / `spell.nightvision`; light-producing room fixtures) |
+| Dark-gate `emitPackJoin` + `onAggroOnset` broadcasts in `combat.js` (small follow-up to light v1 — observers in dark shouldn't see the named NPC growl / pack-join lines; reuse `isDarkObserver`) |
+| `spell.light` (room-buff: pushes an entry onto `room.activeLight[]` with `lightSource: { level: "light" }`; cleared on caster leaving or duration end) |
+| Light-producing room fixtures (lit forge in the smithy, hearth in the cottage, brazier in halls — author as `activeLight[]` entries set by the room def at load; toggleable via `extinguish`/`light` verbs later) |
+| `spell.darkness` (first **ceiling** contribution — pushes onto a new `room.activeDarkness[]` parallel array; `effectiveLight` already runs a ceiling pass via `clampDown`, so this lands without touching `light.js` math) |
+| `spell.blindness` / `spell.nightvision` (effect defs with `perception: "blind" \| "nightvision"` already validated; pure content authoring) |
+| NPC sight in low light (`perceivedLight` extends to read `actor.def.vision`: `low_light` → clamp up to dim only if effective light is dim, `nightvision` → clamp up to dim always, `blind` → clamp to dark + a `usesNonVisualTargeting` flag for blind NPCs that still acquire targets; `canPerceive(observer, target)` consumes the result) |
+| Combat to-hit penalties in dim/dark (`executeAttack` reads `perceivedLight(attacker, attacker.room)` once and applies `lightToHitModifier(level)` — `light` → 0, `dim` → small malus, `dark` → large malus / auto-miss for sighted attackers; blind-vision NPCs bypass via the flag above) |
 | Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) |
 | Discovered-secrets tracking (IDed secrets, player save records discovered IDs) |
 | New areas (river, marsh, deep mine) |
@@ -344,7 +350,7 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase |
 |---|
-| Day/night cycle (world clock, dusk/dawn for outdoor rooms) |
+| Day/night cycle (world clock, dusk/dawn; plugs in as another floor contribution gated by `room.outdoor === true`; same `clampUp` site in `effectiveLight`) |
 | Summoning, player pets |
 | Server events |
 
