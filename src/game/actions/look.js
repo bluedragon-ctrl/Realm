@@ -6,6 +6,7 @@ import { getHate } from '../aggro.js';
 import { findKnownSpell } from './cast.js';
 import { effectDetail } from './spells.js';
 import { t, s, dirName } from '../../i18n.js';
+import { canPerceiveRoom } from '../light.js';
 
 function withPositionSuffix(name, position, lang) {
   if (!position || position === 'stand') return name;
@@ -93,7 +94,19 @@ export function describeRoom(actor) {
     });
     return;
   }
+  const perceived = canPerceiveRoom(actor, room);
   const lang = actor.lang;
+
+  if (perceived === 'dark') {
+    actor.session.send({
+      kind: 'room',
+      light: 'dark',
+      name: t(room.name, lang),
+      short: s('room.dark', lang),
+    });
+    return;
+  }
+
   const foundSecrets = new Set(actor.record?.foundSecrets ?? []);
   const hiddenExits = room.hiddenExits ?? {};
   const hiddenFixtures = room.hiddenFixtures ?? {};
@@ -147,8 +160,37 @@ export function describeRoom(actor) {
   }
   const items = [...itemGroups.values()];
   const gold = getGoldInRoom(room.id);
+
+  if (perceived === 'dim') {
+    actor.session.send({
+      kind: 'room',
+      light: 'dim',
+      name: t(room.name, lang),
+      short: `${s('room.dim_hint', lang)} ${t(room.short, lang)}`,
+      exitsLabel: s('room.exits_label', lang),
+      exits,
+      noExitsLabel: s('room.no_exits', lang),
+      npcsLabel: s('room.npcs_label', lang),
+      npcs: npcs.map(n => ({ name: n.name, disposition: 'neutral' })),
+      othersLabel: s('room.others_label', lang),
+      others: players,
+      itemsLabel: s('room.items_label', lang),
+      items: items.map(i => ({
+        instanceId: i.instanceId,
+        defId: i.defId,
+        name: i.name,
+        count: i.count,
+        pickable: i.pickable,
+      })),
+      gold,
+      goldLabel: s('room.gold_label', lang),
+    });
+    return;
+  }
+
   actor.session.send({
     kind: 'room',
+    light: 'light',
     name: t(room.name, lang),
     short: t(room.short, lang),
     long: t(room.long, lang),
