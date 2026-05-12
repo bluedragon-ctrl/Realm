@@ -2,7 +2,7 @@ import { s } from '../i18n.js';
 import { broadcastToRoom, actorsInRoom } from './world.js';
 import { sourceForActor } from './sources.js';
 import { resolveName } from './declension.js';
-import { pushTargetInfo } from './actions/look.js';
+import { pushTargetInfo, describeRoom } from './actions/look.js';
 import { sendStats } from './messages.js';
 
 // Returns { ok: true } if standing; { ok: false, msg } otherwise.
@@ -32,9 +32,9 @@ export function setPosition(actor, next, reason = 'volitional') {
   if (actor.kind === 'npc') {
     if (reason === 'woken' || reason === 'stood') actor.energy = 0;
     for (const p of actorsInRoom(actor.location)) {
-      if (p.kind === 'player' && p.session && p.inspecting === actor) {
-        pushTargetInfo(p, actor);
-      }
+      if (p.kind !== 'player' || !p.session) continue;
+      if (p.inspecting === actor) pushTargetInfo(p, actor);
+      else describeRoom(p);
     }
   } else if (actor.kind === 'player' && actor.session) {
     sendStats(actor);

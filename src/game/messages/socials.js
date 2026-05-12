@@ -12,7 +12,15 @@ export function buildSocialButtons(lang) {
   for (const [verb, def] of world.socials) {
     const langDef = def[lang] ?? def.en;
     if (!langDef) continue;
-    out.push({ verb, label: langDef.button ?? verb });
+    const en = def.en ?? {};
+    const hasToTarget = !!(langDef.to_target ?? en.to_target);
+    const hasNoTarget = !!(langDef.no_target ?? en.no_target);
+    out.push({
+      verb,
+      label: langDef.button ?? verb,
+      hasToTarget,
+      hasNoTarget,
+    });
   }
   cache.set(lang, out);
   return out;

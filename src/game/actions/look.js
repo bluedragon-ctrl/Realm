@@ -150,13 +150,16 @@ export function describeRoom(actor) {
     if (existing) {
       existing.count++;
     } else {
+      const def = inst.def;
+      const hasExchanges = Array.isArray(def.exchanges) && def.exchanges.length > 0;
       itemGroups.set(key, {
         instanceId: inst.instanceId,
         defId: inst.defId,
-        name: t(inst.def.name, lang),
+        name: t(def.name, lang),
         count: 1,
-        pickable: inst.def.pickable !== false,
-        usable: !!inst.def.use,
+        pickable: def.pickable !== false,
+        usable: !!def.use,
+        interactable: !!(def.use || def.unlocks || hasExchanges),
       });
 
     }

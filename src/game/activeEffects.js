@@ -209,6 +209,7 @@ export function serializeActiveEffectsForClient(actor, lang) {
       kind: def.kind ?? 'neutral',
       pulsesLeft: inst.pulsesLeft,
       nextTickIn: inst.nextTickIn,
+      ticksLeft: inst.ticksLeft,
       source: inst.source,
     });
   }
