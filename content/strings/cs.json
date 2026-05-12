@@ -56,6 +56,7 @@
   "look.you_see_nothing": "nevidíš nic zvláštního.",
   "look.adventurer_subtitle": "dobrodruh",
   "look.too_dark": "Je příliš tma, nepoznáš, kdo to je.",
+  "look.target_dim_hint": "V přítmí nepoznáš podrobnosti.",
 
   "take.no_arg": "co sebrat?",
   "take.self": "sebereš {item}.",

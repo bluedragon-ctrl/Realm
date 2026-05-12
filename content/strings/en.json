@@ -56,6 +56,7 @@
   "look.you_see_nothing": "you see nothing of note.",
   "look.adventurer_subtitle": "an adventurer",
   "look.too_dark": "It is too dark to make out who that is.",
+  "look.target_dim_hint": "The dim light makes details hard to make out.",
 
   "take.no_arg": "take what?",
   "take.self": "you pick up {item}.",

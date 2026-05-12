@@ -235,6 +235,7 @@ function sendTargetInfo(actor, target) {
         kind: 'target-info',
         name: t(target.name, lang),
         subtitle,
+        description: s('look.target_dim_hint', lang),
       });
       return;
     }
@@ -273,6 +274,7 @@ function sendTargetInfo(actor, target) {
         kind: 'target-info',
         name: target.name,
         subtitle: s('look.adventurer_subtitle', lang),
+        description: s('look.target_dim_hint', lang),
       });
       return;
     }
