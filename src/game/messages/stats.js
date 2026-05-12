@@ -48,6 +48,7 @@ export function buildStatsMsg(actor) {
     location: room ? t(room.name, actor.lang) : actor.location,
     locationId: actor.location,
     stats: { ...actor.stats },
+    position: actor.position ?? 'stand',
     level: actor.record.level ?? 1,
     xp: actor.record.xp ?? 0,
     xpToNext: xpToNext(actor.record.level ?? 1),
