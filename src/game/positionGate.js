@@ -1,7 +1,9 @@
 import { s } from '../i18n.js';
-import { broadcastToRoom } from './world.js';
+import { broadcastToRoom, actorsInRoom } from './world.js';
 import { sourceForActor } from './sources.js';
 import { resolveName } from './declension.js';
+import { pushTargetInfo } from './actions/look.js';
+import { sendStats } from './messages.js';
 
 // Returns { ok: true } if standing; { ok: false, msg } otherwise.
 // Active commands call this and short-circuit with the localized message.
@@ -27,6 +29,15 @@ export function setPosition(actor, next, reason = 'volitional') {
     const text = s(key, lang, { actor: resolveName(actor, 'nom', lang) });
     return { kind: 'emote', source: sourceForActor(actor, recipient), text };
   });
+  if (actor.kind === 'npc') {
+    for (const p of actorsInRoom(actor.location)) {
+      if (p.kind === 'player' && p.session && p.inspecting === actor) {
+        pushTargetInfo(p, actor);
+      }
+    }
+  } else if (actor.kind === 'player' && actor.session) {
+    sendStats(actor);
+  }
   return true;
 }
 

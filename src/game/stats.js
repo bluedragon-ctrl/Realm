@@ -57,7 +57,7 @@ export const LULL_TICKS = 6;
 // Sitting heals ~30 HP/min, sleeping ~60 HP/min.
 export const PLAYER_REGEN_PERIOD = Object.freeze({
   stand: null,
-  sit: 2,
+  sit: 4,
   sleep: 1,
 });
 
