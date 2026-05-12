@@ -2,7 +2,7 @@ import path from 'node:path';
 import {
   check, checkEnum, checkLocalizedText, checkObject,
 } from '../validate.js';
-import { EFFECT_KINDS, EFFECT_STACKS, TICK_EFFECT_TYPES } from '../../game/contentMeta.js';
+import { EFFECT_KINDS, EFFECT_STACKS, TICK_EFFECT_TYPES, LIGHT_LEVEL_SET, PERCEPTION_KINDS } from '../../game/contentMeta.js';
 
 export function validateEffect(def, file) {
   const ctx = `effect '${def.id}' (${path.basename(file)})`;
@@ -28,5 +28,12 @@ export function validateEffect(def, file) {
     for (const [k, v] of Object.entries(def.statMod)) {
       check(typeof v === 'number', ctx, `statMod.${k} must be a number`);
     }
+  }
+  if (def.lightSource != null) {
+    checkObject(def.lightSource, ctx, 'lightSource');
+    checkEnum(def.lightSource.level, LIGHT_LEVEL_SET, ctx, 'lightSource.level');
+  }
+  if (def.perception != null) {
+    checkEnum(def.perception, PERCEPTION_KINDS, ctx, 'perception');
   }
 }
