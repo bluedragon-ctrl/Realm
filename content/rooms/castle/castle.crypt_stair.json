@@ -4,6 +4,7 @@
     "en": "Crypt Stair",
     "cs": "Schody do hrobky"
   },
+  "lightBase": "dark",
   "short": {
     "en": "A narrow stone staircase spiralling down to a sealed iron door.",
     "cs": "Úzké kamenné schody, které se točí dolů k zavřeným železným dveřím."

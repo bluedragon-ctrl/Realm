@@ -5,6 +5,7 @@
   "nameDat": { "en": "the castle captain", "cs": "hradnímu kapitánovi" },
   "nameGen": { "en": "the castle captain", "cs": "hradního kapitána" },
   "title": { "en": "castle captain", "cs": "hradní kapitán" },
+  "vision": "nightvision",
   "location": "castle.armoury",
   "count": 1,
   "short": {

@@ -4,6 +4,7 @@
     "en": "Village square",
     "cs": "Náves"
   },
+  "outdoor": true,
   "short": {
     "en": "A small cobbled square at the heart of the village.",
     "cs": "Malá dlážděná náves uprostřed vesnice."

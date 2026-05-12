@@ -5,6 +5,7 @@
   "nameDat": { "en": "the toad king", "cs": "ropušímu králi" },
   "nameGen": { "en": "the toad king", "cs": "ropušího krále" },
   "title": { "en": "toad king", "cs": "ropuší král" },
+  "vision": "low_light",
   "location": "village.well_bottom",
   "count": 1,
   "short": {

@@ -5,6 +5,7 @@
   "nameDat": { "en": "the rusted skeleton", "cs": "rezavému kostlivci" },
   "nameGen": { "en": "the rusted skeleton", "cs": "rezavého kostlivce" },
   "title": { "en": "rusted skeleton", "cs": "rezavý kostlivec" },
+  "vision": "nightvision",
   "locations": {
     "castle.gatehouse": 2,
     "castle.courtyard": 1

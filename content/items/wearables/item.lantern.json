@@ -1,0 +1,25 @@
+{
+  "id": "item.lantern",
+  "name": {
+    "en": "a brass lantern",
+    "cs": "mosazná lucerna"
+  },
+  "nameAcc": {
+    "en": "the brass lantern",
+    "cs": "mosaznou lucernu"
+  },
+  "short": {
+    "en": "A small brass lantern with a clear glass pane and a sturdy carrying ring.",
+    "cs": "Malá mosazná lucerna s čirou skleněnou stěnou a pevným nosným okem."
+  },
+  "long": {
+    "en": "A neat brass lantern, the kind a traveller carries. A clear pane of glass keeps the wind off the flame and a stout iron ring lets it be hung from a hook or held in the hand. The smith built it to last.",
+    "cs": "Úhledná mosazná lucerna, jakou s sebou nosí poutníci. Čirá skleněná stěna chrání plamen před větrem a pevné železné oko umožňuje pověsit ji na hák nebo nést v ruce. Kovář ji vyrobil tak, aby vydržela."
+  },
+  "tags": ["light"],
+  "weight": 2,
+  "wearable": {
+    "slot": "utility"
+  },
+  "lightSource": { "level": "light" }
+}

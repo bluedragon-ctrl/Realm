@@ -5,6 +5,7 @@
   "nameDat": { "en": "the wight", "cs": "umrlci" },
   "nameGen": { "en": "the wight", "cs": "umrlce" },
   "title": { "en": "wight", "cs": "umrlec" },
+  "vision": "nightvision",
   "locations": {
     "castle.great_hall": 2
   },

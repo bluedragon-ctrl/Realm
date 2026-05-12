@@ -5,6 +5,7 @@
   "nameDat": { "en": "the fallen lord", "cs": "padlému pánovi" },
   "nameGen": { "en": "the fallen lord", "cs": "padlého pána" },
   "title": { "en": "fallen lord", "cs": "padlý pán" },
+  "vision": "nightvision",
   "location": "castle.tomb",
   "count": 1,
   "short": {

@@ -1,0 +1,37 @@
+{
+  "id": "castle.reading_lectern",
+  "name": {
+    "en": "a wooden reading lectern",
+    "cs": "dřevěný čtecí pult"
+  },
+  "nameAcc": {
+    "en": "the wooden reading lectern",
+    "cs": "dřevěný čtecí pult"
+  },
+  "short": {
+    "en": "A heavy oak lectern leans against a fallen shelf, an open book still resting on top.",
+    "cs": "Těžký dubový pult se opírá o spadlou polici, nahoře stále leží otevřená kniha."
+  },
+  "long": {
+    "en": "A heavy oak lectern, the kind a scholar would stand at to read. One foot is broken and it leans against a fallen shelf. An open book lies on the slanted top — most of the ink has faded, but a careful drawing of a circle within a circle is still clear in the corner of one page. The scholar drifts past it now and then without touching it.",
+    "cs": "Těžký dubový pult, u jakého by stál učenec při čtení. Jedna noha je zlomená a pult se opírá o spadlou polici. Na nakloněné desce leží otevřená kniha — většina inkoustu vybledla, ale v rohu jedné stránky je stále zřetelná pečlivá kresba kruhu v kruhu. Učenec kolem pultu občas propluje, ale nedotkne se ho."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "castle.library", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you peer at the open book on the lectern. The ink is faded and the pages crumble at a touch. The scholar's eyes flick toward you for a moment, then return to his reading.",
+        "others": "{actor} leans over the lectern and studies the open book."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "nakloníš se nad otevřenou knihu na pultu. Inkoust je vybledlý a stránky se při doteku drolí. Učencovy oči se na chvíli stočí k tobě a pak se vrátí ke čtení.",
+        "others": "{actor} se nakloní nad pult a studuje otevřenou knihu."
+      }
+    }
+  }
+}

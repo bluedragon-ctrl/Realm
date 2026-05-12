@@ -4,6 +4,7 @@
     "en": "Dark crossing",
     "cs": "Temná křižovatka"
   },
+  "lightBase": "dark",
   "short": {
     "en": "A junction where all the torches have burnt out, leaving only darkness.",
     "cs": "Křižovatka, kde všechny pochodně dohořely a zanechaly jen tmu."

@@ -5,6 +5,7 @@
   "nameDat": { "en": "the cellar rat", "cs": "sklepní kryse" },
   "nameGen": { "en": "the cellar rat", "cs": "sklepní krysy" },
   "title": { "en": "cellar rat", "cs": "sklepní krysa" },
+  "vision": "nightvision",
   "location": "village.cellar",
   "count": 3,
   "short": {

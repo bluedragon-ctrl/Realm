@@ -5,6 +5,7 @@
   "nameDat": { "en": "the giant centipede", "cs": "obří stonožce" },
   "nameGen": { "en": "the giant centipede", "cs": "obří stonožky" },
   "title": { "en": "giant centipede", "cs": "obří stonožka" },
+  "vision": "nightvision",
   "location": "mine.centipede_pit",
   "count": 1,
   "short": {

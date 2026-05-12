@@ -5,6 +5,7 @@
   "nameDat": { "en": "the kobold guard", "cs": "koboldí stráži" },
   "nameGen": { "en": "the kobold guard", "cs": "koboldí stráže" },
   "title": { "en": "kobold guard", "cs": "koboldí stráž" },
+  "vision": "nightvision",
   "location": "mine.chief_hall",
   "count": 2,
   "short": {

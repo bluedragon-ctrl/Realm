@@ -1,0 +1,12 @@
+{
+  "id": "effect.candlelight",
+  "name": {
+    "en": "Candlelight",
+    "cs": "Světlo svíčky"
+  },
+  "kind": "buff",
+  "icon": "🕯️",
+  "duration": 300,
+  "lightSource": { "level": "dim" },
+  "stack": "refresh"
+}

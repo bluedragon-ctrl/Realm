@@ -5,6 +5,7 @@
   "nameDat": { "en": "the rat", "cs": "kryse" },
   "nameGen": { "en": "the rat", "cs": "krysy" },
   "title": { "en": "rat", "cs": "krysa" },
+  "vision": "nightvision",
   "location": "home.basement",
   "count": 1,
   "short": {

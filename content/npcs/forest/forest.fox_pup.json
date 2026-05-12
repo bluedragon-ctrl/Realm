@@ -6,6 +6,7 @@
   "nameDat": { "en": "the fox pup", "cs": "liščímu mláděti" },
   "nameGen": { "en": "the fox pup", "cs": "liščího mláděte" },
   "title": { "en": "fox pup", "cs": "liščí mládě" },
+  "vision": "low_light",
   "location": "forest.fox_den",
   "count": 2,
   "pack": "forest.fox_den",

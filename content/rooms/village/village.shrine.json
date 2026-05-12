@@ -4,6 +4,7 @@
     "en": "Small stone shrine",
     "cs": "Malá kamenná svatyňka"
   },
+  "outdoor": true,
   "short": {
     "en": "A small stone shrine beside the road, in a patch of wildflowers.",
     "cs": "Malá kamenná svatyňka u cesty, v záhonu lučních květů."

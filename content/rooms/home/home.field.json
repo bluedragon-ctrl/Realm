@@ -4,6 +4,7 @@
     "en": "Field crossroads",
     "cs": "Polní rozcestí"
   },
+  "outdoor": true,
   "short": {
     "en": "A dirt road across the fields, going east and west.",
     "cs": "Polní cesta přes pole, vede na východ a na západ."

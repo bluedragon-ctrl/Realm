@@ -5,6 +5,7 @@
   "nameDat": { "en": "the giant spider", "cs": "obřímu pavoukovi" },
   "nameGen": { "en": "the giant spider", "cs": "obřího pavouka" },
   "title": { "en": "giant spider", "cs": "obří pavouk" },
+  "vision": "nightvision",
   "location": "forest.spider_lair",
   "count": 1,
   "short": {

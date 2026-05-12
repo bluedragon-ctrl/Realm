@@ -5,6 +5,7 @@
   "nameDat": { "en": "the broken soldier", "cs": "polámanému vojákovi" },
   "nameGen": { "en": "the broken soldier", "cs": "polámaného vojáka" },
   "title": { "en": "broken soldier", "cs": "polámaný voják" },
+  "vision": "nightvision",
   "location": "forest.broken_road",
   "count": 1,
   "short": {

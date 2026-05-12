@@ -5,6 +5,7 @@
   "nameDat": { "en": "the red fox", "cs": "lišce" },
   "nameGen": { "en": "the red fox", "cs": "lišky" },
   "title": { "en": "red fox", "cs": "liška" },
+  "vision": "low_light",
   "location": "forest.fox_glade",
   "pack": "forest.fox_glade",
   "short": {

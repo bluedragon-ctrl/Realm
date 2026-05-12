@@ -53,6 +53,12 @@
       "outputs": [{ "item": "item.iron_sword" }]
     },
     {
+      "id": "smith.buy_lantern",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 25 }],
+      "outputs": [{ "item": "item.lantern" }]
+    },
+    {
       "id": "smith.buy_leather_armor",
       "flavor": "buy",
       "inputs":  [{ "gold": 50 }],

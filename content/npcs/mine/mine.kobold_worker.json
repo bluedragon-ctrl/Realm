@@ -5,6 +5,7 @@
   "nameDat": { "en": "the kobold", "cs": "koboldovi" },
   "nameGen": { "en": "the kobold", "cs": "kobolda" },
   "title": { "en": "kobold", "cs": "kobold" },
+  "vision": "nightvision",
   "locations": {
     "mine.entrance": 2,
     "mine.west_tunnel": 1,

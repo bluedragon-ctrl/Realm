@@ -4,13 +4,14 @@
     "en": "Bottom of the well",
     "cs": "Dno studny"
   },
+  "lightBase": "dim",
   "short": {
     "en": "A wet stone shaft with a shallow pool. A low tunnel runs west.",
     "cs": "Vlhká kamenná šachta s mělkou tůní. Na západ vede nízká chodba."
   },
   "long": {
-    "en": "The walls of the shaft are slick with moss and the air is cold. A shallow pool covers most of the floor, fed by water trickling between the stones. The rope from above hangs down to your shoulder. A low tunnel cuts west into the dark, just tall enough to crouch through.",
-    "cs": "Stěny šachty jsou kluzké mechem a vzduch je chladný. Většinu podlahy pokrývá mělká tůň, kterou napájí voda prosakující mezi kameny. Provaz seshora visí ti až k rameni. Nízká chodba se tu zařezává na západ do tmy, akorát vysoká, aby se dalo projít přikrčeně."
+    "en": "The walls of the shaft are slick with moss and the air is cold. Pale daylight falls down the shaft from far above, fading before it reaches the floor. A shallow pool covers most of the floor, fed by water trickling between the stones. The rope from above hangs down to your shoulder. A low tunnel cuts west into the dark, just tall enough to crouch through.",
+    "cs": "Stěny šachty jsou kluzké mechem a vzduch je chladný. Šachtou seshora padá bledé denní světlo, které slábne dřív, než dosáhne dna. Většinu podlahy pokrývá mělká tůň, kterou napájí voda prosakující mezi kameny. Provaz seshora visí ti až k rameni. Nízká chodba se tu zařezává na západ do tmy, akorát vysoká, aby se dalo projít přikrčeně."
   },
   "exits": {
     "u": "village.square",

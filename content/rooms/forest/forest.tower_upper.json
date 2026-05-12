@@ -4,6 +4,7 @@
     "en": "Tower upper floor",
     "cs": "Horní patro věže"
   },
+  "outdoor": true,
   "short": {
     "en": "The ruined upper floor of the tower, open to the sky.",
     "cs": "Zřícené horní patro věže, otevřené do nebe."

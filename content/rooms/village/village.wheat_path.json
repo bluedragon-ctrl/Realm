@@ -4,6 +4,7 @@
     "en": "Path through the wheat",
     "cs": "Pěšina v pšenici"
   },
+  "outdoor": true,
   "short": {
     "en": "A narrow path between tall wheat, going east and west.",
     "cs": "Úzká pěšina mezi vysokou pšenicí, vede na východ a na západ."

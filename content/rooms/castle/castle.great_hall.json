@@ -4,13 +4,14 @@
     "en": "Great Hall",
     "cs": "Velký sál"
   },
+  "lightBase": "dim",
   "short": {
     "en": "A long banquet hall with a broken table and faded banners overhead.",
     "cs": "Dlouhý hodovní sál s rozlomeným stolem a vybledlými prapory pod stropem."
   },
   "long": {
-    "en": "A long oak table runs the length of the hall, snapped through the middle. Pewter cups and bone fragments lie among rotted food long since dried to dust. Faded banners hang from the rafters — a wolf, a tower, a sun. A narrow stone arch at the far end opens onto a downward stair, and the air drifting up from it is very cold.",
-    "cs": "Dlouhý dubový stůl se táhne celým sálem, uprostřed je rozlomený. Cínové poháry a úlomky kostí leží mezi zbytky jídla, které dávno usmyrtly v prach. Pod krovy visí vybledlé prapory — vlk, věž, slunce. Úzký kamenný oblouk na druhém konci se otevírá na schody dolů a vzduch, který odtamtud stoupá, je velmi chladný."
+    "en": "A long oak table runs the length of the hall, snapped through the middle. Pewter cups and bone fragments lie among rotted food long since dried to dust. Faded banners hang from the rafters — a wolf, a tower, a sun. Tall narrow slit windows along one wall let in thin shafts of pale light, dust drifting through them. A narrow stone arch at the far end opens onto a downward stair, and the air drifting up from it is very cold.",
+    "cs": "Dlouhý dubový stůl se táhne celým sálem, uprostřed je rozlomený. Cínové poháry a úlomky kostí leží mezi zbytky jídla, které dávno usmyrtly v prach. Pod krovy visí vybledlé prapory — vlk, věž, slunce. Vysokými úzkými střílnami v jedné zdi proudí dovnitř tenké pruhy bledého světla a v nich se vznáší prach. Úzký kamenný oblouk na druhém konci se otevírá na schody dolů a vzduch, který odtamtud stoupá, je velmi chladný."
   },
   "exits": {
     "s": "castle.courtyard",

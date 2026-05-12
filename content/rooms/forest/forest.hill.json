@@ -4,6 +4,7 @@
     "en": "Hilltop",
     "cs": "Vrchol kopce"
   },
+  "outdoor": true,
   "short": {
     "en": "A small treeless hill with the ruins of an old tower.",
     "cs": "Malý holý kopec se zbytky staré věže."

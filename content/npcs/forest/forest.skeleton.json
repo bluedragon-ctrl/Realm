@@ -5,6 +5,7 @@
   "nameDat": { "en": "the skeleton warrior", "cs": "kostlivci bojovníkovi" },
   "nameGen": { "en": "the skeleton warrior", "cs": "kostlivce bojovníka" },
   "title": { "en": "skeleton warrior", "cs": "kostlivec bojovník" },
+  "vision": "nightvision",
   "locations": {
     "forest.tower_cellar": 1
   },

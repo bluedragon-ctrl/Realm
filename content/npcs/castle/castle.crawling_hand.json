@@ -5,6 +5,7 @@
   "nameDat": { "en": "the crawling hand", "cs": "lezoucí ruce" },
   "nameGen": { "en": "the crawling hand", "cs": "lezoucí ruky" },
   "title": { "en": "crawling hand", "cs": "lezoucí ruka" },
+  "vision": "blind",
   "locations": {
     "castle.cloister": 2
   },
