@@ -367,5 +367,24 @@
   "admin.spawn_npc_no_room": "no such room '{room}'.",
   "admin.spawn_npc_done": "spawned '{name}' in {room}.",
 
+  "position.stand.self": "You stand up.",
+  "position.stand.others": "{actor} stands up.",
+  "position.sit.self": "You sit down.",
+  "position.sit.others": "{actor} sits down.",
+  "position.sleep.self": "You lie down to sleep.",
+  "position.sleep.others": "{actor} lies down to sleep.",
+  "position.woken.self": "You jolt awake!",
+  "position.woken.others": "{actor} jolts awake!",
+  "position.stood.self": "You scramble to your feet.",
+  "position.stood.others": "{actor} scrambles to their feet.",
+  "position.must_stand": "You must stand first.",
+  "position.must_wake": "You're asleep.",
+  "position.in_combat": "Not while fighting.",
+  "position.already.stand": "You are already standing.",
+  "position.already.sit": "You are already sitting.",
+  "position.already.sleep": "You are already asleep.",
+  "position.suffix.sit": "(sitting)",
+  "position.suffix.sleep": "(asleep)",
+
   "help.text": "── commands ──────────────────────────────────────────\n\n  [ movement ]\n  look [target]             describe surroundings or someone\n  n s e w u d               move  (also: north south east west up down)\n  go <exit>                 move through a named exit\n\n  [ talking ]\n  say <text>   (\"<text>)    speak to the room\n  emote <text> (:<text>)    perform an action\n  wave/bow/hug/pet/smile/…  social actions  (try with a name: 'bow guard')\n\n  [ items ]\n  take <item>               pick up from the ground\n  drop <item>               drop from your inventory\n  inventory (i)             list what you carry\n  give <item> to <target>   hand an item to someone\n  give <N> gold to <player> hand gold to another player\n  drop <N> gold             drop a pile of gold\n  use <item> [on <target>]  use an item, optionally on someone\n  wear / equip <item>       put on a wearable\n  remove / unwear <item>    take off a wearable\n  equipment (eq)            show worn items\n\n  [ combat ]\n  attack <target>           attack an NPC  (also: kill, hit)\n  cast <spell> [on <target>]  cast a known spell\n  flee (f)                  run through a random exit\n\n  [ reference ]\n  stats (st)                show your stats with explanations\n  spells (sp)               show known spells with damage/effects\n  train <stat> (tr)         spend an unspent point on atk|def|int|mr|acc|eva|hp|mp\n\n  [ other ]\n  who                       list players online\n  lang [code]               show or set language  (en | cs)\n  help (?)                  show this list\n  quit (q)                  disconnect\n\n  [ tips ]\n  Tab                       complete commands and target names\n  ↑ / ↓ arrows              scroll command history\n  click chips               interact with NPCs and items\n  scroll up in console      locks auto-scroll; ↓ button to resume\n\n── admin ─────────────────────────────────────────────\n  @create-player <name> [lang] [acc dat gen voc]\n                            create a character; cs may declare declined forms\n  @reload                   reload world content from disk\n  @who                      list players with locations\n  @reset-stats <player>     refund all stat points to the player\n  @spawn-item <itemDefId>   spawn an item in your current room\n  @spawn-npc <npcDefId> [room]  spawn an NPC here (or in <room>)"
 }
