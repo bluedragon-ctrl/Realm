@@ -7,6 +7,8 @@ import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 import { runExchange, runSinkExchange } from '../exchange.js';
 import { resolveActorTarget } from '../targeting.js';
+import { hasForm } from '../verbs.js';
+import { consumeForActor } from './use.js';
 
 function parseGiveArgs(args) {
   const split = splitOnKeyword(args, 'to');
@@ -148,6 +150,17 @@ export default function give(actor, args) {
 
   if (count !== 1) {
     actor.session.send({ kind: 'error', text: s('exchange.ambiguous_give', actor.lang) });
+    return;
+  }
+
+  const useDef = inst.def.use;
+  if (target.kind === 'npc'
+      && target.disposition === 'friendly'
+      && target.position !== 'sleep'
+      && useDef?.consumable
+      && hasForm(useDef, actor.lang, 'to_target')
+      && (useDef.effect?.type === 'heal' || useDef.effect?.type === 'apply_effect')) {
+    consumeForActor(actor, inst, target);
     return;
   }
 

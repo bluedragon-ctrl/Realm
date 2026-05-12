@@ -18,6 +18,7 @@ export function buildInventory(actor) {
     } else {
       const use = inst.def.use;
       const wearable = inst.def.wearable;
+      const tags = Array.isArray(inst.def.tags) ? inst.def.tags : [];
       groups.set(key, {
         instanceId: inst.instanceId,
         defId: inst.defId,
@@ -27,6 +28,7 @@ export function buildInventory(actor) {
         consumable: !!(use && use.consumable),
         wearable: !!wearable,
         slot: wearable?.slot ?? null,
+        isKey: tags.includes('key'),
       });
     }
   }

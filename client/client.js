@@ -193,6 +193,8 @@ function renderStats(msg) {
   if (labels.useButtonQuickbar) useBtn.textContent = labels.useButtonQuickbar;
   if (labels.giveButton) giveBtn.textContent = `${labels.giveButton} ▶`;
   if (labels.socialButton) socialBtn.textContent = `${labels.socialButton} ▶`;
+  const lookBtnEl = document.getElementById('look-btn');
+  if (lookBtnEl && labels.lookButtonQuickbar) lookBtnEl.textContent = labels.lookButtonQuickbar;
   refreshActionButtons();
   whoEl.textContent = msg.isAdmin ? `${msg.name} (admin)` : msg.name;
   whereEl.textContent = msg.location ?? '';
@@ -302,8 +304,23 @@ function renderStats(msg) {
       if (eff.pulsesLeft != null) {
         const counter = document.createElement('span');
         counter.className = 'effect-counter';
-        counter.textContent = `${eff.pulsesLeft}`;
+        counter.textContent = `⏱ ${eff.pulsesLeft}`;
         chip.appendChild(counter);
+        if (typeof eff.nextTickIn === 'number' && eff.nextTickIn > 0) {
+          const timer = document.createElement('span');
+          timer.className = 'effect-timer';
+          timer.style.animationDuration = `${eff.nextTickIn * 1000}ms`;
+          chip.appendChild(timer);
+        }
+      } else if (typeof eff.ticksLeft === 'number' && eff.ticksLeft > 0) {
+        const counter = document.createElement('span');
+        counter.className = 'effect-counter';
+        counter.textContent = `⏱ ${eff.ticksLeft}s`;
+        chip.appendChild(counter);
+        const timer = document.createElement('span');
+        timer.className = 'effect-timer';
+        timer.style.animationDuration = `${eff.ticksLeft * 1000}ms`;
+        chip.appendChild(timer);
       } else if (eff.chancePct != null) {
         const counter = document.createElement('span');
         counter.className = 'effect-counter';
@@ -601,7 +618,7 @@ function renderRoomInInspect(msg) {
       const label = typeof n === 'string' ? n : (n.display ?? n.name);
       const disposition = typeof n === 'string' ? 'neutral' : (n.disposition ?? 'neutral');
       const cssClass = disposition === 'hostile' ? 'npc hostile' : 'npc';
-      const chip = makeChip(label, cssClass, (ev) => openActorPopover(chip, name, ev, { disposition, kind: 'npc' }));
+      const chip = makeChip(label, cssClass, () => sendInput(`look ${name}`));
       row.appendChild(chip);
     });
     inspectBody.appendChild(row);
@@ -616,7 +633,7 @@ function renderRoomInInspect(msg) {
       if (i > 0) row.append(' ');
       const name = typeof p === 'string' ? p : p.name;
       const label = typeof p === 'string' ? p : (p.display ?? p.name);
-      const chip = makeChip(label, 'player', (ev) => openActorPopover(chip, name, ev, { disposition: 'friendly', kind: 'player' }));
+      const chip = makeChip(label, 'player', () => sendInput(`look ${name}`));
       row.appendChild(chip);
     });
     inspectBody.appendChild(row);
@@ -1362,8 +1379,8 @@ function refreshActionButtons() {
 
 function openLookPicker(anchorEl, ev) {
   ev?.stopPropagation();
-  startPopover(anchorEl, 'Look at…');
-  popover.appendChild(popoverButton('Room', 'primary', () => { sendInput('look'); closePopover(); }));
+  startPopover(anchorEl, labels.lookPickerTitle ?? 'Look at…');
+  popover.appendChild(popoverButton(labels.lookRoom ?? 'Room', 'primary', () => { sendInput('look'); closePopover(); }));
   for (const n of (lastRoomMsg?.npcs ?? [])) {
     const name = typeof n === 'string' ? n : n.name;
     const label = typeof n === 'string' ? n : (n.display ?? n.name);
@@ -1378,7 +1395,7 @@ function openLookPicker(anchorEl, ev) {
 
 function openUsePicker(anchorEl, ev) {
   ev?.stopPropagation();
-  const fixtures = (lastRoomMsg?.items ?? []).filter(it => it.usable && it.pickable === false);
+  const fixtures = (lastRoomMsg?.items ?? []).filter(it => (it.interactable ?? it.usable) && it.pickable === false);
   const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
   const hiddenConsumables = (() => { try { return new Set(JSON.parse(localStorage.getItem('realm.quickbar.consumables.hidden') ?? '[]')); } catch { return new Set(); } })();
 
@@ -1400,7 +1417,15 @@ function openUsePicker(anchorEl, ev) {
   if (fixtures.length > 0) {
     popover.appendChild(popoverSection(labels.useSectionRoom ?? 'In room'));
     for (const f of fixtures) {
-      popover.appendChild(popoverButton(f.name, '', () => { sendInput(`use ${f.name}`); closePopover(); }));
+      const usableTools = inv.filter(it => it.usable || it.isKey);
+      const canUseAlone = f.usable;
+      if (usableTools.length === 0 && canUseAlone) {
+        popover.appendChild(popoverButton(f.name, '', () => { sendInput(`use ${f.name}`); closePopover(); }));
+      } else if (usableTools.length > 0) {
+        popover.appendChild(popoverButton(`${f.name} ▶`, '', () => openUseFixturePicker(anchorEl, f, usableTools, canUseAlone)));
+      } else {
+        popover.appendChild(popoverButton(f.name, '', () => { sendInput(`use ${f.name}`); closePopover(); }));
+      }
     }
   }
 
@@ -1467,12 +1492,72 @@ function openUseOnTargetPicker(anchorEl, item) {
   positionPopover(anchorEl);
 }
 
+function openUseFixturePicker(anchorEl, fixture, tools, canUseAlone) {
+  startPopover(anchorEl, fixture.name);
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => openUsePicker(anchorEl)));
+  if (canUseAlone) {
+    popover.appendChild(popoverButton(labels.useButton ?? 'Use', 'primary', () => {
+      sendInput(`use ${fixture.name}`); closePopover();
+    }));
+  }
+  if (tools.length > 0) {
+    popover.appendChild(popoverSection(labels.useTargetToolSection ?? 'With item'));
+    for (const item of tools) {
+      const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+      popover.appendChild(popoverButton(label, '', () => {
+        sendInput(`use ${item.name} on ${fixture.name}`); closePopover();
+      }));
+    }
+  }
+  positionPopover(anchorEl);
+}
+
 function openSocialPicker(anchorEl, ev) {
   ev?.stopPropagation();
   startPopover(anchorEl, labels.socialPickerTitle ?? 'Social');
   popover.appendChild(popoverButton('Say…', '', () => { fillInput('say '); closePopover(); }));
   popover.appendChild(popoverButton('Emote…', '', () => { fillInput('emote '); closePopover(); }));
   popover.appendChild(popoverButton('Who', '', () => { sendInput('who'); closePopover(); }));
+  const ordered = [...socialList].sort((a, b) => {
+    const aTargetOnly = a.hasToTarget && !a.hasNoTarget;
+    const bTargetOnly = b.hasToTarget && !b.hasNoTarget;
+    if (aTargetOnly !== bTargetOnly) return aTargetOnly ? -1 : 1;
+    return 0;
+  });
+  for (const social of ordered) {
+    popover.appendChild(popoverButton(social.label, '', () => {
+      if (social.hasToTarget) {
+        openSocialTargetPicker(anchorEl, social);
+      } else if (social.hasNoTarget) {
+        sendInput(`${social.verb} self`); closePopover();
+      }
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openSocialTargetPicker(anchorEl, social) {
+  const tmpl = labels.socialPickerTargetTitle ?? '{verb} who?';
+  startPopover(anchorEl, tmpl.replace('{verb}', social.label));
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => openSocialPicker(anchorEl)));
+  if (social.hasNoTarget) {
+    popover.appendChild(popoverButton(labels.yourselfLabel ?? 'Yourself', 'primary', () => {
+      sendInput(`${social.verb} self`); closePopover();
+    }));
+  }
+  const targets = currentRoomTargets();
+  if (targets.length === 0 && !social.hasNoTarget) {
+    const empty = document.createElement('div');
+    empty.className = 'picker-empty';
+    empty.textContent = labels.socialPickerNoTarget ?? '(no one here)';
+    popover.appendChild(empty);
+  } else {
+    for (const t of targets) {
+      popover.appendChild(popoverButton(t.name, t.disposition === 'hostile' ? 'attack' : '', () => {
+        sendInput(`${social.verb} ${t.name}`); closePopover();
+      }));
+    }
+  }
   positionPopover(anchorEl);
 }
 

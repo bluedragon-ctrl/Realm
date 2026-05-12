@@ -506,7 +506,26 @@ html, body {
 .chip.chip-flavor-craft { background: #2a2a4a; color: #c8c0f0; }
 .chip.chip-flavor-craft:hover { background: #3a3a5a; }
 .chip .mp-cost { color: #cdb4ff; font-size: 0.85em; margin-left: 4px; }
-.chip.effect { cursor: default; }
+.chip.effect { cursor: default; position: relative; overflow: hidden; padding-bottom: 5px; }
+.chip.effect .effect-timer {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  height: 3px;
+  background: rgba(0, 0, 0, 0.45);
+  width: 100%;
+  transform-origin: left center;
+  animation-name: effect-timer-drain;
+  animation-timing-function: linear;
+  animation-iteration-count: 1;
+  animation-fill-mode: forwards;
+}
+.chip.effect.buff .effect-timer { background: rgba(20, 80, 50, 0.75); }
+.chip.effect.debuff .effect-timer { background: rgba(255, 220, 220, 0.85); }
+@keyframes effect-timer-drain {
+  from { transform: scaleX(1); }
+  to   { transform: scaleX(0); }
+}
 .chip.effect.buff    { color: #1c1c1f; background: #a8d8c0; border-color: #6fae90; }
 .chip.effect.buff:hover { background: #a8d8c0; border-color: #6fae90; }
 .chip.effect.debuff  { color: #ffffff; background: #8a4a4a; border-color: #5a2a2a; }
@@ -835,11 +854,8 @@ html, body {
 .vitals-line .vital-value.hp.mid { color: var(--hp-mid); }
 .vitals-line .vital-value.hp.low { color: var(--hp-low); }
 
-.inspect-panel-dim {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.42), rgba(0, 0, 0, 0.42));
-  filter: saturate(0.3);
-}
-.inspect-panel-dark {
-  background-image: linear-gradient(rgba(0, 0, 0, 0.72), rgba(0, 0, 0, 0.72));
-  filter: saturate(0);
+#inspect-panel.inspect-panel-dim,
+#inspect-panel.inspect-panel-dark {
+  background: #000;
+  filter: grayscale(1) brightness(0.85) contrast(0.9);
 }

@@ -58,6 +58,25 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
   }
 }
 
+export function consumeForActor(actor, inst, recipient) {
+  const useDef = inst.def.use;
+  runVerb({ actor, def: useDef, targetActor: recipient });
+  if (useDef.effect?.type === 'apply_effect') {
+    applyActiveEffect(recipient, useDef.effect.effectId, EFFECT_SOURCE.CONSUMABLE, actor.name);
+    if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
+  } else if (useDef.effect?.type === 'heal') {
+    const result = applyEffect(useDef.effect, { actor, target: recipient, fixture: inst, room: actor.location });
+    sendHealFeedback(actor, recipient, result);
+    applyHealerAggro(actor, recipient, result?.hpRestored ?? 0);
+  }
+  if (useDef.consumable) {
+    removeFromList(actor.inventory, inst);
+    actor.dirty = true;
+  }
+  sendStats(actor);
+  if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
+}
+
 export default function use(actor, args) {
   const gate = requireStanding(actor);
   if (!gate.ok) {
