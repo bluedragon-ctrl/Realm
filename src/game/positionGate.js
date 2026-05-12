@@ -30,6 +30,7 @@ export function setPosition(actor, next, reason = 'volitional') {
     return { kind: 'emote', source: sourceForActor(actor, recipient), text };
   });
   if (actor.kind === 'npc') {
+    if (reason === 'woken' || reason === 'stood') actor.energy = 0;
     for (const p of actorsInRoom(actor.location)) {
       if (p.kind === 'player' && p.session && p.inspecting === actor) {
         pushTargetInfo(p, actor);
