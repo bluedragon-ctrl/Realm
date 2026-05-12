@@ -1,0 +1,13 @@
+{
+  "id": "effect.magic_darkness",
+  "name": {
+    "en": "Magic Darkness",
+    "cs": "Magická tma"
+  },
+  "kind": "buff",
+  "icon": "🌑",
+  "duration": 200,
+  "darknessSource": { "level": "dark" },
+  "exclusiveGroup": "ambient_light",
+  "stack": "refresh"
+}

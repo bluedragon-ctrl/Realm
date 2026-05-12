@@ -1,0 +1,13 @@
+{
+  "id": "effect.magic_shadow",
+  "name": {
+    "en": "Magic Shadow",
+    "cs": "Magický stín"
+  },
+  "kind": "buff",
+  "icon": "🌒",
+  "duration": 200,
+  "darknessSource": { "level": "dim" },
+  "exclusiveGroup": "ambient_light",
+  "stack": "refresh"
+}

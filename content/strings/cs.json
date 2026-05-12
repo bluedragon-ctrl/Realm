@@ -45,6 +45,7 @@
   "narration.appears": "{name} se objevuje.",
   "narration.vanishes": "{name} mizí.",
   "narration.you_arrive": "přicházíš do: {room}.",
+  "narration.you_arrive_dark": "vstupuješ do tmy.",
   "narration.you_look_at": "díváš se na {target}.",
 
   "look.player_self": "ty jsi {name}.",
@@ -150,6 +151,9 @@
   "combat.you_respawn": "probouzíš se doma — slabě, ale naživu.",
   "combat.player_died_observed": "{name} padá k zemi.",
   "combat.hit_by_unseen": "Něco tě uhodí ze tmy!",
+  "combat.missed_by_unseen": "Něco se po tobě ve tmě ožene a mine.",
+  "combat.crit_by_unseen": "Něco na tebe ze tmy tvrdě dopadne!",
+  "aggro.onset_self_dark": "Něco ve tmě si tě začíná všímat.",
   "aggro.onset_self": "{npc} si tě začíná všímat.",
   "aggro.onset_others": "{npc} si začíná všímat {target}.",
   "aggro.pack_joins": "{joiners} se přidávají do boje proti {target}!",
@@ -212,6 +216,7 @@
   "room.items_label": "na zemi",
   "room.no_exits": "žádné",
   "room.dark": "Je tu příliš tma, nic nevidíš.",
+  "room.dark_name": "kdesi ve tmě",
   "room.dim_hint": "Je obtížné dobře vidět.",
 
   "panel.player_info": "Postava",

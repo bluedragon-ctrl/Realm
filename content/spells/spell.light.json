@@ -1,0 +1,29 @@
+{
+  "id": "spell.light",
+  "name": {
+    "en": "Light",
+    "cs": "Světlo"
+  },
+  "mpCost": 3,
+  "actionCost": 12,
+  "target": "self",
+  "description": {
+    "en": "Conjure a soft magical glow that follows you for a while.",
+    "cs": "Vyvolá jemnou magickou záři, která tě chvíli následuje."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you whisper a word and a soft light kindles around you.",
+        "others": "{actor} whispers a word and a soft light kindles around them."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zašeptáš slovo a kolem tebe se rozhoří jemné světlo.",
+        "others": "{actor} zašeptá slovo a kolem se rozhoří jemné světlo."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.magic_light" }
+}

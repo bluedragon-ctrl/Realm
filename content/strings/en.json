@@ -45,6 +45,7 @@
   "narration.appears": "{name} appears.",
   "narration.vanishes": "{name} vanishes.",
   "narration.you_arrive": "you arrive at {room}.",
+  "narration.you_arrive_dark": "you step into the dark.",
   "narration.you_look_at": "you look at {target}.",
 
   "look.player_self": "you are {name}.",
@@ -150,6 +151,9 @@
   "combat.you_respawn": "you wake at home, weakened but alive.",
   "combat.player_died_observed": "{name} collapses, defeated.",
   "combat.hit_by_unseen": "Something strikes you out of the dark!",
+  "combat.missed_by_unseen": "Something swipes at you in the dark and misses.",
+  "combat.crit_by_unseen": "Something crashes into you out of the dark!",
+  "aggro.onset_self_dark": "Something in the dark turns its attention on you.",
   "aggro.onset_self": "{npc} fixes its attention on you.",
   "aggro.onset_others": "{npc} fixes its attention on {target}.",
   "aggro.pack_joins": "{joiners} join the fight against {target}!",
@@ -212,6 +216,7 @@
   "room.items_label": "on the ground",
   "room.no_exits": "none",
   "room.dark": "It is too dark to see anything.",
+  "room.dark_name": "somewhere dark",
   "room.dim_hint": "It is hard to see clearly.",
 
   "panel.player_info": "Character",

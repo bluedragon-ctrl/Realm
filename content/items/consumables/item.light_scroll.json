@@ -1,0 +1,40 @@
+{
+  "id": "item.light_scroll",
+  "name": {
+    "en": "a sun-bright scroll",
+    "cs": "slunečně jasný svitek"
+  },
+  "nameAcc": {
+    "en": "the sun-bright scroll",
+    "cs": "slunečně jasný svitek"
+  },
+  "short": {
+    "en": "A scroll that seems to glow faintly lies here.",
+    "cs": "Leží tu svitek, který jakoby slabě září."
+  },
+  "long": {
+    "en": "A scroll of pale parchment that holds a soft glow of its own. A tiny sun is drawn at its centre.",
+    "cs": "Svitek z bledého pergamenu, který sám od sebe jemně září. Uprostřed je nakresleno malé slunce."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The drawn sun brightens and fades into the parchment.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A warm glow spreads from the parchment and fades."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Nakreslené slunce se rozzáří a vsákne se do pergamenu.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Z pergamenu se rozšíří teplá záře a zhasne."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.light"
+    }
+  }
+}

@@ -1,0 +1,40 @@
+{
+  "id": "item.shadow_scroll",
+  "name": {
+    "en": "a dust-grey scroll",
+    "cs": "popelavě šedý svitek"
+  },
+  "nameAcc": {
+    "en": "the dust-grey scroll",
+    "cs": "popelavě šedý svitek"
+  },
+  "short": {
+    "en": "A grey scroll lies here, edged in soft shadow.",
+    "cs": "Leží tu šedý svitek lemovaný měkkým stínem."
+  },
+  "long": {
+    "en": "A scroll of dust-grey parchment whose edges seem just a shade darker than the air around it. A small crescent moon is drawn at its centre.",
+    "cs": "Svitek z popelavě šedého pergamenu, jehož okraje vypadají o odstín tmavší než okolní vzduch. Uprostřed je nakreslen malý srpek měsíce."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The drawn crescent dims for a moment, then settles.",
+        "others": "{actor} unrolls a scroll and reads it aloud. The light around the parchment softens for a moment."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Nakreslený srpek na okamžik ztemní a zase ztichne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Světlo kolem pergamenu na chvíli zjemní."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.shadow"
+    }
+  }
+}

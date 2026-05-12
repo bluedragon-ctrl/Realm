@@ -28,9 +28,48 @@ function markDirty(actor) {
   if (actor.kind === 'player') actor.dirty = true;
 }
 
+let roomRefreshHandler = null;
+export function setRoomRefreshHandler(fn) { roomRefreshHandler = fn; }
+
+function changesRoomLight(def) {
+  return !!(def?.lightSource || def?.darknessSource);
+}
+
+function refreshRoomLight(target) {
+  if (roomRefreshHandler && target?.location) roomRefreshHandler(target.location);
+}
+
+function displaceExclusiveGroup(target, incomingDef) {
+  const list = ensureList(target);
+  let displacedStatMod = false;
+  let displacedLight = false;
+  const kept = [];
+  for (const e of list) {
+    if (e.defId === incomingDef.id) { kept.push(e); continue; }
+    const eDef = world.effectDefs.get(e.defId);
+    if (eDef?.exclusiveGroup === incomingDef.exclusiveGroup) {
+      sendExpiredFeedback(target, eDef);
+      if (eDef.statMod) displacedStatMod = true;
+      if (changesRoomLight(eDef)) displacedLight = true;
+      continue;
+    }
+    kept.push(e);
+  }
+  if (kept.length !== list.length) {
+    target.activeEffects = kept;
+    markDirty(target);
+    if (displacedStatMod) recomputeStats(target);
+  }
+  return displacedLight;
+}
+
 export function applyActiveEffect(target, defId, source, casterName = null) {
   const def = world.effectDefs.get(defId);
   if (!def) return null;
+  let lightChanged = changesRoomLight(def);
+  if (def.exclusiveGroup) {
+    if (displaceExclusiveGroup(target, def)) lightChanged = true;
+  }
   const list = ensureList(target);
   const stack = def.stack ?? 'refresh';
   const idx = list.findIndex(e => e.defId === defId && e.source === source);
@@ -41,6 +80,7 @@ export function applyActiveEffect(target, defId, source, casterName = null) {
       if (fresh) list[idx] = fresh;
       markDirty(target);
       if (def.statMod) recomputeStats(target);
+      if (lightChanged) refreshRoomLight(target);
       return fresh;
     }
   }
@@ -49,6 +89,7 @@ export function applyActiveEffect(target, defId, source, casterName = null) {
   list.push(inst);
   markDirty(target);
   if (def.statMod) recomputeStats(target);
+  if (lightChanged) refreshRoomLight(target);
   return inst;
 }
 
@@ -161,6 +202,7 @@ export function tickActiveEffects(actor) {
   const remaining = [];
   let changed = false;
   let statModChanged = false;
+  let lightExpired = false;
   for (const inst of list) {
     const def = world.effectDefs.get(inst.defId);
     if (!def) { changed = true; continue; }
@@ -169,6 +211,7 @@ export function tickActiveEffects(actor) {
       if (inst.ticksLeft <= 0) {
         sendExpiredFeedback(actor, def);
         if (def.statMod) statModChanged = true;
+        if (changesRoomLight(def)) lightExpired = true;
         changed = true;
         continue;
       }
@@ -184,6 +227,7 @@ export function tickActiveEffects(actor) {
       if (inst.pulsesLeft <= 0) {
         sendExpiredFeedback(actor, def);
         if (def.statMod) statModChanged = true;
+        if (changesRoomLight(def)) lightExpired = true;
         continue;
       }
     }
@@ -193,6 +237,7 @@ export function tickActiveEffects(actor) {
   actor.activeEffects = remaining;
   if (changed) markDirty(actor);
   if (statModChanged) recomputeStats(actor);
+  if (lightExpired) refreshRoomLight(actor);
   return changed;
 }
 

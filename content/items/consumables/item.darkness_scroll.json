@@ -1,0 +1,40 @@
+{
+  "id": "item.darkness_scroll",
+  "name": {
+    "en": "a soot-black scroll",
+    "cs": "sazově černý svitek"
+  },
+  "nameAcc": {
+    "en": "the soot-black scroll",
+    "cs": "sazově černý svitek"
+  },
+  "short": {
+    "en": "A scroll dark as soot lies here.",
+    "cs": "Leží tu svitek černý jako saze."
+  },
+  "long": {
+    "en": "A scroll of charcoal-black parchment that drinks in the nearby light. A closed eye is drawn at its centre.",
+    "cs": "Svitek z uhlově černého pergamenu, který do sebe nasává okolní světlo. Uprostřed je nakresleno zavřené oko."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The drawn eye opens for a heartbeat, then the parchment goes cold.",
+        "others": "{actor} unrolls a scroll and reads it aloud. The air around the parchment briefly dims."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Nakreslené oko se na okamžik otevře a pergamen vychladne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Vzduch kolem pergamenu se na chvíli ztmaví."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.darkness"
+    }
+  }
+}

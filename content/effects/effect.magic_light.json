@@ -1,0 +1,13 @@
+{
+  "id": "effect.magic_light",
+  "name": {
+    "en": "Magic Light",
+    "cs": "Magické světlo"
+  },
+  "kind": "buff",
+  "icon": "✨",
+  "duration": 200,
+  "lightSource": { "level": "light" },
+  "exclusiveGroup": "ambient_light",
+  "stack": "refresh"
+}

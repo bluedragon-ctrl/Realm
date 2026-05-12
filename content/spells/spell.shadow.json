@@ -1,0 +1,29 @@
+{
+  "id": "spell.shadow",
+  "name": {
+    "en": "Shadow",
+    "cs": "Stín"
+  },
+  "mpCost": 3,
+  "actionCost": 12,
+  "target": "self",
+  "description": {
+    "en": "Dim the light around you to a soft grey for a while.",
+    "cs": "Na chvíli ztlumí světlo kolem tebe do jemné šedi."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you murmur a word and the light around you fades to a soft grey.",
+        "others": "{actor} murmurs a word and the light around them fades to a soft grey."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zamumláš slovo a světlo kolem tebe zešedne.",
+        "others": "{actor} zamumlá slovo a světlo kolem zešedne."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.magic_shadow" }
+}
