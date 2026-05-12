@@ -309,16 +309,17 @@ export default function look(actor, args) {
     actor.session.send({ kind: 'system', text: s('narration.you_look_at', actor.lang, { target: actor.name }) });
     return;
   }
+  const room = getRoom(actor.location);
+  const perceivedHere = canPerceiveRoom(actor, room);
   const target = findInRoom(actor.location, query);
   if (target) {
     sendTargetInfo(actor, target);
-    const targetName = target.kind === 'npc' ? t(target.name, actor.lang) : target.name;
-    actor.session.send({ kind: 'system', text: s('narration.you_look_at', actor.lang, { target: targetName }) });
+    if (perceivedHere !== 'dark') {
+      const targetName = target.kind === 'npc' ? t(target.name, actor.lang) : target.name;
+      actor.session.send({ kind: 'system', text: s('narration.you_look_at', actor.lang, { target: targetName }) });
+    }
     return;
   }
-
-  const room = getRoom(actor.location);
-  const perceivedHere = canPerceiveRoom(actor, room);
   const itemInRoom = perceivedHere === 'dark' ? null : findItemInList(itemsInRoom(actor.location), query);
   const itemInInv = findItemInList(actor.inventory, query);
   const item = itemInRoom ?? itemInInv;
