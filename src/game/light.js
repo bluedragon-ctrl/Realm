@@ -18,7 +18,7 @@ export function clampUp(current, floor) {
 }
 
 // Clamp `current` down to at most `ceiling`. Darker wins.
-// v1 has no ceiling contributions; exported so spell.darkness lands without touching this file.
+// Ceilings come from `darknessSource` on active effects (magic_darkness, magic_shadow).
 export function clampDown(current, ceiling) {
   if (!ceiling) return current;
   return LEVEL_RANK[ceiling] < LEVEL_RANK[current] ? ceiling : current;
@@ -73,7 +73,7 @@ function readActorInventoryFloor(actor) {
 }
 
 // Returns the room's effective light level given all current contributions.
-// Floors apply first (raise level), then ceilings (clamp down). v1 emits only floors.
+// Floors apply first (raise level), then ceilings (clamp down).
 export function effectiveLight(room) {
   if (!room) return 'light';
   let level = clamp(room.lightBase ?? 'light');
@@ -84,18 +84,19 @@ export function effectiveLight(room) {
   for (const inst of itemsInRoom(room.id)) {
     level = clampUp(level, readItemFloor(inst));
   }
+  // Single pass over actors: collect floors (inventory + effect lightSource) and the
+  // worst ceiling (effect darknessSource). Floors apply now; ceiling clamps last so the
+  // darkest darkness source in the room wins over any light raises.
+  let ceiling = null;
   for (const a of actorsInRoom(room.id)) {
     const fromInv = readActorInventoryFloor(a);
     if (fromInv) level = clampUp(level, fromInv);
     const fromEffects = readEffectFloor(a);
     if (fromEffects) level = clampUp(level, fromEffects);
+    const c = readEffectCeiling(a);
+    if (c && (!ceiling || LEVEL_RANK[c] < LEVEL_RANK[ceiling])) ceiling = c;
   }
-  // Ceiling pass: darkness sources clamp the level down. Magic darkness/shadow effects on
-  // any actor in the room contribute; the darkest wins.
-  for (const a of actorsInRoom(room.id)) {
-    const ceiling = readEffectCeiling(a);
-    if (ceiling) level = clampDown(level, ceiling);
-  }
+  if (ceiling) level = clampDown(level, ceiling);
   return level;
 }
 
