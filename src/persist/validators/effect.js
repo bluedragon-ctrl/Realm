@@ -33,6 +33,14 @@ export function validateEffect(def, file) {
     checkObject(def.lightSource, ctx, 'lightSource');
     checkEnum(def.lightSource.level, LIGHT_LEVEL_SET, ctx, 'lightSource.level');
   }
+  if (def.darknessSource != null) {
+    checkObject(def.darknessSource, ctx, 'darknessSource');
+    checkEnum(def.darknessSource.level, LIGHT_LEVEL_SET, ctx, 'darknessSource.level');
+  }
+  if (def.exclusiveGroup != null) {
+    check(typeof def.exclusiveGroup === 'string' && def.exclusiveGroup.length > 0,
+      ctx, 'exclusiveGroup must be a non-empty string');
+  }
   if (def.perception != null) {
     checkEnum(def.perception, PERCEPTION_KINDS, ctx, 'perception');
   }

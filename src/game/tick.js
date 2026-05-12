@@ -2,18 +2,19 @@ import { world, allActors, actorsInRoom, countItemsInWorldMemory, countItemsInRo
 import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
 import { serializeInventory, makeItemInstance } from './items.js';
-import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler, removeDebuffs } from './activeEffects.js';
+import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler, removeDebuffs, setRoomRefreshHandler } from './activeEffects.js';
 import { applyDamageWithFeedback, hasInRoomTarget } from './combat.js';
 import { addHate } from './aggro.js';
 import { setDamageRouteHandler, setCleanseHandler } from './effects.js';
 import { sendStats } from './messages.js';
-import { pushTargetInfo } from './actions/look.js';
+import { pushTargetInfo, describeRoomToAll } from './actions/look.js';
 import { getTick, bumpTick } from './clock.js';
 import { LULL_TICKS, PLAYER_REGEN_PERIOD } from './stats.js';
 
 setEffectDamageHandler(applyDamageWithFeedback);
 setDamageRouteHandler(applyDamageWithFeedback);
 setCleanseHandler(removeDebuffs);
+setRoomRefreshHandler(describeRoomToAll);
 
 const TICK_MS = 1000;
 const FLUSH_EVERY_TICKS = 50;

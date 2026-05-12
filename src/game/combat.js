@@ -1,6 +1,6 @@
 import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors, actorsInRoom } from './world.js';
 import { applyEffect, setDamageRouteHandler } from './effects.js';
-import { canPerceiveRoom } from './light.js';
+import { isDarkObserver } from './light.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
@@ -23,10 +23,6 @@ export { aggroTargetInRoom, hasInRoomTarget } from './aggro.js';
 const MAX_DODGE = 50;
 const MAX_CRIT = 50;
 const CRIT_MULTIPLIER = 2;
-
-function isDarkObserver(recipient) {
-  return canPerceiveRoom(recipient, getRoom(recipient.location)) === 'dark';
-}
 
 function targetDisplay(target, lang) {
   return resolveName(target, 'acc', lang);
@@ -52,6 +48,10 @@ export function executeAttack(actor, action, target) {
           text: s('combat.you_missed', lang, { target: targetDisplay(target, lang) }) };
       }
       if (recipient === target) {
+        if (isDarkObserver(target)) {
+          return { kind: 'emote', source: sourceForActor(actor, recipient),
+            text: s('combat.missed_by_unseen', lang) };
+        }
         return { kind: 'emote', source: sourceForActor(actor, recipient),
           text: s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) }) };
       }
@@ -78,10 +78,8 @@ export function executeAttack(actor, action, target) {
   if (tmpl) {
     const idx = pickListIndex(tmpl);
     broadcastToRoom(actor.location, (recipient) => {
+      if (recipient !== actor && isDarkObserver(recipient)) return null;
       const lang = recipient.lang;
-      if (recipient !== actor && recipient !== target) {
-        if (isDarkObserver(recipient)) return null;
-      }
       const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
     });
@@ -94,7 +92,9 @@ export function executeAttack(actor, action, target) {
       if (recipient === actor) {
         text = s('combat.you_crit', lang, { target: targetDisplay(target, lang) });
       } else if (recipient === target) {
-        text = s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
+        text = isDarkObserver(target)
+          ? s('combat.crit_by_unseen', lang)
+          : s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
       } else {
         if (isDarkObserver(recipient)) return null;
         text = s('combat.crit_observed', lang, {
@@ -246,6 +246,7 @@ export function registerAttackAggro(actor, target, hate = 1) {
 
 function emitPackJoin(roomId, joiners, attacker) {
   broadcastToRoom(roomId, (recipient) => {
+    if (recipient !== attacker && isDarkObserver(recipient)) return null;
     const lang = recipient.lang;
     const names = joiners.map(n => resolveName(n, 'nom', lang)).join(', ');
     return {
@@ -476,11 +477,16 @@ onAggroOnset((npc, actor) => {
   if (!npc?.location || actor?.location !== npc.location) return;
   if (actor.kind !== 'player') return;
   broadcastToRoom(npc.location, (recipient) => {
+    if (recipient !== actor && isDarkObserver(recipient)) return null;
     const lang = recipient.lang;
-    const npcName = resolveName(npc, 'nom', lang);
     if (recipient === actor) {
+      if (isDarkObserver(actor)) {
+        return { kind: 'emote', tone: 'combat', text: s('aggro.onset_self_dark', lang) };
+      }
+      const npcName = resolveName(npc, 'nom', lang);
       return { kind: 'emote', tone: 'combat', text: s('aggro.onset_self', lang, { npc: npcName }) };
     }
+    const npcName = resolveName(npc, 'nom', lang);
     return {
       kind: 'emote',
       tone: 'combat',

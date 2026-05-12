@@ -1,4 +1,4 @@
-import { world, actorsInRoom, itemsInRoom } from './world.js';
+import { world, actorsInRoom, itemsInRoom, getRoom } from './world.js';
 import { equippedSlots } from './wearables.js';
 
 // Index doubles as brightness rank: 0=dark, 1=dim, 2=light.
@@ -41,6 +41,18 @@ function readEffectFloor(actor) {
   return best;
 }
 
+function readEffectCeiling(actor) {
+  if (!Array.isArray(actor.activeEffects)) return null;
+  let worst = null;
+  for (const eff of actor.activeEffects) {
+    const def = world.effectDefs.get(eff.defId);
+    const lvl = def?.darknessSource?.level;
+    if (!lvl) continue;
+    if (!worst || LEVEL_RANK[lvl] < LEVEL_RANK[worst]) worst = lvl;
+  }
+  return worst;
+}
+
 // Equipped wearables: iterate via equippedSlots; worn item defs are looked up by defId.
 function readActorInventoryFloor(actor) {
   const inv = actor.inventory ?? [];
@@ -76,7 +88,12 @@ export function effectiveLight(room) {
     const fromEffects = readEffectFloor(a);
     if (fromEffects) level = clampUp(level, fromEffects);
   }
-  // Ceiling pass — no v1 contributions. spell.darkness will push entries here.
+  // Ceiling pass: darkness sources clamp the level down. Magic darkness/shadow effects on
+  // any actor in the room contribute; the darkest wins.
+  for (const a of actorsInRoom(room.id)) {
+    const ceiling = readEffectCeiling(a);
+    if (ceiling) level = clampDown(level, ceiling);
+  }
   return level;
 }
 
@@ -100,4 +117,11 @@ export function perceivedLight(actor, room) {
 // v2 invisibility + NPC vision land in `canPerceive` (per-target); this stays room-scoped.
 export function canPerceiveRoom(actor, room) {
   return perceivedLight(actor, room);
+}
+
+// Convenience for broadcast filters: true when this recipient perceives their current
+// room as `dark`. Used by combat narration, NPC primitives, etc. to skip lines that
+// would name actors the observer can't see.
+export function isDarkObserver(recipient) {
+  return canPerceiveRoom(recipient, getRoom(recipient.location)) === 'dark';
 }

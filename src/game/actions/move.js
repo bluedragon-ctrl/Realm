@@ -6,6 +6,7 @@ import { clearAggroOnLeave, applyAggressionOnEnter } from '../combat.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { awardXp, markRoomVisited } from '../xp.js';
 import { requireStanding } from '../positionGate.js';
+import { canPerceiveRoom, isDarkObserver } from '../light.js';
 
 const DIR_ALIASES = {
   n: 'n', north: 'n',
@@ -71,14 +72,17 @@ export default function move(actor, args) {
     if (a !== actor && a.following === actor.id) followers.push(a);
   }
 
-  broadcastToRoom(sourceId, (recipient) => ({
-    kind: 'emote',
-    source: 'ambient',
-    text: s('narration.leaves', recipient.lang, {
-      name: actor.name,
-      direction: dirName(exitKey, recipient.lang) || exitKey,
-    }),
-  }), actor);
+  broadcastToRoom(sourceId, (recipient) => {
+    if (isDarkObserver(recipient)) return null;
+    return {
+      kind: 'emote',
+      source: 'ambient',
+      text: s('narration.leaves', recipient.lang, {
+        name: actor.name,
+        direction: dirName(exitKey, recipient.lang) || exitKey,
+      }),
+    };
+  }, actor);
 
   placeActor(actor, targetId);
   actor.dirty = true;
@@ -86,18 +90,25 @@ export default function move(actor, args) {
   clearAggroOnLeave(actor, sourceId);
   applyAggressionOnEnter(actor, targetId);
 
-  broadcastToRoom(targetId, (recipient) => ({
-    kind: 'emote',
-    source: 'ambient',
-    text: s('narration.arrives', recipient.lang, { name: actor.name }),
-  }), actor);
+  broadcastToRoom(targetId, (recipient) => {
+    if (isDarkObserver(recipient)) return null;
+    return {
+      kind: 'emote',
+      source: 'ambient',
+      text: s('narration.arrives', recipient.lang, { name: actor.name }),
+    };
+  }, actor);
 
   if (actor.session) {
     actor.session.send({ kind: 'room-transition' });
     describeRoom(actor);
     sendStats(actor);
-    const roomName = t(target.name, actor.lang);
-    actor.session.send({ kind: 'system', text: s('narration.you_arrive', actor.lang, { room: roomName }) });
+    if (canPerceiveRoom(actor, target) === 'dark') {
+      actor.session.send({ kind: 'system', text: s('narration.you_arrive_dark', actor.lang) });
+    } else {
+      const roomName = t(target.name, actor.lang);
+      actor.session.send({ kind: 'system', text: s('narration.you_arrive', actor.lang, { room: roomName }) });
+    }
   }
 
   describeRoomToAll(sourceId);

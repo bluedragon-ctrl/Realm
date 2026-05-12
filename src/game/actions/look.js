@@ -101,7 +101,7 @@ export function describeRoom(actor) {
     actor.session.send({
       kind: 'room',
       light: 'dark',
-      name: t(room.name, lang),
+      name: s('room.dark_name', lang),
       short: s('room.dark', lang),
     });
     return;

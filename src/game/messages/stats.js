@@ -1,10 +1,11 @@
 // `stats` message: the full snapshot the client renders into the player panel.
 // Composed from the smaller builders in this folder.
 
-import { t } from '../../i18n.js';
+import { t, s } from '../../i18n.js';
 import { getRoom, world } from '../world.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
 import { freePointsPhrase } from '../format.js';
+import { canPerceiveRoom } from '../light.js';
 
 function buildWearableOnHitEffects(actor, lang) {
   const out = [];
@@ -40,12 +41,16 @@ import { buildPanelLabels } from './labels.js';
 
 export function buildStatsMsg(actor) {
   const room = getRoom(actor.location);
+  const isDark = room && canPerceiveRoom(actor, room) === 'dark';
+  const locationLabel = isDark
+    ? s('room.dark_name', actor.lang)
+    : (room ? t(room.name, actor.lang) : actor.location);
   return {
     kind: 'stats',
     name: actor.name,
     isAdmin: !!actor.isAdmin,
     lang: actor.lang,
-    location: room ? t(room.name, actor.lang) : actor.location,
+    location: locationLabel,
     locationId: actor.location,
     stats: { ...actor.stats },
     position: actor.position ?? 'stand',

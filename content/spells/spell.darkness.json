@@ -1,0 +1,29 @@
+{
+  "id": "spell.darkness",
+  "name": {
+    "en": "Darkness",
+    "cs": "Tma"
+  },
+  "mpCost": 3,
+  "actionCost": 12,
+  "target": "self",
+  "description": {
+    "en": "Wrap yourself in deep magical darkness for a while.",
+    "cs": "Zahalí tě na chvíli do hluboké magické tmy."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you draw a quiet word and a heavy darkness folds around you.",
+        "others": "{actor} draws a quiet word and a heavy darkness folds around them."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "tiše vyslovíš slovo a kolem tebe se rozprostře těžká tma.",
+        "others": "{actor} tiše vysloví slovo a kolem se rozprostře těžká tma."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.magic_darkness" }
+}

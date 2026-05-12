@@ -318,6 +318,9 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Out-of-combat monster regen (1 HP/MP per tick after `LULL_TICKS` lull; position scaling deferred to actor positions) |
 | Pre-light content audit (rooms: `outdoor` + `lightBase`; NPCs: `vision`; first light items: `item.candle` + `item.lantern`; `utility` wearable slot) — see `docs/superpowers/plans/2026-05-09-pre-light-content-audit-decisions.md` |
 | Light system v1, visual-only (per-actor `effectiveLight` / `perceivedLight` / `canPerceiveRoom`; `light` / `dim` / `dark` room rendering; dim/dark gate on `look <target>`; dark rooms anonymize attacker narration; inventory + own stats always visible) — see `docs/superpowers/specs/2026-05-12-light-system-design.md` |
+| Dark-gate pack-join + aggro-onset broadcasts (third-party observers in dark rooms no longer see the named NPC growl / pack-join lines; participants still get their personal named lines) |
+| Light / darkness / shadow spells (caster-attached active effects: `spell.light` floor=light, `spell.darkness` ceiling=dark, `spell.shadow` ceiling=dim; mutually exclusive via new `exclusiveGroup` field on effect defs; `effect.darknessSource` ceiling pass added to `light.js`; learned via scrolls) |
+| Dark-narration pass (extracted `isDarkObserver` to `light.js`; NPC primitive broadcasts — say/emote/interact/give_item/move — skip dark observers; combat attack templates, miss/crit lines, and aggro onset all anonymize for the dark target via `combat.missed_by_unseen` / `combat.crit_by_unseen` / `aggro.onset_self_dark`; NPC wander narration skipped for dark observers; dark room sends anonymized `name: "somewhere dark"` in `room` and `stats` messages so the top-bar location label, inspect heading, and console room separator all hide the actual room name; new `narration.you_arrive_dark` replaces named arrival in dark) |
 
 ### Planned — combat & system cleanup (next)
 
@@ -335,10 +338,7 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase |
 |---|
-| Dark-gate `emitPackJoin` + `onAggroOnset` broadcasts in `combat.js` (small follow-up to light v1 — observers in dark shouldn't see the named NPC growl / pack-join lines; reuse `isDarkObserver`) |
-| `spell.light` (room-buff: pushes an entry onto `room.activeLight[]` with `lightSource: { level: "light" }`; cleared on caster leaving or duration end) |
 | Light-producing room fixtures (lit forge in the smithy, hearth in the cottage, brazier in halls — author as `activeLight[]` entries set by the room def at load; toggleable via `extinguish`/`light` verbs later) |
-| `spell.darkness` (first **ceiling** contribution — pushes onto a new `room.activeDarkness[]` parallel array; `effectiveLight` already runs a ceiling pass via `clampDown`, so this lands without touching `light.js` math) |
 | `spell.blindness` / `spell.nightvision` (effect defs with `perception: "blind" \| "nightvision"` already validated; pure content authoring) |
 | NPC sight in low light (`perceivedLight` extends to read `actor.def.vision`: `low_light` → clamp up to dim only if effective light is dim, `nightvision` → clamp up to dim always, `blind` → clamp to dark + a `usesNonVisualTargeting` flag for blind NPCs that still acquire targets; `canPerceive(observer, target)` consumes the result) |
 | Combat to-hit penalties in dim/dark (`executeAttack` reads `perceivedLight(attacker, attacker.room)` once and applies `lightToHitModifier(level)` — `light` → 0, `dim` → small malus, `dark` → large malus / auto-miss for sighted attackers; blind-vision NPCs bypass via the flag above) |
