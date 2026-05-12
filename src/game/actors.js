@@ -76,6 +76,7 @@ export function makePlayerActor(record, session, isAdmin) {
     set lang(v) { record.lang = normalizeLang(v); },
     inspecting: null,
     target: null,
+    position: 'stand',
   };
   recomputeStats(actor);
   syncWearableEffects(actor);
@@ -135,5 +136,6 @@ export function makeNpcActor(def, homeLocation = null) {
     pack: def.pack ?? null,
     exchanges: def.exchanges ?? null,
     following: null,
+    position: def.position ?? 'stand',
   };
 }
