@@ -77,6 +77,7 @@ export function makePlayerActor(record, session, isAdmin) {
     inspecting: null,
     target: null,
     position: 'stand',
+    lastCombatTick: -Infinity,
   };
   recomputeStats(actor);
   syncWearableEffects(actor);

@@ -129,8 +129,8 @@ export function applyDamageWithFeedback(actor, target, amount) {
   if (!target?.stats || target.stats.hp <= 0) return 0;
 
   const tick = getTick();
-  if (actor?.kind === 'npc') actor.lastCombatTick = tick;
-  if (target?.kind === 'npc') target.lastCombatTick = tick;
+  if (actor) actor.lastCombatTick = tick;
+  if (target) target.lastCombatTick = tick;
 
   if (target.position && target.position !== 'stand') {
     const was = target.position;
