@@ -214,6 +214,12 @@ export function pushTargetInfo(actor, target) {
 
 function sendTargetInfo(actor, target) {
   const lang = actor.lang;
+  const room = getRoom(actor.location);
+  const perceived = canPerceiveRoom(actor, room);
+  if (perceived === 'dark') {
+    actor.session.send({ kind: 'system', text: s('look.too_dark', lang) });
+    return;
+  }
   if (target.kind === 'npc') {
     actor.inspecting = target;
     let subtitle = t(target.title ?? target.name, lang);
@@ -224,6 +230,14 @@ function sendTargetInfo(actor, target) {
     const effectsForClient = isFriendly ? [] : serializeActiveEffectsForClient(target, lang)
       .map(e => ({ defId: e.defId, name: e.name, icon: e.icon, kind: e.kind }));
     const exchanges = serializeExchanges(target, lang, actor);
+    if (perceived === 'dim') {
+      actor.session.send({
+        kind: 'target-info',
+        name: t(target.name, lang),
+        subtitle,
+      });
+      return;
+    }
     actor.session.send({
       kind: 'target-info',
       name: t(target.name, lang),
@@ -254,6 +268,14 @@ function sendTargetInfo(actor, target) {
   }
   if (target.kind === 'player') {
     actor.inspecting = null;
+    if (perceived === 'dim') {
+      actor.session.send({
+        kind: 'target-info',
+        name: target.name,
+        subtitle: s('look.adventurer_subtitle', lang),
+      });
+      return;
+    }
     actor.session.send({
       kind: 'target-info',
       name: target.name,
