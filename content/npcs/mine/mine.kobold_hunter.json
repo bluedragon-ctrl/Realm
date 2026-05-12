@@ -5,6 +5,7 @@
   "nameDat": { "en": "the kobold hunter", "cs": "koboldímu lovci" },
   "nameGen": { "en": "the kobold hunter", "cs": "koboldího lovce" },
   "title": { "en": "kobold hunter", "cs": "koboldí lovec" },
+  "vision": "nightvision",
   "locations": {
     "mine.east_tunnel": 2,
     "mine.dark_crossing": 2

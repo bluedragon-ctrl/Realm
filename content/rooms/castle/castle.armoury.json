@@ -4,13 +4,14 @@
     "en": "Armoury",
     "cs": "Zbrojnice"
   },
+  "lightBase": "dim",
   "short": {
     "en": "A weapon-storage room dominated by a tall figure in tarnished plate.",
     "cs": "Sklad zbraní, kterému vévodí vysoká postava ve zčernalé plátové zbroji."
   },
   "long": {
-    "en": "Wooden weapon stands fill the room — most empty, a few still holding pitted swords or bent halberds. A whetstone sits on a low table, dust thick on its surface. In the centre stands a tall figure in old plate armor, helmet visor down. He does not move when you enter, but his gauntlets tighten on the haft of a great sword.",
-    "cs": "Dřevěné stojany na zbraně zaplňují místnost — většina je prázdná, na několika stále visí poďobané meče nebo ohnuté halapartny. Na nízkém stole leží brusný kámen pokrytý silnou vrstvou prachu. Uprostřed stojí vysoká postava ve staré plátové zbroji se sklopeným hledím. Když vstoupíš, nehne se, ale železné rukavice pevněji sevřou jílec velkého meče."
+    "en": "Wooden weapon stands fill the room — most empty, a few still holding pitted swords or bent halberds. A whetstone sits on a low table, dust thick on its surface. A narrow arrow slit in the south wall admits a thin shaft of grey daylight onto the dusty floor. In the centre stands a tall figure in old plate armor, helmet visor down. He does not move when you enter, but his gauntlets tighten on the haft of a great sword.",
+    "cs": "Dřevěné stojany na zbraně zaplňují místnost — většina je prázdná, na několika stále visí poďobané meče nebo ohnuté halapartny. Na nízkém stole leží brusný kámen pokrytý silnou vrstvou prachu. Úzká střílna v jižní zdi propouští na zaprášenou podlahu tenký pruh šedého denního světla. Uprostřed stojí vysoká postava ve staré plátové zbroji se sklopeným hledím. Když vstoupíš, nehne se, ale železné rukavice pevněji sevřou jílec velkého meče."
   },
   "exits": {
     "w": "castle.barracks"

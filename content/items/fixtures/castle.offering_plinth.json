@@ -1,0 +1,37 @@
+{
+  "id": "castle.offering_plinth",
+  "name": {
+    "en": "a stone offering plinth",
+    "cs": "kamenná obětní deska"
+  },
+  "nameAcc": {
+    "en": "the stone offering plinth",
+    "cs": "kamennou obětní desku"
+  },
+  "short": {
+    "en": "A low stone shelf at the foot of the sarcophagus, dust thick on its surface.",
+    "cs": "Nízká kamenná deska u paty sarkofágu, povrch pokrytý silnou vrstvou prachu."
+  },
+  "long": {
+    "en": "A flat slab of grey stone set into the floor at the foot of the sarcophagus, low enough to kneel beside. Faded letters are carved around its edge in a language you cannot read. A faint ring of old wax stains the centre, and a single dried flower lies in the dust. It feels like a place where offerings are meant to be left.",
+    "cs": "Plochá deska z šedého kamene zasazená do podlahy u paty sarkofágu, dost nízká na to, aby si k ní člověk klekl. Po okraji se táhnou vybledlá písmena vytesaná v jazyce, který neumíš přečíst. Střed znečišťuje slabý kruh starého vosku a v prachu leží jediná suchá květina. Působí to jako místo, kam se mají pokládat obětiny."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "castle.tomb", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you brush dust from the plinth and trace the carved letters with a finger. The stone is cold and patient. Whatever waits here, waits for an offering.",
+        "others": "{actor} kneels by the stone plinth and brushes the dust from its surface."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "smeteš z desky prach a prstem přejedeš vytesaná písmena. Kámen je chladný a trpělivý. Ať tu čeká cokoli, čeká to na obětinu.",
+        "others": "{actor} si klekne ke kamenné desce a smete z ní prach."
+      }
+    }
+  }
+}

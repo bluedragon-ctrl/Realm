@@ -4,13 +4,14 @@
     "en": "Library",
     "cs": "Knihovna"
   },
+  "lightBase": "dim",
   "short": {
     "en": "A round chamber walled with collapsed bookshelves and one drifting figure.",
     "cs": "Kulatá komnata se zhroucenými regály a jednou postavou plující vzduchem."
   },
   "long": {
-    "en": "Once a fine library, now a ruin of fallen shelves and rotting books. Pages litter the floor like dead leaves. A few scrolls still hang from the walls, but their ink has faded almost to nothing. A pale figure drifts between the shelves — a man in scholar's robes — but you can see the bookcase right through him. He is reading, and he has not noticed you yet.",
-    "cs": "Kdysi krásná knihovna je nyní troskou zhroucených regálů a hnijících knih. Stránky pokrývají podlahu jako spadané listí. Několik svitků stále visí na zdech, ale jejich inkoust skoro úplně vybledl. Mezi regály pluje bledá postava — muž v učeneckém rouchu — ale knihovnu za ním je vidět skrz něj. Čte si a zatím tě nezpozoroval."
+    "en": "Once a fine library, now a ruin of fallen shelves and rotting books. Pages litter the floor like dead leaves. A few scrolls still hang from the walls, but their ink has faded almost to nothing. The only light comes from the faint pale glow around the scholar, and from a narrow window high above the shelves. A pale figure drifts between the shelves — a man in scholar's robes — but you can see the bookcase right through him. He is reading, and he has not noticed you yet.",
+    "cs": "Kdysi krásná knihovna je nyní troskou zhroucených regálů a hnijících knih. Stránky pokrývají podlahu jako spadané listí. Několik svitků stále visí na zdech, ale jejich inkoust skoro úplně vybledl. Jediné světlo vychází ze slabé bledé záře kolem učence a z úzkého okénka vysoko nad regály. Mezi regály pluje bledá postava — muž v učeneckém rouchu — ale knihovnu za ním je vidět skrz něj. Čte si a zatím tě nezpozoroval."
   },
   "exits": {
     "e": "castle.cloister"

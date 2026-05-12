@@ -4,6 +4,7 @@
     "en": "Forest clearing",
     "cs": "Lesní mýtina"
   },
+  "outdoor": true,
   "short": {
     "en": "A small clearing where the trees thin out.",
     "cs": "Malá mýtina, kde se stromy řídí."

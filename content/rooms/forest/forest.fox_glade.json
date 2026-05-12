@@ -4,6 +4,7 @@
     "en": "Fox glade",
     "cs": "Liščí mýtina"
   },
+  "outdoor": true,
   "short": {
     "en": "A small grassy glade ringed by birches.",
     "cs": "Malá travnatá mýtina obklopená břízami."

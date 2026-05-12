@@ -5,6 +5,7 @@
   "nameDat": { "en": "the briar sprite", "cs": "trnové víle" },
   "nameGen": { "en": "the briar sprite", "cs": "trnové víly" },
   "title": { "en": "briar sprite", "cs": "trnová víla" },
+  "vision": "low_light",
   "location": "forest.briar_path",
   "count": 1,
   "short": {

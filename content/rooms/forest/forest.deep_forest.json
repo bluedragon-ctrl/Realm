@@ -4,6 +4,8 @@
     "en": "Deep forest",
     "cs": "Hluboký les"
   },
+  "outdoor": true,
+  "lightBase": "dim",
   "short": {
     "en": "A dark part of the forest where little sunlight reaches.",
     "cs": "Tmavá část lesa, kam téměř nedoléhá sluneční světlo."

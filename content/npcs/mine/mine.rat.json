@@ -5,6 +5,7 @@
   "nameDat": { "en": "the giant rat", "cs": "obří kryse" },
   "nameGen": { "en": "the giant rat", "cs": "obří krysy" },
   "title": { "en": "giant rat", "cs": "obří krysa" },
+  "vision": "nightvision",
   "locations": {
     "mine.west_tunnel": 4,
     "mine.deep_hall": 4

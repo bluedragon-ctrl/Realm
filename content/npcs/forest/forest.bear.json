@@ -6,6 +6,7 @@
   "nameDat": { "en": "the big brown bear", "cs": "velkému hnědému medvědovi" },
   "nameGen": { "en": "the big brown bear", "cs": "velkého hnědého medvěda" },
   "title": { "en": "big brown bear", "cs": "velký hnědý medvěd" },
+  "vision": "low_light",
   "location": "forest.cave",
   "count": 1,
   "short": {

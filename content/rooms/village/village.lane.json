@@ -4,6 +4,7 @@
     "en": "Cobbled lane",
     "cs": "Dlážděná ulička"
   },
+  "outdoor": true,
   "short": {
     "en": "A quiet cobbled lane lined with flowerboxes.",
     "cs": "Tichá dlážděná ulička s truhlíky květin."

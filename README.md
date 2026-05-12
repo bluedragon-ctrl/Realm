@@ -316,6 +316,7 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Aggro overhaul (DikuMUD-style hate table, healer aggro, passive aggression tick, tagged target, taunt/pacify/fade spells; stubbed `canPerceive(observer, target)` helper consumed by acquisition and targeting) |
 | Perception (derived bonus + check primitive, extends `canPerceive`; ships with a few hidden rooms / secret fixtures and a keen-senses item or spell) |
 | Out-of-combat monster regen (1 HP/MP per tick after `LULL_TICKS` lull; position scaling deferred to actor positions) |
+| Pre-light content audit (rooms: `outdoor` + `lightBase`; NPCs: `vision`; first light items: `item.candle` + `item.lantern`; `utility` wearable slot) — see `docs/superpowers/plans/2026-05-09-pre-light-content-audit-decisions.md` |
 
 ### Planned — combat & system cleanup (next)
 
@@ -328,12 +329,6 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Phase |
 |---|
 | Item disposal (mimic vendor) |
-
-### Planned — pre-light preparation
-
-| Phase |
-|---|
-| Pre-light content audit (rooms: `outdoor` + `lightBase`; NPCs: `vision`; items: `lightSource`) — see `docs/superpowers/plans/2026-05-09-pre-light-content-audit.md` |
 
 ### Planned — light & exploration content
 

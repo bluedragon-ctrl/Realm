@@ -4,6 +4,7 @@
     "en": "Sunlit path",
     "cs": "Slunná stezka"
   },
+  "outdoor": true,
   "short": {
     "en": "A narrow path where warm sunlight pours between the trees.",
     "cs": "Úzká stezka, kterou mezi stromy proudí teplé sluneční světlo."

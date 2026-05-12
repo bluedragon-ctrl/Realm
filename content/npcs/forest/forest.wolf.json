@@ -5,6 +5,7 @@
   "nameDat": { "en": "the grey wolf", "cs": "šedému vlkovi" },
   "nameGen": { "en": "the grey wolf", "cs": "šedého vlka" },
   "title": { "en": "grey wolf", "cs": "šedý vlk" },
+  "vision": "low_light",
   "location": "forest.wolf_den",
   "count": 3,
   "short": {

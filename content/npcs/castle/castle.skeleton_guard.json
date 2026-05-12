@@ -5,6 +5,7 @@
   "nameDat": { "en": "the skeleton guard", "cs": "kostlivci strážci" },
   "nameGen": { "en": "the skeleton guard", "cs": "kostlivce strážce" },
   "title": { "en": "skeleton guard", "cs": "kostlivec strážce" },
+  "vision": "nightvision",
   "locations": {
     "castle.barracks": 2
   },

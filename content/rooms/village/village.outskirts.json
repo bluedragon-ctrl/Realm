@@ -4,6 +4,7 @@
     "en": "Village outskirts",
     "cs": "Okraj vesnice"
   },
+  "outdoor": true,
   "short": {
     "en": "The first cottages of the village, with gardens and wood smoke in the air.",
     "cs": "První chalupy vesnice, kolem zahrádky a ve vzduchu kouř ze dřeva."

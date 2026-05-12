@@ -5,6 +5,7 @@
   "nameDat": { "en": "the skeleton mage", "cs": "kostlivému mágovi" },
   "nameGen": { "en": "the skeleton mage", "cs": "kostlivého mága" },
   "title": { "en": "skeleton mage", "cs": "kostlivý mág" },
+  "vision": "nightvision",
   "location": "forest.tower_tomb",
   "count": 1,
   "short": {

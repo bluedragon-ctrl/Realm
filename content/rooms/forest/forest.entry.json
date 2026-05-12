@@ -4,6 +4,7 @@
     "en": "Forest edge",
     "cs": "Okraj lesa"
   },
+  "outdoor": true,
   "short": {
     "en": "The road ends where the trees begin.",
     "cs": "Cesta končí tam, kde začínají stromy."

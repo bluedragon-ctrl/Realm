@@ -5,6 +5,7 @@
   "nameDat": { "en": "the shambling zombie", "cs": "vrávorající zombii" },
   "nameGen": { "en": "the shambling zombie", "cs": "vrávorající zombie" },
   "title": { "en": "shambling zombie", "cs": "vrávorající zombie" },
+  "vision": "blind",
   "locations": {
     "castle.cloister": 1,
     "castle.crypt_stair": 1

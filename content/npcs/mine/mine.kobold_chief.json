@@ -5,6 +5,7 @@
   "nameDat": { "en": "the kobold chief", "cs": "koboldímu náčelníkovi" },
   "nameGen": { "en": "the kobold chief", "cs": "koboldího náčelníka" },
   "title": { "en": "kobold chief", "cs": "koboldí náčelník" },
+  "vision": "nightvision",
   "location": "mine.chief_hall",
   "count": 1,
   "short": {

@@ -4,6 +4,7 @@
     "en": "Blue meadow",
     "cs": "Modrá louka"
   },
+  "outdoor": true,
   "short": {
     "en": "A quiet clearing full of blue flowers.",
     "cs": "Tichá mýtina plná modrých květů."

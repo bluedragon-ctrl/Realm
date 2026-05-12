@@ -4,6 +4,7 @@
     "en": "Broken Road",
     "cs": "Rozbitá cesta"
   },
+  "outdoor": true,
   "short": {
     "en": "A cracked stone road climbing east toward dark ruins on a ridge.",
     "cs": "Popraskaná kamenná cesta stoupá na východ k temným zříceninám na hřebeni."

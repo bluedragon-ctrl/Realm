@@ -9,8 +9,8 @@
     "cs": "Přízemí zřícené kamenné věže."
   },
   "long": {
-    "en": "The circular stone room is cold and smells of damp and old ash. Cracks run up the walls and tufts of moss grow in the gaps. According to old stories, a mage once lived here. A stone staircase winds upward along the wall. In the corner of the floor there is a heavy iron trap door, locked tight with a copper lock.",
-    "cs": "Kruhová kamenná místnost je chladná a páchne vlhkostí a starým popelem. Po zdech probíhají trhliny a v mezerách roste mech. Podle starých příběhů zde kdysi žil mág. Kamenné schodiště se vine podél zdi vzhůru. V rohu podlahy je těžký železný poklop, pevně zamčený měděným zámkem."
+    "en": "The circular stone room is cold and smells of damp and old ash. Cracks run up the walls and tufts of moss grow in the gaps. Pale daylight leaks in through the cracks in the stonework and from the open doorway to the south. According to old stories, a mage once lived here. A stone staircase winds upward along the wall. In the corner of the floor there is a heavy iron trap door, locked tight with a copper lock.",
+    "cs": "Kruhová kamenná místnost je chladná a páchne vlhkostí a starým popelem. Po zdech probíhají trhliny a v mezerách roste mech. Trhlinami v kamenné zdi a otevřenými dveřmi na jih sem proniká bledé denní světlo. Podle starých příběhů zde kdysi žil mág. Kamenné schodiště se vine podél zdi vzhůru. V rohu podlahy je těžký železný poklop, pevně zamčený měděným zámkem."
   },
   "exits": {
     "s": "forest.hill",

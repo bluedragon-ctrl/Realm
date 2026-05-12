@@ -1,0 +1,37 @@
+{
+  "id": "castle.iron_brazier",
+  "name": {
+    "en": "an iron brazier",
+    "cs": "železný koš na oheň"
+  },
+  "nameAcc": {
+    "en": "the iron brazier",
+    "cs": "železný koš na oheň"
+  },
+  "short": {
+    "en": "A cracked iron brazier stands on a tripod, half-burned wood and ash inside.",
+    "cs": "Na trojnožce stojí prasklý železný koš na oheň, uvnitř napůl shořelé dřevo a popel."
+  },
+  "long": {
+    "en": "A heavy iron brazier the size of a wash-tub, set on three bent legs. One side is split by an old crack and rust runs down to the floor. Inside, a half-burned log lies on a bed of grey ash. It looks like it could be lit again if someone brought a flame to it.",
+    "cs": "Těžký železný koš na oheň, velký jako škopek, stojí na třech ohnutých nohách. Jednu stranu mu rozráží stará prasklina a po ní stéká rez až k podlaze. Uvnitř leží napůl shořelé poleno na podloží z šedého popela. Vypadá to, že by se dal znovu zapálit, kdyby k němu někdo přinesl plamen."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "castle.great_hall", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you crouch by the brazier and stir the cold ash. A faint smell of old charcoal rises. Nothing here would light by itself.",
+        "others": "{actor} crouches by the iron brazier and stirs the ash with a finger."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přidřepneš ke koši na oheň a prohrabeš studený popel. Vzlíná z něj slabý pach starého uhlí. Sám od sebe by tu nic nevzplálo.",
+        "others": "{actor} se přidřepne k železnému koši na oheň a prstem prohrábne popel."
+      }
+    }
+  }
+}

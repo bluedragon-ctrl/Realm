@@ -4,6 +4,7 @@
     "en": "Apple orchard",
     "cs": "Jabloňový sad"
   },
+  "outdoor": true,
   "short": {
     "en": "Rows of apple trees along the village road.",
     "cs": "Řady jabloní podél vesnické cesty."

@@ -4,6 +4,7 @@
     "en": "Garden with bees",
     "cs": "Zahrada se včelami"
   },
+  "outdoor": true,
   "short": {
     "en": "A small garden with a beehive in the corner.",
     "cs": "Malá zahrada s úlem v rohu."

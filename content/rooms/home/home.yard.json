@@ -4,6 +4,7 @@
     "en": "Small friendly yard",
     "cs": "Malý dvorek"
   },
+  "outdoor": true,
   "short": {
     "en": "A small yard between the house, the shed and the garden.",
     "cs": "Malý dvorek mezi domem, kůlnou a zahradou."

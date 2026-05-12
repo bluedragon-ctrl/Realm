@@ -4,6 +4,7 @@
     "en": "Briar path",
     "cs": "Trnová cesta"
   },
+  "outdoor": true,
   "short": {
     "en": "A narrow gap between walls of thorny briars where the trail turns stony.",
     "cs": "Úzká mezera mezi zdmi trnitých keřů, kde se stezka mění v kamenité pásmo."

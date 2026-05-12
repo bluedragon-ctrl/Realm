@@ -5,6 +5,7 @@
   "nameDat": { "en": "the lost scholar", "cs": "ztracenému učenci" },
   "nameGen": { "en": "the lost scholar", "cs": "ztraceného učence" },
   "title": { "en": "lost scholar", "cs": "ztracený učenec" },
+  "vision": "nightvision",
   "location": "castle.library",
   "count": 1,
   "short": {

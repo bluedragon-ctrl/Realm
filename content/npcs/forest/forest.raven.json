@@ -5,6 +5,7 @@
   "nameDat": { "en": "the black raven", "cs": "černému havranovi" },
   "nameGen": { "en": "the black raven", "cs": "černého havrana" },
   "title": { "en": "black raven", "cs": "černý havran" },
+  "vision": "low_light",
   "locations": {
     "forest.tower_upper": 3
   },

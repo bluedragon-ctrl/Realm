@@ -14,6 +14,7 @@
     "en": "noon wraith",
     "cs": "polednice"
   },
+  "vision": "nightvision",
   "location": "village.noon_glade",
   "count": 1,
   "short": {
