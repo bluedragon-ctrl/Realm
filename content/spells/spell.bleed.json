@@ -21,7 +21,7 @@
     },
     "cs": {
       "to_target": {
-        "self": "lusknete prsty a tenké červené čáry se vyryjí do {target}.",
+        "self": "luskneš prsty a tenké červené čáry se vyryjí do {target}.",
         "others": "{actor} luskne prsty a tenké červené čáry se vyryjí do {target}."
       }
     }

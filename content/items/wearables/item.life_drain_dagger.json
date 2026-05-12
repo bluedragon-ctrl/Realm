@@ -2,11 +2,11 @@
   "id": "item.life_drain_dagger",
   "name": {
     "en": "a life drain dagger",
-    "cs": "životopijná dýka"
+    "cs": "hladová dýka"
   },
   "nameAcc": {
     "en": "the life drain dagger",
-    "cs": "životopijnou dýku"
+    "cs": "hladovou dýku"
   },
   "short": {
     "en": "A slim dagger with a blade the colour of dried blood.",

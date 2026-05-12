@@ -21,7 +21,7 @@
     },
     "cs": {
       "to_target": {
-        "self": "lusknete prsty a tenký jedový šíp zelené záře bodne {target}.",
+        "self": "luskneš prsty a tenký jedový šíp zelené záře bodne {target}.",
         "others": "{actor} luskne prsty a tenký jedový šíp zelené záře bodne {target}."
       }
     }

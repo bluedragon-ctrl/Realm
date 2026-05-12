@@ -2,7 +2,7 @@
   "id": "spell.fortify",
   "name": {
     "en": "Fortify",
-    "cs": "Opevnění"
+    "cs": "Zpevnění"
   },
   "mpCost": 5,
   "actionCost": 12,

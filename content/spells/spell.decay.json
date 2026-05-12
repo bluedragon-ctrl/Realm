@@ -21,8 +21,8 @@
     },
     "cs": {
       "to_target": {
-        "self": "zašeptáš temné slovo a nezdravý šedý třpyt se usadí na {target}.",
-        "others": "{actor} zašeptá temné slovo a nezdravý šedý třpyt se usadí na {target}."
+        "self": "zašeptáš temné slovo a chorobně šedý třpyt se usadí na {target}.",
+        "others": "{actor} zašeptá temné slovo a chorobně šedý třpyt se usadí na {target}."
       }
     }
   },
