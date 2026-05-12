@@ -70,7 +70,7 @@ function spellNameVariants(def) {
   return out;
 }
 
-function findKnownSpell(actor, query) {
+export function findKnownSpell(actor, query) {
   const defs = [];
   for (const id of actor.knownSpells ?? []) {
     const def = world.spellDefs.get(id);

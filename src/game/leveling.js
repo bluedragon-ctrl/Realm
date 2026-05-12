@@ -9,9 +9,9 @@ export const STAT_RATIOS = Object.freeze({
   attack: 1,
   defense: 1,
   int: 1,
-  magicResist: 1,
+  magicResist: 2,
   accuracy: 1,
-  evasion: 1,
+  evasion: 2,
   hpMax: 5,
   mpMax: 2,
 });
