@@ -88,29 +88,31 @@ function tickActor(actor) {
   if (actor.kind !== 'npc') return;
   actor.energy += actor.stats.spd;
 
-  // Passive aggression: only NPCs flagged aggressive in their def hunt on sight. Provoked
-  // neutrals have aggressive=true at runtime but do not auto-acquire new players, so we
-  // gate on the def-original flag. This is also what makes pacify's negative-hate cooldown
-  // tick back to zero for bears and wolves.
-  if (actor.defAggressive) {
-    for (const peer of actorsInRoom(actor.location)) {
-      if (peer.kind !== 'player' || !peer.session) continue;
-      if (!(peer.stats?.hp > 0)) continue;
-      addHate(actor, peer, 1);
+  if (actor.position !== 'sleep') {
+    // Passive aggression: only NPCs flagged aggressive in their def hunt on sight. Provoked
+    // neutrals have aggressive=true at runtime but do not auto-acquire new players, so we
+    // gate on the def-original flag. This is also what makes pacify's negative-hate cooldown
+    // tick back to zero for bears and wolves.
+    if (actor.defAggressive) {
+      for (const peer of actorsInRoom(actor.location)) {
+        if (peer.kind !== 'player' || !peer.session) continue;
+        if (!(peer.stats?.hp > 0)) continue;
+        addHate(actor, peer, 1);
+      }
     }
-  }
 
-  if (hasInRoomTarget(actor)) {
-    actor.lastCombatTick = getTick();
-  }
+    if (hasInRoomTarget(actor)) {
+      actor.lastCombatTick = getTick();
+    }
 
-  const chosen = pickBehavior(actor);
-  if (chosen) {
-    actor.energy -= chosen.cost;
-    runPrimitive(actor, chosen.behavior);
+    const chosen = pickBehavior(actor);
+    if (chosen) {
+      actor.energy -= chosen.cost;
+      runPrimitive(actor, chosen.behavior);
+    }
+    if (actor.energy < 0) actor.energy = 0;
+    if (actor.energy > actor._maxCost) actor.energy = actor._maxCost;
   }
-  if (actor.energy < 0) actor.energy = 0;
-  if (actor.energy > actor._maxCost) actor.energy = actor._maxCost;
 
   const tick = getTick();
   if (actor.alive && actor.regen && (tick - actor.lastCombatTick) >= LULL_TICKS) {
