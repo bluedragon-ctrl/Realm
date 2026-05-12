@@ -534,6 +534,10 @@ function renderRoomInInspect(msg) {
   backBtn.hidden = true;
   inspectBody.innerHTML = '';
 
+  inspectPanel.classList.remove('inspect-panel-light', 'inspect-panel-dim', 'inspect-panel-dark');
+  const light = msg.light ?? 'light';
+  inspectPanel.classList.add(`inspect-panel-${light}`);
+
   const name = document.createElement('div'); name.className = 'inspect-name'; name.textContent = msg.name;
   inspectBody.appendChild(name);
 
