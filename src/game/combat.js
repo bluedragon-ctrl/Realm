@@ -24,6 +24,10 @@ const MAX_DODGE = 50;
 const MAX_CRIT = 50;
 const CRIT_MULTIPLIER = 2;
 
+function isDarkObserver(recipient) {
+  return canPerceiveRoom(recipient, getRoom(recipient.location)) === 'dark';
+}
+
 function targetDisplay(target, lang) {
   return resolveName(target, 'acc', lang);
 }
@@ -51,8 +55,7 @@ export function executeAttack(actor, action, target) {
         return { kind: 'emote', source: sourceForActor(actor, recipient),
           text: s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) }) };
       }
-      const room = getRoom(recipient.location);
-      if (canPerceiveRoom(recipient, room) === 'dark') return null;
+      if (isDarkObserver(recipient)) return null;
       return { kind: 'emote', source: sourceForActor(actor, recipient),
         text: s('combat.miss_observed', lang, {
           actor: actorDisplay(actor, lang),
@@ -77,8 +80,7 @@ export function executeAttack(actor, action, target) {
     broadcastToRoom(actor.location, (recipient) => {
       const lang = recipient.lang;
       if (recipient !== actor && recipient !== target) {
-        const room = getRoom(recipient.location);
-        if (canPerceiveRoom(recipient, room) === 'dark') return null;
+        if (isDarkObserver(recipient)) return null;
       }
       const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
@@ -94,8 +96,7 @@ export function executeAttack(actor, action, target) {
       } else if (recipient === target) {
         text = s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
       } else {
-        const room = getRoom(recipient.location);
-        if (canPerceiveRoom(recipient, room) === 'dark') return null;
+        if (isDarkObserver(recipient)) return null;
         text = s('combat.crit_observed', lang, {
           actor: actorDisplay(actor, lang),
           target: targetDisplay(target, lang),
@@ -161,9 +162,7 @@ export function applyDamageWithFeedback(actor, target, amount) {
     });
   }
   if (target.session) {
-    const room = getRoom(target.location);
-    const perceived = canPerceiveRoom(target, room);
-    if (perceived === 'dark') {
+    if (isDarkObserver(target)) {
       target.session.send({
         kind: 'system',
         tone: 'bad',
@@ -286,8 +285,7 @@ function handleDeath(killer, target) {
 function handleNpcDeath(killer, npc) {
   const room = npc.location;
   broadcastToRoom(room, (recipient) => {
-    const r = getRoom(recipient.location);
-    if (canPerceiveRoom(recipient, r) === 'dark') return null;
+    if (isDarkObserver(recipient)) return null;
     return {
       kind: 'emote',
       tone: 'death',
@@ -392,8 +390,7 @@ function handlePlayerDeath(killer, victim) {
   const oldRoom = victim.location;
 
   broadcastToRoom(oldRoom, (recipient) => {
-    const r = getRoom(recipient.location);
-    if (canPerceiveRoom(recipient, r) === 'dark') return null;
+    if (isDarkObserver(recipient)) return null;
     return {
       kind: 'emote',
       tone: 'death',
