@@ -114,13 +114,16 @@ export function describeRoom(actor) {
   const npcs = [];
   for (const a of actorsInRoom(room.id)) {
     if (a === actor) continue;
-    if (a.kind === 'player') players.push(withPositionSuffix(a.name, a.position, lang));
-    else if (a.kind === 'npc') {
+    if (a.kind === 'player') {
+      players.push({ name: a.name, display: withPositionSuffix(a.name, a.position, lang) });
+    } else if (a.kind === 'npc') {
       const baseDisposition = a.disposition ?? 'neutral';
       const hate = getHate(a, actor);
       const effective = baseDisposition === 'hostile' && hate < 0 ? 'neutral' : baseDisposition;
+      const bareName = t(a.name, lang);
       npcs.push({
-        name: withPositionSuffix(t(a.name, lang), a.position, lang),
+        name: bareName,
+        display: withPositionSuffix(bareName, a.position, lang),
         disposition: effective,
       });
     }
