@@ -1,5 +1,6 @@
 import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors, actorsInRoom } from './world.js';
 import { applyEffect, setDamageRouteHandler } from './effects.js';
+import { canPerceiveRoom } from './light.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
@@ -42,18 +43,21 @@ export function executeAttack(actor, action, target) {
   if (dodge > 0 && Math.floor(Math.random() * 100) + 1 <= dodge) {
     broadcastToRoom(actor.location, (recipient) => {
       const lang = recipient.lang;
-      let text;
       if (recipient === actor) {
-        text = s('combat.you_missed', lang, { target: targetDisplay(target, lang) });
-      } else if (recipient === target) {
-        text = s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) });
-      } else {
-        text = s('combat.miss_observed', lang, {
+        return { kind: 'emote', source: sourceForActor(actor, recipient),
+          text: s('combat.you_missed', lang, { target: targetDisplay(target, lang) }) };
+      }
+      if (recipient === target) {
+        return { kind: 'emote', source: sourceForActor(actor, recipient),
+          text: s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) }) };
+      }
+      const room = getRoom(recipient.location);
+      if (canPerceiveRoom(recipient, room) === 'dark') return null;
+      return { kind: 'emote', source: sourceForActor(actor, recipient),
+        text: s('combat.miss_observed', lang, {
           actor: actorDisplay(actor, lang),
           target: targetDisplay(target, lang),
-        });
-      }
-      return { kind: 'emote', source: sourceForActor(actor, recipient), text };
+        }) };
     });
     registerAttackAggro(actor, target);
     if (actor.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
@@ -72,6 +76,10 @@ export function executeAttack(actor, action, target) {
     const idx = pickListIndex(tmpl);
     broadcastToRoom(actor.location, (recipient) => {
       const lang = recipient.lang;
+      if (recipient !== actor && recipient !== target) {
+        const room = getRoom(recipient.location);
+        if (canPerceiveRoom(recipient, room) === 'dark') return null;
+      }
       const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
     });
@@ -86,6 +94,8 @@ export function executeAttack(actor, action, target) {
       } else if (recipient === target) {
         text = s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
       } else {
+        const room = getRoom(recipient.location);
+        if (canPerceiveRoom(recipient, room) === 'dark') return null;
         text = s('combat.crit_observed', lang, {
           actor: actorDisplay(actor, lang),
           target: targetDisplay(target, lang),
@@ -151,14 +161,24 @@ export function applyDamageWithFeedback(actor, target, amount) {
     });
   }
   if (target.session) {
-    target.session.send({
-      kind: 'system',
-      tone: 'bad',
-      text: s('combat.target_hit_you', target.lang, {
-        actor: actorDisplay(actor, target.lang),
-        amount: dealt,
-      }),
-    });
+    const room = getRoom(target.location);
+    const perceived = canPerceiveRoom(target, room);
+    if (perceived === 'dark') {
+      target.session.send({
+        kind: 'system',
+        tone: 'bad',
+        text: s('combat.hit_by_unseen', target.lang),
+      });
+    } else {
+      target.session.send({
+        kind: 'system',
+        tone: 'bad',
+        text: s('combat.target_hit_you', target.lang, {
+          actor: actorDisplay(actor, target.lang),
+          amount: dealt,
+        }),
+      });
+    }
   }
 
   registerAttackAggro(actor, target, dealt);
@@ -265,13 +285,17 @@ function handleDeath(killer, target) {
 
 function handleNpcDeath(killer, npc) {
   const room = npc.location;
-  broadcastToRoom(room, (recipient) => ({
-    kind: 'emote',
-    tone: 'death',
-    text: s('combat.target_dies_observed', recipient.lang, {
-      target: resolveName(npc, 'nom', recipient.lang),
-    }),
-  }));
+  broadcastToRoom(room, (recipient) => {
+    const r = getRoom(recipient.location);
+    if (canPerceiveRoom(recipient, r) === 'dark') return null;
+    return {
+      kind: 'emote',
+      tone: 'death',
+      text: s('combat.target_dies_observed', recipient.lang, {
+        target: resolveName(npc, 'nom', recipient.lang),
+      }),
+    };
+  });
 
   npc.alive = false;
   unregisterWanderer(npc);
@@ -367,11 +391,15 @@ function handlePlayerDeath(killer, victim) {
   }
   const oldRoom = victim.location;
 
-  broadcastToRoom(oldRoom, (recipient) => ({
-    kind: 'emote',
-    tone: 'death',
-    text: s('combat.player_died_observed', recipient.lang, { name: victim.name }),
-  }), victim);
+  broadcastToRoom(oldRoom, (recipient) => {
+    const r = getRoom(recipient.location);
+    if (canPerceiveRoom(recipient, r) === 'dark') return null;
+    return {
+      kind: 'emote',
+      tone: 'death',
+      text: s('combat.player_died_observed', recipient.lang, { name: victim.name }),
+    };
+  }, victim);
 
   for (const npc of world.npcsByInstance.values()) {
     if (!npc.aggroAgainst?.has(victim)) continue;
