@@ -1,8 +1,15 @@
-import { check, checkObject, checkPositiveInt } from '../validate.js';
+import { check, checkObject, checkPositiveInt, checkEnum } from '../validate.js';
+import { LIGHT_LEVEL_SET } from '../../game/contentMeta.js';
 
 export function validateRoomGraph(rooms) {
   for (const room of rooms.values()) {
     const ctx = `room '${room.id}'`;
+    if (room.lightBase != null) {
+      checkEnum(room.lightBase, LIGHT_LEVEL_SET, ctx, 'lightBase');
+    }
+    if (room.outdoor != null) {
+      check(typeof room.outdoor === 'boolean', ctx, `'outdoor' must be a boolean`);
+    }
     const exits = room.exits ?? {};
     const hiddenExits = {};
     for (const [exitKey, rawValue] of Object.entries(exits)) {
