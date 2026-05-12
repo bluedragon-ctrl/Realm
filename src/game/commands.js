@@ -26,6 +26,7 @@ import stats from './actions/stats.js';
 import spells from './actions/spells.js';
 import train from './actions/train.js';
 import exchangeChip from './actions/exchangeChip.js';
+import { stand, sit, sleep } from './actions/position.js';
 import { world } from './world.js';
 import { runAdminCommand, isAdminCommand } from '../admin/adminCommands.js';
 import { parseCommand, executeHandler } from './dispatch.js';
@@ -58,6 +59,9 @@ const COMMANDS = {
   cast, c: cast,
   attack, kill: attack, hit: attack,
   flee, f: flee,
+  stand,
+  sit,
+  sleep,
   search,
   follow,
   unfollow,
