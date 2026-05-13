@@ -38,6 +38,7 @@ export function setPosition(actor, next, reason = 'volitional') {
     }
   } else if (actor.kind === 'player' && actor.session) {
     sendStats(actor);
+    if (reason === 'woken') describeRoom(actor);
   }
   return true;
 }

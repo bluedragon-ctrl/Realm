@@ -35,6 +35,7 @@ let ws = null;
 let loggedIn = false;
 let lastRoomMsg = null;
 let lockedTarget = null;
+let currentInspectTarget = null;
 let lastStatsMsg = null;
 let labels = {};
 let socialList = [];
@@ -114,7 +115,17 @@ function sendInput(text) {
   if (!ws || ws.readyState !== WebSocket.OPEN || !loggedIn) return;
   const m = /^\s*(attack|kill|hit)\s+(.+?)\s*$/i.exec(text);
   if (m) lockedTarget = m[2].toLowerCase();
+  const castMatch = /^\s*cast\s+\S+\s+on\s+(.+?)\s*$/i.exec(text);
+  if (castMatch) {
+    const targetName = castMatch[1].toLowerCase();
+    const isHostile = (lastRoomMsg?.npcs ?? []).some(n => {
+      if (typeof n === 'string') return false;
+      return n.name.toLowerCase() === targetName && (n.disposition ?? 'neutral') === 'hostile';
+    });
+    if (isHostile) lockedTarget = targetName;
+  }
   ws.send(JSON.stringify({ kind: 'input', text }));
+  updateLockBadge();
 }
 
 function lockedTargetStillHostileHere() {
@@ -125,6 +136,29 @@ function lockedTargetStillHostileHere() {
     if (n.name.toLowerCase() === lockedTarget) return n.name;
   }
   return null;
+}
+
+function updateLockBadge() {
+  const attackBtn = document.getElementById('attack-btn');
+  if (!attackBtn) return;
+  const lockedName = lockedTargetStillHostileHere();
+  let pill = attackBtn.querySelector('.lock-pill');
+  if (lockedName) {
+    if (!pill) {
+      pill = document.createElement('span');
+      pill.className = 'lock-pill';
+      pill.title = labels.lockPillClearTitle ?? 'click to clear target';
+      pill.addEventListener('click', (ev) => {
+        ev.stopPropagation();
+        lockedTarget = null;
+        updateLockBadge();
+      });
+      attackBtn.appendChild(pill);
+    }
+    pill.textContent = `× ${lockedName}`;
+  } else if (pill) {
+    pill.remove();
+  }
 }
 
 function fillInput(prefix) {
@@ -145,14 +179,21 @@ function makeBar(label, num, pct, cls) {
 }
 
 let actionCooldownTimer = null;
+let actionCooldownEndsAt = 0;
 function applyActionCooldown(ms) {
   const btns = [document.getElementById('attack-btn'), document.getElementById('spell-btn')];
+  const now = Date.now();
+  const newEndsAt = ms > 0 ? now + ms : 0;
+  // Skip restart if the reported cooldown matches what's already animating (within tolerance).
+  // Stats pushes from effect ticks / HP changes shouldn't visually reset an in-flight cooldown.
+  if (Math.abs(newEndsAt - actionCooldownEndsAt) < 150 && actionCooldownEndsAt > now) return;
   if (actionCooldownTimer) { clearTimeout(actionCooldownTimer); actionCooldownTimer = null; }
   for (const btn of btns) {
     if (!btn) continue;
     btn.classList.remove('cooldown');
     btn.style.removeProperty('--cd-ms');
   }
+  actionCooldownEndsAt = newEndsAt;
   if (ms <= 0) return;
   for (const btn of btns) {
     if (!btn) continue;
@@ -167,6 +208,7 @@ function applyActionCooldown(ms) {
       btn.style.removeProperty('--cd-ms');
     }
     actionCooldownTimer = null;
+    actionCooldownEndsAt = 0;
   }, ms);
 }
 
@@ -183,6 +225,7 @@ function renderStats(msg) {
   const attackBtn = document.getElementById('attack-btn');
   if (attackBtn && labels.attackButton) attackBtn.textContent = labels.attackButton;
   if (attackBtn) attackBtn.classList.toggle('queued', msg.queuedAction === 'attack');
+  updateLockBadge();
   applyActionCooldown(msg.actionCooldownMs ?? 0);
   const spellBtn = document.getElementById('spell-btn');
   if (spellBtn) {
@@ -578,6 +621,7 @@ function renderRoomInInspect(msg) {
   inspectPanel.hidden = false;
   backBtn.hidden = true;
   inspectBody.innerHTML = '';
+  currentInspectTarget = null;
 
   inspectPanel.classList.remove('inspect-panel-light', 'inspect-panel-dim', 'inspect-panel-dark');
   const light = msg.light ?? 'light';
@@ -670,10 +714,112 @@ function renderRoomInInspect(msg) {
   whereEl.textContent = msg.name;
 }
 
+function inspectTargetStillInRoom(lcName, roomMsg) {
+  if (!lcName || !roomMsg) return false;
+  for (const n of (roomMsg.npcs ?? [])) {
+    const nm = typeof n === 'string' ? n : n.name;
+    if (nm.toLowerCase() === lcName) return true;
+  }
+  for (const p of (roomMsg.others ?? [])) {
+    const nm = typeof p === 'string' ? p : p.name;
+    if (nm.toLowerCase() === lcName) return true;
+  }
+  return false;
+}
+
+function findRoomNpc(lcName) {
+  if (!lcName || !lastRoomMsg?.npcs) return null;
+  for (const n of lastRoomMsg.npcs) {
+    if (typeof n === 'string') {
+      if (n.toLowerCase() === lcName) return { name: n, disposition: 'neutral' };
+    } else if (n.name.toLowerCase() === lcName) {
+      return { name: n.name, disposition: n.disposition ?? 'neutral' };
+    }
+  }
+  return null;
+}
+
+function appendTargetActionRow(targetName) {
+  const lcName = targetName.toLowerCase();
+  const npc = findRoomNpc(lcName);
+  const isPlayer = !npc && inspectTargetStillInRoom(lcName, lastRoomMsg);
+  if (!npc && !isPlayer) return;
+  const row = document.createElement('div'); row.className = 'inspect-row';
+  const lab = document.createElement('span'); lab.className = 'inspect-row-label';
+  lab.textContent = `${labels.actionsLabel ?? 'actions'}: `;
+  row.appendChild(lab);
+  if (npc && npc.disposition !== 'friendly') {
+    const attackChip = makeChip(labels.attackButton ?? 'Attack', 'attack', () => {
+      sendInput(`attack ${targetName}`);
+    });
+    row.appendChild(attackChip);
+  }
+  const giveChip = makeChip(`${labels.giveButton ?? 'Give'} ▶`, '', (ev) => {
+    openGiveToTargetPicker(giveChip, targetName, ev);
+  });
+  row.appendChild(giveChip);
+  const socialChip = makeChip(`${labels.socialButton ?? 'Social'} ▶`, '', (ev) => {
+    openSocialToTargetPicker(socialChip, targetName, ev);
+  });
+  row.appendChild(socialChip);
+  inspectBody.appendChild(row);
+}
+
+function openGiveToTargetPicker(anchorEl, targetName, ev) {
+  ev?.stopPropagation();
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  const gold = lastStatsMsg?.gold ?? 0;
+  const tmpl = labels.giveToTargetTitle ?? 'Give to {target}';
+  startPopover(anchorEl, tmpl.replace('{target}', targetName));
+  if (inv.length === 0 && gold === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'picker-empty';
+    empty.textContent = labels.givePickerEmpty ?? '(nothing to give)';
+    popover.appendChild(empty);
+    positionPopover(anchorEl);
+    return;
+  }
+  for (const item of inv) {
+    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+    popover.appendChild(popoverButton(label, '', () => {
+      sendInput(`give ${item.name} to ${targetName}`); closePopover();
+    }));
+  }
+  if (gold > 0) {
+    popover.appendChild(popoverButton(`${labels.gold ?? 'Gold'} (${gold})`, '', () => {
+      fillInput(`give gold to ${targetName}`); closePopover();
+    }));
+  }
+  positionPopover(anchorEl);
+}
+
+function openSocialToTargetPicker(anchorEl, targetName, ev) {
+  ev?.stopPropagation();
+  const tmpl = labels.socialPickerTargetTitle ?? '{verb} who?';
+  startPopover(anchorEl, tmpl.replace('{verb}', targetName));
+  const ordered = [...socialList]
+    .filter(s => s.hasToTarget)
+    .sort((a, b) => a.label.localeCompare(b.label));
+  if (ordered.length === 0) {
+    const empty = document.createElement('div');
+    empty.className = 'picker-empty';
+    empty.textContent = labels.socialPickerEmpty ?? '(no socials)';
+    popover.appendChild(empty);
+  } else {
+    for (const social of ordered) {
+      popover.appendChild(popoverButton(social.label, '', () => {
+        sendInput(`${social.verb} ${targetName}`); closePopover();
+      }));
+    }
+  }
+  positionPopover(anchorEl);
+}
+
 function renderTargetInfo(msg) {
   inspectPanel.hidden = false;
   backBtn.hidden = !lastRoomMsg;
   inspectBody.innerHTML = '';
+  currentInspectTarget = msg.name ? msg.name.toLowerCase() : null;
 
   const name = document.createElement('div'); name.className = 'inspect-name'; name.textContent = msg.name;
   inspectBody.appendChild(name);
@@ -795,6 +941,7 @@ function renderTargetInfo(msg) {
     });
     inspectBody.appendChild(row);
   }
+  if (msg.name) appendTargetActionRow(msg.name);
 }
 
 function makeInspectStatLine(text) {
@@ -835,7 +982,15 @@ function handle(msg) {
       if (pendingRoomTransition) { appendRoomSep(msg.name); pendingRoomTransition = false; }
       lastRoomMsg = msg;
       if (!lockedTargetStillHostileHere()) lockedTarget = null;
-      renderRoomInInspect(msg);
+      updateLockBadge();
+      if (currentInspectTarget && inspectTargetStillInRoom(currentInspectTarget, msg)) {
+        // Target-info is open and the inspected actor is still here — preserve the panel
+        // so per-tick room refreshes (wander, drops, position changes) don't flicker the view.
+        // lastRoomMsg is updated above so chips in the action row stay accurate.
+      } else {
+        currentInspectTarget = null;
+        renderRoomInInspect(msg);
+      }
       renderDirButtons(msg);
       refreshActionButtons();
       break;

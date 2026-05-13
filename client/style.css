@@ -585,6 +585,24 @@ html, body {
 #quickbar button.combat:hover { background: #3a2e1f; border-color: #a07040; }
 #quickbar #attack-btn,
 #quickbar #spell-btn { position: relative; overflow: hidden; }
+#quickbar #attack-btn .lock-pill {
+  display: inline-block;
+  margin-left: 6px;
+  padding: 0 6px;
+  border: 1px solid #a07040;
+  border-radius: 8px;
+  background: #3a2e1f;
+  color: #ffcc88;
+  font-size: 0.85em;
+  line-height: 1.3;
+  cursor: pointer;
+  pointer-events: auto;
+  z-index: 1;
+}
+#quickbar #attack-btn .lock-pill:hover {
+  background: #5a3e26;
+  border-color: #c87820;
+}
 #quickbar #attack-btn.cooldown,
 #quickbar #spell-btn.cooldown { opacity: 0.6; cursor: wait; }
 #quickbar #attack-btn.cooldown:hover,
