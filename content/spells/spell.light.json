@@ -7,6 +7,7 @@
   "mpCost": 3,
   "actionCost": 12,
   "target": "self",
+  "category": "utility",
   "description": {
     "en": "Conjure a soft magical glow that follows you for a while.",
     "cs": "Vyvolá jemnou magickou záři, která tě chvíli následuje."

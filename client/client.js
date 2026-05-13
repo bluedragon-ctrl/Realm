@@ -357,49 +357,87 @@ function renderStats(msg) {
       el.appendChild(empty);
       return;
     }
-    for (const spell of spells) {
-      const row = document.createElement('div');
-      row.className = 'panel-list-row spell-row';
-      const top = document.createElement('div');
-      top.className = 'panel-list-row-top';
-      const nameEl = document.createElement('span');
-      nameEl.className = 'panel-list-row-name';
-      nameEl.textContent = spell.name;
-      const badges = document.createElement('span');
-      badges.className = 'panel-list-row-badges';
-      const targetBadge = document.createElement('span');
-      targetBadge.className = 'panel-badge target';
-      targetBadge.textContent = spell.targetLabel ?? spell.target;
-      const mpBadge = document.createElement('span');
-      mpBadge.className = 'panel-badge mp';
-      mpBadge.textContent = `${spell.mpCost} MP`;
-      badges.appendChild(targetBadge);
-      badges.appendChild(mpBadge);
-      top.appendChild(nameEl);
-      top.appendChild(badges);
-      row.appendChild(top);
-      if (spell.description) {
-        const desc = document.createElement('div');
-        desc.className = 'panel-list-row-desc';
-        desc.textContent = spell.description;
-        row.appendChild(desc);
+    const filterKey = 'realm.panel.spells.filter';
+    let activeFilter = localStorage.getItem(filterKey) ?? 'all';
+    const pillFilters = [
+      { key: 'all', label: labels.filterAll ?? 'All' },
+      { key: 'attack', label: labels.spellGroupAttack ?? 'Attack' },
+      { key: 'support', label: labels.spellGroupSupport ?? 'Support' },
+      { key: 'utility', label: labels.spellGroupUtility ?? 'Utility' },
+    ];
+    const pillsRow = document.createElement('div');
+    pillsRow.className = 'filter-pills';
+    const listEl = document.createElement('div');
+    const renderSpellList = () => {
+      listEl.innerHTML = '';
+      const filtered = activeFilter === 'all' ? spells : spells.filter(s => spellGroupOf(s) === activeFilter);
+      if (filtered.length === 0) {
+        const empty = document.createElement('span');
+        empty.className = 'empty';
+        empty.textContent = labels.spellbookEmpty ?? '(none)';
+        listEl.appendChild(empty);
+        return;
       }
-      const actions = document.createElement('span');
-      actions.className = 'panel-list-row-actions';
-      const info = document.createElement('button');
-      info.type = 'button';
-      info.className = 'panel-list-row-info';
-      info.textContent = 'ⓘ';
-      info.title = labels.lookButton ?? 'Look';
-      info.addEventListener('click', (ev) => {
-        ev.stopPropagation();
-        sendInput(`look ${spell.name}`);
+      for (const spell of filtered) {
+        const row = document.createElement('div');
+        row.className = 'panel-list-row spell-row';
+        const top = document.createElement('div');
+        top.className = 'panel-list-row-top';
+        const nameEl = document.createElement('span');
+        nameEl.className = 'panel-list-row-name';
+        nameEl.textContent = spell.name;
+        const badges = document.createElement('span');
+        badges.className = 'panel-list-row-badges';
+        const targetBadge = document.createElement('span');
+        targetBadge.className = 'panel-badge target';
+        targetBadge.textContent = spell.targetLabel ?? spell.target;
+        const mpBadge = document.createElement('span');
+        mpBadge.className = 'panel-badge mp';
+        mpBadge.textContent = `${spell.mpCost} MP`;
+        badges.appendChild(targetBadge);
+        badges.appendChild(mpBadge);
+        top.appendChild(nameEl);
+        top.appendChild(badges);
+        row.appendChild(top);
+        if (spell.description) {
+          const desc = document.createElement('div');
+          desc.className = 'panel-list-row-desc';
+          desc.textContent = spell.description;
+          row.appendChild(desc);
+        }
+        const actions = document.createElement('span');
+        actions.className = 'panel-list-row-actions';
+        const info = document.createElement('button');
+        info.type = 'button';
+        info.className = 'panel-list-row-info';
+        info.textContent = 'ⓘ';
+        info.title = labels.lookButton ?? 'Look';
+        info.addEventListener('click', (ev) => {
+          ev.stopPropagation();
+          sendInput(`look ${spell.name}`);
+        });
+        actions.appendChild(info);
+        actions.appendChild(makeQuickbarCheckbox(spell.id, SPELL_HIDDEN_KEY));
+        row.appendChild(actions);
+        listEl.appendChild(row);
+      }
+    };
+    for (const f of pillFilters) {
+      const pill = document.createElement('button');
+      pill.type = 'button';
+      pill.className = `filter-pill${activeFilter === f.key ? ' active' : ''}`;
+      pill.textContent = f.label;
+      pill.addEventListener('click', () => {
+        activeFilter = f.key;
+        localStorage.setItem(filterKey, f.key);
+        for (const p of pillsRow.querySelectorAll('.filter-pill')) p.classList.toggle('active', p === pill);
+        renderSpellList();
       });
-      actions.appendChild(info);
-      actions.appendChild(makeQuickbarCheckbox(spell.id, SPELL_HIDDEN_KEY));
-      row.appendChild(actions);
-      el.appendChild(row);
+      pillsRow.appendChild(pill);
     }
+    el.appendChild(pillsRow);
+    renderSpellList();
+    el.appendChild(listEl);
   }
 
   function buildItemsTab(el) {
@@ -1295,6 +1333,38 @@ function openAttackPicker(anchorEl, ev) {
   positionPopover(anchorEl);
 }
 
+const SPELL_COLUMN_THRESHOLD = 8;
+
+function spellGroupOf(spell) {
+  if (spell.category === 'attack' || spell.category === 'support' || spell.category === 'utility') return spell.category;
+  if (spell.target === 'hostile' || spell.target === 'hostile_room') return 'attack';
+  if (spell.target === 'friendly' || spell.target === 'friendly_room' || spell.target === 'self') return 'support';
+  return 'utility';
+}
+
+function buildSpellRow(spell, currentMp, anchorEl) {
+  const canCast = (spell.mpCost ?? 0) <= currentMp;
+  const row = document.createElement('button');
+  row.type = 'button';
+  row.className = canCast ? 'spell-row' : 'spell-row disabled';
+  if (!canCast) row.title = labels.spellNoMp ?? 'not enough mana';
+  const name = document.createElement('span');
+  name.className = 'spell-row-name';
+  name.textContent = spell.name;
+  const cost = document.createElement('span');
+  cost.className = 'spell-row-cost';
+  cost.textContent = `${spell.mpCost} MP`;
+  row.appendChild(name);
+  row.appendChild(cost);
+  if (canCast) {
+    row.addEventListener('click', () => {
+      closePopover();
+      openSpellPopover(anchorEl, spell);
+    });
+  }
+  return row;
+}
+
 function openSpellPicker(anchorEl, ev) {
   ev?.stopPropagation();
   const hidden = (() => { try { return new Set(JSON.parse(localStorage.getItem('realm.quickbar.spells.hidden') ?? '[]')); } catch { return new Set(); } })();
@@ -1304,31 +1374,40 @@ function openSpellPicker(anchorEl, ev) {
   const sorted = [...spells].sort((a, b) => {
     const aOk = (a.mpCost ?? 0) <= currentMp;
     const bOk = (b.mpCost ?? 0) <= currentMp;
-    if (aOk !== bOk) return aOk ? -1 : 1;
+    if (aOk !== bOk) return aOk ? 1 : -1;
     return 0;
   });
   startPopover(anchorEl, labels.spellPickerTitle ?? 'Cast which spell?');
-  for (const spell of sorted) {
-    const canCast = (spell.mpCost ?? 0) <= currentMp;
-    const row = document.createElement('button');
-    row.type = 'button';
-    row.className = canCast ? 'spell-row' : 'spell-row disabled';
-    if (!canCast) row.title = labels.spellNoMp ?? 'not enough mana';
-    const name = document.createElement('span');
-    name.className = 'spell-row-name';
-    name.textContent = spell.name;
-    const cost = document.createElement('span');
-    cost.className = 'spell-row-cost';
-    cost.textContent = `${spell.mpCost} MP`;
-    row.appendChild(name);
-    row.appendChild(cost);
-    if (canCast) {
-      row.addEventListener('click', () => {
-        closePopover();
-        openSpellPopover(anchorEl, spell);
-      });
+  if (sorted.length >= SPELL_COLUMN_THRESHOLD) {
+    const groups = { attack: [], support: [], utility: [] };
+    for (const sp of sorted) groups[spellGroupOf(sp)].push(sp);
+    const headings = {
+      attack: labels.spellGroupAttack ?? 'Attack',
+      support: labels.spellGroupSupport ?? 'Support',
+      utility: labels.spellGroupUtility ?? 'Utility',
+    };
+    const wrap = document.createElement('div');
+    wrap.className = 'spell-columns';
+    for (const key of ['attack', 'support', 'utility']) {
+      const col = document.createElement('div');
+      col.className = `spell-column ${key}`;
+      const hdr = document.createElement('div');
+      hdr.className = 'popover-section';
+      hdr.textContent = headings[key];
+      col.appendChild(hdr);
+      if (groups[key].length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'picker-empty';
+        empty.textContent = '—';
+        col.appendChild(empty);
+      } else {
+        for (const sp of groups[key]) col.appendChild(buildSpellRow(sp, currentMp, anchorEl));
+      }
+      wrap.appendChild(col);
     }
-    popover.appendChild(row);
+    popover.appendChild(wrap);
+  } else {
+    for (const sp of sorted) popover.appendChild(buildSpellRow(sp, currentMp, anchorEl));
   }
   positionPopover(anchorEl);
 }

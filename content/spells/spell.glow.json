@@ -7,6 +7,7 @@
   "mpCost": 1,
   "actionCost": 10,
   "target": "self",
+  "category": "utility",
   "description": {
     "en": "Coax a faint glimmer to your skin — enough to see by, if you're patient.",
     "cs": "Přivolá na kůži slabý třpyt — dost na to, abys viděl, když nespěcháš."

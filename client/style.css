@@ -680,6 +680,19 @@ html, body {
   color: var(--dim);
   font-style: italic;
 }
+#action-popover .spell-columns {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(160px, 1fr));
+  gap: 4px;
+}
+#action-popover .spell-column { display: flex; flex-direction: column; justify-content: flex-end; }
+#action-popover .spell-column .popover-section { margin-top: 0; padding-top: 6px; border-top-width: 2px; border-top-style: solid; }
+#action-popover .spell-column.attack  .popover-section { border-top-color: #832727; }
+#action-popover .spell-column.support .popover-section { border-top-color: #2a5a32; }
+#action-popover .spell-column.utility .popover-section { border-top-color: #3e2a5a; }
+#action-popover .spell-column.attack  .popover-section { color: #ff8a8a; }
+#action-popover .spell-column.support .popover-section { color: #9be39b; }
+#action-popover .spell-column.utility .popover-section { color: #cdb4ff; }
 
 #input-form {
   grid-area: input;

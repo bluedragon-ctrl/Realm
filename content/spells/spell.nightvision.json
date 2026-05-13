@@ -7,6 +7,7 @@
   "mpCost": 3,
   "actionCost": 12,
   "target": "any",
+  "category": "utility",
   "description": {
     "en": "Sharpen the target's eyes to see in the dim and the dark for a long time.",
     "cs": "Zaostří cíli zrak, aby na dlouhou dobu viděl v šeru i ve tmě."
