@@ -13,13 +13,14 @@
     "cs": "Malá mosazná lucerna s čirou skleněnou stěnou a pevným nosným okem."
   },
   "long": {
-    "en": "A neat brass lantern, the kind a traveller carries. A clear pane of glass keeps the wind off the flame and a stout iron ring lets it be hung from a hook or held in the hand. The smith built it to last.",
-    "cs": "Úhledná mosazná lucerna, jakou s sebou nosí poutníci. Čirá skleněná stěna chrání plamen před větrem a pevné železné oko umožňuje pověsit ji na hák nebo nést v ruce. Kovář ji vyrobil tak, aby vydržela."
+    "en": "A neat brass lantern, the kind a traveller carries. A clear pane of glass keeps the wind off the flame and a stout iron ring lets it be hung from a hook or held in the hand. The smith built it to last. One hand is always busy holding it — swinging a weapon or aiming a shot is awkward while you carry it.",
+    "cs": "Úhledná mosazná lucerna, jakou s sebou nosí poutníci. Čirá skleněná stěna chrání plamen před větrem a pevné železné oko umožňuje pověsit ji na hák nebo nést v ruce. Kovář ji vyrobil tak, aby vydržela. Jedna ruka je s ní pořád zaměstnaná — rozmach zbraně i mířená rána jsou s lucernou nemotorné."
   },
   "tags": ["light"],
   "weight": 2,
   "wearable": {
-    "slot": "utility"
+    "slot": "utility",
+    "bonus": { "attack": -2, "accuracy": -5 }
   },
-  "lightSource": { "level": "light" }
+  "lightSource": { "level": "dim" }
 }

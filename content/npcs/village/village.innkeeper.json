@@ -51,6 +51,12 @@
       "flavor": "buy",
       "inputs":  [{ "gold": 5 }],
       "outputs": [{ "item": "item.hearty_soup" }]
+    },
+    {
+      "id": "innkeeper.buy_torch",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 2 }],
+      "outputs": [{ "item": "item.torch" }]
     }
   ],
   "behaviors": [

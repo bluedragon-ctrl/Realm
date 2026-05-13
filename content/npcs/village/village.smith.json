@@ -55,7 +55,7 @@
     {
       "id": "smith.buy_lantern",
       "flavor": "buy",
-      "inputs":  [{ "gold": 25 }],
+      "inputs":  [{ "gold": 45 }],
       "outputs": [{ "item": "item.lantern" }]
     },
     {

@@ -19,5 +19,28 @@
   "tags": ["fixture"],
   "weight": 99,
   "pickable": false,
-  "spawn": { "location": "home.cottage", "count": 1 }
+  "spawn": { "location": "home.cottage", "count": 1 },
+  "exchanges": [
+    {
+      "id": "working_table.craft_candle",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.wax", "count": 1 }],
+      "outputs": [{ "item": "item.candle" }],
+      "xp": 1,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you soften the lump of beeswax against {target}, press it into a mould, and pull out a fresh candle.",
+            "others": "{actor} works a lump of beeswax on {target} and pulls out a fresh candle."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "změkčíš hrudku vosku o {target}, vtlačíš ji do formy a vytáhneš čerstvou svíčku.",
+            "others": "{actor} hněte hrudku vosku na {target} a vytahuje čerstvou svíčku."
+          }
+        }
+      }
+    }
+  ]
 }

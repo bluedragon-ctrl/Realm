@@ -1,0 +1,37 @@
+{
+  "id": "item.torch",
+  "name": {
+    "en": "a pitch torch",
+    "cs": "smolná pochodeň"
+  },
+  "nameAcc": {
+    "en": "the pitch torch",
+    "cs": "smolnou pochodeň"
+  },
+  "short": {
+    "en": "A stout wooden torch, its head wrapped in pitch-soaked cloth.",
+    "cs": "Pevná dřevěná pochodeň s hlavicí omotanou hadrem nasáklým smolou."
+  },
+  "long": {
+    "en": "A length of seasoned wood as thick as a wrist, with one end wound in coarse cloth and dipped in dark pitch. It catches easily and burns with a bright, smoky flame for a good while. Cheap, smelly, and reliable.",
+    "cs": "Kus vyschlého dřeva tlustý jako zápěstí, jeden konec omotaný hrubým hadrem a namočený v tmavé smole. Snadno se zapaluje a hoří jasným, kouřivým plamenem pěkně dlouho. Levná, smradlavá a spolehlivá."
+  },
+  "tags": ["light", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you strike the pitch and the torch roars to life, flooding the area with bright, smoky light.",
+        "others": "{actor} lights a pitch torch; it flares up with a bright, smoky flame."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "škrtneš o smolu a pochodeň se rozhoří, kolem se rozlije jasné, kouřivé světlo.",
+        "others": "{actor} zapálí smolnou pochodeň; vzplane jasným, kouřivým plamenem."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "apply_effect", "effectId": "effect.torchlight" }
+  }
+}
