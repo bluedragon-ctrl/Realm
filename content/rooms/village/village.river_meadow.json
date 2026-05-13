@@ -1,0 +1,21 @@
+{
+  "id": "village.river_meadow",
+  "name": {
+    "en": "Riverside meadow",
+    "cs": "Říční louka"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A wide grassy meadow sloping gently south, with the murmur of water carrying on the breeze.",
+    "cs": "Široká travnatá louka mírně se svažující k jihu, ve vánku nese šum vody."
+  },
+  "long": {
+    "en": "The meadow is bright with buttercups and tall grass that brushes against your knees. The ground tilts gently downhill toward the south, where the air smells damp and a faint murmur of running water can be heard beyond a line of willows. North the cart track climbs back toward the village. To the east a thin trail of smoke rises behind a thicket — and on the breeze, the faint clack of unfamiliar voices.",
+    "cs": "Louka jasně svítí pryskyřníky a vysokou trávou, která ti šustí o kolena. Půda se mírně svažuje k jihu, kde je vzduch vlhký a za řadou vrb je slyšet tichý šum tekoucí vody. Na sever stoupá cesta zpátky k vesnici. Na východě se za houštinou vine tenký pruh kouře — a ve vánku jsou slyšet ozvuky neznámých hlasů."
+  },
+  "exits": {
+    "n": "village.south_road",
+    "e": "village.goblin_camp"
+  },
+  "tags": ["outdoor", "village"]
+}

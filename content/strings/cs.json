@@ -338,6 +338,7 @@
   "stats.help.eva": "vyhýbání; šance vyhnout se útoku = max(0, EVA − ACC útočníka) %, max 50; stejnou měrou snižuje šanci na kritický zásah proti tobě.",
   "stats.help.spd": "rychlost; ticků na akci = cena akce / SPD (výchozí cena 12).",
   "stats.unit.hp": "HP",
+  "stats.unit.mp": "MP",
   "stats.unit.dmg": "pošk.",
 
   "spells.empty": "zatím neumíš žádná kouzla.",
@@ -352,7 +353,8 @@
   "spells.range": "{min}–{max} {unit}",
   "spells.range_one": "{value} {unit}",
   "spells.detail.damage": "vzorec: {formula}   rozsah: {range}",
-  "spells.detail.heal": "vzorec: {formula}   rozsah: {range}",
+  "spells.detail.heal": "obnoví {range}",
+  "spells.detail.heal_both": "obnoví {hp} a {mp}",
   "spells.detail.drain": "vzorec: {formula}   rozsah: {range}   vrací {ratio} % jako životy",
   "spells.detail.apply": "efekt: {icon} {name} — {pulses}× {amount} {unit} každých {every} ticků",
   "spells.detail.apply_stats": "efekt: {icon} {name} — {mods} ({duration} ticků)",

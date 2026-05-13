@@ -28,7 +28,7 @@
     "evasion": 14,
     "spd": 4
   },
-  "respawn": { "ticks": 700 },
+  "respawn": { "ticks": 180 },
   "xp": 4,
   "loot": [
     { "defId": "item.rat_tail", "chance": 0.8 }

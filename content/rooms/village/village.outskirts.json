@@ -10,12 +10,13 @@
     "cs": "První chalupy vesnice, kolem zahrádky a ve vzduchu kouř ze dřeva."
   },
   "long": {
-    "en": "Small cottages with thatched roofs stand close to the road. Wooden fences hold back rows of cabbages and beans. The smell of wood smoke drifts from a chimney. The road runs east to the wheat fields and west between the apple trees of an orchard.",
-    "cs": "U cesty stojí malé chalupy s doškovými střechami. Dřevěné ploty drží řádky zelí a fazolí. Z komína se line vůně dřevěného kouře. Cesta vede na východ do polí a na západ mezi jabloně sadu."
+    "en": "Small cottages with thatched roofs stand close to the road. Wooden fences hold back rows of cabbages and beans. The smell of wood smoke drifts from a chimney. The road runs east to the wheat fields, west between the apple trees of an orchard, and a quieter cart track leaves south past the last gardens.",
+    "cs": "U cesty stojí malé chalupy s doškovými střechami. Dřevěné ploty drží řádky zelí a fazolí. Z komína se line vůně dřevěného kouře. Cesta vede na východ do polí, na západ mezi jabloně sadu a tišší polní pěšina odchází na jih kolem posledních zahrádek."
   },
   "exits": {
     "e": "village.wheat_path",
-    "w": "village.orchard"
+    "w": "village.orchard",
+    "s": "village.south_road"
   },
   "tags": ["outdoor", "village"]
 }

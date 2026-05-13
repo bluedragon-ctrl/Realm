@@ -123,13 +123,17 @@
           "Mind the sparks, careful now.",
           "Iron does what iron wants.",
           "Got iron ore? Five gold a chunk.",
-          "A good hammer is half the work."
+          "A good hammer is half the work.",
+          "Lost a whole crate of ore last week — goblins, I'd wager. Bring any back and I'll pay fair.",
+          "If you find my missing ore out south of the village, every chunk earns the same five gold."
         ],
         "cs": [
           "Pozor na jiskry, mladý.",
           "Železo dělá to, co železo chce.",
           "Máš železnou rudu? Pět zlatých za kus.",
-          "Dobré kladivo je půlka práce."
+          "Dobré kladivo je půlka práce.",
+          "Minulý týden mi zmizela celá bedna rudy — řekl bych skřeti. Kdo mi něco z toho přinese, dostane poctivě zaplaceno.",
+          "Pokud najdeš mou ztracenou rudu na jih od vesnice, za každý kus dostaneš stejných pět zlatých."
         ]
       }
     },

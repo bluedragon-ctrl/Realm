@@ -18,5 +18,5 @@
   },
   "tags": ["ingredient"],
   "weight": 0,
-  "spawn": { "location": "home.garden", "count": 2, "respawnTicks": 3600 }
+  "spawn": { "location": "home.garden", "count": 1, "respawnTicks": 3600 }
 }

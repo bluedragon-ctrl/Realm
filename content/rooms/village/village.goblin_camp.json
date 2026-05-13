@@ -1,0 +1,20 @@
+{
+  "id": "village.goblin_camp",
+  "name": {
+    "en": "Small goblin camp",
+    "cs": "Malý skřetí tábor"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A rough goblin camp in a thicket clearing, with a smoking fire pit and crude shelters.",
+    "cs": "Hrubý skřetí tábor v mýtině houští, s doutnajícím ohništěm a primitivními přístřešky."
+  },
+  "long": {
+    "en": "A trampled clearing inside the thicket. Three lean-tos of bent branches and stretched hide huddle around a fire pit that still breathes a thin curl of smoke. Bones picked clean, a chipped clay jug, and an empty sack lie scattered in the dirt. The shelters are empty for now — but the camp is warm, and someone has clearly been here recently. The way back west returns to the open meadow.",
+    "cs": "Vyšlapaná mýtina uvnitř houštiny. Tři přístřešky z ohnutých větví a napjatých kůží se tísní kolem ohniště, z něhož ještě stoupá tenký pramínek kouře. V hlíně se válí ohlodané kosti, otlučený hliněný džbán a prázdný pytel. Přístřešky jsou teď prázdné — ale tábor je teplý a někdo tu byl zjevně nedávno. Cesta zpátky na západ se vrací do otevřené louky."
+  },
+  "exits": {
+    "w": "village.river_meadow"
+  },
+  "tags": ["outdoor", "village"]
+}
