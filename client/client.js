@@ -898,7 +898,70 @@ function renderExchangeDrillDown(msg) {
   const youHaveTpl = msg.exchangeYouHaveLabel ?? 'you have {count}';
   const confirmLabels = msg.exchangeConfirmLabels ?? {};
 
-  let openRow = null;
+  const split = document.createElement('div');
+  split.className = 'exchange-split';
+  const listCol = document.createElement('div');
+  listCol.className = 'exchange-list';
+  const detailCol = document.createElement('div');
+  detailCol.className = 'exchange-detail';
+  split.appendChild(listCol);
+  split.appendChild(detailCol);
+  inspectBody.appendChild(split);
+
+  let selectedBtn = null;
+
+  function showDetail(entry) {
+    detailCol.innerHTML = '';
+    const item = exchangePrimaryItem(entry);
+    const preview = item?.preview;
+
+    const name = document.createElement('div');
+    name.className = 'exchange-detail-name';
+    name.textContent = item?.name ?? entry.id;
+    detailCol.appendChild(name);
+
+    if (entry.flavor === 'craft') {
+      const formula = document.createElement('div');
+      formula.className = 'exchange-detail-formula';
+      formula.textContent = `${formatExchangeSide(entry.inputs)} → ${formatExchangeSide(entry.outputs)}`;
+      detailCol.appendChild(formula);
+    }
+
+    if (preview?.description) {
+      const desc = document.createElement('div');
+      desc.className = 'exchange-detail-desc';
+      desc.textContent = preview.description;
+      detailCol.appendChild(desc);
+    }
+    if (preview && Array.isArray(preview.details)) {
+      for (const line of preview.details) {
+        const det = document.createElement('div');
+        det.className = 'exchange-detail-detail';
+        det.textContent = line;
+        detailCol.appendChild(det);
+      }
+    }
+    if (item && typeof item.youHave === 'number') {
+      const youHave = document.createElement('div');
+      youHave.className = 'exchange-detail-you-have';
+      youHave.textContent = youHaveTpl.replace('{count}', item.youHave);
+      detailCol.appendChild(youHave);
+    }
+
+    const actions = document.createElement('div');
+    actions.className = 'exchange-detail-actions';
+    const confirmCls = `chip-flavor-${entry.flavor}`;
+    const confirmChip = makeChip(
+      exchangeConfirmLabel(entry, { exchangeConfirmLabels: confirmLabels }),
+      confirmCls,
+      () => sendInput(exchangeSendCommand(entry)),
+    );
+    actions.appendChild(confirmChip);
+    detailCol.appendChild(actions);
+  }
+
+  let firstBtn = null;
+  let firstEntry = null;
 
   for (const flavor of flavorOrder) {
     const rows = msg.exchanges.filter(e => e.flavor === flavor);
@@ -912,71 +975,45 @@ function renderExchangeDrillDown(msg) {
     section.appendChild(sec);
 
     for (const entry of rows) {
-      const rowEl = document.createElement('div');
-      rowEl.className = `exchange-row exchange-row-${flavor}`;
+      const btn = document.createElement('button');
+      btn.type = 'button';
+      btn.className = `exchange-list-row exchange-list-row-${flavor}`;
 
-      const head = document.createElement('button');
-      head.type = 'button';
-      head.className = 'exchange-row-head';
       const lbl = document.createElement('span');
-      lbl.className = 'exchange-row-label';
+      lbl.className = 'exchange-list-row-label';
       lbl.textContent = exchangeRowLabel(entry);
-      head.appendChild(lbl);
+      btn.appendChild(lbl);
 
       const item = exchangePrimaryItem(entry);
       if (item && typeof item.youHave === 'number' && item.youHave > 0) {
         const youHave = document.createElement('span');
-        youHave.className = 'exchange-row-you-have';
-        youHave.textContent = youHaveTpl.replace('{count}', item.youHave);
-        head.appendChild(youHave);
+        youHave.className = 'exchange-list-row-you-have';
+        youHave.textContent = `×${item.youHave}`;
+        btn.appendChild(youHave);
       }
 
-      const body = document.createElement('div');
-      body.className = 'exchange-row-body';
-      body.hidden = true;
-
-      const preview = item?.preview;
-      if (preview?.description) {
-        const desc = document.createElement('div');
-        desc.className = 'exchange-row-desc';
-        desc.textContent = preview.description;
-        body.appendChild(desc);
-      }
-      if (preview && Array.isArray(preview.details) && preview.details.length > 0) {
-        for (const line of preview.details) {
-          const det = document.createElement('div');
-          det.className = 'exchange-row-detail';
-          det.textContent = line;
-          body.appendChild(det);
-        }
-      }
-
-      const actions = document.createElement('div');
-      actions.className = 'exchange-row-actions';
-      const confirmCls = `chip-flavor-${flavor}`;
-      const confirmChip = makeChip(exchangeConfirmLabel(entry, { exchangeConfirmLabels: confirmLabels }), confirmCls, () => {
-        sendInput(exchangeSendCommand(entry));
-      });
-      actions.appendChild(confirmChip);
-      body.appendChild(actions);
-
-      head.addEventListener('click', () => {
-        if (openRow && openRow !== rowEl) {
-          openRow.classList.remove('open');
-          openRow.querySelector('.exchange-row-body').hidden = true;
-        }
-        const wasOpen = !body.hidden;
-        body.hidden = wasOpen;
-        rowEl.classList.toggle('open', !wasOpen);
-        openRow = wasOpen ? null : rowEl;
+      btn.addEventListener('click', () => {
+        if (selectedBtn) selectedBtn.classList.remove('selected');
+        btn.classList.add('selected');
+        selectedBtn = btn;
+        showDetail(entry);
       });
 
-      rowEl.appendChild(head);
-      rowEl.appendChild(body);
-      section.appendChild(rowEl);
+      section.appendChild(btn);
+
+      if (!firstBtn) {
+        firstBtn = btn;
+        firstEntry = entry;
+      }
     }
 
-    inspectBody.appendChild(section);
+    listCol.appendChild(section);
+  }
+
+  if (firstBtn) {
+    firstBtn.classList.add('selected');
+    selectedBtn = firstBtn;
+    showDetail(firstEntry);
   }
 }
 
