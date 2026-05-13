@@ -505,6 +505,103 @@ html, body {
 .chip.chip-flavor-sell:hover { background: #98d6e6; }
 .chip.chip-flavor-craft { background: #2a2a4a; color: #c8c0f0; }
 .chip.chip-flavor-craft:hover { background: #3a3a5a; }
+.chip.chip-flavor-trade { color: #1c1c1f; background: #d8c08c; border-color: #9a7a3e; }
+.chip.chip-flavor-trade:hover { background: #ecd6a3; }
+.chip.chip-flavor-back { background: #2a2a30; color: var(--dim); border-color: var(--border-2); }
+.chip.chip-flavor-back:hover { background: #3a3a44; color: var(--fg); }
+
+.exchange-split {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  align-items: flex-start;
+  margin-top: 8px;
+}
+.exchange-list {
+  flex: 1 1 200px;
+  min-width: 0;
+}
+.exchange-detail {
+  flex: 1 1 200px;
+  min-width: 0;
+  padding: 8px 10px;
+  background: #181820;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  font-size: 12px;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
+}
+.exchange-section { margin-bottom: 8px; }
+.exchange-section-title {
+  font-size: 11px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 4px 0 2px 0;
+}
+.exchange-list-row {
+  display: flex;
+  width: 100%;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 3px;
+  color: var(--fg);
+  font: inherit;
+  font-size: 13px;
+  padding: 3px 6px;
+  margin-bottom: 1px;
+  text-align: left;
+  align-items: baseline;
+  justify-content: space-between;
+  cursor: pointer;
+  gap: 8px;
+}
+.exchange-list-row:hover { background: #2a2a30; }
+.exchange-list-row.selected {
+  background: #2f2f3a;
+  border-color: var(--border-2);
+}
+.exchange-list-row-label {
+  flex: 1 1 auto;
+  min-width: 0;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.exchange-list-row-you-have {
+  color: var(--dim);
+  font-size: 11px;
+  flex-shrink: 0;
+}
+.exchange-detail-name {
+  color: var(--accent);
+  font-weight: 500;
+  font-size: 13px;
+  margin-bottom: 4px;
+}
+.exchange-detail-formula {
+  color: var(--dim);
+  font-size: 11px;
+  margin-bottom: 6px;
+  font-style: italic;
+}
+.exchange-detail-desc {
+  color: var(--fg);
+  line-height: 1.45;
+  margin-bottom: 6px;
+  white-space: pre-wrap;
+}
+.exchange-detail-detail { color: var(--dim); margin-bottom: 2px; }
+.exchange-detail-you-have {
+  color: var(--dim);
+  margin-top: 4px;
+  font-style: italic;
+}
+.exchange-detail-actions { margin-top: 8px; }
 .chip .mp-cost { color: #cdb4ff; font-size: 0.85em; margin-left: 4px; }
 .chip.effect { cursor: default; }
 .chip.effect.buff    { color: #1c1c1f; background: #a8d8c0; border-color: #6fae90; }

@@ -35,25 +35,71 @@ function applyEffectShortText(applyId, lang) {
   return `${icon ? icon + ' ' : ''}${t(def.name, lang)}`;
 }
 
+function buildItemPreview(def, lang, actor) {
+  const details = [];
+  const w = def.wearable;
+  if (w) {
+    if (w.damage) {
+      details.push(s('item.detail.damage', lang, { formula: String(w.damage) }));
+    }
+    if (w.bonus && Object.keys(w.bonus).length > 0) {
+      details.push(s('item.detail.bonus', lang, { mods: bonusSummary(w.bonus) }));
+    }
+    if (w.onHit?.applyEffect) {
+      const chance = Math.round((w.onHit.chance ?? 1) * 100);
+      details.push(s('item.detail.on_hit', lang, {
+        chance,
+        effect: applyEffectShortText(w.onHit.applyEffect, lang),
+      }));
+    }
+  }
+  if (def.use?.effect) {
+    const fake = { effect: def.use.effect };
+    const text = effectDetail(fake, actor);
+    if (text) details.push(s('item.detail.on_use', lang, { effect: text }));
+  }
+  return {
+    description: t(def.short, lang) || t(def.long, lang) || '',
+    details,
+  };
+}
+
+function countInInventory(actor, defId) {
+  if (!Array.isArray(actor?.inventory)) return 0;
+  let n = 0;
+  for (const inst of actor.inventory) if (inst.defId === defId) n++;
+  return n;
+}
+
 function serializeExchanges(host, lang, actor) {
   const list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
   if (!Array.isArray(list) || list.length === 0) return null;
-  const formatSide = (side) => (side ?? []).map(e => {
+  const formatSide = (side, opts = {}) => (side ?? []).map(e => {
     if (e.gold != null) return { kind: 'gold', amount: e.gold };
     const def = world.itemDefs.get(e.item);
-    return {
+    const entry = {
       kind: 'item',
       id: e.item,
       name: def ? t(def.name, lang) : e.item,
       count: e.count ?? 1,
     };
+    if (def && opts.withPreview) entry.preview = buildItemPreview(def, lang, actor);
+    if (opts.withInventoryCount && actor) entry.youHave = countInInventory(actor, e.item);
+    return entry;
   });
-  return list.map(e => ({
-    id: e.id,
-    flavor: e.flavor,
-    inputs: formatSide(e.inputs),
-    outputs: formatSide(e.outputs),
-  }));
+  return list.map(e => {
+    const previewOnOutputs = e.flavor === 'buy' || e.flavor === 'craft';
+    const previewOnInputs = e.flavor === 'sell';
+    return {
+      id: e.id,
+      flavor: e.flavor,
+      inputs: formatSide(e.inputs, {
+        withPreview: previewOnInputs,
+        withInventoryCount: e.flavor === 'sell' || e.flavor === 'craft',
+      }),
+      outputs: formatSide(e.outputs, { withPreview: previewOnOutputs }),
+    };
+  });
 }
 
 function exitDisplay(exitKey, lang) {
@@ -248,10 +294,19 @@ function sendTargetInfo(actor, target) {
       subtitle,
       description: t(target.long, lang) || t(target.short, lang) || s('look.npc_no_desc', lang),
       exchanges,
+      exchangeHost: exchanges ? 'npc' : undefined,
+      exchangeEntryLabel: exchanges ? s('exchange.entry.trade', lang) : undefined,
+      exchangeBackLabel: exchanges ? s('exchange.back', lang) : undefined,
+      exchangeYouHaveLabel: exchanges ? s('exchange.you_have', lang) : undefined,
       exchangeRowLabels: exchanges ? {
         buy: s('exchange.row.buy', lang),
         sell: s('exchange.row.sell', lang),
         craft: s('exchange.row.craft', lang),
+      } : undefined,
+      exchangeConfirmLabels: exchanges ? {
+        buy: s('exchange.confirm.buy', lang),
+        sell: s('exchange.confirm.sell', lang),
+        craft: s('exchange.confirm.craft', lang),
       } : undefined,
       stats: isFriendly || !target.stats ? null : { ...target.stats },
       statLabels: {
@@ -361,39 +416,27 @@ function sendItemInfo(actor, inst) {
   const lang = actor.lang;
   const exchanges = serializeExchanges(inst, lang, actor);
   const def = inst.def;
-  const details = [];
-  const w = def.wearable;
-  if (w) {
-    if (w.damage) {
-      details.push(s('item.detail.damage', lang, { formula: String(w.damage) }));
-    }
-    if (w.bonus && Object.keys(w.bonus).length > 0) {
-      details.push(s('item.detail.bonus', lang, { mods: bonusSummary(w.bonus) }));
-    }
-    if (w.onHit?.applyEffect) {
-      const chance = Math.round((w.onHit.chance ?? 1) * 100);
-      details.push(s('item.detail.on_hit', lang, {
-        chance,
-        effect: applyEffectShortText(w.onHit.applyEffect, lang),
-      }));
-    }
-  }
-  if (def.use?.effect) {
-    const fake = { effect: def.use.effect };
-    const text = effectDetail(fake, actor);
-    if (text) details.push(s('item.detail.on_use', lang, { effect: text }));
-  }
+  const preview = buildItemPreview(def, lang, actor);
   actor.session.send({
     kind: 'target-info',
     name: t(def.name, lang),
     subtitle: '',
     description: t(def.long, lang) || t(def.short, lang) || s('look.npc_no_desc', lang),
-    details,
+    details: preview.details,
     exchanges,
+    exchangeHost: exchanges ? 'fixture' : undefined,
+    exchangeEntryLabel: exchanges ? s('exchange.entry.craft', lang) : undefined,
+    exchangeBackLabel: exchanges ? s('exchange.back', lang) : undefined,
+    exchangeYouHaveLabel: exchanges ? s('exchange.you_have', lang) : undefined,
     exchangeRowLabels: exchanges ? {
       buy: s('exchange.row.buy', lang),
       sell: s('exchange.row.sell', lang),
       craft: s('exchange.row.craft', lang),
+    } : undefined,
+    exchangeConfirmLabels: exchanges ? {
+      buy: s('exchange.confirm.buy', lang),
+      sell: s('exchange.confirm.sell', lang),
+      craft: s('exchange.confirm.craft', lang),
     } : undefined,
   });
 }
