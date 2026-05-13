@@ -529,6 +529,11 @@ html, body {
   border: 1px solid var(--border);
   border-radius: 4px;
   font-size: 12px;
+  position: sticky;
+  top: 0;
+  align-self: flex-start;
+  max-height: calc(100vh - 120px);
+  overflow-y: auto;
 }
 .exchange-section { margin-bottom: 8px; }
 .exchange-section-title {
