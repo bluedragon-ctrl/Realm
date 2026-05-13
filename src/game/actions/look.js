@@ -38,7 +38,7 @@ function applyEffectShortText(applyId, lang) {
 function serializeExchanges(host, lang, actor) {
   const list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
   if (!Array.isArray(list) || list.length === 0) return null;
-  const formatSide = (side) => side.map(e => {
+  const formatSide = (side) => (side ?? []).map(e => {
     if (e.gold != null) return { kind: 'gold', amount: e.gold };
     const def = world.itemDefs.get(e.item);
     return {
