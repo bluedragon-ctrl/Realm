@@ -1,0 +1,29 @@
+{
+  "id": "spell.glow",
+  "name": {
+    "en": "Glow",
+    "cs": "Třpyt"
+  },
+  "mpCost": 1,
+  "actionCost": 10,
+  "target": "self",
+  "description": {
+    "en": "Coax a faint glimmer to your skin — enough to see by, if you're patient.",
+    "cs": "Přivolá na kůži slabý třpyt — dost na to, abys viděl, když nespěcháš."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you breathe a word and a faint glimmer settles on your skin.",
+        "others": "{actor} breathes a word and a faint glimmer settles on their skin."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vydechneš slovo a na kůži ti usedne slabý třpyt.",
+        "others": "{actor} vydechne slovo a na kůži mu usedne slabý třpyt."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.magic_glow" }
+}

@@ -11,9 +11,9 @@ export function makeSpellValidator(knownEffects) {
     checkObject(def.verb, ctx, 'verb');
     checkRequired(def.verb, ctx, 'verb');
     checkEnum(def.target, SPELL_TARGETS, ctx, 'target');
-    if (def.effect?.type === 'apply_effect') {
+    if (def.effect?.type === 'apply_effect' || def.effect?.type === 'cure') {
       const eid = def.effect.effectId;
-      check(eid && knownEffects.has(eid), ctx, `applies unknown effect '${eid}'`);
+      check(eid && knownEffects.has(eid), ctx, `references unknown effect '${eid}'`);
     }
   };
 }

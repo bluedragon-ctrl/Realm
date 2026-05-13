@@ -24,6 +24,11 @@ export function setDamageRouteHandler(fn) { damageRouteHandler = fn; }
 let cleanseHandler = null;
 export function setCleanseHandler(fn) { cleanseHandler = fn; }
 
+// Set by activeEffects.js so the `cure` effect can strip a specific active effect by
+// defId without effects.js importing activeEffects.js (cycle). Returns count removed.
+let cureHandler = null;
+export function setCureHandler(fn) { cureHandler = fn; }
+
 const EFFECTS = {
   teach_spell({ spell }, { actor }) {
     if (!spell || !actor?.knownSpells) return { learned: false };
@@ -207,6 +212,17 @@ const EFFECTS = {
       const key = removed > 0 ? 'cleanse.removed' : 'cleanse.nothing';
       const tone = removed > 0 ? 'good' : 'flavor';
       recipient.session.send({ kind: 'system', tone, text: s(key, recipient.lang, { count: removed }) });
+    }
+    return { removed };
+  },
+  cure(def, { actor, target }) {
+    const recipient = target ?? actor;
+    if (!recipient || !cureHandler || !def.effectId) return { removed: 0 };
+    const removed = cureHandler(recipient, def.effectId);
+    if (recipient.kind === 'player' && recipient.session) {
+      const key = removed > 0 ? 'cure.removed' : 'cure.nothing';
+      const tone = removed > 0 ? 'good' : 'flavor';
+      recipient.session.send({ kind: 'system', tone, text: s(key, recipient.lang) });
     }
     return { removed };
   },

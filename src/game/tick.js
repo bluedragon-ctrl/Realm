@@ -2,10 +2,11 @@ import { world, allActors, actorsInRoom, countItemsInWorldMemory, countItemsInRo
 import { savePlayer } from '../persist/players.js';
 import { runPrimitive } from './primitives.js';
 import { serializeInventory, makeItemInstance } from './items.js';
-import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler, removeDebuffs, setRoomRefreshHandler } from './activeEffects.js';
+import { tickActiveEffects, serializeActiveEffectsForSave, setEffectDamageHandler, removeDebuffs, removeEffectsByDefId, setRoomRefreshHandler } from './activeEffects.js';
 import { applyDamageWithFeedback, hasInRoomTarget } from './combat.js';
-import { addHate } from './aggro.js';
-import { setDamageRouteHandler, setCleanseHandler } from './effects.js';
+import { addHate, getHate } from './aggro.js';
+import { perceptionFactor } from './perception.js';
+import { setDamageRouteHandler, setCleanseHandler, setCureHandler } from './effects.js';
 import { sendStats } from './messages.js';
 import { pushTargetInfo, describeRoomToAll } from './actions/look.js';
 import { getTick, bumpTick } from './clock.js';
@@ -14,6 +15,7 @@ import { LULL_TICKS, PLAYER_REGEN_PERIOD } from './stats.js';
 setEffectDamageHandler(applyDamageWithFeedback);
 setDamageRouteHandler(applyDamageWithFeedback);
 setCleanseHandler(removeDebuffs);
+setCureHandler(removeEffectsByDefId);
 setRoomRefreshHandler(describeRoomToAll);
 
 const TICK_MS = 1000;
@@ -119,6 +121,14 @@ function tickActor(actor) {
       for (const peer of actorsInRoom(actor.location)) {
         if (peer.kind !== 'player' || !peer.session) continue;
         if (!(peer.stats?.hp > 0)) continue;
+        // Light gate applies to fresh spotting only. Pacified state (negative hate)
+        // decays at full +1/tick regardless of light, so a pacify in a dim cave
+        // wears off on schedule.
+        if (getHate(actor, peer) >= 0) {
+          const factor = perceptionFactor(actor, peer);
+          if (factor === 0) continue;
+          if (factor < 1 && Math.random() >= factor) continue;
+        }
         addHate(actor, peer, 1);
       }
     }

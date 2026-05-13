@@ -1,6 +1,7 @@
 import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors, actorsInRoom } from './world.js';
 import { applyEffect, setDamageRouteHandler } from './effects.js';
 import { isDarkObserver } from './light.js';
+import { targetingAccMod } from './perception.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
@@ -38,7 +39,11 @@ export function executeAttack(actor, action, target) {
   if (target.kind === 'npc' && target.alive === false) return;
   if (!target.stats || target.stats.hp <= 0) return;
 
-  const acc = actor.stats?.accuracy ?? 0;
+  // Attacker's perceived light: dark = -80 ACC, dim = -25 ACC. Pushes the dodge
+  // contest toward (and up to) the MAX_DODGE cap when swinging at something the
+  // attacker can't see clearly. Defender-side darkness is handled by separate
+  // narration (combat.missed_by_unseen / hit_by_unseen).
+  const acc = (actor.stats?.accuracy ?? 0) + targetingAccMod(actor);
   const eva = target.stats?.evasion ?? 0;
   const dodge = Math.max(MIN_DODGE, Math.min(MAX_DODGE, eva - acc));
   if (Math.floor(Math.random() * 100) + 1 <= dodge) {

@@ -1,0 +1,37 @@
+{
+  "id": "spell.cure_blindness",
+  "name": {
+    "en": "Cure Blindness",
+    "cs": "Léčba slepoty"
+  },
+  "mpCost": 3,
+  "actionCost": 12,
+  "target": "friendly",
+  "description": {
+    "en": "Lift the shadow from a friend's eyes.",
+    "cs": "Sejme stín z očí spojence."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you brush your fingertips across your own eyelids — a thin film of dark lifts away.",
+        "others": "{actor} brushes their fingertips across their own eyelids; a thin film of dark lifts away."
+      },
+      "to_target": {
+        "self": "you brush your fingertips across {target}'s eyelids — a thin film of dark lifts away.",
+        "others": "{actor} brushes their fingertips across {target}'s eyelids; a thin film of dark lifts away."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přejedeš si konečky prstů po víčkách — tenký závoj temnoty se sejme.",
+        "others": "{actor} si přejede konečky prstů po víčkách; tenký závoj temnoty se sejme."
+      },
+      "to_target": {
+        "self": "přejedeš {target} konečky prstů po víčkách — tenký závoj temnoty se sejme.",
+        "others": "{actor} přejede {target} konečky prstů po víčkách; tenký závoj temnoty se sejme."
+      }
+    }
+  },
+  "effect": { "type": "cure", "effectId": "effect.blinded" }
+}

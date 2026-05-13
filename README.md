@@ -337,6 +337,7 @@ Ordered by priority within each status. Preparation tasks land before the system
 |---|
 | NPC sight in low light (`perceivedLight` extends to read `actor.def.vision`: `low_light` → clamp up to dim only if effective light is dim, `nightvision` → clamp up to dim always, `blind` → clamp to dark + a `usesNonVisualTargeting` flag for blind NPCs that still acquire targets; `canPerceive(observer, target)` consumes the result) |
 | Combat to-hit penalties in dim/dark (`executeAttack` reads `perceivedLight(attacker, attacker.room)` once and applies `lightToHitModifier(level)` — `light` → 0, `dim` → small malus, `dark` → large malus / auto-miss for sighted attackers; blind-vision NPCs bypass via the flag above) |
+| Evasion review under darkness (current pass penalizes attacker ACC only; revisit whether a defender who can't see the attacker should also lose evasion — Diku-canonical leaves defender dodge intact, but our stiffer dark malus might want symmetric treatment for consistency) |
 | Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) |
 | Discovered-secrets tracking (IDed secrets, player save records discovered IDs) |
 | New areas (river, marsh, deep mine) |

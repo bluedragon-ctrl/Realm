@@ -1,0 +1,13 @@
+{
+  "id": "effect.magic_glow",
+  "name": {
+    "en": "Magic Glow",
+    "cs": "Magický třpyt"
+  },
+  "kind": "buff",
+  "icon": "🌟",
+  "duration": 200,
+  "lightSource": { "level": "dim" },
+  "exclusiveGroup": "ambient_light",
+  "stack": "refresh"
+}
