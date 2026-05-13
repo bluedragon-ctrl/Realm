@@ -815,11 +815,177 @@ function openSocialToTargetPicker(anchorEl, targetName, ev) {
   positionPopover(anchorEl);
 }
 
+let lastTargetInfoMsg = null;
+
+function formatExchangeSide(side) {
+  return side.map(e => {
+    if (e.kind === 'gold') return `${e.amount}g`;
+    return e.count > 1 ? `${e.count} ${e.name}` : e.name;
+  }).join(' + ');
+}
+
+function exchangePrimaryItem(entry) {
+  if (entry.flavor === 'sell') return entry.inputs.find(x => x.kind === 'item') ?? null;
+  return entry.outputs.find(x => x.kind === 'item') ?? null;
+}
+
+function exchangeGoldAmount(entry) {
+  if (entry.flavor === 'buy') {
+    const g = entry.inputs.find(x => x.kind === 'gold');
+    return g ? g.amount : null;
+  }
+  if (entry.flavor === 'sell') {
+    const g = entry.outputs.find(x => x.kind === 'gold');
+    return g ? g.amount : null;
+  }
+  return null;
+}
+
+function exchangeSendCommand(entry) {
+  if (entry.flavor === 'buy') {
+    const out = entry.outputs.find(x => x.kind === 'item');
+    return out ? `buy ${out.id}` : `exchange ${entry.id}`;
+  }
+  if (entry.flavor === 'sell') {
+    const inp = entry.inputs.find(x => x.kind === 'item');
+    return inp ? `sell ${inp.id}` : `exchange ${entry.id}`;
+  }
+  return `exchange ${entry.id}`;
+}
+
+function exchangeRowLabel(entry) {
+  if (entry.flavor === 'buy') {
+    const item = exchangePrimaryItem(entry);
+    const gold = exchangeGoldAmount(entry);
+    return `${item?.name ?? '?'} — ${gold ?? '?'}g`;
+  }
+  if (entry.flavor === 'sell') {
+    const item = exchangePrimaryItem(entry);
+    const gold = exchangeGoldAmount(entry);
+    const namePart = item && item.count > 1 ? `${item.count} ${item.name}` : (item?.name ?? '?');
+    return `${namePart} — ${gold ?? '?'}g`;
+  }
+  return `${formatExchangeSide(entry.inputs)} → ${formatExchangeSide(entry.outputs)}`;
+}
+
+function exchangeConfirmLabel(entry, msg) {
+  const gold = exchangeGoldAmount(entry);
+  if (entry.flavor === 'buy') {
+    return (msg.exchangeConfirmLabels?.buy ?? 'Buy ({price}g)').replace('{price}', gold ?? '?');
+  }
+  if (entry.flavor === 'sell') {
+    return (msg.exchangeConfirmLabels?.sell ?? 'Sell ({price}g)').replace('{price}', gold ?? '?');
+  }
+  return msg.exchangeConfirmLabels?.craft ?? 'Make';
+}
+
+function renderExchangeDrillDown(msg) {
+  inspectBody.innerHTML = '';
+
+  const header = document.createElement('div');
+  header.className = 'inspect-name';
+  header.textContent = msg.name;
+  inspectBody.appendChild(header);
+
+  const backRow = document.createElement('div');
+  backRow.className = 'inspect-row';
+  const backChip = makeChip(msg.exchangeBackLabel ?? '← Back', 'chip-flavor-back', () => renderTargetInfo(msg));
+  backRow.appendChild(backChip);
+  inspectBody.appendChild(backRow);
+
+  const labels = msg.exchangeRowLabels ?? { buy: 'For sale', sell: 'Wants to buy', craft: 'Can make' };
+  const flavorOrder = ['buy', 'craft', 'sell'];
+  const youHaveTpl = msg.exchangeYouHaveLabel ?? 'you have {count}';
+  const confirmLabels = msg.exchangeConfirmLabels ?? {};
+
+  let openRow = null;
+
+  for (const flavor of flavorOrder) {
+    const rows = msg.exchanges.filter(e => e.flavor === flavor);
+    if (rows.length === 0) continue;
+
+    const section = document.createElement('div');
+    section.className = `exchange-section exchange-section-${flavor}`;
+    const sec = document.createElement('div');
+    sec.className = 'exchange-section-title';
+    sec.textContent = labels[flavor] ?? flavor;
+    section.appendChild(sec);
+
+    for (const entry of rows) {
+      const rowEl = document.createElement('div');
+      rowEl.className = `exchange-row exchange-row-${flavor}`;
+
+      const head = document.createElement('button');
+      head.type = 'button';
+      head.className = 'exchange-row-head';
+      const lbl = document.createElement('span');
+      lbl.className = 'exchange-row-label';
+      lbl.textContent = exchangeRowLabel(entry);
+      head.appendChild(lbl);
+
+      const item = exchangePrimaryItem(entry);
+      if (item && typeof item.youHave === 'number' && item.youHave > 0) {
+        const youHave = document.createElement('span');
+        youHave.className = 'exchange-row-you-have';
+        youHave.textContent = youHaveTpl.replace('{count}', item.youHave);
+        head.appendChild(youHave);
+      }
+
+      const body = document.createElement('div');
+      body.className = 'exchange-row-body';
+      body.hidden = true;
+
+      const preview = item?.preview;
+      if (preview?.description) {
+        const desc = document.createElement('div');
+        desc.className = 'exchange-row-desc';
+        desc.textContent = preview.description;
+        body.appendChild(desc);
+      }
+      if (preview && Array.isArray(preview.details) && preview.details.length > 0) {
+        for (const line of preview.details) {
+          const det = document.createElement('div');
+          det.className = 'exchange-row-detail';
+          det.textContent = line;
+          body.appendChild(det);
+        }
+      }
+
+      const actions = document.createElement('div');
+      actions.className = 'exchange-row-actions';
+      const confirmCls = `chip-flavor-${flavor}`;
+      const confirmChip = makeChip(exchangeConfirmLabel(entry, { exchangeConfirmLabels: confirmLabels }), confirmCls, () => {
+        sendInput(exchangeSendCommand(entry));
+      });
+      actions.appendChild(confirmChip);
+      body.appendChild(actions);
+
+      head.addEventListener('click', () => {
+        if (openRow && openRow !== rowEl) {
+          openRow.classList.remove('open');
+          openRow.querySelector('.exchange-row-body').hidden = true;
+        }
+        const wasOpen = !body.hidden;
+        body.hidden = wasOpen;
+        rowEl.classList.toggle('open', !wasOpen);
+        openRow = wasOpen ? null : rowEl;
+      });
+
+      rowEl.appendChild(head);
+      rowEl.appendChild(body);
+      section.appendChild(rowEl);
+    }
+
+    inspectBody.appendChild(section);
+  }
+}
+
 function renderTargetInfo(msg) {
   inspectPanel.hidden = false;
   backBtn.hidden = !lastRoomMsg;
   inspectBody.innerHTML = '';
   currentInspectTarget = msg.name ? msg.name.toLowerCase() : null;
+  lastTargetInfoMsg = msg;
 
   const name = document.createElement('div'); name.className = 'inspect-name'; name.textContent = msg.name;
   inspectBody.appendChild(name);
@@ -870,61 +1036,13 @@ function renderTargetInfo(msg) {
     block.appendChild(grid);
     inspectBody.appendChild(block);
   }
-  function formatExchangeSide(side) {
-    return side.map(e => {
-      if (e.kind === 'gold') return `${e.amount}g`;
-      return e.count > 1 ? `${e.count} ${e.name}` : e.name;
-    }).join(' + ');
-  }
-
-  function formatExchangeChipLabel(entry) {
-    if (entry.flavor === 'buy') {
-      const out = entry.outputs.find(x => x.kind === 'item');
-      const gold = entry.inputs.find(x => x.kind === 'gold');
-      return `${out.name} — ${gold.amount}g`;
-    }
-    if (entry.flavor === 'sell') {
-      const inp = entry.inputs.find(x => x.kind === 'item');
-      const gold = entry.outputs.find(x => x.kind === 'gold');
-      const inpStr = inp.count > 1 ? `${inp.count} ${inp.name}` : inp.name;
-      return `${inpStr} — ${gold.amount}g`;
-    }
-    return `${formatExchangeSide(entry.inputs)} → ${formatExchangeSide(entry.outputs)}`;
-  }
-
-  function chipSendForExchange(entry) {
-    if (entry.flavor === 'buy') {
-      const out = entry.outputs.find(x => x.kind === 'item');
-      return `buy ${out.id}`;
-    }
-    if (entry.flavor === 'sell') {
-      const inp = entry.inputs.find(x => x.kind === 'item');
-      return `sell ${inp.id}`;
-    }
-    return `exchange ${entry.id}`;
-  }
-
   if (Array.isArray(msg.exchanges) && msg.exchanges.length > 0) {
-    const labels = msg.exchangeRowLabels ?? { buy: 'For sale', sell: 'Wants to buy', craft: 'Can make' };
-    const flavorOrder = ['buy', 'sell', 'craft'];
-    for (const flavor of flavorOrder) {
-      const rows = msg.exchanges.filter(e => e.flavor === flavor);
-      if (rows.length === 0) continue;
-      const row = document.createElement('div');
-      row.className = 'inspect-row';
-      const lab = document.createElement('span');
-      lab.className = 'inspect-row-label';
-      lab.textContent = `${labels[flavor]}: `;
-      row.appendChild(lab);
-      rows.forEach((entry, i) => {
-        if (i > 0) row.appendChild(document.createTextNode(', '));
-        const label = formatExchangeChipLabel(entry);
-        const send = chipSendForExchange(entry);
-        const chip = makeChip(label, `chip-flavor-${flavor}`, () => sendInput(send));
-        row.appendChild(chip);
-      });
-      inspectBody.appendChild(row);
-    }
+    const row = document.createElement('div');
+    row.className = 'inspect-row';
+    const entryLabel = msg.exchangeEntryLabel ?? (msg.exchangeHost === 'fixture' ? 'Craft' : 'Trade');
+    const chip = makeChip(`${entryLabel} ▶`, 'chip-flavor-trade', () => renderExchangeDrillDown(msg));
+    row.appendChild(chip);
+    inspectBody.appendChild(row);
   }
   if (Array.isArray(msg.effects) && msg.effects.length > 0) {
     const row = document.createElement('div'); row.className = 'inspect-row';

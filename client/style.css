@@ -505,6 +505,59 @@ html, body {
 .chip.chip-flavor-sell:hover { background: #98d6e6; }
 .chip.chip-flavor-craft { background: #2a2a4a; color: #c8c0f0; }
 .chip.chip-flavor-craft:hover { background: #3a3a5a; }
+.chip.chip-flavor-trade { color: #1c1c1f; background: #d8c08c; border-color: #9a7a3e; }
+.chip.chip-flavor-trade:hover { background: #ecd6a3; }
+.chip.chip-flavor-back { background: #2a2a30; color: var(--dim); border-color: var(--border-2); }
+.chip.chip-flavor-back:hover { background: #3a3a44; color: var(--fg); }
+
+.exchange-section { margin-top: 10px; }
+.exchange-section-title {
+  font-size: 12px;
+  letter-spacing: 0.05em;
+  text-transform: uppercase;
+  color: var(--dim);
+  margin: 8px 0 4px 0;
+}
+.exchange-row {
+  border: 1px solid var(--border);
+  border-radius: 4px;
+  background: #1f1f25;
+  margin-bottom: 4px;
+  overflow: hidden;
+}
+.exchange-row.open { border-color: var(--border-2); }
+.exchange-row-head {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  width: 100%;
+  background: transparent;
+  border: none;
+  color: var(--fg);
+  font: inherit;
+  font-size: 13px;
+  text-align: left;
+  padding: 6px 8px;
+  cursor: pointer;
+}
+.exchange-row-head:hover { background: #2a2a30; }
+.exchange-row.open .exchange-row-head { background: #2a2a30; }
+.exchange-row-label { font-weight: 500; }
+.exchange-row-you-have { color: var(--dim); font-size: 12px; margin-left: 8px; }
+.exchange-row-body {
+  padding: 6px 10px 8px 10px;
+  border-top: 1px solid var(--border);
+  background: #181820;
+  font-size: 12px;
+}
+.exchange-row-desc {
+  color: var(--fg);
+  line-height: 1.45;
+  margin-bottom: 4px;
+  white-space: pre-wrap;
+}
+.exchange-row-detail { color: var(--dim); margin-bottom: 2px; }
+.exchange-row-actions { margin-top: 6px; }
 .chip .mp-cost { color: #cdb4ff; font-size: 0.85em; margin-left: 4px; }
 .chip.effect { cursor: default; }
 .chip.effect.buff    { color: #1c1c1f; background: #a8d8c0; border-color: #6fae90; }
