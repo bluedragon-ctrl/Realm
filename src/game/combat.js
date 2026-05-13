@@ -20,7 +20,8 @@ import { getTick } from './clock.js';
 import { setPosition } from './positionGate.js';
 export { aggroTargetInRoom, hasInRoomTarget } from './aggro.js';
 
-const MAX_DODGE = 50;
+const MIN_DODGE = 5;
+const MAX_DODGE = 95;
 const MAX_CRIT = 50;
 const CRIT_MULTIPLIER = 2;
 
@@ -39,8 +40,8 @@ export function executeAttack(actor, action, target) {
 
   const acc = actor.stats?.accuracy ?? 0;
   const eva = target.stats?.evasion ?? 0;
-  const dodge = Math.max(0, Math.min(MAX_DODGE, eva - acc));
-  if (dodge > 0 && Math.floor(Math.random() * 100) + 1 <= dodge) {
+  const dodge = Math.max(MIN_DODGE, Math.min(MAX_DODGE, eva - acc));
+  if (Math.floor(Math.random() * 100) + 1 <= dodge) {
     broadcastToRoom(actor.location, (recipient) => {
       const lang = recipient.lang;
       if (recipient === actor) {
