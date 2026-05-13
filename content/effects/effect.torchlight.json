@@ -1,0 +1,12 @@
+{
+  "id": "effect.torchlight",
+  "name": {
+    "en": "Torchlight",
+    "cs": "Světlo pochodně"
+  },
+  "kind": "buff",
+  "icon": "🔥",
+  "duration": 600,
+  "lightSource": { "level": "light" },
+  "stack": "refresh"
+}
