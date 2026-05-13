@@ -338,6 +338,7 @@
   "stats.help.eva": "evasion; dodge chance = max(0, EVA − attacker ACC)%, capped 50; equally suppresses incoming crit chance.",
   "stats.help.spd": "speed; ticks per action = action cost / SPD (default cost 12).",
   "stats.unit.hp": "HP",
+  "stats.unit.mp": "MP",
   "stats.unit.dmg": "dmg",
 
   "spells.empty": "you don't know any spells yet.",
@@ -352,7 +353,8 @@
   "spells.range": "{min}–{max} {unit}",
   "spells.range_one": "{value} {unit}",
   "spells.detail.damage": "formula: {formula}   range: {range}",
-  "spells.detail.heal": "formula: {formula}   range: {range}",
+  "spells.detail.heal": "restores {range}",
+  "spells.detail.heal_both": "restores {hp} and {mp}",
   "spells.detail.drain": "formula: {formula}   range: {range}   returns {ratio}% as HP",
   "spells.detail.apply": "effect: {icon} {name} — {pulses}× {amount} {unit} every {every} ticks",
   "spells.detail.apply_stats": "effect: {icon} {name} — {mods} ({duration} ticks)",

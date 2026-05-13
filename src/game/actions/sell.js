@@ -33,13 +33,12 @@ export default function sell(actor, args) {
   const { c, def, inp } = match;
   const perUnit = inp.count ?? 1;
   const have = actor.inventory.filter(i => i.defId === inp.item).length;
-  const units = Math.floor(have / perUnit);
-  if (units === 0) {
+  if (have < perUnit) {
     actor.session.send({
       kind: 'error',
       text: s('shop.need_units', actor.lang, { item: t(def.name, actor.lang), required: perUnit, have }),
     });
     return;
   }
-  runExchange(actor, c.host, c.entry, { units });
+  runExchange(actor, c.host, c.entry, { units: 1 });
 }

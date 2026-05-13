@@ -347,7 +347,9 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Phase |
 |---|
 | Day/night cycle (world clock, dusk/dawn; plugs in as another floor contribution gated by `room.outdoor === true`; same `clampUp` site in `effectiveLight`) |
-| Summoning, player pets |
+| NPC summoning (boss/caster behaviors summon temporary allies; despawn on death or timer) |
+| Player summoning (summon spells / scrolls call temporary NPC helpers that aggro with the caster) |
+| Pets (persistent companion NPCs: tame, name, level alongside the player, follow between rooms, recall command) |
 | Server events |
 
 ### Deferred

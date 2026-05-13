@@ -153,6 +153,27 @@ export function removeDebuffs(actor) {
   return removed;
 }
 
+// Strips every active effect except wearable-applied ones (those are tied to equipped gear
+// and would re-attach on syncWearableEffects anyway). Used by death so survivors don't carry
+// poison/buff timers across a respawn.
+export function clearAllActiveEffects(actor) {
+  const list = ensureList(actor);
+  const before = list.length;
+  let hadStatMod = false;
+  actor.activeEffects = list.filter(e => {
+    if (e.source?.startsWith(WEARABLE_SOURCE_PREFIX)) return true;
+    const def = world.effectDefs.get(e.defId);
+    if (def?.statMod) hadStatMod = true;
+    return false;
+  });
+  const removed = before - actor.activeEffects.length;
+  if (removed > 0) {
+    markDirty(actor);
+    if (hadStatMod) recomputeStats(actor);
+  }
+  return removed;
+}
+
 export function syncWearableEffects(actor) {
   const list = ensureList(actor);
   actor.activeEffects = list.filter(e => !e.source.startsWith(WEARABLE_SOURCE_PREFIX));
@@ -212,7 +233,7 @@ function sendExpiredFeedback(actor, def) {
 function fireTick(actor, inst, def) {
   const spec = def.tick?.effect;
   if (!spec) return;
-  if (spec.type === 'damage' && spec.stat !== 'mp' && damageHandler && inst.casterName) {
+  if (spec.type === 'damage' && spec.stat !== 'mp' && damageHandler && typeof inst.casterName === 'string') {
     const caster = world.actorsByName.get(inst.casterName.toLowerCase());
     if (caster && caster.location === actor.location && caster.stats?.hp > 0 && caster !== actor) {
       damageHandler(caster, actor, spec.amount ?? 1);

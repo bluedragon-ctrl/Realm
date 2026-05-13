@@ -2,7 +2,7 @@ import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, g
 import { applyEffect, setDamageRouteHandler } from './effects.js';
 import { isDarkObserver } from './light.js';
 import { targetingAccMod, canPerceive, isInvisible as isInvisibleActor } from './perception.js';
-import { applyActiveEffect, removeEffectsByDefId } from './activeEffects.js';
+import { applyActiveEffect, removeEffectsByDefId, clearAllActiveEffects } from './activeEffects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
@@ -148,7 +148,7 @@ export function executeAttack(actor, action, target) {
       if (target.stats.hp <= 0) break;
       if (Math.random() >= (hit.chance ?? 1.0)) continue;
       if (hit.applyEffect) {
-        applyActiveEffect(target, hit.applyEffect, EFFECT_SOURCE.COMBAT, actor.name);
+        applyActiveEffect(target, hit.applyEffect, EFFECT_SOURCE.COMBAT, typeof actor.name === 'string' ? actor.name : null);
         applied = true;
       } else if (hit.effect) {
         const result = applyEffect(hit.effect, { actor, target });
@@ -477,6 +477,7 @@ function handlePlayerDeath(killer, victim) {
   // Move home, restore HP — world state updated immediately so others see the change
   victim.dying = true;
   placeActor(victim, RESPAWN_ROOM);
+  clearAllActiveEffects(victim);
   victim.stats.hp = Math.ceil(victim.stats.hpMax / 2);
   victim.dirty = true;
 

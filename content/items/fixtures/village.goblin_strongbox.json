@@ -1,0 +1,51 @@
+{
+  "id": "village.goblin_strongbox",
+  "name": {
+    "en": "a battered iron-bound crate",
+    "cs": "otlučená železem pobitá bedna"
+  },
+  "nameAcc": {
+    "en": "the battered iron-bound crate",
+    "cs": "otlučenou železem pobitou bednu"
+  },
+  "short": {
+    "en": "A heavy wooden crate, iron-bound and badly battered, sits between the shelters.",
+    "cs": "Mezi přístřešky stojí těžká dřevěná bedna, pobitá železem a notně otlučená."
+  },
+  "long": {
+    "en": "A stout wooden crate the goblins must have dragged here. The lid has been pried at, splintered, and pried again — the hasp hangs loose and the lock is broken. Faint sooty letters are still stamped on one side, the kind a village tradesman uses to mark his shipments. Whatever is inside, the goblins have not got it open yet.",
+    "cs": "Pevná dřevěná bedna, kterou sem skřeti zjevně dotáhli. Víko bylo páčeno, rozštípnuto a páčeno znovu — petlice visí na vlásku a zámek je vylomený. Na boku jsou ještě patrná sazí umazaná písmena, jakými si vesnický řemeslník značí svoje zásilky. Ať je uvnitř cokoli, skřeti to ještě nedostali ven."
+  },
+  "tags": ["fixture", "container"],
+  "weight": 99,
+  "pickable": false,
+  "grantsXp": 3,
+  "spawn": {
+    "location": "village.goblin_camp",
+    "count": 1,
+    "respawnTicks": 3600
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you finish what the goblins started — a sharp wrench and the broken lid pops open. Inside, wrapped in oily rags, are chunks of iron ore.",
+        "others": "{actor} wrenches the broken lid of the crate open and pulls out chunks of iron ore wrapped in oily rags."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "dokončíš to, co skřeti nezvládli — ostré škubnutí a rozbité víko povolí. Uvnitř, zabalené v mastných hadrech, leží kusy železné rudy.",
+        "others": "{actor} škubne rozbitým víkem bedny, otevře ji a vytáhne kusy železné rudy zabalené v mastných hadrech."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "open_chest",
+      "loot": [
+        { "defId": "item.iron_ore", "count": 2, "chance": 1.0 },
+        { "defId": "item.iron_ore", "chance": 0.5 }
+      ],
+      "gold": "1d4"
+    }
+  }
+}

@@ -2,19 +2,19 @@
   "id": "item.candle",
   "name": {
     "en": "a tallow candle",
-    "cs": "lojová svíčka"
+    "cs": "svíčka"
   },
   "nameAcc": {
     "en": "the tallow candle",
-    "cs": "lojovou svíčku"
+    "cs": "svíčku"
   },
   "short": {
     "en": "A stubby tallow candle in a small tin dish.",
-    "cs": "Krátká lojová svíčka v malé cínové misce."
+    "cs": "Krátká svíčka v malé cínové misce."
   },
   "long": {
     "en": "A short candle of yellow tallow, set in a battered tin dish. The wick is already blackened from an earlier flame, and the smell is faintly greasy. It would burn for a few minutes if you lit it.",
-    "cs": "Krátká svíčka ze žlutého loje, postavená do otlučené cínové misky. Knot je už začernalý z dřívějšího plamene a slabě po ní táhne mastný pach. Kdybys ji zapálil, vydržela by hořet pár minut."
+    "cs": "Krátká svíčka ze žlutého vosku, postavená do otlučené cínové misky. Knot je už začernalý z dřívějšího plamene. Kdybys ji zapálil, vydržela by hořet pár minut."
   },
   "tags": ["light", "consumable"],
   "weight": 0,
@@ -29,7 +29,7 @@
     "cs": {
       "no_target": {
         "self": "škrtneš o knot a svíčka se rozhoří, kolem se rozleje malá teplá záře.",
-        "others": "{actor} zapálí malou lojovou svíčku, plamen se rozkmitá."
+        "others": "{actor} zapálí malou svíčku, plamen se rozkmitá."
       }
     },
     "consumable": true,

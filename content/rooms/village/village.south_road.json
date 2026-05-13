@@ -1,0 +1,21 @@
+{
+  "id": "village.south_road",
+  "name": {
+    "en": "South road",
+    "cs": "Jižní cesta"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A cart track leaving the village south, between hedges and open fields.",
+    "cs": "Polní cesta vedoucí z vesnice na jih, mezi živými ploty a otevřenými poli."
+  },
+  "long": {
+    "en": "The last cottages of the village fall away behind you. The road narrows to a cart track between low hawthorn hedges, the ruts soft with dust. Sparrows scatter from the hedge as you pass. North the chimneys of the outskirts are still in sight; south the land opens out toward a wider meadow.",
+    "cs": "Poslední chalupy vesnice mizí za tebou. Cesta se zužuje v polní pěšinu mezi nízkými hlohovými ploty, koleje měkké od prachu. Z keře vylétne hejno vrabců. Na sever jsou ještě vidět komíny okraje vesnice; na jih se krajina otevírá do širší louky."
+  },
+  "exits": {
+    "n": "village.outskirts",
+    "s": "village.river_meadow"
+  },
+  "tags": ["outdoor", "village"]
+}

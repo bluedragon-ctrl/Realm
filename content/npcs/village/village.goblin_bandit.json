@@ -1,0 +1,79 @@
+{
+  "id": "village.goblin_bandit",
+  "name": { "en": "a goblin bandit", "cs": "skřetí lupič" },
+  "nameAcc": { "en": "the goblin bandit", "cs": "skřetího lupiče" },
+  "nameDat": { "en": "the goblin bandit", "cs": "skřetímu lupiči" },
+  "nameGen": { "en": "the goblin bandit", "cs": "skřetího lupiče" },
+  "title": { "en": "goblin bandit", "cs": "skřetí lupič" },
+  "vision": "low_light",
+  "location": "village.goblin_camp",
+  "count": 3,
+  "short": {
+    "en": "A wiry goblin in patched leathers, eyes darting under a greasy hood.",
+    "cs": "Šlachovitý skřet v záplatovaných kožích, oči mu těkají pod umaštěnou kápí."
+  },
+  "long": {
+    "en": "A small green-skinned goblin no taller than a child, dressed in scraps of leather and rough cloth. A bone-handled knife hangs at its belt and its hands are quick and dirty. It keeps glancing toward the trail as if expecting trouble.",
+    "cs": "Malý zelenokožý skřet ne větší než dítě, oblečený do kusů kůže a hrubé látky. U opasku se mu houpe nůž s kostěnou rukojetí a ruce má rychlé a špinavé. Stále se ohlíží na pěšinu, jako by čekal potíže."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 8, "hpMax": 8,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 0, "int": 0,
+    "accuracy": 5,
+    "evasion": 15,
+    "spd": 4
+  },
+  "respawn": { "ticks": 600 },
+  "xp": 7,
+  "goldDrop": { "formula": "1d3", "chance": 0.7 },
+  "loot": [
+    { "defId": "item.wooden_club", "chance": 0.05 },
+    { "defId": "item.hand_axe", "chance": 0.05 },
+    { "defId": "item.torch", "chance": 0.05 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "knife slash", "cs": "říz nožem" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts in low and slashes at {target}!",
+          "{actor} swings a chipped knife at {target}!",
+          "{actor} feints once and stabs at {target}!"
+        ],
+        "cs": [
+          "{actor} se vrhne nízko a říze {target}!",
+          "{actor} máchne otlučeným nožem po {target.dat}!",
+          "{actor} jednou kličkuje a bodne {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "snickers under its breath.",
+          "scratches at a scab on its arm.",
+          "spits into the dirt and grins.",
+          "mutters something rude in its own tongue."
+        ],
+        "cs": [
+          "tiše se uchechtne pod fousy.",
+          "škrábe si strup na ruce.",
+          "plivne do prachu a zazubí se.",
+          "zamumlá si něco hrubého ve své řeči."
+        ]
+      }
+    }
+  ]
+}

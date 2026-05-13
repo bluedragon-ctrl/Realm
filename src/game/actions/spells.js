@@ -25,7 +25,8 @@ function statModSummary(statMod) {
 }
 
 function rangeText(min, max, lang, kind) {
-  const unit = s(kind === 'damage' ? 'stats.unit.dmg' : 'stats.unit.hp', lang);
+  const unitKey = kind === 'damage' ? 'stats.unit.dmg' : kind === 'mp' ? 'stats.unit.mp' : 'stats.unit.hp';
+  const unit = s(unitKey, lang);
   if (min === max) return s('spells.range_one', lang, { value: min, unit });
   return s('spells.range', lang, { min, max, unit });
 }
@@ -42,12 +43,18 @@ export function effectDetail(spell, actor) {
     });
   }
   if (eff.type === 'heal' || eff.type === 'heal_room_friendlies') {
-    const formula = eff.amount ?? eff.hp ?? eff.mp ?? '0';
-    const { min, max } = formulaRange(formula, { actor });
-    return s('spells.detail.heal', lang, {
-      formula: String(formula),
-      range: rangeText(min, max, lang, 'heal'),
-    });
+    const hpFormula = eff.hp ?? eff.amount ?? 0;
+    const mpFormula = eff.mp ?? 0;
+    const formulaRangeText = (formula, kind) => {
+      const { min, max } = formulaRange(String(formula), { actor });
+      return rangeText(min, max, lang, kind);
+    };
+    const hpRange = hpFormula ? formulaRangeText(hpFormula, 'heal') : null;
+    const mpRange = mpFormula ? formulaRangeText(mpFormula, 'mp') : null;
+    if (hpRange && mpRange) return s('spells.detail.heal_both', lang, { hp: hpRange, mp: mpRange });
+    if (hpRange) return s('spells.detail.heal', lang, { range: hpRange });
+    if (mpRange) return s('spells.detail.heal', lang, { range: mpRange });
+    return null;
   }
   if (eff.type === 'drain') {
     const formula = eff.formula ?? eff.amount ?? '0';
