@@ -318,6 +318,9 @@
   "effect.tick.heal_both": "{name} ti obnovuje {hp} HP a {mp} MP.",
   "effect.tick.damage": "{name} tě pálí za {amount} poškození.",
   "effect.expired": "{name} odeznívá.",
+  "effect.invisibility.broken": "Útok ti roztrhne závoj neviditelnosti.",
+  "combat.barrier_absorbed": "Třpytivá bariéra pohltí úder ({amount}).",
+  "combat.you_hit_barrier": "tvůj úder zasáhne {target}, ale bariéra ho pohltí ({amount}).",
 
   "stats.header": "── postava — Lv {level}, {xp}/{xpNext} XP ──",
   "stats.bars": "{hpLabel} {hp}/{hpMax}    {mpLabel} {mp}/{mpMax}",

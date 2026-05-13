@@ -101,6 +101,16 @@ function applyDamageToList(actor, spell, targets) {
   }
 }
 
+// Apply a single active-effect buff to a list of targets (AoE friendly buff).
+function applyBuffToList(actor, spell, targets) {
+  const effectId = spell.effect.effectId;
+  if (!effectId) return;
+  for (const tgt of targets) {
+    applyActiveEffect(tgt, effectId, EFFECT_SOURCE.SPELL, actor.name);
+    if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
+  }
+}
+
 // Apply heal to a list of targets. Returns whether any non-self ally received HP.
 function applyHealToList(actor, spell, targets) {
   let healedAlly = false;
@@ -134,7 +144,7 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   }
 
   const effectType = spell.effect?.type;
-  const isAoe = effectType === 'damage_room_enemies' || effectType === 'heal_room_friendlies';
+  const isAoe = effectType === 'damage_room_enemies' || effectType === 'heal_room_friendlies' || effectType === 'buff_room_friendlies';
   const isToTarget = !isAoe && target && target !== actor;
   const formKey = isToTarget ? 'to_target' : 'no_target';
   const lang = silent ? 'en' : actor.lang;
@@ -173,6 +183,9 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   } else if (effectType === 'heal_room_friendlies') {
     healedAlly = applyHealToList(actor, spell, roomFriendliesOf(actor));
     if (!silent) sendStats(actor);
+  } else if (effectType === 'buff_room_friendlies') {
+    applyBuffToList(actor, spell, roomFriendliesOf(actor));
+    if (!silent) sendStats(actor);
   } else if (spell.harmful && target && target !== actor && resists(target)) {
     broadcastResist(actor, target);
     registerAttackAggro(actor, target);
@@ -200,6 +213,9 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   } else if (effectType === 'apply_effect') {
     const recipient = target ?? actor;
     applyActiveEffect(recipient, spell.effect.effectId, EFFECT_SOURCE.SPELL, actor.name);
+    // Harmful debuffs need to register aggro just like damaging spells, otherwise
+    // landing a curse leaves the caster un-targeted by their victim.
+    if (spell.harmful && recipient !== actor) registerAttackAggro(actor, recipient);
     if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
     if (actor !== recipient && actor.kind === 'player') sendStats(actor);
   } else if (spell.effect) {

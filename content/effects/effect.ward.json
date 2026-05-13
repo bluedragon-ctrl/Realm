@@ -1,0 +1,13 @@
+{
+  "id": "effect.ward",
+  "name": {
+    "en": "Warded",
+    "cs": "Chráněn"
+  },
+  "kind": "buff",
+  "icon": "✨",
+  "duration": 30,
+  "statMod": { "magicResist": 35, "defense": 1 },
+  "exclusiveGroup": "defensive_aura",
+  "stack": "refresh"
+}

@@ -31,8 +31,11 @@ function markDirty(actor) {
 let roomRefreshHandler = null;
 export function setRoomRefreshHandler(fn) { roomRefreshHandler = fn; }
 
+// Effects that require other observers to re-render the room: light/dark sources change
+// the room's visible items and actors, and invisibility changes whether the wearer
+// appears in the actor list at all.
 function changesRoomLight(def) {
-  return !!(def?.lightSource || def?.darknessSource);
+  return !!(def?.lightSource || def?.darknessSource || def?.invisible);
 }
 
 function refreshRoomLight(target) {

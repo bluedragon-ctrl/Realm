@@ -318,6 +318,9 @@
   "effect.tick.heal_both": "{name} restores {hp} HP and {mp} MP.",
   "effect.tick.damage": "{name} burns you for {amount} damage.",
   "effect.expired": "{name} fades.",
+  "effect.invisibility.broken": "Your veil of invisibility shatters as you strike.",
+  "combat.barrier_absorbed": "A shimmering barrier drinks the blow ({amount}).",
+  "combat.you_hit_barrier": "your blow strikes {target} but a barrier swallows it ({amount}).",
 
   "stats.header": "── character — Lv {level}, {xp}/{xpNext} XP ──",
   "stats.bars": "{hpLabel} {hp}/{hpMax}    {mpLabel} {mp}/{mpMax}",

@@ -1,0 +1,29 @@
+{
+  "id": "spell.barrier",
+  "name": {
+    "en": "Barrier",
+    "cs": "Bariéra"
+  },
+  "mpCost": 8,
+  "actionCost": 12,
+  "target": "self",
+  "description": {
+    "en": "Conjure a shimmering shell that drinks incoming damage until its strength runs out. Time and blows both wear it down.",
+    "cs": "Vyvoláš třpytivý plášť, který pohlcuje útoky, dokud mu nedojde síla. Spotřebovává ho čas i rány."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you press your palms together and a translucent shell crystallises around you, humming with stored force.",
+        "others": "{actor} presses their palms together and a translucent shell crystallises around them, humming with stored force."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "spojíš dlaně a kolem tebe se vykrystalizuje průsvitný plášť, který hučí nashromážděnou silou.",
+        "others": "{actor} spojí dlaně a kolem něj se vykrystalizuje průsvitný plášť, který hučí nashromážděnou silou."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.barrier" }
+}

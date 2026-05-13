@@ -3,6 +3,7 @@ import { t } from '../i18n.js';
 import { sourceForActor } from './sources.js';
 import { resolveName } from './declension.js';
 import { setPosition } from './positionGate.js';
+import { canPerceive } from './perception.js';
 
 /**
  * Run a verb-shaped def (social or item.use) as a per-recipient broadcast.
@@ -32,6 +33,7 @@ export function runVerb({ actor, def, targetActor, targetName, params = {} }) {
     const form = langDef?.[formKey];
     if (!form) return null;
     const isAuthor = recipient === actor;
+    if (!isAuthor && recipient !== targetActor && !canPerceive(recipient, actor)) return null;
     const template = isAuthor ? form.self : form.others;
     if (!template) return null;
 

@@ -1,0 +1,40 @@
+{
+  "id": "item.barrier_scroll",
+  "name": {
+    "en": "a crystalline scroll",
+    "cs": "krystalický svitek"
+  },
+  "nameAcc": {
+    "en": "the crystalline scroll",
+    "cs": "krystalický svitek"
+  },
+  "short": {
+    "en": "A scroll wrapped around a sliver of clear crystal lies here.",
+    "cs": "Leží tu svitek omotaný kolem střípku čirého křišťálu."
+  },
+  "long": {
+    "en": "Parchment bound around a finger-long shard of crystal. The crystal hums faintly when you tilt it toward the light.",
+    "cs": "Pergamen omotaný kolem střípku křišťálu na prst dlouhého. Když ho nakloníš ke světlu, krystal tiše zazpívá."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you read the chant and the crystal at the scroll's heart shatters into silver dust that settles into your memory.",
+        "others": "{actor} reads from a scroll. A crystal at its heart shatters into silver dust around them."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přečteš zaříkávání a krystal v jádru svitku se rozpadne na stříbrný prach, který se ti usadí v paměti.",
+        "others": "{actor} přečte svitek. Krystal v jeho jádru se rozpadne na stříbrný prach."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.barrier"
+    }
+  }
+}

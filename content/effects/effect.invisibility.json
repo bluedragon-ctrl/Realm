@@ -1,0 +1,13 @@
+{
+  "id": "effect.invisibility",
+  "name": {
+    "en": "Invisibility",
+    "cs": "Neviditelnost"
+  },
+  "kind": "buff",
+  "icon": "👻",
+  "duration": 30,
+  "invisible": true,
+  "exclusiveGroup": "concealment",
+  "stack": "refresh"
+}

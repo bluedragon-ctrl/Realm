@@ -1,0 +1,12 @@
+{
+  "id": "effect.barrier",
+  "name": {
+    "en": "Barrier",
+    "cs": "Bariéra"
+  },
+  "kind": "buff",
+  "icon": "🔷",
+  "duration": 60,
+  "barrier": true,
+  "stack": "refresh"
+}

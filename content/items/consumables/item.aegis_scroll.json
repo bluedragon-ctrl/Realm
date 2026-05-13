@@ -1,0 +1,40 @@
+{
+  "id": "item.aegis_scroll",
+  "name": {
+    "en": "a banner-stamped scroll",
+    "cs": "svitek s pečetí praporu"
+  },
+  "nameAcc": {
+    "en": "the banner-stamped scroll",
+    "cs": "svitek s pečetí praporu"
+  },
+  "short": {
+    "en": "A scroll sealed with the imprint of a small banner lies here.",
+    "cs": "Leží tu svitek zapečetěný otiskem malého praporu."
+  },
+  "long": {
+    "en": "Heavy parchment, the wax seal pressed with the device of a raised standard. Whatever's inside was meant to be shared with a company.",
+    "cs": "Těžký pergamen, voskovou pečeť zdobí znak zdviženého praporu. Cokoliv je uvnitř, bylo zjevně určeno pro celou družinu."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you break the banner seal and read the marching cantrip aloud. The lesson spreads through you like a roll-call answered.",
+        "others": "{actor} breaks a wax seal and reads from a scroll. The air around them feels briefly steadier."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozlomíš praporovou pečeť a nahlas přečteš pochodový popěvek. Učení se ti rozlije jako odpověď na povel.",
+        "others": "{actor} rozlomí voskovou pečeť a čte ze svitku. Vzduch kolem něj na okamžik zpevní."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.aegis"
+    }
+  }
+}

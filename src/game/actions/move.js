@@ -6,7 +6,8 @@ import { clearAggroOnLeave, applyAggressionOnEnter } from '../combat.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { awardXp, markRoomVisited } from '../xp.js';
 import { requireStanding } from '../positionGate.js';
-import { canPerceiveRoom, isDarkObserver } from '../light.js';
+import { canPerceiveRoom } from '../light.js';
+import { canPerceive } from '../perception.js';
 
 const DIR_ALIASES = {
   n: 'n', north: 'n',
@@ -73,7 +74,7 @@ export default function move(actor, args) {
   }
 
   broadcastToRoom(sourceId, (recipient) => {
-    if (isDarkObserver(recipient)) return null;
+    if (!canPerceive(recipient, actor)) return null;
     return {
       kind: 'emote',
       source: 'ambient',
@@ -91,7 +92,7 @@ export default function move(actor, args) {
   applyAggressionOnEnter(actor, targetId);
 
   broadcastToRoom(targetId, (recipient) => {
-    if (isDarkObserver(recipient)) return null;
+    if (!canPerceive(recipient, actor)) return null;
     return {
       kind: 'emote',
       source: 'ambient',

@@ -1,0 +1,13 @@
+{
+  "id": "effect.sundered",
+  "name": {
+    "en": "Sundered",
+    "cs": "Prolomen"
+  },
+  "kind": "debuff",
+  "icon": "💔",
+  "duration": 20,
+  "statMod": { "defense": -6 },
+  "exclusiveGroup": "armor_state",
+  "stack": "refresh"
+}

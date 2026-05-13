@@ -6,6 +6,7 @@ import { resolveName } from '../declension.js';
 import { sendStats } from '../messages.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { resolveActorTarget } from '../targeting.js';
+import { isInvisible } from '../perception.js';
 import { requireStanding } from '../positionGate.js';
 
 export function buildPlayerAttack(actor) {
@@ -38,6 +39,7 @@ function resolveTarget(actor, query) {
   if (target === actor) return null;
   if (target.kind === 'player') return null;
   if (target.kind === 'npc' && target.alive === false) return null;
+  if (isInvisible(target)) return null;
   return target;
 }
 
