@@ -9,8 +9,8 @@
   "target": "hostile_room",
   "harmful": true,
   "description": {
-    "en": "Sweep your hands wide and send a fan of orange flame across the whole room.",
-    "cs": "Rozevřeš ruce a po celé místnosti se rozlétne vějíř oranžových plamenů."
+    "en": "Sweep a fan of orange flame across the room, hurting every hostile in sight and leaving them briefly burning. Costly to cast.",
+    "cs": "Po místnosti se rozlétne vějíř plamenů — zasáhne každého nepřítele v dohledu a krátce ho zapálí. Stojí dost many."
   },
   "verb": {
     "en": {

@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Whispers an old curse that weakens the target's strikes for a while.",
-    "cs": "Zašeptá starou kletbu, která na chvíli oslabí údery cíle."
+    "en": "Whisper an old curse on a foe, sapping the strength from their strikes and the steadiness from their aim for a while.",
+    "cs": "Zašeptáš na nepřítele starou kletbu, která mu na chvíli oslabí údery i jistotu zásahu."
   },
   "verb": {
     "en": {

@@ -8,8 +8,8 @@
   "actionCost": 14,
   "target": "friendly_room",
   "description": {
-    "en": "Spread a steady guard across every ally in the room. Lighter than a focused ward, but covers the whole party.",
-    "cs": "Rozprostře pevnou ochranu na všechny spojence v místnosti. Slabší než cílená ochrana, ale chrání celou družinu."
+    "en": "Spread a steady guard across every ally in the room — thinner per head than a single-target shield, but it covers everyone at once.",
+    "cs": "Rozprostře stálou ochranu na všechny spojence v místnosti — slabší než cílený štít, ale chrání všechny naráz."
   },
   "verb": {
     "en": {

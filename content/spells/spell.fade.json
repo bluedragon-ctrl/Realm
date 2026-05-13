@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "self",
   "description": {
-    "en": "Slip out of every nearby foe's notice for a moment. They will turn on whoever else is fighting them.",
-    "cs": "Na okamžik se ztratíš z dohledu všech nepřátel kolem. Obrátí se proti tomu, kdo s nimi ještě bojuje."
+    "en": "Slip out of every nearby foe's notice for a moment — they drop their grudge against you and turn on whoever else is still fighting them.",
+    "cs": "Na okamžik se ztratíš z dohledu všech nepřátel kolem — přestanou na tebe být zaměření a obrátí se proti tomu, kdo s nimi ještě bojuje."
   },
   "verb": {
     "en": {

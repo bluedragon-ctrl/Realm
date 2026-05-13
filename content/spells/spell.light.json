@@ -9,8 +9,8 @@
   "target": "self",
   "category": "utility",
   "description": {
-    "en": "Conjure a soft magical glow that follows you for a while.",
-    "cs": "Vyvolá jemnou magickou záři, která tě chvíli následuje."
+    "en": "Conjure a steady magical glow that follows you for a long while, lighting any room around you as if by a clean lamp.",
+    "cs": "Vyvolá kolem tebe stabilní magickou záři, která tě na dlouhou dobu provází a osvětluje místnost jako čistá lampa."
   },
   "verb": {
     "en": {

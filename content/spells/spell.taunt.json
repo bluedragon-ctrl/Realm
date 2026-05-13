@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "hostile",
   "description": {
-    "en": "Force a foe to focus its full rage on you instead of your friends.",
-    "cs": "Donutí nepřítele soustředit veškerou zuřivost na tebe místo na tvé přátele."
+    "en": "Goad a foe into focusing its full rage on you instead of your allies — useful for keeping squishier friends out of its reach.",
+    "cs": "Vyprovokuješ nepřítele, aby veškerou zuřivost soustředil na tebe místo na spojence — užitečné, když je chceš ochránit před jeho údery."
   },
   "verb": {
     "en": {

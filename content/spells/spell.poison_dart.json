@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Send a dart of poison into the target, causing damage over time.",
-    "cs": "Vystřelí jedový šíp do cíle, který ho pak postupně poškozuje."
+    "en": "Sting a foe with a needle of green poison that gnaws at them for several ticks.",
+    "cs": "Bodne nepřítele zelenou jedovou jehlou, která ho několik tiků pomalu otravuje."
   },
   "verb": {
     "en": {

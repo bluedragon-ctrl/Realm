@@ -9,8 +9,8 @@
   "target": "self",
   "category": "utility",
   "description": {
-    "en": "Wrap yourself in deep magical darkness for a while.",
-    "cs": "Zahalí tě na chvíli do hluboké magické tmy."
+    "en": "Cloak yourself in deep magical darkness for a long while — light won't pierce it without nightvision.",
+    "cs": "Zahalíš se na dlouhou dobu do hluboké magické tmy — bez nočního vidění do ní světlo nepronikne."
   },
   "verb": {
     "en": {
