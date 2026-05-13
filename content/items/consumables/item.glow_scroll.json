@@ -1,0 +1,40 @@
+{
+  "id": "item.glow_scroll",
+  "name": {
+    "en": "a faintly shimmering scroll",
+    "cs": "slabě se třpytící svitek"
+  },
+  "nameAcc": {
+    "en": "the faintly shimmering scroll",
+    "cs": "slabě se třpytící svitek"
+  },
+  "short": {
+    "en": "A small scroll of cream parchment, dotted with flecks of mica that catch the light.",
+    "cs": "Malý svitek krémového pergamenu, posetý zrnky slídy, která zachytávají světlo."
+  },
+  "long": {
+    "en": "A short scroll of cream parchment, tied with a yellow thread. Flecks of mica are pressed into the paper and shimmer when the scroll turns. The writing on it is small and neat.",
+    "cs": "Krátký svitek krémového pergamenu, převázaný žlutou nitkou. Do papíru jsou zatlačena zrnka slídy, která se při otáčení svitku třpytí. Písmo na něm je drobné a úhledné."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the shimmering scroll and read its short verse. The mica flecks lift from the parchment in a brief sparkle and settle on your skin.",
+        "others": "{actor} unrolls a small shimmering scroll and reads it under their breath. A puff of bright flecks lifts from the parchment."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš třpytivý svitek a přečteš jeho krátký verš. Zrnka slídy se v krátkém záblesku zvednou z pergamenu a usednou ti na kůži.",
+        "others": "{actor} rozvine malý třpytivý svitek a tiše ho přečte. Z pergamenu se zvedne obláček jasných zrnek."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.glow"
+    }
+  }
+}

@@ -100,6 +100,31 @@ export function removeEffectsBySource(actor, source) {
   if (actor.activeEffects.length !== before) markDirty(actor);
 }
 
+// Strips all active-effect instances matching `defId`. Used by the `cure` effect type
+// for surgical removal (e.g. cure_blindness strips only effect.blinded). Mirrors the
+// side-effect handling in applyActiveEffect: marks dirty, recomputes statMod, and
+// refreshes room light if a light-touching effect was removed.
+export function removeEffectsByDefId(actor, defId) {
+  const list = ensureList(actor);
+  const before = list.length;
+  let hadStatMod = false;
+  let touchedLight = false;
+  actor.activeEffects = list.filter(e => {
+    if (e.defId !== defId) return true;
+    const def = world.effectDefs.get(e.defId);
+    if (def?.statMod) hadStatMod = true;
+    if (def && changesRoomLight(def)) touchedLight = true;
+    return false;
+  });
+  const removed = before - actor.activeEffects.length;
+  if (removed > 0) {
+    markDirty(actor);
+    if (hadStatMod) recomputeStats(actor);
+    if (touchedLight) refreshRoomLight(actor);
+  }
+  return removed;
+}
+
 // Strips all `kind: "debuff"` active effects from the actor, skipping wearable-applied
 // effects (those are tied to equipped gear — re-applied on next equip sync). Used by the
 // `cleanse` effect type in effects.js, wired via setCleanseHandler in tick.js.

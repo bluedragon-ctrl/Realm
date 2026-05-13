@@ -138,5 +138,6 @@ export function makeNpcActor(def, homeLocation = null) {
     exchanges: def.exchanges ?? null,
     following: null,
     position: def.position ?? 'stand',
+    vision: def.vision ?? null,
   };
 }

@@ -16,6 +16,7 @@ import { EFFECT_SOURCE } from '../contentMeta.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { DEFAULT_COSTS } from '../stats.js';
 import { requireStanding } from '../positionGate.js';
+import { canPerceive } from '../perception.js';
 
 const MAX_RESIST = 95;
 
@@ -145,6 +146,13 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   if (effectType === 'damage_room_enemies' && roomEnemiesOf(actor).length === 0) {
     if (!silent) actor.session?.send({ kind: 'system', text: s('cast.no_hostiles', actor.lang) });
     return { ok: false, reason: 'no_hostiles' };
+  }
+
+  // Perception gate (NPC backstop; player path already gated in validateSpellTarget).
+  // Self and AoE bypass. AoE = no `target` here, so isToTarget covers the gated cases.
+  if (isToTarget && !canPerceive(actor, target)) {
+    if (!silent) actor.session?.send({ kind: 'error', text: s('cast.cant_see_target', actor.lang) });
+    return { ok: false, reason: 'cant_see_target' };
   }
 
   actor.stats.mp = Math.max(0, actor.stats.mp - mpCost);
@@ -304,6 +312,10 @@ function validateSpellTarget(actor, spell, target) {
       actor.session.send({ kind: 'error', text: s('cast.bad_target', actor.lang) });
       return false;
     }
+    if (!canPerceive(actor, target)) {
+      actor.session.send({ kind: 'error', text: s('cast.cant_see_target', actor.lang) });
+      return false;
+    }
     return true;
   }
 
@@ -312,8 +324,16 @@ function validateSpellTarget(actor, spell, target) {
       actor.session.send({ kind: 'error', text: s('cast.bad_target', actor.lang) });
       return false;
     }
+    if (!isSelf && !canPerceive(actor, target)) {
+      actor.session.send({ kind: 'error', text: s('cast.cant_see_target', actor.lang) });
+      return false;
+    }
     return true;
   }
 
+  if (!isSelf && !canPerceive(actor, target)) {
+    actor.session.send({ kind: 'error', text: s('cast.cant_see_target', actor.lang) });
+    return false;
+  }
   return true;
 }

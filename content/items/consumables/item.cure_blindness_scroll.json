@@ -1,0 +1,40 @@
+{
+  "id": "item.cure_blindness_scroll",
+  "name": {
+    "en": "a silver-clear scroll",
+    "cs": "stříbřitě průzračný svitek"
+  },
+  "nameAcc": {
+    "en": "the silver-clear scroll",
+    "cs": "stříbřitě průzračný svitek"
+  },
+  "short": {
+    "en": "A rolled scroll of pale parchment, an open eye drawn at its centre in silver ink.",
+    "cs": "Svitek bledého pergamenu, uprostřed nakreslené otevřené oko stříbrným inkoustem."
+  },
+  "long": {
+    "en": "A scroll of fine, almost translucent parchment, tied with a white ribbon. An open eye is drawn at its centre in bright silver ink, ringed with tiny rays. It feels warm to the touch.",
+    "cs": "Svitek jemného, téměř průsvitného pergamenu, převázaný bílou stuhou. Uprostřed je jasným stříbrným inkoustem nakresleno otevřené oko obklopené drobnými paprsky. Na dotek je teplý."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the silver-clear scroll and read its words. The drawn eye opens wider and dissolves into the parchment.",
+        "others": "{actor} unrolls a pale scroll and reads it aloud. A silver eye on the parchment opens and fades."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš stříbřitý svitek a přečteš jeho slova. Nakreslené oko se rozšíří a vsákne se do pergamenu.",
+        "others": "{actor} rozvine bledý svitek a přečte ho nahlas. Stříbrné oko na pergamenu se otevře a zmizí."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.cure_blindness"
+    }
+  }
+}

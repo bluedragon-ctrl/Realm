@@ -105,6 +105,8 @@ export function effectiveLight(room) {
 export function perceivedLight(actor, room) {
   let level = effectiveLight(room);
   if (!actor) return level;
+  if (actor.vision === 'blind') return 'dark';
+  if (actor.vision === 'nightvision') level = clampUp(level, 'dim');
   if (Array.isArray(actor.activeEffects)) {
     for (const eff of actor.activeEffects) {
       const def = world.effectDefs.get(eff.defId);
