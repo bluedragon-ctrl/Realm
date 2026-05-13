@@ -19,13 +19,15 @@ Read these before deciding *what* to build, not just *how*.
 
 **Coherence within an area.** An area is a region (`home`, `forest`, `mine`). Its rooms, NPCs, and items should share theme, tone, loot tier, and roughly the same difficulty band. A glassy crystal-cave creature doesn't belong in `forest`. An iron sword fits forest; a kobold axe fits mine. When in doubt, read 2–3 existing rooms in the area to anchor tone.
 
-**Difficulty: flat within, stepped between.** Mobs inside one area should sit in roughly the same HP/ATK band so the player can read the area's threat level. The gradient runs *between* areas (`home` starter → `forest` mid → `mine` late). Bosses (1–2 per area, marked by significantly higher HP/ATK) live **deeper** in the area, never at its entry. Current shape:
+**Difficulty: flat within, stepped between.** Mobs inside one area should sit in roughly the same HP/ATK band so the player can read the area's threat level. The gradient runs *between* areas (`home` starter → `village` early → `forest` mid → `mine` late → `castle` endgame). Bosses (1–2 per area, marked by significantly higher HP/ATK) live **deeper** in the area, never at its entry. Snapshot (read the actual NPC files when tuning — this drifts):
 
 | Area    | Tier      | Typical HP | Typical ATK | Boss(es)                                                  |
 |---------|-----------|------------|-------------|-----------------------------------------------------------|
 | home    | starter   | 3–7        | 1           | none                                                      |
+| village | early     | 5–20       | 0–3         | toad_king-tier specials                                   |
 | forest  | mid       | 3–15       | 1–3         | bear (HP 30, ATK 5)                                       |
 | mine    | late      | 10–24      | 2–4         | kobold_chief (HP 40, ATK 5); giant_centipede (HP 24, ATK 4) |
+| castle  | endgame   | 22–60      | 4–7         | fallen_lord-tier (HP 120, ATK 10)                         |
 
 **Exits and foreshadowing in room text.** A room's `long` description should weave its exits into the prose ("a path winds north between the pines") rather than rely on a bare cardinal list. When an exit leads somewhere notably more dangerous — including across area borders — drop a hint: a distant howl, the smell of smoke, claw marks on a tree. Foreshadowing rewards careful play; bare exits make danger feel arbitrary.
 
@@ -79,7 +81,7 @@ IDs always match the filename without `.json`. Lowercase, snake_case, ASCII only
 
 For NPCs the prefix is the **region the NPC lives in** (e.g. `home.rat`, not `basement.rat`). For items, the **only** zone-tied items are fixtures (room props that physically belong to a specific room). Everything else — keys, weapons, herbs, scrolls, even region-flavoured loot like a kobold axe — uses a category prefix (`item.` or `potion.`), because a "forest" sword can show up in the mine and a "mine" key can open a village door.
 
-**Current regions:** `home`, `forest`, `mine`. Add a new region only per the threshold above.
+**Current regions:** `home`, `village`, `forest`, `mine`, `castle`. Add a new region only per the threshold above.
 
 ### Folder layout
 
@@ -324,6 +326,74 @@ Trading, vendor buyback, and crafting all share one schema: an `exchanges: [...]
 - Fixture transforms inputs → outputs → one `craft` entry per recipe (must include `verb`).
 - Don't invent new flavors; if you need something exotic, raise it before coding.
 
+## Lighting
+
+Every room has an *effective light level* in `{ light, dim, light }`. Authored content controls it from three angles: room baseline, item floors (raise), and effect ceilings (clamp down). Actor-side `perception` (blindness / nightvision) then maps room light to *perceived* light.
+
+### Room baseline
+
+```json
+"lightBase": "dark",       // "light" (default), "dim", or "dark"
+"outdoor": true             // optional flag; outdoor rooms are always "light" baseline in practice
+```
+
+Set `lightBase: "dim"` for caves, dusk-lit halls, mines with old shafts. Set `lightBase: "dark"` for deep underground or sealed crypts where the player needs a light source to see. Outdoor rooms generally omit `lightBase` (defaults to `"light"`) and add `"outdoor": true`. **Don't** put `dark` in the `tags` array as a mechanical flag — that's cosmetic only; the field is `lightBase`.
+
+### Items that emit light (floors)
+
+Add a `lightSource` block on an item def to make it raise the room level when present in the room or in any actor's inventory/equipment:
+
+```json
+"lightSource": { "level": "light" }              // always-on
+"lightSource": { "level": "light", "toggle": true }   // togglable fixture
+```
+
+Toggleable fixtures pair `lightSource.toggle: true` with `"lit": false` (initial state) and an `useExtinguish` verb-shape that mirrors `use`. The runtime fires `use` when unlit and `useExtinguish` when already lit; both should run an `{ "effect": { "type": "toggle_light" } }`. See [content/items/fixtures/mine.lantern_hook.json](../../../content/items/fixtures/mine.lantern_hook.json) for the canonical pattern.
+
+A worn or carried item with `lightSource` is the player's portable light. Tag it `"light"` so chips show it as lighting gear.
+
+### Effects: floors and ceilings
+
+Active effects can contribute light from either side:
+
+```json
+"lightSource":    { "level": "dim" }    // floor — raises ambient (e.g. effect.candlelight, effect.magic_light)
+"darknessSource": { "level": "dark" }   // ceiling — clamps room down (effect.magic_darkness, effect.magic_shadow)
+"perception":     "blind"               // actor-side: clamp what the actor perceives to "dark"
+"perception":     "nightvision"         // actor-side: raise perceived floor to "dim"
+```
+
+`exclusiveGroup` keeps competing effects from stacking. Conventions in use today:
+- `vision_alter` — `effect.blinded`, `effect.nightvision` (mutually exclusive perception changes).
+- `ambient_light` — magical light/darkness effects in the same group.
+
+### NPC vision (data-only in v1)
+
+NPCs declare how they see in the dark:
+
+```json
+"vision": "normal"        // default; sees only in lit rooms
+"vision": "low_light"     // can act in dim rooms
+"vision": "nightvision"   // unaffected by darkness
+"vision": "blind"         // never relies on sight (e.g. shambling_zombie)
+```
+
+Validated at boot but not yet read by combat in v1 — set it now so v2 NPC-sight rules drop in without re-tagging mobs.
+
+### Spells
+
+Light/vision spells route through `effect.type: "apply_effect"`:
+
+```json
+"effect": { "type": "apply_effect", "effectId": "effect.magic_light" }
+```
+
+Current catalog: `spell.light`, `spell.darkness`, `spell.shadow`, `spell.blindness`, `spell.nightvision`, `spell.keen_senses`. Pattern for any new buff/debuff spell: write the effect file (`content/effects/`) with the desired `kind`/`duration`/sources, then a spell that applies it.
+
+### Authoring dark/dim rooms
+
+Description prose still loads in dark rooms but is presented dimmed and may strip names. Write room `long` so it conveys **what the player feels / hears / smells**, not just what they see. Sound, temperature, air movement, the echo of footsteps — these survive the light filter. A dark room described purely visually reads as an empty void.
+
 ## Item tags reference
 
 Common tags — use existing ones rather than inventing new ones:
@@ -365,5 +435,8 @@ Slots: `weapon`, `body`, `head`, `amulet`. Bonus stats: `attack`, `defense`, `hp
 - [ ] Register stays kid-friendly (no `blood`/`vile`/`reeks`/`human bones`); see register table in Step 5
 - [ ] No accidental contradictions (no `"from the roof"` indoors, no `"fallen blossoms"` next to fruit-bearing trees)
 - [ ] If you renamed an item display name, grepped the old name across `content/` for inline references in NPC verb templates
+- [ ] If the room is `lightBase: "dim"` or `"dark"`, the `long` description leans on non-visual senses (sound, smell, air, echo) so it still reads when names are filtered out
+- [ ] Toggleable light fixtures have `lightSource.toggle: true`, `"lit": false`, both `use` and `useExtinguish` blocks, and `effect: { "type": "toggle_light" }`
+- [ ] New NPC has a `vision` field (`"normal"` default, or `"low_light"` / `"nightvision"` / `"blind"`)
 
 See `references/schemas.md` for complete JSON schemas.
