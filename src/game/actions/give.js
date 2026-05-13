@@ -164,6 +164,21 @@ export default function give(actor, args) {
     return;
   }
 
+  if (target.kind === 'npc') {
+    broadcastToRoom(actor.location, (recipient) => {
+      const item = resolveName(inst.def, 'acc', recipient.lang);
+      if (recipient === actor) {
+        return { kind: 'system', text: s('give.npc_not_interested.self', recipient.lang, { item, target: target.name }) };
+      }
+      return {
+        kind: 'emote',
+        source: sourceForActor(actor, recipient),
+        text: s('give.npc_not_interested.others', recipient.lang, { actor: actor.name, item, target: target.name }),
+      };
+    });
+    return;
+  }
+
   transferItem(actor.inventory, target.inventory, inst);
   actor.dirty = true;
   if (target.kind === 'player') target.dirty = true;

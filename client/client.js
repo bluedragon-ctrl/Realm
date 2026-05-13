@@ -1048,7 +1048,7 @@ function popoverSection(text) {
 
 function openTrainPopover(anchorEl, msg) {
   const order = ['attack', 'defense', 'int', 'magicResist', 'accuracy', 'evasion', 'hpMax', 'mpMax'];
-  const ratios = { attack: 1, defense: 1, int: 1, magicResist: 1, accuracy: 1, evasion: 1, hpMax: 5, mpMax: 2 };
+  const ratios = { attack: 1, defense: 1, int: 1, magicResist: 2, accuracy: 1, evasion: 2, hpMax: 5, mpMax: 2 };
   const shortNames = {
     attack: 'atk', defense: 'def', int: 'int', magicResist: 'mr',
     accuracy: 'acc', evasion: 'eva', hpMax: 'hp', mpMax: 'mp',
@@ -1587,6 +1587,9 @@ function openSocialPicker(anchorEl, ev) {
   popover.appendChild(popoverButton('Say…', '', () => { fillInput('say '); closePopover(); }));
   popover.appendChild(popoverButton('Emote…', '', () => { fillInput('emote '); closePopover(); }));
   popover.appendChild(popoverButton('Who', '', () => { sendInput('who'); closePopover(); }));
+  popover.appendChild(popoverButton(labels.positionStand ?? 'Stand', '', () => { sendInput('stand'); closePopover(); }));
+  popover.appendChild(popoverButton(labels.positionSit ?? 'Sit', '', () => { sendInput('sit'); closePopover(); }));
+  popover.appendChild(popoverButton(labels.positionSleep ?? 'Sleep', '', () => { sendInput('sleep'); closePopover(); }));
   const ordered = [...socialList].sort((a, b) => {
     const aTargetOnly = a.hasToTarget && !a.hasNoTarget;
     const bTargetOnly = b.hasToTarget && !b.hasNoTarget;
