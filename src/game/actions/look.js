@@ -1,7 +1,6 @@
 import { getRoom, actorsInRoom, findInRoom, itemsInRoom, isExitLocked, getGoldInRoom, world } from '../world.js';
 import { findItemInList } from '../items.js';
 import { serializeActiveEffectsForClient } from '../activeEffects.js';
-import { canAfford } from '../exchange.js';
 import { getHate } from '../aggro.js';
 import { findKnownSpell } from './cast.js';
 import { effectDetail } from './spells.js';
@@ -37,12 +36,8 @@ function applyEffectShortText(applyId, lang) {
 }
 
 function serializeExchanges(host, lang, actor) {
-  let list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
+  const list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
   if (!Array.isArray(list) || list.length === 0) return null;
-  if (actor) {
-    list = list.filter(e => e.flavor !== 'craft' || canAfford(actor, e, 1).ok);
-    if (list.length === 0) return null;
-  }
   const formatSide = (side) => side.map(e => {
     if (e.gold != null) return { kind: 'gold', amount: e.gold };
     const def = world.itemDefs.get(e.item);
