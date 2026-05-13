@@ -296,6 +296,7 @@ export function serializeActiveEffectsForSave(actor) {
       casterName: e.casterName,
       nextTickIn: e.nextTickIn,
       pulsesLeft: e.pulsesLeft,
+      ticksLeft: e.ticksLeft,
     }));
 }
 
@@ -305,14 +306,17 @@ export function normalizeSavedActiveEffects(saved) {
   for (const e of saved) {
     if (!e || typeof e !== 'object') continue;
     if (typeof e.defId !== 'string') continue;
-    if (!world.effectDefs.has(e.defId)) continue;
+    const def = world.effectDefs.get(e.defId);
+    if (!def) continue;
     if (typeof e.source !== 'string' || e.source.startsWith(WEARABLE_SOURCE_PREFIX)) continue;
+    const fallbackTicks = typeof def.duration === 'number' ? def.duration : null;
     out.push({
       defId: e.defId,
       source: e.source,
       casterName: typeof e.casterName === 'string' ? e.casterName : null,
       nextTickIn: typeof e.nextTickIn === 'number' ? e.nextTickIn : 0,
       pulsesLeft: typeof e.pulsesLeft === 'number' ? e.pulsesLeft : null,
+      ticksLeft: typeof e.ticksLeft === 'number' ? e.ticksLeft : fallbackTicks,
     });
   }
   return out;

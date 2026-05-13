@@ -14,6 +14,7 @@ export function buildKnownSpells(actor) {
       mpCost: def.mpCost ?? 0,
       target: def.target ?? 'any',
       targetLabel: s(`spells.target.${def.target ?? 'any'}`, actor.lang),
+      category: def.category ?? null,
       description: def.description ? t(def.description, actor.lang) : '',
     });
   }

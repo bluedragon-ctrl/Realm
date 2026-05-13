@@ -7,6 +7,7 @@
   "mpCost": 3,
   "actionCost": 12,
   "target": "self",
+  "category": "utility",
   "description": {
     "en": "Sharpen your senses for a short time, boosting perception.",
     "cs": "Na krátký čas zostří tvé smysly a zvýší vnímání."

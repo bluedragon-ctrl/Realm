@@ -7,6 +7,7 @@
   "mpCost": 3,
   "actionCost": 12,
   "target": "self",
+  "category": "utility",
   "description": {
     "en": "Dim the light around you to a soft grey for a while.",
     "cs": "Na chvíli ztlumí světlo kolem tebe do jemné šedi."
