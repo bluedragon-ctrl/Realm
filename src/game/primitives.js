@@ -8,13 +8,13 @@ import { describeRoomToAll } from './actions/look.js';
 import { fillPlaceholders } from './verbs.js';
 import { resolveName } from './declension.js';
 import { castSpell } from './actions/cast.js';
-import { isDarkObserver } from './light.js';
+import { canPerceive } from './perception.js';
 
 const PRIMITIVES = {
   say(actor, behavior) {
     const idx = pickListIndex(behavior.lines);
     broadcastToRoom(actor.location, (recipient) => {
-      if (isDarkObserver(recipient)) return null;
+      if (!canPerceive(recipient, actor)) return null;
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const text = tListAt(behavior.lines, lang, idx);
@@ -24,7 +24,7 @@ const PRIMITIVES = {
   emote(actor, behavior) {
     const idx = pickListIndex(behavior.lines);
     broadcastToRoom(actor.location, (recipient) => {
-      if (isDarkObserver(recipient)) return null;
+      if (!canPerceive(recipient, actor)) return null;
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const text = tListAt(behavior.lines, lang, idx);
@@ -37,7 +37,7 @@ const PRIMITIVES = {
     const targetPlayer = players[Math.floor(Math.random() * players.length)];
     const idx = pickListIndex(behavior.templates);
     broadcastToRoom(actor.location, (recipient) => {
-      if (isDarkObserver(recipient)) return null;
+      if (!canPerceive(recipient, actor)) return null;
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const tmpl = tListAt(behavior.templates, lang, idx);
@@ -58,7 +58,7 @@ const PRIMITIVES = {
     targetPlayer.dirty = true;
 
     broadcastToRoom(actor.location, (recipient) => {
-      if (recipient !== targetPlayer && isDarkObserver(recipient)) return null;
+      if (recipient !== targetPlayer && !canPerceive(recipient, actor)) return null;
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const tmpl = tListAt(behavior.templates, lang, idx);
@@ -126,7 +126,7 @@ function movePrimitive(actor, behavior, { mandatoryEmote, clearAttacked }) {
   if (mandatoryEmote || behavior.templates) {
     const idx = pickListIndex(behavior.templates);
     broadcastToRoom(sourceRoom, (recipient) => {
-      if (isDarkObserver(recipient)) return null;
+      if (!canPerceive(recipient, actor)) return null;
       const lang = recipient.lang;
       const from = t(actor.name, lang);
       const dir = dirName(exitKey, lang) || exitKey;

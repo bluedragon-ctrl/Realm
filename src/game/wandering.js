@@ -9,7 +9,7 @@ import { describeRoomToAll } from './actions/look.js';
 import { sourceForActor } from './sources.js';
 import { resolveName } from './declension.js';
 import { s, dirName } from '../i18n.js';
-import { isDarkObserver } from './light.js';
+import { canPerceive } from './perception.js';
 
 const WANDER_TICK_MS = 5000;
 
@@ -72,7 +72,7 @@ function tryWander(npc, behavior) {
   const fromKey = OPPOSITE_DIR[exitKey] ?? exitKey;
 
   broadcastToRoom(sourceRoom, (recipient) => {
-    if (isDarkObserver(recipient)) return null;
+    if (!canPerceive(recipient, npc)) return null;
     const lang = recipient.lang;
     return {
       kind: 'emote',
@@ -88,7 +88,7 @@ function tryWander(npc, behavior) {
   clearAggroOnLeave(npc, sourceRoom);
 
   broadcastToRoom(choice.destId, (recipient) => {
-    if (isDarkObserver(recipient)) return null;
+    if (!canPerceive(recipient, npc)) return null;
     const lang = recipient.lang;
     return {
       kind: 'emote',

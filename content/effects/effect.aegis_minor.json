@@ -1,13 +1,13 @@
 {
-  "id": "effect.shield",
+  "id": "effect.aegis_minor",
   "name": {
-    "en": "Shield",
-    "cs": "Štít"
+    "en": "Aegis",
+    "cs": "Aegida"
   },
   "kind": "buff",
   "icon": "🛡️",
-  "duration": 30,
-  "statMod": { "defense": 5 },
+  "duration": 20,
+  "statMod": { "defense": 3 },
   "exclusiveGroup": "defensive_aura",
   "stack": "refresh"
 }

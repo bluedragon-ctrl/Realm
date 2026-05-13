@@ -1,17 +1,30 @@
 import { perceivedLight } from './light.js';
-import { getRoom } from './world.js';
+import { getRoom, world } from './world.js';
+
+export function isInvisible(actor) {
+  const list = actor?.activeEffects;
+  if (!Array.isArray(list)) return false;
+  for (const eff of list) {
+    const def = world.effectDefs.get(eff.defId);
+    if (def?.invisible) return true;
+  }
+  return false;
+}
 
 // Light-vision gate for aggro acquisition and target selection. Observer perceives the
 // room through `perceivedLight`, which already folds in active effects (blindness /
 // nightvision) and the NPC's static `vision` field. Sleeping observers see nothing.
+// Per-target: an invisible target is unseen even in lit rooms. Self is always perceived.
 // Player-side hidden content does NOT go through this hook — see `search` +
 // `room.hiddenExits` / `hiddenFixtures`.
-export function canPerceive(observer, _target) {
+export function canPerceive(observer, target) {
   if (!observer) return false;
+  if (target && observer === target) return true;
   if (observer.position === 'sleep') return false;
   const room = getRoom(observer.location);
-  if (!room) return true;
-  return perceivedLight(observer, room) !== 'dark';
+  if (room && perceivedLight(observer, room) === 'dark') return false;
+  if (target && isInvisible(target)) return false;
+  return true;
 }
 
 // Per-tick spotting probability for passive aggression. light = 1 (every tick),

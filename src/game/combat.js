@@ -1,13 +1,13 @@
 import { broadcastToRoom, world, placeActor, queueNpcRespawn, placeItemInRoom, getRoom, addGoldToRoom, RESPAWN_ROOM, allActors, actorsInRoom } from './world.js';
 import { applyEffect, setDamageRouteHandler } from './effects.js';
 import { isDarkObserver } from './light.js';
-import { targetingAccMod } from './perception.js';
+import { targetingAccMod, canPerceive, isInvisible as isInvisibleActor } from './perception.js';
+import { applyActiveEffect, removeEffectsByDefId } from './activeEffects.js';
 import { awardXp } from './xp.js';
 import { makeItemInstance } from './items.js';
 import { roll } from './dice.js';
 import { sourceForActor } from './sources.js';
 import { sendStats } from './messages.js';
-import { applyActiveEffect } from './activeEffects.js';
 import { describeRoom, describeRoomToAll, pushTargetInfo } from './actions/look.js';
 import { s, t, tListAt, pickListIndex } from '../i18n.js';
 import { resolveName } from './declension.js';
@@ -28,6 +28,32 @@ const CRIT_MULTIPLIER = 2;
 
 function targetDisplay(target, lang) {
   return resolveName(target, 'acc', lang);
+}
+
+// Barrier effect uses `ticksLeft` as a unified clock + damage budget. Each absorbed point
+// of damage costs one tick. When the budget runs out, the barrier expires immediately
+// (eagerly, not on the next tick — otherwise a stale 0-budget barrier would briefly
+// linger and read as "still active" before the tick loop sweeps it).
+function absorbDamageWithBarrier(target, amount) {
+  if (amount <= 0) return 0;
+  const list = target.activeEffects;
+  if (!Array.isArray(list) || list.length === 0) return 0;
+  for (const inst of list) {
+    const def = world.effectDefs.get(inst.defId);
+    if (!def?.barrier) continue;
+    const budget = Math.max(0, inst.ticksLeft ?? 0);
+    if (budget <= 0) continue;
+    const take = Math.min(amount, budget);
+    inst.ticksLeft = budget - take;
+    if (inst.ticksLeft <= 0) {
+      removeEffectsByDefId(target, inst.defId);
+    } else if (target.kind === 'player') {
+      target.dirty = true;
+      if (target.session) sendStats(target);
+    }
+    return take;
+  }
+  return 0;
 }
 
 function actorDisplay(actor, lang) {
@@ -54,14 +80,14 @@ export function executeAttack(actor, action, target) {
           text: s('combat.you_missed', lang, { target: targetDisplay(target, lang) }) };
       }
       if (recipient === target) {
-        if (isDarkObserver(target)) {
+        if (!canPerceive(target, actor)) {
           return { kind: 'emote', source: sourceForActor(actor, recipient),
             text: s('combat.missed_by_unseen', lang) };
         }
         return { kind: 'emote', source: sourceForActor(actor, recipient),
           text: s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) }) };
       }
-      if (isDarkObserver(recipient)) return null;
+      if (!canPerceive(recipient, actor)) return null;
       return { kind: 'emote', source: sourceForActor(actor, recipient),
         text: s('combat.miss_observed', lang, {
           actor: actorDisplay(actor, lang),
@@ -84,7 +110,7 @@ export function executeAttack(actor, action, target) {
   if (tmpl) {
     const idx = pickListIndex(tmpl);
     broadcastToRoom(actor.location, (recipient) => {
-      if (recipient !== actor && isDarkObserver(recipient)) return null;
+      if (recipient !== actor && !canPerceive(recipient, actor)) return null;
       const lang = recipient.lang;
       const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
       return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
@@ -98,11 +124,11 @@ export function executeAttack(actor, action, target) {
       if (recipient === actor) {
         text = s('combat.you_crit', lang, { target: targetDisplay(target, lang) });
       } else if (recipient === target) {
-        text = isDarkObserver(target)
+        text = !canPerceive(target, actor)
           ? s('combat.crit_by_unseen', lang)
           : s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
       } else {
-        if (isDarkObserver(recipient)) return null;
+        if (!canPerceive(recipient, actor)) return null;
         text = s('combat.crit_observed', lang, {
           actor: actorDisplay(actor, lang),
           target: targetDisplay(target, lang),
@@ -149,26 +175,61 @@ export function applyDamageWithFeedback(actor, target, amount) {
   if (actor) actor.lastCombatTick = tick;
   if (target) target.lastCombatTick = tick;
 
+  // Damaging another actor reveals you — invisibility breaks on hostile action.
+  if (actor && target && actor !== target && isInvisibleActor(actor)) {
+    const removed = removeEffectsByDefId(actor, 'effect.invisibility');
+    if (removed > 0 && actor.kind === 'player' && actor.session) {
+      actor.session.send({
+        kind: 'system', tone: 'flavor',
+        text: s('effect.invisibility.broken', actor.lang),
+      });
+    }
+  }
+
   if (target.position && target.position !== 'stand') {
     const was = target.position;
     setPosition(target, 'stand', was === 'sleep' ? 'woken' : 'stood');
   }
 
+  // Barrier absorption: incoming damage is paid out of the effect's ticksLeft (which
+  // doubles as a damage budget). Fully absorbed hits leave HP untouched and skip
+  // thorns reflection (the attacker hit the barrier, not the wearer). Aggro still
+  // registers below — the attacker did try to hit them.
+  const absorbed = absorbDamageWithBarrier(target, amount);
+  amount = Math.max(0, amount - absorbed);
+  if (absorbed > 0 && target.session) {
+    target.session.send({
+      kind: 'system', tone: 'good',
+      text: s('combat.barrier_absorbed', target.lang, { amount: absorbed }),
+    });
+  }
+
   const result = applyEffect({ type: 'damage', amount, _raw: true }, { actor, target });
   const dealt = result?.dealt ?? 0;
 
+  const fullyAbsorbed = absorbed > 0 && dealt === 0;
   if (actor.session) {
-    actor.session.send({
-      kind: 'system',
-      tone: 'combat',
-      text: s('combat.you_hit', actor.lang, {
-        target: targetDisplay(target, actor.lang),
-        amount: dealt,
-      }),
-    });
+    if (fullyAbsorbed) {
+      actor.session.send({
+        kind: 'system', tone: 'combat',
+        text: s('combat.you_hit_barrier', actor.lang, {
+          target: targetDisplay(target, actor.lang),
+          amount: absorbed,
+        }),
+      });
+    } else {
+      actor.session.send({
+        kind: 'system',
+        tone: 'combat',
+        text: s('combat.you_hit', actor.lang, {
+          target: targetDisplay(target, actor.lang),
+          amount: dealt,
+        }),
+      });
+    }
   }
-  if (target.session) {
-    if (isDarkObserver(target)) {
+  if (target.session && !fullyAbsorbed) {
+    if (!canPerceive(target, actor)) {
       target.session.send({
         kind: 'system',
         tone: 'bad',
@@ -186,7 +247,9 @@ export function applyDamageWithFeedback(actor, target, amount) {
     }
   }
 
-  registerAttackAggro(actor, target, dealt);
+  // Use full attempted swing for aggro, not just HP-dealt. Otherwise barrier secretly
+  // suppresses hate generation and a barrier-protected ally never holds threat.
+  registerAttackAggro(actor, target, dealt + absorbed);
 
   if (actor.kind === 'player') sendStats(actor);
   if (target.kind === 'player') sendStats(target);
@@ -292,7 +355,7 @@ function handleDeath(killer, target) {
 function handleNpcDeath(killer, npc) {
   const room = npc.location;
   broadcastToRoom(room, (recipient) => {
-    if (isDarkObserver(recipient)) return null;
+    if (!canPerceive(recipient, npc)) return null;
     return {
       kind: 'emote',
       tone: 'death',
@@ -397,7 +460,7 @@ function handlePlayerDeath(killer, victim) {
   const oldRoom = victim.location;
 
   broadcastToRoom(oldRoom, (recipient) => {
-    if (isDarkObserver(recipient)) return null;
+    if (!canPerceive(recipient, victim)) return null;
     return {
       kind: 'emote',
       tone: 'death',
@@ -458,6 +521,7 @@ export function applyAggressionOnEnter(player, roomId) {
     if (npc.kind !== 'npc') continue;
     if (!npc.defAggressive) continue;
     if (npc.alive === false) continue;
+    if (!canPerceive(npc, player)) continue;
     addHate(npc, player, 1);
     npc.disposition = 'hostile';
   }
@@ -483,10 +547,10 @@ onAggroOnset((npc, actor) => {
   if (!npc?.location || actor?.location !== npc.location) return;
   if (actor.kind !== 'player') return;
   broadcastToRoom(npc.location, (recipient) => {
-    if (recipient !== actor && isDarkObserver(recipient)) return null;
+    if (recipient !== actor && !canPerceive(recipient, npc)) return null;
     const lang = recipient.lang;
     if (recipient === actor) {
-      if (isDarkObserver(actor)) {
+      if (!canPerceive(actor, npc)) {
         return { kind: 'emote', tone: 'combat', text: s('aggro.onset_self_dark', lang) };
       }
       const npcName = resolveName(npc, 'nom', lang);

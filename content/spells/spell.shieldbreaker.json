@@ -1,0 +1,30 @@
+{
+  "id": "spell.shieldbreaker",
+  "name": {
+    "en": "Shieldbreaker",
+    "cs": "Štítolam"
+  },
+  "mpCost": 4,
+  "actionCost": 12,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Crack the target's armor and wards apart, leaving them softer to every blow that follows.",
+    "cs": "Rozláme cíli zbroj i ochrany a každý další úder na něj dopadne tvrději."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you snap a sharp word at {target} and a hairline fracture runs through every plate and weave of their armor.",
+        "others": "{actor} snaps a sharp word at {target} and a hairline fracture runs through every plate and weave of their armor."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "vyštěkneš ostré slovo na {target} a každou plátem i tkanivem jejich zbroje proběhne tenká prasklina.",
+        "others": "{actor} vyštěkne ostré slovo na {target} a každou plátem i tkanivem jejich zbroje proběhne tenká prasklina."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.sundered" }
+}

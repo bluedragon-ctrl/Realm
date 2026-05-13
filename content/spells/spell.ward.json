@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "friendly",
   "description": {
-    "en": "Wrap yourself or an ally in an arcane barrier, raising defense for a short time.",
-    "cs": "Obalí tebe nebo spojence magickou bariérou a na chvíli zvýší obranu."
+    "en": "Wrap yourself or an ally in an arcane barrier that turns aside hostile magic.",
+    "cs": "Obalí tebe nebo spojence magickou bariérou, která odvrací nepřátelská kouzla."
   },
   "verb": {
     "en": {
@@ -33,5 +33,5 @@
       }
     }
   },
-  "effect": { "type": "apply_effect", "effectId": "effect.fortify" }
+  "effect": { "type": "apply_effect", "effectId": "effect.ward" }
 }

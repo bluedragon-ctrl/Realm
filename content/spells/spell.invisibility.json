@@ -1,0 +1,30 @@
+{
+  "id": "spell.invisibility",
+  "name": {
+    "en": "Invisibility",
+    "cs": "Neviditelnost"
+  },
+  "mpCost": 15,
+  "actionCost": 12,
+  "target": "self",
+  "category": "utility",
+  "description": {
+    "en": "Bend the light around yourself and vanish from sight for a short time. Attacking dispels the veil.",
+    "cs": "Ohneš kolem sebe světlo a na chvíli zmizíš z dohledu. Útok závoj přeruší."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you breathe a slow word and the air folds around you — you fade from sight.",
+        "others": "{actor} breathes a slow word and the air folds around them, blurring their outline until nothing remains."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vydechneš pomalé slovo a vzduch se kolem tebe stáhne — mizíš z dohledu.",
+        "others": "{actor} vydechne pomalé slovo a vzduch se kolem něj stáhne, obrysy se rozmažou, až po něm nezbude ani stopa."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.invisibility" }
+}

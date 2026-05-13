@@ -7,6 +7,7 @@ import { findKnownSpell } from './cast.js';
 import { effectDetail } from './spells.js';
 import { t, s, dirName } from '../../i18n.js';
 import { canPerceiveRoom } from '../light.js';
+import { canPerceive } from '../perception.js';
 
 function withPositionSuffix(name, position, lang) {
   if (!position || position === 'stand') return name;
@@ -114,6 +115,7 @@ export function describeRoom(actor) {
   const npcs = [];
   for (const a of actorsInRoom(room.id)) {
     if (a === actor) continue;
+    if (!canPerceive(actor, a)) continue;
     if (a.kind === 'player') {
       players.push({ name: a.name, display: withPositionSuffix(a.name, a.position, lang) });
     } else if (a.kind === 'npc') {
@@ -312,6 +314,10 @@ export default function look(actor, args) {
   const room = getRoom(actor.location);
   const perceivedHere = canPerceiveRoom(actor, room);
   const target = findInRoom(actor.location, query);
+  if (target && target !== actor && !canPerceive(actor, target)) {
+    actor.session.send({ kind: 'error', text: s('error.no_such_target', actor.lang, { query }) });
+    return;
+  }
   if (target) {
     sendTargetInfo(actor, target);
     if (perceivedHere !== 'dark') {

@@ -1,0 +1,40 @@
+{
+  "id": "item.invisibility_scroll",
+  "name": {
+    "en": "a translucent scroll",
+    "cs": "průsvitný svitek"
+  },
+  "nameAcc": {
+    "en": "the translucent scroll",
+    "cs": "průsvitný svitek"
+  },
+  "short": {
+    "en": "A scroll so faint you almost miss it lies here.",
+    "cs": "Leží tu svitek tak nezřetelný, že bys ho málem přehlédl."
+  },
+  "long": {
+    "en": "A scroll of parchment thin enough to see through. The script wavers as you focus on it, as if it would rather slip out of sight.",
+    "cs": "Svitek pergamenu tak tenkého, že je skrz něj vidět. Písmo se ti pod pohledem rozechvívá, jako by chtělo zmizet z dohledu."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and trace each fading word. The lesson settles behind your eyes as the parchment crumbles to nothing.",
+        "others": "{actor} unrolls a scroll and reads it under their breath. The parchment thins and is gone."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přejedeš prstem každé blednoucí slovo. Učení se ti usadí za očima a pergamen se rozpadne v nic.",
+        "others": "{actor} rozvine svitek a polohlasem ho přečte. Pergamen se ztenčí a zmizí."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.invisibility"
+    }
+  }
+}

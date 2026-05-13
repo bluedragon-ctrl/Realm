@@ -1,0 +1,29 @@
+{
+  "id": "spell.aegis",
+  "name": {
+    "en": "Aegis",
+    "cs": "Aegida"
+  },
+  "mpCost": 6,
+  "actionCost": 14,
+  "target": "friendly_room",
+  "description": {
+    "en": "Spread a steady guard across every ally in the room. Lighter than a focused ward, but covers the whole party.",
+    "cs": "Rozprostře pevnou ochranu na všechny spojence v místnosti. Slabší než cílená ochrana, ale chrání celou družinu."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you sweep your hand across the room and a steady warding light flows over your companions.",
+        "others": "{actor} sweeps a hand across the room and a steady warding light flows over your companions."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "máchneš rukou přes místnost a tvé společníky obtéká pevné ochranné světlo.",
+        "others": "{actor} máchne rukou přes místnost a vaše společníky obtéká pevné ochranné světlo."
+      }
+    }
+  },
+  "effect": { "type": "buff_room_friendlies", "effectId": "effect.aegis_minor" }
+}

@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "self",
   "description": {
-    "en": "Locks armor and shield into a hardened stance for a long time.",
-    "cs": "Zpevní zbroj a štít do tvrdého postoje na delší dobu."
+    "en": "Brace body and armor into a hardened stance. Greatly raises defense, but you move slower and dodge worse.",
+    "cs": "Zpevníš tělo i zbroj do tvrdého postoje. Výrazně zvýší obranu, ale zpomalí tě a hůř uhýbáš."
   },
   "verb": {
     "en": {

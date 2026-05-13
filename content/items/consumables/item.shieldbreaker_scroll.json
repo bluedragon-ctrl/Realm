@@ -1,0 +1,40 @@
+{
+  "id": "item.shieldbreaker_scroll",
+  "name": {
+    "en": "an iron-fibred scroll",
+    "cs": "svitek s železnými vlákny"
+  },
+  "nameAcc": {
+    "en": "the iron-fibred scroll",
+    "cs": "svitek s železnými vlákny"
+  },
+  "short": {
+    "en": "A scroll threaded through with fine iron wire lies here.",
+    "cs": "Leží tu svitek protkaný tenkým železným drátkem."
+  },
+  "long": {
+    "en": "Coarse parchment shot through with strands of black iron. The script runs over the wires like grooves over a file's teeth.",
+    "cs": "Hrubý pergamen prošlý prameny černého železa. Písmo přebíhá po drátcích jako rýhy přes zuby pilníku."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you read the harsh syllables and the iron threads snap one by one, each setting a fracture-rune in your mind.",
+        "others": "{actor} reads from a scroll. Tiny iron threads in the parchment snap one after another with sharp little notes."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přečteš drsné slabiky a železné prameny jeden po druhém pukají; každý ti do mysli vryje rune zlomu.",
+        "others": "{actor} přečte ze svitku. Drobné železné prameny v pergamenu jeden po druhém pukají s ostrými tóny."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.shieldbreaker"
+    }
+  }
+}
