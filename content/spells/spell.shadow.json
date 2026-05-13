@@ -9,8 +9,8 @@
   "target": "self",
   "category": "utility",
   "description": {
-    "en": "Dim the light around you to a soft grey for a while.",
-    "cs": "Na chvíli ztlumí světlo kolem tebe do jemné šedi."
+    "en": "Dim the light around you to a soft grey for a long while — useful for slipping out of torchlight without smothering all sight.",
+    "cs": "Na dlouhou dobu ti kolem ztlumí světlo do jemné šedi — hodí se, když chceš zmizet z dosahu pochodní, ale ne úplně do tmy."
   },
   "verb": {
     "en": {

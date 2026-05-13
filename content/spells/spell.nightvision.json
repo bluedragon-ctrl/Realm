@@ -9,8 +9,8 @@
   "target": "any",
   "category": "utility",
   "description": {
-    "en": "Sharpen the target's eyes to see in the dim and the dark for a long time.",
-    "cs": "Zaostří cíli zrak, aby na dlouhou dobu viděl v šeru i ve tmě."
+    "en": "Sharpen your own or an ally's eyes for a long time, letting them see clearly through dim and dark.",
+    "cs": "Na dlouhou dobu ti nebo spojenci zaostří zrak — uvidíš v šeru i ve tmě."
   },
   "verb": {
     "en": {

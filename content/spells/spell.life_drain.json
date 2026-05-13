@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Touches the target with chilling fingers, hurting them and stealing some of the warmth.",
-    "cs": "Dotkne se cíle chladnými prsty, ublíží mu a odebere část jeho tepla."
+    "en": "Press chilling fingers to a foe, dealing damage and stealing back a share of it as healing for yourself.",
+    "cs": "Přitiskneš na nepřítele chladné prsty — ublíží mu a část způsobeného zranění se ti vrátí jako uzdravení."
   },
   "verb": {
     "en": {

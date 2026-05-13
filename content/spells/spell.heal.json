@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "friendly",
   "description": {
-    "en": "Restore a small amount of HP to yourself or an ally.",
-    "cs": "Obnoví trochu HP tobě nebo spojenci."
+    "en": "Restore a small bite of HP to yourself or an ally — quick and cheap, but modest.",
+    "cs": "Obnoví tobě nebo spojenci kousek HP — rychle a levně, ale ne zázračně."
   },
   "verb": {
     "en": {

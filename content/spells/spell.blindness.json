@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Wrap the target's eyes in a film of shadow. While it lasts, they cannot see.",
-    "cs": "Zahalí cíli oči stínovým závojem. Dokud kouzlo trvá, nevidí."
+    "en": "Smear a film of shadow across a foe's eyes — while it holds, they cannot see to fight or look around.",
+    "cs": "Roztáhne nepříteli přes oči stínový závoj — dokud kouzlo drží, nevidí ani na boj, ani kolem sebe."
   },
   "verb": {
     "en": {

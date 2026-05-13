@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "hostile",
   "description": {
-    "en": "Calm an angry foe with soothing words. Works only if it has not yet built up too much rage.",
-    "cs": "Uklidní rozzlobeného nepřítele klidnými slovy. Funguje, jen pokud ještě není příliš rozzuřen."
+    "en": "Soothe an angry foe with calm words, draining their aggression toward you — only works while their rage hasn't grown past the point of reason.",
+    "cs": "Uklidní rozzlobeného nepřítele tichými slovy a odebere mu část zuřivosti vůči tobě — funguje jen do té doby, než jeho vztek přeroste rozum."
   },
   "verb": {
     "en": {

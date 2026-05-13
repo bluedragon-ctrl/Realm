@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "friendly",
   "description": {
-    "en": "Lift the shadow from a friend's eyes.",
-    "cs": "Sejme stín z očí spojence."
+    "en": "Lift the shadow of blindness from your own eyes or an ally's, restoring their sight.",
+    "cs": "Sejme tobě nebo spojenci stín slepoty z očí a vrátí mu zrak."
   },
   "verb": {
     "en": {

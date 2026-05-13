@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Hurl a shard of ice that damages and slows the target.",
-    "cs": "Vrhne střep ledu, který zasáhne a zpomalí cíl."
+    "en": "Hurl a jagged shard of ice at a foe — it bites for damage and chills them sluggish for a while.",
+    "cs": "Vrhneš na nepřítele ostrý střep ledu — zasáhne ho a na chvíli ho mrazem zpomalí."
   },
   "verb": {
     "en": {

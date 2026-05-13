@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Curse the target with a rotting weakness that eats away at them over time.",
-    "cs": "Prokleje cíl shnilou slabostí, která ho postupně oslabuje."
+    "en": "Curse a foe with creeping rot that dulls their strikes and unsteadies their aim for a while.",
+    "cs": "Prokleje nepřítele plíživou hnilobou, která mu na chvíli oslabí údery i mušku."
   },
   "verb": {
     "en": {

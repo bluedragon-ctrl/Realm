@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Zap an enemy with a small jolt of energy.",
-    "cs": "Zasáhne nepřítele malým výbojem energie."
+    "en": "Zap a foe with a small jolt of arcane energy — cheap, reliable chip damage to wear an enemy down.",
+    "cs": "Zasáhneš nepřítele malým výbojem magické energie — levné a spolehlivé drobné poškození, kterým ho postupně omeleš."
   },
   "verb": {
     "en": {

@@ -9,8 +9,8 @@
   "target": "hostile",
   "harmful": true,
   "description": {
-    "en": "Open wounds on the target that bleed for damage over time.",
-    "cs": "Otevře na cíli rány, ze kterých krvácí a postupně slábne."
+    "en": "Open thorned wounds on a foe that weep blood, dealing steady damage for several ticks.",
+    "cs": "Otevře na nepříteli trnité rány, které několik tiků pomalu krvácejí a postupně zraňují."
   },
   "verb": {
     "en": {

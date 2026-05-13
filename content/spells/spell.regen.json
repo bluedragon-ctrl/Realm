@@ -8,8 +8,8 @@
   "actionCost": 12,
   "target": "friendly",
   "description": {
-    "en": "Slowly restore HP over time.",
-    "cs": "Pomalu obnovuje HP v průběhu času."
+    "en": "Wrap yourself or an ally in renewal that slowly restores HP over several ticks — cheap to cast, gentle but steady.",
+    "cs": "Obalí tebe nebo spojence obnovou, která několik tiků pomalu doplňuje HP — levné kouzlo s mírným, ale stálým účinkem."
   },
   "verb": {
     "en": {
