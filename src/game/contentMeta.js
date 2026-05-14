@@ -29,7 +29,7 @@ export const AOE_SPELL_EFFECT_TYPES = new Set([
 // ---------- light ----------
 export const LIGHT_LEVEL_SET = new Set(['light', 'dim', 'dark']);
 export const PERCEPTION_KINDS = new Set(['blind', 'nightvision']);
-export const VISION_KINDS = new Set(['low_light', 'nightvision', 'blind']);
+export const VISION_KINDS = new Set(['normal', 'low_light', 'nightvision', 'blind']);
 
 // ---------- wearables ----------
 export const WEARABLE_SLOTS = ['body', 'head', 'weapon', 'amulet', 'ring', 'utility'];
