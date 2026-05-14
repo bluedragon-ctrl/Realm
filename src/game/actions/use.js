@@ -1,5 +1,6 @@
 import { findInRoom, itemsInRoom, actorsInRoom, world } from '../world.js';
-import { findItemInList, splitOnKeyword, removeFromList } from '../items.js';
+import { findItemInList, splitOnKeyword } from '../items.js';
+import { removeFromInventory } from '../inventory.js';
 import { s, t } from '../../i18n.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
@@ -43,11 +44,7 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
       tone: 'good',
       text: s('unlock.success', lang, { target: t(targetInst.def.name, lang) }),
     });
-    if (spec.consume) {
-      removeFromList(actor.inventory, sourceInst);
-      actor.dirty = true;
-      sendStats(actor);
-    }
+    if (spec.consume) removeFromInventory(actor, sourceInst);
     describeRoomToAll(actor.location);
     awardXp(actor, spec.xp ?? 2, 'unlock');
     return;
@@ -69,11 +66,8 @@ export function consumeForActor(actor, inst, recipient) {
     sendHealFeedback(actor, recipient, result);
     applyHealerAggro(actor, recipient, result?.hpRestored ?? 0);
   }
-  if (useDef.consumable) {
-    removeFromList(actor.inventory, inst);
-    actor.dirty = true;
-  }
-  sendStats(actor);
+  if (useDef.consumable) removeFromInventory(actor, inst);
+  else sendStats(actor);
   if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
 }
 
@@ -87,7 +81,15 @@ export default function use(actor, args) {
     actor.session.send({ kind: 'error', text: s('use.no_arg', actor.lang) });
     return;
   }
+  if (args[0]?.toLowerCase() === 'on') {
+    actor.session.send({ kind: 'error', text: s('use.no_arg', actor.lang) });
+    return;
+  }
   const split = splitOnKeyword(args, 'on');
+  if (split && (!split.before.trim() || !split.after.trim())) {
+    actor.session.send({ kind: 'error', text: s('use.no_arg', actor.lang) });
+    return;
+  }
   const itemQuery = split ? split.before : args.join(' ');
   const targetQuery = split ? split.after : null;
 
@@ -119,11 +121,7 @@ export default function use(actor, args) {
   }
 
   if (targetItem) {
-    if (targetItem === inst) {
-      actor.session.send({ kind: 'error', text: s('use.cant', actor.lang) });
-      return;
-    }
-    const interaction = resolveInteraction(inst, targetItem);
+    const interaction = targetItem === inst ? null : resolveInteraction(inst, targetItem);
     if (!interaction) {
       actor.session.send({ kind: 'error', text: s('use.cant', actor.lang) });
       return;
@@ -165,6 +163,15 @@ export default function use(actor, args) {
       const keyDef = world.itemDefs.get(keyId);
       const keyName = keyDef ? t(keyDef.name, actor.lang) : keyId;
       actor.session.send({ kind: 'error', text: s('chest.need_key', actor.lang, { key: keyName }) });
+      return;
+    }
+  }
+
+  // Gate known no-op effects BEFORE charging gold, so we don't bill players for nothing.
+  if (useDef.effect?.type === 'teach_spell') {
+    const spellId = useDef.effect.spell;
+    if (spellId && actor.knownSpells?.includes(spellId)) {
+      actor.session?.send({ kind: 'system', tone: 'flavor', text: s('spell.already_known', actor.lang) });
       return;
     }
   }
@@ -212,11 +219,7 @@ export default function use(actor, args) {
     }
   }
 
-  if (useDef.consumable) {
-    removeFromList(actor.inventory, inst);
-    actor.dirty = true;
-    sendStats(actor);
-  }
+  if (useDef.consumable) removeFromInventory(actor, inst);
 
   if (inst.def.grantsXp) {
     const amount = typeof inst.def.grantsXp === 'number' ? inst.def.grantsXp : 1;

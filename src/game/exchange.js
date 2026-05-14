@@ -1,5 +1,6 @@
 import { actorsInRoom, itemsInRoom, broadcastToRoom, world } from './world.js';
 import { makeItemInstance, removeFromList } from './items.js';
+import { removeFromInventory } from './inventory.js';
 import { runVerb } from './verbs.js';
 import { sendStats } from './messages.js';
 import { sourceForActor } from './sources.js';
@@ -144,14 +145,12 @@ function broadcastDefault(actor, host, entry, units) {
 }
 
 export function runSinkExchange(actor, host, entry, inst) {
-  removeFromList(actor.inventory, inst);
   for (const out of entry.outputs) {
     if (out.gold != null) actor.gold = (actor.gold ?? 0) + out.gold;
   }
   runVerb({ actor, def: entry.verb, targetActor: host, params: { item: inst.def.nameAcc ?? inst.def.name } });
   if (entry.xp && entry.xp > 0) awardXp(actor, entry.xp, 'sink');
-  actor.dirty = true;
-  sendStats(actor);
+  removeFromInventory(actor, inst);
 }
 
 export function runExchange(actor, host, entry, { units = 1 } = {}) {

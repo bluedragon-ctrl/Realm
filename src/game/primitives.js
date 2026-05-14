@@ -1,7 +1,6 @@
 import { broadcastToRoom, playersInRoom, world, placeActor } from './world.js';
-import { transferItem } from './items.js';
+import { transferInventory } from './inventory.js';
 import { t, s, pickListIndex, tListAt, dirName } from '../i18n.js';
-import { sendStats } from './messages.js';
 import { sourceForActor } from './sources.js';
 import { executeAttack, aggroTargetInRoom } from './combat.js';
 import { describeRoomToAll } from './actions/look.js';
@@ -55,8 +54,7 @@ const PRIMITIVES = {
     const targetPlayer = players[Math.floor(Math.random() * players.length)];
     const idx = pickListIndex(behavior.templates);
 
-    transferItem(actor.inventory, targetPlayer.inventory, inst);
-    targetPlayer.dirty = true;
+    transferInventory(actor, targetPlayer, inst);
 
     broadcastToRoom(actor.location, (recipient) => {
       if (recipient !== targetPlayer && !canPerceive(recipient, actor)) return null;
@@ -77,7 +75,6 @@ const PRIMITIVES = {
         text: s('give.you_received', targetPlayer.lang, { item: itemName }),
       });
     }
-    sendStats(targetPlayer);
   },
   attack(actor, behavior) {
     const target = aggroTargetInRoom(actor);
