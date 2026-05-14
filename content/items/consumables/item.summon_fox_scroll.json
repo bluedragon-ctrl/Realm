@@ -1,0 +1,40 @@
+{
+  "id": "item.summon_fox_scroll",
+  "name": {
+    "en": "a leaf-bound scroll",
+    "cs": "svitek převázaný listem"
+  },
+  "nameAcc": {
+    "en": "the leaf-bound scroll",
+    "cs": "svitek převázaný listem"
+  },
+  "short": {
+    "en": "A scroll wrapped in a folded green leaf lies here.",
+    "cs": "Leží tu svitek zabalený do složeného zeleného listu."
+  },
+  "long": {
+    "en": "A short scroll of pale bark wrapped in a single folded green leaf. A small pawprint is pressed into the leaf in dark sap.",
+    "cs": "Krátký svitek z bledé kůry zabalený do jediného složeného zeleného listu. V listu je tmavou pryskyřicí otisknutá drobná tlapka."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the leaf-bound scroll and read the whispered words. A pawprint shape glows briefly and fades into your memory.",
+        "others": "{actor} unrolls a leaf-bound scroll and reads quietly. A pawprint flickers and is gone."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek převázaný listem a šeptem přečteš slova. Otisk tlapky krátce zazáří a vryje se ti do paměti.",
+        "others": "{actor} rozvine svitek převázaný listem a tiše ho přečte. Otisk tlapky zableskne a zmizí."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.summon_fox"
+    }
+  }
+}

@@ -1,0 +1,68 @@
+{
+  "id": "summon.fox_kit",
+  "summonOnly": true,
+  "name": { "en": "a spirit fox kit", "cs": "duchovní liščí mládě" },
+  "nameAcc": { "en": "the spirit fox kit", "cs": "duchovní liščí mládě" },
+  "nameDat": { "en": "the spirit fox kit", "cs": "duchovnímu liščímu mláděti" },
+  "nameGen": { "en": "the spirit fox kit", "cs": "duchovního liščího mláděte" },
+  "title": { "en": "spirit fox kit", "cs": "duchovní liščí mládě" },
+  "vision": "low_light",
+  "short": {
+    "en": "A small fox of pale green light pads quietly beside its summoner.",
+    "cs": "Drobná liška z bledě zeleného světla tiše kráčí vedle svého přivolavače."
+  },
+  "long": {
+    "en": "A fox kit no larger than a cat, woven from pale green light and the smell of moss after rain. Its eyes are two clear sparks and its tail leaves a faint trail of leafsmoke. It watches you for direction, ears pricked forward.",
+    "cs": "Liščí mládě sotva větší než kočka, utkané z bledě zeleného světla a vůně mechu po dešti. Oči jsou dvě jasné jiskry a ocas za sebou nechává slabý opar listového kouře. Hlídá tě a čeká na pokyn, uši nastražené."
+  },
+  "disposition": "neutral",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 14, "hpMax": 14,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "accuracy": 10,
+    "evasion": 25,
+    "spd": 6
+  },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "spirit bite", "cs": "duchovní kousnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts in and snaps spectral teeth at {target}!",
+          "{actor} leaps at {target} in a streak of green light!",
+          "{actor} bites {target} with teeth of cold fire!"
+        ],
+        "cs": [
+          "{actor} se mihne vpřed a zatne přízračné zuby do {target.gen}!",
+          "{actor} se vrhne na {target} jako pruh zeleného světla!",
+          "{actor} kousne {target.acc} zuby z chladného ohně!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "pads in a slow circle around its summoner, ears tracking every sound.",
+          "leaves a faint curl of green smoke as it shifts its weight.",
+          "tilts its head, eyes fixed on the dark."
+        ],
+        "cs": [
+          "pomalu krouží kolem svého přivolavače a ušima sleduje každý zvuk.",
+          "při pohybu za sebou nechává slabý chochol zelenavého kouře.",
+          "nakloní hlavu, oči upřené do tmy."
+        ]
+      }
+    }
+  ]
+}

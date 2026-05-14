@@ -1,0 +1,38 @@
+{
+  "id": "spell.summon_fox",
+  "name": {
+    "en": "Summon Fox Kit",
+    "cs": "Přivolání liščího mláděte"
+  },
+  "mpCost": 8,
+  "actionCost": 18,
+  "target": "self",
+  "description": {
+    "en": "Call a small spirit fox to your side. It follows you and bites at whatever you fight, until it fades.",
+    "cs": "Přivolá ti k boku drobnou duchovní lišku. Následuje tě a útočí na to, s čím bojuješ, dokud nezmizí."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "you trace a pawprint in the air and whistle once. A small fox of green light bounds out of nowhere and presses against your leg.",
+        "others": "{actor} traces a pawprint in the air and whistles. A small fox of green light bounds out of nowhere and presses against {actor.gen} leg."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "ve vzduchu načrtneš tlapku a jednou hvízdneš. Z ničeho vyběhne drobná liška ze zeleného světla a přitiskne se ti k noze.",
+        "others": "{actor} načrtne ve vzduchu tlapku a hvízdne. Z ničeho vyběhne drobná liška ze zeleného světla a přitiskne se k jeho noze."
+      }
+    }
+  },
+  "effect": {
+    "type": "summon",
+    "defId": "summon.fox_kit",
+    "count": 1,
+    "ttlTicks": 120,
+    "despawnText": {
+      "en": "the spirit fox kit scatters into green sparks and is gone.",
+      "cs": "duchovní liščí mládě se rozprskne v zelené jiskry a je pryč."
+    }
+  }
+}

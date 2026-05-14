@@ -71,6 +71,27 @@
       }
     },
     {
+      "id": "briar_sprite.craft_summon_fox_scroll",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.rose_petals", "count": 12 }],
+      "outputs": [{ "item": "item.summon_fox_scroll" }],
+      "xp": 8,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you pour twelve rose petals into {target}'s green hands. She breathes a long slow breath onto them and they fold themselves into a scroll wrapped in a single green leaf, a pawprint pressed into its surface.",
+            "others": "{actor} pours twelve rose petals into {target}'s hands. She breathes on them and they fold into a small leaf-bound scroll."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vysypeš dvanáct růžových lístků do zelených dlaní {target.gen}. Dlouze a pomalu na ně dýchne a ony se samy složí do svitku zabaleného v jediném zeleném listu, s otiskem tlapky na povrchu.",
+            "others": "{actor} vysype dvanáct růžových lístků do dlaní {target.gen}. Ta na ně dýchne a ony se složí do drobného svitku převázaného listem."
+          }
+        }
+      }
+    },
+    {
       "id": "briar_sprite.craft_pacify_scroll",
       "flavor": "craft",
       "inputs":  [{ "item": "item.rose_petals", "count": 12 }],

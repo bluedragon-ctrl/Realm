@@ -28,6 +28,7 @@ export function performSummon(summoner, opts) {
     npc.summonerId = summoner.id;
     npc.despawnAtTick = despawnAtTick;
     if (opts.despawnText) npc.despawnText = opts.despawnText;
+    if (summoner.kind === 'player') npc.following = summoner.id;
     inheritHate(summoner, npc);
     summoned.push(npc);
   }
