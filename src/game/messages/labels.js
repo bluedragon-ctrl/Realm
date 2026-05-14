@@ -47,6 +47,7 @@ export function buildPanelLabels(lang) {
     inventoryEquipment: s('panel.inventory_equipment', lang),
     inventoryOther: s('panel.inventory_other', lang),
     pickUpButton: s('panel.pickup_button', lang),
+    pickUpAllButton: s('panel.pickup_all_button', lang),
     useButton: s('panel.use_button', lang),
     useItemOnButton: s('panel.use_item_on_button', lang),
     noItemsLabel: s('panel.no_items', lang),

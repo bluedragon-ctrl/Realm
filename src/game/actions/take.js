@@ -36,7 +36,8 @@ export default function take(actor, args) {
     describeRoomToAll(actor.location);
     return;
   }
-  const query = args.join(' ');
+  const takeAll = args[0]?.toLowerCase() === 'all' && args.length > 1;
+  const query = (takeAll ? args.slice(1) : args).join(' ');
   const list = itemsInRoom(actor.location);
   const inst = findItemInList(list, query);
   if (!inst) {
@@ -45,6 +46,30 @@ export default function take(actor, args) {
   }
   if (inst.def.pickable === false) {
     actor.session.send({ kind: 'error', text: s('take.not_pickable', actor.lang) });
+    return;
+  }
+
+  if (takeAll) {
+    const matches = list.filter(i => i.defId === inst.defId && i.def.pickable !== false);
+    for (const m of matches) {
+      removeItemFromRoom(m, actor.location);
+      actor.inventory.push(m);
+    }
+    actor.dirty = true;
+    const count = matches.length;
+    broadcastToRoom(actor.location, (recipient) => {
+      const item = resolveName(inst.def, 'acc', recipient.lang);
+      if (recipient === actor) {
+        return { kind: 'system', text: s('take.all.self', recipient.lang, { item, count }) };
+      }
+      return {
+        kind: 'emote',
+        source: sourceForActor(actor, recipient),
+        text: s('take.all.others', recipient.lang, { actor: actor.name, item, count }),
+      };
+    });
+    sendStats(actor);
+    describeRoomToAll(actor.location);
     return;
   }
 
