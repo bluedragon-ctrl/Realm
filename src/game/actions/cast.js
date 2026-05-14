@@ -6,13 +6,13 @@ import { applyActiveEffect } from '../activeEffects.js';
 import { applyDamageWithFeedback, registerAttackAggro, applyHealerAggro } from '../combat.js';
 import { roll } from '../dice.js';
 import { splitOnKeyword } from '../items.js';
-import { s, t } from '../../i18n.js';
+import { s } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { sourceForActor } from '../sources.js';
 import { awardXp } from '../xp.js';
 import { resolveActorTarget } from '../targeting.js';
 import { resolveName, pickByVariants } from '../declension.js';
-import { EFFECT_SOURCE } from '../contentMeta.js';
+import { EFFECT_SOURCE, AOE_SPELL_EFFECT_TYPES } from '../contentMeta.js';
 import { clearPlayerActionQueue } from '../playerCombatState.js';
 import { DEFAULT_COSTS } from '../stats.js';
 import { requireStanding } from '../positionGate.js';
@@ -83,9 +83,12 @@ export function findKnownSpell(actor, query) {
 
 // Apply damage to a list of targets with shared resist + AoE-applyEffect handling.
 // Used by both single-target and AoE spell paths so all damage flows through one place.
+// Returns true if at least one target took damage — callers use this to gate the cast XP
+// award so an all-resisted AoE doesn't reward the caster for landing nothing.
 function applyDamageToList(actor, spell, targets) {
   const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
   const applyId = spell.effect.applyEffect;
+  let anyLanded = false;
   for (const tgt of targets) {
     if (spell.harmful && resists(tgt)) {
       broadcastResist(actor, tgt);
@@ -94,11 +97,13 @@ function applyDamageToList(actor, spell, targets) {
     }
     const amount = Math.max(1, roll(formula, { actor, target: tgt }));
     applyDamageWithFeedback(actor, tgt, amount);
+    anyLanded = true;
     if (applyId && tgt.alive !== false && tgt.stats?.hp > 0) {
       applyActiveEffect(tgt, applyId, EFFECT_SOURCE.SPELL, actor.name);
       if (tgt.kind === 'player' && tgt.session) sendStats(tgt);
     }
   }
+  return anyLanded;
 }
 
 // Apply a single active-effect buff to a list of targets (AoE friendly buff).
@@ -144,7 +149,7 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   }
 
   const effectType = spell.effect?.type;
-  const isAoe = effectType === 'damage_room_enemies' || effectType === 'heal_room_friendlies' || effectType === 'buff_room_friendlies';
+  const isAoe = AOE_SPELL_EFFECT_TYPES.has(effectType);
   const isToTarget = !isAoe && target && target !== actor;
   const formKey = isToTarget ? 'to_target' : 'no_target';
   const lang = silent ? 'en' : actor.lang;
@@ -171,6 +176,10 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
     actor.nextActionAt = Date.now() + castCooldownMs(spell, actor);
   }
 
+  // Verb fires before the resist check intentionally: the cast emote is the *attempt*
+  // (gesture/incantation), and a subsequent resist broadcast is the *outcome* on impact.
+  // Observers see "spark leaps toward goblin" then "fizzles against goblin" — narratively
+  // coherent. Don't reorder these without revisiting the resist-message wording.
   runVerb({ actor, def: spell.verb, targetActor: isToTarget ? target : null });
 
   const castXp = spell.xp ?? 1;
@@ -178,7 +187,8 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   let resisted = false;
 
   if (effectType === 'damage_room_enemies') {
-    applyDamageToList(actor, spell, roomEnemiesOf(actor));
+    const anyLanded = applyDamageToList(actor, spell, roomEnemiesOf(actor));
+    if (!anyLanded) resisted = true;
     if (!silent) sendStats(actor);
   } else if (effectType === 'heal_room_friendlies') {
     healedAlly = applyHealToList(actor, spell, roomFriendliesOf(actor));
@@ -225,6 +235,17 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
       const hp = result?.hpRestored ?? 0;
       if (target && target !== actor && hp > 0) healedAlly = true;
       applyHealerAggro(actor, target ?? actor, hp);
+    } else if (effectType === 'drain') {
+      const healed = result?.healed ?? 0;
+      if (!silent) {
+        if (healed > 0) {
+          actor.session?.send({
+            kind: 'system', tone: 'good',
+            text: s('heal.you_were_healed', actor.lang, { amount: healed }),
+          });
+        }
+        sendStats(actor);
+      }
     } else if (!silent) {
       sendStats(actor);
     }

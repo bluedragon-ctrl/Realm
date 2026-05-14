@@ -78,8 +78,9 @@ export async function loadItems(knownRooms, knownEffects) {
   return items;
 }
 
-export async function loadSpells(knownEffects) {
-  return loadDir('spell', path.resolve('content/spells'), makeSpellValidator(knownEffects ?? new Map()));
+export async function loadSpells(knownEffects, knownNpcs) {
+  const validate = makeSpellValidator(knownEffects ?? new Map(), knownNpcs ?? new Map());
+  return loadDir('spell', path.resolve('content/spells'), validate);
 }
 
 export async function loadEffects() {
