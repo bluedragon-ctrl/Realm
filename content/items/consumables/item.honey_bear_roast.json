@@ -1,0 +1,45 @@
+{
+  "id": "item.honey_bear_roast",
+  "name": {
+    "en": "a plate of honey-glazed bear",
+    "cs": "talíř medové medvědiny"
+  },
+  "nameAcc": {
+    "en": "the plate of honey-glazed bear",
+    "cs": "talíř medové medvědiny"
+  },
+  "short": {
+    "en": "A great plate of dark roasted bear meat, glazed with honey and beer.",
+    "cs": "Velký talíř tmavého pečeného medvědího masa, glazovaný medem a pivem."
+  },
+  "long": {
+    "en": "A wide wooden platter heaped with thick slices of dark bear meat. The outside is glossy with a glaze of honey and dark beer cooked down to a sticky shine. The smell is sweet, gamy and a little smoky — a true feast-day meal. Eating it leaves you feeling braced and slow-mending.",
+    "cs": "Široká dřevěná mísa plná tlustých plátků tmavého medvědího masa. Povrch se leskne glazurou z medu a tmavého piva svařeného do lepkavého třpytu. Vůně je sladká, zvěřinová a trochu nakouřená — pravé sváteční jídlo. Po jídle se cítíš pevnější a postupně se zacelíš."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you carve into the honey-glazed bear. The meat is dark, sweet, and astonishingly rich — a warm strength settles into you and your wounds begin to close.",
+        "others": "{actor} carves into a plate of honey-glazed bear."
+      },
+      "to_target": {
+        "self": "you hand the plate of honey-glazed bear to {target}, who tucks in with great pleasure.",
+        "others": "{actor} hands a plate of honey-glazed bear to {target}, who tucks in with great pleasure."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "nakrojíš si medovou medvědinu. Maso je tmavé, sladké a překvapivě sytivé — rozlije se ti teplá síla a rány se začnou pomalu hojit.",
+        "others": "{actor} si nakrojí talíř medové medvědiny."
+      },
+      "to_target": {
+        "self": "podáš talíř medové medvědiny {target.dat} a ten se pustí do jídla s velkým potěšením.",
+        "others": "{actor} podává talíř medové medvědiny {target.dat}, ten se pustí do jídla s velkým potěšením."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.well_fed" },
+    "consumable": true
+  }
+}

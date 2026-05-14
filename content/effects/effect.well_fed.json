@@ -1,0 +1,18 @@
+{
+  "id": "effect.well_fed",
+  "name": {
+    "en": "Well-fed",
+    "cs": "Najedený"
+  },
+  "kind": "buff",
+  "icon": "🍖",
+  "duration": 60,
+  "statMod": { "defense": 2 },
+  "tick": {
+    "every": 10,
+    "pulses": 6,
+    "effect": { "type": "heal", "hp": 1 }
+  },
+  "exclusiveGroup": "meal_buff",
+  "stack": "refresh"
+}

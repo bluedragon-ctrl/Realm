@@ -29,7 +29,8 @@
   "respawn": { "ticks": 1800 },
   "xp": 35,
   "loot": [
-    { "defId": "item.bear_skin", "chance": 1.0 }
+    { "defId": "item.bear_skin", "chance": 1.0 },
+    { "defId": "item.bear_meat", "chance": 0.7 }
   ],
   "behaviors": [
     {

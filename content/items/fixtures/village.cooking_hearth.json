@@ -1,0 +1,246 @@
+{
+  "id": "village.cooking_hearth",
+  "name": {
+    "en": "a big iron cooking pot",
+    "cs": "velký železný kotlík"
+  },
+  "nameAcc": {
+    "en": "the big iron cooking pot",
+    "cs": "velký železný kotlík"
+  },
+  "nameDat": {
+    "en": "the big iron cooking pot",
+    "cs": "velkému železnému kotlíku"
+  },
+  "nameGen": {
+    "en": "the big iron cooking pot",
+    "cs": "velkého železného kotlíku"
+  },
+  "short": {
+    "en": "A heavy iron pot hangs from a black hook over the cook-fire, lid askew and steam curling out.",
+    "cs": "Těžký železný kotlík visí na černém háku nad kuchyňským ohněm, poklice nakřivo a vyvalují se z něj páry."
+  },
+  "long": {
+    "en": "A big, soot-blackened iron pot hangs from a heavy hook over a low cook-fire. The lid sits a little askew and slow curls of steam rise from underneath, smelling of broth and bay. A long wooden ladle and a sharp short knife rest on the prep counter beside it, ready for anyone who has something worth cooking.",
+    "cs": "Velký, sazemi začouzený železný kotlík visí na těžkém háku nad nízkým kuchyňským ohněm. Poklice sedí trochu nakřivo a zpod ní pomalu stoupají chomáčky páry, voní vývarem a bobkovým listem. Vedle něj na pracovním pultu leží dlouhá dřevěná naběračka a krátký ostrý nůž, připravené pro každého, kdo má co vařit."
+  },
+  "tags": ["fixture", "craft"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "village.pub_kitchen",
+    "count": 1
+  },
+  "exchanges": [
+    {
+      "id": "cooking_hearth.craft_fish_soup",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.river_fish", "count": 2 }],
+      "outputs": [{ "item": "item.fish_soup" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you flake two river fish into {target}, add a pinch of salt and a sprig of bay, and stir until a steaming bowl of clear fish soup is ready.",
+            "others": "{actor} flakes river fish into {target}, adds salt and a sprig of herb, and stirs out a steaming bowl of clear fish soup."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "rozdrobíš dvě říční ryby do {target.gen}, přidáš špetku soli a snítku bobkového listu a mícháš, dokud není připravená kouřící miska čiré rybí polévky.",
+            "others": "{actor} rozdrobí říční ryby do {target.gen}, přidá sůl a snítku byliny a vymíchá kouřící misku čiré rybí polévky."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_berry_compote",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.red_berries", "count": 3 }, { "item": "item.honey", "count": 1 }],
+      "outputs": [{ "item": "item.berry_compote" }],
+      "xp": 2,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you tip three handfuls of red berries into {target} with a jar of honey, stir gently until the berries soften and shine, and ladle the compote into a clean clay jar.",
+            "others": "{actor} simmers red berries and honey in {target} until they soften into a glossy compote."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vsypeš tři hrsti červených bobulí do {target.gen} se skleničkou medu, jemně mícháš, dokud bobule nezměknou a nezlesknou, a nalije kompot do čisté hliněné nádoby.",
+            "others": "{actor} v kotlíku dusí červené bobule s medem, dokud nezměknou v lesklý kompot."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_baked_honey_apple",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.apple", "count": 1 }, { "item": "item.honey", "count": 1 }],
+      "outputs": [{ "item": "item.baked_honey_apple" }],
+      "xp": 2,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you core the apple, pour a pool of honey into it, and tuck it into the embers under {target} until the skin wrinkles and the honey is bubbling.",
+            "others": "{actor} cores an apple, fills it with honey, and bakes it in the embers under {target}."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vydlabeš jádřinec, naliješ do jablka lužičku medu a uložíš je do žhavého popela pod {target.acc}, dokud slupka nezvráskne a med nezačne bublat.",
+            "others": "{actor} vydlabe jádřinec jablka, naplní ho medem a peče ho v popelu pod kotlíkem."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_mushroom_stew",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.forest_mushroom", "count": 3 }, { "item": "item.flour", "count": 1 }],
+      "outputs": [{ "item": "item.mushroom_stew" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you toss three brown mushrooms into {target}, sprinkle in a handful of flour to thicken the broth, and stir until the stew runs dark and glossy.",
+            "others": "{actor} simmers brown mushrooms and flour in {target} into a thick dark stew."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vhodíš tři hnědé houby do {target.gen}, vsypeš hrst mouky na zahuštění a mícháš, dokud polévka netmavne a nezleskne se.",
+            "others": "{actor} v kotlíku povaří hnědé houby s moukou na hustou tmavou polévku."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_fishermans_plate",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.river_fish", "count": 1 }, { "item": "item.bread", "count": 1 }],
+      "outputs": [{ "item": "item.fishermans_plate" }],
+      "xp": 2,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you pan-fry the river fish over {target} until the skin crisps, then lay it on a thick slice of bread on a wooden plate.",
+            "others": "{actor} pan-fries a river fish over {target} and lays it on a slice of bread."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "opečeš říční rybu na pánvi nad {target.acc} dokřupava, pak ji položíš na tlustý krajíc chleba na dřevěném talíři.",
+            "others": "{actor} opeče říční rybu nad ohněm a položí ji na krajíc chleba."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_crayfish_stew",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.crayfish_meat", "count": 1 }, { "item": "item.flour", "count": 1 }],
+      "outputs": [{ "item": "item.crayfish_stew" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you flake the crayfish meat into {target}, stir in a soft roux of flour, and simmer until the stew runs pink and thick.",
+            "others": "{actor} flakes crayfish meat into {target}, stirs in flour, and simmers a pink stew."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "rozdrobíš račí maso do {target.gen}, zaprášíš jíškou z mouky a povaříš, dokud polévka neztmavne narůžovo a nezhoustne.",
+            "others": "{actor} rozdrobí račí maso do {target.gen}, zaprášit moukou a povaří narůžovělou polévku."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_boar_roast",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.boar_meat", "count": 1 }, { "item": "item.forest_mushroom", "count": 1 }],
+      "outputs": [{ "item": "item.boar_roast" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you slice the boar meat thin, lay it on the hot iron beside {target} with the mushroom caps, and turn it until the edges crisp brown.",
+            "others": "{actor} slices boar meat thin and roasts it beside {target} with mushrooms."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "nakrájíš kančí maso na tenké plátky, položíš je na rozpálené železo vedle {target.gen} spolu s houbami a obracíš, dokud okraje nezhnědnou dokřupava.",
+            "others": "{actor} nakrájí kančí maso na plátky a peče je vedle {target.gen} s houbami."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_boar_beer_pie",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.boar_meat", "count": 1 }, { "item": "item.flour", "count": 1 }, { "item": "potion.beer", "count": 1 }],
+      "outputs": [{ "item": "item.boar_beer_pie" }],
+      "xp": 6,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you chunk the boar meat into {target}, pour in a mug of dark beer, thicken with flour, and bake the lot under a golden crust until it bubbles.",
+            "others": "{actor} slow-cooks boar meat and beer in {target}, thickens with flour, and bakes it under a golden crust."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "nakrájíš kance na kousky do {target.gen}, naliješ tam korbel tmavého piva, zahustíš moukou a zapečeš celé pod zlatou kůrkou, dokud nezačne bublat.",
+            "others": "{actor} v kotlíku dlouho dusí kance s pivem, zahustí moukou a zapeče pod zlatou kůrkou."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_honey_bear_roast",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.bear_meat", "count": 1 }, { "item": "item.honey", "count": 1 }, { "item": "potion.beer", "count": 1 }],
+      "outputs": [{ "item": "item.honey_bear_roast" }],
+      "xp": 8,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you lay the great slab of bear meat over {target}, baste it with honey and dark beer, and roast it slowly until the glaze runs sticky and the meat falls apart.",
+            "others": "{actor} slow-roasts a great slab of bear meat over {target}, basting it with honey and beer until the glaze runs sticky."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "položíš obrovský kus medvědího masa na {target.acc}, potíráš ho medem a tmavým pivem a peče se pomalu, dokud glazura nestáhne lepkavě a maso se nerozpadá.",
+            "others": "{actor} pomalu peče obrovský kus medvědího masa na kotlíku a potírá ho medem a pivem, dokud glazura nestáhne lepkavě."
+          }
+        }
+      }
+    },
+    {
+      "id": "cooking_hearth.craft_bluebell_cordial",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.blue_flower", "count": 2 }, { "item": "item.red_berries", "count": 3 }],
+      "outputs": [{ "item": "item.bluebell_cordial" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you steep two blue flowers and three handfuls of red berries in {target} until the water runs deep sky-blue, then pour the cordial off into a small cup.",
+            "others": "{actor} steeps blue flowers and red berries in {target} until the water runs a deep blue, then strains the cordial into a cup."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "namočíš do {target.gen} dva modré květy a tři hrsti červených bobulí, dokud se voda nezbarví do hluboké nebeské modři, a slije likér do malého pohárku.",
+            "others": "{actor} v kotlíku louhuje modré květy a červené bobule, dokud voda nezíská hlubokou modř, a slije likér do pohárku."
+          }
+        }
+      }
+    }
+  ]
+}

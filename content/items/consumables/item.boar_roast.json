@@ -1,0 +1,45 @@
+{
+  "id": "item.boar_roast",
+  "name": {
+    "en": "a plate of boar roast",
+    "cs": "talíř pečeného kance"
+  },
+  "nameAcc": {
+    "en": "the plate of boar roast",
+    "cs": "talíř pečeného kance"
+  },
+  "short": {
+    "en": "A wooden plate of dark roasted boar meat with brown mushrooms.",
+    "cs": "Dřevěný talíř s tmavým pečeným kancem a hnědými houbami."
+  },
+  "long": {
+    "en": "A heavy wooden plate piled with slices of dark roasted boar meat, the edges crisp and brown, served with whole brown mushroom caps cooked in the same pan. The smell is heavy and savoury. A real woodsman's meal.",
+    "cs": "Těžký dřevěný talíř plný plátků tmavého pečeného kance s opečenými okraji, podávaný s celými hnědými klobouky hub upraženými na téže pánvi. Voní hutně a slaně. Pořádné lesnické jídlo."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you tuck into the boar roast. The meat is rich and the mushrooms soak it all up — you feel braced for anything.",
+        "others": "{actor} tucks into a plate of boar roast."
+      },
+      "to_target": {
+        "self": "you hand the plate of boar roast to {target}, who tucks in eagerly.",
+        "others": "{actor} hands a plate of boar roast to {target}, who tucks in eagerly."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "pustíš se do pečeného kance. Maso je vydatné a houby všechnu šťávu nasají — cítíš se připravený na cokoli.",
+        "others": "{actor} se pustí do talíře pečeného kance."
+      },
+      "to_target": {
+        "self": "podáš talíř s pečeným kancem {target.dat} a ten se dychtivě pustí do jídla.",
+        "others": "{actor} podává talíř s pečeným kancem {target.dat}, ten se dychtivě pustí do jídla."
+      }
+    },
+    "effect": { "type": "heal", "amount": 8 },
+    "consumable": true
+  }
+}

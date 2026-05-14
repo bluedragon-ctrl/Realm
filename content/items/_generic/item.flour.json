@@ -1,0 +1,21 @@
+{
+  "id": "item.flour",
+  "name": {
+    "en": "a bag of flour",
+    "cs": "pytlík mouky"
+  },
+  "nameAcc": {
+    "en": "the bag of flour",
+    "cs": "pytlík mouky"
+  },
+  "short": {
+    "en": "A small cloth bag of soft white flour.",
+    "cs": "Malý plátěný pytlík měkké bílé mouky."
+  },
+  "long": {
+    "en": "A small cloth bag, the bottom dusted white where the flour has worked through the weave. Inside it is soft, finely milled wheat flour — the baker keeps a row of these on a shelf behind the counter. Good for thickening stews or making dough.",
+    "cs": "Malý plátěný pytlík, zespodu obílený tam, kde mouka prosákla skrz tkaninu. Uvnitř je měkká, jemně namletá pšeničná mouka — pekařka jich má za pultem celou řádku. Hodí se na zahuštění polévek nebo na těsto."
+  },
+  "tags": ["food", "ingredient"],
+  "weight": 0
+}

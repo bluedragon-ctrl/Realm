@@ -1,0 +1,45 @@
+{
+  "id": "item.bluebell_cordial",
+  "name": {
+    "en": "a cup of bluebell cordial",
+    "cs": "pohárek modrého likéru"
+  },
+  "nameAcc": {
+    "en": "the cup of bluebell cordial",
+    "cs": "pohárek modrého likéru"
+  },
+  "short": {
+    "en": "A small cup of clear blue cordial, faintly sweet and sharp.",
+    "cs": "Malý pohárek čirého modrého likéru, jemně sladkého a ostrého."
+  },
+  "long": {
+    "en": "A small cup of clear cordial the colour of deep summer sky, made from blue flower petals steeped with red berries and a touch of honey. It smells sweet, sharp and a little wild. A few sips clear a tired head and bring magic back to the fingers.",
+    "cs": "Malý pohárek čirého likéru barvy hlubokého letního nebe, vyrobený z okvětních lístků modrého kvítí spařených s červenými bobulemi a kapkou medu. Voní sladce, ostře a trochu divoce. Pár doušků pročistí unavenou hlavu a navrátí magii do prstů."
+  },
+  "tags": ["consumable", "drink"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you sip the bluebell cordial. It is bright and faintly sharp, and a cool clarity spreads through your head.",
+        "others": "{actor} sips a cup of bluebell cordial."
+      },
+      "to_target": {
+        "self": "you offer the cup of bluebell cordial to {target}, who takes a careful sip.",
+        "others": "{actor} offers a cup of bluebell cordial to {target}, who takes a careful sip."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "usrkneš modrý likér. Je svěží a lehce ostrý a hlavou se ti rozlije chladná jasnost.",
+        "others": "{actor} si usrkne pohárek modrého likéru."
+      },
+      "to_target": {
+        "self": "nabídneš pohárek modrého likéru {target.dat} a ten si opatrně usrkne.",
+        "others": "{actor} nabízí pohárek modrého likéru {target.dat}, ten si opatrně usrkne."
+      }
+    },
+    "effect": { "type": "heal", "hp": 2, "mp": 6 },
+    "consumable": true
+  }
+}

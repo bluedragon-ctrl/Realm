@@ -1,0 +1,45 @@
+{
+  "id": "item.berry_compote",
+  "name": {
+    "en": "a jar of berry compote",
+    "cs": "sklenice ovocného kompotu"
+  },
+  "nameAcc": {
+    "en": "the jar of berry compote",
+    "cs": "sklenici ovocného kompotu"
+  },
+  "short": {
+    "en": "A small jar of glossy red berry compote, sweetened with honey.",
+    "cs": "Malá sklenice lesklého červeného kompotu, oslazeného medem."
+  },
+  "long": {
+    "en": "A small clay jar filled with glossy red berries cooked down with honey until soft and syrupy. It smells sweet and tart at once. A spoonful steadies the head as much as it cheers the tongue.",
+    "cs": "Malá hliněná sklenice plná lesklých červených bobulí povařených s medem do měkka a sirupu. Voní zároveň sladce a kysele. Lžička stejně tak povzbudí jazyk jako pročistí hlavu."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you spoon up the berry compote. It is sweet, tart, and bright on the tongue.",
+        "others": "{actor} spoons up a jar of berry compote."
+      },
+      "to_target": {
+        "self": "you offer the berry compote to {target}, who takes a careful spoonful.",
+        "others": "{actor} offers a jar of berry compote to {target}, who takes a careful spoonful."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vyjíš si lžící trochu ovocného kompotu. Je sladký, kyselý a osvěživý.",
+        "others": "{actor} si lžící nabírá z ovocného kompotu."
+      },
+      "to_target": {
+        "self": "nabídneš sklenici kompotu {target.dat} a ten si opatrně nabere lžíci.",
+        "others": "{actor} nabízí kompot {target.dat}, ten si opatrně nabere lžíci."
+      }
+    },
+    "effect": { "type": "heal", "hp": 3, "mp": 3 },
+    "consumable": true
+  }
+}

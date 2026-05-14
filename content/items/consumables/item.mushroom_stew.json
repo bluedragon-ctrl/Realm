@@ -1,0 +1,45 @@
+{
+  "id": "item.mushroom_stew",
+  "name": {
+    "en": "a bowl of mushroom stew",
+    "cs": "miska houbové polévky"
+  },
+  "nameAcc": {
+    "en": "the bowl of mushroom stew",
+    "cs": "misku houbové polévky"
+  },
+  "short": {
+    "en": "A wooden bowl of dark mushroom stew, thickened with flour.",
+    "cs": "Dřevěná miska tmavé houbové polévky zahuštěné moukou."
+  },
+  "long": {
+    "en": "A heavy wooden bowl of dark, fragrant stew. Brown mushroom caps swim in a thick gravy made rich with a spoonful of flour. It smells of damp forest and warm bread. Filling and earthy.",
+    "cs": "Těžká dřevěná miska tmavé, voňavé polévky. V husté omáčce zahuštěné lžící mouky plavou hnědé klobouky hub. Voní jako vlhký les a teplý chléb. Sytá a zemitá."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you spoon up the mushroom stew. It is hot, dark, and surprisingly hearty.",
+        "others": "{actor} spoons up a bowl of mushroom stew."
+      },
+      "to_target": {
+        "self": "you hand the bowl of mushroom stew to {target}, who eats it gratefully.",
+        "others": "{actor} hands the bowl of mushroom stew to {target}, who eats it gratefully."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sníš lžící houbovou polévku. Je horká, tmavá a překvapivě sytá.",
+        "others": "{actor} sní misku houbové polévky."
+      },
+      "to_target": {
+        "self": "podáš misku houbové polévky {target.dat} a ten ji vděčně sní.",
+        "others": "{actor} podává misku houbové polévky {target.dat}, ten ji vděčně sní."
+      }
+    },
+    "effect": { "type": "heal", "amount": 5 },
+    "consumable": true
+  }
+}

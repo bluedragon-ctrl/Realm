@@ -1,0 +1,45 @@
+{
+  "id": "item.baked_honey_apple",
+  "name": {
+    "en": "a baked honey apple",
+    "cs": "pečené medové jablko"
+  },
+  "nameAcc": {
+    "en": "the baked honey apple",
+    "cs": "pečené medové jablko"
+  },
+  "short": {
+    "en": "A soft baked apple, the core hollowed out and filled with golden honey.",
+    "cs": "Měkké pečené jablko s vydlabaným jádřincem zalitým zlatým medem."
+  },
+  "long": {
+    "en": "A round red apple, baked soft in the embers and cored to hold a pool of dark golden honey. The skin is wrinkled and the inside is steaming, soft and almost meltingly sweet. The smell alone lifts a tired head.",
+    "cs": "Kulaté červené jablko upečené do měkka v žhavém popelu, s vydlabaným jádřincem naplněným tmavě zlatým medem. Slupka je svraštělá, vnitřek dýchá párou, je měkký a téměř rozplývavě sladký. I sama vůně zvedne unavenou hlavu."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you bite into the baked honey apple. It is hot, soft, and as sweet as a summer morning.",
+        "others": "{actor} bites into a baked honey apple."
+      },
+      "to_target": {
+        "self": "you offer the baked honey apple to {target}, who takes a careful bite.",
+        "others": "{actor} offers a baked honey apple to {target}, who takes a careful bite."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zakousneš se do pečeného medového jablka. Je horké, měkké a sladké jako letní ráno.",
+        "others": "{actor} se zakousne do pečeného medového jablka."
+      },
+      "to_target": {
+        "self": "nabídneš pečené medové jablko {target.dat} a ten si opatrně kousne.",
+        "others": "{actor} nabízí pečené medové jablko {target.dat}, ten si opatrně kousne."
+      }
+    },
+    "effect": { "type": "heal", "hp": 4, "mp": 2 },
+    "consumable": true
+  }
+}

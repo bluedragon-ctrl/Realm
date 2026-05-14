@@ -59,22 +59,22 @@
       "outputs": [{ "item": "item.torch" }]
     },
     {
-      "id": "innkeeper.craft_fish_soup",
+      "id": "innkeeper.craft_pub_key",
       "flavor": "craft",
-      "inputs":  [{ "item": "item.river_fish", "count": 2 }, { "gold": 3 }],
-      "outputs": [{ "item": "item.fish_soup" }],
-      "xp": 3,
+      "inputs":  [{ "item": "item.rat_tail", "count": 20 }],
+      "outputs": [{ "item": "item.pub_key" }],
+      "xp": 5,
       "verb": {
         "en": {
           "to_target": {
-            "self": "you hand two river fish and three gold to {target}. He flakes the fish into a pot, adds salt and a sprig of herb, and ladles out a steaming bowl of clear fish soup.",
-            "others": "{actor} hands river fish and gold to {target}, who flakes them into a pot and ladles out a steaming bowl of fish soup."
+            "self": "you tip twenty rat tails onto the bar in front of {target}. He counts them with raised eyebrows, sweeps the lot into a sack, and presses a small brass key into your palm. 'You've earned the run of my kitchen, friend.'",
+            "others": "{actor} tips a pile of rat tails onto the bar before {target}, who counts them, sweeps them into a sack, and hands over a small brass key."
           }
         },
         "cs": {
           "to_target": {
-            "self": "podáš dvě říční ryby a tři zlaté {target.dat}. Ryby rozdrobí do hrnce, přidá sůl a snítku byliny a nalije ti kouřící misku čiré rybí polévky.",
-            "others": "{actor} podává říční ryby a zlaté {target.dat}, který je rozdrobí do hrnce a nalije kouřící misku rybí polévky."
+            "self": "vysypeš dvacet krysích ocásků na pult před {target.acc}. Spočítá je se zdviženým obočím, smete celou hromadu do pytle a vloží ti do dlaně malý mosazný klíč. „Vysloužil sis přístup do mé kuchyně, příteli.“",
+            "others": "{actor} vysype hromadu krysích ocásků na pult před {target.acc}, ten je spočítá, smete do pytle a podá mu malý mosazný klíč."
           }
         }
       }
@@ -92,7 +92,8 @@
           "A quiet day. The way I like it.",
           "Mind the step on your way out.",
           "Rats! I can't stand the things. A copper for every tail you bring me — I mean it.",
-          "The cellar's overrun again. Bring me rat tails and I'll pay you."
+          "The cellar's overrun again. Bring me rat tails and I'll pay you.",
+          "Twenty tails and the kitchen's yours, friend — I'll lend you a key. There's a cook-pot in there that's seen finer dishes than most inns ever serve."
         ],
         "cs": [
           "Vítej, příteli! Posaď se, odpočiň si.",
@@ -100,7 +101,8 @@
           "Klidný den. Tak to mám rád.",
           "Dej si pozor na schod, až půjdeš ven.",
           "Krysy! Nesnáším je. Za každý ocásek, co mi přineseš, dám měďák — vážně.",
-          "Sklep je zase plný krys. Přines mi ocásky a zaplatím."
+          "Sklep je zase plný krys. Přines mi ocásky a zaplatím.",
+          "Dvacet ocásků a kuchyně je tvoje, příteli — půjčím ti klíč. Visí tam kotlík, který vařil lepší jídla, než kdy podává většina hostinců."
         ]
       }
     },

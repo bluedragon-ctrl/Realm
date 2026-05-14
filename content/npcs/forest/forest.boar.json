@@ -27,7 +27,8 @@
   "xp": 18,
   "goldDrop": { "formula": "1d4", "chance": 0.2 },
   "loot": [
-    { "defId": "item.boar_tusk", "chance": 0.5 }
+    { "defId": "item.boar_tusk", "chance": 0.5 },
+    { "defId": "item.boar_meat", "chance": 0.6 }
   ],
   "behaviors": [
     {

@@ -1,0 +1,21 @@
+{
+  "id": "item.pub_key",
+  "name": {
+    "en": "a brass pub key",
+    "cs": "mosazný klíč od hostince"
+  },
+  "nameAcc": {
+    "en": "the brass pub key",
+    "cs": "mosazný klíč od hostince"
+  },
+  "short": {
+    "en": "A small brass key on a loop of leather cord.",
+    "cs": "Malý mosazný klíč na koženém poutku."
+  },
+  "long": {
+    "en": "A short brass key, polished by years of handling, hanging from a frayed loop of leather cord. It looks like the kind of key the innkeeper would lend only to someone he trusts behind the bar.",
+    "cs": "Krátký mosazný klíč, vyleštěný dlouhými lety používání, visí na roztřepeném koženém poutku. Vypadá to na klíč, jaký by hostinský půjčil jen tomu, komu věří za výčep."
+  },
+  "tags": ["key"],
+  "weight": 0
+}
