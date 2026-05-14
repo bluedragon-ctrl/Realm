@@ -1438,6 +1438,11 @@ function openRoomItemPopover(anchorEl, item, ev) {
     popover.appendChild(popoverButton(labels.pickUpButton ?? 'Pick up', '', () => {
       sendInput(`take ${item.name}`); closePopover();
     }));
+    if (item.count > 1) {
+      popover.appendChild(popoverButton(labels.pickUpAllButton ?? 'Pick up all', '', () => {
+        sendInput(`take all ${item.name}`); closePopover();
+      }));
+    }
   }
   if (item.usable && item.pickable === false) {
     popover.appendChild(popoverButton(labels.useButton ?? 'Use', '', () => {
