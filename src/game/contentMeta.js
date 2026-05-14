@@ -18,6 +18,14 @@ export const WEARABLE_SOURCE_PREFIX = 'wearable:';
 // ---------- spells ----------
 export const SPELL_TARGETS = new Set(['self', 'friendly', 'hostile', 'hostile_room', 'friendly_room', 'any']);
 
+// Effect types that resolve to a whole-room target list instead of a single actor.
+// Shared between castSpell and the NPC `cast` primitive so the two stay in sync.
+export const AOE_SPELL_EFFECT_TYPES = new Set([
+  'damage_room_enemies',
+  'heal_room_friendlies',
+  'buff_room_friendlies',
+]);
+
 // ---------- light ----------
 export const LIGHT_LEVEL_SET = new Set(['light', 'dim', 'dark']);
 export const PERCEPTION_KINDS = new Set(['blind', 'nightvision']);

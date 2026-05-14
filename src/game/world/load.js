@@ -18,7 +18,7 @@ export async function loadWorld() {
   world.effectDefs = await loadEffects();
   world.itemDefs = await loadItems(world.rooms, world.effectDefs);
   validateAllExchanges(world.npcDefs, world.itemDefs);
-  world.spellDefs = await loadSpells(world.effectDefs);
+  world.spellDefs = await loadSpells(world.effectDefs, world.npcDefs);
   if (!world.rooms.has(START_ROOM)) {
     throw new Error(`start room '${START_ROOM}' not found in content/rooms`);
   }

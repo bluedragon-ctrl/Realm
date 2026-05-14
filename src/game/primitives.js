@@ -9,6 +9,7 @@ import { resolveName } from './declension.js';
 import { castSpell } from './actions/cast.js';
 import { canPerceive } from './perception.js';
 import { performSummon } from './summon.js';
+import { AOE_SPELL_EFFECT_TYPES } from './contentMeta.js';
 
 const PRIMITIVES = {
   say(actor, behavior) {
@@ -116,7 +117,7 @@ const PRIMITIVES = {
     if (!spell) return;
     let target = null;
     const effectType = spell.effect?.type;
-    const isAoe = effectType === 'damage_room_enemies' || effectType === 'heal_room_friendlies';
+    const isAoe = AOE_SPELL_EFFECT_TYPES.has(effectType);
     if (!isAoe) {
       if (behavior.target === 'aggro_target') {
         target = aggroTargetInRoom(actor);
