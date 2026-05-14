@@ -1,0 +1,21 @@
+{
+  "id": "riverside.abandoned_mill",
+  "name": {
+    "en": "The abandoned mill",
+    "cs": "Opuštěný mlýn"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "The ground floor of an old stone mill, dust-thick and webbed across, smelling of mouldering flour.",
+    "cs": "Přízemí starého kamenného mlýna, husté prachem a propletené pavučinami, vzduch páchne plesnivou moukou."
+  },
+  "long": {
+    "en": "Inside the mill the air is still and heavy, thick with the smell of old flour gone soft and sour. Cobwebs hang in long ropes from every beam and shiver whenever the river makes the wheel turn a half-stroke against its rusted axle. Sacks lie split open along one wall, their grain long since picked over. A heavy round grindstone rests on its wooden frame in the middle of the floor, the rim still pale where grain once passed under it. A narrow wooden stair climbs up into the loft; the door behind you opens south onto the mill pool.",
+    "cs": "Uvnitř mlýna je vzduch nehybný a těžký, hustý vůní staré mouky, která zvlhla a zkysla. Z každého trámu visí v dlouhých lanech pavučiny a chvějí se, kdykoli řeka pohne kolem o půl otáčky proti rezavé hřídeli. Podél jedné stěny leží roztrhané pytle, obilí je z nich už dávno vybrané. Uprostřed podlahy spočívá na dřevěném podstavci těžký kulatý mlecí kámen, okraj má dosud světlý od obilí, které tudy kdysi procházelo. Úzké dřevěné schody stoupají na půdu; dveře za tebou vedou na jih ven k mlýnské tůni."
+  },
+  "exits": {
+    "s": "riverside.mill_pool",
+    "u": "riverside.mill_loft"
+  },
+  "tags": ["indoor", "riverside", "mill"]
+}

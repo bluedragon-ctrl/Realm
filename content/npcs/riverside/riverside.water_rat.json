@@ -1,0 +1,78 @@
+{
+  "id": "riverside.water_rat",
+  "name": { "en": "a water rat", "cs": "vodní krysa" },
+  "nameAcc": { "en": "the water rat", "cs": "vodní krysu" },
+  "nameDat": { "en": "the water rat", "cs": "vodní kryse" },
+  "nameGen": { "en": "the water rat", "cs": "vodní krysy" },
+  "title": { "en": "water rat", "cs": "vodní krysa" },
+  "vision": "nightvision",
+  "location": "riverside.reedy_path",
+  "count": 12,
+  "short": {
+    "en": "A wet brown rat with sleek fur and beady black eyes, sniffing at the mud.",
+    "cs": "Mokrá hnědá krysa s hladkou srstí a černýma korálkovýma očima, čmuchá v bahně."
+  },
+  "long": {
+    "en": "A river-bred rat, bigger and wetter than its cellar cousins. Its fur lies flat and dark with damp, and its small black eyes catch the light. Webbed back feet leave clear prints in the soft ground. It moves through the reeds without making a sound and bares its yellow teeth as soon as you come close.",
+    "cs": "Říční krysa, větší a mokřejší než její sklepní příbuzné. Srst má přilepenou a tmavou vlhkostí, drobné černé oči zachycují každý odlesk. Plovací zadní tlapky zanechávají v měkké zemi jasné otisky. Mezi rákosím se pohybuje neslyšně a jakmile se přiblížíš, vycení žluté zuby."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 8, "hpMax": 8,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 10,
+    "spd": 4
+  },
+  "respawn": { "ticks": 240 },
+  "xp": 4,
+  "behaviors": [
+    {
+      "primitive": "wander",
+      "chance": 0.25,
+      "cost": 12,
+      "scope": { "region": "riverside", "tags": ["outdoor"] }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "river bite", "cs": "říční kousnutí" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts in low and bites {target} on the ankle!",
+          "{actor} leaps from the reeds and snaps at {target}!",
+          "{actor} clamps wet yellow teeth into {target}!"
+        ],
+        "cs": [
+          "{actor} se mihne při zemi a kousne {target.acc} do kotníku!",
+          "{actor} vyskočí z rákosí a chňapne po {target.dat}!",
+          "{actor} zaboří mokré žluté zuby do {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "shakes water from its fur in a quick shudder.",
+          "rises on its hind legs and sniffs the air.",
+          "drags a dripping tail through the mud.",
+          "lets out a sharp wet squeak."
+        ],
+        "cs": [
+          "rychlým otřepáním se zbaví vody ze srsti.",
+          "postaví se na zadní a čichá ve vzduchu.",
+          "táhne mokrý ocas bahnem.",
+          "vydá pronikavé mokré zapištění."
+        ]
+      }
+    }
+  ]
+}

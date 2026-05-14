@@ -1,0 +1,29 @@
+{
+  "id": "spell.troll_regrowth",
+  "name": {
+    "en": "Troll regrowth",
+    "cs": "Trollí obnova"
+  },
+  "mpCost": 0,
+  "actionCost": 16,
+  "target": "self",
+  "description": {
+    "en": "The deep, slow magic of troll flesh — torn skin pulls closed and wounds knit shut as the body remembers its old shape.",
+    "cs": "Hluboká, pomalá magie trollího masa — roztržená kůže se stahuje a rány se zacelují, jak si tělo vzpomíná na svůj starý tvar."
+  },
+  "verb": {
+    "en": {
+      "no_target": {
+        "self": "thick green-grey flesh ripples over your wounds and slowly knits them closed.",
+        "others": "thick green-grey flesh ripples over {actor}'s wounds and slowly knits them closed."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "tlusté zelenošedé maso ti přejede přes rány a pomalu je stáhne k sobě.",
+        "others": "tlusté zelenošedé maso přejede přes rány {actor.gen} a pomalu je stáhne k sobě."
+      }
+    }
+  },
+  "effect": { "type": "apply_effect", "effectId": "effect.troll_regrowth" }
+}

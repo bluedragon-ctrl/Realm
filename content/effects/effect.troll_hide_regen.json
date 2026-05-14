@@ -1,0 +1,14 @@
+{
+  "id": "effect.troll_hide_regen",
+  "name": {
+    "en": "Troll-hide Regrowth",
+    "cs": "Obnova trollí kůže"
+  },
+  "kind": "buff",
+  "icon": "🌿",
+  "tick": {
+    "every": 8,
+    "effect": { "type": "heal", "hp": 1 }
+  },
+  "stack": "refresh"
+}

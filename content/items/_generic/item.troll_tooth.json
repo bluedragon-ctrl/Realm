@@ -1,0 +1,21 @@
+{
+  "id": "item.troll_tooth",
+  "name": {
+    "en": "a troll tooth",
+    "cs": "trollí zub"
+  },
+  "nameAcc": {
+    "en": "the troll tooth",
+    "cs": "trollí zub"
+  },
+  "short": {
+    "en": "A chunky yellow tooth as long as your thumb, blunt at the tip.",
+    "cs": "Mohutný žlutý zub dlouhý jako palec, na špičce tupý."
+  },
+  "long": {
+    "en": "A blunt yellow tooth pulled from a troll's heavy jaw. It is as long as your thumb and unusually warm to hold — as if the slow magic of the troll's flesh has not quite left it. The herbalist might know how to set it into something useful.",
+    "cs": "Tupý žlutý zub vytržený z trollovy mohutné čelisti. Je dlouhý jako palec a v dlani neobvykle teplý — jako by ho pomalá magie trollího masa ještě úplně neopustila. Bylinkářka by možná věděla, jak ho zasadit do něčeho užitečného."
+  },
+  "tags": ["reagent"],
+  "weight": 0
+}

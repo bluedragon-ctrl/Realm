@@ -1,0 +1,20 @@
+{
+  "id": "riverside.otter_holt",
+  "name": {
+    "en": "Otter holt",
+    "cs": "Vydří doupě"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "A small dry den dug into the river bank, lined with dry grass and smelling of warm fur.",
+    "cs": "Malé suché doupě vyhrabané v říčním břehu, vystlané suchou trávou a vonící teplou srstí."
+  },
+  "long": {
+    "en": "A round burrow scraped out of the soft earth and stones under the bank, just tall enough for you to crouch in. The floor is lined with dry grass and a few flat smooth pebbles laid out in a neat little row. The place smells warm and clean — fur and dry leaves — and a small dish of bright shells sits beside the wall. The only way out is back up to the gravel bar.",
+    "cs": "Kulatá nora vyškrabaná v měkké zemi a kamenech pod břehem, akorát tak vysoká, aby ses dovnitř vešel přikrčený. Podlaha je vystlaná suchou trávou a v úhledné řádce leží několik plochých hladkých oblázků. Místo voní teple a čistě — srstí a suchými listy — a u stěny stojí malá miska s pestrobarevnými mušličkami. Jediná cesta ven vede zpátky nahoru na štěrkový nános."
+  },
+  "exits": {
+    "u": "riverside.gravel_bar"
+  },
+  "tags": ["riverside", "secret", "safe"]
+}

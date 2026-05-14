@@ -1,0 +1,66 @@
+{
+  "id": "riverside.troll_chest",
+  "name": {
+    "en": "an iron-bound oak chest",
+    "cs": "okovaná dubová truhla"
+  },
+  "nameAcc": {
+    "en": "the iron-bound oak chest",
+    "cs": "okovanou dubovou truhlu"
+  },
+  "short": {
+    "en": "A heavy oak chest bound in black iron sits among the bridge timbers, lock fitted for a chunky three-toothed key.",
+    "cs": "Mezi trámy mostu stojí těžká dubová truhla okovaná černým železem, zámek tvarovaný pro mohutný trojzubý klíč."
+  },
+  "long": {
+    "en": "A solid chest as long as your arm, built of dark oak and bound at every edge with bands of black iron. The wood has been gnawed at the corners but the iron has held. The lock is huge and shaped for the kind of heavy three-toothed key a troll might wear at its neck.",
+    "cs": "Pevná truhla dlouhá jako tvá paže, postavená z tmavého dubu a v každém rohu okovaná pásy černého železa. Dřevo je v rozích okousané, ale železo drží. Zámek je obrovský a vytvarovaný pro mohutný trojzubý klíč, jaký by mohl nosit troll na krku."
+  },
+  "tags": ["fixture", "container"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "riverside.troll_hollow",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you fit the heavy iron key into the lock, throw it with both hands, and the lid lifts open.",
+        "others": "{actor} fits a heavy iron key into the chest, throws it with both hands, and the lid lifts open."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zasuneš těžký železný klíč do zámku, oběma rukama jím otočíš a víko se zvedne.",
+        "others": "{actor} zasune těžký železný klíč do zámku truhly, oběma rukama jím otočí a víko se zvedne."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "open_chest",
+      "key": "item.troll_key",
+      "loot": [
+        { "defId": "potion.heal", "count": 2, "chance": 1.0 }
+      ],
+      "gold": "3d6+5",
+      "onLocked": {
+        "target": "riverside.bridge_troll",
+        "verb": {
+          "en": {
+            "to_target": {
+              "self": "you heave on the chest's iron-bound lid; wood and metal grind together with a long shriek loud enough to stir {target}.",
+              "others": "{actor} heaves on the chest's iron-bound lid; wood and metal grind together with a long shriek loud enough to stir {target}."
+            }
+          },
+          "cs": {
+            "to_target": {
+              "self": "zalomíš víkem okované truhly; dřevo a kov o sebe zaskřípou dlouhým zaskřípáním tak hlasitým, že vzbudí {target.acc}.",
+              "others": "{actor} zalomí víkem okované truhly; dřevo a kov o sebe zaskřípou dlouhým zaskřípáním tak hlasitým, že vzbudí {target.acc}."
+            }
+          }
+        }
+      }
+    }
+  }
+}

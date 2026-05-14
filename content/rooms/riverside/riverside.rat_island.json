@@ -1,0 +1,20 @@
+{
+  "id": "riverside.rat_island",
+  "name": {
+    "en": "The rat island",
+    "cs": "Krysí ostrůvek"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A small willow-shaded islet whose soft ground is honeycombed with rat burrows.",
+    "cs": "Malý ostrůvek ve stínu vrb, jehož měkká půda je provrtaná krysími norami."
+  },
+  "long": {
+    "en": "The stepping stones cross to a low islet barely the size of a cottage, shaded by two old willows that lean low over the water. The ground here is soft and pale and crumbles under your foot — it is dug through and through with burrows, big and small, and the air smells warm and animal. Strands of pale fur cling to the willow roots. The only way back is west across the stones.",
+    "cs": "Šlapací kameny vedou na nízký ostrůvek sotva velký jako chalupa, zastíněný dvěma starými vrbami, které se nízko sklánějí nad vodu. Půda je tu měkká, světlá a pod nohou se drolí — je provrtaná norami, velkými i malými, a vzduch je teplý a páchne po zvířatech. Na vrbových kořenech ulpívají chomáče světlé srsti. Jediná cesta zpět vede na západ přes šlapací kameny."
+  },
+  "exits": {
+    "w": "riverside.heron_bend"
+  },
+  "tags": ["outdoor", "riverside"]
+}

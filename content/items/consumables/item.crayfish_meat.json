@@ -1,0 +1,45 @@
+{
+  "id": "item.crayfish_meat",
+  "name": {
+    "en": "a chunk of crayfish meat",
+    "cs": "kus račího masa"
+  },
+  "nameAcc": {
+    "en": "the chunk of crayfish meat",
+    "cs": "kus račího masa"
+  },
+  "short": {
+    "en": "A fat pink chunk of crayfish meat, sweet-smelling and still cool from the river.",
+    "cs": "Tučný růžový kus račího masa, sladce vonící a stále chladný od řeky."
+  },
+  "long": {
+    "en": "A heavy pink wedge of meat cut from inside the crayfish's claw, white at the edges and pink in the middle. It smells faintly sweet and cool, like river water. Even raw it would make a hearty meal — cooked, it would feed two.",
+    "cs": "Těžký růžový klín masa vykrojený zevnitř račího klepeta, na okrajích bílý a uprostřed růžový. Slabě sladce voní a je chladný jako říční voda. I syrový by zasytil — uvařený by nakrmil dva."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you bite into the crayfish meat. It is sweet and cool and surprisingly filling.",
+        "others": "{actor} bites into a chunk of crayfish meat."
+      },
+      "to_target": {
+        "self": "you offer the chunk of crayfish meat to {target}, who takes a bite.",
+        "others": "{actor} offers a chunk of crayfish meat to {target}, who takes a bite."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zakousneš se do račího masa. Je sladké, chladné a překvapivě syté.",
+        "others": "{actor} se zakousne do kusu račího masa."
+      },
+      "to_target": {
+        "self": "nabídneš kus račího masa {target.dat} a ten si ukousne.",
+        "others": "{actor} nabízí kus račího masa {target.dat} a ten si ukousne."
+      }
+    },
+    "effect": { "type": "heal", "amount": 4 },
+    "consumable": true
+  }
+}

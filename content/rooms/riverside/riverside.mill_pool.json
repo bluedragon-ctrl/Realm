@@ -1,0 +1,22 @@
+{
+  "id": "riverside.mill_pool",
+  "name": {
+    "en": "Mill pool",
+    "cs": "Mlýnská tůň"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A deep still pool below the rotted wheel of an old mill, with cut stone shoring up the bank.",
+    "cs": "Hluboká tichá tůň pod prohnilým kolem starého mlýna, břeh zpevněný tesaným kamenem."
+  },
+  "long": {
+    "en": "The river slows here into a deep pool, the water dark and almost still. Cut stone blocks shore up the bank where someone once cared about keeping the channel open. Right above the pool hangs the rotting wheel of an old mill, its blades soft with green slime; the building itself stands quiet on the north bank, its door hanging open. The footpath continues east toward the bridge and west into the reeds.",
+    "cs": "Řeka se tu zpomalí do hluboké tůně, voda je tmavá a téměř nehybná. Tesané kvádry zpevňují břeh tam, kde kdysi někomu záleželo na tom, aby zůstal koryto otevřené. Přímo nad tůní visí prohnilé kolo starého mlýna, lopatky měkké zeleným slizem; budova mlýna stojí ztichlá na severním břehu, dveře dokořán. Stezka pokračuje na východ k mostu a na západ do rákosí."
+  },
+  "exits": {
+    "e": "riverside.broken_bridge",
+    "w": "riverside.reedy_path",
+    "n": "riverside.abandoned_mill"
+  },
+  "tags": ["outdoor", "riverside"]
+}

@@ -147,6 +147,48 @@
           }
         }
       }
+    },
+    {
+      "id": "herbalist.craft_moonlight_potion",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.pearl_dust", "count": 1 }, { "item": "item.candle", "count": 1 }],
+      "outputs": [{ "item": "potion.moonlight" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand a pinch of pearl dust and a tallow candle to {target}. {target} melts the candle into a small bowl, stirs in the dust until the wax turns silver, and pours the liquid moonlight into a glass vial for you.",
+            "others": "{actor} hands pearl dust and a candle to {target}, who melts the wax and stirs in the dust until it glows silver."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš špetku perlového prachu a svíčku {target.dat}. {target} svíčku rozpustí v malé misce, vmíchá do vosku prach, dokud nestříbří, a tekutý měsíční svit naleje do skleněné lahvičky.",
+            "others": "{actor} podává perlový prach a svíčku {target.dat}, která rozpustí vosk a vmíchá prach, dokud se nezačne stříbřit."
+          }
+        }
+      }
+    },
+    {
+      "id": "herbalist.craft_amulet_troll_heart",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.troll_tooth", "count": 1 }, { "item": "item.ironwort", "count": 5 }, { "gold": 30 }],
+      "outputs": [{ "item": "item.amulet_troll_heart" }],
+      "xp": 6,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand a troll tooth, five sprigs of ironwort, and thirty gold to {target}. She grinds the ironwort to a hard grey paste, binds the tooth to a leather cord, and seals the root with the paste — the amulet warms in your palm.",
+            "others": "{actor} hands a troll tooth, ironwort, and gold to {target}, who grinds, binds, and seals an amulet around a leather cord."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš trollí zub, pět snítek železníku a třicet zlatých {target.dat}. Železník rozdrtí na tvrdou šedou pastu, zub naváže na koženou šňůrku a kořen zalije pastou — amulet ti v dlani zahřeje.",
+            "others": "{actor} podává trollí zub, železník a zlaté {target.dat}, která vše rozdrtí, sváže a zalije do amuletu na kožené šňůrce."
+          }
+        }
+      }
     }
   ],
   "behaviors": [

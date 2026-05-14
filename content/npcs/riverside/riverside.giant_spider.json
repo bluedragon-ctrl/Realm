@@ -1,0 +1,72 @@
+{
+  "id": "riverside.giant_spider",
+  "name": { "en": "a mill spider", "cs": "mlýnský pavouk" },
+  "nameAcc": { "en": "the mill spider", "cs": "mlýnského pavouka" },
+  "nameDat": { "en": "the mill spider", "cs": "mlýnskému pavoukovi" },
+  "nameGen": { "en": "the mill spider", "cs": "mlýnského pavouka" },
+  "title": { "en": "mill spider", "cs": "mlýnský pavouk" },
+  "vision": "nightvision",
+  "location": "riverside.abandoned_mill",
+  "count": 2,
+  "short": {
+    "en": "A pale spider the size of a cat clings upside down to a beam, watching with small black eyes.",
+    "cs": "Bledý pavouk velký jako kočka visí hlavou dolů z trámu a sleduje tě drobnýma černýma očima."
+  },
+  "long": {
+    "en": "A flour-dusted spider as big as a fat cat, hanging from a beam with all eight legs spread wide. Its pale body is patterned with grey rings and its fangs are short but sharp, beaded with a single drop of clear liquid. It does not move when you watch it. As soon as you turn away, the webs in the corners of your sight begin to shiver.",
+    "cs": "Pavouk pomoučený jako pekař, velký jako tlustá kočka, visí z trámu se všemi osmi nohama rozevřenými. Bledé tělo má pruhované šedými kroužky a tesáky krátké, ale ostré, s jedinou kapkou čiré tekutiny na špičce. Když ho sleduješ, nehne se. Jakmile odvrátíš pohled, začnou se v koutcích zraku chvět pavučiny."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 10, "hpMax": 10,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 0, "int": 0,
+    "evasion": 20,
+    "spd": 5
+  },
+  "respawn": { "ticks": 600 },
+  "xp": 8,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "spider bite", "cs": "kousnutí pavouka" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} drops from the rafters onto {target} and bites!",
+          "{actor} scuttles forward and sinks short fangs into {target}!",
+          "{actor} rears up and stabs at {target} with both fangs!"
+        ],
+        "cs": [
+          "{actor} padne z krovů na {target.acc} a kousne!",
+          "{actor} se přihrne a zaboří krátké tesáky do {target.gen}!",
+          "{actor} se vzepne a bodne oběma tesáky do {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "drops on a single thread and climbs back up to the beam.",
+          "taps a long leg against a sack of old flour.",
+          "folds its legs under its body and goes very still.",
+          "scuttles a short distance along the web and stops."
+        ],
+        "cs": [
+          "spadne na jediném vlákně a zase vyleze na trám.",
+          "ťukne dlouhou nohou o pytel staré mouky.",
+          "složí nohy pod sebe a úplně se zastaví.",
+          "přejede po pavučině o kus dál a ztuhne."
+        ]
+      }
+    }
+  ]
+}

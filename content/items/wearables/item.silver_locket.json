@@ -1,0 +1,25 @@
+{
+  "id": "item.silver_locket",
+  "name": {
+    "en": "a silver locket",
+    "cs": "stříbrný medailonek"
+  },
+  "nameAcc": {
+    "en": "the silver locket",
+    "cs": "stříbrný medailonek"
+  },
+  "short": {
+    "en": "A small tarnished silver locket on a thin chain, oddly light around the neck.",
+    "cs": "Malý zčernalý stříbrný medailonek na tenkém řetízku, kolem krku zvláštně lehký."
+  },
+  "long": {
+    "en": "A small silver locket on a thin chain, tarnished dark from years in a damp burrow. It is engraved with a swirl of leaves around the rim and clicks open to show a faded little portrait — somebody loved, long ago. Whoever wears it seems to slip away from danger just a heartbeat sooner.",
+    "cs": "Malý stříbrný medailonek na tenkém řetízku, zčernalý dlouhými lety ve vlhké noře. Po okraji je rytý věnec listů a otvírá se s tichým cvaknutím — uvnitř je vybledlý portrétík kohosi kdysi milovaného. Komu visí na krku, ten jako by před nebezpečím uskočil o úder srdce dříve."
+  },
+  "tags": ["amulet", "magic"],
+  "weight": 0,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "evasion": 10 }
+  }
+}

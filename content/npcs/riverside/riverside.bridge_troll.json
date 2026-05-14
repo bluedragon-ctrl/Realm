@@ -1,0 +1,89 @@
+{
+  "id": "riverside.bridge_troll",
+  "position": "sleep",
+  "name": { "en": "a bridge troll", "cs": "mostní troll" },
+  "nameAcc": { "en": "the bridge troll", "cs": "mostního trolla" },
+  "nameDat": { "en": "the bridge troll", "cs": "mostnímu trollovi" },
+  "nameGen": { "en": "the bridge troll", "cs": "mostního trolla" },
+  "title": { "en": "bridge troll", "cs": "mostní troll" },
+  "vision": "low_light",
+  "location": "riverside.troll_hollow",
+  "count": 1,
+  "short": {
+    "en": "An enormous green-grey troll lies curled among the broken bridge timbers, chest rising and falling with slow heavy breaths.",
+    "cs": "Obrovský zelenošedý troll leží stočený mezi polámanými trámy z mostu, hruď mu zvolna a těžce stoupá a klesá."
+  },
+  "long": {
+    "en": "A massive creature, shoulders as wide as a cart and arms as thick as your leg, with rubbery green-grey skin pulled tight over heavy bones. Old scars run all over its hide — pink, white, half-closed — and you can almost see them shifting slightly even now. A wooden club the size of a fence post lies beside it, and a heavy iron key on a leather thong hangs around its neck. Its breathing is so deep that the timbers on its chest rise and fall together, and its huge yellow eyes are shut tight under heavy brow-ridges.",
+    "cs": "Mohutný tvor s rameny širokými jako vůz a pažemi silnými jako tvoje noha, kožnatá zelenošedá kůže má těsně napnutou přes těžké kosti. Po celém těle se mu táhnou staré jizvy — růžové, bílé, napůl zacelené — a skoro i teď máš pocit, že se v nich něco mírně pohybuje. Vedle něj leží dřevěný kyj velký jako kůl od plotu a na krku mu na koženém řemínku visí těžký železný klíč. Dýchá tak hluboce, že trámy na jeho hrudi stoupají a klesají spolu s ním, a obrovské žluté oči má pevně zavřené pod těžkými oblouky obočí."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 55, "hpMax": 55,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 4, "int": 0,
+    "magicResist": 20,
+    "spd": 3
+  },
+  "respawn": { "ticks": 2400 },
+  "xp": 60,
+  "goldDrop": { "formula": "3d6+10", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.troll_key", "chance": 1.0 },
+    { "defId": "item.troll_hide", "chance": 1.0 },
+    { "defId": "item.troll_tooth", "chance": 0.5 },
+    { "defId": "potion.heal", "chance": 0.5 },
+    { "defId": "potion.heal", "chance": 0.5 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "cast",
+      "spell": "spell.troll_regrowth",
+      "target": "self",
+      "chance": 0.5,
+      "cost": 16,
+      "requires": { "type": "low_hp", "ratio": 0.8 }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "club blow", "cs": "úder kyjem" },
+      "chance": 1.0,
+      "cost": 20,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swings a fencepost-sized club down on {target} with both hands!",
+          "{actor} drags its huge club up and brings it crashing onto {target}!",
+          "{actor} grunts and slams its club into {target} like a falling tree!"
+        ],
+        "cs": [
+          "{actor} oběma rukama spustí kyj velký jako kůl na {target.acc}!",
+          "{actor} zvedne obrovský kyj a vrazí jím do {target.gen}!",
+          "{actor} zachrochtá a udeří kyjem do {target.gen} jako padajícím stromem!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 8,
+      "lines": {
+        "en": [
+          "rumbles deep in its chest and bares blunt yellow teeth.",
+          "scrapes a heavy palm along the wet stone floor.",
+          "shifts its weight and the broken timbers groan under it.",
+          "rolls its huge head on its neck and flexes one hand around the club."
+        ],
+        "cs": [
+          "zaduní hluboko v hrudi a vycení tupé žluté zuby.",
+          "přejede těžkou dlaní po mokré kamenné podlaze.",
+          "přesune váhu a polámané trámy pod ním zasténají.",
+          "zatočí obrovskou hlavou a sevře ruku kolem kyje."
+        ]
+      }
+    }
+  ]
+}

@@ -15,7 +15,8 @@
   },
   "exits": {
     "n": "village.south_road",
-    "e": "village.goblin_camp"
+    "e": "village.goblin_camp",
+    "s": "riverside.broken_bridge"
   },
   "tags": ["outdoor", "village"]
 }

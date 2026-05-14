@@ -1,0 +1,72 @@
+{
+  "id": "riverside.frog",
+  "name": { "en": "a green frog", "cs": "zelená žába" },
+  "nameAcc": { "en": "the green frog", "cs": "zelenou žábu" },
+  "nameDat": { "en": "the green frog", "cs": "zelené žábě" },
+  "nameGen": { "en": "the green frog", "cs": "zelené žáby" },
+  "title": { "en": "green frog", "cs": "zelená žába" },
+  "vision": "normal",
+  "location": "riverside.reed_shallows",
+  "count": 3,
+  "short": {
+    "en": "A bright green frog squats on a wet stone, throat puffing in and out.",
+    "cs": "Jasně zelená žába dřepí na mokrém kameni, hrdlo se jí nadouvá a splaskává."
+  },
+  "long": {
+    "en": "A common green river frog, glossy and damp, with bulging gold-rimmed eyes. Its throat puffs out into a pale sac and snaps flat again as it calls. It watches you sidelong and gathers its long legs beneath it, ready to spring at any moment.",
+    "cs": "Obyčejná zelená říční žába, lesklá a vlhká, s vypoulenýma očima lemovanýma zlatem. Hrdlo se jí nafoukne v bledý vak a zase splaskne, když zakvaká. Pozoruje tě kose a podbírá pod sebe dlouhé nohy, připravená každou chvíli skočit."
+  },
+  "disposition": "neutral",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 3, "hpMax": 3,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 30,
+    "spd": 7
+  },
+  "respawn": { "ticks": 500 },
+  "xp": 1,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "frog kick", "cs": "kopnutí žáby" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} kicks at {target} with its long hind legs!",
+          "{actor} springs at {target} and bumps into a knee!"
+        ],
+        "cs": [
+          "{actor} kopne {target.acc} dlouhýma zadníma nohama!",
+          "{actor} skočí na {target.acc} a narazí do kolena!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.12,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lets out a deep wet croak.",
+          "blinks slowly with golden eyes.",
+          "hops two steps and freezes mid-leap.",
+          "puffs its pale throat sac in and out.",
+          "flicks a long pink tongue at a passing fly."
+        ],
+        "cs": [
+          "vydá hluboké mokré kvákání.",
+          "pomalu zamrká zlatýma očima.",
+          "skočí dva kroky a uprostřed skoku ztuhne.",
+          "nafoukne a splaskne bledý vak na hrdle.",
+          "vystřelí dlouhým růžovým jazykem po mouše."
+        ]
+      }
+    }
+  ]
+}

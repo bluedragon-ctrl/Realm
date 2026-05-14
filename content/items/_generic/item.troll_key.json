@@ -1,0 +1,21 @@
+{
+  "id": "item.troll_key",
+  "name": {
+    "en": "an iron key on a leather thong",
+    "cs": "železný klíč na koženém řemínku"
+  },
+  "nameAcc": {
+    "en": "the iron key on a leather thong",
+    "cs": "železný klíč na koženém řemínku"
+  },
+  "short": {
+    "en": "A heavy iron key on a worn leather thong.",
+    "cs": "Těžký železný klíč na ohmataném koženém řemínku."
+  },
+  "long": {
+    "en": "A big iron key cut into a chunky three-toothed shape, hung on a thick leather thong long enough to wear around a wide neck. The metal is pitted and dull but the teeth are crisp where they meet the lock. The thong is dark and stiff with old grease.",
+    "cs": "Velký železný klíč s mohutným trojzubým profilem, navlečený na silném koženém řemínku dost dlouhém na to, aby se dal nosit kolem širokého krku. Kov je důlkovaný a matný, ale zoubky jsou ostré tam, kde se opírají o zámek. Řemínek je tmavý a ztuhlý starou mastnotou."
+  },
+  "tags": ["key"],
+  "weight": 1
+}

@@ -1,0 +1,21 @@
+{
+  "id": "item.pearl",
+  "name": {
+    "en": "a river pearl",
+    "cs": "říční perla"
+  },
+  "nameAcc": {
+    "en": "the river pearl",
+    "cs": "říční perlu"
+  },
+  "short": {
+    "en": "A small smooth river pearl, the soft pale colour of moonlight.",
+    "cs": "Malá hladká říční perla, jemně bledá jako měsíční svit."
+  },
+  "long": {
+    "en": "A small smooth pearl from the bottom of the slow river, no bigger than a pea but perfectly round. It has the soft pale colour of moonlight and feels cool against your skin. Otters seem to know where to find them, and so does the heavy grindstone in the old mill.",
+    "cs": "Malá hladká perla ze dna pomalé řeky, ne větší než hrášek, ale dokonale kulatá. Má jemně bledou barvu měsíčního svitu a na kůži je chladivá. Vydry je umí najít a stejně tak ji rád přijme i těžký mlecí kámen ve starém mlýně."
+  },
+  "tags": ["reagent"],
+  "weight": 0
+}

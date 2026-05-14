@@ -1,0 +1,26 @@
+{
+  "id": "item.troll_hide_jerkin",
+  "name": {
+    "en": "a troll hide jerkin",
+    "cs": "trollí vesta"
+  },
+  "nameAcc": {
+    "en": "the troll hide jerkin",
+    "cs": "trollí vestu"
+  },
+  "short": {
+    "en": "A heavy sleeveless jerkin of stitched green-grey troll hide, faintly warm to the touch.",
+    "cs": "Těžká vesta bez rukávů ze sešívané zelenošedé trollí kůže, na dotek slabě teplá."
+  },
+  "long": {
+    "en": "A sleeveless jerkin built from two layers of troll hide, stitched along every seam with thick leather thongs. The skin is half-armour, half-elastic, and somehow still warm against your chest as if the slow magic of the troll has not quite left it. Small cuts on the surface seem to close on their own.",
+    "cs": "Vesta bez rukávů sešitá ze dvou vrstev trollí kůže, na každém švu pevně stažená koženými řemínky. Kůže je napůl pancíř, napůl pružná blána a na hrudi je nějak stále teplá, jako by ji pomalá magie trolla úplně neopustila. Drobné řezy na povrchu se zdají zacelovat samy."
+  },
+  "tags": ["armor", "wearable"],
+  "weight": 4,
+  "wearable": {
+    "slot": "body",
+    "bonus": { "defense": 2 },
+    "effects": ["effect.troll_hide_regen"]
+  }
+}

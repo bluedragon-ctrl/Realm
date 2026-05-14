@@ -1,0 +1,45 @@
+{
+  "id": "item.fish_soup",
+  "name": {
+    "en": "a bowl of fish soup",
+    "cs": "miska rybí polévky"
+  },
+  "nameAcc": {
+    "en": "the bowl of fish soup",
+    "cs": "misku rybí polévky"
+  },
+  "short": {
+    "en": "A wooden bowl of clear fish soup, silver flakes drifting in the broth.",
+    "cs": "Dřevěná miska čiré rybí polévky, ve vývaru se vznášejí stříbrné šupinky."
+  },
+  "long": {
+    "en": "A heavy wooden bowl of clear pale broth with flakes of silver river fish, a sprig of green herb, and a pinch of salt. It steams gently and smells faintly of river water and herbs. A whole bowl will warm and feed you well.",
+    "cs": "Těžká dřevěná miska čirého bledého vývaru s vločkami stříbrných říčních ryb, snítkou zelené byliny a špetkou soli. Mírně se z ní kouří a slabě voní říční vodou a bylinami. Celá miska tě zahřeje a pořádně zasytí."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you spoon up the fish soup. It is hot and clean-tasting, and a quiet warmth spreads through you.",
+        "others": "{actor} spoons up a bowl of fish soup."
+      },
+      "to_target": {
+        "self": "you hand the bowl of fish soup to {target}, who eats it gratefully.",
+        "others": "{actor} hands the bowl of fish soup to {target}, who eats it gratefully."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sníš rybí polévku. Je horká a čistá a tělem se ti rozlije tiché teplo.",
+        "others": "{actor} sní misku rybí polévky."
+      },
+      "to_target": {
+        "self": "podáš misku rybí polévky {target.dat} a ten ji vděčně sní.",
+        "others": "{actor} podává misku rybí polévky {target.dat} a ten ji vděčně sní."
+      }
+    },
+    "effect": { "type": "heal", "amount": 7 },
+    "consumable": true
+  }
+}

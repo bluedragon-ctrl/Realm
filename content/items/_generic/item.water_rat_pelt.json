@@ -1,0 +1,21 @@
+{
+  "id": "item.water_rat_pelt",
+  "name": {
+    "en": "a water rat pelt",
+    "cs": "kožešina vodní krysy"
+  },
+  "nameAcc": {
+    "en": "the water rat pelt",
+    "cs": "kožešinu vodní krysy"
+  },
+  "short": {
+    "en": "A large pelt of brown river-rat fur, silvered along the spine.",
+    "cs": "Velká kožešina hnědé říční krysy, podél hřbetu prostříbřená."
+  },
+  "long": {
+    "en": "A great pelt taken from the matriarch — twice the size of an ordinary rat skin, brown along the flanks and silvered down the spine. The fur is short and water-tight, the kind that keeps an animal warm even when soaked. Old battle-scars seam the edges. Someone could line a cloak with this.",
+    "cs": "Velká kožešina stažená z matrony — dvakrát větší než od obyčejné krysy, hnědá podél boků a podél hřbetu prostříbřená. Srst je krátká a vodotěsná, taková, která zvíře hřeje i mokré. Po okrajích se táhnou staré bojové jizvy. Někdo by tím mohl podšít plášť."
+  },
+  "tags": ["material"],
+  "weight": 2
+}

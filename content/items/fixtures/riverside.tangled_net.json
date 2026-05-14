@@ -1,0 +1,47 @@
+{
+  "id": "riverside.tangled_net",
+  "name": {
+    "en": "a tangled fishing net",
+    "cs": "zamotaná rybářská síť"
+  },
+  "nameAcc": {
+    "en": "the tangled fishing net",
+    "cs": "zamotanou rybářskou síť"
+  },
+  "short": {
+    "en": "A heap of old fishing net snagged under the pier, still holding something alive.",
+    "cs": "Hromada staré rybářské sítě zachycená pod molem, v níž se ještě něco hýbe."
+  },
+  "long": {
+    "en": "A balled-up snarl of grey fishing net snagged on a splintered post under the pier. The cords are wet and rotting in places, but the knots still hold, and two small silver shapes thrash slowly inside the tangle.",
+    "cs": "Slepený chuchvalec šedé rybářské sítě zachycený o roztříštěný kůl pod molem. Lana jsou mokrá a místy ztrouchnivělá, ale uzly drží, a uvnitř zámotku se pomalu zmítají dvě malé stříbrné rybky."
+  },
+  "tags": ["fixture", "container"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "riverside.fishing_spot",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you reach under the pier, work the wet knots loose, and pull two flapping silver fish free of the tangle.",
+        "others": "{actor} reaches under the pier, works the wet knots loose, and pulls two flapping silver fish free of the tangle."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sáhneš pod molo, povolíš mokré uzly a vyprostíš ze zámotku dvě mrskající se stříbrné ryby.",
+        "others": "{actor} sáhne pod molo, povolí mokré uzly a vyprostí ze zámotku dvě mrskající se stříbrné ryby."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "open_chest",
+      "loot": [
+        { "defId": "item.river_fish", "count": 2, "chance": 1.0 }
+      ]
+    }
+  }
+}

@@ -1,0 +1,21 @@
+{
+  "id": "riverside.reedy_path",
+  "name": {
+    "en": "Reedy path",
+    "cs": "Stezka v rákosí"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A muddy track between walls of tall green reeds that hiss in the wind.",
+    "cs": "Bahnitá stezka mezi stěnami vysokého zeleného rákosí, které šustí ve větru."
+  },
+  "long": {
+    "en": "The footpath narrows to a strip of sticky mud between walls of reeds that stand taller than your head. Everything here is in motion — the reeds hiss against each other in the breeze and small shapes rustle through them at knee height. The damp ground holds clear prints of small clawed feet, lots of them, pointing in every direction. The path runs east back to the mill pool and west to where the bank rises into a wooden pier.",
+    "cs": "Stezka se zúží do pruhu lepkavého bahna mezi stěnami rákosí, které je vyšší než ty. Všechno je tu v pohybu — rákosí o sebe ve vánku šustí a malé tvary mu projíždějí ve výšce kolen. Vlhká zem drží jasné otisky malých drápkatých nožek, plno jich, mířících na všechny strany. Stezka vede na východ zpět k mlýnské tůni a na západ k místu, kde se břeh zvedá do dřevěného mola."
+  },
+  "exits": {
+    "e": "riverside.mill_pool",
+    "w": "riverside.fishing_spot"
+  },
+  "tags": ["outdoor", "riverside"]
+}

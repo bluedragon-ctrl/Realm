@@ -1,0 +1,45 @@
+{
+  "id": "item.crab_cake",
+  "name": {
+    "en": "a crab cake",
+    "cs": "račí placička"
+  },
+  "nameAcc": {
+    "en": "the crab cake",
+    "cs": "račí placičku"
+  },
+  "short": {
+    "en": "A small golden-brown cake of flaked crayfish meat, still warm from the oven.",
+    "cs": "Malá zlatohnědá placička z rozdrobeného račího masa, ještě teplá z pece."
+  },
+  "long": {
+    "en": "A small round cake the colour of toasted bread, packed with flaked pink crayfish meat. The outside is crisp from the oven; the inside is soft, sweet, and a little salty. Three or four bites will leave you fed.",
+    "cs": "Malá kulatá placička barvy opečeného chleba, plná rozdrobeného růžového račího masa. Zvenku je z pece křupavá, uvnitř měkká, sladká a trochu slaná. Třemi čtyřmi sousty se zasytíš."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you bite into the crab cake. It is crisp, warm and surprisingly filling.",
+        "others": "{actor} bites into a crab cake."
+      },
+      "to_target": {
+        "self": "you offer the crab cake to {target}, who takes it with a small thanks.",
+        "others": "{actor} offers a crab cake to {target}, who takes it with a small thanks."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zakousneš se do račí placičky. Je křupavá, teplá a překvapivě sytá.",
+        "others": "{actor} se zakousne do račí placičky."
+      },
+      "to_target": {
+        "self": "nabídneš račí placičku {target.dat}, ten ji s tichým díkem přijme.",
+        "others": "{actor} nabízí račí placičku {target.dat}, ten ji s tichým díkem přijme."
+      }
+    },
+    "effect": { "type": "heal", "amount": 5 },
+    "consumable": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "id": "item.bait_worm",
+  "name": {
+    "en": "an earthworm",
+    "cs": "žížala"
+  },
+  "nameAcc": {
+    "en": "the earthworm",
+    "cs": "žížalu"
+  },
+  "short": {
+    "en": "A fat pink earthworm, slippery and full of life.",
+    "cs": "Tlustá růžová žížala, kluzká a plná života."
+  },
+  "long": {
+    "en": "A plump pink earthworm pulled from soft damp soil. It twists and curls between your fingers — slow, slippery, very much alive. Threaded onto a hook, it would make a fine bait for fishing.",
+    "cs": "Baculatá růžová žížala vytažená z měkké vlhké země. Mezi prsty se ti svíjí a kroutí — pomalá, kluzká, moc živá. Navlečená na háček by byla pěkná návnada na ryby."
+  },
+  "tags": ["reagent", "bait"],
+  "weight": 0,
+  "spawn": {
+    "locations": {
+      "riverside.fishing_spot": 2,
+      "riverside.reedy_path": 1,
+      "riverside.heron_bend": 1,
+      "home.garden": 1,
+      "village.orchard": 1,
+      "forest.berry_patch": 1,
+      "forest.mushroom_hollow": 1
+    },
+    "respawnTicks": 600
+  }
+}

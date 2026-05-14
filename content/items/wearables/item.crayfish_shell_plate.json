@@ -1,0 +1,25 @@
+{
+  "id": "item.crayfish_shell_plate",
+  "name": {
+    "en": "a crayfish shell plate",
+    "cs": "račí pancíř"
+  },
+  "nameAcc": {
+    "en": "the crayfish shell plate",
+    "cs": "račí pancíř"
+  },
+  "short": {
+    "en": "Heavy curved plates of dark green crayfish shell riveted to a leather backing.",
+    "cs": "Těžké zaoblené desky tmavě zeleného račího krunýře přinýtované na koženém podkladu."
+  },
+  "long": {
+    "en": "A bulky chest piece built from two great crayfish shells, riveted together and laced over a thick leather backing. The plates are ridged and almost too hard to dent, but the whole thing is heavy and stiff — quick footwork is impossible while you wear it. It smells faintly of river weed.",
+    "cs": "Mohutný hrudní díl postavený ze dvou velkých račích krunýřů, snýtovaných k sobě a svázaných přes silnou koženou podšívku. Desky jsou žebrované a téměř nezdolné, ale celé to je těžké a tuhé — rychlé úhybné nohy v něm nezvládneš. Slabě páchne říčními řasami."
+  },
+  "tags": ["armor", "wearable"],
+  "weight": 5,
+  "wearable": {
+    "slot": "body",
+    "bonus": { "defense": 3, "evasion": -5 }
+  }
+}

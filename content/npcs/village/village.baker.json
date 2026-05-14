@@ -63,6 +63,27 @@
       "flavor": "sell",
       "inputs":  [{ "item": "item.honey", "count": 1 }],
       "outputs": [{ "gold": 2 }]
+    },
+    {
+      "id": "baker.craft_crab_cakes",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.crayfish_meat", "count": 1 }, { "gold": 5 }],
+      "outputs": [{ "item": "item.crab_cake", "count": 3 }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand a chunk of crayfish meat and five gold to {target}. She flakes the meat with quick fingers, shapes it into three small cakes, and slides them into the oven until golden.",
+            "others": "{actor} hands crayfish meat and gold to {target}, who flakes the meat and bakes three small crab cakes."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš kus račího masa a pět zlatých {target.dat}. Rychlými prsty maso rozdrobí, vytvaruje z něj tři malé placičky a strčí je do pece, dokud se nezbarví dozlatova.",
+            "others": "{actor} podává račí maso a zlaté {target.dat}, která je rozdrobí a upeče tři malé račí placičky."
+          }
+        }
+      }
     }
   ],
   "behaviors": [

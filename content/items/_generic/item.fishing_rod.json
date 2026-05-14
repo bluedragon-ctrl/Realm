@@ -1,0 +1,49 @@
+{
+  "id": "item.fishing_rod",
+  "name": {
+    "en": "a willow fishing rod",
+    "cs": "vrbový rybářský prut"
+  },
+  "nameAcc": {
+    "en": "the willow fishing rod",
+    "cs": "vrbový rybářský prut"
+  },
+  "short": {
+    "en": "A long flexible willow rod with a waxed line and a clean steel hook.",
+    "cs": "Dlouhý ohebný vrbový prut s navoskovaným vlascem a čistým ocelovým háčkem."
+  },
+  "long": {
+    "en": "A flexible rod cut from young willow, well-seasoned and bound at the grip with strips of dark leather. A long waxed line trails from the tip with a clean steel hook at the end. It hisses softly through the air when you swing it. Thread an earthworm onto the hook to fish.",
+    "cs": "Ohebný prut uříznutý z mladé vrby, řádně vysušený a u rukojeti omotaný proužky tmavé kůže. Od špičky se táhne dlouhý navoskovaný vlasec zakončený čistým ocelovým háčkem. Když jím švihneš, tiše zasviští vzduchem. Navlékni si na háček žížalu, abys mohl rybařit."
+  },
+  "tags": ["tool", "fishing"],
+  "weight": 2,
+  "spawn": {
+    "location": "riverside.fishing_spot",
+    "count": 1,
+    "respawnTicks": 1200
+  },
+  "exchanges": [
+    {
+      "id": "rod.fish",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.bait_worm" }],
+      "outputs": [{ "item": "item.river_fish" }],
+      "xp": 2,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you thread the worm onto the hook, cast the line over the water, and after a long quiet moment haul up a wriggling silver fish.",
+            "others": "{actor} threads a worm onto a hook, casts a line over the water, and after a while pulls up a silver fish."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "navlékneš žížalu na háček, hodíš vlasec nad vodu a po dlouhé tiché chvíli vytáhneš svíjející se stříbrnou rybu.",
+            "others": "{actor} navlékne žížalu na háček, hodí vlasec nad vodu a po chvíli vytáhne stříbrnou rybu."
+          }
+        }
+      }
+    }
+  ]
+}
