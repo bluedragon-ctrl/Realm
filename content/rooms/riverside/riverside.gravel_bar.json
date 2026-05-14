@@ -1,0 +1,22 @@
+{
+  "id": "riverside.gravel_bar",
+  "name": {
+    "en": "Gravel bar",
+    "cs": "Štěrkový nános"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A long stripe of grey gravel and bleached driftwood reaches into the slow river.",
+    "cs": "Dlouhý pruh šedého štěrku a vybělených naplavenin sahá do pomalé řeky."
+  },
+  "long": {
+    "en": "A long, low spit of grey gravel curls out into the slow river. Pale driftwood lies tangled across it, dried by sun and wind. The water runs clear over the stones here, and you can see straight to the bottom. Small five-toed prints, neither bird nor rat, cross the wet sand and disappear under the bank. The bank rises a little to the east where the river makes a wide bend; west the reeds close in again.",
+    "cs": "Dlouhý nízký jazyk šedého štěrku se vine do pomalé řeky. Napříč přes něj leží vybělené dřevo, vysušené sluncem a větrem. Voda tu teče čistě přes kameny a vidíš až na dno. Po mokrém písku přechází drobné pětiprsté otisky, ani ptačí, ani krysí, a mizí pod břehem. Břeh se mírně zvedá k východu, kde řeka tvoří široký oblouk; na západě se rákosí zase smyká."
+  },
+  "exits": {
+    "w": "riverside.reed_shallows",
+    "e": "riverside.heron_bend",
+    "d": { "to": "riverside.otter_holt", "hidden": { "dc": 6, "id": "riverside.gravel_bar_holt" } }
+  },
+  "tags": ["outdoor", "riverside"]
+}

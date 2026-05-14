@@ -1,0 +1,72 @@
+{
+  "id": "riverside.water_snake",
+  "name": { "en": "a water snake", "cs": "vodní had" },
+  "nameAcc": { "en": "the water snake", "cs": "vodního hada" },
+  "nameDat": { "en": "the water snake", "cs": "vodnímu hadovi" },
+  "nameGen": { "en": "the water snake", "cs": "vodního hada" },
+  "title": { "en": "water snake", "cs": "vodní had" },
+  "vision": "normal",
+  "location": "riverside.gravel_bar",
+  "count": 1,
+  "short": {
+    "en": "A long slim snake winds across the gravel, leaving a wet S-shape behind it.",
+    "cs": "Dlouhý štíhlý had se vine po štěrku a nechává za sebou mokrou klikatou stopu."
+  },
+  "long": {
+    "en": "A slender water snake the colour of wet bark, its scales catching the sun in dull rainbow rings. It moves in fast loose curves and hardly seems to touch the ground. Its small black tongue flickers in and out, tasting the air, and its eyes are flat and unreadable.",
+    "cs": "Štíhlý vodní had barvy mokré kůry, šupiny mu na slunci zachytávají tlumené duhové kroužky. Pohybuje se rychlými volnými oblouky a sotva se dotýká země. Drobný černý jazyk mu vyjíždí a zajíždí, ochutnává vzduch, a oči má ploché a nečitelné."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 9, "hpMax": 9,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 0, "int": 0,
+    "evasion": 25,
+    "spd": 6
+  },
+  "respawn": { "ticks": 400 },
+  "xp": 6,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "snake bite", "cs": "uštknutí hada" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} coils back and strikes at {target}!",
+          "{actor} darts forward and sinks its fangs into {target}!",
+          "{actor} whips around and bites {target} on the leg!"
+        ],
+        "cs": [
+          "{actor} se stočí a vrhne se po {target.dat}!",
+          "{actor} se mihne vpřed a zaboří zuby do {target.gen}!",
+          "{actor} se zatočí a kousne {target.acc} do nohy!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "flicks a black tongue in and out.",
+          "slides over a wet stone in one long curve.",
+          "lifts its head and turns it slowly toward you.",
+          "hisses softly through bared fangs."
+        ],
+        "cs": [
+          "vyjede a zajede černým jazykem.",
+          "klouže přes mokrý kámen jedním dlouhým obloukem.",
+          "zvedne hlavu a pomalu ji otočí k tobě.",
+          "tiše zasyčí přes vyceněné zuby."
+        ]
+      }
+    }
+  ]
+}

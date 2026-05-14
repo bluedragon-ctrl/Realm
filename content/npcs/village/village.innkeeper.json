@@ -57,6 +57,27 @@
       "flavor": "buy",
       "inputs":  [{ "gold": 2 }],
       "outputs": [{ "item": "item.torch" }]
+    },
+    {
+      "id": "innkeeper.craft_fish_soup",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.river_fish", "count": 2 }, { "gold": 3 }],
+      "outputs": [{ "item": "item.fish_soup" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand two river fish and three gold to {target}. He flakes the fish into a pot, adds salt and a sprig of herb, and ladles out a steaming bowl of clear fish soup.",
+            "others": "{actor} hands river fish and gold to {target}, who flakes them into a pot and ladles out a steaming bowl of fish soup."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš dvě říční ryby a tři zlaté {target.dat}. Ryby rozdrobí do hrnce, přidá sůl a snítku byliny a nalije ti kouřící misku čiré rybí polévky.",
+            "others": "{actor} podává říční ryby a zlaté {target.dat}, který je rozdrobí do hrnce a nalije kouřící misku rybí polévky."
+          }
+        }
+      }
     }
   ],
   "behaviors": [

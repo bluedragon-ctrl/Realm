@@ -1,0 +1,21 @@
+{
+  "id": "item.pearl_dust",
+  "name": {
+    "en": "a pinch of pearl dust",
+    "cs": "špetka perlového prachu"
+  },
+  "nameAcc": {
+    "en": "the pinch of pearl dust",
+    "cs": "špetku perlového prachu"
+  },
+  "short": {
+    "en": "A pinch of pale, almost-silver dust folded into a green leaf.",
+    "cs": "Špetka bledého, téměř stříbrného prachu zabalená v zeleném listě."
+  },
+  "long": {
+    "en": "A pinch of fine pale dust ground from a river pearl, kept in a folded green leaf so it does not blow away. It shimmers faintly when the light catches it. There is just enough here to be worth something to someone who knows what to do with it.",
+    "cs": "Špetka jemného bledého prachu rozemletého z říční perly, schovaná ve složeném zeleném listě, aby ji vítr neodvál. Když na ni dopadne světlo, slabě se zatřpytí. Je tu právě tolik, kolik by mělo cenu pro někoho, kdo s tím umí zacházet."
+  },
+  "tags": ["reagent"],
+  "weight": 0
+}

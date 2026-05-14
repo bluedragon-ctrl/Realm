@@ -1,0 +1,21 @@
+{
+  "id": "item.river_fish",
+  "name": {
+    "en": "a river fish",
+    "cs": "říční ryba"
+  },
+  "nameAcc": {
+    "en": "the river fish",
+    "cs": "říční rybu"
+  },
+  "short": {
+    "en": "A silver river fish about the length of a hand, still wet from the water.",
+    "cs": "Stříbrná říční ryba dlouhá asi jako dlaň, ještě mokrá z vody."
+  },
+  "long": {
+    "en": "A small river fish about the length of a hand, its scales a clean silver and its eyes still bright. It is not a meal but a small one — exactly the kind of catch a careful angler is happy with. It smells fresh and faintly of river weed.",
+    "cs": "Malá říční ryba dlouhá asi jako dlaň, šupiny čistě stříbrné a oči stále jasné. Není to vydatné jídlo, ale taková malá pochoutka — přesně to, s čím je pečlivý rybář spokojený. Je cítit svěže a slabě po říčních řasách."
+  },
+  "tags": ["food", "reagent"],
+  "weight": 1
+}

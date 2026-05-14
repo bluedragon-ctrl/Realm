@@ -1,0 +1,95 @@
+{
+  "id": "riverside.river_otter",
+  "name": { "en": "a river otter", "cs": "říční vydra" },
+  "nameAcc": { "en": "the river otter", "cs": "říční vydru" },
+  "nameDat": { "en": "the river otter", "cs": "říční vydře" },
+  "nameGen": { "en": "the river otter", "cs": "říční vydry" },
+  "title": { "en": "river otter", "cs": "říční vydra" },
+  "vision": "low_light",
+  "location": "riverside.otter_holt",
+  "count": 1,
+  "short": {
+    "en": "A sleek brown otter sits up on her hind legs, holding a pearl between her small dark paws.",
+    "cs": "Štíhlá hnědá vydra sedí na zadních nohou a v drobných tmavých tlapkách drží perlu."
+  },
+  "long": {
+    "en": "A river otter with sleek brown fur, white at the throat and chest, and bright black eyes that miss nothing. She sits up tidy on her hind legs and turns a small pearl in her paws as if studying it. Her whiskers twitch when you move, but she does not run. She seems happy to trade — three fish for one pearl is her rule.",
+    "cs": "Říční vydra s hladkou hnědou srstí, na krku a hrudi bílou, s jasnýma černýma očima, kterým nic neunikne. Sedí úhledně na zadních nohou a obrací v tlapkách drobnou perlu, jako by si ji prohlížela. Když se pohneš, zacukají jí fousky, ale neuteče. Zdá se, že obchodu se nebrání — tři ryby za jednu perlu je její pravidlo."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 8, "hpMax": 8,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 25,
+    "spd": 6
+  },
+  "respawn": { "ticks": 800 },
+  "exchanges": [
+    {
+      "id": "otter.fish_for_pearl",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.river_fish", "count": 3 }],
+      "outputs": [{ "item": "item.pearl" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you lay three silver fish in front of {target}; she chitters happily, gathers them up, and presses a smooth river pearl into your palm.",
+            "others": "{actor} lays three fish in front of {target}, who chitters and presses a smooth pearl into {actor.gen} palm."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "položíš před {target.acc} tři stříbrné ryby; spokojeně zaštěbetá, sebere je a vtiskne ti do dlaně hladkou říční perlu.",
+            "others": "{actor} položí před {target.acc} tři ryby, ta spokojeně zaštěbetá a vtiskne {actor.dat} do dlaně hladkou perlu."
+          }
+        }
+      }
+    }
+  ],
+  "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.05,
+      "cost": 12,
+      "lines": {
+        "en": [
+          "chitters: three fish, one pearl. Always three fish.",
+          "chitters: bring fish, friend. Fish for pearls.",
+          "chitters happily and rolls the pearl between her paws.",
+          "chitters: river is full of fish. Bring some here."
+        ],
+        "cs": [
+          "zaštěbetá: tři ryby, jedna perla. Vždy tři ryby.",
+          "zaštěbetá: přines ryby, příteli. Ryby za perly.",
+          "spokojeně zaštěbetá a kutálí perlu mezi tlapkami.",
+          "zaštěbetá: řeka je plná ryb. Nějaké sem přines."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "rolls the pearl between her paws and watches the light catch it.",
+          "preens her sleek brown coat with quick darting movements.",
+          "lays the pearl carefully back in the dish of shells.",
+          "stretches a long otter stretch from nose to tail tip.",
+          "sniffs the air and twitches her white whiskers."
+        ],
+        "cs": [
+          "kutálí perlu mezi tlapkami a sleduje, jak na ní hraje světlo.",
+          "rychlými trhavými pohyby si urovnává hladkou hnědou srst.",
+          "opatrně položí perlu zpět do misky s mušličkami.",
+          "natáhne se dlouhým vydřím protažením od čumáčku ke špičce ocasu.",
+          "očichá vzduch a zaškubá bílými fousky."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "id": "riverside.broken_bridge",
+  "name": {
+    "en": "The broken bridge",
+    "cs": "Zřícený most"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A wide slow river runs east and west; the timbers of an old bridge lie broken in the water.",
+    "cs": "Široká pomalá řeka teče na východ a západ; trámy starého mostu leží polámané ve vodě."
+  },
+  "long": {
+    "en": "The river is broad and slow here, the colour of old tea. The bridge that once carried the road south is gone — only two stone piers remain, and between them the dark timbers of the deck stick up out of the water at crooked angles. The cart track from the meadow ends abruptly at the broken edge, and the stones underfoot feel uneven, as if the ground is not as solid as it looks. Willows lean from both banks, and a worn footpath follows the water east and west.",
+    "cs": "Řeka je tu široká a pomalá, barvy starého čaje. Most, který tu kdysi nesl cestu k jihu, je pryč — zbyly jen dva kamenné pilíře a mezi nimi z vody trčí tmavé trámy paluby do podivných úhlů. Kolejová cesta z louky končí znenadání na odlomené hraně a kameny pod nohama působí nestejně, jako by země nebyla tak pevná, jak se zdá. Z obou břehů se sklánějí vrby a podél vody se vine vyšlapaná stezka na východ a na západ."
+  },
+  "exits": {
+    "n": "village.river_meadow",
+    "e": "riverside.reed_shallows",
+    "w": "riverside.mill_pool",
+    "d": { "to": "riverside.troll_hollow", "hidden": { "dc": 3, "id": "riverside.broken_bridge_hollow" } }
+  },
+  "tags": ["outdoor", "riverside", "border"]
+}

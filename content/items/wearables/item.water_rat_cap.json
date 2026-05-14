@@ -1,0 +1,25 @@
+{
+  "id": "item.water_rat_cap",
+  "name": {
+    "en": "a water rat cap",
+    "cs": "krysí čepice"
+  },
+  "nameAcc": {
+    "en": "the water rat cap",
+    "cs": "krysí čepici"
+  },
+  "short": {
+    "en": "A close-fitting cap of brown river-rat fur, silvered down the crown.",
+    "cs": "Přiléhavá čepice z hnědé říční krysí kožešiny, na temeni prostříbřená."
+  },
+  "long": {
+    "en": "A snug fur cap stitched from a single piece of water rat pelt, brown along the sides and silvered down the crown. It is so light you barely notice it on your head, and the short, water-tight fur seems to keep both rain and bad luck off. While you wear it, you slip out of harm's way a little quicker than you should.",
+    "cs": "Přiléhavá kožešinová čepice ušitá z jediného kusu kožešiny vodní krysy, po stranách hnědá a na temeni prostříbřená. Je tak lehká, že ji na hlavě sotva cítíš, a krátká vodotěsná srst zdá se odhánět déšť i smůlu. Když ji nosíš, uskakuješ před nebezpečím o trochu rychleji, než bys měl."
+  },
+  "tags": ["armor", "wearable"],
+  "weight": 1,
+  "wearable": {
+    "slot": "head",
+    "bonus": { "defense": 1, "evasion": 10 }
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "id": "riverside.fishing_spot",
+  "name": {
+    "en": "Old fishing pier",
+    "cs": "Staré rybářské molo"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A wooden pier reaches out over deep water; something heavy shifts in the hollow under the bank.",
+    "cs": "Dřevěné molo se klene nad hlubokou vodou; v hloubce pod břehem se cosi těžkého převaluje."
+  },
+  "long": {
+    "en": "The path opens onto a small wooden pier that someone built out over deep, clear water. The planks are grey with age but still solid. A long willow rod with a waxed line rests against the post, beside a coil of rotten line and a broken floating cork. Below the pier the bank is undercut into a wide hollow, and from inside it comes a slow heavy scraping sound, like something armoured turning over on a bed of stones. The pier ends at the dark water; the path back east is the only way out.",
+    "cs": "Stezka ústí na malé dřevěné molo, které někdo postavil nad hlubokou, čistou vodou. Prkna jsou stářím šedá, ale stále pevná. O kůl je opřený dlouhý vrbový prut s navoskovaným vlascem, vedle něj svinuté zetlelé vlasce a zlomený plovák. Pod molem je břeh podhrabaný do široké dutiny a zevnitř se ozývá pomalé těžké škrábání, jako by se cosi pancéřového převalovalo po kamenech. Molo končí u tmavé vody; jediná cesta zpět je na východ."
+  },
+  "exits": {
+    "e": "riverside.reedy_path"
+  },
+  "hiddenFixtures": {
+    "riverside.tangled_net": { "dc": 3, "id": "riverside.fishing_spot_net" }
+  },
+  "tags": ["outdoor", "riverside"]
+}

@@ -1,0 +1,105 @@
+{
+  "id": "riverside.water_rat_matriarch",
+  "name": { "en": "the rat matriarch", "cs": "krysí matrona" },
+  "nameAcc": { "en": "the rat matriarch", "cs": "krysí matronu" },
+  "nameDat": { "en": "the rat matriarch", "cs": "krysí matroně" },
+  "nameGen": { "en": "the rat matriarch", "cs": "krysí matrony" },
+  "title": { "en": "rat matriarch", "cs": "krysí matrona" },
+  "vision": "nightvision",
+  "location": "riverside.rat_island",
+  "count": 1,
+  "short": {
+    "en": "A huge old water rat sits at the mouth of the deepest burrow, fur grey at the muzzle and eyes black as wet stones.",
+    "cs": "Obrovská stará vodní krysa sedí u ústí nejhlubší nory, srst u tlamy šedivá a oči černé jako mokré kameny."
+  },
+  "long": {
+    "en": "Twice the size of any of her brood, the matriarch sits half in shadow at the mouth of the largest burrow. Her brown fur is silvered at the muzzle and along the spine, and old scars seam her ears. The black eyes are clever in a way that ordinary rats' eyes are not. When she shifts her weight, the soft ground under the island moves with her, and small wet noises answer from every other burrow.",
+    "cs": "Dvakrát větší než kterákoli z jejích krysích potomků sedí matrona napůl ve stínu u ústí největší nory. Hnědá srst se jí u tlamy a podél hřbetu stříbří a uši má posetá starými jizvami. Černé oči jsou chytré tak, jak oči obyčejných krys nejsou. Když přenese váhu, měkká země pod ostrůvkem se s ní pohne, a z každé další nory se ozvou drobné mokré zvuky."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 24, "hpMax": 24,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 1, "int": 0,
+    "magicResist": 10,
+    "accuracy": 10,
+    "evasion": 15,
+    "spd": 5
+  },
+  "respawn": { "ticks": 1500 },
+  "xp": 35,
+  "goldDrop": { "formula": "2d4+2", "chance": 0.7 },
+  "loot": [
+    { "defId": "item.water_rat_pelt", "chance": 1.0 },
+    { "defId": "item.silver_locket", "chance": 0.3 },
+    { "defId": "item.river_fish", "chance": 0.6 },
+    { "defId": "item.river_fish", "chance": 0.6 },
+    { "defId": "potion.heal", "chance": 0.25 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "summon",
+      "chance": 0.4,
+      "cost": 36,
+      "requires": { "type": "low_hp", "ratio": 0.5 },
+      "spawn": "riverside.water_rat",
+      "count": 2,
+      "ttlTicks": 60,
+      "despawnText": {
+        "en": "the summoned water rat squeaks and vanishes back into the burrows.",
+        "cs": "přivolaná vodní krysa zapíská a zmizí zpátky v norách."
+      },
+      "templates": {
+        "en": [
+          "{actor} shrieks a high command and two wet rats boil up out of the burrows!",
+          "{actor} thumps the soft ground with her tail and her brood comes running!"
+        ],
+        "cs": [
+          "{actor} ostře vykřikne a z nor vyjedou dvě mokré krysy!",
+          "{actor} udeří ocasem o měkkou zem a její mláďata přibíhají!"
+        ]
+      }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "matriarch's bite", "cs": "kousnutí matrony" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lunges forward and sinks long yellow teeth into {target}!",
+          "{actor} rakes at {target} with her front claws and bites deep!",
+          "{actor} drives her heavy head against {target} and bites!"
+        ],
+        "cs": [
+          "{actor} se vrhne vpřed a zaboří dlouhé žluté zuby do {target.gen}!",
+          "{actor} sekne {target.acc} předními drápy a hluboko se zakousne!",
+          "{actor} narazí těžkou hlavou do {target.gen} a kousne!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "scrapes the soft ground with one heavy paw.",
+          "lets out a long warning hiss that the burrows echo back.",
+          "thumps her thick tail twice against a willow root.",
+          "narrows her black eyes and does not look away."
+        ],
+        "cs": [
+          "škrábe těžkou tlapou v měkké zemi.",
+          "vydá dlouhé varovné zasyčení, které jí nory vrátí ozvěnou.",
+          "dvakrát udeří silným ocasem o vrbový kořen.",
+          "přimhouří černé oči a nespustí z tebe pohled."
+        ]
+      }
+    }
+  ]
+}

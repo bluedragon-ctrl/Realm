@@ -1,0 +1,72 @@
+{
+  "id": "riverside.bat",
+  "name": { "en": "a brown bat", "cs": "hnědý netopýr" },
+  "nameAcc": { "en": "the brown bat", "cs": "hnědého netopýra" },
+  "nameDat": { "en": "the brown bat", "cs": "hnědému netopýrovi" },
+  "nameGen": { "en": "the brown bat", "cs": "hnědého netopýra" },
+  "title": { "en": "brown bat", "cs": "hnědý netopýr" },
+  "vision": "nightvision",
+  "location": "riverside.mill_loft",
+  "count": 2,
+  "short": {
+    "en": "A small brown bat darts back and forth under the rafters with tiny clicks.",
+    "cs": "Drobný hnědý netopýr poletuje sem a tam pod krovy s tichým cvakáním."
+  },
+  "long": {
+    "en": "A small bat with soft brown fur, leathery wings and a wrinkled snout. It flies in quick darting loops just under the beams, never quite still, and gives off small clicks too high to hear properly. Its tiny black eyes are bright, and the claws on its wing-tips catch the wood as it lands and hangs upside down for a single heartbeat before it is moving again.",
+    "cs": "Drobný netopýr s měkkou hnědou srstí, koženými křídly a svraštělou tlamičkou. Létá v rychlých svištivých smyčkách těsně pod trámy, nikdy úplně v klidu, a vydává tiché cvakání tak vysoké, že ho sotva slyšíš. Drobné černé oči má jasné a drápky na špičkách křídel zachytávají dřevo, když přistane a na jediný úder srdce visí hlavou dolů, než je zase v pohybu."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 4, "hpMax": 4,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 35,
+    "spd": 7
+  },
+  "respawn": { "ticks": 400 },
+  "xp": 2,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "bat bite", "cs": "kousnutí netopýra" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swoops down and nips at {target}!",
+          "{actor} darts in fast and bites {target} on the cheek!",
+          "{actor} flaps in {target}'s face and bites!"
+        ],
+        "cs": [
+          "{actor} se snese dolů a klovne {target.acc}!",
+          "{actor} se rychle mihne a kousne {target.acc} do tváře!",
+          "{actor} mává křídly před tváří {target.gen} a kousne!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.12,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "wheels in a tight loop under the roof beams.",
+          "lands upside down for a heartbeat and is moving again.",
+          "lets out a high thin clicking sound.",
+          "folds its leathery wings tight against its body."
+        ],
+        "cs": [
+          "krouží v těsné smyčce pod krovy.",
+          "na okamžik se zachytí hlavou dolů a je zase pryč.",
+          "vydá vysoké tenké cvakání.",
+          "přitiskne kožená křídla těsně k tělu."
+        ]
+      }
+    }
+  ]
+}

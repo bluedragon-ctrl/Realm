@@ -111,6 +111,90 @@
           }
         }
       }
+    },
+    {
+      "id": "smith.craft_troll_hide_jerkin",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.troll_hide", "count": 2 }],
+      "outputs": [{ "item": "item.troll_hide_jerkin" }],
+      "xp": 8,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand two troll hides to {target}. He layers them, lashes the edges with heavy thongs, and a thick green-grey jerkin takes shape — still faintly warm.",
+            "others": "{actor} hands two troll hides to {target}. The smith layers and lashes them into a thick green-grey jerkin."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš dvě trollí kůže {target.dat}. Navrství je na sebe, okraje pevně sváže silnými řemínky a vznikne tlustá zelenošedá vesta — stále slabě teplá.",
+            "others": "{actor} podává dvě trollí kůže {target.dat}. Kovář je navrství a pevně sváže do tlusté zelenošedé vesty."
+          }
+        }
+      }
+    },
+    {
+      "id": "smith.craft_troll_tooth_circlet",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.troll_tooth", "count": 2 }, { "gold": 50 }],
+      "outputs": [{ "item": "item.troll_tooth_circlet" }],
+      "xp": 8,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand two troll teeth and fifty gold to {target}. He hammers a ring of dark iron and sets the teeth at the front, where they catch the firelight like two blunt yellow stars.",
+            "others": "{actor} hands two troll teeth and gold to {target}. The smith hammers an iron ring and sets the teeth at the front."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš dva trollí zuby a padesát zlatých {target.dat}. Vykove tmavý železný kruh a vepředu do něj zasadí zuby tak, aby zachytávaly záři ohně jako dvě tupé žluté hvězdy.",
+            "others": "{actor} podává dva trollí zuby a zlaté {target.dat}. Kovář vykove železný kruh a vepředu do něj zasadí zuby."
+          }
+        }
+      }
+    },
+    {
+      "id": "smith.craft_crayfish_shell_plate",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.crayfish_shell", "count": 2 }, { "gold": 50 }],
+      "outputs": [{ "item": "item.crayfish_shell_plate" }],
+      "xp": 8,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand two crayfish shells and fifty gold to {target}. He rivets the heavy plates over a leather backing — bulky, but very hard to dent.",
+            "others": "{actor} hands two crayfish shells and gold to {target}. The smith rivets the heavy plates onto a leather backing."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš dva račí krunýře a padesát zlatých {target.dat}. Přinýtuje těžké desky na kožený podklad — mohutné, ale stěží probourat.",
+            "others": "{actor} podává dva račí krunýře a zlaté {target.dat}. Kovář těžké desky přinýtuje na kožený podklad."
+          }
+        }
+      }
+    },
+    {
+      "id": "smith.craft_water_rat_cap",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.water_rat_pelt", "count": 1 }, { "gold": 10 }],
+      "outputs": [{ "item": "item.water_rat_cap" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand the water rat pelt and ten gold to {target}. He shaves the fur smooth, cuts the pelt to size, and stitches it into a snug brown cap.",
+            "others": "{actor} hands a water rat pelt and gold to {target}. The smith trims and stitches it into a snug fur cap."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš kožešinu vodní krysy a deset zlatých {target.dat}. Srst přihladí, kožešinu ořeže a sešije z ní přiléhavou hnědou čepici.",
+            "others": "{actor} podává kožešinu vodní krysy a zlaté {target.dat}. Kovář ji ořeže a sešije do přiléhavé kožešinové čepice."
+          }
+        }
+      }
     }
   ],
   "behaviors": [

@@ -1,0 +1,45 @@
+{
+  "id": "potion.moonlight",
+  "name": {
+    "en": "a moonlight potion",
+    "cs": "lektvar měsíčního svitu"
+  },
+  "nameAcc": {
+    "en": "the moonlight potion",
+    "cs": "lektvar měsíčního svitu"
+  },
+  "short": {
+    "en": "A small glass vial of liquid silver that glows softly from within.",
+    "cs": "Malá skleněná lahvička s tekutým stříbrem, které zevnitř jemně svítí."
+  },
+  "long": {
+    "en": "A glass vial sealed with cork and twine, holding a soft silver liquid that glows from within with the pale colour of moonlight. It feels cool to the touch even on a warm day, and the glow is steady — not a flicker, but a quiet, calm shine.",
+    "cs": "Skleněná lahvička zazátkovaná korkem a motouzem obsahuje měkkou stříbrnou tekutinu, která zevnitř svítí bledou barvou měsíčního svitu. I za teplého dne je na dotek chladná, a její záře je stálá — žádné kmitání, jen tichý klidný svit."
+  },
+  "tags": ["potion", "consumable", "light"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you uncork the vial and drink the moonlight. A soft silver light spills out from your skin and follows you wherever you go.",
+        "others": "{actor} uncorks a small vial and drinks the moonlight. A soft silver light spills from {actor.gen} skin."
+      },
+      "to_target": {
+        "self": "you tilt the vial to {target}'s lips and pour the moonlight in. A soft silver light spills from {target.gen} skin.",
+        "others": "{actor} tilts a small vial to {target}'s lips and pours moonlight in. A soft silver light spills from {target.gen} skin."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "odzátkáš lahvičku a vypiješ měsíční svit. Z kůže ti vyrazí měkká stříbrná záře a všude tě následuje.",
+        "others": "{actor} odzátkává malou lahvičku a vypíjí měsíční svit. Z kůže {actor.gen} se rozlije měkká stříbrná záře."
+      },
+      "to_target": {
+        "self": "přiložíš lahvičku k ústům {target.gen} a naliješ měsíční svit dovnitř. Z kůže {target.gen} se rozlije měkká stříbrná záře.",
+        "others": "{actor} přikládá lahvičku k ústům {target.gen} a nalévá dovnitř měsíční svit. Z kůže {target.gen} se rozlije měkká stříbrná záře."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.moonlight" },
+    "consumable": true
+  }
+}

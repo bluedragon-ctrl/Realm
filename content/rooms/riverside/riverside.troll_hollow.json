@@ -1,0 +1,20 @@
+{
+  "id": "riverside.troll_hollow",
+  "name": {
+    "en": "Hollow under the bridge",
+    "cs": "Dutina pod mostem"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "A damp stone hollow below the broken bridge, full of the river's slap and slow, heavy breathing.",
+    "cs": "Vlhká kamenná dutina pod zříceným mostem, plná pleskání řeky a pomalého těžkého oddechování."
+  },
+  "long": {
+    "en": "The hollow opens out under the two stone piers, a low chamber walled by wet stone and floored with mud. Slats of daylight reach down through the broken planks above and pick out the shapes of fallen bridge timbers heaped along one wall. The river slaps softly at the foot of the piers and the air smells of cold stone and something heavier — animal, warm, slow. From somewhere among the timbers comes the long, deep sound of breathing. The only way out is back up to the bridge.",
+    "cs": "Dutina se otevírá pod oběma kamennými pilíři, nízká komora se stěnami z mokrého kamene a podlahou z bahna. Skrz polámaná prkna nahoře sem prostupují tenké pruhy denního světla a vykreslují tvary spadlých mostních trámů nahromaděných u jedné stěny. Řeka tiše plácá o paty pilířů a vzduch páchne studeným kamenem a něčím těžším — zvířecím, teplým, pomalým. Odkudsi zpod trámů se ozývá dlouhé hluboké oddechování. Jediná cesta ven vede zpátky nahoru na most."
+  },
+  "exits": {
+    "u": "riverside.broken_bridge"
+  },
+  "tags": ["riverside", "secret"]
+}

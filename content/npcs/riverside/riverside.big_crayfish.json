@@ -1,0 +1,77 @@
+{
+  "id": "riverside.big_crayfish",
+  "name": { "en": "a big crayfish", "cs": "velký rak" },
+  "nameAcc": { "en": "the big crayfish", "cs": "velkého raka" },
+  "nameDat": { "en": "the big crayfish", "cs": "velkému rakovi" },
+  "nameGen": { "en": "the big crayfish", "cs": "velkého raka" },
+  "title": { "en": "big crayfish", "cs": "velký rak" },
+  "vision": "low_light",
+  "location": "riverside.fishing_spot",
+  "count": 1,
+  "short": {
+    "en": "A river crayfish the size of a small dog hunches under the pier, both claws raised.",
+    "cs": "Říční rak velký jako menší pes se krčí pod molem, oba klepeta zvednutá."
+  },
+  "long": {
+    "en": "An enormous river crayfish, dark green with red joints, big enough to fill a wash-tub. Its plated body is armoured like a knight's gauntlet and its two front claws are each the size of a man's hand. Long whiskers feel the water in slow sweeps, and the small black eyes on stalks track your every step. It moves slowly, but everything about it is built to take a blow and keep coming.",
+    "cs": "Obrovský říční rak, tmavě zelený s červenými klouby, dost velký na to, aby zaplnil necky. Pancéřované tělo má jako rytířskou rukavici a dvě přední klepeta velikosti mužské dlaně. Dlouhé tykadla pomalými oblouky ohmatávají vodu a drobné černé oči na stopkách sledují každý tvůj krok. Pohybuje se pomalu, ale všechno na něm je stavěné na to, aby snesl ránu a šel dál."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 22, "hpMax": 22,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 4, "int": 0,
+    "spd": 3
+  },
+  "respawn": { "ticks": 1200 },
+  "xp": 30,
+  "goldDrop": { "formula": "1d4", "chance": 0.5 },
+  "loot": [
+    { "defId": "item.crayfish_shell", "chance": 0.5 },
+    { "defId": "item.crayfish_meat", "chance": 0.7 },
+    { "defId": "potion.heal", "chance": 0.25 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "claw pinch", "cs": "stisk klepeta" },
+      "chance": 1.0,
+      "cost": 18,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} clamps a heavy claw shut on {target}!",
+          "{actor} reaches out slowly and snaps both claws on {target}!",
+          "{actor} drives a claw against {target} with crushing force!"
+        ],
+        "cs": [
+          "{actor} sevře těžké klepeto na {target.dat}!",
+          "{actor} pomalu natáhne obě klepeta a sevře je na {target.dat}!",
+          "{actor} vrazí klepeto do {target.gen} drtivou silou!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 8,
+      "lines": {
+        "en": [
+          "raises both heavy claws and clacks them slowly together.",
+          "swings its long whiskers in a wide arc through the water.",
+          "shuffles sideways a slow step across the stones.",
+          "rolls its black eyes on their stalks and follows you."
+        ],
+        "cs": [
+          "zvedne obě těžká klepeta a pomalu o sebe cvakne.",
+          "máchne dlouhými tykadly v širokém oblouku přes vodu.",
+          "udělá pomalý krok stranou přes kameny.",
+          "otočí černé oči na stopkách a sleduje tě."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "item.crayfish_shell",
+  "name": {
+    "en": "a crayfish shell",
+    "cs": "račí krunýř"
+  },
+  "nameAcc": {
+    "en": "the crayfish shell",
+    "cs": "račí krunýř"
+  },
+  "short": {
+    "en": "A heavy curved plate of dark green crayfish shell, ridged and armoured.",
+    "cs": "Těžká zaoblená deska tmavě zeleného račího krunýře, žebrovaná a pancéřová."
+  },
+  "long": {
+    "en": "A great curved plate from the back of the giant crayfish, dark green with red joints and ridged like a knight's pauldron. The shell is as hard as iron in places and surprisingly light for its size. The smith could plate something with this.",
+    "cs": "Velká zaoblená deska ze hřbetu obřího raka, tmavě zelená s červenými klouby a žebrovaná jako rytířský naramenník. Krunýř je místy tvrdý jako železo a na svou velikost překvapivě lehký. Kovář by tím něco mohl pobít."
+  },
+  "tags": ["material"],
+  "weight": 4
+}

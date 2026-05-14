@@ -1,0 +1,15 @@
+{
+  "id": "effect.troll_regrowth",
+  "name": {
+    "en": "Troll regrowth",
+    "cs": "Trollí obnova"
+  },
+  "kind": "buff",
+  "icon": "🩹",
+  "tick": {
+    "every": 3,
+    "pulses": 10,
+    "effect": { "type": "heal", "hp": 4 }
+  },
+  "stack": "refresh"
+}

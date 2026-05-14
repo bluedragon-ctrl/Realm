@@ -1,0 +1,25 @@
+{
+  "id": "item.troll_tooth_circlet",
+  "name": {
+    "en": "a troll tooth circlet",
+    "cs": "trollí čelenka"
+  },
+  "nameAcc": {
+    "en": "the troll tooth circlet",
+    "cs": "trollí čelenku"
+  },
+  "short": {
+    "en": "A circle of dark iron set with two yellow troll teeth, like blunt little fangs above the brow.",
+    "cs": "Kruh tmavého železa osazený dvěma žlutými trollími zuby, jako tupé tesáky nad obočím."
+  },
+  "long": {
+    "en": "A plain circlet of dark hammered iron, set at the front with two yellow troll teeth that point up like blunt little fangs. The iron is cold against the brow but the teeth stay faintly warm. Something about the old troll magic in them seems to turn aside curses and bad whispers.",
+    "cs": "Prostý kruh z tmavě tepaného železa, vepředu osazený dvěma žlutými trollími zuby, které trčí vzhůru jako tupé malé tesáky. Železo je na čele studené, ale zuby zůstávají slabě teplé. Cosi ve staré trollí magii zdá se odráží kletby a zlé našeptávání."
+  },
+  "tags": ["armor", "wearable"],
+  "weight": 1,
+  "wearable": {
+    "slot": "head",
+    "bonus": { "defense": 1, "magicResist": 10 }
+  }
+}

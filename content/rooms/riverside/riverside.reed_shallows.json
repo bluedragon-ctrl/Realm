@@ -1,0 +1,21 @@
+{
+  "id": "riverside.reed_shallows",
+  "name": {
+    "en": "Reed shallows",
+    "cs": "Rákosové mělčiny"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "Shallow reedy water along the bank, with frog song and tiny silver fish darting through.",
+    "cs": "Mělká rákosová voda u břehu, žabí zpěv a drobné stříbrné rybky proplétající rákosím."
+  },
+  "long": {
+    "en": "The bank flattens out into a wide stretch of shallow water full of green reeds. Tiny silver fish flicker in and out of the stems, and frogs sing in three or four different voices at once. Damp footprints — yours and other things' — print clearly into the soft mud. The path follows the bank west to the broken bridge and east where the river runs over a long gravel bar.",
+    "cs": "Břeh se rozšiřuje do širokého pásu mělké vody plné zeleného rákosí. Drobné stříbrné rybky se mihnou mezi stébly a žáby zpívají třemi nebo čtyřmi hlasy najednou. V měkkém bahně jsou jasně otisknuté mokré stopy — tvé i čísi jiné. Stezka sleduje břeh na západ ke zřícenému mostu a na východ, kde řeka přejíždí přes dlouhý štěrkový nános."
+  },
+  "exits": {
+    "w": "riverside.broken_bridge",
+    "e": "riverside.gravel_bar"
+  },
+  "tags": ["outdoor", "riverside"]
+}

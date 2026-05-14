@@ -1,0 +1,71 @@
+{
+  "id": "riverside.snapping_turtle",
+  "name": { "en": "a snapping turtle", "cs": "kousavá želva" },
+  "nameAcc": { "en": "the snapping turtle", "cs": "kousavou želvu" },
+  "nameDat": { "en": "the snapping turtle", "cs": "kousavé želvě" },
+  "nameGen": { "en": "the snapping turtle", "cs": "kousavé želvy" },
+  "title": { "en": "snapping turtle", "cs": "kousavá želva" },
+  "vision": "normal",
+  "location": "riverside.mill_pool",
+  "count": 1,
+  "short": {
+    "en": "A heavy dark turtle the size of a shield lies half-sunk in the pool, watching with hard yellow eyes.",
+    "cs": "Těžká tmavá želva velká jako štít leží napůl ponořená v tůni a sleduje tě tvrdýma žlutýma očima."
+  },
+  "long": {
+    "en": "A huge old turtle, its shell as wide as a small shield and crusted with green river weed. Its head is wedge-shaped and heavy, with a hooked beak that does not quite close. The thick neck hardly moves; only the yellow eyes track you as you walk along the bank. When it does open that beak, the snap is loud enough to make you flinch.",
+    "cs": "Obrovská stará želva, krunýř má široký jako malý štít a obrostlý zelenými říčními chaluhami. Hlavu má klínovitou a těžkou, se zahnutým zobákem, který se ani docela nezavře. Silný krk se sotva pohne; jen žluté oči tě sledují, jak jdeš podél břehu. Když ten zobák otevře, klapnutí je tak hlasité, až sebou cukneš."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 18, "hpMax": 18,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 3, "int": 0,
+    "spd": 3
+  },
+  "respawn": { "ticks": 800 },
+  "xp": 12,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "shell snap", "cs": "klapnutí zobákem" },
+      "chance": 1.0,
+      "cost": 16,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lunges its heavy head forward and snaps at {target}!",
+          "{actor} closes its hooked beak hard on {target}!",
+          "{actor} drives its blunt head into {target} with a loud clack!"
+        ],
+        "cs": [
+          "{actor} vymrští těžkou hlavu vpřed a chňapne po {target.dat}!",
+          "{actor} tvrdě sevře zahnutý zobák na {target.acc}!",
+          "{actor} narazí tupou hlavou do {target.gen} s hlasitým klapnutím!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 8,
+      "lines": {
+        "en": [
+          "sinks deeper into the dark water until only its eyes show.",
+          "opens its hooked beak slowly and closes it again with a loud clack.",
+          "drags itself a slow handspan along the muddy bottom.",
+          "scrapes algae from its shell against an underwater stone."
+        ],
+        "cs": [
+          "klesne hlouběji do tmavé vody, až jí jsou vidět jen oči.",
+          "pomalu otevře zahnutý zobák a zase ho hlasitě zaklapne.",
+          "pomalu se posune o dlaň po bahnitém dně.",
+          "otře řasy z krunýře o kámen pod vodou."
+        ]
+      }
+    }
+  ]
+}

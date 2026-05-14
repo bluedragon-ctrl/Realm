@@ -1,0 +1,20 @@
+{
+  "id": "riverside.mill_loft",
+  "name": {
+    "en": "The mill loft",
+    "cs": "Mlýnská půda"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "A low loft under the mill roof, full of stale air, small clicking sounds and the smell of bat droppings.",
+    "cs": "Nízká půda pod střechou mlýna, vzduch zatuchlý, slabé cvakání a pach netopýřího trusu."
+  },
+  "long": {
+    "en": "The loft is low enough that you have to stoop. Stale air sits trapped under the beams, sharp with the smell of bat droppings, and thin chinks of daylight reach in through the cracks between the roof boards. Small clicking sounds come from the rafters and stop the moment you hold still. The stairs back down to the mill floor are the only way out.",
+    "cs": "Půda je tak nízká, že se musíš krčit. Pod trámy se drží zatuchlý vzduch, ostrý pachem netopýřího trusu, a mezi prkny střechy dovnitř pronikají tenké pruhy denního světla. Z krovů se ozývá drobné cvakání, které utichne ve chvíli, kdy se zastavíš. Schody dolů zpátky do mlýna jsou jediná cesta ven."
+  },
+  "exits": {
+    "d": "riverside.abandoned_mill"
+  },
+  "tags": ["indoor", "riverside", "mill"]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "item.amulet_troll_heart",
+  "name": {
+    "en": "an amulet of the troll's heart",
+    "cs": "amulet trollího srdce"
+  },
+  "nameAcc": {
+    "en": "the amulet of the troll's heart",
+    "cs": "amulet trollího srdce"
+  },
+  "short": {
+    "en": "A yellow troll tooth bound with grey ironwort paste on a leather cord.",
+    "cs": "Žlutý trollí zub zalitý do šedé pasty ze železníku, navlečený na kožené šňůrce."
+  },
+  "long": {
+    "en": "A single yellow troll tooth bound at the root with a hard paste of dried ironwort and hung on a leather cord. The amulet feels heavier than its size suggests and warms in your palm as you hold it. While it rests against your chest, you feel a little tougher — as if the slow, stubborn life of the troll has lent you a small share of itself.",
+    "cs": "Jediný žlutý trollí zub zalitý u kořene tvrdou pastou ze sušeného železníku a navlečený na kožené šňůrce. Amulet je těžší, než by se podle velikosti zdálo, a v dlani se ti zahřívá. Když ti spočívá na hrudi, cítíš se trochu odolnější — jako by ti pomalý, tvrdohlavý život trolla propůjčil maličký kousek sebe."
+  },
+  "tags": ["amulet", "magic"],
+  "weight": 0,
+  "wearable": {
+    "slot": "amulet",
+    "bonus": { "hpMax": 10 }
+  }
+}

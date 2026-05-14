@@ -1,0 +1,21 @@
+{
+  "id": "riverside.heron_bend",
+  "name": {
+    "en": "Heron bend",
+    "cs": "Volavčí zákrut"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A wide slow bend of the river edged by tall grass full of small rustlings.",
+    "cs": "Široký pomalý zákrut řeky lemovaný vysokou trávou plnou drobných šelestů."
+  },
+  "long": {
+    "en": "The river makes a wide lazy bend here, the current barely moving along the inside bank. Tall pale grass grows shoulder-high on the slope and hides whatever moves through it; you can hear small bodies sliding through the stems on all sides. A heron sometimes stands at the water's edge here, but the grass is full of holes and the standing birds have grown rare. East a line of stepping stones reaches out to a small willow-covered islet.",
+    "cs": "Řeka se tu vlní širokým líným zákrutem, na vnitřním břehu sotva tečně. Vysoká plavá tráva ti sahá po ramena a skrývá vše, co se v ní pohybuje; ze všech stran slyšíš, jak se mezi stébly suní drobná těla. U vody tu občas stojí volavka, ale tráva je plná děr a stojící ptáci jsou tu už vzácní. Na východ vede řada šlapacích kamenů k malému ostrůvku porostlému vrbami."
+  },
+  "exits": {
+    "w": "riverside.gravel_bar",
+    "e": "riverside.rat_island"
+  },
+  "tags": ["outdoor", "riverside"]
+}

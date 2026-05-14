@@ -1,0 +1,49 @@
+{
+  "id": "riverside.grindstone",
+  "name": {
+    "en": "a heavy grindstone",
+    "cs": "těžký mlecí kámen"
+  },
+  "nameAcc": {
+    "en": "the heavy grindstone",
+    "cs": "těžký mlecí kámen"
+  },
+  "short": {
+    "en": "A heavy round grindstone rests on its wooden frame, the rim still pale where grain once passed under it.",
+    "cs": "Těžký kulatý mlecí kámen spočívá na dřevěném podstavci, okraj má dosud světlý od obilí, které tudy kdysi procházelo."
+  },
+  "long": {
+    "en": "A big round stone wheel set into a sturdy wooden frame, hand-cranked by a worn iron handle. The grinding face is pitted with use and the rim is pale from old flour. It is the kind of stone that crushes anything you put under it — grain, herbs, even something harder.",
+    "cs": "Velké kulaté kamenné kolo zasazené do pevného dřevěného podstavce, otáčí se ohmataným železným klikou. Mlecí plocha je důlkovaná od dlouhého používání a okraj je vybledlý starou moukou. Je to takový kámen, který rozdrtí všechno, co pod něj dáš — obilí, byliny, i něco tvrdšího."
+  },
+  "tags": ["fixture", "craft"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "riverside.abandoned_mill",
+    "count": 1
+  },
+  "exchanges": [
+    {
+      "id": "grindstone.grind_pearl",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.pearl" }],
+      "outputs": [{ "item": "item.pearl_dust" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you set the pearl on {target}, turn the heavy wheel slowly with both hands, and the pearl gives way to a fine pinch of pale dust.",
+            "others": "{actor} sets a pearl on {target} and turns the heavy wheel slowly until the pearl is ground to dust."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "položíš perlu na {target.acc}, oběma rukama pomalu otočíš těžkým kolem a perla se rozpadne v jemnou špetku bledého prachu.",
+            "others": "{actor} položí perlu na {target.acc} a pomalu otáčí těžkým kolem, dokud se perla nerozdrtí v prach."
+          }
+        }
+      }
+    }
+  ]
+}

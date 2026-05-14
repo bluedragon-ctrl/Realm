@@ -1,4 +1,4 @@
-import { findInRoom, itemsInRoom, world } from '../world.js';
+import { findInRoom, itemsInRoom, actorsInRoom, world } from '../world.js';
 import { findItemInList, splitOnKeyword, removeFromList } from '../items.js';
 import { s, t } from '../../i18n.js';
 import { runVerb, hasForm } from '../verbs.js';
@@ -154,6 +154,14 @@ export default function use(actor, args) {
     const keyId = useDef.effect.key;
     const hasKey = !keyId || (actor.inventory?.some(i => i.defId === keyId) ?? false);
     if (!hasKey) {
+      const onLocked = useDef.effect.onLocked;
+      if (onLocked?.verb && onLocked.target) {
+        const targetNpc = actorsInRoom(actor.location)
+          .find(a => a.kind === 'npc' && a.defId === onLocked.target && a.position === 'sleep');
+        if (targetNpc) {
+          runVerb({ actor, def: onLocked.verb, targetActor: targetNpc });
+        }
+      }
       const keyDef = world.itemDefs.get(keyId);
       const keyName = keyDef ? t(keyDef.name, actor.lang) : keyId;
       actor.session.send({ kind: 'error', text: s('chest.need_key', actor.lang, { key: keyName }) });

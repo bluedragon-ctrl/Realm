@@ -1,0 +1,72 @@
+{
+  "id": "riverside.heron",
+  "name": { "en": "a grey heron", "cs": "šedá volavka" },
+  "nameAcc": { "en": "the grey heron", "cs": "šedou volavku" },
+  "nameDat": { "en": "the grey heron", "cs": "šedé volavce" },
+  "nameGen": { "en": "the grey heron", "cs": "šedé volavky" },
+  "title": { "en": "grey heron", "cs": "šedá volavka" },
+  "vision": "normal",
+  "location": "riverside.gravel_bar",
+  "count": 1,
+  "short": {
+    "en": "A tall grey heron stands on one leg at the water's edge, head tilted, watching the shallows.",
+    "cs": "Vysoká šedá volavka stojí na jedné noze u vody, hlavu nakloněnou, hledí do mělčiny."
+  },
+  "long": {
+    "en": "A tall slim bird with long grey-blue feathers and a sharp yellow beak as long as a knife. It stands very still on one folded leg, weight perfectly balanced. Every now and then its head darts down and comes up with a small wriggling fish, and then it goes back to its silent watching.",
+    "cs": "Vysoký štíhlý pták s dlouhým šedomodrým peřím a ostrým žlutým zobákem dlouhým jako nůž. Stojí nehybně na jedné podsazené noze, váha dokonale vyvážená. Občas mu hlava bleskne dolů a zase nahoru s drobnou kroutící se rybkou, a pak se vrací ke svému tichému hlídání."
+  },
+  "disposition": "neutral",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 10, "hpMax": 10,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 0, "int": 0,
+    "evasion": 20,
+    "spd": 5
+  },
+  "respawn": { "ticks": 600 },
+  "xp": 4,
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "beak stab", "cs": "bodnutí zobákem" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} stabs at {target} with its long yellow beak!",
+          "{actor} darts its head down and pecks {target} sharply!"
+        ],
+        "cs": [
+          "{actor} bodne {target.acc} dlouhým žlutým zobákem!",
+          "{actor} bleskově skloní hlavu a ostře klovne {target.acc}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.1,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "stands perfectly still and watches the water.",
+          "tilts its long neck and clicks its beak once.",
+          "shifts its weight onto the other leg without a sound.",
+          "darts its head down and comes up with a tiny silver fish.",
+          "smooths a long grey wing feather with its beak."
+        ],
+        "cs": [
+          "stojí nehybně a hledí do vody.",
+          "nakloní dlouhý krk a jednou cvakne zobákem.",
+          "přenese váhu na druhou nohu, aniž by vydala hlásku.",
+          "bleskne hlavou dolů a vyjede s drobnou stříbrnou rybkou.",
+          "zobákem si uhladí dlouhé šedé pero."
+        ]
+      }
+    }
+  ]
+}

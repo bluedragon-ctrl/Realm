@@ -1,0 +1,21 @@
+{
+  "id": "item.troll_hide",
+  "name": {
+    "en": "a troll hide",
+    "cs": "trollí kůže"
+  },
+  "nameAcc": {
+    "en": "the troll hide",
+    "cs": "trollí kůži"
+  },
+  "short": {
+    "en": "A heavy rolled bundle of green-grey troll hide, thick and rubbery to the touch.",
+    "cs": "Těžký srolovaný balík zelenošedé trollí kůže, tlustý a na dotek pružný."
+  },
+  "long": {
+    "en": "A great sheet of troll hide rolled up tight and tied with leather thongs. The skin is thick as a finger and feels like nothing else — half-leather, half-rubber, and still faintly warm. Old scars run all over it in pale lines. The smith would know what to do with it.",
+    "cs": "Velký kus trollí kůže pevně srolovaný a stažený koženými řemínky. Kůže je tlustá jako prst a působí, jako by nic jiného nebyla — napůl kůže, napůl pryž, a stále slabě teplá. Po celém povrchu se táhnou bledé linie starých jizev. Kovář by si s tím poradil."
+  },
+  "tags": ["material"],
+  "weight": 5
+}
