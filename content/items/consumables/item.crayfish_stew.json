@@ -1,0 +1,45 @@
+{
+  "id": "item.crayfish_stew",
+  "name": {
+    "en": "a bowl of crayfish stew",
+    "cs": "miska račí polévky"
+  },
+  "nameAcc": {
+    "en": "the bowl of crayfish stew",
+    "cs": "misku račí polévky"
+  },
+  "short": {
+    "en": "A wooden bowl of rich pink crayfish stew, thickened with flour.",
+    "cs": "Dřevěná miska husté růžové račí polévky zahuštěné moukou."
+  },
+  "long": {
+    "en": "A deep wooden bowl of pink-tinted stew, thick with flaked crayfish meat and a soft roux of flour. It smells sweet and a little salty, and steams gently. A whole bowl is a proper meal — the sort that sets you up for a hard afternoon.",
+    "cs": "Hluboká dřevěná miska narůžovělé polévky, plná rozdrobeného račího masa a měkké jíšky z mouky. Voní nasládle a trochu slaně, mírně se kouří. Celá miska je pořádné jídlo — takové, po kterém zvládneš těžké odpoledne."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you spoon up the crayfish stew. It is rich, sweet, and the warmth runs all the way to your fingers.",
+        "others": "{actor} spoons up a bowl of crayfish stew."
+      },
+      "to_target": {
+        "self": "you hand the bowl of crayfish stew to {target}, who eats it gratefully.",
+        "others": "{actor} hands the bowl of crayfish stew to {target}, who eats it gratefully."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sníš lžící račí polévku. Je sytá, nasládlá a teplo se ti rozlije až do prstů.",
+        "others": "{actor} sní misku račí polévky."
+      },
+      "to_target": {
+        "self": "podáš misku račí polévky {target.dat} a ten ji vděčně sní.",
+        "others": "{actor} podává misku račí polévky {target.dat}, ten ji vděčně sní."
+      }
+    },
+    "effect": { "type": "heal", "amount": 9 },
+    "consumable": true
+  }
+}

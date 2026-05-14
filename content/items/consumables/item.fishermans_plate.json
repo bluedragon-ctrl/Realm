@@ -1,0 +1,45 @@
+{
+  "id": "item.fishermans_plate",
+  "name": {
+    "en": "a fisherman's plate",
+    "cs": "rybářský talíř"
+  },
+  "nameAcc": {
+    "en": "the fisherman's plate",
+    "cs": "rybářský talíř"
+  },
+  "short": {
+    "en": "A wooden plate with a pan-fried river fish on a thick slice of bread.",
+    "cs": "Dřevěný talíř s na pánvi opečenou říční rybou na tlustém krajíci chleba."
+  },
+  "long": {
+    "en": "A simple wooden plate with a whole pan-fried river fish laid across a thick slab of brown bread. The skin is crisp, the flesh is white and flaky, and the bread underneath has soaked up a little of the oil. Quick, plain and very filling.",
+    "cs": "Prostý dřevěný talíř s celou na pánvi opečenou říční rybou položenou na tlustém krajíci tmavého chleba. Kůže je křupavá, maso bílé a křehké a chleba pod tím se nasákl trochou oleje. Rychlé, prosté a velmi sytivé."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you eat the fish and bread together with your hands. It is plain, hot, and very good.",
+        "others": "{actor} eats a fisherman's plate of fish and bread."
+      },
+      "to_target": {
+        "self": "you hand the plate of fish and bread to {target}, who tucks in eagerly.",
+        "others": "{actor} hands a plate of fish and bread to {target}, who tucks in eagerly."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "sníš rybu i chleba rukama. Je to prosté, horké a moc dobré.",
+        "others": "{actor} sní rybářský talíř s rybou a chlebem."
+      },
+      "to_target": {
+        "self": "podáš talíř s rybou a chlebem {target.dat} a ten se dychtivě pustí do jídla.",
+        "others": "{actor} podává talíř s rybou a chlebem {target.dat}, ten se dychtivě pustí do jídla."
+      }
+    },
+    "effect": { "type": "heal", "amount": 5 },
+    "consumable": true
+  }
+}

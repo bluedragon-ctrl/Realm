@@ -1,0 +1,21 @@
+{
+  "id": "item.boar_meat",
+  "name": {
+    "en": "a slab of boar meat",
+    "cs": "kus kančího masa"
+  },
+  "nameAcc": {
+    "en": "the slab of boar meat",
+    "cs": "kus kančího masa"
+  },
+  "short": {
+    "en": "A heavy red slab of fresh boar meat.",
+    "cs": "Těžký rudý kus čerstvého kančího masa."
+  },
+  "long": {
+    "en": "A thick slab of dark red meat, fatty along one edge and marbled with white. It is heavy and a little tacky to the touch. Raw, it would not do you much good — but cooked properly, it makes a heavy and filling meal.",
+    "cs": "Tlustý plát tmavě rudého masa, po jedné straně tučný a protkaný bílým loje. Je těžký a na dotek lehce lepkavý. Syrový by ti moc neprospěl — ale dobře uvařený dá pořádné a sytivé jídlo."
+  },
+  "tags": ["food", "meat", "ingredient"],
+  "weight": 1
+}

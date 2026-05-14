@@ -1,0 +1,50 @@
+{
+  "id": "item.forest_mushroom",
+  "name": {
+    "en": "a brown-capped mushroom",
+    "cs": "hnědá houba"
+  },
+  "nameAcc": {
+    "en": "the brown-capped mushroom",
+    "cs": "hnědou houbu"
+  },
+  "short": {
+    "en": "A plump brown-capped mushroom with a thick pale stem.",
+    "cs": "Buclatá hnědá houba s tlustým bledým třeněm."
+  },
+  "long": {
+    "en": "A handsome mushroom with a rounded brown cap and a thick pale stem. It smells faintly earthy and nutty up close — nothing sour or sharp. The brown-capped ones are safe to eat; only the red-capped sort with white spots are poisonous. Good in stews.",
+    "cs": "Pěkná houba s kulatým hnědým kloboukem a tlustým bledým třeněm. Z blízka voní lehce po hlíně a ořeších — nic nakyslého ani štiplavého. Hnědé klobouky jsou jedlé; jedovaté jsou jen ty červené s bílými tečkami. Hodí se do polévky."
+  },
+  "tags": ["food", "mushroom", "ingredient"],
+  "weight": 0,
+  "spawn": {
+    "location": "forest.mushroom_hollow",
+    "count": 4,
+    "respawnTicks": 600
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you nibble the brown mushroom raw. It tastes earthy and a little nutty, but not very filling on its own.",
+        "others": "{actor} nibbles on a brown-capped mushroom."
+      },
+      "to_target": {
+        "self": "you offer the brown-capped mushroom to {target}, who takes a careful bite.",
+        "others": "{actor} offers a brown-capped mushroom to {target}, who takes a careful bite."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "okusíš syrovou hnědou houbu. Chutná po hlíně a trochu po ořeších, ale samostatně moc nezasytí.",
+        "others": "{actor} okusuje hnědou houbu."
+      },
+      "to_target": {
+        "self": "nabídneš hnědou houbu {target.dat} a ten si opatrně kousne.",
+        "others": "{actor} nabízí hnědou houbu {target.dat}, ten si opatrně kousne."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "heal", "amount": 1 }
+  }
+}

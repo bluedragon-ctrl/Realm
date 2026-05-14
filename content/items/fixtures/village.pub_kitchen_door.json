@@ -1,0 +1,53 @@
+{
+  "id": "village.pub_kitchen_door",
+  "name": {
+    "en": "a kitchen door",
+    "cs": "kuchyňské dveře"
+  },
+  "nameAcc": {
+    "en": "the kitchen door",
+    "cs": "kuchyňské dveře"
+  },
+  "nameDat": {
+    "en": "the kitchen door",
+    "cs": "kuchyňským dveřím"
+  },
+  "nameGen": {
+    "en": "the kitchen door",
+    "cs": "kuchyňských dveří"
+  },
+  "short": {
+    "en": "A plain wooden door set in the wall behind the bar.",
+    "cs": "Prosté dřevěné dveře ve zdi za výčepem."
+  },
+  "long": {
+    "en": "A sturdy plank door with a small brass lock. It leads north into the pub kitchen, but only the innkeeper and his trusted helpers have a key. Faint smells of broth and woodsmoke leak around the frame.",
+    "cs": "Pevné prkenné dveře s malým mosazným zámkem. Vedou na sever do kuchyně hostince, ale klíč mají jen hostinský a jeho důvěryhodní pomocníci. Kolem rámu vychází slabá vůně vývaru a kouře ze dřeva."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "village.pub",
+    "count": 1
+  },
+  "unlocks": {
+    "exit": "n",
+    "key": "item.pub_key",
+    "consume": false,
+    "verb": {
+      "en": {
+        "to_target": {
+          "self": "you slide the brass key into {target} and turn it. The lock clicks open with a soft, well-oiled sound.",
+          "others": "{actor} slides a brass key into {target} and turns it. The lock clicks softly open."
+        }
+      },
+      "cs": {
+        "to_target": {
+          "self": "zasuneš mosazný klíč do {target.gen} a otočíš jím. Zámek měkce cvakne a otevře se.",
+          "others": "{actor} zasunuje mosazný klíč do {target.gen} a otáčí jím. Zámek měkce cvakne a otevře se."
+        }
+      }
+    }
+  }
+}

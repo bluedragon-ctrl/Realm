@@ -1,0 +1,45 @@
+{
+  "id": "item.boar_beer_pie",
+  "name": {
+    "en": "a boar and beer pie",
+    "cs": "koláč s kancem a pivem"
+  },
+  "nameAcc": {
+    "en": "the boar and beer pie",
+    "cs": "koláč s kancem a pivem"
+  },
+  "short": {
+    "en": "A big golden pie heavy with boar meat slow-cooked in dark beer.",
+    "cs": "Velký zlatý koláč těžký masem z kance, dušeným v tmavém pivě."
+  },
+  "long": {
+    "en": "A great round pie with a golden, glossy crust. Inside, chunks of boar meat have been slow-cooked in dark beer until they fall apart, all bound together in thick brown gravy. A meal like this sticks to your ribs and steadies you in a fight.",
+    "cs": "Velký kulatý koláč se zlatou lesklou kůrkou. Uvnitř se v tmavém pivě dlouho dusily kousky kančího masa, dokud se nerozpadly, a vše drží pohromadě hustá hnědá omáčka. Takové jídlo se drží žaludku a v boji ti dodá pevnost."
+  },
+  "tags": ["food", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you cut into the boar pie. The meat falls apart on the spoon, dark and rich with beer. A warm weight settles in your belly and your stance steadies.",
+        "others": "{actor} cuts into a boar and beer pie."
+      },
+      "to_target": {
+        "self": "you hand the boar pie to {target}, who eats it gratefully.",
+        "others": "{actor} hands a boar and beer pie to {target}, who eats it gratefully."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "nakrojíš si koláč s kancem. Maso se na lžíci rozpadá, tmavé a sytě prosáklé pivem. V břiše ti uleží příjemná tíha a postoj se ti zpevní.",
+        "others": "{actor} si nakrojí koláč s kancem a pivem."
+      },
+      "to_target": {
+        "self": "podáš koláč s kancem {target.dat} a ten ho vděčně sní.",
+        "others": "{actor} podává koláč s kancem {target.dat}, ten ho vděčně sní."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.well_fed" },
+    "consumable": true
+  }
+}

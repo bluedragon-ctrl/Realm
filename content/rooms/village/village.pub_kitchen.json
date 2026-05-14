@@ -1,0 +1,19 @@
+{
+  "id": "village.pub_kitchen",
+  "name": {
+    "en": "The pub kitchen",
+    "cs": "Kuchyně hostince"
+  },
+  "short": {
+    "en": "A warm kitchen smelling of woodsmoke and herbs, with a black pot bubbling on the cook-fire.",
+    "cs": "Teplá kuchyně voní kouřem ze dřeva a bylinkami, na kuchyňském ohni bublá černý kotlík."
+  },
+  "long": {
+    "en": "A small, busy room tucked behind the pub. A cook-fire glows in the corner with a heavy iron pot hanging over it on a black hook, and a long wooden prep counter runs along one wall, dusted with flour and chopped herbs. Bunches of dried thyme and bay hang from the rafters, and clay jars of salt and pepper line a shelf above the counter. The only door leads south, back into the taproom.",
+    "cs": "Malá rušná místnost ukrytá za výčepem. V rohu žhne kuchyňský oheň, nad ním na černém háku visí těžký železný kotlík, a podél jedné stěny se táhne dlouhý dřevěný pracovní pult posypaný moukou a nasekanými bylinkami. Z trámů visí svazky sušeného tymiánu a bobkového listu a na polici nad pultem stojí hliněné džbánky se solí a pepřem. Jediné dveře vedou na jih, zpátky do výčepu."
+  },
+  "exits": {
+    "s": "village.pub"
+  },
+  "tags": ["indoor", "village", "safe"]
+}

@@ -59,6 +59,12 @@
       "outputs": [{ "item": "item.sweets" }]
     },
     {
+      "id": "baker.buy_flour",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 1 }],
+      "outputs": [{ "item": "item.flour" }]
+    },
+    {
       "id": "baker.sell_honey",
       "flavor": "sell",
       "inputs":  [{ "item": "item.honey", "count": 1 }],
