@@ -1,5 +1,6 @@
 import { broadcastToRoom } from '../world.js';
-import { findItemInList, transferItem, splitOnKeyword } from '../items.js';
+import { findItemInList, splitOnKeyword } from '../items.js';
+import { transferInventory } from '../inventory.js';
 import { s, t } from '../../i18n.js';
 import { resolveName } from '../declension.js';
 import { goldPhrase, parseAmountGoldQuery } from '../format.js';
@@ -9,10 +10,15 @@ import { runExchange, runSinkExchange } from '../exchange.js';
 import { resolveActorTarget } from '../targeting.js';
 import { hasForm } from '../verbs.js';
 import { consumeForActor } from './use.js';
+import { requireStanding } from '../positionGate.js';
 
 function parseGiveArgs(args) {
+  if (args[0]?.toLowerCase() === 'to') return null;
   const split = splitOnKeyword(args, 'to');
-  if (split) return { itemQuery: split.before, targetQuery: split.after };
+  if (split) {
+    if (!split.before.trim() || !split.after.trim()) return null;
+    return { itemQuery: split.before, targetQuery: split.after };
+  }
   if (args.length >= 2) {
     return { itemQuery: args.slice(0, -1).join(' '), targetQuery: args[args.length - 1] };
   }
@@ -46,6 +52,11 @@ function findExchangeForItemGive(target, itemDefId, count) {
 }
 
 export default function give(actor, args) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   if (!args || args.length < 2) {
     actor.session.send({ kind: 'error', text: s('give.usage', actor.lang) });
     return;
@@ -129,6 +140,9 @@ export default function give(actor, args) {
     return;
   }
 
+  // Precedence on a friendly NPC: declared exchange (exact match) → sink exchange (catch-all
+  // for any item) → consumable-on-NPC (heal/buff potion). Sinks win over consumables on
+  // purpose — an NPC that accepts arbitrary gifts should still accept a potion as a gift.
   if (target.kind === 'npc' && Array.isArray(target.exchanges)) {
     const matches = findExchangeForItemGive(target, inst.defId, count);
     if (matches.length === 1) {
@@ -179,9 +193,7 @@ export default function give(actor, args) {
     return;
   }
 
-  transferItem(actor.inventory, target.inventory, inst);
-  actor.dirty = true;
-  if (target.kind === 'player') target.dirty = true;
+  transferInventory(actor, target, inst);
 
   broadcastToRoom(actor.location, (recipient) => {
     const item = resolveName(inst.def, 'acc', recipient.lang);
@@ -198,7 +210,4 @@ export default function give(actor, args) {
       text: s('give.others', recipient.lang, { actor: actor.name, item, target: targetDat }),
     };
   });
-
-  sendStats(actor);
-  if (target.kind === 'player') sendStats(target);
 }

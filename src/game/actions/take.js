@@ -1,13 +1,20 @@
 import { itemsInRoom, removeItemFromRoom, broadcastToRoom, getGoldInRoom, takeGoldFromRoom } from '../world.js';
 import { findItemInList } from '../items.js';
+import { addToInventory } from '../inventory.js';
 import { s } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { describeRoom, describeRoomToAll } from './look.js';
 import { sourceForActor } from '../sources.js';
 import { resolveName } from '../declension.js';
 import { goldPhrase, isGoldQuery } from '../format.js';
+import { requireStanding } from '../positionGate.js';
 
 export default function take(actor, args) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   if (!args || args.length === 0) {
     actor.session.send({ kind: 'error', text: s('take.no_arg', actor.lang) });
     return;
@@ -39,18 +46,20 @@ export default function take(actor, args) {
   const takeAll = args[0]?.toLowerCase() === 'all' && args.length > 1;
   const query = (takeAll ? args.slice(1) : args).join(' ');
   const list = itemsInRoom(actor.location);
-  const inst = findItemInList(list, query);
+  const pickable = list.filter(i => i.def.pickable !== false);
+  const inst = findItemInList(pickable, query);
   if (!inst) {
+    const anyMatch = findItemInList(list, query);
+    if (anyMatch) {
+      actor.session.send({ kind: 'error', text: s('take.not_pickable', actor.lang) });
+      return;
+    }
     actor.session.send({ kind: 'error', text: s('error.no_such_item_here', actor.lang, { query }) });
-    return;
-  }
-  if (inst.def.pickable === false) {
-    actor.session.send({ kind: 'error', text: s('take.not_pickable', actor.lang) });
     return;
   }
 
   if (takeAll) {
-    const matches = list.filter(i => i.defId === inst.defId && i.def.pickable !== false);
+    const matches = pickable.filter(i => i.defId === inst.defId);
     for (const m of matches) {
       removeItemFromRoom(m, actor.location);
       actor.inventory.push(m);
@@ -74,8 +83,7 @@ export default function take(actor, args) {
   }
 
   removeItemFromRoom(inst, actor.location);
-  actor.inventory.push(inst);
-  actor.dirty = true;
+  addToInventory(actor, inst);
 
   broadcastToRoom(actor.location, (recipient) => {
     const item = resolveName(inst.def, 'acc', recipient.lang);
@@ -89,6 +97,5 @@ export default function take(actor, args) {
     };
   });
 
-  sendStats(actor);
   describeRoomToAll(actor.location);
 }

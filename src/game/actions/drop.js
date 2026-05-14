@@ -1,13 +1,20 @@
 import { placeItemInRoom, broadcastToRoom, addGoldToRoom } from '../world.js';
-import { findItemInList, removeFromList } from '../items.js';
+import { findItemInList } from '../items.js';
+import { removeFromInventory } from '../inventory.js';
 import { s } from '../../i18n.js';
 import { sendStats } from '../messages.js';
 import { describeRoomToAll } from './look.js';
 import { sourceForActor } from '../sources.js';
 import { resolveName } from '../declension.js';
 import { goldPhrase, parseAmountGold } from '../format.js';
+import { requireStanding } from '../positionGate.js';
 
 export default function drop(actor, args) {
+  const gate = requireStanding(actor);
+  if (!gate.ok) {
+    actor.session?.send({ kind: 'error', text: gate.msg });
+    return;
+  }
   if (!args || args.length === 0) {
     actor.session.send({ kind: 'error', text: s('drop.no_arg', actor.lang) });
     return;
@@ -42,9 +49,8 @@ export default function drop(actor, args) {
     actor.session.send({ kind: 'error', text: s('error.no_such_item_inv', actor.lang, { query }) });
     return;
   }
-  removeFromList(actor.inventory, inst);
+  removeFromInventory(actor, inst);
   placeItemInRoom(inst, actor.location);
-  actor.dirty = true;
 
   broadcastToRoom(actor.location, (recipient) => {
     const item = resolveName(inst.def, 'acc', recipient.lang);
@@ -58,6 +64,5 @@ export default function drop(actor, args) {
     };
   });
 
-  sendStats(actor);
   describeRoomToAll(actor.location);
 }

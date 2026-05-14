@@ -2,6 +2,7 @@ import { sendStats } from './messages.js';
 import { s, t } from '../i18n.js';
 import { world, unlockExit, placeItemInRoom, removeItemFromRoom, addGoldToRoom, broadcastToRoom, actorsInRoom } from './world.js';
 import { makeItemInstance } from './items.js';
+import { addToInventory } from './inventory.js';
 import { roll } from './dice.js';
 import { resolveName } from './declension.js';
 import { setHate, getHate, maxHateInRoom, clearHateTable, removeFromTable } from './aggro.js';
@@ -43,9 +44,7 @@ const EFFECTS = {
     const def = world.itemDefs.get(item);
     if (!def || !actor?.inventory) return { produced: null };
     const inst = makeItemInstance(def);
-    actor.inventory.push(inst);
-    actor.dirty = true;
-    if (actor.kind === 'player' && actor.session) sendStats(actor);
+    addToInventory(actor, inst);
     return { produced: def.id, name: def.name, instance: inst };
   },
   unlock({ room, exit }, { actor }) {
