@@ -84,6 +84,7 @@
   "drop.gold.others": "{actor} drops {amount}.",
   "drop.gold.not_enough": "you only have {gold}.",
   "loot.gold_dropped": "{target} drops {amount}.",
+  "summon.despawn_default": "{name} fades away.",
   "room.gold_label": "gold",
   "panel.gold": "Gold",
   "cast.no_arg": "cast what?",

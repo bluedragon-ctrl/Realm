@@ -84,6 +84,7 @@
   "drop.gold.others": "{actor} pokládá {amount}.",
   "drop.gold.not_enough": "máš jen {gold}.",
   "loot.gold_dropped": "{target} upouští {amount}.",
+  "summon.despawn_default": "{name} mizí.",
   "room.gold_label": "zlato",
   "panel.gold": "Zlato",
   "cast.no_arg": "co seslat?",

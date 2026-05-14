@@ -324,31 +324,24 @@ Ordered by priority within each status. Preparation tasks land before the system
 | Actor positions (stand/sit/sleep; sleep blocks passive perception via `canPerceive`; reactive aggro on attack auto-wakes; social verbs targeting a sleeper wake them; combat auto-stands a sitter and wakes a sleeper; sit/sleep blocked while in combat; `requireStanding` gate on move/attack/cast/flee/use/search; per-position OOC regen via `PLAYER_REGEN_PERIOD` — sit ≈ 30 HP/min, sleep ≈ 60 HP/min) |
 | Toggleable light fixtures (new `lightSource.toggle` flag on item defs + `inst.state.lit` + new `toggle_light` effect type; `use` runs the lighting verb-shape, currently-lit fixtures run a sibling `useExtinguish` form; `castle.iron_brazier`, `castle.offering_plinth`, `castle.reading_lectern`, `mine.lantern_hook` upgraded with `light`-level toggles) |
 | `spell.blindness` / `spell.nightvision` (effect defs `effect.blinded` / `effect.nightvision` with `perception` set; spells route through the existing `apply_effect` path so they work on both players and NPCs; learned via scrolls) |
-
-### Planned — UI / UX polish
-
-| Phase |
-|---|
-| Item disposal (mimic vendor) |
+| NPC summoning (shared `performSummon` core in `src/game/summon.js`; `summon` NPC behavior primitive and matching `summon` effect type ready for player-summon spells; summoned NPCs inherit summoner aggro, despawn on TTL / summoner death, skip xp/loot/respawn; `mine.kobold_chief` summons workers below 50% HP) |
+| Item disposal (mimic vendor in `village.pub`) |
+| NPC sight in low light (`perceivedLight` extends to read `actor.def.vision`: `low_light` → clamp up to dim only if effective light is dim, `nightvision` → clamp up to dim always, `blind` → clamp to dark + a `usesNonVisualTargeting` flag for blind NPCs that still acquire targets; `canPerceive(observer, target)` consumes the result) |
+| Combat to-hit penalties in dim/dark (`executeAttack` reads `perceivedLight(attacker, attacker.room)` once and applies `lightToHitModifier(level)` — `light` → 0, `dim` → small malus, `dark` → large malus / auto-miss for sighted attackers; blind-vision NPCs bypass via the flag above) |
+| Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) |
+| Discovered-secrets tracking (IDed secrets, player save records discovered IDs) |
 
 ### Planned — light & exploration content
 
 | Phase |
 |---|
-| NPC sight in low light (`perceivedLight` extends to read `actor.def.vision`: `low_light` → clamp up to dim only if effective light is dim, `nightvision` → clamp up to dim always, `blind` → clamp to dark + a `usesNonVisualTargeting` flag for blind NPCs that still acquire targets; `canPerceive(observer, target)` consumes the result) |
-| Combat to-hit penalties in dim/dark (`executeAttack` reads `perceivedLight(attacker, attacker.room)` once and applies `lightToHitModifier(level)` — `light` → 0, `dim` → small malus, `dark` → large malus / auto-miss for sighted attackers; blind-vision NPCs bypass via the flag above) |
-| Evasion review under darkness (current pass penalizes attacker ACC only; revisit whether a defender who can't see the attacker should also lose evasion — Diku-canonical leaves defender dodge intact, but our stiffer dark malus might want symmetric treatment for consistency) |
-| Hidden rooms / undeclared exits (revealed via perception, items, or knowledge) |
-| Discovered-secrets tracking (IDed secrets, player save records discovered IDs) |
 | New areas (river, marsh, deep mine) |
 
 ### Planned — later systems
 
 | Phase |
 |---|
-| Day/night cycle (world clock, dusk/dawn; plugs in as another floor contribution gated by `room.outdoor === true`; same `clampUp` site in `effectiveLight`) |
-| NPC summoning (boss/caster behaviors summon temporary allies; despawn on death or timer) |
-| Player summoning (summon spells / scrolls call temporary NPC helpers that aggro with the caster) |
+| Player summoning (summon spells / scrolls call temporary NPC helpers that aggro with the caster; reuses the `summon` effect type wired in NPC-summoning) |
 | Pets (persistent companion NPCs: tame, name, level alongside the player, follow between rooms, recall command) |
 | Server events |
 
@@ -356,6 +349,8 @@ Ordered by priority within each status. Preparation tasks land before the system
 
 | Phase | Reason |
 |---|---|
+| Evasion review under darkness | current pass penalizes attacker ACC only; revisit whether a defender who can't see the attacker should also lose evasion |
+| Day/night cycle | world clock + dusk/dawn; plugs in as another floor contribution gated by `room.outdoor === true` at the same `clampUp` site in `effectiveLight` — wait until exploration content makes outdoor time matter |
 | Quests / dialogue trees | content-heavy, lands once exploration content is real |
 | Internet-readiness security pass (passwords + hashing, TLS for HTTP/WS, input sanitation, rate limiting, session/auth model) | until exposure beyond LAN is planned — current `data/admins.json` + LAN-only stance is explicit |
 | SQLite migration | until performance pain (cross-player queries, transactions, event log) |

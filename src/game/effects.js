@@ -6,6 +6,7 @@ import { roll } from './dice.js';
 import { resolveName } from './declension.js';
 import { setHate, getHate, maxHateInRoom, clearHateTable, removeFromTable } from './aggro.js';
 import { describeRoomToAll } from './actions/look.js';
+import { performSummon } from './summon.js';
 
 function evalAmount(value, ctx) {
   if (typeof value === 'number') return value;
@@ -234,6 +235,11 @@ const EFFECTS = {
     const wasLit = !!fixture.state.lit;
     fixture.state.lit = !wasLit;
     return { toggled: true, lit: !wasLit, wasLit };
+  },
+  summon({ defId, count, ttlTicks, despawnText }, { actor }) {
+    if (!actor) return { summoned: 0 };
+    const minions = performSummon(actor, { defId, count, ttlTicks, despawnText });
+    return { summoned: minions.length };
   },
   life_drain({ formula, ratio = 0.5 }, { actor, target }) {
     if (!target?.stats || !actor?.stats || target === actor) return { dealt: 0, healed: 0 };

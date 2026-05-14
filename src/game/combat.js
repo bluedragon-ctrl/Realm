@@ -389,6 +389,13 @@ function handleNpcDeath(killer, npc) {
 
   const def = world.npcDefs.get(npc.defId);
 
+  // Summoned NPCs are ephemeral — no xp, no loot, no respawn enqueue. Bosses can't farm
+  // sacrificial minions, and players can't farm scrolls by summoning meat.
+  if (npc.summoned) {
+    if (room) describeRoomToAll(room);
+    return;
+  }
+
   if (def?.xp) {
     const players = [];
     if (room && world.actorsByRoom.has(room)) {

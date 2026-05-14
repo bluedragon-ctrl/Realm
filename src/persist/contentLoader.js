@@ -52,7 +52,15 @@ export async function loadRooms() {
 }
 
 export async function loadNpcs(knownRooms) {
-  return loadDir('npc', path.resolve('content/npcs'), makeNpcValidator(knownRooms));
+  const npcs = await loadDir('npc', path.resolve('content/npcs'), makeNpcValidator(knownRooms));
+  for (const def of npcs.values()) {
+    for (const b of def.behaviors ?? []) {
+      if (b.primitive === 'summon' && !npcs.has(b.spawn)) {
+        throw new Error(`npc '${def.id}': summon.spawn references unknown npc '${b.spawn}'`);
+      }
+    }
+  }
+  return npcs;
 }
 
 export async function loadItems(knownRooms, knownEffects) {
