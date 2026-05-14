@@ -11,7 +11,12 @@ export function makeNpcValidator(knownRooms) {
     const ctx = `npc '${def.id}' (${path.basename(file)})`;
     checkLocalizedText(def.name, ctx, 'name');
     checkOptionalNameForms(def, ctx);
-    if (def.locations) {
+    if (def.summonOnly === true) {
+      check(def.location == null && def.locations == null, ctx,
+        `summonOnly defs must omit location and locations (never auto-spawned)`);
+      check(def.count == null, ctx, `summonOnly defs must omit count`);
+      check(def.respawn == null, ctx, `summonOnly defs must omit respawn (summons are ephemeral)`);
+    } else if (def.locations) {
       checkObject(def.locations, ctx, 'locations');
       for (const [roomId, n] of Object.entries(def.locations)) {
         check(knownRooms.has(roomId), ctx, `locations key '${roomId}' is not a known room`);

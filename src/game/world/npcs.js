@@ -34,6 +34,7 @@ function spawnPlacements(def) {
 
 export function spawnAllNpcs() {
   for (const def of world.npcDefs.values()) {
+    if (def.summonOnly) continue;
     if (def.spawn?.requires) continue;
     for (const [roomId, count] of spawnPlacements(def)) {
       for (let i = 0; i < count; i++) spawnNpc(def, roomId);
@@ -84,6 +85,7 @@ function defHasLiveInstance(defId) {
 
 export function processConditionalSpawns() {
   for (const def of world.npcDefs.values()) {
+    if (def.summonOnly) continue;
     const cond = def.spawn?.requires;
     if (!cond) continue;
     if (defHasLiveInstance(def.id)) continue;
