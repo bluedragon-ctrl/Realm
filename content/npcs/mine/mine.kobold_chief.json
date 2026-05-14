@@ -35,6 +35,29 @@
   ],
   "behaviors": [
     {
+      "primitive": "summon",
+      "chance": 0.4,
+      "cost": 40,
+      "requires": { "type": "low_hp", "ratio": 0.5 },
+      "spawn": "mine.kobold_worker",
+      "count": 2,
+      "ttlTicks": 60,
+      "despawnText": {
+        "en": "the summoned kobold loses heart and scurries back into the dark.",
+        "cs": "přivolaný kobold ztratí odvahu a uteče zpět do tmy."
+      },
+      "templates": {
+        "en": [
+          "{actor} bellows a guttural command — two kobolds scurry in from the tunnels!",
+          "{actor} thumps the haft of its axe on the stone, and kobolds answer the call!"
+        ],
+        "cs": [
+          "{actor} zaburácí hrdelní rozkaz — z tunelů přibíhají dva koboldi!",
+          "{actor} udeří topůrkem sekery do kamene a koboldi odpovídají na zavolání!"
+        ]
+      }
+    },
+    {
       "primitive": "attack",
       "name": { "en": "axe blow", "cs": "sekerový úder" },
       "chance": 1.0,

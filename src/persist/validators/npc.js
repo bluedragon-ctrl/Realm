@@ -46,6 +46,20 @@ export function makeNpcValidator(knownRooms) {
       if (b.primitive === 'interact' || b.primitive === 'give_item' || b.primitive === 'flee') {
         checkLines(b.templates, bctx);
       }
+      if (b.primitive === 'summon') {
+        check(typeof b.spawn === 'string' && b.spawn.length > 0, bctx,
+          `summon.spawn must be an npc defId`);
+        if (b.count != null) {
+          check(typeof b.count === 'number' && Number.isInteger(b.count) && b.count >= 1, bctx,
+            `summon.count must be a positive integer`);
+        }
+        check(typeof b.ttlTicks === 'number' && Number.isInteger(b.ttlTicks) && b.ttlTicks >= 1, bctx,
+          `summon.ttlTicks must be a positive integer`);
+        if (b.despawnText != null) {
+          checkLocalizedText(b.despawnText, bctx, 'summon.despawnText');
+        }
+        if (b.templates != null) checkLines(b.templates, bctx);
+      }
       if (b.primitive === 'wander') {
         check(typeof b.chance === 'number' && b.chance >= 0 && b.chance <= 1, bctx,
           `wander.chance must be a number between 0 and 1`);

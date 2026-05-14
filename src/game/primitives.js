@@ -9,6 +9,7 @@ import { fillPlaceholders } from './verbs.js';
 import { resolveName } from './declension.js';
 import { castSpell } from './actions/cast.js';
 import { canPerceive } from './perception.js';
+import { performSummon } from './summon.js';
 
 const PRIMITIVES = {
   say(actor, behavior) {
@@ -92,6 +93,26 @@ const PRIMITIVES = {
   move(actor, behavior) {
     if (actor.alive === false) return;
     movePrimitive(actor, behavior, { mandatoryEmote: false, clearAttacked: false });
+  },
+  summon(actor, behavior) {
+    if (actor.alive === false) return;
+    const idx = pickListIndex(behavior.templates);
+    if (behavior.templates) {
+      broadcastToRoom(actor.location, (recipient) => {
+        if (!canPerceive(recipient, actor)) return null;
+        const lang = recipient.lang;
+        const from = t(actor.name, lang);
+        const tmpl = tListAt(behavior.templates, lang, idx);
+        const filled = fillPlaceholders(tmpl, { actor, lang, params: { actor: from } });
+        return { kind: 'emote', tone: 'combat', source: sourceForActor(actor, recipient), text: filled };
+      });
+    }
+    performSummon(actor, {
+      defId: behavior.spawn,
+      count: behavior.count,
+      ttlTicks: behavior.ttlTicks,
+      despawnText: behavior.despawnText,
+    });
   },
   cast(actor, behavior) {
     const spell = world.spellDefs?.get(behavior.spell);

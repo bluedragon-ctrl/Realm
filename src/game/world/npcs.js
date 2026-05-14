@@ -76,6 +76,7 @@ function roomHasHostiles(roomId) {
 
 function defHasLiveInstance(defId) {
   for (const npc of world.npcsByInstance.values()) {
+    if (npc.summoned) continue;
     if (npc.defId === defId && npc.alive !== false) return true;
   }
   return false;

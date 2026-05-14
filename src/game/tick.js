@@ -7,6 +7,7 @@ import { applyDamageWithFeedback, hasInRoomTarget } from './combat.js';
 import { addHate, getHate } from './aggro.js';
 import { perceptionFactor } from './perception.js';
 import { setDamageRouteHandler, setCleanseHandler, setCureHandler } from './effects.js';
+import { processSummonDespawn } from './summon.js';
 import { sendStats } from './messages.js';
 import { pushTargetInfo, describeRoomToAll } from './actions/look.js';
 import { getTick, bumpTick } from './clock.js';
@@ -204,6 +205,7 @@ function onTick() {
     tickActor(actor);
   }
   maybeRespawnItems();
+  processSummonDespawn();
   processNpcRespawns();
   processConditionalSpawns();
   broadcastTick();
