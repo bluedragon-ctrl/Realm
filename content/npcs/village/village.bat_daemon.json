@@ -1,0 +1,93 @@
+{
+  "id": "village.bat_daemon",
+  "name": { "en": "a bat daemon", "cs": "netopýří démon" },
+  "nameAcc": { "en": "a bat daemon", "cs": "netopýřího démona" },
+  "nameDat": { "en": "a bat daemon", "cs": "netopýřímu démonovi" },
+  "nameGen": { "en": "a bat daemon", "cs": "netopýřího démona" },
+  "title": { "en": "bat daemon", "cs": "netopýří démon" },
+  "location": "village.tower_attic",
+  "count": 1,
+  "short": {
+    "en": "A large bat wreathed in wisps of shadow, eyes burning with malice.",
+    "cs": "Velký netopýr ovinutý vlásky stínu, oči žhoucí zlostí."
+  },
+  "long": {
+    "en": "A creature of nightmare — a bat the size of a wolf, with leathery wings spanning nearly wall to wall. Its fur is impossibly dark, seeming to drink in the light around it, and wisps of shadow curl from its body like smoke. Its eyes burn with an intelligence and hunger that sets your teeth on edge. When it moves, the air itself seems to shudder.",
+    "cs": "Tvor z nočních můr — netopýr velký jako vlk, s kožovitými křídly rozprostírajícími se téměř od zdi ke zdi. Srst je nemožně tmavá, jako by pohlcovala světlo kolem sebe, a vlásky stínu se krčí z jeho těla jako kouř. Oči mu žhají inteligencí a hlady, která ti dochází dech. Když se pohne, vzduch se zdá otřásat."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 60, "hpMax": 60,
+    "mp": 0, "mpMax": 0,
+    "attack": 4, "defense": 2, "int": 0,
+    "evasion": 10,
+    "spd": 8
+  },
+  "vision": "nightvision",
+  "xp": 42,
+  "goldDrop": { "formula": "2d4+2", "chance": 0.8 },
+  "loot": [
+    { "defId": "item.bat_wing", "chance": 1.0, "count": 2 },
+    { "defId": "item.amulet_of_sight", "chance": 1.0 },
+    { "defId": "potion.heal", "chance": 0.4 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "claw swipe", "cs": "švih drápy" },
+      "chance": 0.7,
+      "cost": 12,
+      "damage": "1d5+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lunges with terrible claws extended!",
+          "{actor} rakes {target} with shadowy talons!"
+        ],
+        "cs": [
+          "{actor} se vrhne s vyceněnými hrozivými drápy!",
+          "{actor} škrábe {target} stínovými pařáty!"
+        ]
+      }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "bite", "cs": "kousnout" },
+      "chance": 0.3,
+      "cost": 14,
+      "damage": "1d6+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} snaps at {target} with fangs bared!",
+          "{actor} launches itself at {target} with gnashing teeth!"
+        ],
+        "cs": [
+          "{actor} se vrhne na {target} s viditelným tesáky!",
+          "{actor} se vrhne na {target} s hryzajícími zuby!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "screeches a sound that echoes wrongly through the air.",
+          "beats its massive wings, sending wisps of shadow everywhere.",
+          "hovers in place, its eyes tracking your every movement.",
+          "hisses with a voice like wind through a crypt."
+        ],
+        "cs": [
+          "vydá křik, který se ozvěnou zvláštně vzduchem.",
+          "bije obrovskými křídly, poslíchá vlásky stínu všemi směry.",
+          "vznáší se na místě, jeho oči sledují každý tvůj pohyb.",
+          "syčí hlasem jako vítr skrz kryptu."
+        ]
+      }
+    }
+  ]
+}

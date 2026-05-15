@@ -1,0 +1,75 @@
+{
+  "id": "village.bat",
+  "name": { "en": "a bat", "cs": "netopýr" },
+  "nameAcc": { "en": "a bat", "cs": "netopýra" },
+  "nameDat": { "en": "a bat", "cs": "netopýrovi" },
+  "nameGen": { "en": "a bat", "cs": "netopýra" },
+  "title": { "en": "bat", "cs": "netopýr" },
+  "location": "village.tower_attic",
+  "count": 5,
+  "short": {
+    "en": "A small bat hangs in the darkness, wings folded against its body.",
+    "cs": "Malý netopýr visí v tmě, křídla složená proti tělu."
+  },
+  "long": {
+    "en": "A creature no bigger than your hand, covered in dark fur with thin membranous wings folded tight against its body. Tiny claws grip the stone as it hangs upside-down, and its small face bears tiny sharp teeth. When disturbed, it screeches and wheels through the air in sharp, erratic movements.",
+    "cs": "Tvor ne větší než tvá ruka, pokrytý tmavou srší s tenkými blanitými křídly složenými těsně proti tělu. Malé drápy se chytají kamene, když visí vzhůru nohama, a jeho malý obličej má malé ostré zuby. Když je vyrušen, vřískne a točí se vzduchem v ostrých, nepravidelných pohybech."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 7, "hpMax": 7,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 20,
+    "spd": 7
+  },
+  "vision": "normal",
+  "xp": 5,
+  "goldDrop": { "formula": "1d2", "chance": 0.6 },
+  "loot": [
+    { "defId": "item.bat_wing", "chance": 0.9 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "bite", "cs": "kousnout" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swoops at {target} with teeth bared!",
+          "{actor} darts in and nips at {target}!",
+          "{actor} screeches and rakes {target} with tiny claws!"
+        ],
+        "cs": [
+          "{actor} se vrhne na {target} s odkrytými zubami!",
+          "{actor} se vrhne a kouše {target}!",
+          "{actor} vřískne a malými drápy škrábne {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "squeaks and flutters its wings nervously.",
+          "hangs upside-down and watches you with beady eyes.",
+          "wheels through the air in tight circles.",
+          "chirps something unintelligible."
+        ],
+        "cs": [
+          "pískne a nervózně třepotá křídly.",
+          "visí vzhůru nohama a sleduje tě malýma očima.",
+          "točí se vzduchem v tuhých kruzích.",
+          "vrčí něco nepochopitelného."
+        ]
+      }
+    }
+  ]
+}

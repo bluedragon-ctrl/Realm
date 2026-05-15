@@ -1,5 +1,6 @@
 {
   "id": "item.iron_ore",
+  "rarity": 1,
   "name": {
     "en": "a chunk of iron ore",
     "cs": "kus železné rudy"

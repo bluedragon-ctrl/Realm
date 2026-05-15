@@ -1,5 +1,6 @@
 {
   "id": "item.flour",
+  "rarity": 1,
   "name": {
     "en": "a bag of flour",
     "cs": "pytlík mouky"

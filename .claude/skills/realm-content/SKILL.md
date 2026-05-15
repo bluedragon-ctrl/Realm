@@ -273,6 +273,37 @@ Read the actual files when tuning — this drifts. Anchor a new NPC against exis
 | **giant_centipede (sub-boss)** | 24 | 4 | 1 | 5   | 0   | —          | hostile               |
 | **kobold_chief (boss)**   | 40 | 5   | 3   | 5   | 0   | —          | hostile (acc 15, mr 20)|
 
+## Item rarity and loot drops
+
+All items have a `rarity` field (1–4) to help content creators understand loot progression:
+
+| Rarity | Name | Examples | Who drops it |
+|--------|------|----------|--------------|
+| **1** | Common | Food, basic materials, standard weapons, simple amulets | Fodder mobs, standard mobs, casual encounters |
+| **2** | Uncommon | Crafted items (bear armor, bone helmet), stat-boosting amulets (keen senses, strength) | Area mobs, mid-tier encounters, zone bosses within areas |
+| **3** | Rare | Unique/magical items (frost blade, life drain dagger, amulet of sight), special boss drops | Boss fights, unique encounters, significant story moments |
+| **4** | Artifact | Reserved for future legendary/endgame items | Not yet in game |
+
+### Loot drop guidelines by mob type
+
+**Standard fodder** (rat, wasp, basic mobs):
+- Drop L1 only
+- Example: `bat` drops `bat_wing` (L1 material)
+
+**Standard area mobs** (wolf, skeleton, typical ~15 HP encounters):
+- Primarily L1, occasional L2
+- Example: `kobold_guard` might drop `item.wooden_club` (L1) or rarely `item.hand_axe` (L1)
+
+**Zone bosses** (mid-tier, 25–40 HP, area completion):
+- L1 common drops + guaranteed L2 upgrade
+- Example: `toad_king` drops `toad_hide` (L1 material) + crafting materials, occasionally `amulet.strength` (L2)
+
+**Story bosses / Special encounters** (40+ HP, unique mechanics, summoned via challenge):
+- L2 + L3 guaranteed
+- Example: `bat_daemon` (summoned boss in tower attic) drops `amulet_of_sight` (L3) + `bat_wing` (L1 x2)
+
+**Rule of thumb:** Never let a standard encounter drop L3. L3 items are rewards for defeating *bosses* or *unique encounters*, not routine combat. If a mob's loot feels weak, add more L1 drops or a guaranteed L2 instead of bumping to L3.
+
 `skeleton` at SPD 10 is the explicit "fast" design exception. All other hostile mobs sit at or below SPD 6 per the pacing rule below.
 
 ### Combat pacing — design principle

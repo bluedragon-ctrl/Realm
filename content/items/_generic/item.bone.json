@@ -1,5 +1,6 @@
 {
   "id": "item.bone",
+  "rarity": 1,
   "name": {
     "en": "a bone",
     "cs": "kost"

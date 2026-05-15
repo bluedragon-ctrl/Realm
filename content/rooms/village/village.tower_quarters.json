@@ -13,7 +13,8 @@
     "cs": "Vrchol věže je jasně místem, kde kouzelník skutečně bydlí. Knihy se hromadí na každém povrchu v nejistých věžích. Pera, lahvičky s inkoustem, rozházené listy, podivné ozdoby a polozřené jídlo leží v chaosem pohodlného nepořádku. Část podlahy pokrývá měkký kobereček a do jednoho rohu je postrčena postel zasypaná přikrývkami. Velké okno otevírá dechberoucí výhled na kopce a vzdálené hory. Navzdory nepořádku zde panuje podivná řád — všechno vypadá přesně tak, jak si kouzelník ponechal."
   },
   "exits": {
-    "d": "village.tower_entry"
+    "d": "village.tower_entry",
+    "u": "village.tower_attic"
   },
   "tags": ["indoor", "village", "safe"]
 }

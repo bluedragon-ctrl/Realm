@@ -1,5 +1,6 @@
 {
   "id": "item.regen_scroll",
+  "rarity": 1,
   "name": {
     "en": "a leaf-pressed scroll",
     "cs": "lístkem vylisovaný svitek"

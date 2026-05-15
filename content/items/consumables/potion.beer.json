@@ -1,5 +1,6 @@
 {
   "id": "potion.beer",
+  "rarity": 1,
   "name": {
     "en": "a mug of beer",
     "cs": "korbel piva"

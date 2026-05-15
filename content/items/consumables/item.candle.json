@@ -1,5 +1,6 @@
 {
   "id": "item.candle",
+  "rarity": 1,
   "name": {
     "en": "a tallow candle",
     "cs": "svíčka"
