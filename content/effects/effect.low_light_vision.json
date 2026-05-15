@@ -4,6 +4,5 @@
   "description": { "en": "You can see in dim light as if it were bright.", "cs": "Vidíš ve slabém světle jako by bylo jasno." },
   "kind": "buff",
   "perception": "low_light",
-  "duration": -1,
   "icon": "eye-open"
 }
