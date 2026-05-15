@@ -4,7 +4,7 @@
     "en": "Spark",
     "cs": "Jiskra"
   },
-  "mpCost": 3,
+  "mpCost": 2,
   "actionCost": 12,
   "target": "hostile",
   "harmful": true,
@@ -26,5 +26,5 @@
       }
     }
   },
-  "effect": { "type": "damage", "formula": "1d4+INT/4" }
+  "effect": { "type": "damage", "formula": "1d3+INT/2" }
 }

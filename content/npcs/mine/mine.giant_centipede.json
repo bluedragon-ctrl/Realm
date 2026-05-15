@@ -25,6 +25,7 @@
     "attack": 4, "defense": 1, "int": 0,
     "spd": 5
   },
+  "xp": 22,
   "respawn": { "ticks": 1500 },
   "xp": 25,
   "loot": [

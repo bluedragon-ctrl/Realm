@@ -28,6 +28,7 @@
     "magicResist": 60,
     "spd": 7
   },
+  "xp": 3,
   "respawn": { "ticks": 400 },
   "xp": 8,
   "loot": [

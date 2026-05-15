@@ -187,6 +187,65 @@ English *"{target}'s feet"* is a possessive — in Czech the slot needs the **ge
 
 When porting an EN template that uses `{target}'s X`, pick `{target.gen}` on the CS side automatically — it's the most common reason you reach for genitive.
 
+## Tier scaling
+
+The world is built in three progression tiers. New content should declare which tier it targets and land inside that tier's stat bands. Tier 1 is anchored to existing content (home → village → forest → mine → castle); Tier 2 and 3 are forward-looking projections, refined as new content lands.
+
+### Player progression
+
+- **Starting stats** (`src/game/stats.js`): HP 20, MP 5, ATK 3, DEF 1, INT 1, SPD 6, MagResist 0, ACC 0, EVA 0.
+- **Per-train gains** (`src/game/leveling.js`): HP +5, MP +3, ATK +1, DEF +1, INT +1, MR +2, ACC +1, EVA +2. Player gets **2 points per level**.
+- **XP curve**: cumulative XP to level N = `10·Σk²` for k=1..N-1. L5=300, L8=1400, L12=5060, L16=12400, L25=49000.
+
+### Tier table
+
+| | **Tier 1** | **Tier 2** | **Tier 3** |
+|---|---|---|---|
+| Level range | 1–8 | 9–16 | 17–25 |
+| Cumulative XP needed | 0–1400 | 1400–12400 | 12400–49000 |
+| Player HP ceiling | ~50 | ~100 | ~180 |
+| Player ATK ceiling (with gear) | ~16 | ~24 | ~32 |
+| Player DEF ceiling | ~7 | ~12 | ~18 |
+| Player INT ceiling (mage) | ~9 | ~14 | ~20 |
+| Player MP ceiling (mage) | ~28 | ~50 | ~80 |
+| Mob HP — fodder | 4–15 | 30–60 | 80–150 |
+| Mob HP — standard | 15–40 | 60–100 | 150–250 |
+| Mob HP — sub-boss | 40–60 | 100–180 | 250–400 |
+| Mob HP — boss | 90–120 | 200–300 | 450–600 |
+| Mob damage dice | 1d2–1d10 | 1d6–1d12 | 1d8–2d8 |
+| Mob ATK | 1–10 | 6–18 | 14–28 |
+| Mob DEF | 0–6 | 4–12 | 10–18 |
+| Existing areas | home, village, forest, mine, castle | — | — |
+| Spell tier | spark, arcane_bolt, shock, frost, burning_hands, life_drain | TBD | TBD |
+
+### Anchoring numbers
+
+- **Boss XP rule of thumb**: roughly `HP/2 + ATK·5 + (DEF·3)` adjusted for special abilities. Sanity-check against existing bosses (kobold_chief 50, bridge_troll 60, castle_captain 80, fallen_lord 200).
+- **Standard mob XP**: roughly `HP/2 + ATK·2`. Fodder mobs may go lower for trivial fights.
+- **All hostile mobs MUST have `xp`.** Neutral/friendly creatures (`disposition: "neutral"` or `"friendly"`) do not. Summoned NPCs (`summoned: true` runtime flag) never grant XP — combat.js skips them.
+
+### Combat math affecting tier design
+
+- **Damage floor**: `final = max(ceil(raw·0.25), raw - def)`. DEF can never reduce a hit below 25% of raw. This means high-DEF tanks remain damageable, and DEF can keep scaling into Tier 3 without making fights unwinnable.
+- **Speed model**: `ticks_per_action = behavior.cost / actor.spd`. Default cost 12, default spd 6 → ~0.5 actions/second.
+
+### Mage scaling (Tier 1 baseline)
+
+- Damage spells scale with `INT/2`. At Tier 1 ceiling INT ~9, a shock (`1d10+INT/2`) averages ~10 dmg per cast.
+- Mage's role is **burst + AoE + utility**, not sustained DPS. A pure mage burst-clears 1–2 enemies then must retreat to regen MP (no in-combat regen). Warriors out-DPS mages over long fights — this is by design.
+- **Damage spells ignore target DEF** but are gated by target `magicResist + caster int` roll. Keep magicResist rare and thematic (undead, constructs) — see "Magic resistance" below.
+- Tier 2 is the natural place to introduce stronger mage spells, MP-recovery items, or sustained-cast tools. Don't pre-buff mage in Tier 1.
+
+### When designing new content
+
+1. Decide the tier first. State it in the design notes.
+2. Pick the player-ceiling row from the table — that's what the content has to be beatable by.
+3. Place mob HP/ATK/DEF inside the tier's band. Bosses sit at the band's top with a 1.5–2× HP bump.
+4. Cross-check XP against the rule of thumb. Adjust if the encounter is mechanically harder than its stat block suggests.
+5. New offensive spells go into the tier whose damage-per-cast matches: Tier 1 spells cap around `1d10+INT/2`; Tier 2 spells can reach `2d6+INT` or similar.
+
+This table will drift as Tier 2 content lands and we learn more. Update it; don't work around stale numbers.
+
 ## NPC balancing reference
 
 Read the actual files when tuning — this drifts. Anchor a new NPC against existing mobs in the **same area**, not across areas.

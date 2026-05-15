@@ -27,6 +27,7 @@
     "accuracy": 20,
     "spd": 5
   },
+  "xp": 200,
   "respawn": { "ticks": 3000 },
   "loot": [
     { "defId": "item.amulet_strength", "chance": 0.5 },

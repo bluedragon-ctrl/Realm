@@ -13,7 +13,7 @@ export const STAT_RATIOS = Object.freeze({
   accuracy: 1,
   evasion: 2,
   hpMax: 5,
-  mpMax: 2,
+  mpMax: 3,
 });
 
 // Display order used by the client popover and by the `train` command help.

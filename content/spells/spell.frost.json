@@ -26,5 +26,5 @@
       }
     }
   },
-  "effect": { "type": "damage", "formula": "1d4+INT/4", "applyEffect": "effect.slow" }
+  "effect": { "type": "damage", "formula": "1d4+INT/2", "applyEffect": "effect.slow" }
 }
