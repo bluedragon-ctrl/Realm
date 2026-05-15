@@ -49,7 +49,7 @@
       "id": "grindstone.grind_bone",
       "flavor": "craft",
       "inputs": [{ "item": "item.bone" }],
-      "outputs": [{ "item": "item.bone_meal" }],
+      "outputs": [{ "item": "item.boneflour" }],
       "xp": 3,
       "verb": {
         "en": {

@@ -138,9 +138,9 @@
       "outputs": [{ "gold": 10 }]
     },
     {
-      "id": "wizard.buy_bone_meal",
+      "id": "wizard.buy_boneflour",
       "flavor": "sell",
-      "inputs": [{ "item": "item.bone_meal", "count": 1 }],
+      "inputs": [{ "item": "item.boneflour", "count": 1 }],
       "outputs": [{ "gold": 8 }]
     }
   ],
