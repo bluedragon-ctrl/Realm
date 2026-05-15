@@ -4,11 +4,11 @@
   "name": { "en": "an amulet of sight", "cs": "amulet vidění" },
   "short": {
     "en": "A silver amulet etched with arcane symbols.",
-    "cs": "Stříbrný amulet rytý mystickými symboly."
+    "cs": "Stříbrný amulet vyrytý tajemnými symboly."
   },
   "long": {
     "en": "A polished silver pendant carved with intricate runic patterns that seem to shift and flow when you're not looking directly at them. Wearing it fills your eyes with a strange clarity, letting you pierce through shadow and dim light as if the sun shone full.",
-    "cs": "Leštěný stříbrný přívěsek vyřezaný s chytrými runickými vzory, které se zdají posouvat, když se na ně nedíváš přímo. Když si ho nasadíš, naplní tvé oči podivuhodnou jasností, která ti umožní proniknout skrz stín a slabé světlo, jako by svítilo slunce."
+    "cs": "Leštěný stříbrný přívěsek vyrytý spletitými runovými vzory, které jako by se hýbaly, kdykoli se na ně nedíváš přímo. Když si ho nasadíš, naplní ti oči podivuhodnou jasností, která ti dovolí prohlédnout stín i slabé světlo, jako by zářilo plné slunce."
   },
   "tags": ["amulet"],
   "wearable": {

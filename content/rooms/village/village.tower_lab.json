@@ -6,11 +6,11 @@
   },
   "short": {
     "en": "A cramped stone chamber bubbling with alchemical equipment.",
-    "cs": "Těsná kamenná komora s vařidly alchymických přístrojů."
+    "cs": "Stísněná kamenná komora s bublajícími alchymickými přístroji."
   },
   "long": {
     "en": "The laboratory is barely taller than you are, with a low vaulted ceiling that seems to press down on the benches crammed into every corner. Glass vessels of every shape bubble and hiss over carefully tended flames. Dried herbs hang from the rafters in thick bundles, and the smell of smoke, strange minerals, and things you've never quite smelled before fills the air. A thick wooden bench dominates the centre of the room, scarred from countless experiments and covered with mortars, scales, and small alembics waiting to be used.",
-    "cs": "Laboratoř je sotva vyšší než ty, s nízkým klenbou se zdá, že ti tlačí na ramena. Skleněné nádoby všech tvarů vařou a syčí nad pečlivě udržovanými plameny. Ze stropů visí tlusté svazky sušených bylin a vzduch je plný kouře, podivných minerálů a vůní, které ses nikdy předtím nesetkal. Tlustá dřevěná pracovní deska dominuje středu místnosti, poškrábaná nespočetnými pokusy a pokrytá hmoždíři, vahami a malými alembiky čekajícími na použití."
+    "cs": "Laboratoř je sotva vyšší než ty, s nízkou klenbou, která jako by ti tlačila na ramena. Skleněné nádoby všech tvarů bublají a syčí nad pečlivě udržovanými plameny. Ze stropu visí tlusté svazky sušených bylin a vzduch je plný kouře, podivných minerálů a vůní, jaké jsi nikdy předtím necítil. Středu místnosti vévodí tlustá dřevěná pracovní deska, rozedraná od nesčetných pokusů a pokrytá hmoždíři, vahami a malými kotlíčky, které čekají, až je někdo použije."
   },
   "exits": {
     "u": "village.tower_entry"

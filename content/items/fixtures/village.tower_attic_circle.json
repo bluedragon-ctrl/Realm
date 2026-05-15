@@ -1,14 +1,14 @@
 {
   "id": "village.tower_attic_circle",
   "rarity": 1,
-  "name": { "en": "a faint summoning circle", "cs": "slabý sčítací kruh" },
+  "name": { "en": "a faint summoning circle", "cs": "slabý vyvolávací kruh" },
   "short": {
     "en": "Faded chalk marks form a circle on the stone floor.",
-    "cs": "Pobledlé značky z křídy tvoří kruh na kamenné podlaze."
+    "cs": "Vybledlé křídové značky tvoří kruh na kamenné podlaze."
   },
   "long": {
     "en": "A large circle drawn in chalk or perhaps ash, covering much of the attic floor. The markings are old and smudged, barely visible in the darkness, but intricate symbols and runes spiral inward toward a central point. The air within the circle feels heavier somehow, older. If one knew the words, one might be able to awaken something here.",
-    "cs": "Velký kruh nakreslený v křídle nebo možná popelu, který pokrývá velkou část podlahy půdy. Značky jsou staré a rozmazané, sotva viditelné v tmě, ale složité symboly a runy se spirálovitě stahují k centrálnímu bodu. Vzduch v kruhu se cítí nějak těžší, starší. Kdyby někdo znal slova, mohl by zde probrat něco."
+    "cs": "Velký kruh nakreslený křídou nebo možná popelem, který pokrývá velkou část podlahy půdy. Značky jsou staré a rozmazané, ve tmě sotva viditelné, ale spletité symboly a runy se vinou ke středu kruhu. Vzduch v kruhu je nějak těžší, starší. Kdyby někdo znal ta slova, mohl by tu něco probudit."
   },
   "tags": ["fixture"],
   "pickable": false,

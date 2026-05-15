@@ -1,8 +1,8 @@
 {
   "id": "item.bat_glyph",
   "rarity": 3,
-  "name": { "en": "a bat-bone glyph", "cs": "netopýří kostěný glyf" },
-  "nameAcc": { "en": "the bat-bone glyph", "cs": "netopýří kostěný glyf" },
+  "name": { "en": "a bat-bone glyph", "cs": "glyf z netopýří kosti" },
+  "nameAcc": { "en": "the bat-bone glyph", "cs": "glyf z netopýří kosti" },
   "short": {
     "en": "A small dark glyph carved from bat bone.",
     "cs": "Malý tmavý glyf vyřezaný z netopýří kosti."
