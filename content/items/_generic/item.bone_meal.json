@@ -1,0 +1,17 @@
+{
+  "id": "item.bone_meal",
+  "name": {
+    "en": "a handful of bone meal",
+    "cs": "hrstka kostní moučky"
+  },
+  "short": {
+    "en": "A pale powder made from ground bone.",
+    "cs": "Bledý prášek z namlíté kosti."
+  },
+  "long": {
+    "en": "Fine white powder produced by grinding dried bones. It has a faint earthy smell and leaves a trace of dust on your hands. Useful for potion brewing and magical preparation.",
+    "cs": "Jemný bílý prášek vyrobený z namlíté vyschlé kosti. Má slabou zemitou vůni a zanechá na rukou stopu prachu. Užitečný pro vaření lektvarů a magické přípravy."
+  },
+  "tags": ["reagent"],
+  "weight": 1
+}

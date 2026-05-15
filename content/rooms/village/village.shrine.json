@@ -14,7 +14,8 @@
     "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí u cesty v záhonu lučních květů. Mezi květy poletují včely. Dlážděná cesta vede zpátky na jih do uličky a pokračuje na sever z vesnice ven k dalekým kopcím."
   },
   "exits": {
-    "s": "village.lane"
+    "s": "village.lane",
+    "n": "village.north_path"
   },
   "tags": ["outdoor", "village", "safe"]
 }

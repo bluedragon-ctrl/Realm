@@ -1,0 +1,21 @@
+{
+  "id": "village.north_path",
+  "name": {
+    "en": "Northern path",
+    "cs": "Severní cesta"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A winding path lined with village houses and shops.",
+    "cs": "Zatáčející se cesta lemovaná vesničními domy a obchody."
+  },
+  "long": {
+    "en": "The cobbled road widens here into a pleasant avenue lined with modest buildings. Smoke drifts from chimneys, and the smell of baking bread mixes with the scent of herbs from nearby gardens. The path winds gently north toward higher ground and wilder air.",
+    "cs": "Dlážděná cesta se zde rozšiřuje do příjemné třídy lemované skromnou zástavbou. Z komínů stoupá kouř a vůně chlebového pečiva se míchá s vůní bylin ze sousedních zahrad. Cesta se klikatí severně k vyšším místům a divočejšímu vzduchu."
+  },
+  "exits": {
+    "s": "village.shrine",
+    "n": "village.foothills"
+  },
+  "tags": ["outdoor", "village", "safe"]
+}
