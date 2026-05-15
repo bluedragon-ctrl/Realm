@@ -28,6 +28,7 @@
     "magicResist": 50,
     "spd": 6
   },
+  "xp": 22,
   "respawn": { "ticks": 400 },
   "behaviors": [
     {

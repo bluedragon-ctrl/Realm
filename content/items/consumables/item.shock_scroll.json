@@ -1,0 +1,40 @@
+{
+  "id": "item.shock_scroll",
+  "name": {
+    "en": "a storm-charged scroll",
+    "cs": "bouřkou nabitý svitek"
+  },
+  "nameAcc": {
+    "en": "the storm-charged scroll",
+    "cs": "bouřkou nabitý svitek"
+  },
+  "short": {
+    "en": "A scroll crackles faintly with held lightning where it lies.",
+    "cs": "Leží tu svitek, který tiše praská zadrženým bleskem."
+  },
+  "long": {
+    "en": "A heavy scroll of pale parchment. The air around it smells of rain and hot iron, and small white sparks jump along its edges whenever you move.",
+    "cs": "Těžký svitek z bledého pergamenu. Vzduch kolem voní deštěm a žhavým železem a po jeho okrajích přeskakují malé bílé jiskry, kdykoli se pohneš."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. A sharp crack of static snaps from the parchment.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A sharp crack of static snaps from the parchment."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Z pergamenu šlehne ostré praskání statické elektřiny.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Z pergamenu šlehne ostré praskání statické elektřiny."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.shock"
+    }
+  }
+}

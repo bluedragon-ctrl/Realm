@@ -1,0 +1,30 @@
+{
+  "id": "spell.arcane_bolt",
+  "name": {
+    "en": "Arcane Bolt",
+    "cs": "Arkánní střela"
+  },
+  "mpCost": 5,
+  "actionCost": 12,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Hurl a bolt of pure arcane force at a foe — the workhorse attack spell, steady damage at a moderate cost.",
+    "cs": "Vrhneš na nepřítele střelu čisté arkánní síly — spolehlivé útočné kouzlo se solidním poškozením a rozumnou cenou."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you trace a quick sigil and a bolt of pale violet force streaks toward {target}.",
+        "others": "{actor} traces a quick sigil and a bolt of pale violet force streaks toward {target}."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "rychle načrtneš znamení a střela bledě fialové síly vystřelí směrem k {target}.",
+        "others": "{actor} rychle načrtne znamení a střela bledě fialové síly vystřelí směrem k {target}."
+      }
+    }
+  },
+  "effect": { "type": "damage", "formula": "1d6+INT/2" }
+}

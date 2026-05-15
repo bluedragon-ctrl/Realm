@@ -27,6 +27,7 @@
     "accuracy": 15,
     "spd": 5
   },
+  "xp": 80,
   "respawn": { "ticks": 1500 },
   "loot": [
     { "defId": "item.captain_signet", "chance": 1 },

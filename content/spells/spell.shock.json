@@ -1,0 +1,30 @@
+{
+  "id": "spell.shock",
+  "name": {
+    "en": "Shock",
+    "cs": "Šok"
+  },
+  "mpCost": 8,
+  "actionCost": 12,
+  "target": "hostile",
+  "harmful": true,
+  "description": {
+    "en": "Crack the air with a savage discharge of lightning that crashes into a single foe — expensive, but the strongest single-target spell available early on.",
+    "cs": "Roztříštíš vzduch divokým výbojem blesku, který udeří do jediného nepřítele — drahé, ale nejsilnější jednocílové kouzlo, jaké lze v začátcích získat."
+  },
+  "verb": {
+    "en": {
+      "to_target": {
+        "self": "you clap your hands together and a white-hot bolt of lightning crashes into {target}.",
+        "others": "{actor} claps their hands together and a white-hot bolt of lightning crashes into {target}."
+      }
+    },
+    "cs": {
+      "to_target": {
+        "self": "tleskneš a běloskvoucí blesk udeří do {target}.",
+        "others": "{actor} tleskne a běloskvoucí blesk udeří do {target}."
+      }
+    }
+  },
+  "effect": { "type": "damage", "formula": "1d10+INT/2" }
+}

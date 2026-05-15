@@ -27,6 +27,7 @@
     "magicResist": 40,
     "spd": 6
   },
+  "xp": 30,
   "respawn": { "ticks": 700 },
   "loot": [
     { "defId": "potion.mana", "chance": 0.7 },

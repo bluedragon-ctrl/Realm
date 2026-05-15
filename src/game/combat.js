@@ -104,7 +104,9 @@ export function executeAttack(actor, action, target) {
 
   let raw = roll(action.damage ?? '1', { actor, target });
   if (crit) raw *= CRIT_MULTIPLIER;
-  const final = action.ignoreDef ? Math.max(1, raw) : Math.max(1, raw - (target.stats.defense ?? 0));
+  const final = action.ignoreDef
+    ? Math.max(1, raw)
+    : Math.max(Math.ceil(raw * 0.25), raw - (target.stats.defense ?? 0));
 
   const tmpl = action.templates;
   if (tmpl) {

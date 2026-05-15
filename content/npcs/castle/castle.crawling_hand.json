@@ -27,6 +27,7 @@
     "magicResist": 0,
     "spd": 8
   },
+  "xp": 10,
   "respawn": { "ticks": 250 },
   "loot": [
     { "defId": "item.ring_copper", "chance": 0.05 },

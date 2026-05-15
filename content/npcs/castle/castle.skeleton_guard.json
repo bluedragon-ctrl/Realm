@@ -27,6 +27,7 @@
     "magicResist": 50,
     "spd": 5
   },
+  "xp": 35,
   "respawn": { "ticks": 600 },
   "loot": [
     { "defId": "item.iron_mace", "chance": 0.5 }

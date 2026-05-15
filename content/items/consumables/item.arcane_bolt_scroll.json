@@ -1,0 +1,40 @@
+{
+  "id": "item.arcane_bolt_scroll",
+  "name": {
+    "en": "a violet-inked scroll",
+    "cs": "fialově inkoustovaný svitek"
+  },
+  "nameAcc": {
+    "en": "the violet-inked scroll",
+    "cs": "fialově inkoustovaný svitek"
+  },
+  "short": {
+    "en": "A scroll inked in deep violet rests here.",
+    "cs": "Leží tu svitek psaný temně fialovým inkoustem."
+  },
+  "long": {
+    "en": "A neat scroll written in steady, deep-violet ink. A simple sigil — a single straight line tipped with a star — runs down its middle.",
+    "cs": "Úhledný svitek psaný pevným, temně fialovým inkoustem. Středem se táhne jednoduché znamení — rovná čára zakončená hvězdou."
+  },
+  "tags": ["reagent"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you unroll the scroll and read the words aloud. The violet sigil glows once and fades.",
+        "others": "{actor} unrolls a scroll and reads it aloud. A faint violet glow flickers and is gone."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "rozvineš svitek a přečteš slova nahlas. Fialové znamení jednou zazáří a zhasne.",
+        "others": "{actor} rozvine svitek a přečte ho nahlas. Slabá fialová záře krátce zaplápolá a zmizí."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "teach_spell",
+      "spell": "spell.arcane_bolt"
+    }
+  }
+}

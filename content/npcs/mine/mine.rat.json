@@ -28,6 +28,7 @@
     "evasion": 14,
     "spd": 4
   },
+  "xp": 4,
   "respawn": { "ticks": 180 },
   "xp": 4,
   "loot": [

@@ -26,6 +26,7 @@
     "magicResist": 10,
     "spd": 5
   },
+  "xp": 15,
   "respawn": { "ticks": 600 },
   "xp": 15,
   "goldDrop": { "formula": "1d4+1", "chance": 0.5 },

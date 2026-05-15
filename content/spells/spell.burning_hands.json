@@ -4,7 +4,7 @@
     "en": "Burning Hands",
     "cs": "Hořící ruce"
   },
-  "mpCost": 6,
+  "mpCost": 8,
   "actionCost": 12,
   "target": "hostile_room",
   "harmful": true,
@@ -28,7 +28,7 @@
   },
   "effect": {
     "type": "damage_room_enemies",
-    "formula": "1d4+INT/4",
+    "formula": "1d4+INT/2",
     "applyEffect": "effect.burning"
   }
 }
