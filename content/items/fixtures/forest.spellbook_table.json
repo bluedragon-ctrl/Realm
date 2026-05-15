@@ -40,7 +40,7 @@
     "consumable": false,
     "effect": {
       "type": "teach_spell",
-      "spell": "spell.regen"
+      "spell": "spell.spark"
     }
   }
 }
