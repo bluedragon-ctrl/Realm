@@ -19,11 +19,6 @@
   },
   "tags": ["reagent"],
   "weight": 0,
-  "spawn": {
-    "location": "forest.tower_cellar",
-    "count": 1,
-    "respawnTicks": 1200
-  },
   "use": {
     "en": {
       "no_target": {
