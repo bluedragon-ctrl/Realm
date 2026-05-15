@@ -1,0 +1,91 @@
+{
+  "id": "village.alchemy_bench",
+  "name": {
+    "en": "a wooden alchemy bench",
+    "cs": "dřevěná alchymická pracovní deska"
+  },
+  "nameAcc": {
+    "en": "the wooden alchemy bench",
+    "cs": "dřevěnou alchymickou pracovní desku"
+  },
+  "short": {
+    "en": "A sturdy wooden bench scarred by countless experiments.",
+    "cs": "Odolná dřevěná deska poškrábaná nespočetnými pokusy."
+  },
+  "long": {
+    "en": "A thick wooden workbench, its surface worn smooth in some places and splintered in others from years of alchemical work. Small brass scales sit at one end, and mortars and pestles are scattered across its length. Carefully arranged reagent bottles line a shelf behind the bench, within easy reach. The air around it smells faintly of smoke and mineral dust.",
+    "cs": "Tlustá dřevěná pracovní deska, jejíž povrch je v některých místech otlučený a v jiných rozštěpený po letech alchymické práce. Na jednom konci sedí drobné mosazné váhy a morty a tluky jsou rozmetany po celé délce. Pečlivě uspořádané lahvičky s reagenciemi jsou srovnané na polici za stolem v dosahu. Vzduch kolem voní slabě kouřem a minerálním prachem."
+  },
+  "tags": ["fixture", "tool"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "village.tower_lab",
+    "count": 1
+  },
+  "exchanges": [
+    {
+      "id": "alchemy_bench.brew_mana",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.blue_flower", "count": 3 }],
+      "outputs": [{ "item": "potion.mana" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you carefully grind three blue flowers in a mortar. The petals break down into shimmering dust that swirls when you pour it into a vial with distilled water. The mixture glows softly and becomes a mana potion.",
+            "others": "{actor} grinds blue flowers in a mortar, then swirls the shimmering powder into water. A small glowing potion takes shape on {target}."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "opatrně se mlílkou rozpraší tři modré květy v hmoždíři. Okvětní lístky se rozpustí v lesklý prach, který se vinou, když ho naléješ do lahvičky s destilovanou vodou. Směs svítí měkce a změní se v lektvar many.",
+            "others": "{actor} se mlílkou rozpraší modré květy v hmoždíři a pak spirálovitě vmíchá lesklý prach do vody. Na {target} se tvoří malý zářící lektvar."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_heal",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.red_berries", "count": 3 }],
+      "outputs": [{ "item": "potion.heal" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you crush three handfuls of red berries into juice, which you filter through cloth into a vial. A faint warmth builds in your hands as the mixture turns ruby-red — a healing potion.",
+            "others": "{actor} crushes red berries into juice and filters it into a vial on {target}. The liquid glows a warm ruby-red."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "si rozmačkaš tři hrsti červených bobulí na šťávu, kterou si procedíš skrz látku do lahvičky. V rukou ti vzniká slabé teplo, když se směs změní na rubínově červenou — léčivý lektvar.",
+            "others": "{actor} si rozmačká červené bobule na šťávu a procedí ji do lahvičky na {target}. Tekutina září teplou rubínově červenou."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_ward",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.ironwort", "count": 3 }],
+      "outputs": [{ "item": "potion.ward" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you strip the tough leaves from three sprigs of ironwort and grind them to a coarse powder. With a pinch of grey ash, you heat it gently in a small vial. The mixture turns cloudy and hardens slightly — a ward potion.",
+            "others": "{actor} grinds ironwort leaves with grey ash on {target}. The mixture in the vial turns cloudy and thickens into a protective ward potion."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "si oškrbeš pevné listy ze tří snítek železníku a rozmeleš je na hrubý prach. Se špetkou šedého popela si ho lehce zahřeješ v malé lahvičce. Směs zkalí a lehce ztvrdne — lektvar ochrany.",
+            "others": "{actor} si rozmele listy železníku se šedým popelem na {target}. Směs v lahvičce zkalí a zhusti se v ochranný lektvar."
+          }
+        }
+      }
+    }
+  ]
+}

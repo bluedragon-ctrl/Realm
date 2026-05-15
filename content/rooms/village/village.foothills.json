@@ -1,0 +1,21 @@
+{
+  "id": "village.foothills",
+  "name": {
+    "en": "Mountain foothills",
+    "cs": "Úpatí hor"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A wild upland path scattered with stones and tough scrub.",
+    "cs": "Divočá horská cesta poseta kameny a trpkou buřinou."
+  },
+  "long": {
+    "en": "The ground rises here and the village falls away below. Boulders dot the path, and the air grows cooler and thinner. Distant mountains rise beyond the hills, their peaks brushed with snow. To the east, a slim stone tower stands alone on a rocky outcrop, smoke curling gently from its peak.",
+    "cs": "Zde se terén zvedá a vesnice zůstává dole. Cestu poseta balvany a vzduch je chladnější a řidší. V dálce se za kopci zvedají hory, jejichž vrcholy zdobí sníh. Na východ stojí na kamenitém vyvýšení osamělá útlá kamenná věž, z jejíž vrcholu se lehce kouří."
+  },
+  "exits": {
+    "s": "village.north_path",
+    "e": "village.tower_entry"
+  },
+  "tags": ["outdoor", "village", "safe"]
+}

@@ -1,0 +1,21 @@
+{
+  "id": "village.tower_entry",
+  "name": {
+    "en": "Wizard's tower entrance",
+    "cs": "Vchod do věže kouzelníka"
+  },
+  "short": {
+    "en": "A round stone chamber at the base of the tower, cluttered with curiosities.",
+    "cs": "Kulatá kamenná komora v základu věže, plná nevšedních věcí."
+  },
+  "long": {
+    "en": "The tower's ground floor is a cluttered workshop and shop. Shelves line the curved stone walls, crowded with bottles, scrolls, strange herbs in bundles, crystals catching the light, and objects whose purpose you can't quite guess. A narrow wooden staircase spirals both up and down. The air smells of smoke, ink, and old paper. Behind a high desk scattered with parchments and a curious brass device, a wizard stands sorting through a pile of notes.",
+    "cs": "Přízemí věže je zaplevelený dílna a obchod. Police lemují zakřivené kamenné stěny a jsou plné lahviček, svitků, svazků podivných bylin, krystalů, které chytají světlo, a předmětů, jejichž účel si neumíš představit. Úzké dřevěné schodiště se točí nahoru i dolů. Vzduch voní kouřem, inkoustem a starým papírem. Za vysokým stolem posetým pergameny a podivným mosazným zařízením stojí kouzelník a třídí kupici poznámek."
+  },
+  "exits": {
+    "w": "village.foothills",
+    "u": "village.tower_quarters",
+    "d": "village.tower_lab"
+  },
+  "tags": ["indoor", "village", "safe"]
+}
