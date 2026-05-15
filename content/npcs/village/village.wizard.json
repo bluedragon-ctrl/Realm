@@ -23,11 +23,11 @@
   "location": "village.tower_entry",
   "short": {
     "en": "An eccentric wizard fusses over a pile of papers and strange objects.",
-    "cs": "Zvláštní kouzelník se obírá hromadou papírů a podivných věcí."
+    "cs": "Zvláštní kouzelník se zaobírá hromadou papírů a podivných věcí."
   },
   "long": {
     "en": "A thin figure with wild grey hair that stands on end as though perpetually shocked. Their robes are faded blue-purple, patched in several places, and covered with what might be ink stains or alchemical splatter — or both. Round spectacles perch on an angular nose. Their hands move constantly, adjusting items on the shelves, jotting notes, or gesturing expressively as they mutter to themselves. There's an air of genuine curiosity and barely contained excitement about them.",
-    "cs": "Štíhlá postava s divokými šedými vlasy stojícími na konci, jakoby být neustále šokován. Jejich róby jsou bledě modrofialové, záplatované na několika místech a pokryté tím, co by mohly být skvrny inkoustu nebo alchymické střiky — nebo obojí. Kulaté brýle jsou položeny na ostrém nose. Jejich ruce se neustále pohybují, přizpůsobují věci na policích, zapisují si poznámky nebo gestikulují výrazně, zatímco si cosi mumlají. Kolem nich je vzduch opravdové zvídavosti a sotva zadržovaného vzrušení."
+    "cs": "Štíhlá postava s divokými šedými vlasy, které trčí na všechny strany, jako by byl neustále vyděšený. Jeho róba je vybledle modrofialová, na několika místech záplatovaná a pokrytá tím, co by mohly být inkoustové skvrny nebo cákance z alchymie — nebo obojí. Na ostrém nose má kulaté brýle. Ruce se mu neustále pohybují — rovná věci na policích, zapisuje si poznámky nebo živě gestikuluje a něco si při tom mumlá. Je z něj cítit opravdová zvídavost a sotva zadržované nadšení."
   },
   "disposition": "friendly",
   "aggressive": false,
@@ -152,11 +152,11 @@
           "Ah, another customer. Do browse carefully — the bottles on the left have been known to overflow."
         ],
         "cs": [
-          "Magie je všude, jestli víš, kam se podívat.",
-          "Doufám, že mi někdo brzy přinese zajímavé reagencie.",
-          "Zvažoval jsi již podstatu kouzelného svitku? Úžasné věci, opravdu.",
-          "Hory skrývají tajemství těm, kteří se je odvážou hledat.",
-          "Ah, další zákazník. Procházej si věci pečlivě — lahvičky vlevo jsou známé tím, že přetečou."
+          "Magie je všude, jen se musíš umět dívat.",
+          "Doufám, že mi někdo brzy přinese zajímavé přísady.",
+          "Přemýšlel jsi někdy o tom, jak vlastně funguje kouzelný svitek? Vážně úžasná věc.",
+          "Hory skrývají tajemství pro ty, kdo se je odváží hledat.",
+          "Ah, další zákazník. Prohlížej si věci opatrně — ty lahvičky vlevo občas přetečou."
         ]
       }
     },
@@ -174,12 +174,12 @@
           "picks up a small glass vial, holds it to the light, and nods approvingly."
         ],
         "cs": [
-          "upraví si brýle a pozorně se dívá na podivný krystal.",
-          "si rychle něco poznačí a cosi si mumlá o 'nemožných poměrech.'",
-          "opatrně přesune hromadu svitků z jedné skupiny na druhou.",
-          "provede prstem po hřbetu tlustého, starobylého vypadajícího svazku.",
-          "neuvedoměle buší pérem o stůl, zatímco se dívá do dálky.",
-          "zvedne si drobnou skleněnou lahvičku, přidržuje ji ke světlu a schválně se usměje."
+          "si upraví brýle a pozorně si prohlíží podivný krystal.",
+          "si rychle něco zapíše a mumlá si cosi o 'nemožných poměrech'.",
+          "opatrně přesouvá hromádku svitků z jedné kupy na druhou.",
+          "přejede prstem po hřbetu tlustého starobylého svazku.",
+          "nepřítomně poklepává pérem o stůl a hledí do dálky.",
+          "zvedne drobnou skleněnou lahvičku, přidrží ji proti světlu a spokojeně přikývne."
         ]
       }
     }

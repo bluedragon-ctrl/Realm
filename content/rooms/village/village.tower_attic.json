@@ -2,15 +2,15 @@
   "id": "village.tower_attic",
   "name": {
     "en": "Tower attic",
-    "cs": "Věžová půda"
+    "cs": "Půda věže"
   },
   "short": {
     "en": "A dark and cramped space under the tower's peaked roof.",
-    "cs": "Tmavý a těsný prostor pod špičatou střechou věže."
+    "cs": "Tmavý a stísněný prostor pod špičatou střechou věže."
   },
   "long": {
     "en": "The attic stretches beneath the tower's roof, barely high enough to stand. The air is thick and stale, smelling of dust and old wood. Above your head, countless small shapes shift and scrape — the sound of leathery wings and shrieks fills the darkness. A draught whistles through gaps in the ancient stonework, and the whole space creaks with the weight of the tower above. A staircase descends to the quarters below.",
-    "cs": "Půda se rozprostírá pod střechou věže, sotva na stání. Vzduch je hustý a zatuchlý, voní starým prachem a starým dřevem. Nad tvou hlavou se pohybují nespočetné malé tvory — zvuk kožovitých křídel a skřeků vyplňuje tmu. Průvan hvízdá skrze štěrbiny ve starém kamenném zdění, a celý prostor skřípá pod váhou věže. Schody vedou dolů do místností věže pod tebou."
+    "cs": "Půda se táhne pod střechou věže, sotva tak, aby ses postavil. Vzduch je hustý a zatuchlý, voní prachem a starým dřevem. Nad hlavou se ti pohybují nespočetné drobné tvary — tmu plní zvuk koženatých křídel a tenkých skřeků. Průvan hvízdá skrze škvíry ve starém zdivu a celý prostor vrže pod tíhou věže. Schody vedou dolů do kouzelníkova pokoje."
   },
   "exits": {
     "d": "village.tower_quarters"
