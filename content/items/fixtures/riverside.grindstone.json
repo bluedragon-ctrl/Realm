@@ -44,27 +44,6 @@
           }
         }
       }
-    },
-    {
-      "id": "grindstone.grind_bone",
-      "flavor": "craft",
-      "inputs": [{ "item": "item.bone" }],
-      "outputs": [{ "item": "item.boneflour" }],
-      "xp": 3,
-      "verb": {
-        "en": {
-          "to_target": {
-            "self": "you set the bone on {target}, turn the heavy wheel with both hands, and the bone cracks and grinds into a fine white powder.",
-            "others": "{actor} sets a bone on {target} and turns the heavy wheel slowly until the bone is ground to a fine powder."
-          }
-        },
-        "cs": {
-          "to_target": {
-            "self": "položíš kost na {target.acc}, oběma rukama otočíš těžkým kolem a kost se praskne a rozdrtí na jemný bílý prášek.",
-            "others": "{actor} položí kost na {target.acc} a pomalu otáčí těžkým kolem, dokud se kost nerozdrtí na jemný prášek."
-          }
-        }
-      }
     }
   ]
 }
