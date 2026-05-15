@@ -3,6 +3,6 @@
   "name": { "en": "low-light vision", "cs": "vidění ve slabém světle" },
   "description": { "en": "You can see in dim light as if it were bright.", "cs": "Vidíš ve slabém světle jako by bylo jasno." },
   "kind": "buff",
-  "perception": "low_light",
+  "perception": "nightvision",
   "icon": "eye-open"
 }
