@@ -1,0 +1,22 @@
+{
+  "id": "castle.scriptorium",
+  "name": {
+    "en": "Scriptorium",
+    "cs": "Písárna"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "A long narrow room of slanted writing desks and spilled inkpots.",
+    "cs": "Dlouhá úzká místnost se šikmými psacími pulty a převrženými kalamáři."
+  },
+  "long": {
+    "en": "Wooden writing desks line both walls, their slanted tops still bearing half-finished pages curled at the edges. Black ink has dried in long streaks down the wood where pots tipped and were never set right. The air smells of old paper and something colder underneath. A pair of heavy doors at the south end leads further in — the wood is scored with deep parallel scratches that do not look like they were made by hands. Older, deeper scratches climb the west wall behind a leaning iron-bound press, as if something had crawled out of the wall there.",
+    "cs": "Dřevěné psací pulty lemují obě stěny, jejich šikmé desky stále nesou nedokončené stránky se zvednutými okraji. Po dřevě stékají dlouhé pruhy zaschlého černého inkoustu, kde se kalamáře převrhly a nikdy je nikdo nenarovnal. Vzduch voní starým papírem a něčím chladnějším pod tím. Na jižním konci vedou dvojité těžké dveře dál dovnitř — dřevo je rozryté hlubokými rovnoběžnými škrábanci, které nevypadají, že je dělaly ruce. Starší a hlubší škrábance šplhají po západní zdi za nakloněnou železem pobitou skříní, jako by se odtud zpod zdi něco vydrápalo."
+  },
+  "exits": {
+    "n": "castle.library",
+    "s": "castle.archive",
+    "w": { "to": "castle.claw_passage", "hidden": { "dc": 5, "id": "castle.scriptorium_passage" } }
+  },
+  "tags": ["indoor", "castle", "ruins"]
+}

@@ -7,7 +7,10 @@
   "title": { "en": "crawling hand", "cs": "lezoucí ruka" },
   "vision": "blind",
   "locations": {
-    "castle.cloister": 2
+    "castle.cloister": 2,
+    "castle.dead_garden": 1,
+    "castle.ossuary": 2,
+    "castle.scriptorium": 1
   },
   "short": {
     "en": "A pale, severed hand scuttles across the stones on its fingers.",

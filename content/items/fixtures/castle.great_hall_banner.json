@@ -1,0 +1,23 @@
+{
+  "id": "castle.great_hall_banner",
+  "name": {
+    "en": "a faded banner",
+    "cs": "vybledlá zástava"
+  },
+  "nameAcc": {
+    "en": "the faded banner",
+    "cs": "vybledlou zástavu"
+  },
+  "short": {
+    "en": "A long banner hangs from the rafters, its colours almost gone.",
+    "cs": "Ze stropních trámů visí dlouhá zástava, barvy už skoro vyprchaly."
+  },
+  "long": {
+    "en": "A long cloth banner hangs from the high rafters, its weave thick with old dust. Two crests are stitched on it, one above the other. The upper crest is a tall tower; the lower crest is a watchman's sword crossed in front of a smaller tower. Read together, it seems to say the lord ruled here and the captain stood the watch — and that the same key shape might fit two doors.",
+    "cs": "Z vysokých trámů visí dlouhá látková zástava, tkanina ztěžklá starým prachem. Jsou na ní vyšité dva znaky, jeden nad druhým. Horní znak je vysoká věž; dolní znak je hlídačský meč překřížený před menší věží. Dohromady to vypadá, že lord vládl zde a kapitán stál na hlídce — a že stejný tvar klíče by mohl pasovat do dvou dveří."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "castle.great_hall", "count": 1 }
+}

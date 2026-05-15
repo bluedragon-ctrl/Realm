@@ -1,0 +1,52 @@
+{
+  "id": "castle.locked_archive_case",
+  "name": {
+    "en": "an iron-bound case with a brass lock",
+    "cs": "železem pobitá skříň s mosazným zámkem"
+  },
+  "nameAcc": {
+    "en": "the iron-bound case",
+    "cs": "železem pobitou skříň"
+  },
+  "short": {
+    "en": "One archive case still holds a clean brass lock that has not rusted shut.",
+    "cs": "Jedna skříň v archivu stále drží čistý mosazný zámek, který nezrezivěl."
+  },
+  "long": {
+    "en": "Among the row of cases, one stands out — its lock is bright brass and looks freshly oiled, not red with rust like the others. The keyhole is plain and round, the kind that takes a small flat brass key. Through the grille you can see neat stacks of scrolls and a single small wooden box. Whoever cared enough to keep this one locked, cared a great deal.",
+    "cs": "Mezi řadou skříní jedna vyčnívá — má jasný mosazný zámek a vypadá čerstvě naolejovaná, ne rezavá jako ostatní. Klíčová dírka je prostá a kulatá, ta, do které se hodí malý plochý mosazný klíč. Skrz mříž vidíš úhledné hromádky svitků a jedinou malou dřevěnou skříňku. Kdokoli to měl natolik na srdci, aby tuhle skříň zamkl, tak na ní moc záleželo."
+  },
+  "tags": ["fixture", "container"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "castle.archive", "count": 1 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you fit the small brass key into the lock. It turns smoothly, the way a well-cared-for lock should, and the case clicks open.",
+        "others": "{actor} fits a small brass key into the case, turns it, and the lock clicks open."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zasuneš malý mosazný klíč do zámku. Otočí se hladce, jak má dobře udržovaný zámek otáčet, a skříň cvakne a otevře se.",
+        "others": "{actor} zasune malý mosazný klíč do skříně, otočí jím a zámek cvakne."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "open_chest",
+      "key": "item.archive_key",
+      "loot": [
+        { "defId": "item.amulet_int", "chance": 1.0 },
+        { "defId": "item.regen_scroll", "chance": 1.0 },
+        { "defId": "item.fade_scroll", "chance": 0.5 },
+        { "defId": "item.glow_scroll", "chance": 0.25 },
+        { "defId": "item.shadow_scroll", "chance": 0.25 },
+        { "defId": "item.nightvision_scroll", "chance": 0.25 },
+        { "defId": "item.bonebloom", "count": 2, "chance": 1.0 }
+      ],
+      "gold": "3d10+15"
+    }
+  }
+}

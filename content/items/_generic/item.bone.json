@@ -1,0 +1,21 @@
+{
+  "id": "item.bone",
+  "name": {
+    "en": "a bone",
+    "cs": "kost"
+  },
+  "nameAcc": {
+    "en": "the bone",
+    "cs": "kost"
+  },
+  "short": {
+    "en": "A long, pale bone, dry and light in the hand.",
+    "cs": "Dlouhá bledá kost, suchá a v ruce lehká."
+  },
+  "long": {
+    "en": "A clean bone, picked dry long ago. It is light for its size and feels chalky under your fingers. The miller at the riverside mill grinds these into a fine pale flour the alchemists like to use.",
+    "cs": "Čistá kost, dávno vyzobaná a vysušená. Na svou velikost je lehká a pod prsty působí křídově. Mlynář v mlýně u řeky z nich mele jemnou bledou mouku, kterou mají rádi alchymisté."
+  },
+  "tags": ["reagent", "ingredient"],
+  "weight": 1
+}

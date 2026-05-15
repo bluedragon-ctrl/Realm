@@ -14,7 +14,8 @@
     "cs": "Kdysi krásná knihovna je nyní troskou zhroucených regálů a hnijících knih. Stránky pokrývají podlahu jako spadané listí. Několik svitků stále visí na zdech, ale jejich inkoust skoro úplně vybledl. Jediné světlo vychází ze slabé bledé záře kolem učence a z úzkého okénka vysoko nad regály. Mezi regály pluje bledá postava — muž v učeneckém rouchu — ale knihovnu za ním je vidět skrz něj. Čte si a zatím tě nezpozoroval."
   },
   "exits": {
-    "e": "castle.cloister"
+    "e": "castle.cloister",
+    "s": "castle.scriptorium"
   },
   "tags": ["indoor", "castle", "ruins"]
 }

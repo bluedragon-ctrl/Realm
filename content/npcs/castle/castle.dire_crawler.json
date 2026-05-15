@@ -1,0 +1,79 @@
+{
+  "id": "castle.dire_crawler",
+  "name": { "en": "a dire crawler", "cs": "hrůzný plíživec" },
+  "nameAcc": { "en": "the dire crawler", "cs": "hrůzného plíživce" },
+  "nameDat": { "en": "the dire crawler", "cs": "hrůznému plíživci" },
+  "nameGen": { "en": "the dire crawler", "cs": "hrůzného plíživce" },
+  "title": { "en": "dire crawler", "cs": "hrůzný plíživec" },
+  "vision": "blind",
+  "locations": {
+    "castle.claw_passage": 1
+  },
+  "short": {
+    "en": "A pale, swollen hand the size of a dog scuttles along the stone on hooked fingers.",
+    "cs": "Po kameni se na hákovitých prstech plíží bledá oteklá ruka velká jako pes."
+  },
+  "long": {
+    "en": "A crawling hand grown grotesquely large, pale and swollen, the size of a small dog. Each finger ends in a curved black claw the length of a knife, and the stump at the wrist has hardened into pale armor-like bone. It moves in long patient surges along the stone, claws clicking. It is the thing that made the marks on the walls.",
+    "cs": "Lezoucí ruka, která groteskně vyrostla — bledá, oteklá, velká jako menší pes. Každý prst končí zahnutým černým drápem dlouhým jako nůž a pahýl u zápěstí ztvrdl v bledou kost podobnou zbroji. Pohybuje se po kameni v dlouhých trpělivých vlnách, drápy ťukají. Je to ta věc, která rozdrápala stěny."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 22, "hpMax": 22,
+    "mp": 0, "mpMax": 0,
+    "attack": 4, "defense": 1, "int": 0,
+    "magicResist": 0,
+    "evasion": 10,
+    "spd": 6
+  },
+  "xp": 24,
+  "respawn": { "ticks": 1500 },
+  "goldDrop": { "formula": "1d6+2", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.bone", "chance": 1.0 },
+    { "defId": "item.shieldbreaker_scroll", "chance": 0.15 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "claw rake", "cs": "drásnutí drápy" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} rakes black claws across {target} in a long pulling stroke!",
+          "{actor} lunges and digs four hooked fingers into {target}!",
+          "{actor} drags its claws down {target} with patient strength!"
+        ],
+        "cs": [
+          "{actor} drápy v dlouhém tahu rozdrásá {target.acc}!",
+          "{actor} se vrhne kupředu a zaboří čtyři hákovité prsty do {target.gen}!",
+          "{actor} svede drápy po {target.dat} s trpělivou silou!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "drags its claws once across the stone with a slow grinding sound.",
+          "lifts the stump of its wrist and waves it slowly, as if listening.",
+          "presses itself flat against the wall and goes very still.",
+          "clicks its claws against the floor in a slow uneven rhythm."
+        ],
+        "cs": [
+          "jednou drápy zaskřípe po kameni pomalým vrzavým zvukem.",
+          "zvedne pahýl zápěstí a pomalu jím zamává, jako by naslouchal.",
+          "přitiskne se naplocho ke zdi a úplně znehybní.",
+          "ťuká drápy o podlahu v pomalém nepravidelném rytmu."
+        ]
+      }
+    }
+  ]
+}

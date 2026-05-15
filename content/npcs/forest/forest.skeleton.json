@@ -32,7 +32,8 @@
   "goldDrop": { "formula": "1d6", "chance": 0.3 },
   "loot": [
     { "defId": "item.iron_sword", "chance": 0.35 },
-    { "defId": "potion.mana", "chance": 0.5 }
+    { "defId": "potion.mana", "chance": 0.5 },
+    { "defId": "item.bone", "chance": 0.6 }
   ],
   "behaviors": [
     {

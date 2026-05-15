@@ -21,13 +21,13 @@
   "aggressive": true,
   "mood": "angry",
   "stats": {
-    "hp": 30, "hpMax": 30,
+    "hp": 40, "hpMax": 40,
     "mp": 0, "mpMax": 0,
-    "attack": 5, "defense": 3, "int": 0,
+    "attack": 6, "defense": 3, "int": 0,
     "magicResist": 40,
     "spd": 6
   },
-  "xp": 30,
+  "xp": 42,
   "respawn": { "ticks": 700 },
   "loot": [
     { "defId": "potion.mana", "chance": 0.7 },

@@ -21,16 +21,17 @@
   "aggressive": true,
   "mood": "angry",
   "stats": {
-    "hp": 35, "hpMax": 35,
+    "hp": 45, "hpMax": 45,
     "mp": 0, "mpMax": 0,
-    "attack": 5, "defense": 4, "int": 0,
+    "attack": 6, "defense": 4, "int": 0,
     "magicResist": 50,
     "spd": 5
   },
-  "xp": 35,
+  "xp": 48,
   "respawn": { "ticks": 600 },
   "loot": [
-    { "defId": "item.iron_mace", "chance": 0.5 }
+    { "defId": "item.iron_mace", "chance": 0.5 },
+    { "defId": "item.bone", "chance": 0.7 }
   ],
   "behaviors": [
     {
@@ -38,7 +39,7 @@
       "name": { "en": "mace blow", "cs": "úder palcátem" },
       "chance": 0.3,
       "cost": 16,
-      "damage": "1d6+ATK",
+      "damage": "1d8+ATK",
       "requires": "aggro_target",
       "templates": {
         "en": [
@@ -58,7 +59,7 @@
       "name": { "en": "sword swing", "cs": "úder mečem" },
       "chance": 1.0,
       "cost": 16,
-      "damage": "1d6+ATK",
+      "damage": "1d8+ATK",
       "requires": "aggro_target",
       "templates": {
         "en": [

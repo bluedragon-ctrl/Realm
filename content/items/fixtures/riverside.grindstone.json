@@ -44,6 +44,27 @@
           }
         }
       }
+    },
+    {
+      "id": "grindstone.grind_bone",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.bone", "count": 2 }],
+      "outputs": [{ "item": "item.boneflour" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you lay two bones across {target}, lean into the handle, and grind them down to a pale pouch of fine bone flour.",
+            "others": "{actor} lays a pair of bones on {target} and turns the wheel until they are crushed to pale flour."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "položíš na {target.acc} dvě kosti, opřeš se do kliky a rozdrtíš je v bledý sáček jemné kostní moučky.",
+            "others": "{actor} položí dvě kosti na {target.acc} a otáčí kolem, dokud se nerozdrtí v bledou moučku."
+          }
+        }
+      }
     }
   ]
 }

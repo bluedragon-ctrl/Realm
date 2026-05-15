@@ -1,0 +1,24 @@
+{
+  "id": "castle.ossuary",
+  "name": {
+    "en": "Ossuary",
+    "cs": "Kostnice"
+  },
+  "lightBase": "dark",
+  "short": {
+    "en": "A low chamber whose walls are stacked floor to ceiling with old bones.",
+    "cs": "Nízká komnata, jejíž stěny jsou od podlahy po strop vyrovnány starými kostmi."
+  },
+  "long": {
+    "en": "The walls of this small chamber are not walls at all — they are stacks of old bones, sorted and arranged with strange care. Long bones make pillars at the corners; smaller bones fill the spaces between, packed tight as bricks. The air is dry and very cold, and your own footsteps come back to you with an odd dampened sound. Things move in the dark close to the floor, small and quick. The only way out is back up the stair to the west.",
+    "cs": "Stěny této malé komnaty nejsou vlastně stěny — jsou to hromady starých kostí, srovnaných a uspořádaných s podivnou péčí. Dlouhé kosti tvoří v rozích sloupy; menší kosti vyplňují mezery mezi nimi, naskládané těsně jako cihly. Vzduch je suchý a velmi chladný a tvé vlastní kroky se k tobě vracejí s podivně tlumeným zvukem. Ve tmě blízko podlahy se hýbe něco malého a rychlého. Jediná cesta ven vede zpět nahoru po schodech na západ."
+  },
+  "exits": {
+    "w": "castle.crypt_stair",
+    "s": "castle.claw_passage"
+  },
+  "hiddenFixtures": {
+    "castle.loose_stone": { "dc": 3, "id": "castle.ossuary_cache" }
+  },
+  "tags": ["indoor", "castle", "ruins", "dark"]
+}

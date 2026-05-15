@@ -8,7 +8,8 @@
   "vision": "nightvision",
   "locations": {
     "castle.gatehouse": 2,
-    "castle.courtyard": 1
+    "castle.courtyard": 1,
+    "castle.east_battlement": 1
   },
   "short": {
     "en": "A skeleton in rusted mail stands watch, its sword resting on the cobbles.",
@@ -22,21 +23,27 @@
   "aggressive": true,
   "mood": "angry",
   "stats": {
-    "hp": 22, "hpMax": 22,
+    "hp": 30, "hpMax": 30,
     "mp": 0, "mpMax": 0,
-    "attack": 4, "defense": 2, "int": 0,
+    "attack": 5, "defense": 2, "int": 0,
     "magicResist": 50,
     "spd": 6
   },
-  "xp": 22,
+  "xp": 30,
   "respawn": { "ticks": 400 },
+  "goldDrop": { "formula": "1d4", "chance": 0.4 },
+  "loot": [
+    { "defId": "item.bone", "chance": 0.7 },
+    { "defId": "potion.heal", "chance": 0.2 },
+    { "defId": "item.rusty_dagger", "chance": 0.15 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",
       "name": { "en": "slash", "cs": "sek" },
       "chance": 1.0,
       "cost": 14,
-      "damage": "1d4+ATK",
+      "damage": "1d6+ATK",
       "requires": "aggro_target",
       "templates": {
         "en": [

@@ -31,7 +31,8 @@
   "respawn": { "ticks": 1500 },
   "loot": [
     { "defId": "item.captain_signet", "chance": 1 },
-    { "defId": "item.greatsword", "chance": 1 }
+    { "defId": "item.greatsword", "chance": 1 },
+    { "defId": "item.bone_helmet", "chance": 0.3 }
   ],
   "behaviors": [
     {

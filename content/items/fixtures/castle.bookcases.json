@@ -1,0 +1,26 @@
+{
+  "id": "castle.bookcases",
+  "name": {
+    "en": "iron-bound bookcases",
+    "cs": "železem pobité skříně"
+  },
+  "nameAcc": {
+    "en": "the iron-bound bookcases",
+    "cs": "železem pobité skříně"
+  },
+  "short": {
+    "en": "Tall iron-bound bookcases line the walls, their narrow grilles holding scrolls and dark books.",
+    "cs": "Vysoké železem pobité skříně lemují stěny, jejich úzké mříže ukrývají svitky a tmavé knihy."
+  },
+  "long": {
+    "en": "A row of tall standing cases bound with black iron straps, the wood inside long since dried to a pale grey. The locks on most of the lids have rusted open. Through the narrow grilles in the doors you can see scrolls leaning against each other, small dark books stacked flat, and here and there a flash of pale ribbon. A few scrolls have slipped out and lie on the flagstones at the base of the cases.",
+    "cs": "Řada vysokých stojanových skříní pobitých černými železnými pásy, dřevo uvnitř dávno vyschlo do bledě šedé barvy. Zámky na většině vík rezem povolily. Úzkými mřížemi ve dveřích vidíš svitky opřené o sebe, malé tmavé knihy naskládané naplocho a tu a tam záblesk bledé stuhy. Několik svitků sklouzlo ven a leží na dlažbě u paty skříní."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "castle.archive",
+    "count": 1
+  }
+}

@@ -15,7 +15,8 @@
   },
   "exits": {
     "n": "castle.courtyard",
-    "w": "castle.library"
+    "w": "castle.library",
+    "s": "castle.dead_garden"
   },
   "tags": ["indoor", "castle", "ruins"]
 }

@@ -25,13 +25,13 @@
   "use": {
     "en": {
       "no_target": {
-        "self": "you strike a flame and touch it to the reading candle. The wick catches and steady white light spreads across the open page.",
+        "self": "you strike a flame and touch it to the reading candle. The wick catches and steady white light spreads across the open page — a few faded lines stand out: 'the lord wears the tower above; the captain wears the sword and tower below — the same hand shapes both keys.'",
         "others": "{actor} lights the reading candle on the lectern. Steady white light spreads over the open book."
       }
     },
     "cs": {
       "no_target": {
-        "self": "vykřesáš plamen a přiložíš ho ke čtecí svíci. Knot chytne a po otevřené stránce se rozlije klidné bílé světlo.",
+        "self": "vykřesáš plamen a přiložíš ho ke čtecí svíci. Knot chytne a po otevřené stránce se rozlije klidné bílé světlo — vystoupí několik vybledlých řádků: 'lord nosí věž nahoře; kapitán nosí meč a věž dole — táž ruka tvaruje oba klíče.'",
         "others": "{actor} zapálí čtecí svíci na pultu. Po otevřené knize se rozlije klidné bílé světlo."
       }
     },

@@ -24,9 +24,8 @@
     "mp": 100, "mpMax": 100,
     "attack": 3, "defense": 2, "int": 8,
     "magicResist": 60,
-    "spd": 8
+    "spd": 6
   },
-  "xp": 30,
   "respawn": { "ticks": 600 },
   "xp": 70,
   "goldDrop": { "formula": "2d6+5", "chance": 1.0 },
@@ -34,7 +33,9 @@
     { "defId": "item.bone_staff", "chance": 0.5 },
     { "defId": "item.burning_hands_scroll", "chance": 0.5 },
     { "defId": "potion.mana", "chance": 1.0 },
-    { "defId": "potion.heal", "chance": 0.5 }
+    { "defId": "potion.heal", "chance": 0.5 },
+    { "defId": "item.bone", "chance": 0.7 },
+    { "defId": "item.archive_key", "chance": 1.0 }
   ],
   "behaviors": [
     {

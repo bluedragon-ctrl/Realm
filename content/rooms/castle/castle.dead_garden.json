@@ -1,0 +1,20 @@
+{
+  "id": "castle.dead_garden",
+  "name": {
+    "en": "Dead garden",
+    "cs": "Uschlá zahrada"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A small overgrown garden enclosed on all sides by cloister arches.",
+    "cs": "Malá zarostlá zahrada, kolem které stojí oblouky křížové chodby."
+  },
+  "long": {
+    "en": "The cloister arches loom on every side, framing this small patch of dead earth. Dry rose stems climb a broken trellis at the centre, and grey moss has grown over a low stone bench. Pale flowers the colour of old bone push up between the flagstones — you do not recognise them, but the herbalists back in the village might. Nothing moves here on its own, but the air feels watched. A passage leads back north into the cloister.",
+    "cs": "Oblouky křížové chodby se tyčí ze všech stran a rámují tento malý kus mrtvé země. Suché šípkové stonky šplhají uprostřed po polámané mříži, a šedý mech pokrývá nízkou kamennou lavičku. Mezi dlažbou prorážejí bledé květiny barvy staré kosti — nepoznáváš je, ale bylinkáři ve vesnici by možná ano. Nic se tu samo nehýbe, ale vzduch má pocit, že je sledován. Chodba vede zpět na sever do křížové chodby."
+  },
+  "exits": {
+    "n": "castle.cloister"
+  },
+  "tags": ["outdoor", "castle", "ruins"]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "item.knight_plate",
+  "name": {
+    "en": "a suit of knight's plate",
+    "cs": "rytířská plátová zbroj"
+  },
+  "nameAcc": {
+    "en": "the suit of knight's plate",
+    "cs": "rytířskou plátovou zbroj"
+  },
+  "short": {
+    "en": "A heavy suit of dark plate, dented in places but still solid.",
+    "cs": "Těžká tmavá plátová zbroj, místy promáčknutá, ale stále pevná."
+  },
+  "long": {
+    "en": "Full body plate of dark steel, oiled black against the damp. Each piece is dented and scored from old fighting but still holds together at the joints. It is much heavier than leather and slows your step, but a sword that lands on it skids off without much harm — the kind of armour you wear because you mean to stand your ground.",
+    "cs": "Plná plátová zbroj z tmavé oceli, naolejovaná do černa proti vlhku. Každý díl je promáčknutý a poškrábaný od starých soubojů, ale v kloubech stále drží pevně. Je mnohem těžší než kůže a zpomaluje krok, ale meč, který na ni dopadne, sklouzne bez větší škody — taková zbroj, jakou si oblékneš, když chceš stát na svém místě."
+  },
+  "tags": ["armor"],
+  "weight": 8,
+  "wearable": {
+    "slot": "body",
+    "bonus": { "defense": 2, "hpMax": 5, "spd": -1 }
+  }
+}

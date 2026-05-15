@@ -1,0 +1,21 @@
+{
+  "id": "item.archive_key",
+  "name": {
+    "en": "a small brass key",
+    "cs": "malý mosazný klíč"
+  },
+  "nameAcc": {
+    "en": "the small brass key",
+    "cs": "malý mosazný klíč"
+  },
+  "short": {
+    "en": "A small flat brass key, the bow etched with a sword and tower.",
+    "cs": "Malý plochý mosazný klíč, ouško zdobené mečem a věží."
+  },
+  "long": {
+    "en": "A small flat key cast in clean brass and kept oiled enough that it has never gone green. The bow at the top is etched with a sword crossed in front of a tower — the same crest that hangs in the castle's great hall. Whoever carried this away from the castle long ago kept it close enough that it has not aged a day.",
+    "cs": "Malý plochý klíč odlitý z čisté mosazi, udržovaný natolik naolejovaný, že nikdy nezezelenal. Ouško nahoře je zdobené mečem překříženým před věží — stejným znakem, jaký visí ve velkém sále hradu. Ten, kdo ho kdysi z hradu odnesl, ho nosil tak blízko u sebe, že nezestárl ani o den."
+  },
+  "tags": ["key"],
+  "weight": 0
+}

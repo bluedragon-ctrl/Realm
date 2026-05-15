@@ -15,7 +15,8 @@
   },
   "exits": {
     "s": "castle.great_hall",
-    "d": "castle.tomb"
+    "d": "castle.tomb",
+    "e": "castle.ossuary"
   },
   "lockedExits": {
     "d": "castle.tomb_door"

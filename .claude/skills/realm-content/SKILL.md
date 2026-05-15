@@ -91,13 +91,15 @@ The loader recurses, so a file's location does not affect its id — folders are
 content/rooms/<region>/<region>.<place>.json
 content/npcs/<region>/<region>.<creature>.json
 content/items/
-  consumables/   potions, herbs, food, scrolls, reagents (anything used up)
+  consumables/   potions, herbs, food, reagents (anything used up except scrolls)
+  scrolls/       spell scrolls (`use.effect.type: "teach_spell"`)
   wearables/     weapons, armor, amulets (anything with a `wearable` block)
   fixtures/      room props (`pickable: false`, `weight: 99`) — keep zone prefix
-  _generic/      anything else: keys, tools, toys, misc loot (uses `item.<name>` id)
+  keys/          keys that unlock locked exits or containers (tag `"key"`)
+  _generic/      anything else: tools, toys, misc loot (uses `item.<name>` id)
 ```
 
-**Item folder rule: category first.** Wearables go in `wearables/`, consumables in `consumables/`, fixtures in `fixtures/`. Everything else lives in `_generic/` with an `item.<name>` id — there is no per-region item folder anymore.
+**Item folder rule: category first.** Wearables go in `wearables/`, consumables in `consumables/`, fixtures in `fixtures/`, spell scrolls in `scrolls/`, keys in `keys/`. Everything else lives in `_generic/` with an `item.<name>` id — there is no per-region item folder anymore.
 
 ## Step 3 — Exit keys
 
