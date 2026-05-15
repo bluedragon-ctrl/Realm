@@ -83,21 +83,30 @@ export function makeItemValidator(knownRooms, knownEffects) {
   };
 }
 
-export function validateItemInteractions(items, knownRooms) {
+export function validateItemInteractions(items, knownRooms, knownNpcs = new Map()) {
   for (const def of items.values()) {
     const ctx = `item '${def.id}'`;
     if (def.unlocks != null) {
       const u = def.unlocks;
       checkObject(u, ctx, 'unlocks');
-      check(typeof u.exit === 'string', ctx, 'unlocks.exit must be a string');
       check(u.key && items.has(u.key), ctx, `unlocks.key references unknown item '${u.key}'`);
       checkObject(u.verb, ctx, 'unlocks.verb');
-      const roomId = def.spawn?.location;
-      if (roomId) {
-        const room = knownRooms.get(roomId);
-        const declared = room?.lockedExits?.[u.exit];
-        check(declared === def.id, ctx,
-          `unlocks exit '${u.exit}' but room '${roomId}' lockedExits.${u.exit} = ${JSON.stringify(declared ?? null)} (expected '${def.id}')`);
+      const hasExit = typeof u.exit === 'string';
+      const hasSpawn = u.spawn != null;
+      check(hasExit !== hasSpawn, ctx, `unlocks must have exactly one of 'exit' or 'spawn'`);
+      if (hasSpawn) {
+        checkObject(u.spawn, ctx, 'unlocks.spawn');
+        check(typeof u.spawn.defId === 'string' && knownNpcs.has(u.spawn.defId), ctx,
+          `unlocks.spawn.defId must be a known npc — got '${u.spawn.defId}'`);
+      }
+      if (hasExit) {
+        const roomId = def.spawn?.location;
+        if (roomId) {
+          const room = knownRooms.get(roomId);
+          const declared = room?.lockedExits?.[u.exit];
+          check(declared === def.id, ctx,
+            `unlocks exit '${u.exit}' but room '${roomId}' lockedExits.${u.exit} = ${JSON.stringify(declared ?? null)} (expected '${def.id}')`);
+        }
       }
     }
     check(def.recipes == null, ctx, `'recipes' is no longer supported — use 'exchanges'`);

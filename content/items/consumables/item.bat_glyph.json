@@ -1,0 +1,16 @@
+{
+  "id": "item.bat_glyph",
+  "rarity": 3,
+  "name": { "en": "a bat-bone glyph", "cs": "netopýří kostěný glyf" },
+  "nameAcc": { "en": "the bat-bone glyph", "cs": "netopýří kostěný glyf" },
+  "short": {
+    "en": "A small dark glyph carved from bat bone.",
+    "cs": "Malý tmavý glyf vyřezaný z netopýří kosti."
+  },
+  "long": {
+    "en": "A flat shard of bat bone, no larger than a coin. Tiny spiral marks have been scratched into one side. The shard feels colder than it should, and when you hold it the air around your fingers seems to grow heavier. Someone, somewhere, knew how to use this.",
+    "cs": "Plochý úlomek netopýří kosti, ne větší než mince. Na jedné straně jsou vyryté drobné spirálovité značky. Úlomek je chladnější, než by měl být, a když ho držíš, vzduch kolem prstů jako by se zhušťoval. Někdo, někde, věděl, jak to použít."
+  },
+  "tags": ["reagent", "ritual"],
+  "weight": 0
+}

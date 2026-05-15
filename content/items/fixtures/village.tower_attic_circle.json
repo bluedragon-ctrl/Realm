@@ -14,23 +14,20 @@
   "pickable": false,
   "weight": 99,
   "spawn": { "location": "village.tower_attic" },
-  "exchanges": [
-    {
-      "id": "attic_circle.summon_daemon",
-      "flavor": "craft",
-      "inputs": [{ "item": "item.candle", "count": 5 }],
-      "outputs": [],
-      "spawn": { "defId": "village.bat_daemon" },
-      "verb": {
-        "en": { "no_target": {
-          "self": "You place the candles around the circle and speak the ancient words. The marks flare to life, and something dark rises from the stone.",
-          "others": "{actor} lights candles around the circle and chants in an unknown tongue. Shadows gather, and a terrible form materializes."
-        }},
-        "cs": { "no_target": {
-          "self": "Umístíš svíce kolem kruhu a vyslovíš starobylá slova. Značky se rozzáří a něco tmavého se zvedá z kamene.",
-          "others": "{actor} zapálí svíce kolem kruhu a zpívá cizím jazykem. Stíny se sbírají a hrozivá forma se zhmotňuje."
-        }}
-      }
+  "unlocks": {
+    "key": "item.bat_glyph",
+    "consume": true,
+    "spawn": { "defId": "village.bat_daemon" },
+    "xp": 5,
+    "verb": {
+      "en": { "to_target": {
+        "self": "you press the bat-bone glyph into {target} and speak the words scratched on its edge. The marks flare to life, and something dark rises from the stone.",
+        "others": "{actor} presses a small bone glyph into {target} and chants in a tongue you do not know. Shadows gather, and a terrible form rises from the stone."
+      }},
+      "cs": { "to_target": {
+        "self": "přiložíš netopýří glyf na {target} a vyslovíš slova vyrytá na jeho okraji. Značky se rozzáří a něco tmavého se zvedá z kamene.",
+        "others": "{actor} přiloží malý kostěný glyf na {target} a mumlá slova v jazyce, který neznáš. Stíny se sbírají a z kamene se zvedá hrozivá postava."
+      }}
     }
-  ]
+  }
 }

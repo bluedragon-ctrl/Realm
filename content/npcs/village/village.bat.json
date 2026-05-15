@@ -29,7 +29,8 @@
   "xp": 5,
   "goldDrop": { "formula": "1d2", "chance": 0.6 },
   "loot": [
-    { "defId": "item.bat_wing", "chance": 0.9 }
+    { "defId": "item.bat_wing", "chance": 0.9 },
+    { "defId": "item.bat_glyph", "chance": 0.01 }
   ],
   "behaviors": [
     {
