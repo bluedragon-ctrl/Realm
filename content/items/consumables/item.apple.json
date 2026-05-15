@@ -1,5 +1,6 @@
 {
   "id": "item.apple",
+  "rarity": 1,
   "name": {
     "en": "an apple",
     "cs": "jablko"

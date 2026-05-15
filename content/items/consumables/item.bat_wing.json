@@ -1,0 +1,15 @@
+{
+  "id": "item.bat_wing",
+  "rarity": 1,
+  "name": { "en": "a bat wing", "cs": "netopýří křídlo" },
+  "short": {
+    "en": "A thin, papery wing, still supple and dark.",
+    "cs": "Tenké, papírovité křídlo, stále ohebné a tmavé."
+  },
+  "long": {
+    "en": "A delicate wing from a small bat, stretching from a central bone to a thin membrane. The membrane is gossamer-fine and surprisingly intact despite its fragility. Alchemists prize these for their subtle magical properties.",
+    "cs": "Jemné křídlo z malého netopýra, táhnoucí se od střední kosti k tenké membráně. Membrána je velmi jemná a překvapivě nepoškozená navzdory její křehkosti. Alchymisté si je cení pro jejich jemné magické vlastnosti."
+  },
+  "tags": ["reagent"],
+  "weight": 0
+}

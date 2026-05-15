@@ -78,12 +78,6 @@
       "outputs": [{ "item": "spell.burning_hands" }]
     },
     {
-      "id": "wizard.sell_light",
-      "flavor": "buy",
-      "inputs": [{ "gold": 40 }],
-      "outputs": [{ "item": "spell.light" }]
-    },
-    {
       "id": "wizard.sell_shield",
       "flavor": "buy",
       "inputs": [{ "gold": 70 }],

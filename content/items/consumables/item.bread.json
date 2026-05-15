@@ -1,5 +1,6 @@
 {
   "id": "item.bread",
+  "rarity": 1,
   "name": {
     "en": "a loaf of bread",
     "cs": "bochník chleba"

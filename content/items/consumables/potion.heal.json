@@ -1,5 +1,6 @@
 {
   "id": "potion.heal",
+  "rarity": 1,
   "name": {
     "en": "a small healing potion",
     "cs": "malý léčivý lektvar"

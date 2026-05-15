@@ -1,5 +1,6 @@
 {
   "id": "item.torch",
+  "rarity": 1,
   "name": {
     "en": "a pitch torch",
     "cs": "smolná pochodeň"

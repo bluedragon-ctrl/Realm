@@ -1,5 +1,6 @@
 {
   "id": "potion.mana",
+  "rarity": 1,
   "name": {
     "en": "a small mana potion",
     "cs": "malý lektvar many"

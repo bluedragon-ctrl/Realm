@@ -1,5 +1,6 @@
 {
   "id": "item.river_fish",
+  "rarity": 1,
   "name": {
     "en": "a river fish",
     "cs": "říční ryba"

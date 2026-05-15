@@ -1,5 +1,6 @@
 {
   "id": "item.ball",
+  "rarity": 1,
   "name": {
     "en": "a leather ball",
     "cs": "kožený míček"

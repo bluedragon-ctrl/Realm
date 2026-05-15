@@ -1,5 +1,6 @@
 {
   "id": "item.sweets",
+  "rarity": 1,
   "name": {
     "en": "a handful of sweets",
     "cs": "hrst sladkostí"

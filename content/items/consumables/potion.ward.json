@@ -1,5 +1,6 @@
 {
   "id": "potion.ward",
+  "rarity": 1,
   "name": {
     "en": "a ward potion",
     "cs": "ochranný lektvar"

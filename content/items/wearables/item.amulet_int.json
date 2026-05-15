@@ -1,5 +1,6 @@
 {
   "id": "item.amulet_int",
+  "rarity": 2,
   "name": {
     "en": "an amulet of insight",
     "cs": "amulet vhledu"

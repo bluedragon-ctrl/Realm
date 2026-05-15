@@ -1,4 +1,4 @@
-import { actorsInRoom, itemsInRoom, broadcastToRoom, world } from './world.js';
+import { actorsInRoom, itemsInRoom, broadcastToRoom, world, spawnNpc } from './world.js';
 import { makeItemInstance, removeFromList } from './items.js';
 import { removeFromInventory } from './inventory.js';
 import { runVerb } from './verbs.js';
@@ -185,6 +185,11 @@ export function runExchange(actor, host, entry, { units = 1 } = {}) {
   if (entry.flavor === 'craft' && produced.length > 0) {
     const first = produced[0];
     actor.session.send({ kind: 'system', tone: 'good', text: s('produce.you_made', actor.lang, { item: t(first.def.name, actor.lang) }) });
+  }
+
+  if (entry.spawn) {
+    const def = world.npcDefs.get(entry.spawn.defId);
+    if (def) spawnNpc(def, actor.location);
   }
 
   if (entry.xp && entry.xp > 0) awardXp(actor, entry.xp, entry.flavor);
