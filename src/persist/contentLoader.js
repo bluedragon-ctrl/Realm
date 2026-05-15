@@ -63,10 +63,10 @@ export async function loadNpcs(knownRooms) {
   return npcs;
 }
 
-export async function loadItems(knownRooms, knownEffects) {
+export async function loadItems(knownRooms, knownEffects, knownNpcs) {
   const effects = knownEffects ?? new Map();
   const items = await loadDir('item', path.resolve('content/items'), makeItemValidator(knownRooms, effects));
-  validateItemInteractions(items, knownRooms);
+  validateItemInteractions(items, knownRooms, knownNpcs ?? new Map());
   for (const room of knownRooms.values()) {
     if (!room.hiddenFixtures) continue;
     for (const defId of Object.keys(room.hiddenFixtures)) {

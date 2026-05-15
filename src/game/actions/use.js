@@ -1,4 +1,4 @@
-import { findInRoom, itemsInRoom, actorsInRoom, world } from '../world.js';
+import { findInRoom, itemsInRoom, actorsInRoom, world, spawnNpc } from '../world.js';
 import { findItemInList, splitOnKeyword } from '../items.js';
 import { removeFromInventory } from '../inventory.js';
 import { s, t } from '../../i18n.js';
@@ -38,12 +38,17 @@ function runInteraction(actor, sourceInst, targetInst, interaction) {
   if (interaction.kind === 'unlock') {
     const spec = interaction.spec;
     runVerb({ actor, def: spec.verb, targetName: targetInst.def.nameAcc ?? targetInst.def.name });
-    applyEffect({ type: 'unlock', exit: spec.exit }, { actor });
-    actor.session.send({
-      kind: 'system',
-      tone: 'good',
-      text: s('unlock.success', lang, { target: t(targetInst.def.name, lang) }),
-    });
+    if (spec.spawn?.defId) {
+      const npcDef = world.npcDefs.get(spec.spawn.defId);
+      if (npcDef) spawnNpc(npcDef, actor.location);
+    } else if (spec.exit) {
+      applyEffect({ type: 'unlock', exit: spec.exit }, { actor });
+      actor.session.send({
+        kind: 'system',
+        tone: 'good',
+        text: s('unlock.success', lang, { target: t(targetInst.def.name, lang) }),
+      });
+    }
     if (spec.consume) removeFromInventory(actor, sourceInst);
     describeRoomToAll(actor.location);
     awardXp(actor, spec.xp ?? 2, 'unlock');

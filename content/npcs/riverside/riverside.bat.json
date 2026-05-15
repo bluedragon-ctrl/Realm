@@ -28,6 +28,9 @@
   },
   "respawn": { "ticks": 400 },
   "xp": 2,
+  "loot": [
+    { "defId": "item.bat_glyph", "chance": 0.01 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",

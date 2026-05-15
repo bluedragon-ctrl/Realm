@@ -16,7 +16,7 @@ export async function loadWorld() {
   world.npcDefs = await loadNpcs(world.rooms);
   world.socials = await loadSocials();
   world.effectDefs = await loadEffects();
-  world.itemDefs = await loadItems(world.rooms, world.effectDefs);
+  world.itemDefs = await loadItems(world.rooms, world.effectDefs, world.npcDefs);
   validateAllExchanges(world.npcDefs, world.itemDefs);
   world.spellDefs = await loadSpells(world.effectDefs, world.npcDefs);
   if (!world.rooms.has(START_ROOM)) {
