@@ -51,61 +51,61 @@
       "id": "wizard.sell_spark",
       "flavor": "buy",
       "inputs": [{ "gold": 60 }],
-      "outputs": [{ "item": "spell.spark" }]
+      "outputs": [{ "item": "item.spark_scroll" }]
     },
     {
       "id": "wizard.sell_arcane_bolt",
       "flavor": "buy",
       "inputs": [{ "gold": 70 }],
-      "outputs": [{ "item": "spell.arcane_bolt" }]
+      "outputs": [{ "item": "item.arcane_bolt_scroll" }]
     },
     {
       "id": "wizard.sell_shock",
       "flavor": "buy",
       "inputs": [{ "gold": 80 }],
-      "outputs": [{ "item": "spell.shock" }]
+      "outputs": [{ "item": "item.shock_scroll" }]
     },
     {
       "id": "wizard.sell_frost",
       "flavor": "buy",
       "inputs": [{ "gold": 80 }],
-      "outputs": [{ "item": "spell.frost" }]
+      "outputs": [{ "item": "item.frost_scroll" }]
     },
     {
       "id": "wizard.sell_burning_hands",
       "flavor": "buy",
       "inputs": [{ "gold": 80 }],
-      "outputs": [{ "item": "spell.burning_hands" }]
+      "outputs": [{ "item": "item.burning_hands_scroll" }]
     },
     {
       "id": "wizard.sell_shield",
       "flavor": "buy",
       "inputs": [{ "gold": 70 }],
-      "outputs": [{ "item": "spell.shield" }]
+      "outputs": [{ "item": "item.shield_scroll" }]
     },
     {
       "id": "wizard.sell_barrier",
       "flavor": "buy",
       "inputs": [{ "gold": 80 }],
-      "outputs": [{ "item": "spell.barrier" }]
+      "outputs": [{ "item": "item.barrier_scroll" }]
     },
     {
       "id": "wizard.sell_aegis",
       "flavor": "buy",
       "inputs": [{ "gold": 80 }],
-      "outputs": [{ "item": "spell.aegis" }]
+      "outputs": [{ "item": "item.aegis_scroll" }]
     },
     {
       "id": "wizard.sell_ward",
       "flavor": "buy",
       "inputs": [{ "gold": 70 }],
-      "outputs": [{ "item": "spell.ward" }]
+      "outputs": [{ "item": "item.ward_scroll" }]
     },
     {
       "id": "wizard.sell_nightvision",
       "flavor": "buy",
       "inputs": [{ "gold": 70 }],
-      "outputs": [{ "item": "spell.nightvision" }]
+      "outputs": [{ "item": "item.nightvision_scroll" }]
     },
     {
       "id": "wizard.buy_blue_flower",
