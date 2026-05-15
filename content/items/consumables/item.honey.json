@@ -19,7 +19,7 @@
   },
   "tags": ["consumable", "food"],
   "weight": 0,
-  "spawn": { "location": "home.garden", "count": 1, "respawnTicks": 1800 },
+  "spawn": { "location": "home.garden", "count": 10, "respawnTicks": 1800 },
   "use": {
     "en": {
       "no_target": {
