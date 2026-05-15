@@ -1,0 +1,21 @@
+{
+  "id": "castle.claw_passage",
+  "name": {
+    "en": "Clawed passage",
+    "cs": "Rozdrásaná chodba"
+  },
+  "lightBase": "dark",
+  "short": {
+    "en": "A narrow stone passage gouged with deep parallel scratches along both walls.",
+    "cs": "Úzká kamenná chodba podél obou stěn zbrázděná hlubokými rovnoběžnými škrábanci."
+  },
+  "long": {
+    "en": "A cramped passage of cold worked stone, barely wide enough for two people to stand abreast. Both walls are scored from floor to shoulder height with deep parallel grooves, four at a time, as if something with hard fingers had crawled along the stone for years. The grooves are pale where freshly cut and dark where they are old. Somewhere ahead you can hear a soft, dragging sound, slow and patient.",
+    "cs": "Stísněná chodba ze studeného opracovaného kamene, sotva tak široká, aby vedle sebe stáli dva lidé. Obě stěny jsou od podlahy po výšku ramen rozryté hlubokými rovnoběžnými rýhami, vždy po čtyřech, jako by se po kameni roky plížilo něco s tvrdými prsty. Rýhy jsou bledé tam, kde jsou čerstvě vyryté, a tmavé tam, kde jsou staré. Někde vepředu slyšíš tichý vlekoucí zvuk, pomalý a trpělivý."
+  },
+  "exits": {
+    "e": "castle.scriptorium",
+    "n": "castle.ossuary"
+  },
+  "tags": ["indoor", "castle", "ruins", "dark"]
+}

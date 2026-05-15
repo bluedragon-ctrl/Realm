@@ -23,7 +23,7 @@
     "hp": 40, "hpMax": 40,
     "mp": 0, "mpMax": 0,
     "attack": 5, "defense": 3, "int": 0,
-    "magicResist": 20,
+    "magicResist": 0,
     "accuracy": 15,
     "spd": 5
   },

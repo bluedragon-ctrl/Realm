@@ -1,0 +1,21 @@
+{
+  "id": "item.boneflour",
+  "name": {
+    "en": "a pouch of bone flour",
+    "cs": "sáček kostní moučky"
+  },
+  "nameAcc": {
+    "en": "the pouch of bone flour",
+    "cs": "sáček kostní moučky"
+  },
+  "short": {
+    "en": "A small leather pouch holding pale, chalky bone flour.",
+    "cs": "Malý kožený sáček s bledou křídovou kostní moučkou."
+  },
+  "long": {
+    "en": "A leather pouch tied with a thin cord, the bottom dusted pale where the powder has worked through. Inside is finely milled bone, soft as flour and faintly cold to the touch. Alchemists use it as a base for binding stranger ingredients together.",
+    "cs": "Kožený sáček uvázaný tenkou šňůrkou, zespodu obílený tam, kde se prach prodral skrz. Uvnitř je jemně namletá kost, měkká jako mouka a na dotek nepatrně chladná. Alchymisté ji používají jako základ pro pojení podivnějších přísad."
+  },
+  "tags": ["reagent", "ingredient"],
+  "weight": 0
+}

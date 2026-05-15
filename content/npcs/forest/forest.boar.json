@@ -5,6 +5,7 @@
   "nameDat": { "en": "the wild boar", "cs": "divokému kanci" },
   "nameGen": { "en": "the wild boar", "cs": "divokého kance" },
   "title": { "en": "wild boar", "cs": "divoký kanec" },
+  "vision": "low_light",
   "location": "forest.deep_forest",
   "short": {
     "en": "A heavy wild boar with bristly black fur and sharp tusks paws at the ground.",

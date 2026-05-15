@@ -1,0 +1,83 @@
+{
+  "id": "castle.cursed_knight",
+  "name": { "en": "a cursed knight", "cs": "prokletý rytíř" },
+  "nameAcc": { "en": "the cursed knight", "cs": "prokletého rytíře" },
+  "nameDat": { "en": "the cursed knight", "cs": "prokletému rytíři" },
+  "nameGen": { "en": "the cursed knight", "cs": "prokletého rytíře" },
+  "title": { "en": "cursed knight", "cs": "prokletý rytíř" },
+  "vision": "nightvision",
+  "locations": {
+    "castle.archive": 1
+  },
+  "short": {
+    "en": "A tall knight in black plate stands motionless, a heavy sword in both hands.",
+    "cs": "Vysoký rytíř v černé plátové zbroji stojí nehybně, v obou rukou těžký meč."
+  },
+  "long": {
+    "en": "Full plate armour, dulled to near black by age and something worse. The helmet visor is down and the slit is dark — you cannot see eyes behind it, but you feel watched all the same. A long two-handed sword hangs in his grip, the blade pointed at the floor. He does not breathe, does not shift his weight, does not turn his head when you enter; but the moment your eyes meet the visor, you know the wait is over.",
+    "cs": "Plná plátová zbroj, věkem a něčím horším ztmavlá skoro do černa. Hledí helmy je sklopené a štěrbina je tmavá — oči za ní vidět nejsou, ale stejně cítíš, že tě někdo sleduje. V sevřených rukou drží dlouhý obouruční meč, čepelí svěšenou k podlaze. Nedýchá, nepřesunuje váhu, neotáčí hlavu, když vejdeš; ale ve chvíli, kdy tvé oči potkají hledí, víš, že čekání skončilo."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 45, "hpMax": 45,
+    "mp": 0, "mpMax": 0,
+    "attack": 6, "defense": 5, "int": 0,
+    "magicResist": 30,
+    "accuracy": 10,
+    "spd": 4
+  },
+  "xp": 55,
+  "respawn": { "ticks": 1200 },
+  "goldDrop": { "formula": "2d6+5", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.bone", "chance": 1.0 },
+    { "defId": "item.knight_plate", "chance": 0.4 },
+    { "defId": "item.iron_helmet", "chance": 0.5 },
+    { "defId": "item.bone_helmet", "chance": 0.3 },
+    { "defId": "item.amulet_strength", "chance": 0.25 },
+    { "defId": "item.shock_scroll", "chance": 0.2 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "heavy cleave", "cs": "těžký sek" },
+      "chance": 1.0,
+      "cost": 18,
+      "damage": "1d8+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} brings the two-handed sword down on {target} in a slow, crushing arc!",
+          "{actor} steps forward and cleaves at {target} with both hands on the hilt!",
+          "{actor} drives the blade through the air at {target} with terrible weight!"
+        ],
+        "cs": [
+          "{actor} svede obouruční meč na {target.acc} v pomalém drtivém oblouku!",
+          "{actor} udělá krok vpřed a sekne po {target.dat} oběma rukama na jílci!",
+          "{actor} vede čepel vzduchem proti {target.dat} s hrozivou váhou!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.08,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "tilts his head a fraction, the visor moving in tiny, deliberate increments.",
+          "shifts the grip on his sword without a sound.",
+          "lets out a long, dry breath from inside the helmet, though he should not breathe at all.",
+          "scrapes the tip of the blade once across the flagstones."
+        ],
+        "cs": [
+          "nakloní hlavu o nepatrný kousek, hledí se pohne v drobných, rozvážných krocích.",
+          "přehmátne na meči bez jediného zvuku.",
+          "vydá z helmy dlouhý suchý výdech, ačkoli by neměl dýchat vůbec.",
+          "jednou škrábne špičkou čepele po dlažbě."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,25 @@
+{
+  "id": "item.bone_helmet",
+  "name": {
+    "en": "a bone helmet",
+    "cs": "kostěná přilba"
+  },
+  "nameAcc": {
+    "en": "the bone helmet",
+    "cs": "kostěnou přilbu"
+  },
+  "short": {
+    "en": "A pale helmet shaped from a single piece of skull-bone.",
+    "cs": "Bledá přilba vytvarovaná z jediného kusu lebeční kosti."
+  },
+  "long": {
+    "en": "A close-fitting helmet carved from a single curved piece of old bone, polished smooth on the outside and lined with soft cloth within. It is light on the head, much lighter than iron, but it feels strangely warm. Mages say bone shaped this way holds the wearer's thoughts a little steadier and lets a little more power sit ready behind the eyes.",
+    "cs": "Přilba těsně přiléhající k hlavě, vyřezaná z jednoho zakřiveného kusu staré kosti, zvenku vyleštěná do hladka a uvnitř vyložená měkkou látkou. Na hlavě je lehká, mnohem lehčí než železná, ale na dotek působí podivně teple. Mágové říkají, že takto tvarovaná kost drží myšlenky nositele o něco pevněji a nechává trochu více síly připravené za očima."
+  },
+  "tags": ["armor"],
+  "weight": 1,
+  "wearable": {
+    "slot": "head",
+    "bonus": { "defense": 1, "mpMax": 5, "int": 1 }
+  }
+}

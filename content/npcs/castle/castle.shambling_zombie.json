@@ -8,7 +8,9 @@
   "vision": "blind",
   "locations": {
     "castle.cloister": 1,
-    "castle.crypt_stair": 1
+    "castle.crypt_stair": 1,
+    "castle.dead_garden": 1,
+    "castle.ossuary": 1
   },
   "short": {
     "en": "A grey, slow-moving corpse drags itself forward, leaving a smear behind.",
@@ -22,14 +24,20 @@
   "aggressive": true,
   "mood": "angry",
   "stats": {
-    "hp": 50, "hpMax": 50,
+    "hp": 60, "hpMax": 60,
     "mp": 0, "mpMax": 0,
-    "attack": 5, "defense": 2, "int": 0,
+    "attack": 6, "defense": 2, "int": 0,
     "magicResist": 30,
     "spd": 4
   },
-  "xp": 45,
+  "xp": 58,
   "respawn": { "ticks": 600 },
+  "goldDrop": { "formula": "1d6", "chance": 0.3 },
+  "loot": [
+    { "defId": "item.bone", "chance": 0.5 },
+    { "defId": "item.bonebloom", "chance": 0.3 },
+    { "defId": "potion.heal", "chance": 0.3 }
+  ],
   "behaviors": [
     {
       "primitive": "attack",

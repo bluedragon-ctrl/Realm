@@ -1,0 +1,46 @@
+{
+  "id": "castle.loose_stone",
+  "name": {
+    "en": "a loose bone in the wall",
+    "cs": "uvolněná kost ve zdi"
+  },
+  "nameAcc": {
+    "en": "the loose bone",
+    "cs": "uvolněnou kost"
+  },
+  "short": {
+    "en": "One of the long bones in the wall sits a little out of line with the rest.",
+    "cs": "Jedna z dlouhých kostí ve zdi je o kousek vychýlená oproti ostatním."
+  },
+  "long": {
+    "en": "Among the careful rows of stacked bones, one long bone sits slightly out of place — pushed in a finger's-width less than its neighbours. When you grip it, it shifts in your hand. Behind it the wall sounds hollow.",
+    "cs": "Mezi pečlivými řadami narovnaných kostí je jedna dlouhá kost lehce vychýlená — zatlačená dovnitř o prst méně než její sousedky. Když ji uchopíš, pohne se ti v ruce. Za ní zní stěna dutě."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": { "location": "castle.ossuary", "count": 1, "respawnTicks": 7200 },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the loose bone clear and reach into the hollow behind it. Your fingers find something wrapped in old cloth.",
+        "others": "{actor} works a loose bone out of the wall and pulls something out of the gap behind it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš uvolněnou kost ven a sáhneš do dutiny za ní. Prsty nahmataš něco zabaleného do staré látky.",
+        "others": "{actor} vyklopí uvolněnou kost ze zdi a vytáhne ze štěrbiny za ní něco zabaleného."
+      }
+    },
+    "consumable": false,
+    "effect": {
+      "type": "open_chest",
+      "loot": [
+        { "defId": "potion.mana", "chance": 1.0 },
+        { "defId": "item.amulet_regen", "chance": 0.4 }
+      ],
+      "gold": "2d6+4"
+    }
+  }
+}

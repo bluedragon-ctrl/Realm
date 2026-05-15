@@ -1,0 +1,20 @@
+{
+  "id": "castle.archive",
+  "name": {
+    "en": "Sealed archive",
+    "cs": "Zapečetěný archiv"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "A vaulted stone chamber lined with locked cases and one motionless armoured figure.",
+    "cs": "Klenutá kamenná komnata lemovaná zamčenými skříněmi a jednou nehybnou postavou ve zbroji."
+  },
+  "long": {
+    "en": "The room is colder than the scriptorium and feels much older. Tall iron-bound cases line the walls, their lids closed and clasped with heavy locks; through narrow grilles you can see the edges of scrolls and small dark books inside. A single figure stands very still in the centre of the chamber, in full plate armour gone almost black with age. It does not move, but the air around it is wrong — too still, too cold — and you understand without being told that it has been waiting here for a very long time.",
+    "cs": "Místnost je chladnější než písárna a působí mnohem starším dojmem. Po stěnách stojí vysoké železem pobité skříně, jejich víka jsou zavřená a sevřená těžkými zámky; úzkými mřížemi vidíš okraje svitků a malých tmavých knih uvnitř. Uprostřed komnaty zcela nehnutě stojí jediná postava v plné plátové zbroji, věkem skoro úplně černé. Nepohne se, ale vzduch kolem ní je špatný — příliš tichý, příliš chladný — a aniž by ti to někdo řekl, chápeš, že tu čeká už velmi dlouho."
+  },
+  "exits": {
+    "n": "castle.scriptorium"
+  },
+  "tags": ["indoor", "castle", "ruins"]
+}

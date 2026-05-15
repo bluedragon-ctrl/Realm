@@ -1,0 +1,26 @@
+{
+  "id": "item.bonebloom",
+  "name": {
+    "en": "a bonebloom flower",
+    "cs": "květ kostiboule"
+  },
+  "nameAcc": {
+    "en": "the bonebloom flower",
+    "cs": "květ kostiboule"
+  },
+  "short": {
+    "en": "A pale, bone-coloured flower with five narrow petals.",
+    "cs": "Bledá květina barvy staré kosti s pěti úzkými okvětními lístky."
+  },
+  "long": {
+    "en": "A small flower the colour of dried bone, with five long narrow petals around a dark grey centre. It grows only where the ground is old and forgotten, and the stem is cold to the touch. Herbalists and alchemists prize it as a binding ingredient — it pulls together what does not want to mix.",
+    "cs": "Malá květina barvy vyschlé kosti s pěti dlouhými úzkými okvětními lístky kolem tmavě šedého středu. Roste jen tam, kde je půda stará a zapomenutá, a stonek má na dotek chladný. Bylinkáři a alchymisté si jí cení jako pojivové přísady — drží pohromadě to, co se nechce mísit."
+  },
+  "tags": ["herb", "reagent", "ingredient"],
+  "weight": 0,
+  "spawn": {
+    "location": "castle.dead_garden",
+    "count": 2,
+    "respawnTicks": 800
+  }
+}

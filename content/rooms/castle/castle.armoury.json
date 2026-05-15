@@ -14,7 +14,8 @@
     "cs": "Dřevěné stojany na zbraně zaplňují místnost — většina je prázdná, na několika stále visí poďobané meče nebo ohnuté halapartny. Na nízkém stole leží brusný kámen pokrytý silnou vrstvou prachu. Úzká střílna v jižní zdi propouští na zaprášenou podlahu tenký pruh šedého denního světla. Uprostřed stojí vysoká postava ve staré plátové zbroji se sklopeným hledím. Když vstoupíš, nehne se, ale železné rukavice pevněji sevřou jílec velkého meče."
   },
   "exits": {
-    "w": "castle.barracks"
+    "w": "castle.barracks",
+    "e": "castle.east_battlement"
   },
   "tags": ["indoor", "castle", "ruins"]
 }

@@ -18,6 +18,10 @@
   },
   "tags": ["reagent"],
   "weight": 0,
+  "spawn": {
+    "location": "castle.archive",
+    "count": 1
+  },
   "use": {
     "en": {
       "no_target": {

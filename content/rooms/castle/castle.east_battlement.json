@@ -1,0 +1,20 @@
+{
+  "id": "castle.east_battlement",
+  "name": {
+    "en": "East battlement",
+    "cs": "Východní cimbuří"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A narrow rooftop walkway runs along the castle's east wall.",
+    "cs": "Úzká střešní chodba se táhne podél východní hradby."
+  },
+  "long": {
+    "en": "Cold wind pulls at your hair on this exposed walkway. The stone parapet is cracked in places and missing whole teeth elsewhere, so you can look straight down into the weed-choked courtyard below. To the east the land rolls away in grey hills, and far off you can see a darker line of crags where smoke or mist hangs low — a place that does not feel ready for you yet. The walkway ends at a closed iron door back into the armoury.",
+    "cs": "Studený vítr ti tahá za vlasy na této otevřené chodbě. Kamenné cimbuří je místy popraskané, jinde úplně chybějí celé zuby, takže můžeš pohlédnout přímo dolů do zaplaveleného nádvoří. Na východě se země vlní šedými kopci a daleko vidíš tmavší pás skal, kde nízko visí kouř nebo mlha — místo, které pro tebe ještě nevypadá nachystané. Chodba končí u zavřených železných dveří zpět do zbrojnice."
+  },
+  "exits": {
+    "w": "castle.armoury"
+  },
+  "tags": ["outdoor", "castle", "ruins"]
+}
