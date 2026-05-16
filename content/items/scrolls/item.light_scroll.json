@@ -17,7 +17,7 @@
     "en": "A scroll of pale parchment that holds a soft glow of its own. A tiny sun is drawn at its centre.",
     "cs": "Svitek z bledého pergamenu, který sám od sebe jemně září. Uprostřed je nakresleno malé slunce."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

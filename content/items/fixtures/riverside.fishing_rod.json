@@ -1,5 +1,5 @@
 {
-  "id": "item.fishing_rod",
+  "id": "riverside.fishing_rod",
   "rarity": 1,
   "name": {
     "en": "a willow fishing rod",
@@ -10,20 +10,17 @@
     "cs": "vrbový rybářský prut"
   },
   "short": {
-    "en": "A long flexible willow rod with a waxed line and a clean steel hook.",
-    "cs": "Dlouhý ohebný vrbový prut s navoskovaným vlascem a čistým ocelovým háčkem."
+    "en": "A long flexible willow rod leans against the bank, line trailing over the water.",
+    "cs": "U břehu se opírá dlouhý ohebný vrbový prut, vlasec se mu táhne nad vodou."
   },
   "long": {
-    "en": "A flexible rod cut from young willow, well-seasoned and bound at the grip with strips of dark leather. A long waxed line trails from the tip with a clean steel hook at the end. It hisses softly through the air when you swing it. Thread an earthworm onto the hook to fish.",
-    "cs": "Ohebný prut uříznutý z mladé vrby, řádně vysušený a u rukojeti omotaný proužky tmavé kůže. Od špičky se táhne dlouhý navoskovaný vlasec zakončený čistým ocelovým háčkem. Když jím švihneš, tiše zasviští vzduchem. Navlékni si na háček žížalu, abys mohl rybařit."
+    "en": "A flexible rod cut from young willow, well-seasoned and bound at the grip with strips of dark leather. It rests against the bank, butt wedged into the gravel, a long waxed line trailing from the tip into the slow water. A clean steel hook hangs ready at the end. Thread an earthworm onto the hook to fish.",
+    "cs": "Ohebný prut uříznutý z mladé vrby, řádně vysušený a u rukojeti omotaný proužky tmavé kůže. Opírá se o břeh, pažbou zaklíněnou do štěrku, a od špičky se mu nad vodu táhne dlouhý navoskovaný vlasec. Na konci čeká čistý ocelový háček. Navlékni si na něj žížalu, abys mohl rybařit."
   },
-  "tags": ["tool", "fishing"],
-  "weight": 2,
-  "spawn": {
-    "location": "riverside.fishing_spot",
-    "count": 1,
-    "respawnTicks": 1200
-  },
+  "tags": ["fixture", "tool", "fishing"],
+  "pickable": false,
+  "weight": 99,
+  "spawn": { "location": "riverside.fishing_spot", "count": 1 },
   "exchanges": [
     {
       "id": "rod.fish",

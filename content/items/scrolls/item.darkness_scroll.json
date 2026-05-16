@@ -17,7 +17,7 @@
     "en": "A scroll of charcoal-black parchment that drinks in the nearby light. A closed eye is drawn at its centre.",
     "cs": "Svitek z uhlově černého pergamenu, který do sebe nasává okolní světlo. Uprostřed je nakresleno zavřené oko."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

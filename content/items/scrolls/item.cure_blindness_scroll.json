@@ -17,7 +17,7 @@
     "en": "A scroll of fine, almost translucent parchment, tied with a white ribbon. An open eye is drawn at its centre in bright silver ink, ringed with tiny rays. It feels warm to the touch.",
     "cs": "Svitek jemného, téměř průsvitného pergamenu, převázaný bílou stuhou. Uprostřed je jasným stříbrným inkoustem nakresleno otevřené oko obklopené drobnými paprsky. Na dotek je teplý."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

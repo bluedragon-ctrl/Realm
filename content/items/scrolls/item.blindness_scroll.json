@@ -17,7 +17,7 @@
     "en": "A scroll of parchment dyed almost black, tied with a strip of grey linen. A closed eye is drawn at its centre in faint silver ink. It feels heavier than it should.",
     "cs": "Svitek pergamenu zbarvený do téměř černé, převázaný proužkem šedého plátna. Uprostřed je slabým stříbrným inkoustem nakresleno zavřené oko. Působí těžší, než by měl."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

@@ -55,8 +55,14 @@
     {
       "id": "innkeeper.buy_torch",
       "flavor": "buy",
-      "inputs":  [{ "gold": 2 }],
+      "inputs":  [{ "gold": 5 }],
       "outputs": [{ "item": "item.torch" }]
+    },
+    {
+      "id": "innkeeper.buy_candle",
+      "flavor": "buy",
+      "inputs":  [{ "gold": 2 }],
+      "outputs": [{ "item": "item.candle" }]
     },
     {
       "id": "innkeeper.craft_pub_key",

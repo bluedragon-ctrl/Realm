@@ -29,6 +29,6 @@
       "forest.berry_patch": 1,
       "forest.mushroom_hollow": 1
     },
-    "respawnTicks": 600
+    "respawnTicks": 300
   }
 }

@@ -17,7 +17,7 @@
     "en": "A pale blue scroll edged with thin frost that never seems to melt. The writing inside glows faintly with a small snowflake.",
     "cs": "Bledě modrý svitek s okraji pokrytými jinovatkou, která jakoby netála. Písmo uvnitř slabě svítí malou sněhovou vločkou."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

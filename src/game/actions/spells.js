@@ -66,6 +66,14 @@ export function effectDetail(spell, actor) {
       ratio,
     });
   }
+  if (eff.type === 'teach_spell') {
+    const def = world.spellDefs.get(eff.spell);
+    if (!def) return s('spells.detail.teach_unknown', lang, { id: eff.spell });
+    return s('spells.detail.teach', lang, {
+      name: t(def.name, lang),
+      mp: def.mpCost ?? 0,
+    });
+  }
   if (eff.type === 'apply_effect') {
     const def = world.effectDefs.get(eff.effectId);
     if (!def) return s('spells.detail.apply_unknown', lang, { id: eff.effectId });

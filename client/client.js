@@ -834,7 +834,7 @@ function exchangeGoldAmount(entry) {
     const g = entry.inputs.find(x => x.kind === 'gold');
     return g ? g.amount : null;
   }
-  if (entry.flavor === 'sell') {
+  if (entry.flavor === 'sell' || entry.flavor === 'sink') {
     const g = entry.outputs.find(x => x.kind === 'gold');
     return g ? g.amount : null;
   }
@@ -853,7 +853,7 @@ function exchangeSendCommand(entry) {
   return `exchange ${entry.id}`;
 }
 
-function exchangeRowLabel(entry) {
+function exchangeRowLabel(entry, sinkLabels) {
   if (entry.flavor === 'buy') {
     const item = exchangePrimaryItem(entry);
     const gold = exchangeGoldAmount(entry);
@@ -864,6 +864,11 @@ function exchangeRowLabel(entry) {
     const gold = exchangeGoldAmount(entry);
     const namePart = item && item.count > 1 ? `${item.count} ${item.name}` : (item?.name ?? '?');
     return `${namePart} — ${gold ?? '?'}g`;
+  }
+  if (entry.flavor === 'sink') {
+    const gold = exchangeGoldAmount(entry);
+    const what = entry.label || sinkLabels?.any || 'any item';
+    return `${what} — ${gold ?? '?'}g`;
   }
   return `${formatExchangeSide(entry.inputs)} → ${formatExchangeSide(entry.outputs)}`;
 }
@@ -893,10 +898,12 @@ function renderExchangeDrillDown(msg) {
   backRow.appendChild(backChip);
   inspectBody.appendChild(backRow);
 
-  const labels = msg.exchangeRowLabels ?? { buy: 'For sale', sell: 'Wants to buy', craft: 'Can make' };
-  const flavorOrder = ['buy', 'craft', 'sell'];
+  const labels = msg.exchangeRowLabels ?? { buy: 'For sale', sell: 'Wants to buy', craft: 'Can make', sink: 'Will trade for' };
+  const flavorOrder = ['buy', 'craft', 'sell', 'sink'];
   const youHaveTpl = msg.exchangeYouHaveLabel ?? 'you have {count}';
   const confirmLabels = msg.exchangeConfirmLabels ?? {};
+  const sinkLabels = msg.exchangeSinkLabels ?? { any: 'any item', empty: 'you have nothing to offer here' };
+  const hostName = msg.name ?? '';
 
   const split = document.createElement('div');
   split.className = 'exchange-split';
@@ -912,6 +919,49 @@ function renderExchangeDrillDown(msg) {
 
   function showDetail(entry) {
     detailCol.innerHTML = '';
+
+    if (entry.flavor === 'sink') {
+      const name = document.createElement('div');
+      name.className = 'exchange-detail-name';
+      name.textContent = entry.label || sinkLabels.any;
+      detailCol.appendChild(name);
+
+      const gold = exchangeGoldAmount(entry);
+      const priceLine = document.createElement('div');
+      priceLine.className = 'exchange-detail-formula';
+      priceLine.textContent = `→ ${gold ?? '?'}g`;
+      detailCol.appendChild(priceLine);
+
+      const sinkItems = Array.isArray(entry.sinkItems) ? entry.sinkItems : [];
+      if (sinkItems.length === 0) {
+        const empty = document.createElement('div');
+        empty.className = 'exchange-detail-desc';
+        empty.textContent = sinkLabels.empty;
+        detailCol.appendChild(empty);
+        return;
+      }
+
+      const confirmTpl = confirmLabels.sink ?? 'Sell ({price}g)';
+      for (const si of sinkItems) {
+        const row = document.createElement('div');
+        row.className = 'exchange-detail-actions';
+
+        const lbl = document.createElement('span');
+        lbl.className = 'exchange-list-row-label';
+        lbl.textContent = si.count > 1 ? `${si.name} ×${si.count}` : si.name;
+        row.appendChild(lbl);
+
+        const sellChip = makeChip(
+          confirmTpl.replace('{price}', gold ?? '?'),
+          'chip-flavor-sell',
+          () => sendInput(`give ${si.id} to ${hostName}`),
+        );
+        row.appendChild(sellChip);
+        detailCol.appendChild(row);
+      }
+      return;
+    }
+
     const item = exchangePrimaryItem(entry);
     const preview = item?.preview;
 
@@ -981,7 +1031,7 @@ function renderExchangeDrillDown(msg) {
 
       const lbl = document.createElement('span');
       lbl.className = 'exchange-list-row-label';
-      lbl.textContent = exchangeRowLabel(entry);
+      lbl.textContent = exchangeRowLabel(entry, sinkLabels);
       btn.appendChild(lbl);
 
       const item = exchangePrimaryItem(entry);

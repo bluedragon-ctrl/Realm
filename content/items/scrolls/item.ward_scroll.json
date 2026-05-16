@@ -17,7 +17,7 @@
     "en": "A scroll of thin pale paper, soft to the touch. The words inside are written in a faint ink that catches the light like frost on glass.",
     "cs": "Svitek z tenkého bledého papíru, měkký na dotek. Slova uvnitř jsou psána bledým inkoustem, který ve světle září jako mráz na skle."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "spawn": {
     "location": "castle.archive",

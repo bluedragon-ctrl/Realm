@@ -17,7 +17,7 @@
     "en": "A thick scroll, its edges blackened as if it had once been very close to a fire. The writing inside glows faintly with a small flame symbol.",
     "cs": "Silný svitek s okraji zčernalými, jako by byl kdysi blízko ohně. Písmo uvnitř slabě svítí a zobrazuje malý plamínek."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

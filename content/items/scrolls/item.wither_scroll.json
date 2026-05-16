@@ -17,7 +17,7 @@
     "en": "A scroll of dry parchment, so brittle it crackles at the slightest touch. A withered branch is sketched across its centre.",
     "cs": "Svitek suchého pergamenu, tak křehkého, že při sebemenším doteku praská. Uprostřed je načrtnutá uschlá větev."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

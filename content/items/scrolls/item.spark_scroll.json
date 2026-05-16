@@ -17,7 +17,7 @@
     "en": "A thin scroll of yellowed paper. The writing inside glows faintly with a crackling spark symbol.",
     "cs": "Tenký svitek ze zežloutlého papíru. Písmo uvnitř slabě svítí a zobrazuje praskající blesk."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

@@ -17,7 +17,7 @@
     "en": "A heavy scroll of pale parchment. The air around it smells of rain and hot iron, and small white sparks jump along its edges whenever you move.",
     "cs": "Těžký svitek z bledého pergamenu. Vzduch kolem voní deštěm a žhavým železem a po jeho okrajích přeskakují malé bílé jiskry, kdykoli se pohneš."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

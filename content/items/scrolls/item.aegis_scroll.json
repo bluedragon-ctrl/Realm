@@ -17,7 +17,7 @@
     "en": "Heavy parchment, the wax seal pressed with the device of a raised standard. Whatever's inside was meant to be shared with a company.",
     "cs": "Těžký pergamen, voskovou pečeť zdobí znak zdviženého praporu. Cokoliv je uvnitř, bylo zjevně určeno pro celou družinu."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {
