@@ -19,7 +19,7 @@
   },
   "tags": ["consumable", "food", "reagent"],
   "weight": 0,
-  "spawn": { "locations": { "home.garden": 10, "village.orchard": 10 }, "respawnTicks": 1800 },
+  "spawn": { "locations": { "home.garden": 2, "village.orchard": 2 }, "respawnTicks": 1800 },
   "use": {
     "en": {
       "no_target": {

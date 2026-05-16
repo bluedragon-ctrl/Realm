@@ -313,6 +313,17 @@ export function registerAttackAggro(actor, target, hate = 1) {
       if (joined.length > 0) emitPackJoin(target.location, joined, actor);
     }
   }
+
+  const allies = world.actorsByRoom.get(actor.location);
+  if (allies) {
+    for (const ally of allies) {
+      if (ally.kind !== 'npc' || ally.alive === false) continue;
+      if (!ally.summoned || ally.summonerId !== actor.id) continue;
+      if (hasAggroEntry(ally, target)) continue;
+      addHate(ally, target, Math.max(1, hate));
+      ally.currentTarget = target;
+    }
+  }
 }
 
 function emitPackJoin(roomId, joiners, attacker) {

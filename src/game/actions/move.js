@@ -8,6 +8,7 @@ import { awardXp, markRoomVisited } from '../xp.js';
 import { requireStanding } from '../positionGate.js';
 import { canPerceiveRoom } from '../light.js';
 import { canPerceive } from '../perception.js';
+import { resolveName } from '../declension.js';
 
 const DIR_ALIASES = {
   n: 'n', north: 'n',
@@ -86,7 +87,7 @@ export default function move(actor, args) {
       kind: 'emote',
       source: 'ambient',
       text: s('narration.leaves', recipient.lang, {
-        name: actor.name,
+        name: resolveName(actor, 'nom', recipient.lang),
         direction: dirName(exitKey, recipient.lang) || exitKey,
       }),
     };
@@ -103,7 +104,7 @@ export default function move(actor, args) {
     return {
       kind: 'emote',
       source: 'ambient',
-      text: s('narration.arrives', recipient.lang, { name: actor.name }),
+      text: s('narration.arrives', recipient.lang, { name: resolveName(actor, 'nom', recipient.lang) }),
     };
   }, actor);
 
