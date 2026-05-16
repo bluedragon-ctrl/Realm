@@ -7,7 +7,7 @@
 //   world/load.js    — boot orchestration
 
 export { world, START_ROOM, RESPAWN_ROOM, getRoom, isAdmin } from './world/state.js';
-export { unlockExit, isExitUnlocked, isExitLocked } from './world/exits.js';
+export { unlockExit, isExitUnlocked, isExitLocked, checkExitRequirements } from './world/exits.js';
 export {
   actorsInRoom, placeActor, removeActor, registerActor,
   findActor, findInRoom, playersInRoom, broadcastToRoom, allActors,

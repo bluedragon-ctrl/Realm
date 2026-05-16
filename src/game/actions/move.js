@@ -1,4 +1,4 @@
-import { getRoom, placeActor, broadcastToRoom, isExitLocked, actorsInRoom } from '../world.js';
+import { world, getRoom, placeActor, broadcastToRoom, isExitLocked, checkExitRequirements, actorsInRoom } from '../world.js';
 import { describeRoom, describeRoomToAll } from './look.js';
 import { s, t, dirName } from '../../i18n.js';
 import { sendStats } from '../messages.js';
@@ -57,6 +57,13 @@ export default function move(actor, args) {
   }
   if (isExitLocked(room, exitKey)) {
     actor.session.send({ kind: 'error', text: s('move.locked', actor.lang) });
+    return;
+  }
+  const req = checkExitRequirements(room, exitKey, actor);
+  if (!req.ok) {
+    const def = world.itemDefs.get(req.missingItem);
+    const itemName = def ? t(def.name, actor.lang) : req.missingItem;
+    actor.session.send({ kind: 'error', text: s('move.need_equipped', actor.lang, { item: itemName }) });
     return;
   }
   const targetId = room.exits[exitKey];
