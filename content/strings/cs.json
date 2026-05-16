@@ -374,6 +374,8 @@
   "spells.detail.apply_duration": "efekt: {icon} {name} ({duration} ticků)",
   "spells.detail.apply_simple": "efekt: {icon} {name}",
   "spells.detail.apply_unknown": "efekt: {id} (neznámý)",
+  "spells.detail.teach": "naučí kouzlo {name} ({mp} MP)",
+  "spells.detail.teach_unknown": "naučí kouzlo {id} (neznámé)",
 
   "item.detail.damage": "poškození: {formula}",
   "item.detail.bonus": "bonus: {mods}",

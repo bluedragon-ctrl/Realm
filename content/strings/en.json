@@ -374,6 +374,8 @@
   "spells.detail.apply_duration": "effect: {icon} {name} ({duration} ticks)",
   "spells.detail.apply_simple": "effect: {icon} {name}",
   "spells.detail.apply_unknown": "effect: {id} (unknown)",
+  "spells.detail.teach": "teaches {name} ({mp} MP)",
+  "spells.detail.teach_unknown": "teaches {id} (unknown)",
 
   "item.detail.damage": "damage: {formula}",
   "item.detail.bonus": "bonus: {mods}",
