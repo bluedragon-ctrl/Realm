@@ -1,0 +1,46 @@
+{
+  "id": "potion.regen",
+  "rarity": 2,
+  "name": {
+    "en": "a troll's vigour potion",
+    "cs": "lektvar trollí síly"
+  },
+  "nameAcc": {
+    "en": "the troll's vigour potion",
+    "cs": "lektvar trollí síly"
+  },
+  "short": {
+    "en": "A thick green-brown potion in a stout vial. Bits of leaf float on top.",
+    "cs": "Hustý zeleno-hnědý lektvar v silné lahvičce. Na hladině plavou kousky listů."
+  },
+  "long": {
+    "en": "A stout glass vial sealed with thick wax. The liquid inside is dark green-brown and slow-moving, with tiny shreds of leaf floating in it. It smells strongly of damp moss and bonebloom. Drinking it knits small cuts closed over a long, patient minute.",
+    "cs": "Silná skleněná lahvička zapečetěná tlustým voskem. Tekutina uvnitř je tmavě zeleno-hnědá a pomalá, plavou v ní drobné útržky listů. Voní silně vlhkým mechem a kostnatcem. Po vypití se drobné řezné rány pomalu a trpělivě zacelují celou dlouhou minutu."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the wax stopper and swallow the thick potion. A slow, patient warmth settles in your skin — small hurts begin to close.",
+        "others": "{actor} drinks a thick green-brown potion. {actor.gen} skin looks tougher and more whole."
+      },
+      "to_target": {
+        "self": "you hand the troll's vigour potion to {target}, who drinks it.",
+        "others": "{actor} hands a thick green potion to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš voskovou zátku a polkneš hustý lektvar. Do kůže ti vstoupí pomalé trpělivé teplo — drobné odřeniny se začnou zavírat.",
+        "others": "{actor} vypije hustý zeleno-hnědý lektvar. Kůže {actor.gen} vypadá houževnatější a zacelenější."
+      },
+      "to_target": {
+        "self": "podáš lektvar trollí síly {target.dat} a ten ho vypije.",
+        "others": "{actor} podává hustý zelený lektvar {target.dat} a ten ho vypije."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.troll_hide_regen" },
+    "consumable": true
+  }
+}

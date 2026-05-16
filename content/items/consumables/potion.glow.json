@@ -1,0 +1,46 @@
+{
+  "id": "potion.glow",
+  "rarity": 1,
+  "name": {
+    "en": "a glow potion",
+    "cs": "lektvar záře"
+  },
+  "nameAcc": {
+    "en": "the glow potion",
+    "cs": "lektvar záře"
+  },
+  "short": {
+    "en": "A small vial of pale green liquid that glimmers softly like a firefly.",
+    "cs": "Drobná lahvička s bledě zelenou tekutinou, která jemně mihotá jako světluška."
+  },
+  "long": {
+    "en": "A small glass vial corked tight. The pale green liquid inside glimmers with a soft, steady glow — strong enough to read by, gentle enough not to dazzle. It smells of mushroom and old wax.",
+    "cs": "Drobná skleněná lahvička pevně zazátkovaná. Bledě zelená tekutina uvnitř se mihotá měkkou stálou září — dost silnou na čtení, dost jemnou, aby neoslnila. Voní houbou a starým voskem."
+  },
+  "tags": ["potion", "consumable", "light"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the stopper and drink the glow potion. A soft green light spills from your skin like a wrapped candle.",
+        "others": "{actor} drinks a pale green potion. A soft green glow spreads across {actor.gen} skin."
+      },
+      "to_target": {
+        "self": "you tilt the vial to {target}'s lips and pour the glow potion in. A soft green light spreads across {target.gen} skin.",
+        "others": "{actor} tilts a small vial to {target}'s lips and pours a glow potion in. A soft green light spreads across {target.gen} skin."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš zátku a vypiješ lektvar záře. Z kůže ti vyrazí měkká zelená záře jako zabalená svíčka.",
+        "others": "{actor} vypije bledě zelený lektvar. Po kůži {actor.gen} se rozlije měkká zelená záře."
+      },
+      "to_target": {
+        "self": "přiložíš lahvičku k ústům {target.gen} a naliješ lektvar záře dovnitř. Po kůži {target.gen} se rozlije měkká zelená záře.",
+        "others": "{actor} přikládá lahvičku k ústům {target.gen} a nalévá dovnitř lektvar záře. Po kůži {target.gen} se rozlije měkká zelená záře."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.candlelight" },
+    "consumable": true
+  }
+}

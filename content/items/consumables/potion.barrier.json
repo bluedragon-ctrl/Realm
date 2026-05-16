@@ -1,0 +1,46 @@
+{
+  "id": "potion.barrier",
+  "rarity": 3,
+  "name": {
+    "en": "a barrier potion",
+    "cs": "lektvar bariéry"
+  },
+  "nameAcc": {
+    "en": "the barrier potion",
+    "cs": "lektvar bariéry"
+  },
+  "short": {
+    "en": "A small vial of clear blue liquid that shimmers like a soap bubble.",
+    "cs": "Drobná lahvička s čirou modrou tekutinou, která se třpytí jako mýdlová bublina."
+  },
+  "long": {
+    "en": "A round glass vial sealed with wax. The liquid inside is glass-clear with a faint blue cast, and the surface shimmers in rainbow colours when it moves, like a soap bubble. Drinking it raises a thin shimmering shell around the body that soaks up the next strong blow.",
+    "cs": "Kulatá skleněná lahvička zapečetěná voskem. Tekutina uvnitř je čirá jako sklo s lehkým modrým nádechem a hladina se při pohybu duhově třpytí jako mýdlová bublina. Po vypití kolem těla povstane tenká třpytivá skořápka, která pohltí příští silnou ránu."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the stopper and drink the shimmering liquid. A thin rainbow shell wraps around you, almost too faint to see.",
+        "others": "{actor} drinks a clear blue potion. A thin rainbow shimmer wraps around {actor.acc}."
+      },
+      "to_target": {
+        "self": "you hand the barrier potion to {target}, who drinks it.",
+        "others": "{actor} hands a small shimmering vial to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš zátku a vypiješ třpytivou tekutinu. Kolem těla se ti obtočí tenká duhová skořápka, sotva viditelná.",
+        "others": "{actor} vypije čirý modrý lektvar. Kolem {actor.gen} se obtočí tenké duhové třpytění."
+      },
+      "to_target": {
+        "self": "podáš lektvar bariéry {target.dat} a ten ho vypije.",
+        "others": "{actor} podává drobnou třpytivou lahvičku {target.dat} a ten ji vypije."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.barrier" },
+    "consumable": true
+  }
+}

@@ -17,6 +17,6 @@
     "en": "A huge slab of dark red meat, heavy with fat and threaded with thick sinew. It smells gamy and strong. Cooked over a slow fire it makes a feast — the kind of meal that keeps you on your feet through the longest of days.",
     "cs": "Obrovský plát tmavě rudého masa, těžký lojem a protkaný tlustými šlachami. Voní zvěřinou a silně. Když se peče nad pomalým ohněm, dá hostinu — takové jídlo, po kterém vydržíš na nohou i nejdelší den."
   },
-  "tags": ["food", "meat", "ingredient"],
+  "tags": ["food", "meat", "reagent", "ingredient"],
   "weight": 2
 }

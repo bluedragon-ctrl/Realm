@@ -17,7 +17,7 @@
     "en": "A small clay jar with a tight wax plug. Dark golden honey gleams inside. A spoonful is said to clear a foggy head and ease a sore body.",
     "cs": "Malá hliněná nádoba s těsnou voskovou zátkou. Uvnitř se třpytí tmavě zlatý med. Říká se, že lžička medu rozjasní zákal v hlavě a uleví unavenému tělu."
   },
-  "tags": ["consumable", "food"],
+  "tags": ["consumable", "food", "reagent"],
   "weight": 0,
   "spawn": { "locations": { "home.garden": 10, "village.orchard": 10 }, "respawnTicks": 1800 },
   "use": {

@@ -7,6 +7,7 @@ import { effectDetail } from './spells.js';
 import { t, s, dirName } from '../../i18n.js';
 import { canPerceiveRoom } from '../light.js';
 import { canPerceive } from '../perception.js';
+import { canAfford } from '../exchange.js';
 
 function withPositionSuffix(name, position, lang) {
   if (!position || position === 'stand') return name;
@@ -134,6 +135,7 @@ function serializeExchanges(host, lang, actor) {
         withInventoryCount: e.flavor === 'sell' || e.flavor === 'craft',
       }),
       outputs: formatSide(e.outputs, { withPreview: previewOnOutputs }),
+      affordable: actor ? canAfford(actor, e, 1).ok : true,
     };
   });
 }

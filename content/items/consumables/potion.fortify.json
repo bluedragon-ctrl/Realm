@@ -1,0 +1,46 @@
+{
+  "id": "potion.fortify",
+  "rarity": 2,
+  "name": {
+    "en": "a bonemeal draught",
+    "cs": "kostěný doušek"
+  },
+  "nameAcc": {
+    "en": "the bonemeal draught",
+    "cs": "kostěný doušek"
+  },
+  "short": {
+    "en": "A heavy stoneware bottle of thick honey-coloured drink.",
+    "cs": "Těžká kameninová lahev s hustým medově zbarveným nápojem."
+  },
+  "long": {
+    "en": "A heavy stoneware bottle stoppered with cork and twine. The drink inside is thick and honey-coloured, with a strong smell of bone broth and sweet honey. It tastes hearty and a little chalky. Drinking it makes the body feel solid as a stone wall — slower, but very hard to push over.",
+    "cs": "Těžká kameninová lahev zazátkovaná korkem a motouzem. Nápoj uvnitř je hustý a medově zbarvený, voní silně vývarem z kostí a sladkým medem. Chutná vydatně a trochu křídově. Po vypití se tělo cítí pevné jako kamenná zeď — pomalejší, ale moc těžko se s ním pohne."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you uncork the bottle and drink the heavy draught. Your body settles into itself, slow and solid as stone.",
+        "others": "{actor} drinks a thick honey-coloured draught. {actor.gen} stance grows slow and solid."
+      },
+      "to_target": {
+        "self": "you hand the bonemeal draught to {target}, who drinks it.",
+        "others": "{actor} hands a heavy bottle to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "odzátkáš lahev a vypiješ těžký doušek. Tělo se ti usadí samo do sebe, pomalé a pevné jako kámen.",
+        "others": "{actor} vypije hustý medově zbarvený doušek. Postoj {actor.gen} se zvolní a zpevní."
+      },
+      "to_target": {
+        "self": "podáš kostěný doušek {target.dat} a ten ho vypije.",
+        "others": "{actor} podává těžkou lahev {target.dat} a ten ji vypije."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.fortify" },
+    "consumable": true
+  }
+}

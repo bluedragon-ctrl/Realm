@@ -17,7 +17,7 @@
     "en": "A small, sturdy herb that grows on stony slopes. The leaves are hard and grey-green, with edges that prickle the fingers. Brewed correctly, ironwort hardens the skin for a short time. The herbalist will pay attention to it.",
     "cs": "Drobná houževnatá bylina, která roste na kamenitých svazích. Lístky jsou tvrdé a šedozelené, s okraji, které píchají do prstů. Správně uvařený železník na chvíli ztvrdí kůži. Bylinkářka o něj má zájem."
   },
-  "tags": ["ingredient", "herb"],
+  "tags": ["reagent", "ingredient", "herb"],
   "weight": 0,
   "spawn": { "location": "forest.tangled_slope", "count": 3, "respawnTicks": 2400 }
 }

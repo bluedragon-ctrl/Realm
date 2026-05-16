@@ -1,0 +1,12 @@
+{
+  "id": "effect.quickness",
+  "name": {
+    "en": "Quickness",
+    "cs": "Rychlost"
+  },
+  "kind": "buff",
+  "icon": "💨",
+  "duration": 25,
+  "statMod": { "spd": 3, "evasion": 15 },
+  "stack": "refresh"
+}

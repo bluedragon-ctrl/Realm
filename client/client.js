@@ -1000,12 +1000,17 @@ function renderExchangeDrillDown(msg) {
 
     const actions = document.createElement('div');
     actions.className = 'exchange-detail-actions';
+    const affordable = entry.affordable !== false;
     const confirmCls = `chip-flavor-${entry.flavor}`;
     const confirmChip = makeChip(
       exchangeConfirmLabel(entry, { exchangeConfirmLabels: confirmLabels }),
       confirmCls,
-      () => sendInput(exchangeSendCommand(entry)),
+      affordable ? () => sendInput(exchangeSendCommand(entry)) : () => {},
     );
+    if (!affordable) {
+      confirmChip.classList.add('chip-disabled');
+      confirmChip.setAttribute('aria-disabled', 'true');
+    }
     actions.appendChild(confirmChip);
     detailCol.appendChild(actions);
   }
@@ -1028,6 +1033,7 @@ function renderExchangeDrillDown(msg) {
       const btn = document.createElement('button');
       btn.type = 'button';
       btn.className = `exchange-list-row exchange-list-row-${flavor}`;
+      if (entry.affordable === false) btn.classList.add('exchange-list-row-unaffordable');
 
       const lbl = document.createElement('span');
       lbl.className = 'exchange-list-row-label';

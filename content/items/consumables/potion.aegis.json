@@ -1,0 +1,46 @@
+{
+  "id": "potion.aegis",
+  "rarity": 2,
+  "name": {
+    "en": "an aegis potion",
+    "cs": "lektvar aegidy"
+  },
+  "nameAcc": {
+    "en": "the aegis potion",
+    "cs": "lektvar aegidy"
+  },
+  "short": {
+    "en": "A heavy vial of silver-grey liquid that catches the light like a mirror.",
+    "cs": "Těžká lahvička se stříbřitě šedou tekutinou, která chytá světlo jako zrcadlo."
+  },
+  "long": {
+    "en": "A heavy little vial sealed with wax and a wisp of silver wire. The liquid inside is silver-grey and slightly glossy, like polished metal poured to water. Tiny flecks of pearl drift through it. Drinking it stiffens the skin into a strong, patient shell.",
+    "cs": "Těžká drobná lahvička zapečetěná voskem a vlnkou stříbrného drátku. Tekutina uvnitř je stříbřitě šedá a lehce lesklá, jako naleštěný kov nalitý do vody. Vznášejí se v ní drobné šupinky perly. Po vypití kůže ztuhne v pevnou trpělivou skořápku."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the stopper and drink the silver liquid. Your skin hardens into a strong, patient shell.",
+        "others": "{actor} drinks a heavy silver potion. {actor.gen} skin takes on a faint metallic sheen."
+      },
+      "to_target": {
+        "self": "you hand the aegis potion to {target}, who drinks it.",
+        "others": "{actor} hands a heavy silver vial to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš zátku a vypiješ stříbrnou tekutinu. Kůže ti ztvrdne v pevnou trpělivou skořápku.",
+        "others": "{actor} vypije těžký stříbrný lektvar. Kůže {actor.gen} dostane slabý kovový lesk."
+      },
+      "to_target": {
+        "self": "podáš lektvar aegidy {target.dat} a ten ho vypije.",
+        "others": "{actor} podává těžkou stříbrnou lahvičku {target.dat} a ten ji vypije."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.aegis_minor" },
+    "consumable": true
+  }
+}

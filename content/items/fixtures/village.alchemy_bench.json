@@ -87,6 +87,216 @@
           }
         }
       }
+    },
+    {
+      "id": "alchemy_bench.brew_moonlight",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.pearl_dust", "count": 1 }, { "item": "item.bat_wing", "count": 1 }],
+      "outputs": [{ "item": "potion.moonlight" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you grind pearl dust and a bat wing together in a stone mortar until the powder turns silvery and smells of dusk. Stirred into clear water on {target}, the mixture brightens to liquid moonlight.",
+            "others": "{actor} grinds pearl dust and a bat wing on {target}, then stirs the silvery powder into water. The vial glows with soft moonlight."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "v kamenném hmoždíři rozemeleš perlový prach a netopýří křídlo, dokud prášek nestříbří a nezavoní soumrakem. Vmícháš ho do čisté vody na {target} a směs se rozzáří tekutým měsíčním svitem.",
+            "others": "{actor} rozemele perlový prach a netopýří křídlo na {target} a stříbřitý prášek vmíchá do vody. Lahvička se rozzáří měkkým měsíčním svitem."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_nightvision",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.bat_wing", "count": 1 }, { "item": "item.cave_slime", "count": 1 }],
+      "outputs": [{ "item": "potion.nightvision" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you smear cave slime onto a bat wing and crush both into a dark paste. Diluted with water on {target}, the mixture turns inky violet — a nightvision potion.",
+            "others": "{actor} crushes a bat wing with cave slime on {target}. The vial fills with an inky violet liquid."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "potřeš netopýří křídlo jeskynním slizem a oboje rozmačkáš na tmavou pastu. Naředíš ji vodou na {target} a směs zinkoustoví do fialova — lektvar nočního vidění.",
+            "others": "{actor} rozmačká netopýří křídlo s jeskynním slizem na {target}. Lahvička se naplní inkoustově fialovou tekutinou."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_keen_senses",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.bait_worm", "count": 3 }, { "item": "item.river_fish", "count": 1 }],
+      "outputs": [{ "item": "potion.keen_senses" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you scrape a few silver scales from the fish and let three earthworms wriggle into the bowl on {target}. Strained through cloth into clear water, the mixture sharpens the senses of any who drink it.",
+            "others": "{actor} scrapes fish scales and tips earthworms into a bowl on {target}, then strains the result into a clear vial."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "z ryby seškrábeš pár stříbrných šupin a do misky na {target} pustíš tři žížaly. Procedíš to skrz látku do čisté vody a směs zostří smysly tomu, kdo ji vypije.",
+            "others": "{actor} seškrábe rybí šupiny a vsype žížaly do misky na {target}, pak procedí výsledek do čiré lahvičky."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_glow",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.glow_mushroom", "count": 1 }, { "item": "item.bat_wing", "count": 2 }],
+      "outputs": [{ "item": "potion.glow" }],
+      "xp": 3,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you mash a glow mushroom with two bat wings into a pale green pulp on {target}. Pressed and bottled, the liquid keeps glowing softly on its own.",
+            "others": "{actor} mashes a glow mushroom with bat wings on {target}. The pale green pulp glows softly as it is bottled."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "na {target} rozmačkáš zářící houbu se dvěma netopýřími křídly na bledě zelenou kaši. Vylisuješ ji a naliješ do lahvičky — tekutina sama tiše září.",
+            "others": "{actor} rozmačká zářící houbu s netopýřími křídly na {target}. Bledě zelená kaše se rozzáří, když ji naleje do lahvičky."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_regen",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.troll_hide", "count": 1 }, { "item": "item.bonebloom", "count": 2 }],
+      "outputs": [{ "item": "potion.regen" }],
+      "xp": 6,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you simmer a strip of troll hide with two stems of bonebloom on {target} until the broth thickens into a dark green-brown liquid. Bottled and sealed with wax, it knits small hurts closed.",
+            "others": "{actor} simmers troll hide and bonebloom on {target}. The dark green broth thickens into a healing draught."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "na {target} dusíš pruh trollí kůže se dvěma stonky kostnatce, dokud vývar nezhoustne v tmavě zeleno-hnědou tekutinu. Naliješ ji do lahvičky a zapečetíš voskem — drobné rány se po ní zacelují.",
+            "others": "{actor} dusí trollí kůži a kostnatec na {target}. Tmavě zelený vývar zhoustne v léčivý doušek."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_aegis",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.pearl_dust", "count": 1 }, { "item": "item.troll_tooth", "count": 1 }, { "item": "item.ironwort", "count": 3 }],
+      "outputs": [{ "item": "potion.aegis" }],
+      "xp": 7,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you grind a troll tooth, three sprigs of ironwort and a pinch of pearl dust into a silver paste on {target}. Thinned with water and corked, the mixture catches the light like a mirror.",
+            "others": "{actor} grinds troll tooth, ironwort and pearl dust on {target} into a silver paste, then bottles it as a heavy aegis potion."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "na {target} rozemeleš trollí zub, tři snítky železníku a špetku perlového prachu na stříbřitou pastu. Naředíš ji vodou a zazátkuješ — směs chytá světlo jako zrcadlo.",
+            "others": "{actor} rozemele trollí zub, železník a perlový prach na {target} ve stříbřitou pastu a naleje ji do těžkého lektvaru aegidy."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_barrier",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.pearl_dust", "count": 2 }, { "item": "item.spider_silk", "count": 2 }],
+      "outputs": [{ "item": "potion.barrier" }],
+      "xp": 8,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you whip two strands of spider silk into a bowl of water on {target} and dust in two pinches of pearl. The surface shimmers in rainbow colours as the mixture sets into a barrier potion.",
+            "others": "{actor} whisks spider silk and pearl dust into water on {target}. The vial shimmers like a soap bubble."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "na {target} ušleháš dvě vlákna pavoučího hedvábí do misky s vodou a posypeš dvěma špetkami perlového prachu. Hladina se duhově třpytí, jak směs ztuhne v lektvar bariéry.",
+            "others": "{actor} ušlehá pavoučí hedvábí s perlovým prachem do vody na {target}. Lahvička se třpytí jako mýdlová bublina."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_fortify",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.boneflour", "count": 2 }, { "item": "item.bear_meat", "count": 1 }, { "item": "item.honey", "count": 1 }],
+      "outputs": [{ "item": "potion.fortify" }],
+      "xp": 6,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you simmer bear meat with two scoops of bone flour and a spoon of honey on {target} until the broth turns thick and honey-coloured. Poured into a heavy bottle, it smells of strength.",
+            "others": "{actor} simmers bear meat, bone flour and honey on {target} into a thick honey-coloured draught."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "na {target} dusíš medvědí maso se dvěma odměrkami kostěné mouky a lžící medu, dokud vývar nezhoustne a nezbarví se do medova. Naliješ ho do těžké lahve, voní silou.",
+            "others": "{actor} dusí medvědí maso, kostěnou mouku a med na {target} v hustý medově zbarvený doušek."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_quickness",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.bait_worm", "count": 3 }, { "item": "item.bat_wing", "count": 2 }, { "item": "item.rat_tail", "count": 3 }, { "item": "item.cave_slime", "count": 1 }],
+      "outputs": [{ "item": "potion.quickness" }],
+      "xp": 6,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you grind three earthworms, two bat wings and three rat tails into a wriggling pulp on {target}, then bind it all with a smear of cave slime. The mixture twitches in the vial as you cork it.",
+            "others": "{actor} grinds worms, bat wings and rat tails on {target} with a smear of cave slime. The vial twitches as it is corked."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "na {target} rozmačkáš tři žížaly, dvě netopýří křídla a tři krysí ocásky na vrtící se kaši a všechno sváže šmouhou jeskynního slizu. Když lahvičku zazátkuješ, směs v ní pocukává.",
+            "others": "{actor} rozmačká žížaly, netopýří křídla a krysí ocásky na {target} se šmouhou jeskynního slizu. Lahvička při zátkování pocukává."
+          }
+        }
+      }
+    },
+    {
+      "id": "alchemy_bench.brew_invisibility",
+      "flavor": "craft",
+      "inputs": [{ "item": "item.pearl_dust", "count": 2 }, { "item": "item.raven_feather", "count": 3 }, { "item": "item.spider_silk", "count": 2 }, { "item": "item.cave_slime", "count": 1 }],
+      "outputs": [{ "item": "potion.invisibility" }],
+      "xp": 12,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you burn three raven feathers to ash, dissolve two strands of spider silk and a smear of cave slime in clear water on {target}, then whisk in two pinches of pearl dust. The liquid slowly fades from sight as you cork it.",
+            "others": "{actor} works raven feathers, spider silk, cave slime and pearl dust on {target}. The vial they fill seems to disappear before it is corked."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "spálíš tři havraní pera na popel, ve čisté vodě na {target} rozpustíš dvě vlákna pavoučího hedvábí a šmouhu jeskynního slizu a vmícháš dvě špetky perlového prachu. Když lahvičku zazátkuješ, tekutina se pomalu ztrácí z dohledu.",
+            "others": "{actor} zpracovává havraní pera, pavoučí hedvábí, jeskynní sliz a perlový prach na {target}. Lahvička, kterou plní, jako by zmizela dřív, než ji zazátkuje."
+          }
+        }
+      }
     }
   ]
 }
