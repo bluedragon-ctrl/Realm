@@ -10,13 +10,14 @@
     "cs": "Křižovatka, kde všechny pochodně dohořely a zanechaly jen tmu."
   },
   "long": {
-    "en": "The torches here are long dead — only black stumps remain in their iron brackets. The darkness is almost complete. Your eyes slowly adjust and you can just make out passages leading north, east, and south. The quiet is deep and the air smells faintly of something sharp and sour.",
-    "cs": "Pochodně zde dávno dohořely — v železných konzolách zbývají jen černé pahýly. Tma je téměř úplná. Oči si pomalu zvykají a sotva rozeznáš chodby vedoucí na sever, na východ a na jih. Ticho je hluboké a vzduch slabě zapáchá něčím ostrým a kyselým."
+    "en": "The torches here are long dead — only black stumps remain in their iron brackets. The darkness is almost complete. Your eyes slowly adjust and you can just make out passages leading in four directions; from the west drifts slow, steady snoring. The air smells faintly of something sharp and sour.",
+    "cs": "Pochodně zde dávno dohořely — v železných konzolách zbývají jen černé pahýly. Tma je téměř úplná. Oči si pomalu zvykají a sotva rozeznáš chodby vedoucí na čtyři strany; ze západu doléhá pomalé pravidelné chrápání. Vzduch slabě zapáchá něčím ostrým a kyselým."
   },
   "exits": {
     "n": "mine.deep_hall",
     "e": "mine.centipede_pit",
-    "s": "mine.chief_hall"
+    "s": "mine.chief_hall",
+    "w": "mine.bunkroom"
   },
   "tags": ["indoor", "mine", "dark"]
 }

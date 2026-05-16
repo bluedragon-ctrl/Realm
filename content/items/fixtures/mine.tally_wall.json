@@ -1,0 +1,41 @@
+{
+  "id": "mine.tally_wall",
+  "rarity": 1,
+  "name": {
+    "en": "a wall of tally marks",
+    "cs": "stěna s vrytými čárkami"
+  },
+  "nameAcc": {
+    "en": "the wall of tally marks",
+    "cs": "stěnu s vrytými čárkami"
+  },
+  "short": {
+    "en": "A long stretch of rock above the mats, covered in clusters of scratched tally marks.",
+    "cs": "Dlouhý pás skály nad lůžky, pokrytý shluky vrytých čárek."
+  },
+  "long": {
+    "en": "Hundreds of scratched marks cover the rock above the sleeping mats, scored in clusters of five — four uprights crossed by a slash. Some clusters are old and worn shallow, others are fresh and sharp. They group together in clumps that look almost like names, separated by gaps and small symbols.",
+    "cs": "Stovky vrytých čárek pokrývají skálu nad slaměnými lůžky, seskupené po pěti — čtyři svislé a jedna příčná. Některé skupinky jsou staré a obroušené, jiné čerstvé a ostré. Drží pohromadě v hromádkách, které vypadají skoro jako jména, oddělené mezerami a drobnými znaky."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "mine.bunkroom",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you read the marks slowly. Each clump is one sleeper, and each clump counts days. The oldest names have hundreds of scratches — the kobolds have been here a long time. Three of the freshest clumps trail off in the middle, as if those sleepers never got around to finishing their day.",
+        "others": "{actor} traces the scratched marks on the wall with a fingertip."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "pomalu si přečteš čárky. Každá hromádka je jeden spáč a každá hromádka počítá dny. U nejstarších jmen jsou stovky vrytin — koboldové tu žijí dlouho. Tři z nejčerstvějších hromádek se uprostřed přerušují, jako by ti spáči nestihli den dopočítat.",
+        "others": "{actor} přejede prstem po vrytých čárkách na stěně."
+      }
+    }
+  }
+}

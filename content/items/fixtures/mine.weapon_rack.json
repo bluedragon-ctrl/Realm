@@ -1,0 +1,41 @@
+{
+  "id": "mine.weapon_rack",
+  "rarity": 1,
+  "name": {
+    "en": "a kobold weapon rack",
+    "cs": "koboldí stojan na zbraně"
+  },
+  "nameAcc": {
+    "en": "the kobold weapon rack",
+    "cs": "koboldí stojan na zbraně"
+  },
+  "short": {
+    "en": "A rough wooden rack hung with kobold-made weapons and dented helmets.",
+    "cs": "Hrubý dřevěný stojan ověšený zbraněmi kobolda a promáčknutými přilbami."
+  },
+  "long": {
+    "en": "A long wooden rack pegged into the rock wall, ten paces from end to end. Crude weapons hang from it in rough order: short picks, hand-axes, spears with chipped heads, a row of dented helmets at the bottom. The pieces are rough but freshly made, and the metal still smells of the forge. On the highest peg, alone, hangs a much bigger and finer axe — clearly someone's prized work.",
+    "cs": "Dlouhý dřevěný stojan zaražený do skalní stěny, od konce ke konci deset kroků. V hrubém pořadí na něm visí prosté zbraně: krátké krumpáče, ruční sekery, kopí s vyštípanými hroty, ve spodní řadě promáčknuté přilby. Kusy jsou hrubé, ale čerstvě vykované, a kov stále voní výhní. Na nejvyšším kolíku visí osamoceně mnohem větší a lepší sekera — zjevně čísi pýcha."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "mine.smithy",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you run a hand along the rack. The kobolds turn out picks and hand-axes for the workers, spears for the patrollers, helmets for the guards. The big axe on the top peg is not for any of these — it has the chief's mark scratched into the haft.",
+        "others": "{actor} runs a hand along the weapon rack, considering the kobold-made arms."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přejedeš rukou po stojanu. Koboldové tu vyrábějí krumpáče a ruční sekery pro dělníky, kopí pro hlídače, přilby pro stráže. Velká sekera na nejvyšším kolíku není pro nikoho z nich — na násadě má vyrytou náčelníkovu značku.",
+        "others": "{actor} přejede rukou po stojanu na zbraně a prohlíží si koboldí výrobky."
+      }
+    }
+  }
+}

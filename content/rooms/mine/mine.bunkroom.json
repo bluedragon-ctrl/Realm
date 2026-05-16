@@ -1,0 +1,20 @@
+{
+  "id": "mine.bunkroom",
+  "name": {
+    "en": "Kobold bunkroom",
+    "cs": "Koboldí nocležna"
+  },
+  "lightBase": "dark",
+  "short": {
+    "en": "A low cave lined with straw mats and snoring shapes huddled under scraps of cloth.",
+    "cs": "Nízká jeskyně lemovaná slaměnými lůžky a chrápajícími tvary schoulenými pod kusy hadrů."
+  },
+  "long": {
+    "en": "The air here is warmer and thick with the smell of bodies. Mats of trampled straw line both walls, each one with a curled-up sleeping shape under a patchwork blanket of rags. Slow snores rise and fall around you. Scratched tally marks cover the rock above the mats, counting something nobody has bothered to explain. The only way out is back east into the dark crossing.",
+    "cs": "Vzduch je zde teplejší a hustý pachem těl. Podél obou stěn leží lůžka z udupané slámy a na každém z nich se stočil spící tvar pod hadrovou dekou. Kolem dokola pomalu stoupá a klesá chrápání. Skála nad lůžky je posetá vyrytými čárkami, které něco počítají, ale nikdo se nenamáhal vysvětlit co. Jediná cesta ven vede zpátky na východ do temné křižovatky."
+  },
+  "exits": {
+    "e": "mine.dark_crossing"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

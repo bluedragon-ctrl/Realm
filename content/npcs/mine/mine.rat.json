@@ -8,7 +8,8 @@
   "vision": "nightvision",
   "locations": {
     "mine.west_tunnel": 4,
-    "mine.deep_hall": 4
+    "mine.deep_hall": 4,
+    "mine.rat_farm": 4
   },
   "short": {
     "en": "A grey rat the size of a small dog, with quick teeth and bright eyes.",

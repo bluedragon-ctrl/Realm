@@ -1,0 +1,43 @@
+{
+  "id": "item.glow_mushroom",
+  "rarity": 1,
+  "name": {
+    "en": "a glowing mushroom",
+    "cs": "svítící houba"
+  },
+  "nameAcc": {
+    "en": "the glowing mushroom",
+    "cs": "svítící houbu"
+  },
+  "short": {
+    "en": "A small pale mushroom with a softly glowing greenish cap.",
+    "cs": "Drobná bledá houba s měkce nazelenale svítícím kloboukem."
+  },
+  "long": {
+    "en": "A small mushroom no bigger than a walnut, its plump cap lit from within by a soft greenish glow. Held in the hand it stays cool, and the glow stays steady. Crushed or eaten, the glow rubs off briefly onto the skin.",
+    "cs": "Drobná houba o velikosti vlašského ořechu, jejíž buclatý klobouk svítí zevnitř měkkým nazelenalým světlem. V dlani zůstává chladná a záře drží pevně. Když ji rozmačkáš nebo sníš, záře nakrátko ulpí na kůži."
+  },
+  "tags": ["reagent", "mushroom", "ingredient"],
+  "weight": 0,
+  "spawn": {
+    "location": "mine.mushroom_grotto",
+    "count": 3,
+    "respawnTicks": 600
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you bite into the mushroom; the flesh is cool and pulpy, and a faint glimmer settles briefly on your skin.",
+        "others": "{actor} bites into a glowing mushroom; a faint glimmer settles on their skin."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "kousneš do houby; dužina je chladná a měkká a na kůži ti nakrátko usedne slabý třpyt.",
+        "others": "{actor} kousne do svítící houby; na kůži mu usedne slabý třpyt."
+      }
+    },
+    "consumable": true,
+    "effect": { "type": "apply_effect", "effectId": "effect.magic_glow" }
+  }
+}

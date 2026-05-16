@@ -10,12 +10,13 @@
     "cs": "Širší štola podepřená těžkými trámy, na stěnách visí staré železné nástroje."
   },
   "long": {
-    "en": "This tunnel is wider than the others and the ceiling is held up by heavy wooden beams, most of them cracked and dark with age. Iron tools — picks, shovels, rusted through and old — hang on pegs driven into the rock. Near the rubble at the far end a low crack drops away to the south, and a wet, earthy smell drifts up through it.",
-    "cs": "Tato štola je širší než ostatní a strop drží těžké dřevěné trámy, většinou poprasklané a zčernalé stářím. Na kolících zaražených do skály visí železné nástroje — krumpáče, lopaty, prorezlé a staré. U sutin na vzdáleném konci se k jihu propadá nízká puklina a otvorem stoupá vlhký zemitý pach."
+    "en": "This tunnel is wider than the others and the ceiling is held up by heavy wooden beams, most of them cracked and dark with age. Iron tools — picks, shovels, rusted through and old — hang on pegs driven into the rock. Near the rubble at the far end a low crack drops away to the south, and a wet, earthy smell drifts up through it. Further east the rock pinches into a high narrow pocket, and a soft leathery rustle drifts back from inside it.",
+    "cs": "Tato štola je širší než ostatní a strop drží těžké dřevěné trámy, většinou poprasklané a zčernalé stářím. Na kolících zaražených do skály visí železné nástroje — krumpáče, lopaty, prorezlé a staré. U sutin na vzdáleném konci se k jihu propadá nízká puklina a otvorem stoupá vlhký zemitý pach. Dál na východě se skála zužuje do vysoké úzké kapsy a odtud se vrací tiché kožovité šustění."
   },
   "exits": {
     "w": "mine.entrance",
-    "s": "mine.centipede_pit"
+    "s": "mine.centipede_pit",
+    "e": "mine.bat_hollow"
   },
   "tags": ["indoor", "mine", "dark"]
 }

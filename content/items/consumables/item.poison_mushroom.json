@@ -20,8 +20,10 @@
   "tags": ["mushroom", "poison"],
   "weight": 0,
   "spawn": {
-    "location": "forest.mushroom_hollow",
-    "count": 3,
+    "locations": {
+      "forest.mushroom_hollow": 3,
+      "mine.mushroom_grotto": 1
+    },
     "respawnTicks": 600
   },
   "use": {

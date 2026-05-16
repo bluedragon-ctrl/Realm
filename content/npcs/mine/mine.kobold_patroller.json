@@ -1,0 +1,89 @@
+{
+  "id": "mine.kobold_patroller",
+  "name": { "en": "a kobold patroller", "cs": "koboldí hlídač" },
+  "nameAcc": { "en": "the kobold patroller", "cs": "koboldího hlídače" },
+  "nameDat": { "en": "the kobold patroller", "cs": "koboldímu hlídači" },
+  "nameGen": { "en": "the kobold patroller", "cs": "koboldího hlídače" },
+  "title": { "en": "kobold patroller", "cs": "koboldí hlídač" },
+  "vision": "nightvision",
+  "locations": {
+    "mine.deep_hall": 1,
+    "mine.east_tunnel": 1
+  },
+  "short": {
+    "en": "A wiry kobold walks the tunnel with a guttering torch and a short spear, scanning the dark.",
+    "cs": "Šlachovitý kobold prochází štolou se škrtající pochodní a krátkým oštěpem, propaluje očima tmu."
+  },
+  "long": {
+    "en": "A wiry kobold, lighter on its feet than the workers and clearly not here to swing a pick. It carries a short spear in one hand and a guttering torch in the other, holding the torch out so the firelight pushes a few paces into the dark. Its yellow eyes flick across every shadow as it walks, and it does not look like it expects to find friends.",
+    "cs": "Šlachovitý kobold, lehčí na nohou než dělníci, a očividně tu není proto, aby máchal krumpáčem. V jedné ruce drží krátký oštěp a v druhé škrtající pochodeň, kterou napřahuje před sebe, aby světlo proniklo o pár kroků dál do tmy. Žluté oči mu při chůzi přejíždějí každý stín a nevypadá, že by čekal přátele."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 14, "hpMax": 14,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "accuracy": 8,
+    "evasion": 12,
+    "spd": 5
+  },
+  "respawn": { "ticks": 1200 },
+  "xp": 12,
+  "goldDrop": { "formula": "2d3+1", "chance": 0.85 },
+  "loot": [
+    { "defId": "item.torch", "chance": 0.4 },
+    { "defId": "item.rusty_dagger", "chance": 0.05 },
+    { "defId": "item.rusty_helmet", "chance": 0.05 },
+    { "defId": "item.wooden_club", "chance": 0.05 },
+    { "defId": "item.short_sword", "chance": 0.05 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "wander",
+      "chance": 0.3,
+      "cost": 16,
+      "scope": { "region": "mine" }
+    },
+    {
+      "primitive": "attack",
+      "name": { "en": "spear thrust", "cs": "úder oštěpem" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} drives its short spear at {target}!",
+          "{actor} jabs the spear-point into {target}!",
+          "{actor} stamps forward and thrusts at {target}!"
+        ],
+        "cs": [
+          "{actor} vrazí krátký oštěp do {target.gen}!",
+          "{actor} bodne hrotem oštěpu do {target.gen}!",
+          "{actor} dupne vpřed a vyrazí po {target.dat}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "lifts the torch higher and peers into the shadows.",
+          "taps the spear-butt against the rock and listens.",
+          "shakes the torch to make it flare brighter.",
+          "snuffles the air and lets out a low growl."
+        ],
+        "cs": [
+          "zvedne pochodeň výš a propaluje očima stíny.",
+          "klepne patkou oštěpu o skálu a naslouchá.",
+          "zatřese pochodní, aby se rozhořela jasněji.",
+          "nasaje vzduch a tiše zavrčí."
+        ]
+      }
+    }
+  ]
+}

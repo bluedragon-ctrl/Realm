@@ -1,0 +1,20 @@
+{
+  "id": "mine.mushroom_grotto",
+  "name": {
+    "en": "Mushroom grotto",
+    "cs": "Houbová sluj"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "A damp side cavern where pale mushrooms glow softly on every wet ledge.",
+    "cs": "Vlhká boční jeskyně, kde na každé mokré římse měkce svítí bledé houby."
+  },
+  "long": {
+    "en": "Water trickles somewhere out of sight and the floor is slick under your feet. Pale mushrooms grow in fat clusters along every ledge and crack, their caps lit from within by a soft greenish glow that turns the whole grotto into a calm twilight. The air is cool and smells of wet earth and something faintly sweet. The only way out is back east to the deep hall.",
+    "cs": "Někde mimo dohled stéká voda a podlaha ti klouže pod nohama. Na každé římse a v každé puklině rostou tlusté shluky bledých hub, jejichž klobouky svítí zevnitř měkkým nazelenalým světlem a celou sluj proměňují v klidné šero. Vzduch je chladný a voní mokrou hlínou a slabě nasládle. Jediná cesta ven vede zpátky na východ do hluboké haly."
+  },
+  "exits": {
+    "e": "mine.deep_hall"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

@@ -1,0 +1,28 @@
+{
+  "id": "item.smith_hammer",
+  "rarity": 2,
+  "name": {
+    "en": "a smith's hammer",
+    "cs": "kovářské kladivo"
+  },
+  "nameAcc": {
+    "en": "the smith's hammer",
+    "cs": "kovářské kladivo"
+  },
+  "short": {
+    "en": "A short, heavy hammer with a square iron head and a leather-wrapped haft.",
+    "cs": "Krátké, těžké kladivo s hranatou železnou hlavou a kůží obtočenou rukojetí."
+  },
+  "long": {
+    "en": "A short, heavy hammer with a square iron head, the kind smiths use at the anvil. The haft is wrapped in hard, blackened leather and the head is dimpled and scarred from years of pounding hot iron. Held the right way it makes a brutal weapon — slow to swing, but every strike lands like a falling rock.",
+    "cs": "Krátké, těžké kladivo s hranatou železnou hlavou, jaké kováři používají u kovadliny. Rukojeť je obtočená tvrdou, zčernalou kůží a hlava je posetá důlky a šrámy od let bouchání do žhavého železa. Pokud ho držíš správně, je to brutální zbraň — pomalu se s ním švihá, ale každý úder dopadne jako padající kámen."
+  },
+  "tags": ["weapon"],
+  "weight": 4,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d8+ATK",
+    "cost": 14,
+    "bonus": { "attack": 1 }
+  }
+}

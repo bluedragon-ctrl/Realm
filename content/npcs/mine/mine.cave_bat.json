@@ -1,0 +1,75 @@
+{
+  "id": "mine.cave_bat",
+  "name": { "en": "a cave bat", "cs": "jeskynní netopýr" },
+  "nameAcc": { "en": "the cave bat", "cs": "jeskynního netopýra" },
+  "nameDat": { "en": "the cave bat", "cs": "jeskynnímu netopýrovi" },
+  "nameGen": { "en": "the cave bat", "cs": "jeskynního netopýra" },
+  "title": { "en": "cave bat", "cs": "jeskynní netopýr" },
+  "vision": "nightvision",
+  "location": "mine.bat_hollow",
+  "count": 3,
+  "short": {
+    "en": "A small grey bat flits through the dark with quick high clicks.",
+    "cs": "Drobný šedý netopýr proletuje tmou s rychlým vysokým cvakáním."
+  },
+  "long": {
+    "en": "A small bat with grey-brown fur and thin leathery wings, barely the size of your hand. It darts through the hollow in tight, twitchy arcs and clicks softly to itself as it flies. When it folds its wings to hang from the rock, it is gone again before you can blink.",
+    "cs": "Drobný netopýr s šedohnědou srstí a tenkými koženými křídly, sotva větší než tvá dlaň. Prolétá dutinou v těsných, trhaných obloucích a za letu si tiše cvaká. Když složí křídla, aby se zachytil ve skále, je zase pryč dřív, než stačíš mrknout."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 8, "hpMax": 8,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 25,
+    "spd": 7
+  },
+  "respawn": { "ticks": 300 },
+  "xp": 5,
+  "loot": [
+    { "defId": "item.bat_wing", "chance": 0.7 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "swoop", "cs": "nálet" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swoops at {target} with teeth bared!",
+          "{actor} darts in and nips at {target}!",
+          "{actor} flaps in {target}'s face and bites!"
+        ],
+        "cs": [
+          "{actor} se vrhne na {target} s odkrytými zuby!",
+          "{actor} se mihne dovnitř a chňapne po {target.dat}!",
+          "{actor} třepotá křídly před tváří {target.gen} a kousne!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.1,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "wheels in a tight loop overhead.",
+          "lets out a high thin clicking sound.",
+          "lands upside down for a heartbeat and is moving again.",
+          "folds its leathery wings tight against its body."
+        ],
+        "cs": [
+          "krouží v těsné smyčce nad hlavou.",
+          "vydá vysoké tenké cvakání.",
+          "na okamžik se zachytí hlavou dolů a je zase pryč.",
+          "přitiskne kožená křídla těsně k tělu."
+        ]
+      }
+    }
+  ]
+}

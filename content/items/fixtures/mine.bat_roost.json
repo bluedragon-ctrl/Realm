@@ -1,0 +1,41 @@
+{
+  "id": "mine.bat_roost",
+  "rarity": 1,
+  "name": {
+    "en": "the bat roost crack",
+    "cs": "puklina s netopýřím útočištěm"
+  },
+  "nameAcc": {
+    "en": "the bat roost crack",
+    "cs": "puklinu s netopýřím útočištěm"
+  },
+  "short": {
+    "en": "A tall vertical crack high in the wall where the bats hang in clusters.",
+    "cs": "Vysoká svislá puklina vysoko ve stěně, kde netopýři visí ve shlucích."
+  },
+  "long": {
+    "en": "A narrow vertical crack splits the wall and rises out of sight into the dark. Small dark shapes hang in clusters from the rough edges, packed tight where the rock pinches in. Higher up, the crack widens just enough for something much bigger to hang alone. Soft leathery rustling drifts down whenever the colony shifts.",
+    "cs": "Úzká svislá puklina rozráží stěnu a stoupá z dohledu do tmy. Z drsných okrajů visí ve shlucích malé tmavé tvary, namačkané tam, kde se skála zužuje. Výš se puklina rozšiřuje tak akorát, aby v ní mohlo viset osamoceně něco mnohem většího. Kdykoli se kolonie pohne, snáší se dolů tiché kožovité šustění."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "mine.bat_hollow",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you crane your neck and watch the roost. The little cave bats have lived here for years — most of the droppings on the floor are theirs. The bigger fat one higher up is new. From the shape of its wings and the soft red fur, it must have wandered in from a fruit orchard somewhere far above, lost its way, and stayed.",
+        "others": "{actor} cranes their neck and watches the bats overhead."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vykřivíš krk a pozoruješ útočiště. Malí jeskynní netopýři tu žijí už léta — většina trusu na podlaze je od nich. Větší tlustý nahoře je nový. Podle tvaru křídel a měkké rezavé srsti se sem musel zatoulat z nějakého ovocného sadu daleko nahoře, ztratil cestu a zůstal.",
+        "others": "{actor} zvedne hlavu a pozoruje netopýry nad sebou."
+      }
+    }
+  }
+}

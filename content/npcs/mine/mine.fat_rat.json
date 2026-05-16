@@ -1,0 +1,75 @@
+{
+  "id": "mine.fat_rat",
+  "name": { "en": "a fat rat", "cs": "tlustá krysa" },
+  "nameAcc": { "en": "the fat rat", "cs": "tlustou krysu" },
+  "nameDat": { "en": "the fat rat", "cs": "tlusté kryse" },
+  "nameGen": { "en": "the fat rat", "cs": "tlusté krysy" },
+  "title": { "en": "fat rat", "cs": "tlustá krysa" },
+  "vision": "nightvision",
+  "location": "mine.rat_farm",
+  "count": 2,
+  "short": {
+    "en": "A heavy, slow rat the size of a small badger, dragging a fat scarred belly.",
+    "cs": "Těžká pomalá krysa velká jako malý jezevec, vleče za sebou tlusté zjizvené břicho."
+  },
+  "long": {
+    "en": "A rat grown so big its belly drags on the floor as it shuffles. Its fur is thin and patchy, criss-crossed with old scars, and its tail is short and stubby. It is in no hurry to do anything — but those long yellow teeth could bite through a boot, and when the smaller rats scatter it does not give ground.",
+    "cs": "Krysa tak veliká, že jí břicho dře po zemi, když se sune. Srst má řídkou a místy chybí, prokřížená starými jizvami, a ocas má krátký a tupý. Nikam nespěchá — ale ty dlouhé žluté zuby by prokously botu, a když menší krysy prchnou, ona ne."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 14, "hpMax": 14,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "evasion": 8,
+    "spd": 3
+  },
+  "respawn": { "ticks": 600 },
+  "xp": 9,
+  "loot": [
+    { "defId": "item.rat_tail", "chance": 1.0 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "heavy bite", "cs": "těžké kousnutí" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} lunges with surprising weight and bites {target}!",
+          "{actor} clamps its long yellow teeth onto {target}!",
+          "{actor} shoulders into {target} and snaps hard!"
+        ],
+        "cs": [
+          "{actor} se s překvapivou vahou vrhne a kousne {target}!",
+          "{actor} zatne dlouhé žluté zuby do {target.gen}!",
+          "{actor} ramenem narazí do {target.gen} a tvrdě chňapne!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "drags its belly slowly across the floor.",
+          "sniffs the air with a wheezing breath.",
+          "bares its long yellow teeth.",
+          "lets out a low, throaty squeak."
+        ],
+        "cs": [
+          "pomalu vleče břicho po podlaze.",
+          "čenichá ve vzduchu sípavým dechem.",
+          "vycení dlouhé žluté zuby.",
+          "vydá hluboké hrdelní zapištění."
+        ]
+      }
+    }
+  ]
+}

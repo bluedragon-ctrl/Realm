@@ -1,0 +1,24 @@
+{
+  "id": "mine.rat_farm",
+  "name": {
+    "en": "Rat farm",
+    "cs": "Krysí doupě"
+  },
+  "lightBase": "dark",
+  "short": {
+    "en": "A small cavern thick with the smell of rats, every corner packed with nests of straw and rag.",
+    "cs": "Malá jeskyně prosáklá pachem krys, v každém koutě hnízda ze slámy a hadrů."
+  },
+  "long": {
+    "en": "The tunnel widens just enough that you can stand without ducking. The whole space is alive with small scrabbling sounds — claws on stone, claws on wood, claws on each other. Nests are piled hip-high against every wall, woven from straw, gnawed cloth, and chewed splinters of beam. Eyes glint from the holes between them. Behind the deepest nest, a small round hole drops away into the dark, and from it rises a slower, heavier scrabbling.",
+    "cs": "Štola se rozšiřuje právě tak, abys mohl stát bez sklánění. Celý prostor žije drobným škrábáním — drápy o kámen, drápy o dřevo, drápy o sebe. Až k pasu se podél každé stěny tyčí hromady hnízd, spletené ze slámy, ohryzaného plátna a rozkousaných třísek z trámů. Z děr mezi nimi se lesknou oči. Za nejhlubším hnízdem se propadá do tmy drobná kulatá díra a z ní stoupá pomalejší, těžší škrábání."
+  },
+  "exits": {
+    "e": "mine.west_tunnel",
+    "d": "mine.rat_warren_deep"
+  },
+  "lockedExits": {
+    "d": "mine.rat_burrow"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

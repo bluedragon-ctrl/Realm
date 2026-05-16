@@ -1,0 +1,76 @@
+{
+  "id": "mine.cave_slug",
+  "name": { "en": "a cave slug", "cs": "jeskynní slimák" },
+  "nameAcc": { "en": "the cave slug", "cs": "jeskynního slimáka" },
+  "nameDat": { "en": "the cave slug", "cs": "jeskynnímu slimákovi" },
+  "nameGen": { "en": "the cave slug", "cs": "jeskynního slimáka" },
+  "title": { "en": "cave slug", "cs": "jeskynní slimák" },
+  "vision": "low_light",
+  "location": "mine.mushroom_grotto",
+  "count": 2,
+  "short": {
+    "en": "A long pale slug as thick as your forearm, dragging itself slowly across the wet stone.",
+    "cs": "Dlouhý bledý slimák tlustý jako tvé předloktí, pomalu se vleče přes mokrý kámen."
+  },
+  "long": {
+    "en": "A massive slug, pale and damp, its body striped with faint dark bands and its skin slick with a clear glistening film. Two soft eyestalks rise and turn as it senses you. It moves so slowly you could outwalk it at a casual stroll — but the slime it leaves smokes faintly where it touches the rock, and the air around it has a sharp tang that makes your eyes water.",
+    "cs": "Obrovský slimák, bledý a vlhký, s tělem pruhovaným slabými tmavými pásy a kůží pokrytou čirým lesklým filmem. Dvě měkká tykadla se zvedají a otáčejí, jak tě cítí. Pohybuje se tak pomalu, že bys ho běžnou chůzí předešel — ale sliz, který za sebou nechává, slabě kouří tam, kde se dotýká skály, a vzduch kolem něj má ostrý nádech, ze kterého slzí oči."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 18, "hpMax": 18,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 2, "int": 0,
+    "evasion": 0,
+    "spd": 2
+  },
+  "respawn": { "ticks": 900 },
+  "xp": 12,
+  "loot": [
+    { "defId": "item.cave_slime", "chance": 0.7 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "stinging slime", "cs": "palčivý sliz" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "onHit": { "applyEffect": "effect.poison", "chance": 0.35 },
+      "templates": {
+        "en": [
+          "{actor} oozes against {target} and leaves a smear of stinging slime!",
+          "{actor} presses a slick muscular flank into {target}!",
+          "{actor} flicks an eyestalk and a spurt of slime catches {target}!"
+        ],
+        "cs": [
+          "{actor} se přitiskne na {target} a nechá za sebou pruh palčivého slizu!",
+          "{actor} přimáčkne k {target.dat} kluzký svalnatý bok!",
+          "{actor} kmitne tykadlem a stříknutý sliz zasáhne {target}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "leaves a faintly smoking trail across the wet stone.",
+          "turns both eyestalks slowly toward you.",
+          "ripples along its body in a slow muscular wave.",
+          "wets itself with a fresh layer of clear slime."
+        ],
+        "cs": [
+          "zanechává za sebou slabě kouřící stopu na mokrém kameni.",
+          "pomalu k tobě otáčí obě tykadla.",
+          "převalí tělem v pomalé svalnaté vlně.",
+          "potáhne se čerstvou vrstvou čirého slizu."
+        ]
+      }
+    }
+  ]
+}

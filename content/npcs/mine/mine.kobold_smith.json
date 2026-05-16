@@ -1,0 +1,78 @@
+{
+  "id": "mine.kobold_smith",
+  "name": { "en": "a kobold smith", "cs": "koboldí kovář" },
+  "nameAcc": { "en": "the kobold smith", "cs": "koboldího kováře" },
+  "nameDat": { "en": "the kobold smith", "cs": "koboldímu kováři" },
+  "nameGen": { "en": "the kobold smith", "cs": "koboldího kováře" },
+  "title": { "en": "kobold smith", "cs": "koboldí kovář" },
+  "vision": "nightvision",
+  "location": "mine.smithy",
+  "count": 1,
+  "short": {
+    "en": "A burly kobold in a scorched leather apron, a heavy hammer resting on its shoulder.",
+    "cs": "Statný kobold ve sežehlé kožené zástěře, na rameni se mu opírá těžké kladivo."
+  },
+  "long": {
+    "en": "A kobold broader at the shoulder than the workers, scales dark with soot. A heavy leather apron — scorched in patches and stiff with old sweat — hangs from its neck to its knees. In one clawed hand it carries a short, heavy smith's hammer with an iron head worn smooth and shiny from use. Its yellow eyes track you steadily, without hurry, the way a creature watches something that has wandered into its workshop.",
+    "cs": "Kobold širší v ramenou než dělníci, šupiny tmavé od sazí. Z krku ke kolenům mu visí těžká kožená zástěra — místy sežehlá a tuhá starým potem. V jedné drápaté ruce drží krátké, těžké kovářské kladivo s železnou hlavou obroušenou používáním do hladké lesklé koule. Žluté oči tě klidně sledují, bez spěchu, tak jak tvor pozoruje něco, co mu zabloudilo do dílny."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 22, "hpMax": 22,
+    "mp": 0, "mpMax": 0,
+    "attack": 3, "defense": 2, "int": 0,
+    "accuracy": 10,
+    "evasion": 10,
+    "spd": 4
+  },
+  "respawn": { "ticks": 1500 },
+  "xp": 18,
+  "goldDrop": { "formula": "2d3+2", "chance": 0.9 },
+  "loot": [
+    { "defId": "item.smith_hammer", "chance": 0.2 },
+    { "defId": "item.smith_apron", "chance": 0.2 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "hammer swing", "cs": "úder kladivem" },
+      "chance": 1.0,
+      "cost": 16,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} brings its heavy hammer down on {target}!",
+          "{actor} swings the smith's hammer in a wide arc at {target}!",
+          "{actor} drives a short, brutal blow into {target}!"
+        ],
+        "cs": [
+          "{actor} dopadne těžkým kladivem na {target}!",
+          "{actor} mávne kovářským kladivem v širokém oblouku po {target.dat}!",
+          "{actor} zasadí krátkou, drtivou ránu do {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "wipes a sooty arm across its brow.",
+          "thumps the hammer against the anvil with a flat ringing clang.",
+          "draws a glowing iron bar from the coals and lays it back.",
+          "rolls its shoulders inside the heavy apron."
+        ],
+        "cs": [
+          "otře si paži od sazí o čelo.",
+          "udeří kladivem o kovadlinu plochým zvonivým zařinčením.",
+          "vytáhne z uhlíků žhavou železnou tyč a zase ji odloží.",
+          "protáhne ramena pod těžkou zástěrou."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,47 @@
+{
+  "id": "item.rat_charm",
+  "rarity": 3,
+  "name": {
+    "en": "a rat-bone whistle",
+    "cs": "krysí kostěná píšťalka"
+  },
+  "nameAcc": {
+    "en": "the rat-bone whistle",
+    "cs": "krysí kostěnou píšťalku"
+  },
+  "short": {
+    "en": "A small bone whistle on a knot of rat-hair.",
+    "cs": "Drobná kostěná píšťalka na uzlíku z krysí srsti."
+  },
+  "long": {
+    "en": "A whistle no bigger than your thumb, carved from a hollow rat bone and threaded on a tight knot of grey hair. The matriarch wore this on a cord around her neck. The bone is paper-thin and would not survive a second breath through it — but one note is enough, and somewhere a rat hears it.",
+    "cs": "Píšťalka ne větší než tvůj palec, vyřezaná z duté krysí kosti a navlečená na pevném uzlíku ze šedé srsti. Matrona ji nosila na šňůrce kolem krku. Kost je tenká jako papír a druhé fouknutí by nepřežila — jedno však stačí, a někde ho slyší krysa."
+  },
+  "tags": ["consumable"],
+  "weight": 0,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you put the whistle to your lips and blow. A high thin note slips out — and the thin bone splits in your fingers, crumbling to dry shards. From the nearest crack, a grey shape squeezes out and falls in beside you.",
+        "others": "{actor} blows a thin note on a rat-bone whistle; the bone splits and crumbles to dust in their fingers, and a grey rat squeezes out of the nearest crack."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přiložíš píšťalku ke rtům a fouknutíš. Vyklouzne vysoký tenký tón — a tenká kost ti praskne mezi prsty a rozpadne se v suché střípky. Z nejbližší pukliny se vysouká šedý tvar a přitočí se k tobě.",
+        "others": "{actor} fouká do krysí kostěné píšťalky tenký tón; kost mu praskne v prstech a rozpadne se v prach, a z nejbližší pukliny se vysouká šedá krysa."
+      }
+    },
+    "consumable": true,
+    "effect": {
+      "type": "summon",
+      "defId": "summon.rat_friendly",
+      "count": 1,
+      "ttlTicks": 0,
+      "despawnText": {
+        "en": "the tame rat squeaks once and scurries back into the shadows.",
+        "cs": "krotká krysa jednou zapíská a zmizí ve stínech."
+      }
+    }
+  }
+}
