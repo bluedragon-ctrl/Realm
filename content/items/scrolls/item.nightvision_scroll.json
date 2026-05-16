@@ -17,7 +17,7 @@
     "en": "A scroll of pale parchment tied with a strip of brown ribbon. A wide golden eye, drawn with care, gazes out from the centre — a single owl-eye, round and patient. The ink shimmers faintly even in the dark.",
     "cs": "Svitek bledého pergamenu převázaný proužkem hnědé stuhy. Uprostřed pečlivě nakreslené velké zlaté oko — jediné soví oko, kulaté a trpělivé. Inkoust se slabě třpytí i ve tmě."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

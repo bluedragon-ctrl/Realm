@@ -136,6 +136,26 @@
       "flavor": "sell",
       "inputs": [{ "item": "item.boneflour", "count": 1 }],
       "outputs": [{ "gold": 8 }]
+    },
+    {
+      "id": "wizard.sink_scroll",
+      "flavor": "sink",
+      "accepts": { "tags": ["scroll"] },
+      "outputs": [{ "gold": 10 }],
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand {item} to {target}. He skims the writing, nods once, and counts ten coins into your palm.",
+            "others": "{actor} hands {item} to {target}, who skims it, nods, and pays ten coins."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš {item} {target.dat}. Krátce přejde písmo očima, jednou přikývne a odpočítá ti do dlaně deset mincí.",
+            "others": "{actor} podá {item} {target.dat}. Ten ho přelétne pohledem, přikývne a zaplatí deset mincí."
+          }
+        }
+      }
     }
   ],
   "behaviors": [

@@ -17,7 +17,7 @@
     "en": "A scroll of soft cream parchment with a single pressed green leaf bound under its cord. The writing inside curls like new growth.",
     "cs": "Svitek měkkého krémového pergamenu s jediným zalisovaným zeleným lístkem pod šňůrkou. Písmo uvnitř se vine jako nové výhonky."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

@@ -17,7 +17,7 @@
     "en": "A scroll of crisp white parchment, its edges sharp as a fresh blade. A stylised open eye is drawn at its centre.",
     "cs": "Svitek z čistého bílého pergamenu s okraji ostrými jako čerstvé ostří. Uprostřed je nakresleno stylizované otevřené oko."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

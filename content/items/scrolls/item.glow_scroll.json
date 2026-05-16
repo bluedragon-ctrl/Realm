@@ -17,7 +17,7 @@
     "en": "A short scroll of cream parchment, tied with a yellow thread. Flecks of mica are pressed into the paper and shimmer when the scroll turns. The writing on it is small and neat.",
     "cs": "Krátký svitek krémového pergamenu, převázaný žlutou nitkou. Do papíru jsou zatlačena zrnka slídy, která se při otáčení svitku třpytí. Písmo na něm je drobné a úhledné."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

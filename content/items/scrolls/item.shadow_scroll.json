@@ -17,7 +17,7 @@
     "en": "A scroll of dust-grey parchment whose edges seem just a shade darker than the air around it. A small crescent moon is drawn at its centre.",
     "cs": "Svitek z popelavě šedého pergamenu, jehož okraje vypadají o odstín tmavší než okolní vzduch. Uprostřed je nakreslen malý srpek měsíce."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

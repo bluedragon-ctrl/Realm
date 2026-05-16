@@ -17,7 +17,7 @@
     "en": "A bone-pale scroll that drinks the warmth from your hand. A pair of clutching fingers is sketched at its centre.",
     "cs": "Kostnatě bledý svitek, který ti vysává teplo z ruky. Uprostřed je načrtnuta dvojice svírajících se prstů."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {
