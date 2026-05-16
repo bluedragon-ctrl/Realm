@@ -1,0 +1,25 @@
+{
+  "id": "item.climbing_gear",
+  "rarity": 1,
+  "name": {
+    "en": "a set of climbing gear",
+    "cs": "horolezecká výstroj"
+  },
+  "nameAcc": {
+    "en": "the climbing gear",
+    "cs": "horolezeckou výstroj"
+  },
+  "short": {
+    "en": "A coil of rope, a leather harness, and a few iron hooks.",
+    "cs": "Smotaný provaz, kožený postroj a pár železných háků."
+  },
+  "long": {
+    "en": "A bundle for climbing places where it would be foolish to jump. A long coil of strong hemp rope, a sturdy leather harness, and a few iron hooks for catching on rock. Strap it on before you try anything steep.",
+    "cs": "Sada na lezení tam, kde by bylo bláznivé skákat. Dlouhý smotek pevného konopného provazu, pevný kožený postroj a několik železných háků na zachycení o skálu. Než zkusíš něco strmého, připrav si ji."
+  },
+  "tags": ["tool", "climbing"],
+  "weight": 3,
+  "wearable": {
+    "slot": "utility"
+  }
+}

@@ -68,10 +68,23 @@ export async function loadItems(knownRooms, knownEffects, knownNpcs) {
   const items = await loadDir('item', path.resolve('content/items'), makeItemValidator(knownRooms, effects));
   validateItemInteractions(items, knownRooms, knownNpcs ?? new Map());
   for (const room of knownRooms.values()) {
-    if (!room.hiddenFixtures) continue;
-    for (const defId of Object.keys(room.hiddenFixtures)) {
-      if (!items.has(defId)) {
-        throw new Error(`room '${room.id}': hiddenFixtures references unknown item '${defId}'`);
+    if (room.hiddenFixtures) {
+      for (const defId of Object.keys(room.hiddenFixtures)) {
+        if (!items.has(defId)) {
+          throw new Error(`room '${room.id}': hiddenFixtures references unknown item '${defId}'`);
+        }
+      }
+    }
+    if (room.exitRequires) {
+      for (const [exitKey, req] of Object.entries(room.exitRequires)) {
+        const defId = req.equipped;
+        const def = items.get(defId);
+        if (!def) {
+          throw new Error(`room '${room.id}': exits.${exitKey}.requires.equipped references unknown item '${defId}'`);
+        }
+        if (!def.wearable?.slot) {
+          throw new Error(`room '${room.id}': exits.${exitKey}.requires.equipped item '${defId}' is not wearable`);
+        }
       }
     }
   }
