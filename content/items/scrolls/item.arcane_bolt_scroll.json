@@ -17,7 +17,7 @@
     "en": "A neat scroll written in steady, deep-violet ink. A simple sigil — a single straight line tipped with a star — runs down its middle.",
     "cs": "Úhledný svitek psaný pevným, temně fialovým inkoustem. Středem se táhne jednoduché znamení — rovná čára zakončená hvězdou."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "spawn": {
     "location": "castle.archive",

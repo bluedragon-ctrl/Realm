@@ -17,7 +17,7 @@
     "en": "A thin scroll of yellowed paper, edges worn and stained. The writing inside glows faintly with a soft green cross.",
     "cs": "Tenký svitek ze zežloutlého papíru s okraji okousanými a potřísněnými. Písmo uvnitř slabě svítí měkkým zeleným křížem."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

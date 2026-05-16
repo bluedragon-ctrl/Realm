@@ -22,6 +22,6 @@
   "wearable": {
     "slot": "amulet",
     "bonus": { "hpMax": 2 },
-    "effects": ["effect.regen"]
+    "effects": ["effect.minor_regen"]
   }
 }

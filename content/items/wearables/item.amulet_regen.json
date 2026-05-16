@@ -22,6 +22,6 @@
   "wearable": {
     "slot": "amulet",
     "bonus": { "mpMax": 2 },
-    "effects": ["effect.regen_aura"]
+    "effects": ["effect.minor_regen_aura"]
   }
 }

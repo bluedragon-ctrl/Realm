@@ -9,6 +9,11 @@ const CASE_FIELD = {
   voc: 'nameVoc',
 };
 
+// Languages whose templates rely on player nameForms declensions. EN/other don't
+// inflect player names, so a Czech-style {target.gen} in an EN template should
+// render the plain nominative — not the Czech declined form sitting in nameForms.
+const DECLINING_LANGS = new Set(['cs']);
+
 // Resolve a localized name in the requested grammatical case.
 //
 // Accepts:
@@ -22,10 +27,13 @@ export function resolveName(source, kase, lang) {
   if (!source) return '';
   const k = CASES.includes(kase) ? kase : 'nom';
 
-  // Player-shaped: nameForms is a flat string map keyed by case (no localization needed —
-  // a player's name is the same across languages).
+  // Player-shaped: nameForms is a flat string map keyed by case. The declensions
+  // stored there are Czech (the only declining language today), so only consume
+  // them when the rendering language actually inflects.
   if (source.nameForms && typeof source.nameForms === 'object') {
-    if (k !== 'nom' && typeof source.nameForms[k] === 'string') return source.nameForms[k];
+    if (DECLINING_LANGS.has(lang) && k !== 'nom' && typeof source.nameForms[k] === 'string') {
+      return source.nameForms[k];
+    }
     if (typeof source.name === 'string') return source.name;
   }
 

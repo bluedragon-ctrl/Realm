@@ -12,6 +12,16 @@ import { hasForm } from '../verbs.js';
 import { consumeForActor } from './use.js';
 import { requireStanding } from '../positionGate.js';
 
+function sinkAccepts(entry, def) {
+  const filter = entry.accepts;
+  if (!filter) return true;
+  if (Array.isArray(filter.tags) && filter.tags.length > 0) {
+    const itemTags = def.tags ?? [];
+    if (!filter.tags.some(tag => itemTags.includes(tag))) return false;
+  }
+  return true;
+}
+
 function parseGiveArgs(args) {
   if (args[0]?.toLowerCase() === 'to') return null;
   const split = splitOnKeyword(args, 'to');
@@ -154,7 +164,7 @@ export default function give(actor, args) {
       return;
     }
     if (count === 1) {
-      const sinkEntry = target.exchanges.find(e => e.flavor === 'sink');
+      const sinkEntry = target.exchanges.find(e => e.flavor === 'sink' && sinkAccepts(e, inst.def));
       if (sinkEntry) {
         runSinkExchange(actor, target, sinkEntry, inst);
         return;

@@ -17,7 +17,7 @@
     "en": "A scroll of yellow-brown parchment freckled with sickly green specks. A thin dart-glyph is inked across its centre.",
     "cs": "Svitek žlutohnědého pergamenu se chorobně zelenými tečkami. Uprostřed je zakreslena tenká rune šípu."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

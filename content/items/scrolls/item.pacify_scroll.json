@@ -17,7 +17,7 @@
     "en": "A cream-coloured scroll tied with a length of pale linen. A simple open palm is inked at its centre.",
     "cs": "Krémově zbarvený svitek převázaný kusem světlého plátna. Uprostřed je nakreslená prostá otevřená dlaň."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

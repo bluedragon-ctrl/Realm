@@ -1,8 +1,8 @@
 {
-  "id": "effect.regen",
+  "id": "effect.minor_regen",
   "name": {
-    "en": "Regeneration",
-    "cs": "Regenerace"
+    "en": "Minor regeneration",
+    "cs": "Slabá regenerace"
   },
   "kind": "buff",
   "icon": "✨",

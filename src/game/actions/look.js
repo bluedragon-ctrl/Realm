@@ -87,7 +87,43 @@ function serializeExchanges(host, lang, actor) {
     if (opts.withInventoryCount && actor) entry.youHave = countInInventory(actor, e.item);
     return entry;
   });
+  const acceptsItem = (entry, def) => {
+    const filter = entry.accepts;
+    if (!filter) return true;
+    if (Array.isArray(filter.tags) && filter.tags.length > 0) {
+      const itemTags = def.tags ?? [];
+      return filter.tags.some(tag => itemTags.includes(tag));
+    }
+    return true;
+  };
+  const buildSinkItems = (entry) => {
+    const inv = actor?.inventory ?? [];
+    const groups = new Map();
+    for (const inst of inv) {
+      if (!acceptsItem(entry, inst.def)) continue;
+      const existing = groups.get(inst.defId);
+      if (existing) existing.count += 1;
+      else groups.set(inst.defId, { def: inst.def, count: 1 });
+    }
+    return [...groups.values()].map(({ def, count }) => ({
+      kind: 'item',
+      id: def.id,
+      name: t(def.name, lang),
+      count,
+      preview: buildItemPreview(def, lang, actor),
+    }));
+  };
   return list.map(e => {
+    if (e.flavor === 'sink') {
+      return {
+        id: e.id,
+        flavor: 'sink',
+        label: e.label ? t(e.label, lang) : null,
+        inputs: [],
+        outputs: formatSide(e.outputs, {}),
+        sinkItems: buildSinkItems(e),
+      };
+    }
     const previewOnOutputs = e.flavor === 'buy' || e.flavor === 'craft';
     const previewOnInputs = e.flavor === 'sell';
     return {
@@ -285,6 +321,27 @@ function sendTargetInfo(actor, target) {
         name: t(target.name, lang),
         subtitle,
         description: s('look.target_dim_hint', lang),
+        exchanges,
+        exchangeHost: exchanges ? 'npc' : undefined,
+        exchangeEntryLabel: exchanges ? s('exchange.entry.trade', lang) : undefined,
+        exchangeBackLabel: exchanges ? s('exchange.back', lang) : undefined,
+        exchangeYouHaveLabel: exchanges ? s('exchange.you_have', lang) : undefined,
+        exchangeRowLabels: exchanges ? {
+          buy: s('exchange.row.buy', lang),
+          sell: s('exchange.row.sell', lang),
+          craft: s('exchange.row.craft', lang),
+          sink: s('exchange.row.sink', lang),
+        } : undefined,
+        exchangeConfirmLabels: exchanges ? {
+          buy: s('exchange.confirm.buy', lang),
+          sell: s('exchange.confirm.sell', lang),
+          craft: s('exchange.confirm.craft', lang),
+          sink: s('exchange.confirm.sink', lang),
+        } : undefined,
+        exchangeSinkLabels: exchanges ? {
+          any: s('exchange.sink.any', lang),
+          empty: s('exchange.sink.empty', lang),
+        } : undefined,
       });
       return;
     }
@@ -302,11 +359,17 @@ function sendTargetInfo(actor, target) {
         buy: s('exchange.row.buy', lang),
         sell: s('exchange.row.sell', lang),
         craft: s('exchange.row.craft', lang),
+        sink: s('exchange.row.sink', lang),
       } : undefined,
       exchangeConfirmLabels: exchanges ? {
         buy: s('exchange.confirm.buy', lang),
         sell: s('exchange.confirm.sell', lang),
         craft: s('exchange.confirm.craft', lang),
+        sink: s('exchange.confirm.sink', lang),
+      } : undefined,
+      exchangeSinkLabels: exchanges ? {
+        any: s('exchange.sink.any', lang),
+        empty: s('exchange.sink.empty', lang),
       } : undefined,
       stats: isFriendly || !target.stats ? null : { ...target.stats },
       statLabels: {

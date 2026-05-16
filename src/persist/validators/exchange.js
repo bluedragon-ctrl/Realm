@@ -35,6 +35,16 @@ export function validateExchanges(host, hostCtx, items) {
     if (entry.flavor === 'sink') {
       check(entry.verb != null, ctx, `sink entries require a 'verb' block`);
       validateExchangeSide(entry.outputs, hostCtx, `exchanges[${i}].outputs`);
+      if (entry.accepts != null) {
+        checkObject(entry.accepts, ctx, 'accepts');
+        if (entry.accepts.tags != null) {
+          checkArray(entry.accepts.tags, ctx, 'accepts.tags');
+          for (const tag of entry.accepts.tags) {
+            check(typeof tag === 'string' && tag.length > 0, ctx,
+              'accepts.tags entries must be non-empty strings');
+          }
+        }
+      }
     } else {
       validateExchangeSide(entry.inputs, hostCtx, `exchanges[${i}].inputs`);
       validateExchangeSide(entry.outputs, hostCtx, `exchanges[${i}].outputs`);

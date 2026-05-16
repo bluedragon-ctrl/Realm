@@ -37,7 +37,7 @@
     { "defId": "item.rusty_helmet", "chance": 0.05 },
     { "defId": "item.wooden_club", "chance": 0.05 },
     { "defId": "item.short_sword", "chance": 0.05 },
-    { "defId": "item.skinning_knife", "chance": 0.25 }
+    { "defId": "item.skinning_knife", "chance": 0.19 }
   ],
   "behaviors": [
     {

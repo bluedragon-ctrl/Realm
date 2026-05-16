@@ -17,7 +17,7 @@
     "en": "A scroll of clean white paper, edges firm and unblemished. The writing inside glows faintly with a pale silver shield.",
     "cs": "Svitek z čistě bílého papíru s pevnými okraji bez poskvrny. Písmo uvnitř slabě svítí bledým stříbrným štítem."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

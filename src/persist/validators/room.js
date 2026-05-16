@@ -12,6 +12,7 @@ export function validateRoomGraph(rooms) {
     }
     const exits = room.exits ?? {};
     const hiddenExits = {};
+    const exitRequires = {};
     for (const [exitKey, rawValue] of Object.entries(exits)) {
       if (typeof rawValue === 'string') continue;
       checkObject(rawValue, ctx, `exits.${exitKey}`);
@@ -25,9 +26,17 @@ export function validateRoomGraph(rooms) {
           ctx, `exits.${exitKey}.hidden.id must be a non-empty string`);
         hiddenExits[exitKey] = { dc: rawValue.hidden.dc, id: rawValue.hidden.id };
       }
+      if (rawValue.requires != null) {
+        checkObject(rawValue.requires, ctx, `exits.${exitKey}.requires`);
+        const req = rawValue.requires;
+        check(typeof req.equipped === 'string' && req.equipped.length > 0,
+          ctx, `exits.${exitKey}.requires.equipped must be a non-empty item def id`);
+        exitRequires[exitKey] = { equipped: req.equipped };
+      }
       exits[exitKey] = rawValue.to;
     }
     if (Object.keys(hiddenExits).length > 0) room.hiddenExits = hiddenExits;
+    if (Object.keys(exitRequires).length > 0) room.exitRequires = exitRequires;
 
     for (const [exitCmd, targetId] of Object.entries(exits)) {
       check(rooms.has(targetId), ctx, `exit '${exitCmd}' -> unknown room '${targetId}'`);

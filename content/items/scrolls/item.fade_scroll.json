@@ -17,7 +17,7 @@
     "en": "A scroll of near-black parchment. The writing inside is barely visible, as though it would rather not be seen.",
     "cs": "Svitek téměř černého pergamenu. Písmo uvnitř je sotva vidět, jakoby se nechtělo nechat spatřit."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

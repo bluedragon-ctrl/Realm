@@ -35,10 +35,10 @@
   "respawn": { "ticks": 600 },
   "exchanges": [
     {
-      "id": "smith.buy_rope",
+      "id": "smith.buy_climbing_gear",
       "flavor": "buy",
       "inputs":  [{ "gold": 10 }],
-      "outputs": [{ "item": "item.long_rope" }]
+      "outputs": [{ "item": "item.climbing_gear" }]
     },
     {
       "id": "smith.sell_ore",

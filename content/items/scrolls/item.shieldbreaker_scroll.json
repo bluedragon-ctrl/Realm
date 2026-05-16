@@ -17,7 +17,7 @@
     "en": "Coarse parchment shot through with strands of black iron. The script runs over the wires like grooves over a file's teeth.",
     "cs": "Hrubý pergamen prošlý prameny černého železa. Písmo přebíhá po drátcích jako rýhy přes zuby pilníku."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

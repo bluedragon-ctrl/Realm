@@ -1,8 +1,8 @@
 {
-  "id": "effect.regen_aura",
+  "id": "effect.minor_regen_aura",
   "name": {
-    "en": "Mana Regeneration",
-    "cs": "Regenerace many"
+    "en": "Minor mana regeneration",
+    "cs": "Slabá regenerace many"
   },
   "kind": "buff",
   "icon": "💠",

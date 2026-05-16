@@ -17,7 +17,7 @@
     "en": "A scroll of parchment thin enough to see through. The script wavers as you focus on it, as if it would rather slip out of sight.",
     "cs": "Svitek pergamenu tak tenkého, že je skrz něj vidět. Písmo se ti pod pohledem rozechvívá, jako by chtělo zmizet z dohledu."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

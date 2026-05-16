@@ -17,7 +17,7 @@
     "en": "A scroll bound in bright red cord, the parchment loud against the dark. A bared snarl is scrawled across its centre.",
     "cs": "Svitek převázaný jasně červenou šňůrou, pergamen křiklavý proti tmě. Uprostřed je načmáraný vyceněný úšklebek."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

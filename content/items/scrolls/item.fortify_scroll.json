@@ -17,7 +17,7 @@
     "en": "A thick scroll of iron-grey parchment, surprisingly heavy. A blocky shield-glyph is stamped at its centre.",
     "cs": "Silný svitek železně šedého pergamenu, překvapivě těžký. Uprostřed je vyražen hranatý znak štítu."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

@@ -17,7 +17,7 @@
     "en": "Parchment bound around a finger-long shard of crystal. The crystal hums faintly when you tilt it toward the light.",
     "cs": "Pergamen omotaný kolem střípku křišťálu na prst dlouhého. Když ho nakloníš ke světlu, krystal tiše zazpívá."
   },
-  "tags": ["reagent"],
+  "tags": ["reagent", "scroll"],
   "weight": 0,
   "use": {
     "en": {

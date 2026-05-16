@@ -33,5 +33,5 @@
       }
     }
   },
-  "effect": { "type": "apply_effect", "effectId": "effect.regen" }
+  "effect": { "type": "apply_effect", "effectId": "effect.minor_regen" }
 }
