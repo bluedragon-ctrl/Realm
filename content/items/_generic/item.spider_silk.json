@@ -17,7 +17,7 @@
     "en": "A small bundle of pale grey thread, gathered from the heavy webs in the lair. The strands are soft and almost weightless, but it is surprisingly hard to break a single one. Useful to anyone who works with rope, cloth, or sturdy bindings.",
     "cs": "Drobný svazek bledě šedé nitě, sebrané z těžkých pavučin v doupěti. Vlákna jsou měkká a téměř nehmotná, ale jediné z nich je překvapivě těžké přetrhnout. Hodí se každému, kdo pracuje s provazem, látkou či pevnými pouty."
   },
-  "tags": ["ingredient"],
+  "tags": ["reagent", "ingredient"],
   "weight": 0,
   "spawn": { "location": "forest.spider_lair", "count": 1, "respawnTicks": 1800 }
 }

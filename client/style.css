@@ -577,6 +577,17 @@ html, body {
   font-size: 11px;
   flex-shrink: 0;
 }
+.exchange-list-row-unaffordable {
+  opacity: 0.5;
+}
+.exchange-list-row-unaffordable .exchange-list-row-label {
+  font-style: italic;
+}
+.chip-disabled {
+  opacity: 0.45;
+  cursor: not-allowed;
+  pointer-events: none;
+}
 .exchange-detail-name {
   color: var(--accent);
   font-weight: 500;

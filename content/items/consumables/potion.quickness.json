@@ -1,0 +1,46 @@
+{
+  "id": "potion.quickness",
+  "rarity": 2,
+  "name": {
+    "en": "a potion of slippery wits",
+    "cs": "lektvar mrštnosti"
+  },
+  "nameAcc": {
+    "en": "the potion of slippery wits",
+    "cs": "lektvar mrštnosti"
+  },
+  "short": {
+    "en": "A small vial of greenish liquid that wriggles when you tilt it.",
+    "cs": "Drobná lahvička se zelenavou tekutinou, která se při naklonění vrtí."
+  },
+  "long": {
+    "en": "A small vial sealed with wax. The liquid inside is pale green and oddly restless — when you tilt the vial it shifts a heartbeat too quickly, as if a tiny tail flicked through it. It smells of damp soil and warm fur. Drinking it makes the body quick and slippery, hard to pin down.",
+    "cs": "Drobná lahvička zapečetěná voskem. Tekutina uvnitř je bledě zelená a podivně neklidná — když lahvičkou nakloníš, posune se o úder srdce rychleji, jako by jí proklouzl drobný ocásek. Voní vlhkou hlínou a teplou srstí. Po vypití se tělo stane rychlým a kluzkým, těžko se chytá."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the stopper and drink the restless green liquid. Your feet twitch with sudden energy and the world seems to slow around you.",
+        "others": "{actor} drinks a pale green potion. {actor.gen} step turns quick and twitchy."
+      },
+      "to_target": {
+        "self": "you hand the potion of slippery wits to {target}, who drinks it.",
+        "others": "{actor} hands a small green vial to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš zátku a vypiješ neklidnou zelenou tekutinu. Nohy ti zacukají náhlou energií a svět kolem se jako by zpomalil.",
+        "others": "{actor} vypije bledě zelený lektvar. Krok {actor.gen} se zrychlí a roztřese."
+      },
+      "to_target": {
+        "self": "podáš lektvar mrštnosti {target.dat} a ten ho vypije.",
+        "others": "{actor} podává drobnou zelenou lahvičku {target.dat} a ten ji vypije."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.quickness" },
+    "consumable": true
+  }
+}

@@ -1,0 +1,46 @@
+{
+  "id": "potion.invisibility",
+  "rarity": 3,
+  "name": {
+    "en": "an invisibility potion",
+    "cs": "lektvar neviditelnosti"
+  },
+  "nameAcc": {
+    "en": "the invisibility potion",
+    "cs": "lektvar neviditelnosti"
+  },
+  "short": {
+    "en": "A tall, slender vial of strange liquid that you can almost see through.",
+    "cs": "Vysoká štíhlá lahvička s podivnou tekutinou, kterou skoro vidíš skrz."
+  },
+  "long": {
+    "en": "A tall slender vial sealed with black wax and a wrap of spider silk. The liquid inside seems empty — when you tilt it, you only know it is there by the way it bends what is behind it. Faint silver flecks drift through nothing at all. Drinking it makes the body fade from sight for a little while.",
+    "cs": "Vysoká štíhlá lahvička zapečetěná černým voskem a omotaná pavoučím vláknem. Tekutina uvnitř vypadá prázdně — když ji nakloníš, poznáš ji jen podle toho, jak ohýbá to, co je za ní. Slabé stříbrné šupinky se vznášejí v ničem. Po vypití tělo na chvíli zmizí z očí."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the wax stopper and drink the empty-looking liquid. Your hands begin to fade as you lower the vial — a moment later, you are gone.",
+        "others": "{actor} drinks a strange clear potion and quietly fades from sight."
+      },
+      "to_target": {
+        "self": "you hand the invisibility potion to {target}, who drinks it and fades from sight.",
+        "others": "{actor} hands a tall slender vial to {target}, who drinks it and fades from sight."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš voskovou zátku a vypiješ prázdně vypadající tekutinu. Ruce ti začnou mizet, jak skláníš lahvičku — o chvíli později jsi pryč.",
+        "others": "{actor} vypije podivný čirý lektvar a tiše zmizí z očí."
+      },
+      "to_target": {
+        "self": "podáš lektvar neviditelnosti {target.dat} a ten ho vypije a zmizí z očí.",
+        "others": "{actor} podává vysokou štíhlou lahvičku {target.dat} a ten ji vypije a zmizí z očí."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.invisibility" },
+    "consumable": true
+  }
+}

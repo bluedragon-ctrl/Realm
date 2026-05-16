@@ -1,0 +1,46 @@
+{
+  "id": "potion.keen_senses",
+  "rarity": 2,
+  "name": {
+    "en": "an angler's eye tonic",
+    "cs": "rybářův lektvar bystrého oka"
+  },
+  "nameAcc": {
+    "en": "the angler's eye tonic",
+    "cs": "rybářův lektvar bystrého oka"
+  },
+  "short": {
+    "en": "A small glass vial of clear water with tiny silver flecks drifting in it.",
+    "cs": "Drobná skleněná lahvička s čirou vodou, v níž se vznášejí drobné stříbrné šupinky."
+  },
+  "long": {
+    "en": "A clear glass vial corked with a sliver of river reed. The water inside looks plain, but tiny silver flecks of fish scale drift slowly through it. It smells faintly of damp earth and river mud. Drinking it sharpens the eyes — ripples, glints and tiny movements suddenly stand out.",
+    "cs": "Čirá skleněná lahvička zazátkovaná kouskem rákosu. Voda uvnitř vypadá obyčejně, ale pomalu se v ní vznášejí drobné stříbrné rybí šupinky. Slabě voní vlhkou hlínou a říčním bahnem. Po vypití se zostří zrak — vlnky, záblesky a drobné pohyby najednou vyniknou."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you uncork the vial and drink the cool water. The world sharpens — every ripple, leaf and shadow stands out.",
+        "others": "{actor} drinks a vial of clear water. {actor.gen} eyes track every small movement in the room."
+      },
+      "to_target": {
+        "self": "you hand the angler's eye tonic to {target}, who drinks it.",
+        "others": "{actor} hands a small clear vial to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "odzátkáš lahvičku a vypiješ chladnou vodu. Svět se zostří — každá vlnka, list a stín vystoupí.",
+        "others": "{actor} vypije lahvičku čiré vody. Oči {actor.gen} sledují každý drobný pohyb v místnosti."
+      },
+      "to_target": {
+        "self": "podáš rybářův lektvar bystrého oka {target.dat} a ten ho vypije.",
+        "others": "{actor} podává drobnou čirou lahvičku {target.dat} a ten ji vypije."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.keen_senses" },
+    "consumable": true
+  }
+}

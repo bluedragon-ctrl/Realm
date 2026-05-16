@@ -17,7 +17,7 @@
     "en": "A small bundle of red rose petals, gathered from the wild roses that grow among the briars. They are soft, faintly sweet, and stain the fingers a little. The briar sprite values them above almost anything.",
     "cs": "Drobný svazek červených okvětních lístků, otrhaných z divokých růží mezi ostružinami. Jsou měkké, slabě sladce voní a trochu barví prsty. Trnová víla si jich cení nade vše."
   },
-  "tags": ["ingredient"],
+  "tags": ["reagent", "herb", "ingredient"],
   "weight": 0,
   "spawn": { "location": "forest.briar_path", "count": 3, "respawnTicks": 600 }
 }

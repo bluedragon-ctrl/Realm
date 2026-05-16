@@ -1,0 +1,46 @@
+{
+  "id": "potion.nightvision",
+  "rarity": 2,
+  "name": {
+    "en": "a nightvision potion",
+    "cs": "lektvar nočního vidění"
+  },
+  "nameAcc": {
+    "en": "the nightvision potion",
+    "cs": "lektvar nočního vidění"
+  },
+  "short": {
+    "en": "A small glass vial of inky violet liquid that seems to drink the light.",
+    "cs": "Drobná skleněná lahvička s inkoustově fialovou tekutinou, která jako by pohlcovala světlo."
+  },
+  "long": {
+    "en": "A slender vial sealed with wax. The liquid inside is so dark it looks almost black, but when you tilt it close, faint violet glints move across the surface. Drinking it lets the eyes drink in dim and dark rooms as if they were softly lit.",
+    "cs": "Štíhlá lahvička zapečetěná voskem. Tekutina uvnitř je tak tmavá, že vypadá skoro černě, ale když ji nakloníš blízko, po hladině přebíhají slabé fialové záblesky. Po vypití oči uvidí v šeru a tmě, jako by byly měkce osvětlené."
+  },
+  "tags": ["potion", "consumable"],
+  "weight": 1,
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you pull the stopper and drink the dark liquid. The room seems to brighten as your eyes drink in every faint glimmer.",
+        "others": "{actor} drinks an inky violet potion. {actor.gen} pupils widen like a cat's."
+      },
+      "to_target": {
+        "self": "you hand the nightvision potion to {target}, who drinks it.",
+        "others": "{actor} hands a small violet potion to {target}, who drinks it."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "vytáhneš zátku a vypiješ tmavou tekutinu. Místnost jako by se rozjasnila, jak oči pijí každý slabý záblesk.",
+        "others": "{actor} vypije inkoustově fialový lektvar. Zorničky {actor.gen} se roztáhnou jako kočce."
+      },
+      "to_target": {
+        "self": "podáš lektvar nočního vidění {target.dat} a ten ho vypije.",
+        "others": "{actor} podává drobný fialový lektvar {target.dat} a ten ho vypije."
+      }
+    },
+    "effect": { "type": "apply_effect", "effectId": "effect.nightvision" },
+    "consumable": true
+  }
+}

@@ -17,6 +17,6 @@
     "en": "A large tooth pulled from a wolf's jaw, curved and yellowed at the root. The tip is still keen. Hunters say a fang carries something of the wolf's strength with it.",
     "cs": "Velký zub vytažený z vlčí čelisti, zahnutý a u kořene zažloutlý. Špička je stále ostrá. Lovci říkají, že v tesáku zůstává něco z vlčí síly."
   },
-  "tags": ["ingredient"],
+  "tags": ["reagent", "ingredient"],
   "weight": 0
 }
