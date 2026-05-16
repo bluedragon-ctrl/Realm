@@ -209,6 +209,7 @@
   "exchange.row.buy": "For sale",
   "exchange.row.sell": "Wants to buy",
   "exchange.row.craft": "Can make",
+  "exchange.row.sink": "Will trade for",
   "exchange.entry.trade": "Trade",
   "exchange.entry.craft": "Craft",
   "exchange.back": "← Back",
@@ -216,6 +217,9 @@
   "exchange.confirm.buy": "Buy ({price}g)",
   "exchange.confirm.sell": "Sell ({price}g)",
   "exchange.confirm.craft": "Make",
+  "exchange.confirm.sink": "Sell ({price}g)",
+  "exchange.sink.any": "any item",
+  "exchange.sink.empty": "you have nothing to offer here",
   "exchange.ambiguous_give": "Be more specific — try `buy`, `sell`, `use`, or click a chip.",
   "recipe.need_more": "you need {required} of {item}, but you only have {have}.",
 

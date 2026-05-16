@@ -141,6 +141,7 @@
       "id": "wizard.sink_scroll",
       "flavor": "sink",
       "accepts": { "tags": ["scroll"] },
+      "label": { "en": "any scroll", "cs": "libovolný svitek" },
       "outputs": [{ "gold": 10 }],
       "verb": {
         "en": {

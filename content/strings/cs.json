@@ -209,6 +209,7 @@
   "exchange.row.buy": "Na prodej",
   "exchange.row.sell": "Vykupuje",
   "exchange.row.craft": "Umí vyrobit",
+  "exchange.row.sink": "Vymění za",
   "exchange.entry.trade": "Obchodovat",
   "exchange.entry.craft": "Vyrobit",
   "exchange.back": "← Zpět",
@@ -216,6 +217,9 @@
   "exchange.confirm.buy": "Koupit ({price}z)",
   "exchange.confirm.sell": "Prodat ({price}z)",
   "exchange.confirm.craft": "Vyrobit",
+  "exchange.confirm.sink": "Prodat ({price}z)",
+  "exchange.sink.any": "cokoli",
+  "exchange.sink.empty": "nemáš nic, co by se hodilo",
   "exchange.ambiguous_give": "Buď konkrétnější — zkus `buy`, `sell`, `use` nebo klikni na čip.",
   "recipe.need_more": "potřebuješ {required} ks {item}, ale máš jen {have}.",
 
