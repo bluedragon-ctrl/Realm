@@ -33,5 +33,5 @@
       }
     }
   },
-  "effect": { "type": "heal", "amount": "4+INT/4" }
+  "effect": { "type": "heal", "amount": "4+INT/2" }
 }
