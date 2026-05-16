@@ -1,0 +1,41 @@
+{
+  "id": "mine.fungus_shelf",
+  "rarity": 1,
+  "name": {
+    "en": "a fungus-covered ledge",
+    "cs": "houbami pokrytá římsa"
+  },
+  "nameAcc": {
+    "en": "the fungus-covered ledge",
+    "cs": "houbami pokrytou římsu"
+  },
+  "short": {
+    "en": "A long wet ledge thick with glowing mushrooms and a scatter of brown and red caps.",
+    "cs": "Dlouhá mokrá římsa hustě porostlá svítícími houbami a roztroušenými hnědými a červenými klobouky."
+  },
+  "long": {
+    "en": "A natural shelf of damp stone running along the grotto wall, packed with mushrooms of every kind. Most are the small pale glowing ones — they only grow in dark wet stone like this, nowhere else. Mixed in are a few brown-capped ones and the occasional red cap with white spots, blown in as spores from somewhere far above. The kobolds avoid this ledge; the glow makes them nervous.",
+    "cs": "Přírodní římsa z vlhkého kamene se táhne podél stěny sluje a je hustě porostlá houbami všeho druhu. Většina je z drobných bledých svítících — rostou jen v takovéto tmavé vlhké skále, nikde jinde. Mezi nimi jsou pár hnědých klobouků a občas červený s bílými tečkami, sem zavanuté jako spóry odněkud vysoko nad dolem. Koboldové se této římse vyhýbají; nazelenalá záře je činí nervózními."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "mine.mushroom_grotto",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you crouch by the ledge. The glowing caps are firm and cool; the brown ones taste earthy and fill a stew; the red-spotted ones smell sour even unbroken — best left alone. Worth gathering the safe kinds.",
+        "others": "{actor} crouches by the fungus ledge and looks the mushrooms over."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přidřepneš k římse. Svítící klobouky jsou pevné a chladné; hnědé chutnají po hlíně a hodí se do polévky; červené s bílými tečkami nakysle páchnou už netknuté — lepší je nechat je být. Bezpečné kusy se vyplatí sebrat.",
+        "others": "{actor} přidřepne k houbové římse a prohlíží si houby."
+      }
+    }
+  }
+}

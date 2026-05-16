@@ -8,6 +8,7 @@ import { resolveName } from './declension.js';
 import { setHate, getHate, maxHateInRoom, clearHateTable, removeFromTable } from './aggro.js';
 import { describeRoomToAll } from './actions/look.js';
 import { performSummon } from './summon.js';
+import { setPosition } from './positionGate.js';
 
 function evalAmount(value, ctx) {
   if (typeof value === 'number') return value;
@@ -103,6 +104,22 @@ const EFFECTS = {
     }
     if (fixture) removeItemFromRoom(fixture, room);
     return { opened: true, dropped, goldAmount };
+  },
+  summon({ defId, count, ttlTicks, despawnText }, { actor }) {
+    if (!actor || !defId) return { summoned: 0 };
+    const out = performSummon(actor, { defId, count: count ?? 1, ttlTicks, despawnText });
+    return { summoned: out.length };
+  },
+  wake_kin({ defId }, { actor, room }) {
+    if (!actor || !room || !defId) return { woken: 0 };
+    for (const peer of actorsInRoom(room)) {
+      if (peer.kind !== 'npc') continue;
+      if (peer.defId !== defId) continue;
+      if (peer.position !== 'sleep') continue;
+      setPosition(peer, 'stand', 'woken');
+      return { woken: 1 };
+    }
+    return { woken: 0 };
   },
   drain({ amount, formula, ratio = 0.5 }, { actor, target }) {
     if (!target || target === actor || !target.stats) return { dealt: 0, healed: 0 };

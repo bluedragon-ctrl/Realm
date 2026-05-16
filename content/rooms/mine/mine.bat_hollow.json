@@ -1,0 +1,20 @@
+{
+  "id": "mine.bat_hollow",
+  "name": {
+    "en": "Bat hollow",
+    "cs": "Netopýří dutina"
+  },
+  "lightBase": "dark",
+  "short": {
+    "en": "A high-ceilinged alcove where small dark shapes shift and rustle far above.",
+    "cs": "Alkovna s vysokým stropem, kde se vysoko nahoře pohybují a šustí malé tmavé tvary."
+  },
+  "long": {
+    "en": "The shaft opens into an unexpectedly tall pocket of rock, its ceiling lost in shadow. Soft leathery rustling drifts down from above, and now and then a quick shape flits across the lower air and vanishes again. The floor is streaked white and crunches softly with old droppings underfoot. The smell is sharp and a little dusty. The only way out is back west into the east shaft.",
+    "cs": "Štola se otevírá do nečekaně vysoké kapsy ve skále, jejíž strop se ztrácí ve stínu. Z výšky se snáší tiché kožovité šustění a tu a tam nízkým vzduchem přelétne rychlý tvar a zase zmizí. Podlaha je popruhovaná bílými skvrnami a starý trus pod nohama tiše křupe. Pach je ostrý a trochu prašný. Jediná cesta ven vede zpátky na západ do východní štoly."
+  },
+  "exits": {
+    "w": "mine.east_tunnel"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

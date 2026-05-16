@@ -1,0 +1,26 @@
+{
+  "id": "item.smith_apron",
+  "rarity": 2,
+  "name": {
+    "en": "a smith's apron",
+    "cs": "kovářská zástěra"
+  },
+  "nameAcc": {
+    "en": "the smith's apron",
+    "cs": "kovářskou zástěru"
+  },
+  "short": {
+    "en": "A heavy leather apron, scorched in patches and stiff with old sweat.",
+    "cs": "Těžká kožená zástěra, místy sežehlá a tuhá starým potem."
+  },
+  "long": {
+    "en": "A thick leather apron cut to cover the chest, belly, and thighs. The leather is scorched dark in places where sparks have landed, and the lower edge is stiff and shiny from use. Heavy enough to turn a glancing blow.",
+    "cs": "Tlustá kožená zástěra zakrývající hruď, břicho a stehna. Kůže je v místech, kam dopadaly jiskry, tmavá od ohně, a spodní okraj je tuhý a lesklý od používání. Dost těžká na to, aby odvrátila šikmou ránu."
+  },
+  "tags": ["armor"],
+  "weight": 2,
+  "wearable": {
+    "slot": "body",
+    "bonus": { "defense": 1 }
+  }
+}

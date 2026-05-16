@@ -1,0 +1,100 @@
+{
+  "id": "mine.forge",
+  "rarity": 1,
+  "name": {
+    "en": "a kobold forge",
+    "cs": "koboldí výheň"
+  },
+  "nameAcc": {
+    "en": "the kobold forge",
+    "cs": "koboldí výheň"
+  },
+  "nameGen": {
+    "en": "the kobold forge",
+    "cs": "koboldí výhně"
+  },
+  "nameDat": {
+    "en": "the kobold forge",
+    "cs": "koboldí výhni"
+  },
+  "short": {
+    "en": "A stone forge cut into the back wall, coals banked but still alive.",
+    "cs": "Kamenná výheň vytesaná do zadní stěny, uhlíky jsou přihrnuté, ale stále žijí."
+  },
+  "long": {
+    "en": "A stone forge built straight into the back wall, the coals piled and banked but still glowing dark orange in the middle. A pair of cracked bellows hangs from a leather strap above it. The mouth of the forge is wide enough to push a long bar of iron into the heart of the heat. The work-table beside it is scarred and notched from many missed strikes.",
+    "cs": "Kamenná výheň postavená přímo do zadní stěny, uhlíky jsou nahrnuté a přihrnuté, ale uprostřed stále žhnou tmavě oranžově. Nad ní visí na koženém řemínku pár popraskaných měchů. Otvor výhně je tak široký, že do žáru můžeš protlačit dlouhou železnou tyč. Pracovní stůl vedle je posetý zářezy a důlky po mnoha minutých úderech."
+  },
+  "tags": ["fixture", "craft"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "mine.smithy",
+    "count": 1
+  },
+  "exchanges": [
+    {
+      "id": "forge.hammer_axe",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.iron_ore", "count": 2 }],
+      "outputs": [{ "item": "item.hand_axe" }],
+      "xp": 4,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you push two chunks of ore into {target}, work the bellows, and beat the glowing metal flat into a hand axe.",
+            "others": "{actor} pushes ore into {target}, works the bellows, and beats out a fresh hand axe."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "vsuneš dva kusy rudy do {target.gen}, zapracuješ s měchy a rozžhavený kov rozkleneš v ruční sekeru.",
+            "others": "{actor} vsune rudu do {target.gen}, zapracuje s měchy a vykove novou ruční sekeru."
+          }
+        }
+      }
+    },
+    {
+      "id": "forge.hammer_spear",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.iron_ore", "count": 3 }],
+      "outputs": [{ "item": "item.hunting_spear" }],
+      "xp": 5,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you melt three chunks of ore in {target} and draw the hot metal long, hammering out a spear-tip and fitting it to a shaft.",
+            "others": "{actor} melts ore in {target} and draws out a long spear-tip, fitting it to a shaft."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "roztavíš tři kusy rudy v {target.dat} a horký kov vytáhneš do délky, vykuješ hrot a nasadíš ho na násadu.",
+            "others": "{actor} roztaví rudu v {target.dat} a vykove dlouhý hrot, který nasadí na násadu."
+          }
+        }
+      }
+    },
+    {
+      "id": "forge.hammer_sword",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.iron_ore", "count": 4 }],
+      "outputs": [{ "item": "item.iron_sword" }],
+      "xp": 7,
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you fold and beat four chunks of ore in {target} until the iron runs clean, then draw it out into a broad sword blade.",
+            "others": "{actor} folds and beats ore in {target} until the iron runs clean, then draws out a broad sword blade."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "v {target.dat} skládáš a otloukáš čtyři kusy rudy, dokud železo neběží čistě, a pak je vytáhneš v širokou čepel meče.",
+            "others": "{actor} v {target.dat} skládá a otloukává rudu, dokud železo neběží čistě, a vykove širokou čepel meče."
+          }
+        }
+      }
+    }
+  ]
+}

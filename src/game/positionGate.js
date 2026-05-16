@@ -40,6 +40,15 @@ export function setPosition(actor, next, reason = 'volitional') {
     sendStats(actor);
     if (reason === 'woken') describeRoom(actor);
   }
+  if (actor.kind === 'npc' && reason === 'woken' && next === 'stand') {
+    for (const peer of actorsInRoom(actor.location)) {
+      if (peer === actor) continue;
+      if (peer.kind !== 'npc') continue;
+      if (peer.defId !== actor.defId) continue;
+      if (peer.position !== 'sleep') continue;
+      setPosition(peer, 'stand', 'woken');
+    }
+  }
   return true;
 }
 

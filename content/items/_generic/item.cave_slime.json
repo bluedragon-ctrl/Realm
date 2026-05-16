@@ -1,0 +1,22 @@
+{
+  "id": "item.cave_slime",
+  "rarity": 1,
+  "name": {
+    "en": "a glob of cave slime",
+    "cs": "chuchvalec jeskynního slizu"
+  },
+  "nameAcc": {
+    "en": "the glob of cave slime",
+    "cs": "chuchvalec jeskynního slizu"
+  },
+  "short": {
+    "en": "A glistening blob of pale slug slime, faintly sour-smelling.",
+    "cs": "Lesklá hrouda bledého slimáčího slizu, slabě nakysle voní."
+  },
+  "long": {
+    "en": "A blob of clear-pale slime the size of a fist, still slick to the touch and stretching when you pull at it. It carries a faint sour tang and a thin smoke-like wisp lifts from it if held near a flame. Alchemists could probably do something with this.",
+    "cs": "Chuchvalec čirého bledého slizu velký jako pěst, na dotek stále kluzký, a když ho zatáhneš, natáhne se. Má slabou nakyslou vůni a pokud ho podržíš u plamene, stoupá z něj slabý kouřivý opar. Alchymisté by s tím nejspíš dokázali pracovat."
+  },
+  "tags": ["reagent"],
+  "weight": 0
+}

@@ -1,0 +1,81 @@
+{
+  "id": "mine.kobold_sleeper",
+  "position": "sleep",
+  "name": { "en": "a sleeping kobold", "cs": "spící kobold" },
+  "nameAcc": { "en": "the sleeping kobold", "cs": "spícího kobolda" },
+  "nameDat": { "en": "the sleeping kobold", "cs": "spícímu koboldovi" },
+  "nameGen": { "en": "the sleeping kobold", "cs": "spícího kobolda" },
+  "title": { "en": "sleeping kobold", "cs": "spící kobold" },
+  "vision": "nightvision",
+  "location": "mine.bunkroom",
+  "count": 3,
+  "short": {
+    "en": "A kobold curled up on a straw mat, snoring softly under a patchwork blanket.",
+    "cs": "Kobold stočený na slaměném lůžku, tiše chrápe pod hadrovou dekou."
+  },
+  "long": {
+    "en": "A kobold no different from the workers in the rest of the mine, but lying still on its side with one clawed hand under its cheek and the other curled around the haft of its pick. Its grey-green chest rises and falls with slow even breaths. A rough patchwork blanket of stitched rags covers it from the waist down. Now and then a soft snore escapes through its small sharp teeth.",
+    "cs": "Kobold se ničím neliší od dělníků v ostatních částech dolu, ale leží na boku s jednou drápatou rukou pod tváří a druhou stočenou kolem rukojeti krumpáče. Šedozelená hruď mu pomalu a pravidelně dýchá. Hrubá hadrová deka ze sešitých kusů ho přikrývá od pasu dolů. Tu a tam mu mezi drobnými ostrými zuby uniká tiché zachrápání."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 10, "hpMax": 10,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 1, "int": 0,
+    "accuracy": 8,
+    "evasion": 15,
+    "spd": 4
+  },
+  "respawn": { "ticks": 900 },
+  "xp": 8,
+  "goldDrop": { "formula": "1d3+1", "chance": 0.7 },
+  "loot": [
+    { "defId": "item.rusty_dagger", "chance": 0.05 },
+    { "defId": "item.rusty_helmet", "chance": 0.05 },
+    { "defId": "item.wooden_club", "chance": 0.05 },
+    { "defId": "item.short_sword", "chance": 0.05 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "startled swing", "cs": "vyplašený úder" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} jerks awake and swings its pick wildly at {target}!",
+          "{actor} scrambles upright snarling and lunges at {target}!",
+          "{actor} kicks the blanket aside and drives its pick at {target}!"
+        ],
+        "cs": [
+          "{actor} se probudí a divoce mávne krumpáčem po {target.dat}!",
+          "{actor} se zvedne s vrčením a vrhne se na {target}!",
+          "{actor} odkopne deku a zabodne krumpáč do {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "mumbles something in its sleep and rolls over.",
+          "lets out a long whistling snore.",
+          "twitches one clawed foot under the blanket.",
+          "mutters and grips its pick tighter."
+        ],
+        "cs": [
+          "ze spaní něco zamumlá a převalí se.",
+          "vydá dlouhé hvízdavé zachrápání.",
+          "škubne drápatým chodidlem pod dekou.",
+          "zamumlá a pevněji sevře krumpáč."
+        ]
+      }
+    }
+  ]
+}

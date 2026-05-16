@@ -1,0 +1,61 @@
+{
+  "id": "mine.rat_burrow",
+  "rarity": 1,
+  "name": {
+    "en": "a hole in the back of the nest",
+    "cs": "díra v zadní části hnízda"
+  },
+  "nameAcc": {
+    "en": "the hole in the back of the nest",
+    "cs": "díru v zadní části hnízda"
+  },
+  "short": {
+    "en": "A small dark hole at the back of the nest pile, too small for a person but worn smooth by passing rats.",
+    "cs": "Drobná tmavá díra v zadní části hromady hnízd, příliš malá pro člověka, ale ohlazená procházejícími krysami."
+  },
+  "long": {
+    "en": "A round hole the size of your forearm, set low in the wall behind the deepest nest. The edges are smooth where countless rats have squeezed through. A warm, animal smell wafts up from below — and a deeper scrabbling, slower and heavier than the rats above. Whatever lives down there comes up for one thing more than any other: a fat fresh worm.",
+    "cs": "Kulatá díra velká asi jako tvé předloktí, zaražená nízko ve zdi za nejhlubším hnízdem. Okraje jsou ohlazené nesčetnými procházejícími krysami. Zespodu stoupá teplý zvířecí pach — a hlubší škrábání, pomalejší a těžší než krysy nahoře. To, co tam dole žije, vychází nahoru pro jednu věc více než cokoli jiného: pro tlustou čerstvou žížalu."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "mine.rat_farm",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you crouch by the hole and listen. The scrabbling below is slow and heavy — much bigger than the rats up here. The smell that drifts up is warm and old. Whatever waits down there would come up the burrow for the right bait.",
+        "others": "{actor} crouches by the hole at the back of the nest and listens."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "přidřepneš k díře a posloucháš. Škrábání dole je pomalé a těžké — mnohem větší než krysy tady nahoře. Pach, který stoupá, je teplý a starý. Cokoli tam čeká, by za správnou návnadu vylezlo nahoru.",
+        "others": "{actor} přidřepne k díře v zadní části hnízda a poslouchá."
+      }
+    }
+  },
+  "unlocks": {
+    "exit": "d",
+    "key": "item.bait_worm",
+    "consume": true,
+    "xp": 5,
+    "verb": {
+      "en": {
+        "to_target": {
+          "self": "you drop the wriggling earthworm into {target}. Something below seizes it with a wet snap — and the loose earth around the hole collapses inward, opening it wide enough to crawl through.",
+          "others": "{actor} drops a wriggling earthworm into {target}. Something below seizes it; the hole collapses wider, opening enough to crawl through."
+        }
+      },
+      "cs": {
+        "to_target": {
+          "self": "vhodíš svíjející se žížalu do {target.gen}. Něco dole ji chňapne s mokrým křupnutím — a sypká hlína kolem otvoru se sesype dovnitř, díra se rozšíří tak akorát, aby ses tudy prosoukal.",
+          "others": "{actor} vhodí svíjející se žížalu do {target.gen}. Něco dole ji chňapne; díra se rozšíří natolik, aby se jí dalo prolézt."
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,20 @@
+{
+  "id": "mine.rat_warren_deep",
+  "name": {
+    "en": "Deep warren",
+    "cs": "Hluboké doupě"
+  },
+  "lightBase": "dark",
+  "short": {
+    "en": "A low chamber dug out by generations of rats, dense with the smell of fur and old bones.",
+    "cs": "Nízká komora vyhrabaná generacemi krys, hustě prosáklá pachem srsti a starých kostí."
+  },
+  "long": {
+    "en": "The burrow widens into a low round chamber far below the rat farm. The ceiling is barely shoulder-high and pressed smooth by the passing of countless small backs. Bones — mostly small, a few not — are heaped along the edges of the room. At the centre, on a great mound of fur and rag, lies a nest big enough for something much heavier than a rat. The only way out is back up the burrow.",
+    "cs": "Nora se rozšiřuje do nízké kulaté komory hluboko pod krysím doupětem. Strop sahá sotva po ramena a je ohlazený přechody nesčetných drobných hřbetů. Kosti — většinou drobné, pár ne — jsou nahrnuté kolem stěn. Uprostřed, na velké hromadě srsti a hadrů, leží hnízdo dost velké pro něco mnohem těžšího než krysa. Jediná cesta ven vede zpátky nahoru po noře."
+  },
+  "exits": {
+    "u": "mine.rat_farm"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

@@ -1,0 +1,20 @@
+{
+  "id": "mine.smithy",
+  "name": {
+    "en": "Kobold smithy",
+    "cs": "Koboldí kovárna"
+  },
+  "lightBase": "dim",
+  "short": {
+    "en": "A low chamber lit by banked coals, with a battered anvil and crude weapon racks along the walls.",
+    "cs": "Nízká komnata osvětlená doutnajícími uhlíky, s otlučenou kovadlinou a hrubými stojany na zbraně podél stěn."
+  },
+  "long": {
+    "en": "Warm orange light pulses from a forge cut into the back wall, its coals banked but still alive. A heavy stump in the middle of the floor holds a battered iron anvil, scarred with thousands of hammer marks. Crude wooden racks line the side walls — picks, hand-axes, dented helmets, mismatched shields — most of them rough and freshly hammered. The air is heavy with smoke and the bitter tang of hot metal. The only way out is back west into the store room.",
+    "cs": "Z výhně vytesané do zadní stěny pulzuje teplé oranžové světlo, uhlíky jsou přihrnuté, ale stále živé. Na těžkém pařezu uprostřed podlahy leží otlučená železná kovadlina, posetá tisíci stop po kladivech. Podél bočních stěn stojí hrubé dřevěné stojany — krumpáče, sekery, promáčknuté přilby, nepárové štíty — většina z nich hrubá a čerstvě vykovaná. Vzduch je hustý kouřem a hořkým pachem rozžhaveného kovu. Jediná cesta ven vede zpátky na západ do skladiště."
+  },
+  "exits": {
+    "w": "mine.store_room"
+  },
+  "tags": ["indoor", "mine", "dark"]
+}

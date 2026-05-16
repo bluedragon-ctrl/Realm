@@ -1,0 +1,101 @@
+{
+  "id": "mine.rat_matriarch",
+  "name": { "en": "the rat matriarch", "cs": "krysí matrona" },
+  "nameAcc": { "en": "the rat matriarch", "cs": "krysí matronu" },
+  "nameDat": { "en": "the rat matriarch", "cs": "krysí matroně" },
+  "nameGen": { "en": "the rat matriarch", "cs": "krysí matrony" },
+  "title": { "en": "rat matriarch", "cs": "krysí matrona" },
+  "vision": "nightvision",
+  "location": "mine.rat_warren_deep",
+  "count": 1,
+  "short": {
+    "en": "A huge old grey rat the size of a small dog, fur matted with age and scars, dragging herself up to meet you.",
+    "cs": "Obrovská stará šedá krysa velká jako menší pes, srst zacuchaná stářím a jizvami, pomalu se zvedá, aby ti čelila."
+  },
+  "long": {
+    "en": "A rat as big as a small dog, broad and heavy, with a grey-brown coat that has gone patchy and pale around the muzzle. Old scars cross her flanks where younger rats once tried to take her place. Her teeth are long and yellow and her eyes are clever — much cleverer than any of her young. The whole warren answers to her.",
+    "cs": "Krysa velká jako menší pes, široká a těžká, s šedohnědou srstí, která kolem čenichu zřídla a zbledla. Bok má pokrytý starými jizvami z dob, kdy se mladší krysy pokoušely zaujmout její místo. Zuby má dlouhé a žluté a oči chytré — mnohem chytřejší než kterékoli z jejích mláďat. Celé doupě poslouchá ji."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 30, "hpMax": 30,
+    "mp": 0, "mpMax": 0,
+    "attack": 4, "defense": 1, "int": 0,
+    "accuracy": 5,
+    "evasion": 5,
+    "spd": 4
+  },
+  "respawn": { "ticks": 2400 },
+  "xp": 32,
+  "goldDrop": { "formula": "3d4+5", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.rat_tail", "chance": 1.0, "count": 3 },
+    { "defId": "item.rat_charm", "chance": 1.0 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "matriarch bite", "cs": "kousnutí matrony" },
+      "chance": 1.0,
+      "cost": 16,
+      "damage": "1d4+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} surges forward with surprising weight and bites {target}!",
+          "{actor} clamps her long yellow teeth onto {target} and shakes!",
+          "{actor} rears up on her back legs and drives her teeth into {target}!"
+        ],
+        "cs": [
+          "{actor} se s překvapivou vahou vrhne vpřed a kousne {target}!",
+          "{actor} zatne dlouhé žluté zuby do {target.gen} a zatřese!",
+          "{actor} se vztyčí na zadních a zabodne zuby do {target.gen}!"
+        ]
+      }
+    },
+    {
+      "primitive": "summon",
+      "chance": 0.5,
+      "cost": 30,
+      "requires": { "type": "low_hp", "ratio": 0.3 },
+      "spawn": "mine.rat",
+      "count": 2,
+      "ttlTicks": 60,
+      "despawnText": {
+        "en": "the summoned rat squeaks and scurries back into the warren.",
+        "cs": "přivolaná krysa zapíská a uteče zpět do nory."
+      },
+      "templates": {
+        "en": [
+          "{actor} lets out a sharp piercing squeak — two grey rats answer from the dark!",
+          "{actor} stamps the floor and screeches — her young scurry in from every crack!"
+        ],
+        "cs": [
+          "{actor} vydá ostré pronikavé zapištění — z tmy se ozvou dvě šedé krysy a vběhnou dovnitř!",
+          "{actor} dupne o podlahu a zaječí — z každé pukliny se ženou její mláďata!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.05,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "twitches a torn ear and watches you with bright clever eyes.",
+          "scrapes her long yellow teeth along a rib of her nest.",
+          "lets out a low, drawn-out squeak that the smaller rats answer.",
+          "rolls her shoulders inside her thick old coat."
+        ],
+        "cs": [
+          "škubne otrhaným uchem a sleduje tě bystrýma chytrýma očima.",
+          "škrábe dlouhými žlutými zuby o žebro svého hnízda.",
+          "vydá hluboké, táhlé zapištění a menší krysy jí odpovídají.",
+          "protáhne ramena pod hustou starou srstí."
+        ]
+      }
+    }
+  ]
+}

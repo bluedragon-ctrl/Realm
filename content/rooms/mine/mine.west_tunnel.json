@@ -10,11 +10,12 @@
     "cs": "Nízká štola zapáchající krysami, s hromadami slámy a odpadků u stěn."
   },
   "long": {
-    "en": "The ceiling is low enough to brush against and the floor is covered in loose dirt and matted straw. Scratching sounds come from the dark corners. The straw is pressed into rough nests and something has gnawed through the old wooden supports. Squeaking echoes from the shadows.",
-    "cs": "Strop je tak nízko, že se ho skoro dotýkáš, a podlahu pokrývá sypaná hlína a slepená sláma. Z temných koutů se ozývá škrábání. Sláma je upěchovaná do hrubých hnízd a něco přehryzlo staré dřevěné vzpěry. Ze stínů se ozývá pištění."
+    "en": "The ceiling is low enough to brush against and the floor is covered in loose dirt and matted straw. Scratching sounds come from the dark corners. The straw is pressed into rough nests and something has gnawed through the old wooden supports. The squeaking grows louder further west, where the tunnel narrows into a smaller burrow.",
+    "cs": "Strop je tak nízko, že se ho skoro dotýkáš, a podlahu pokrývá sypaná hlína a slepená sláma. Z temných koutů se ozývá škrábání. Sláma je upěchovaná do hrubých hnízd a něco přehryzlo staré dřevěné vzpěry. Pištění zesiluje dál na západě, kde se štola zužuje do menší nory."
   },
   "exits": {
-    "e": "mine.entrance"
+    "e": "mine.entrance",
+    "w": "mine.rat_farm"
   },
   "tags": ["indoor", "mine", "dark"]
 }

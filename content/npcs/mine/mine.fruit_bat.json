@@ -1,0 +1,75 @@
+{
+  "id": "mine.fruit_bat",
+  "name": { "en": "a fruit bat", "cs": "ovocný netopýr" },
+  "nameAcc": { "en": "the fruit bat", "cs": "ovocného netopýra" },
+  "nameDat": { "en": "the fruit bat", "cs": "ovocnému netopýrovi" },
+  "nameGen": { "en": "the fruit bat", "cs": "ovocného netopýra" },
+  "title": { "en": "fruit bat", "cs": "ovocný netopýr" },
+  "vision": "nightvision",
+  "location": "mine.bat_hollow",
+  "count": 1,
+  "short": {
+    "en": "A big bat with reddish-brown fur and a sharp-eyed fox-like face.",
+    "cs": "Velký netopýr s rezavohnědou srstí a bystrýma očima v liščí tváři."
+  },
+  "long": {
+    "en": "A bat as big as a small cat, with thick reddish-brown fur and a face that looks more like a fox than a flying mouse. Its wings are heavy and unfold with a slow leathery rustle. It looks well-fed and only a little out of place — somewhere far above this mine, a tree it remembers must still be heavy with fruit.",
+    "cs": "Netopýr velký jako malá kočka, s hustou rezavohnědou srstí a tváří, která připomíná spíš lišku než létající myš. Křídla má těžká a rozkládá je s pomalým koženým šustěním. Vypadá najedeně a jen trochu mimo místo — někde vysoko nad tímto dolem musí ještě stát strom obtěžkaný ovocem, na který se pamatuje."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 16, "hpMax": 16,
+    "mp": 0, "mpMax": 0,
+    "attack": 2, "defense": 0, "int": 0,
+    "evasion": 10,
+    "spd": 5
+  },
+  "respawn": { "ticks": 1000 },
+  "xp": 11,
+  "loot": [
+    { "defId": "item.bat_wing", "chance": 0.9 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "heavy bite", "cs": "těžké kousnutí" },
+      "chance": 1.0,
+      "cost": 14,
+      "damage": "1d3+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} drops onto {target} with a heavy flap and bites!",
+          "{actor} sinks blunt teeth into {target}!",
+          "{actor} beats its wings around {target} and chomps down!"
+        ],
+        "cs": [
+          "{actor} se těžce snese na {target} a kousne!",
+          "{actor} zabodne tupé zuby do {target.gen}!",
+          "{actor} mává křídly kolem {target.gen} a chňapne!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "stretches one heavy leathery wing and folds it back.",
+          "yawns wide, showing blunt yellow teeth.",
+          "snuffles loudly through its broad foxy snout.",
+          "hangs upside down and turns its head almost all the way around."
+        ],
+        "cs": [
+          "natáhne jedno těžké kožené křídlo a zase ho složí.",
+          "doširoka zívne a ukáže tupé žluté zuby.",
+          "hlasitě zafuní širokým liščím čumákem.",
+          "visí hlavou dolů a otočí hlavou skoro úplně dokola."
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,70 @@
+{
+  "id": "summon.rat_friendly",
+  "summonOnly": true,
+  "name": { "en": "a tame rat", "cs": "krotká krysa" },
+  "nameAcc": { "en": "the tame rat", "cs": "krotkou krysu" },
+  "nameDat": { "en": "the tame rat", "cs": "krotké kryse" },
+  "nameGen": { "en": "the tame rat", "cs": "krotké krysy" },
+  "title": { "en": "tame rat", "cs": "krotká krysa" },
+  "vision": "nightvision",
+  "short": {
+    "en": "A wiry grey rat trots in beside you, sharp eyes already scanning for trouble.",
+    "cs": "Šlachovitá šedá krysa se k tobě přitočí, bystré oči už hledají potíže."
+  },
+  "long": {
+    "en": "A wiry grey rat that answered the whistle, no bigger than a small cat. Its fur is dark grey along the back, paler under the belly, and its eyes glint like wet stones. It keeps close to your heels and watches whatever you watch — when there's a fight to be had, it darts in fast and bites for the ankles.",
+    "cs": "Šlachovitá šedá krysa, která se ozvala na píšťalku, ne větší než malá kočka. Srst má tmavě šedou na hřbetu, světlejší na břiše, a oči se jí lesknou jako mokré kameny. Drží se těsně u tvých pat a sleduje to, co ty — když je zápas, mihne se vpřed a kouše po kotnících."
+  },
+  "disposition": "neutral",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 10, "hpMax": 10,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "accuracy": 0,
+    "evasion": 12,
+    "spd": 4
+  },
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "rat bite", "cs": "kousnutí krysy" },
+      "chance": 1.0,
+      "cost": 12,
+      "damage": "1d2+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} darts in and bites {target} on the ankle!",
+          "{actor} scurries up and snaps yellow teeth at {target}!",
+          "{actor} leaps at {target} with bared teeth!"
+        ],
+        "cs": [
+          "{actor} se mihne dovnitř a kousne {target.acc} do kotníku!",
+          "{actor} přiběhne a chňapne žlutými zuby po {target.dat}!",
+          "{actor} skočí na {target} s vyceněnými zuby!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "trots in a slow circle at your heels.",
+          "twitches its long pink tail.",
+          "sniffs the air and lets out a soft chitter.",
+          "sits up on its haunches and watches the shadows."
+        ],
+        "cs": [
+          "pomalu krouží u tvých pat.",
+          "škubne dlouhým růžovým ocasem.",
+          "čichá ve vzduchu a tiše zacvaká.",
+          "sedne si na zadní a pozoruje stíny."
+        ]
+      }
+    }
+  ]
+}

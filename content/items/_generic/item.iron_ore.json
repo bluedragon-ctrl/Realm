@@ -23,7 +23,8 @@
       "mine.east_tunnel": 1,
       "mine.west_tunnel": 1,
       "mine.deep_hall": 1,
-      "mine.dark_crossing": 1
+      "mine.dark_crossing": 1,
+      "mine.smithy": 3
     },
     "respawnTicks": 600
   }

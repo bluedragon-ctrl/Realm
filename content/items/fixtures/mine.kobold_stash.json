@@ -1,0 +1,46 @@
+{
+  "id": "mine.kobold_stash",
+  "rarity": 1,
+  "name": {
+    "en": "an iron-bound stash chest",
+    "cs": "okovaná schránka"
+  },
+  "nameAcc": {
+    "en": "the iron-bound stash chest",
+    "cs": "okovanou schránku"
+  },
+  "nameGen": {
+    "en": "the iron-bound stash chest",
+    "cs": "okované schránky"
+  },
+  "short": {
+    "en": "A battered iron-bound chest tucked under the lowest mat, the lid pinned shut by rust.",
+    "cs": "Otlučená okovaná schránka zastrčená pod nejnižším lůžkem, víko sevřené rzí."
+  },
+  "long": {
+    "en": "A small chest shoved into the rock-shadow at the foot of the lowest sleeping mat. Once it was bound with iron bands, but the bands have rusted welded the lid to the body — no key would open this now, and forcing the lid will not be quiet. Whatever the kobolds stashed inside, they cannot get to it either.",
+    "cs": "Drobná schránka zaražená do stínu pod nejnižším slaměným lůžkem. Kdysi byla pobita železnými pásy, ale ty rzí přivařily víko k tělu — žádný klíč by ji teď neotevřel, a kdo se víko pokusí vypáčit, ten potichu nebude. Ať už koboldové dovnitř schovali cokoli, sami si k tomu už nedostanou."
+  },
+  "tags": ["fixture"],
+  "weight": 99,
+  "pickable": false,
+  "spawn": {
+    "location": "mine.bunkroom",
+    "count": 1
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you wrench at the rusted lid of {target}. Wood and iron grind together with a long shriek that bounces off every wall.",
+        "others": "{actor} wrenches at the lid of {target}; wood and iron grind together with a long shriek that bounces off every wall."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "zalomíš zrezivělým víkem {target.gen}. Dřevo a železo o sebe zaskřípou dlouhým zaskřípáním, které se odráží od každé stěny.",
+        "others": "{actor} zalomí víkem {target.gen}; dřevo a železo o sebe zaskřípou dlouhým zaskřípáním, které se odráží od každé stěny."
+      }
+    },
+    "effect": { "type": "wake_kin", "defId": "mine.kobold_sleeper" }
+  }
+}

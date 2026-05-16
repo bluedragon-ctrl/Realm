@@ -20,8 +20,10 @@
   "tags": ["food", "mushroom", "ingredient"],
   "weight": 0,
   "spawn": {
-    "location": "forest.mushroom_hollow",
-    "count": 4,
+    "locations": {
+      "forest.mushroom_hollow": 4,
+      "mine.mushroom_grotto": 2
+    },
     "respawnTicks": 600
   },
   "use": {
