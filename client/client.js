@@ -1517,7 +1517,12 @@ function openUseInventoryOnSubmenu(anchorEl, roomItem) {
     openRoomItemPopover(anchorEl, roomItem);
   }));
   const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
-  if (inv.length === 0) {
+  let candidates = inv;
+  if (roomItem.unlocks) {
+    const keys = inv.filter(i => i.isKey);
+    if (keys.length > 0) candidates = keys;
+  }
+  if (candidates.length === 0) {
     const empty = document.createElement('div');
     empty.style.padding = '4px';
     empty.style.color = 'var(--dim)';
@@ -1525,7 +1530,7 @@ function openUseInventoryOnSubmenu(anchorEl, roomItem) {
     empty.textContent = labels.noItemsLabel ?? '(no items)';
     popover.appendChild(empty);
   } else {
-    for (const invItem of inv) {
+    for (const invItem of candidates) {
       const label = invItem.count > 1 ? `${invItem.name} ×${invItem.count}` : invItem.name;
       popover.appendChild(popoverButton(label, '', () => {
         sendInput(`use ${invItem.name} on ${roomItem.name}`); closePopover();

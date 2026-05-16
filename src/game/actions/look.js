@@ -240,6 +240,7 @@ export function describeRoom(actor) {
         count: 1,
         pickable: def.pickable !== false,
         usable: !!def.use,
+        unlocks: !!def.unlocks,
         interactable: !!(def.use || def.unlocks || hasExchanges),
       });
 
