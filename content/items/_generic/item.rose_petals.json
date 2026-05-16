@@ -19,5 +19,5 @@
   },
   "tags": ["ingredient"],
   "weight": 0,
-  "spawn": { "location": "forest.briar_path", "count": 3, "respawnTicks": 600 }
+  "spawn": { "locations": { "forest.briar_path": 3, "village.shrine": 3 }, "respawnTicks": 600 }
 }
