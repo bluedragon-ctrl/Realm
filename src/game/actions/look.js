@@ -321,6 +321,27 @@ function sendTargetInfo(actor, target) {
         name: t(target.name, lang),
         subtitle,
         description: s('look.target_dim_hint', lang),
+        exchanges,
+        exchangeHost: exchanges ? 'npc' : undefined,
+        exchangeEntryLabel: exchanges ? s('exchange.entry.trade', lang) : undefined,
+        exchangeBackLabel: exchanges ? s('exchange.back', lang) : undefined,
+        exchangeYouHaveLabel: exchanges ? s('exchange.you_have', lang) : undefined,
+        exchangeRowLabels: exchanges ? {
+          buy: s('exchange.row.buy', lang),
+          sell: s('exchange.row.sell', lang),
+          craft: s('exchange.row.craft', lang),
+          sink: s('exchange.row.sink', lang),
+        } : undefined,
+        exchangeConfirmLabels: exchanges ? {
+          buy: s('exchange.confirm.buy', lang),
+          sell: s('exchange.confirm.sell', lang),
+          craft: s('exchange.confirm.craft', lang),
+          sink: s('exchange.confirm.sink', lang),
+        } : undefined,
+        exchangeSinkLabels: exchanges ? {
+          any: s('exchange.sink.any', lang),
+          empty: s('exchange.sink.empty', lang),
+        } : undefined,
       });
       return;
     }
