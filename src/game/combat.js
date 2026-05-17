@@ -15,10 +15,11 @@ import { fillPlaceholders } from './verbs.js';
 import { goldPhrase } from './format.js';
 import { clearPlayerActionQueue } from './playerCombatState.js';
 import { unregisterWanderer } from './wandering.js';
-import { EFFECT_SOURCE } from './contentMeta.js';
+import { EFFECT_SOURCE, DEFAULT_DAMAGE_TYPE } from './contentMeta.js';
 import { addHate, removeFromTable, hasAggroEntry, onAggroOnset } from './aggro.js';
 import { getTick } from './clock.js';
 import { setPosition } from './positionGate.js';
+import { on as onEvent, emit as emitEvent } from './events.js';
 export { aggroTargetInRoom, hasInRoomTarget } from './aggro.js';
 
 const MIN_DODGE = 5;
@@ -26,8 +27,41 @@ const MAX_DODGE = 95;
 const MAX_CRIT = 50;
 const CRIT_MULTIPLIER = 2;
 
+// Per-damage-type multiplier lookup. Returns 1.0 when the target has no `typeResists`
+// map or no entry for the school — preserving today's "everything is full damage" baseline.
+// Future content can drop a `typeResists: { fire: 0.5, holy: 0 }` onto NPC/player stats
+// without any further code change. Values are damage multipliers (0 = immune, 1 = full).
+export function resistMultiplier(target, damageType) {
+  const map = target?.stats?.typeResists;
+  if (!map || typeof map !== 'object') return 1;
+  const v = map[damageType ?? DEFAULT_DAMAGE_TYPE];
+  if (typeof v !== 'number') return 1;
+  return Math.max(0, Math.min(1, v));
+}
+
 function targetDisplay(target, lang) {
   return resolveName(target, 'acc', lang);
+}
+
+// Per-recipient triad broadcast for combat events where the actor, the target, and
+// observers each get a different line. Each text closure receives the recipient language
+// and returns a string (or falsy to skip that recipient). Target sees `targetSeen` when it
+// can perceive the actor, `targetDark` otherwise. Observers gated by canPerceive(actor).
+function broadcastTriad(actor, target, { tone, self, targetSeen, targetDark, observer }) {
+  broadcastToRoom(actor.location, (recipient) => {
+    const lang = recipient.lang;
+    let text;
+    if (recipient === actor) {
+      text = self(lang);
+    } else if (recipient === target) {
+      text = canPerceive(target, actor) ? targetSeen(lang) : targetDark(lang);
+    } else {
+      if (!canPerceive(recipient, actor)) return null;
+      text = observer(lang);
+    }
+    if (!text) return null;
+    return { kind: 'emote', tone, source: sourceForActor(actor, recipient), text };
+  });
 }
 
 // Barrier effect uses `ticksLeft` as a unified clock + damage budget. Each absorbed point
@@ -73,26 +107,14 @@ export function executeAttack(actor, action, target) {
   const eva = target.stats?.evasion ?? 0;
   const dodge = Math.max(MIN_DODGE, Math.min(MAX_DODGE, eva - acc));
   if (Math.floor(Math.random() * 100) + 1 <= dodge) {
-    broadcastToRoom(actor.location, (recipient) => {
-      const lang = recipient.lang;
-      if (recipient === actor) {
-        return { kind: 'emote', source: sourceForActor(actor, recipient),
-          text: s('combat.you_missed', lang, { target: targetDisplay(target, lang) }) };
-      }
-      if (recipient === target) {
-        if (!canPerceive(target, actor)) {
-          return { kind: 'emote', source: sourceForActor(actor, recipient),
-            text: s('combat.missed_by_unseen', lang) };
-        }
-        return { kind: 'emote', source: sourceForActor(actor, recipient),
-          text: s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) }) };
-      }
-      if (!canPerceive(recipient, actor)) return null;
-      return { kind: 'emote', source: sourceForActor(actor, recipient),
-        text: s('combat.miss_observed', lang, {
-          actor: actorDisplay(actor, lang),
-          target: targetDisplay(target, lang),
-        }) };
+    broadcastTriad(actor, target, {
+      self: (lang) => s('combat.you_missed', lang, { target: targetDisplay(target, lang) }),
+      targetSeen: (lang) => s('combat.target_missed_you', lang, { actor: actorDisplay(actor, lang) }),
+      targetDark: (lang) => s('combat.missed_by_unseen', lang),
+      observer: (lang) => s('combat.miss_observed', lang, {
+        actor: actorDisplay(actor, lang),
+        target: targetDisplay(target, lang),
+      }),
     });
     registerAttackAggro(actor, target);
     if (actor.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
@@ -120,27 +142,19 @@ export function executeAttack(actor, action, target) {
   }
 
   if (crit) {
-    broadcastToRoom(actor.location, (recipient) => {
-      const lang = recipient.lang;
-      let text;
-      if (recipient === actor) {
-        text = s('combat.you_crit', lang, { target: targetDisplay(target, lang) });
-      } else if (recipient === target) {
-        text = !canPerceive(target, actor)
-          ? s('combat.crit_by_unseen', lang)
-          : s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) });
-      } else {
-        if (!canPerceive(recipient, actor)) return null;
-        text = s('combat.crit_observed', lang, {
-          actor: actorDisplay(actor, lang),
-          target: targetDisplay(target, lang),
-        });
-      }
-      return { kind: 'emote', tone: 'combat', source: sourceForActor(actor, recipient), text };
+    broadcastTriad(actor, target, {
+      tone: 'combat',
+      self: (lang) => s('combat.you_crit', lang, { target: targetDisplay(target, lang) }),
+      targetSeen: (lang) => s('combat.target_crit_you', lang, { actor: actorDisplay(actor, lang) }),
+      targetDark: (lang) => s('combat.crit_by_unseen', lang),
+      observer: (lang) => s('combat.crit_observed', lang, {
+        actor: actorDisplay(actor, lang),
+        target: targetDisplay(target, lang),
+      }),
     });
   }
 
-  applyDamageWithFeedback(actor, target, final);
+  applyDamageWithFeedback(actor, target, final, { damageType: action.damageType });
   if (actor.kind === 'player') actor.target = target;
 
   if (action.onHit && target.stats?.hp > 0) {
@@ -170,12 +184,64 @@ export function executeAttack(actor, action, target) {
   }
 }
 
-export function applyDamageWithFeedback(actor, target, amount) {
-  if (!target?.stats || target.stats.hp <= 0) return 0;
+// MP-burn branch of applyDamageWithFeedback. Shares the aggro + sendStats + lastCombatTick
+// hooks but skips HP-only ones (invisibility break, position stand-up, barrier, thorns,
+// death) since MP burn can't kill and isn't a physical strike. Narration uses MP-specific
+// strings with genitive target / nominative actor declension.
+function applyMpBurn(actor, target, amount, opts) {
+  const raw = Math.max(0, amount);
+  const dealt = Math.min(target.stats.mp, raw);
+  if (dealt <= 0) return 0;
+  target.stats.mp = Math.max(0, target.stats.mp - dealt);
+
+  if (actor?.session) {
+    actor.session.send({
+      kind: 'system', tone: 'bad',
+      text: s('combat.you_burned_mp', actor.lang, {
+        target: resolveName(target, 'gen', actor.lang),
+        amount: dealt,
+      }),
+    });
+  }
+  if (target.session && target !== actor) {
+    target.session.send({
+      kind: 'system', tone: 'bad',
+      text: s('combat.target_burned_your_mp', target.lang, {
+        actor: resolveName(actor, 'nom', target.lang),
+        amount: dealt,
+      }),
+    });
+  }
+
+  if (!opts.suppressAggro) registerAttackAggro(actor, target, dealt);
+  if (actor?.kind === 'player') sendStats(actor);
+  if (target.kind === 'player') sendStats(target);
+  return dealt;
+}
+
+// Single damage entry point for all combat-driven damage.
+//   opts.stat       — 'hp' (default) or 'mp'. MP burn shares aggro + sendStats but
+//                     skips HP-only hooks (invisibility break, position stand-up,
+//                     barrier, thorns, death).
+//   opts.damageType — school tag (physical/magical/fire/...). Passed to resistMultiplier
+//                     so per-type resists shave damage after DEF, before HP subtraction.
+//                     Today every target's typeResists map is empty, so multiplier is
+//                     1.0 and behavior is unchanged. Future content fills the map.
+//   opts.suppressAggro — for self-inflicted damage / environmental ticks where the actor
+//                     should not become an aggro target.
+export function applyDamageWithFeedback(actor, target, amount, opts = {}) {
+  if (!target?.stats) return 0;
+  const stat = opts.stat ?? 'hp';
+  if (stat === 'hp' && target.stats.hp <= 0) return 0;
+  if (stat === 'mp' && (target.stats.mp ?? 0) <= 0) return 0;
 
   const tick = getTick();
   if (actor) actor.lastCombatTick = tick;
   if (target) target.lastCombatTick = tick;
+
+  if (stat === 'mp') return applyMpBurn(actor, target, amount, opts);
+
+  const damageType = opts.damageType ?? DEFAULT_DAMAGE_TYPE;
 
   // Damaging another actor reveals you — invisibility breaks on hostile action.
   if (actor && target && actor !== target && isInvisibleActor(actor)) {
@@ -192,6 +258,13 @@ export function applyDamageWithFeedback(actor, target, amount) {
     const was = target.position;
     setPosition(target, 'stand', was === 'sleep' ? 'woken' : 'stood');
   }
+
+  // Type-resist multiplier: 1.0 when target has no per-type resist for this damageType,
+  // otherwise scales raw incoming damage (0 = full immunity). Applied before barrier so
+  // barriers absorb the post-resist amount, matching the intuition that resists are the
+  // creature's intrinsic shield and barriers are an external layer.
+  const typeMul = resistMultiplier(target, damageType);
+  if (typeMul < 1) amount = Math.floor(amount * typeMul);
 
   // Barrier absorption: incoming damage is paid out of the effect's ticksLeft (which
   // doubles as a damage budget). Fully absorbed hits leave HP untouched and skip
@@ -251,7 +324,7 @@ export function applyDamageWithFeedback(actor, target, amount) {
 
   // Use full attempted swing for aggro, not just HP-dealt. Otherwise barrier secretly
   // suppresses hate generation and a barrier-protected ally never holds threat.
-  registerAttackAggro(actor, target, dealt + absorbed);
+  if (!opts.suppressAggro) registerAttackAggro(actor, target, dealt + absorbed);
 
   if (actor.kind === 'player') sendStats(actor);
   if (target.kind === 'player') sendStats(target);
@@ -378,6 +451,9 @@ function handleNpcDeath(killer, npc) {
     };
   });
 
+  // World-state invariants: dead flag, wanderer/follow cleanup, room/instance map
+  // removal. These must run unconditionally before any subscriber fires so handlers
+  // see a consistent world.
   npc.alive = false;
   unregisterWanderer(npc);
   npc.following = null;
@@ -401,63 +477,66 @@ function handleNpcDeath(killer, npc) {
   world.npcsByInstance.delete(npc.instanceId);
 
   const def = world.npcDefs.get(npc.defId);
-
-  // Summoned NPCs are ephemeral — no xp, no loot, no respawn enqueue. Bosses can't farm
-  // sacrificial minions, and players can't farm scrolls by summoning meat.
-  if (npc.summoned) {
-    if (room) describeRoomToAll(room);
-    return;
-  }
-
-  if (def?.xp) {
-    const players = [];
-    if (room && world.actorsByRoom.has(room)) {
-      for (const a of world.actorsByRoom.get(room)) {
-        if (a.kind === 'player') players.push(a);
-      }
-    }
-    if (killer?.kind === 'player' && !players.includes(killer)) players.push(killer);
-    if (players.length > 0) {
-      const share = Math.floor(def.xp / players.length);
-      const remainder = def.xp - share * players.length;
-      for (const p of players) {
-        const amount = (p === killer ? share + remainder : share);
-        if (amount > 0) awardXp(p, amount, 'kill');
-      }
-    }
-  }
-
-  if (room && def?.loot) {
-    for (const entry of def.loot) {
-      if (Math.random() < (entry.chance ?? 1)) {
-        const itemDef = world.itemDefs.get(entry.defId);
-        if (itemDef) placeItemInRoom(makeItemInstance(itemDef), room);
-      }
-    }
-  }
-
-  if (room && def?.goldDrop && Math.random() < (def.goldDrop.chance ?? 1)) {
-    const amount = Math.max(0, roll(def.goldDrop.formula ?? '0'));
-    if (amount > 0) {
-      addGoldToRoom(room, amount);
-      broadcastToRoom(room, (recipient) => ({
-        kind: 'system',
-        tone: 'good',
-        text: s('loot.gold_dropped', recipient.lang, {
-          target: resolveName(npc, 'nom', recipient.lang),
-          amount: goldPhrase(amount, recipient.lang),
-        }),
-      }));
-    }
-  }
-
-  const respawnTicks = def?.respawn?.ticks ?? 0;
-  if (respawnTicks > 0 && def) {
-    queueNpcRespawn(npc.defId, respawnTicks, npc.homeLocation);
-  }
+  emitEvent('npc_died', { killer, target: npc, room, def, summoned: !!npc.summoned });
 
   if (room) describeRoomToAll(room);
 }
+
+// XP share: split def.xp evenly across players in the death room; killer keeps any
+// remainder. Summoned NPCs grant no XP — see comment on `summoned` flag in events.js.
+onEvent('npc_died', ({ killer, target: npc, room, def, summoned }) => {
+  if (summoned || !def?.xp) return;
+  const players = [];
+  if (room && world.actorsByRoom.has(room)) {
+    for (const a of world.actorsByRoom.get(room)) {
+      if (a.kind === 'player') players.push(a);
+    }
+  }
+  if (killer?.kind === 'player' && !players.includes(killer)) players.push(killer);
+  if (players.length === 0) return;
+  const share = Math.floor(def.xp / players.length);
+  const remainder = def.xp - share * players.length;
+  for (const p of players) {
+    const amount = (p === killer ? share + remainder : share);
+    if (amount > 0) awardXp(p, amount, 'kill');
+  }
+});
+
+// Loot drop: place rolled items in the death room. Skipped for summons (no farming).
+onEvent('npc_died', ({ target: npc, room, def, summoned }) => {
+  if (summoned || !room || !def?.loot) return;
+  for (const entry of def.loot) {
+    if (Math.random() < (entry.chance ?? 1)) {
+      const itemDef = world.itemDefs.get(entry.defId);
+      if (itemDef) placeItemInRoom(makeItemInstance(itemDef), room);
+    }
+  }
+});
+
+// Gold drop: rolled amount, with its own room broadcast since gold isn't an item the
+// describeRoomToAll re-render naturally surfaces.
+onEvent('npc_died', ({ target: npc, room, def, summoned }) => {
+  if (summoned || !room || !def?.goldDrop) return;
+  if (Math.random() >= (def.goldDrop.chance ?? 1)) return;
+  const amount = Math.max(0, roll(def.goldDrop.formula ?? '0'));
+  if (amount <= 0) return;
+  addGoldToRoom(room, amount);
+  broadcastToRoom(room, (recipient) => ({
+    kind: 'system',
+    tone: 'good',
+    text: s('loot.gold_dropped', recipient.lang, {
+      target: resolveName(npc, 'nom', recipient.lang),
+      amount: goldPhrase(amount, recipient.lang),
+    }),
+  }));
+});
+
+// Respawn queue: defs with `respawn.ticks` get enqueued for re-spawn at home location.
+onEvent('npc_died', ({ target: npc, def, summoned }) => {
+  if (summoned || !def) return;
+  const respawnTicks = def?.respawn?.ticks ?? 0;
+  if (respawnTicks > 0) queueNpcRespawn(npc.defId, respawnTicks, npc.homeLocation);
+});
 
 function handlePlayerDeath(killer, victim) {
   clearPlayerActionQueue(victim);
@@ -509,6 +588,8 @@ function handlePlayerDeath(killer, victim) {
   sendStats(victim);
 
   if (oldRoom) describeRoomToAll(oldRoom);
+
+  emitEvent('player_died', { killer, victim, oldRoom });
 
   // Delay respawn so the player has time to register what happened
   setTimeout(() => {

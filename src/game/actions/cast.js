@@ -88,6 +88,7 @@ export function findKnownSpell(actor, query) {
 function applyDamageToList(actor, spell, targets) {
   const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
   const applyId = spell.effect.applyEffect;
+  const damageType = spell.effect.damageType ?? 'magical';
   let anyLanded = false;
   for (const tgt of targets) {
     if (spell.harmful && resists(tgt)) {
@@ -96,7 +97,7 @@ function applyDamageToList(actor, spell, targets) {
       continue;
     }
     const amount = Math.max(1, roll(formula, { actor, target: tgt }));
-    applyDamageWithFeedback(actor, tgt, amount);
+    applyDamageWithFeedback(actor, tgt, amount, { damageType });
     anyLanded = true;
     if (applyId && tgt.alive !== false && tgt.stats?.hp > 0) {
       applyActiveEffect(tgt, applyId, EFFECT_SOURCE.SPELL, actor.name);
@@ -131,14 +132,91 @@ function applyHealToList(actor, spell, targets) {
   return healedAlly;
 }
 
+// Per-effect-type executor. Keyed by `spell.effect.type`. Each executor is called after
+// pre-flight (MP, form, perception, MP cost paid, runVerb fired) and after the single-target
+// resist gate has had its chance. Return shape `{ healedAlly?, resisted? }` is folded into
+// the outer cast result; missing fields default to false.
+const SPELL_EXECUTORS = {
+  damage_room_enemies(actor, spell, _target, { silent }) {
+    const anyLanded = applyDamageToList(actor, spell, roomEnemiesOf(actor));
+    if (!silent) sendStats(actor);
+    return { resisted: !anyLanded };
+  },
+  heal_room_friendlies(actor, spell, _target, { silent }) {
+    const healedAlly = applyHealToList(actor, spell, roomFriendliesOf(actor));
+    if (!silent) sendStats(actor);
+    return { healedAlly };
+  },
+  buff_room_friendlies(actor, spell, _target, { silent }) {
+    applyBuffToList(actor, spell, roomFriendliesOf(actor));
+    if (!silent) sendStats(actor);
+    return {};
+  },
+  damage(actor, spell, target, ctx) {
+    if (!target || target === actor) return executeGeneric(actor, spell, target, ctx);
+    if (spell.effect.stat === 'mp') return castMpBurn(actor, spell, target, ctx);
+    applyDamageToList(actor, spell, [target]);
+    return {};
+  },
+  apply_effect(actor, spell, target) {
+    const recipient = target ?? actor;
+    applyActiveEffect(recipient, spell.effect.effectId, EFFECT_SOURCE.SPELL, actor.name);
+    // Harmful debuffs need to register aggro just like damaging spells, otherwise
+    // landing a curse leaves the caster un-targeted by their victim.
+    if (spell.harmful && recipient !== actor) registerAttackAggro(actor, recipient);
+    if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
+    if (actor !== recipient && actor.kind === 'player') sendStats(actor);
+    return {};
+  },
+  heal(actor, spell, target, { silent }) {
+    const result = applyEffect(spell.effect, { actor, target });
+    if (!silent) sendHealFeedback(actor, target, result);
+    const hp = result?.hpRestored ?? 0;
+    applyHealerAggro(actor, target ?? actor, hp);
+    return { healedAlly: !!(target && target !== actor && hp > 0) };
+  },
+  drain(actor, spell, target, { silent }) {
+    const result = applyEffect(spell.effect, { actor, target });
+    if (!silent) {
+      const healed = result?.healed ?? 0;
+      if (healed > 0) {
+        actor.session?.send({
+          kind: 'system', tone: 'good',
+          text: s('heal.you_were_healed', actor.lang, { amount: healed }),
+        });
+      }
+      sendStats(actor);
+    }
+    return {};
+  },
+};
+
+function castMpBurn(actor, spell, target) {
+  const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
+  const amount = Math.max(1, roll(formula, { actor, target }));
+  // Routes through applyDamageWithFeedback so aggro + sendStats fire consistently with
+  // every other combat damage path. applyMpBurn handles the MP-specific narration.
+  applyDamageWithFeedback(actor, target, amount, {
+    stat: 'mp',
+    damageType: spell.effect.damageType ?? 'magical',
+  });
+  return {};
+}
+
+// Fallback for effect types delegated entirely to the EFFECTS registry (cure / fade /
+// pacify / summon / taunt) and for damage-on-self/no-target edge cases.
+function executeGeneric(actor, spell, target, { silent }) {
+  if (!spell.effect) return {};
+  applyEffect(spell.effect, { actor, target });
+  if (!silent) sendStats(actor);
+  return {};
+}
+
 // Single shared spell executor. Player command and NPC `cast` primitive both go through
 // this so MP/resists/form/effect dispatch stay in one place.
 //
 //   target     — `null` for AoE / no_target spells, the recipient otherwise (may equal actor).
 //   silent     — suppress error sends + post-cast sendStats/XP for headless casters.
-//   skipFormCheck — NPC primitive checks `hasForm(spell.verb, 'en', ...)` itself; with
-//                  `silent: true` we want a silent fail when the verb form is missing instead of
-//                  spamming "you can't cast that".
 //
 // Returns { ok, reason } so callers can branch on resist / no-MP without duplicating logic.
 export function castSpell(actor, spell, target, { silent = false } = {}) {
@@ -182,76 +260,25 @@ export function castSpell(actor, spell, target, { silent = false } = {}) {
   // coherent. Don't reorder these without revisiting the resist-message wording.
   runVerb({ actor, def: spell.verb, targetActor: isToTarget ? target : null });
 
-  const castXp = spell.xp ?? 1;
-  let healedAlly = false;
+  // Single-target resist gate runs before dispatch so apply_effect debuffs and the
+  // single-target damage path both go through it. AoE per-target resist lives inside
+  // applyDamageToList.
   let resisted = false;
-
-  if (effectType === 'damage_room_enemies') {
-    const anyLanded = applyDamageToList(actor, spell, roomEnemiesOf(actor));
-    if (!anyLanded) resisted = true;
-    if (!silent) sendStats(actor);
-  } else if (effectType === 'heal_room_friendlies') {
-    healedAlly = applyHealToList(actor, spell, roomFriendliesOf(actor));
-    if (!silent) sendStats(actor);
-  } else if (effectType === 'buff_room_friendlies') {
-    applyBuffToList(actor, spell, roomFriendliesOf(actor));
-    if (!silent) sendStats(actor);
-  } else if (spell.harmful && target && target !== actor && resists(target)) {
+  let healedAlly = false;
+  if (spell.harmful && target && target !== actor && resists(target)) {
     broadcastResist(actor, target);
     registerAttackAggro(actor, target);
     if (!silent) sendStats(actor);
     resisted = true;
-  } else if (effectType === 'damage' && target && target !== actor) {
-    if (spell.effect.stat === 'mp') {
-      const formula = spell.effect.formula ?? spell.effect.amount ?? '1';
-      const amount = Math.max(1, roll(formula, { actor, target }));
-      const result = applyEffect({ ...spell.effect, amount }, { actor, target });
-      registerAttackAggro(actor, target);
-      if (!silent) {
-        const dealt = result?.dealt ?? 0;
-        if (dealt > 0) {
-          actor.session?.send({ kind: 'system', tone: 'bad', text: s('combat.you_burned_mp', actor.lang, { target: resolveName(target, 'gen', actor.lang), amount: dealt }) });
-          if (target.session && target !== actor) {
-            target.session.send({ kind: 'system', tone: 'bad', text: s('combat.target_burned_your_mp', target.lang, { actor: resolveName(actor, 'nom', target.lang), amount: dealt }) });
-          }
-        }
-        sendStats(actor);
-      }
-    } else {
-      applyDamageToList(actor, spell, [target]);
-    }
-  } else if (effectType === 'apply_effect') {
-    const recipient = target ?? actor;
-    applyActiveEffect(recipient, spell.effect.effectId, EFFECT_SOURCE.SPELL, actor.name);
-    // Harmful debuffs need to register aggro just like damaging spells, otherwise
-    // landing a curse leaves the caster un-targeted by their victim.
-    if (spell.harmful && recipient !== actor) registerAttackAggro(actor, recipient);
-    if (recipient.kind === 'player' && recipient.session) sendStats(recipient);
-    if (actor !== recipient && actor.kind === 'player') sendStats(actor);
-  } else if (spell.effect) {
-    const result = applyEffect(spell.effect, { actor, target });
-    if (effectType === 'heal') {
-      if (!silent) sendHealFeedback(actor, target, result);
-      const hp = result?.hpRestored ?? 0;
-      if (target && target !== actor && hp > 0) healedAlly = true;
-      applyHealerAggro(actor, target ?? actor, hp);
-    } else if (effectType === 'drain') {
-      const healed = result?.healed ?? 0;
-      if (!silent) {
-        if (healed > 0) {
-          actor.session?.send({
-            kind: 'system', tone: 'good',
-            text: s('heal.you_were_healed', actor.lang, { amount: healed }),
-          });
-        }
-        sendStats(actor);
-      }
-    } else if (!silent) {
-      sendStats(actor);
-    }
+  } else {
+    const executor = SPELL_EXECUTORS[effectType] ?? executeGeneric;
+    const result = executor(actor, spell, target, { silent }) ?? {};
+    healedAlly = !!result.healedAlly;
+    resisted = !!result.resisted;
   }
 
   if (!silent && actor.kind === 'player' && !resisted) {
+    const castXp = spell.xp ?? 1;
     awardXp(actor, healedAlly ? 2 : castXp, healedAlly ? 'heal_friendly' : 'cast');
   }
 

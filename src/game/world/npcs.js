@@ -66,7 +66,7 @@ export function processNpcRespawns() {
   }
 }
 
-function roomHasHostiles(roomId) {
+export function roomHasHostiles(roomId) {
   const set = world.actorsByRoom.get(roomId);
   if (!set) return false;
   for (const a of set) {
