@@ -2,7 +2,7 @@ import path from 'node:path';
 import {
   check, checkLocalizedText, checkObject, checkArray, checkEnum,
 } from '../validate.js';
-import { WEARABLE_SLOT_SET, ALLOWED_BONUS_KEYS, LIGHT_LEVEL_SET } from '../../game/contentMeta.js';
+import { WEARABLE_SLOT_SET, ALLOWED_BONUS_KEYS, LIGHT_LEVEL_SET, ITEM_CATEGORIES } from '../../game/contentMeta.js';
 import { checkOptionalNameForms } from './common.js';
 
 export function makeItemValidator(knownRooms, knownEffects) {
@@ -10,6 +10,10 @@ export function makeItemValidator(knownRooms, knownEffects) {
     const ctx = `item '${def.id}' (${path.basename(file)})`;
     checkLocalizedText(def.name, ctx, 'name');
     checkOptionalNameForms(def, ctx);
+    if (def.category != null) {
+      check(typeof def.category === 'string' && ITEM_CATEGORIES.has(def.category), ctx,
+        `category must be one of: ${[...ITEM_CATEGORIES].join(', ')}`);
+    }
     if (def.spawn?.location) {
       check(knownRooms.has(def.spawn.location), ctx, `spawn.location '${def.spawn.location}' is not a known room`);
     }

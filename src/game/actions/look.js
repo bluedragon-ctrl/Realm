@@ -8,6 +8,7 @@ import { t, s, dirName } from '../../i18n.js';
 import { canPerceiveRoom } from '../light.js';
 import { canPerceive } from '../perception.js';
 import { canAfford } from '../exchange.js';
+import { categoryOf, acceptsFor } from '../itemCategory.js';
 
 function withPositionSuffix(name, position, lang) {
   if (!position || position === 'stand') return name;
@@ -233,6 +234,7 @@ export function describeRoom(actor) {
     } else {
       const def = inst.def;
       const hasExchanges = Array.isArray(def.exchanges) && def.exchanges.length > 0;
+      const isFixture = def.pickable === false;
       itemGroups.set(key, {
         instanceId: inst.instanceId,
         defId: inst.defId,
@@ -242,6 +244,8 @@ export function describeRoom(actor) {
         usable: !!def.use,
         unlocks: !!def.unlocks,
         interactable: !!(def.use || def.unlocks || hasExchanges),
+        category: categoryOf(def),
+        accepts: isFixture ? acceptsFor(def) : undefined,
       });
 
     }
