@@ -1838,6 +1838,19 @@ function openLookPicker(anchorEl, ev) {
   positionPopover(anchorEl);
 }
 
+// Pick the inventory items worth offering as candidates to combine with this fixture.
+// Server emits `accepts` (defIds of items that actually do something here); when present
+// it's authoritative. Otherwise fall back to "usable/key but not gear or food/potion" —
+// wearables and consumables almost never combine with a fixture.
+function candidateToolsForFixture(inv, fixture) {
+  if (Array.isArray(fixture.accepts)) {
+    if (fixture.accepts.length === 0) return [];
+    const set = new Set(fixture.accepts);
+    return inv.filter(it => set.has(it.defId));
+  }
+  return inv.filter(it => (it.usable || it.isKey) && !it.wearable && !it.consumable);
+}
+
 function openUsePicker(anchorEl, ev) {
   ev?.stopPropagation();
   const fixtures = (lastRoomMsg?.items ?? []).filter(it => (it.interactable ?? it.usable) && it.pickable === false);
@@ -1862,7 +1875,7 @@ function openUsePicker(anchorEl, ev) {
   if (fixtures.length > 0) {
     popover.appendChild(popoverSection(labels.useSectionRoom ?? 'In room'));
     for (const f of fixtures) {
-      const usableTools = inv.filter(it => it.usable || it.isKey);
+      const usableTools = candidateToolsForFixture(inv, f);
       const canUseAlone = f.usable;
       if (usableTools.length === 0 && canUseAlone) {
         popover.appendChild(popoverButton(f.name, '', () => { sendInput(`use ${f.name}`); closePopover(); }));
@@ -1930,6 +1943,7 @@ function openUseOnTargetPicker(anchorEl, item) {
     }
   }
   for (const roomItem of (lastRoomMsg?.items ?? [])) {
+    if (Array.isArray(roomItem.accepts) && !roomItem.accepts.includes(item.defId)) continue;
     popover.appendChild(popoverButton(roomItem.name, '', () => {
       sendInput(`use ${item.name} on ${roomItem.name}`); closePopover();
     }));

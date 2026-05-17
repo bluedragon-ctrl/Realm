@@ -2,6 +2,7 @@
 // Identical (defId + state) instances are grouped with a count to keep the UI compact.
 
 import { t } from '../../i18n.js';
+import { categoryOf } from '../itemCategory.js';
 
 function stateKey(state) {
   if (!state || Object.keys(state).length === 0) return '';
@@ -29,6 +30,7 @@ export function buildInventory(actor) {
         wearable: !!wearable,
         slot: wearable?.slot ?? null,
         isKey: tags.includes('key'),
+        category: categoryOf(inst.def),
       });
     }
   }

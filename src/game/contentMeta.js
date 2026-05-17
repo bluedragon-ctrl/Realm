@@ -40,6 +40,13 @@ export const ALLOWED_BONUS_KEYS = new Set([
   'perception',
 ]);
 
+// ---------- items ----------
+// Coarse buckets used for UI sectioning and sorting. Picker candidate filtering is
+// driven by the fixture's `accepts` list, not by category — categories are display-only.
+export const ITEM_CATEGORIES = new Set([
+  'key', 'gear', 'reagent', 'tool', 'quest', 'consumable', 'food', 'misc',
+]);
+
 // ---------- positions ----------
 export const POSITIONS = new Set(['stand', 'sit', 'sleep']);
 
