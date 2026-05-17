@@ -21,6 +21,14 @@ export function performSummon(summoner, opts) {
   const count = Math.max(1, Math.floor(opts.count ?? 1));
   const ttlTicks = opts.ttlTicks ?? 30;
   const despawnAtTick = ttlTicks <= 0 ? Infinity : getTick() + Math.floor(ttlTicks);
+  if (opts.unique) {
+    for (const npc of [...world.npcsByInstance.values()]) {
+      if (!npc.summoned || npc.alive === false) continue;
+      if (npc.summonerId !== summoner.id) continue;
+      if (npc.defId !== opts.defId) continue;
+      despawnSummoned(npc);
+    }
+  }
   const summoned = [];
   for (let i = 0; i < count; i++) {
     const npc = spawnNpc(def, summoner.location);

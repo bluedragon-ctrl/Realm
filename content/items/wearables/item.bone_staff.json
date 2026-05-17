@@ -24,5 +24,22 @@
     "damage": "1d4+ATK",
     "cost": 14,
     "bonus": { "int": 2, "magicResist": 10, "mpMax": 5 }
+  },
+  "use": {
+    "en": {
+      "no_target": {
+        "self": "you grip the bone staff tightly. The runes flare; warmth drains from your chest and gathers as a cool blue glow at the staff's tip.",
+        "others": "{actor} grips the bone staff and the runes flare; a cool blue glow gathers at its tip."
+      }
+    },
+    "cs": {
+      "no_target": {
+        "self": "pevně sevřeš kostěnou hůl. Runy zaplanou; z hrudi ti vyprchá teplo a na konci hole se shromáždí chladná modrá záře.",
+        "others": "{actor} pevně sevře kostěnou hůl, runy zaplanou a na jejím konci se shromáždí chladná modrá záře."
+      }
+    },
+    "consumable": false,
+    "cost": { "hp": 5 },
+    "effect": { "type": "heal", "mp": 5 }
   }
 }

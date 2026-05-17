@@ -153,6 +153,8 @@
   "cure.removed": "the affliction lifts.",
   "cure.nothing": "you feel a brief tingle — nothing was wrong.",
   "use.cant_afford": "you can't afford that — {amount} gold needed.",
+  "use.cant_afford_hp": "you don't have the strength — {amount} HP needed (and at least 1 must remain).",
+  "use.cant_afford_mp": "you don't have the focus — {amount} MP needed.",
   "combat.you_missed": "you swing at {target} but miss.",
   "combat.target_missed_you": "{actor} swings at you but misses.",
   "combat.miss_observed": "{actor} swings at {target} but misses.",

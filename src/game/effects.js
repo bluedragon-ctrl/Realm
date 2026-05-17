@@ -105,9 +105,9 @@ const EFFECTS = {
     if (fixture) removeItemFromRoom(fixture, room);
     return { opened: true, dropped, goldAmount };
   },
-  summon({ defId, count, ttlTicks, despawnText }, { actor }) {
+  summon({ defId, count, ttlTicks, despawnText, unique }, { actor }) {
     if (!actor || !defId) return { summoned: 0 };
-    const out = performSummon(actor, { defId, count: count ?? 1, ttlTicks, despawnText });
+    const out = performSummon(actor, { defId, count: count ?? 1, ttlTicks, despawnText, unique });
     return { summoned: out.length };
   },
   wake_kin({ defId }, { actor, room }) {

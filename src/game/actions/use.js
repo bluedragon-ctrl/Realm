@@ -1,6 +1,8 @@
 import { findInRoom, itemsInRoom, actorsInRoom, world, spawnNpc } from '../world.js';
-import { findItemInList, splitOnKeyword } from '../items.js';
+import { findItemInList, splitOnKeyword, makeItemInstance } from '../items.js';
 import { removeFromInventory } from '../inventory.js';
+import { equippedSlots } from '../wearables.js';
+import { pickByVariants, allNameVariants } from '../declension.js';
 import { s, t } from '../../i18n.js';
 import { runVerb, hasForm } from '../verbs.js';
 import { applyEffect, sendHealFeedback } from '../effects.js';
@@ -17,6 +19,16 @@ import { requireStanding } from '../positionGate.js';
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
   return findItemInList(fixtures, query) ?? findItemInList(actor.inventory, query);
+}
+
+function findEquippedUsable(actor, query) {
+  const candidates = [];
+  for (const { def } of equippedSlots(actor)) {
+    if (def?.use) candidates.push(def);
+  }
+  if (!candidates.length) return null;
+  const def = pickByVariants(candidates, query, (d) => [...allNameVariants(d), d.id.toLowerCase()]);
+  return def ? makeItemInstance(def) : null;
 }
 
 function resolveInteraction(sourceInst, targetInst) {
@@ -100,6 +112,9 @@ export default function use(actor, args) {
 
   let inst = findItemInList(actor.inventory, itemQuery);
   if (!inst) {
+    inst = findEquippedUsable(actor, itemQuery);
+  }
+  if (!inst) {
     const roomFixtures = itemsInRoom(actor.location).filter(i => i.def.pickable === false);
     inst = findItemInList(roomFixtures, itemQuery);
   }
@@ -181,12 +196,23 @@ export default function use(actor, args) {
     }
   }
 
-  if (useDef.cost?.gold > 0) {
-    if ((actor.gold ?? 0) < useDef.cost.gold) {
-      actor.session.send({ kind: 'error', text: s('use.cant_afford', actor.lang, { amount: useDef.cost.gold }) });
-      return;
-    }
-    actor.gold -= useDef.cost.gold;
+  const cost = useDef.cost ?? {};
+  if (cost.gold > 0 && (actor.gold ?? 0) < cost.gold) {
+    actor.session.send({ kind: 'error', text: s('use.cant_afford', actor.lang, { amount: cost.gold }) });
+    return;
+  }
+  if (cost.hp > 0 && (actor.stats?.hp ?? 0) <= cost.hp) {
+    actor.session.send({ kind: 'error', text: s('use.cant_afford_hp', actor.lang, { amount: cost.hp }) });
+    return;
+  }
+  if (cost.mp > 0 && (actor.stats?.mp ?? 0) < cost.mp) {
+    actor.session.send({ kind: 'error', text: s('use.cant_afford_mp', actor.lang, { amount: cost.mp }) });
+    return;
+  }
+  if (cost.gold > 0 || cost.hp > 0 || cost.mp > 0) {
+    if (cost.gold > 0) actor.gold = (actor.gold ?? 0) - cost.gold;
+    if (cost.hp > 0) actor.stats.hp -= cost.hp;
+    if (cost.mp > 0) actor.stats.mp -= cost.mp;
     actor.dirty = true;
     sendStats(actor);
   }
