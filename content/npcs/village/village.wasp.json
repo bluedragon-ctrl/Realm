@@ -1,11 +1,11 @@
 {
-  "id": "home.wasp",
+  "id": "village.wasp",
   "name": { "en": "a wasp", "cs": "vosa" },
   "nameAcc": { "en": "the wasp", "cs": "vosu" },
   "nameDat": { "en": "the wasp", "cs": "vose" },
   "nameGen": { "en": "the wasp", "cs": "vosy" },
   "title": { "en": "wasp", "cs": "vosa" },
-  "location": "home.field",
+  "location": "village.crossroad",
   "count": 2,
   "short": {
     "en": "An angry yellow-and-black wasp circles aggressively.",

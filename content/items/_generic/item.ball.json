@@ -10,8 +10,8 @@
     "cs": "kožený míček"
   },
   "short": {
-    "en": "A scuffed leather ball lies in the dust of the yard.",
-    "cs": "V prachu dvorku leží odřený kožený míček."
+    "en": "A scuffed leather ball lies on the cobbles.",
+    "cs": "Na dlažbě leží odřený kožený míček."
   },
   "long": {
     "en": "A small leather ball, scuffed from countless throws and chases. Just the right size to fit in your palm.",
@@ -19,7 +19,7 @@
   },
   "tags": ["toy", "small"],
   "weight": 1,
-  "spawn": { "location": "home.yard" },
+  "spawn": { "location": "village.square" },
   "use": {
     "en": {
       "no_target": {

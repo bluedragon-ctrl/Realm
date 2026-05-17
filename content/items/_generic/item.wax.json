@@ -19,5 +19,5 @@
   },
   "tags": ["ingredient"],
   "weight": 0,
-  "spawn": { "locations": { "home.garden": 2, "village.orchard": 2 }, "respawnTicks": 1800 }
+  "spawn": { "locations": { "village.garden": 2, "village.orchard": 2 }, "respawnTicks": 1800 }
 }

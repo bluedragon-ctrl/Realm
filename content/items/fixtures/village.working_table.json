@@ -1,5 +1,5 @@
 {
-  "id": "home.working_table",
+  "id": "village.working_table",
   "rarity": 1,
   "name": {
     "en": "a working table",
@@ -20,7 +20,7 @@
   "tags": ["fixture"],
   "weight": 99,
   "pickable": false,
-  "spawn": { "location": "home.cottage", "count": 1 },
+  "spawn": { "location": "village.cottage", "count": 1 },
   "exchanges": [
     {
       "id": "working_table.craft_candle",

@@ -1,0 +1,212 @@
+{
+  "id": "village.dog",
+  "name": {
+    "en": "a scruffy dog",
+    "cs": "ošuntělý pes"
+  },
+  "nameAcc": {
+    "en": "the scruffy dog",
+    "cs": "ošuntělého psa"
+  },
+  "nameDat": { "en": "the scruffy dog", "cs": "ošuntělému psovi" },
+  "nameGen": { "en": "the scruffy dog", "cs": "ošuntělého psa" },
+  "title": {
+    "en": "scruffy dog",
+    "cs": "ošuntělý pes"
+  },
+  "location": "village.square",
+  "short": {
+    "en": "A scruffy brown dog sniffs around the square.",
+    "cs": "Ošuntělý hnědý pes čenichá po návsi."
+  },
+  "long": {
+    "en": "A small fluffy dog with one torn ear and an air of tireless curiosity. It pays you cautious attention, deciding moment by moment whether you are worth begging from.",
+    "cs": "Malý chlupatý pes s jedním natrženým uchem a tváří plnou neúnavné zvědavosti. Opatrně si tě prohlíží a zvažuje, co s tebou."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 6, "hpMax": 6,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "spd": 6
+  },
+  "respawn": { "ticks": 800 },
+  "exchanges": [
+    {
+      "id": "dog.fetch",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.ball" }],
+      "outputs": [{ "item": "item.ball" }],
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you toss the ball — {target} bounds after it, snatches it mid-bounce, and trots back proud and damp, dropping the ball at your feet.",
+            "others": "{actor} tosses the ball; {target} chases it down and trots back proudly with it."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "hodíš míček — {target} se za ním rozběhne, chytí ho v letu a hrdě se vrátí, mokrý a šťastný, a položí ti míček k nohám.",
+            "others": "{actor} hodí míček; {target} se za ním rozběhne a hrdě se vrátí s míčem v tlamě."
+          }
+        }
+      }
+    },
+    {
+      "id": "dog.feed",
+      "flavor": "sink",
+      "accepts": { "tags": ["food"] },
+      "outputs": [{ "gold": 1 }],
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you offer {item} to {target}. The dog gulps it down in one happy bite, then trots off, sniffs at the dirt, and brings back a small dusty coin to drop at your feet.",
+            "others": "{actor} feeds {item} to {target}; the dog snuffs at the dirt and digs up a small coin."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáváš {item} {target.dat}. {target.nom} to spolkne jediným nadšeným kousnutím, pak odběhne, rýpe čenichem do hlíny a přinese ti malou zaprášenou minci.",
+            "others": "{actor} dává {item} {target.dat}; pes rýpe čenichem do hlíny a vyhrabe malou minci."
+          }
+        }
+      }
+    }
+  ],
+  "reactions": {
+    "pet": {
+      "en": [
+        "wags its tail furiously and pushes its head into {target}'s hand.",
+        "rolls onto its back, paws in the air, asking {target} for more.",
+        "leans hard against {target}'s leg, eyes half-closed.",
+        "huffs happily and licks at {target}'s fingers."
+      ],
+      "cs": [
+        "divoce vrtí ocasem a strká hlavu do dlaně {target.gen}.",
+        "se převalí na záda, tlapky ve vzduchu — chce ještě.",
+        "se opírá o nohu {target.gen}, oči napůl zavřené.",
+        "spokojeně si oddychne a olízne prsty {target.gen}."
+      ]
+    },
+    "pat": {
+      "en": [
+        "thumps its tail twice and gives {target} a soft look.",
+        "wags its tail and trots one step closer to {target}.",
+        "leans its head into {target}'s palm."
+      ],
+      "cs": [
+        "dvakrát zaťuká ocasem o zem a měkce pohlédne na {target}.",
+        "zavrtí ocasem a popojde o krok blíž k {target.dat}.",
+        "opře hlavu do dlaně {target.gen}."
+      ]
+    },
+    "scratch": {
+      "en": [
+        "kicks its back leg in the air, eyes blissful.",
+        "stretches its neck and tilts into the scratching.",
+        "groans happily and presses closer to {target}."
+      ],
+      "cs": [
+        "kope zadní nohou ve vzduchu a tváří se blaženě.",
+        "natáhne krk a nakloní hlavu do drbání.",
+        "spokojeně zamručí a přitiskne se blíž k {target.dat}."
+      ]
+    },
+    "hug": {
+      "en": [
+        "squirms happily and licks {target}'s chin.",
+        "rests its chin on {target}'s shoulder for a long, contented moment."
+      ],
+      "cs": [
+        "se šťastně vrtí a olízne {target} po bradě.",
+        "opře bradu o rameno {target.gen} na dlouhou spokojenou chvíli."
+      ]
+    }
+  },
+  "behaviors": [
+    {
+      "primitive": "wander",
+      "chance": 0.15,
+      "scope": { "region": "village", "tags": ["outdoor"] }
+    },
+    {
+      "primitive": "flee",
+      "chance": 1.0,
+      "cost": 12,
+      "requires": "was_attacked",
+      "templates": {
+        "en": [
+          "{actor} flees {direction}!",
+          "{actor} turns and runs {direction}!",
+          "{actor} retreats {direction} in panic!"
+        ],
+        "cs": [
+          "{actor} prchá {direction}!",
+          "{actor} se otočí a utíká {direction}!",
+          "{actor} v panice ustupuje {direction}!"
+        ]
+      }
+    },
+    {
+      "primitive": "give_item",
+      "chance": 0.10,
+      "cost": 12,
+      "templates": {
+        "en": [
+          "drops {item} at {target}'s feet, looking up expectantly.",
+          "trots over to {target} and drops {item}.",
+          "noses {item} towards {target} and steps back."
+        ],
+        "cs": [
+          "pouští {item} a podívá se na {target}.",
+          "přiběhne blíž k {target.dat} a položí {item}.",
+          "čenichem postrčí {item} blíž k {target.dat} a couvne."
+        ]
+      }
+    },
+    {
+      "primitive": "interact",
+      "chance": 0.04,
+      "cost": 6,
+      "templates": {
+        "en": [
+          "sniffs at {target}'s boots curiously.",
+          "trots across the square to {target} and wags its tail.",
+          "looks up at {target} with hopeful eyes.",
+          "rests its head against {target}'s leg.",
+          "follows {target} for a few steps before losing interest."
+        ],
+        "cs": [
+          "zvědavě čenichá u nohou {target.gen}.",
+          "přiběhne blíž k {target.dat} a vrtí ocasem.",
+          "kouká s nadějí na {target}.",
+          "opírá hlavu o nohu {target.gen}.",
+          "kousek pronásleduje {target}, pak ztratí zájem."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.02,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "barks loudly at nothing in particular.",
+          "sniffs at the ground, tail wagging.",
+          "scratches behind a torn ear.",
+          "trots in a small circle, then settles again.",
+          "lifts its head, listens for something, then settles again."
+        ],
+        "cs": [
+          "hlasitě štěká na něco neviditelného.",
+          "čenichá u země a vrtí ocasem.",
+          "drbe se za roztrženým uchem.",
+          "udělá malý kroužek a zase si lehne.",
+          "zvedne hlavu, zaposlouchá se a zase si lehne."
+        ]
+      }
+    }
+  ]
+}

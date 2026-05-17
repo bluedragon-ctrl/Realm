@@ -1,0 +1,21 @@
+{
+  "id": "village.crossroad",
+  "name": {
+    "en": "Field crossroad",
+    "cs": "Polní rozcestí"
+  },
+  "outdoor": true,
+  "short": {
+    "en": "A dirt road across the fields, going east and west.",
+    "cs": "Polní cesta přes pole, vede na východ a na západ."
+  },
+  "long": {
+    "en": "A wide field stretches on both sides of a dusty road. The air smells like dry grass and warm earth. The road runs east into a line of dark trees, and west across the wheatfields toward the village.",
+    "cs": "Po obou stranách prašné cesty se rozkládá široké pole. Vzduch voní suchou trávou a teplou zemí. Cesta vede na východ k temné řadě stromů a na západ přes pšeničná pole k vesnici."
+  },
+  "exits": {
+    "e": "forest.entry",
+    "w": "village.wheat_path"
+  },
+  "tags": ["outdoor", "village", "border"]
+}

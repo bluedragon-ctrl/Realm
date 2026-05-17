@@ -1,0 +1,20 @@
+{
+  "id": "village.cottage",
+  "name": {
+    "en": "The cottage",
+    "cs": "Chaloupka"
+  },
+  "short": {
+    "en": "A small warm room with a fire and two beds.",
+    "cs": "Malá teplá světnice s ohněm a dvěma postelemi."
+  },
+  "long": {
+    "en": "A small room that smells like wood smoke and dried apples. A little fire burns in the fireplace and a kettle hangs above it. Two beds with thick wool blankets stand by the wall. A heavy old work table sits under the window. This is your home. The door leads south back to the orchard road.",
+    "cs": "Malá světnice, ve které voní kouř ze dřeva a sušená jablka. V krbu hoří malý oheň a nad ním visí kotlík. U stěny stojí dvě postele s teplými vlněnými dekami. Pod oknem stojí těžký starý pracovní stůl. Tady jsi doma. Dveře vedou na jih zpátky k cestě pod jabloněmi."
+  },
+  "exits": {
+    "s": "village.orchard",
+    "n": "village.garden"
+  },
+  "tags": ["safe", "indoor", "village", "respawn"]
+}

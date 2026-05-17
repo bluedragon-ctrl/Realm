@@ -1,5 +1,5 @@
 {
-  "id": "home.pot",
+  "id": "village.pot",
   "rarity": 1,
   "name": {
     "en": "a pot of stew",
@@ -20,7 +20,7 @@
   "tags": ["fixture", "food"],
   "weight": 99,
   "pickable": false,
-  "spawn": { "location": "home.cottage", "count": 1 },
+  "spawn": { "location": "village.cottage", "count": 1 },
   "use": {
     "en": {
       "no_target": {

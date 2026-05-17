@@ -75,7 +75,7 @@ async function handleLogin(session, name) {
   const actor = makePlayerActor(record, session, admin);
   session.actor = actor;
   registerActor(actor);
-  const startRoom = world.rooms.has(record.location) ? record.location : 'home.yard';
+  const startRoom = world.rooms.has(record.location) ? record.location : 'village.cottage';
   placeActor(actor, startRoom);
   actor.dirty = true;
 

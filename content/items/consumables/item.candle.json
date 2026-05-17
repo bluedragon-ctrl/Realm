@@ -19,7 +19,7 @@
   },
   "tags": ["light", "consumable"],
   "weight": 0,
-  "spawn": { "location": "home.basement", "count": 1 },
+  "spawn": { "location": "village.cottage", "count": 1 },
   "use": {
     "en": {
       "no_target": {
