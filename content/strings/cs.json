@@ -153,6 +153,8 @@
   "cure.removed": "neduh ustupuje.",
   "cure.nothing": "krátce zabrní — nic nebylo špatně.",
   "use.cant_afford": "na to nemáš — potřebuješ {amount} zlatých.",
+  "use.cant_afford_hp": "na to nemáš sílu — potřebuješ {amount} životů (a alespoň 1 musí zůstat).",
+  "use.cant_afford_mp": "nemáš dost soustředění — potřebuješ {amount} many.",
   "combat.you_missed": "zaútočíš na {target}, ale mineš.",
   "combat.target_missed_you": "{actor} na tebe zaútočí, ale mine.",
   "combat.miss_observed": "{actor} zaútočí na {target}, ale mine.",

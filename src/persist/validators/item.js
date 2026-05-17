@@ -84,6 +84,10 @@ export function makeItemValidator(knownRooms, knownEffects) {
       const eid = def.use.effect.effectId;
       check(eid && knownEffects.has(eid), ctx, `use.effect references unknown effect '${eid}'`);
     }
+    if (def.wearable && def.use?.consumable === true) {
+      check(false, ctx,
+        `wearable items cannot have use.consumable=true (would orphan an equipped slot on use)`);
+    }
   };
 }
 
