@@ -1,0 +1,154 @@
+{
+  "id": "village.cat",
+  "name": {
+    "en": "a striped cat",
+    "cs": "pruhovaná kočka"
+  },
+  "nameAcc": {
+    "en": "the striped cat",
+    "cs": "pruhovanou kočku"
+  },
+  "nameDat": { "en": "the striped cat", "cs": "pruhované kočce" },
+  "nameGen": { "en": "the striped cat", "cs": "pruhované kočky" },
+  "title": {
+    "en": "striped cat",
+    "cs": "pruhovaná kočka"
+  },
+  "location": "village.bakery",
+  "short": {
+    "en": "A striped grey cat sits on a sunny stone, watching the world.",
+    "cs": "Pruhovaná šedá kočka sedí na slunečném kameni a sleduje svět."
+  },
+  "long": {
+    "en": "A small striped cat with bright green eyes and a tail that flicks in slow thoughtful arcs. It watches you for a moment, decides you are interesting enough to tolerate, and tucks its paws under its chest.",
+    "cs": "Malá pruhovaná kočka se zářivě zelenýma očima a ocasem, který se pomalu zamyšleně pohupuje. Chvíli si tě prohlíží, usoudí, že jsi dost zajímavý, aby tě tolerovala, a stáhne si tlapky pod hruď."
+  },
+  "disposition": "friendly",
+  "aggressive": false,
+  "mood": "calm",
+  "stats": {
+    "hp": 5, "hpMax": 5,
+    "mp": 0, "mpMax": 0,
+    "attack": 1, "defense": 0, "int": 0,
+    "evasion": 30,
+    "spd": 7
+  },
+  "respawn": { "ticks": 800 },
+  "reactions": {
+    "pet": {
+      "en": [
+        "leans into {target}'s palm and starts purring.",
+        "tilts its chin up to be scratched.",
+        "rolls onto its side with a slow blink at {target}.",
+        "purrs softly and pushes its head against {target}'s hand."
+      ],
+      "cs": [
+        "se opírá do dlaně {target.gen} a začne příst.",
+        "zvedne bradu, aby si nechala drbat krk.",
+        "se převalí na bok a pomalu zamrká na {target}.",
+        "tiše přede a strká hlavu do dlaně {target.gen}."
+      ]
+    },
+    "pat": {
+      "en": [
+        "purrs quietly and looks up at {target}.",
+        "lifts its head into {target}'s hand.",
+        "blinks slowly, accepting the attention."
+      ],
+      "cs": [
+        "tiše přede a kouká na {target}.",
+        "zvedne hlavu do dlaně {target.gen}.",
+        "pomalu zamrká a přijme tu pozornost."
+      ]
+    },
+    "scratch": {
+      "en": [
+        "tilts its head and closes its eyes in absolute bliss.",
+        "rumbles a deep purr from somewhere in its chest.",
+        "stretches its whole body toward {target}, asking for more."
+      ],
+      "cs": [
+        "nakloní hlavu a zavře oči v naprosté blaženosti.",
+        "z hloubi hrudi se rozezní hluboké příst.",
+        "natáhne celé tělo směrem k {target.dat} a chce ještě."
+      ]
+    },
+    "hug": {
+      "en": [
+        "tolerates the squeeze for precisely three seconds, then escapes with great dignity.",
+        "settles briefly into {target}'s arms, purring."
+      ],
+      "cs": [
+        "snese objetí přesně tři vteřiny, pak se důstojně vykroutí.",
+        "se na krátkou chvíli usadí do náručí {target.gen} a přede."
+      ]
+    }
+  },
+  "behaviors": [
+    {
+      "primitive": "wander",
+      "chance": 0.12,
+      "scope": { "region": "village" }
+    },
+    {
+      "primitive": "flee",
+      "chance": 1.0,
+      "cost": 12,
+      "requires": "was_attacked",
+      "templates": {
+        "en": [
+          "{actor} darts {direction} in a streak of grey!",
+          "{actor} bolts {direction} and is gone in a heartbeat!",
+          "{actor} flashes {direction} and vanishes."
+        ],
+        "cs": [
+          "{actor} vystřelí {direction} jako šedý blesk!",
+          "{actor} prchne {direction} a v mžiku je pryč!",
+          "{actor} mihne {direction} a zmizí."
+        ]
+      }
+    },
+    {
+      "primitive": "interact",
+      "chance": 0.04,
+      "cost": 6,
+      "templates": {
+        "en": [
+          "winds slowly around {target}'s ankles, purring.",
+          "rubs its head against {target}'s shin and walks on.",
+          "blinks slowly at {target} — a cat's way of saying hello.",
+          "stares at {target} with bright unblinking eyes.",
+          "flicks its tail once at {target} and looks away."
+        ],
+        "cs": [
+          "se pomalu otírá o kotníky {target.gen} a přede.",
+          "otře si hlavu o holeň {target.gen} a jde dál.",
+          "pomalu zamrká na {target} — kočičí pozdrav.",
+          "zírá na {target} jasnýma očima bez mrkání.",
+          "jednou švihne ocasem směrem k {target.dat} a odvrátí pohled."
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.03,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "stretches lazily, claws extending and retracting.",
+          "grooms a paw with slow careful licks.",
+          "yawns, showing tiny sharp teeth.",
+          "turns its head sharply at a sound only it heard.",
+          "settles into a tight loaf, eyes half-closed."
+        ],
+        "cs": [
+          "se líně protáhne, drápky se zatahují a zase vysunují.",
+          "si pečlivě olizuje tlapku.",
+          "zívne a ukáže drobné ostré zoubky.",
+          "prudce otočí hlavu, slyší něco, co nikdo jiný neslyší.",
+          "se schoulí do klubíčka, oči napůl zavřené."
+        ]
+      }
+    }
+  ]
+}
