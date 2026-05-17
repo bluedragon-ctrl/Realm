@@ -33,6 +33,98 @@
     "spd": 6
   },
   "respawn": { "ticks": 800 },
+  "exchanges": [
+    {
+      "id": "dog.fetch",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.ball" }],
+      "outputs": [{ "item": "item.ball" }],
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you toss the ball — {target} bounds after it, snatches it mid-bounce, and trots back proud and damp, dropping the ball at your feet.",
+            "others": "{actor} tosses the ball; {target} chases it down and trots back proudly with it."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "hodíš míček — {target} se za ním rozběhne, chytí ho v letu a hrdě se vrátí, mokrý a šťastný, a položí ti míček k nohám.",
+            "others": "{actor} hodí míček; {target} se za ním rozběhne a hrdě se vrátí s míčem v tlamě."
+          }
+        }
+      }
+    },
+    {
+      "id": "dog.feed",
+      "flavor": "sink",
+      "accepts": { "tags": ["food"] },
+      "outputs": [{ "gold": 1 }],
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you offer {item} to {target}. The dog gulps it down in one happy bite, then trots off, sniffs at the dirt, and brings back a small dusty coin to drop at your feet.",
+            "others": "{actor} feeds {item} to {target}; the dog snuffs at the dirt and digs up a small coin."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáváš {item} {target.dat}. {target.nom} to spolkne jediným nadšeným kousnutím, pak odběhne, rýpe čenichem do hlíny a přinese ti malou zaprášenou minci.",
+            "others": "{actor} dává {item} {target.dat}; pes rýpe čenichem do hlíny a vyhrabe malou minci."
+          }
+        }
+      }
+    }
+  ],
+  "reactions": {
+    "pet": {
+      "en": [
+        "wags its tail furiously and pushes its head into {target}'s hand.",
+        "rolls onto its back, paws in the air, asking {target} for more.",
+        "leans hard against {target}'s leg, eyes half-closed.",
+        "huffs happily and licks at {target}'s fingers."
+      ],
+      "cs": [
+        "divoce vrtí ocasem a strká hlavu do dlaně {target.gen}.",
+        "se převalí na záda, tlapky ve vzduchu — chce ještě.",
+        "se opírá o nohu {target.gen}, oči napůl zavřené.",
+        "spokojeně si oddychne a olízne prsty {target.gen}."
+      ]
+    },
+    "pat": {
+      "en": [
+        "thumps its tail twice and gives {target} a soft look.",
+        "wags its tail and trots one step closer to {target}.",
+        "leans its head into {target}'s palm."
+      ],
+      "cs": [
+        "dvakrát zaťuká ocasem o zem a měkce pohlédne na {target}.",
+        "zavrtí ocasem a popojde o krok blíž k {target.dat}.",
+        "opře hlavu do dlaně {target.gen}."
+      ]
+    },
+    "scratch": {
+      "en": [
+        "kicks its back leg in the air, eyes blissful.",
+        "stretches its neck and tilts into the scratching.",
+        "groans happily and presses closer to {target}."
+      ],
+      "cs": [
+        "kope zadní nohou ve vzduchu a tváří se blaženě.",
+        "natáhne krk a nakloní hlavu do drbání.",
+        "spokojeně zamručí a přitiskne se blíž k {target.dat}."
+      ]
+    },
+    "hug": {
+      "en": [
+        "squirms happily and licks {target}'s chin.",
+        "rests its chin on {target}'s shoulder for a long, contented moment."
+      ],
+      "cs": [
+        "se šťastně vrtí a olízne {target} po bradě.",
+        "opře bradu o rameno {target.gen} na dlouhou spokojenou chvíli."
+      ]
+    }
+  },
   "behaviors": [
     {
       "primitive": "wander",

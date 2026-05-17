@@ -1,6 +1,9 @@
-import { world } from '../world.js';
-import { runVerb, getMissingMsg, hasForm } from '../verbs.js';
+import { world, broadcastToRoom } from '../world.js';
+import { runVerb, getMissingMsg, hasForm, fillPlaceholders } from '../verbs.js';
 import { resolveActorTarget } from '../targeting.js';
+import { canPerceive } from '../perception.js';
+import { sourceForActor } from '../sources.js';
+import { pickListIndex, tListAt, t, s } from '../../i18n.js';
 
 export default function social(actor, verb, args) {
   const def = world.socials.get(verb);
@@ -22,4 +25,17 @@ export default function social(actor, verb, args) {
   }
 
   runVerb({ actor, def, targetActor: target });
+
+  if (target !== actor && target.kind === 'npc' && target.reactions?.[verb]) {
+    const lines = target.reactions[verb];
+    const idx = pickListIndex(lines);
+    broadcastToRoom(target.location, (recipient) => {
+      if (!canPerceive(recipient, target)) return null;
+      const lang = recipient.lang;
+      const from = t(target.name, lang);
+      const tmpl = tListAt(lines, lang, idx);
+      const filled = fillPlaceholders(tmpl, { actor: target, target: actor, lang });
+      return { kind: 'emote', source: sourceForActor(target, recipient), text: s('emote.line', lang, { from, text: filled }) };
+    });
+  }
 }

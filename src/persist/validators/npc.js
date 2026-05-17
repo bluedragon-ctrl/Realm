@@ -96,5 +96,14 @@ export function makeNpcValidator(knownRooms) {
     }
 
     check(def.shop == null, ctx, `'shop' is no longer supported — use 'exchanges'`);
+
+    if (def.reactions != null) {
+      checkObject(def.reactions, ctx, 'reactions');
+      for (const [socialId, lines] of Object.entries(def.reactions)) {
+        check(typeof socialId === 'string' && socialId.length > 0, ctx,
+          `reactions key must be a non-empty social id`);
+        checkLines(lines, `${ctx} reactions.${socialId}`);
+      }
+    }
   };
 }
