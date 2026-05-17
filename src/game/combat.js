@@ -360,14 +360,20 @@ export function applyDamageWithFeedback(actor, target, amount, opts = {}) {
 
 // Records an attack on `target` by `actor`. `hate` is the amount added to the hate table
 // — damage uses the dealt amount, misses/resists use 1. Flips the NPC to hostile, marks
-// `wasAttacked`, sets the player's tagged target, and propagates pack aggro.
+// `wasAttacked`, sets the player's tagged target, and propagates pack aggro. Summoned
+// NPC attackers register hate too (so the rat fights back against the fox), but only
+// players seed their other summons.
 export function registerAttackAggro(actor, target, hate = 1) {
-  if (!target || target.kind !== 'npc' || actor.kind !== 'player') return;
+  if (!target || target.kind !== 'npc') return;
+  const isPlayer = actor.kind === 'player';
+  const isSummon = actor.kind === 'npc' && actor.summoned;
+  if (!isPlayer && !isSummon) return;
+
   addHate(target, actor, Math.max(1, hate));
   target.disposition = 'hostile';
   target.aggressive = true;
   target.wasAttacked = true;
-  actor.target = target;
+  if (isPlayer) actor.target = target;
 
   if (target.pack) {
     const peers = world.actorsByRoom.get(target.location);
@@ -387,14 +393,16 @@ export function registerAttackAggro(actor, target, hate = 1) {
     }
   }
 
-  const allies = world.actorsByRoom.get(actor.location);
-  if (allies) {
-    for (const ally of allies) {
-      if (ally.kind !== 'npc' || ally.alive === false) continue;
-      if (!ally.summoned || ally.summonerId !== actor.id) continue;
-      if (hasAggroEntry(ally, target)) continue;
-      addHate(ally, target, Math.max(1, hate));
-      ally.currentTarget = target;
+  if (isPlayer) {
+    const allies = world.actorsByRoom.get(actor.location);
+    if (allies) {
+      for (const ally of allies) {
+        if (ally.kind !== 'npc' || ally.alive === false) continue;
+        if (!ally.summoned || ally.summonerId !== actor.id) continue;
+        if (hasAggroEntry(ally, target)) continue;
+        addHate(ally, target, Math.max(1, hate));
+        ally.currentTarget = target;
+      }
     }
   }
 }
@@ -460,6 +468,10 @@ function handleNpcDeath(killer, npc) {
   for (const other of allActors()) {
     if (other === npc) continue;
     if (other.target === npc) other.target = null;
+    if (other.kind === 'npc' && other.aggroAgainst?.has(npc)) {
+      removeFromTable(other, npc);
+      if (other.currentTarget === npc) other.currentTarget = null;
+    }
     if (other.following !== npc.id) continue;
     other.following = null;
     if (other.kind === 'player') other.dirty = true;

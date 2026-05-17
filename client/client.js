@@ -1371,16 +1371,35 @@ function closePopover() {
 }
 
 function positionPopover(anchorEl) {
+  // Clear any prior max-height so getBoundingClientRect returns the popover's natural
+  // content height, not the clamped value from a previous opening on a different anchor.
+  popover.style.maxHeight = '';
   const rect = anchorEl.getBoundingClientRect();
   const popRect = popover.getBoundingClientRect();
-  let top = rect.top - popRect.height - 4;
-  if (top < 8) top = rect.bottom + 4;
+  const spaceAbove = rect.top - 8 - 4;
+  const spaceBelow = window.innerHeight - rect.bottom - 8 - 4;
+  // Open above the anchor by default. Only flip below when above can't hold the popover
+  // AND below has strictly more room — otherwise a tall give submenu would jump from
+  // "above the chip" to "below the chip" the moment inventory size crosses the threshold.
+  // The chosen side caps max-height so the popover scrolls in place instead of running
+  // off the viewport edge.
+  let top;
+  let maxHeight;
+  if (popRect.height <= spaceAbove || spaceAbove >= spaceBelow) {
+    maxHeight = spaceAbove;
+    const used = Math.min(popRect.height, maxHeight);
+    top = Math.max(8, rect.top - used - 4);
+  } else {
+    maxHeight = spaceBelow;
+    top = rect.bottom + 4;
+  }
   let left = rect.left;
   if (left + popRect.width > window.innerWidth - 8) {
     left = window.innerWidth - popRect.width - 8;
   }
-  popover.style.top = `${Math.max(8, top)}px`;
+  popover.style.top = `${top}px`;
   popover.style.left = `${Math.max(8, left)}px`;
+  popover.style.maxHeight = `${Math.max(80, maxHeight)}px`;
 }
 
 function startPopover(anchorEl, titleText) {
@@ -1888,15 +1907,7 @@ function openUsePicker(anchorEl, ev) {
   }
 
   if (gear.length > 0) {
-    popover.appendChild(popoverSection(labels.useSectionGear ?? 'Gear'));
-    for (const item of gear) {
-      const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
-      if (item.usable) {
-        popover.appendChild(popoverButton(`${label} ▶`, '', () => openGearItemSubmenu(anchorEl, item)));
-      } else {
-        popover.appendChild(popoverButton(label, '', () => { sendInput(`wear ${item.name}`); closePopover(); }));
-      }
-    }
+    popover.appendChild(popoverButton(`${labels.wearButton ?? 'Wear'} ▶`, '', () => openWearPicker(anchorEl)));
   }
 
   if (others.length > 0) {
@@ -1918,9 +1929,25 @@ function openUsePicker(anchorEl, ev) {
   positionPopover(anchorEl);
 }
 
+function openWearPicker(anchorEl) {
+  const inv = Array.isArray(lastStatsMsg?.inventory) ? lastStatsMsg.inventory : [];
+  const gear = inv.filter(it => it.wearable);
+  startPopover(anchorEl, labels.wearPickerTitle ?? 'Wear what?');
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => openUsePicker(anchorEl)));
+  for (const item of gear) {
+    const label = item.count > 1 ? `${item.name} ×${item.count}` : item.name;
+    if (item.usable) {
+      popover.appendChild(popoverButton(`${label} ▶`, '', () => openGearItemSubmenu(anchorEl, item)));
+    } else {
+      popover.appendChild(popoverButton(label, '', () => { sendInput(`wear ${item.name}`); closePopover(); }));
+    }
+  }
+  positionPopover(anchorEl);
+}
+
 function openGearItemSubmenu(anchorEl, item) {
   startPopover(anchorEl, item.name);
-  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => openUsePicker(anchorEl)));
+  popover.appendChild(popoverButton(labels.backButton ?? '← back', '', () => openWearPicker(anchorEl)));
   popover.appendChild(popoverButton(labels.wearButton ?? 'Wear', '', () => { sendInput(`wear ${item.name}`); closePopover(); }));
   popover.appendChild(popoverButton(`${labels.useButton ?? 'Use'} ▶`, '', () => openUseOnTargetPicker(anchorEl, item)));
   positionPopover(anchorEl);

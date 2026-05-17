@@ -635,6 +635,7 @@ html, body {
   flex-direction: column;
   gap: 4px;
   min-width: 140px;
+  overflow-y: auto;
 }
 #action-popover[hidden] { display: none; }
 #action-popover .popover-title {

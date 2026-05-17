@@ -96,6 +96,7 @@ export function buildPanelLabels(lang) {
     effectsTitle: s('panel.effects', lang),
     effectsEmpty: s('panel.effects_empty', lang),
     wearButton: s('panel.wear_button', lang),
+    wearPickerTitle: s('panel.wear_picker_title', lang),
     removeButton: s('panel.remove_button', lang),
     slotEmpty: s('panel.slot_empty_label', lang),
     slotLabels: {

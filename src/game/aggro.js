@@ -81,6 +81,8 @@ export function maxHateInRoom(npc) {
 }
 
 // Pick highest-hate in-room alive perceivable actor. Current target keeps ties.
+// Both players and NPCs are valid hate-table entries — summoned allies target hostile
+// NPCs the same way regular hostiles target players.
 export function aggroTargetInRoom(npc) {
   if (!npc.aggroAgainst || npc.aggroAgainst.size === 0) return null;
   const current = npc.currentTarget;
@@ -89,7 +91,8 @@ export function aggroTargetInRoom(npc) {
   for (const [actor, hate] of npc.aggroAgainst) {
     if (hate <= 0) continue;
     if (actor.location !== npc.location) continue;
-    if (!actor.session) continue;
+    if (actor.kind === 'player' && !actor.session) continue;
+    if (actor.kind === 'npc' && actor.alive === false) continue;
     if (!(actor.stats?.hp > 0)) continue;
     if (!canPerceive(npc, actor)) continue;
     if (hate > bestVal || (hate === bestVal && actor === current)) {

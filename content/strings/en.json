@@ -326,6 +326,7 @@
   "panel.equipment": "Equipment",
   "panel.equipment_empty": "(none)",
   "panel.wear_button": "Wear",
+  "panel.wear_picker_title": "Wear what?",
   "panel.remove_button": "Remove",
   "panel.slot_body": "Body",
   "panel.slot_head": "Head",
