@@ -22,5 +22,6 @@ export {
 export {
   spawnNpc, despawnNpc, spawnAllNpcs, despawnAllNpcs,
   queueNpcRespawn, processNpcRespawns, processConditionalSpawns, setNpcRespawnHandler, clearNpcRespawnQueue,
+  roomHasHostiles,
 } from './world/npcs.js';
 export { loadWorld } from './world/load.js';

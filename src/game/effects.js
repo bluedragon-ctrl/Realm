@@ -54,7 +54,7 @@ const EFFECTS = {
     unlockExit(roomId, exit);
     return { unlocked: true, room: roomId, exit };
   },
-  damage({ amount, stat = 'hp', _raw }, { actor, target }) {
+  damage({ amount, stat = 'hp', damageType, _raw }, { actor, target }) {
     const recipient = target ?? actor;
     if (!recipient.stats) return { dealt: 0 };
     if (stat === 'mp') {
@@ -69,7 +69,7 @@ const EFFECTS = {
     // route through the combat feedback path so aggro/death/HUD updates fire correctly.
     // `_raw` is set by applyDamageWithFeedback itself to mark the inner raw subtraction.
     if (!_raw && damageRouteHandler && actor && target && target !== actor) {
-      const dealt = damageRouteHandler(actor, target, Math.max(0, amount ?? 0));
+      const dealt = damageRouteHandler(actor, target, Math.max(0, amount ?? 0), { damageType });
       return { dealt };
     }
     const dealt = Math.min(recipient.stats.hp, Math.max(0, amount ?? 0));
@@ -121,10 +121,10 @@ const EFFECTS = {
     }
     return { woken: 0 };
   },
-  drain({ amount, formula, ratio = 0.5 }, { actor, target }) {
+  drain({ amount, formula, ratio = 0.5, damageType }, { actor, target }) {
     if (!target || target === actor || !target.stats) return { dealt: 0, healed: 0 };
     const raw = Math.max(0, evalAmount(formula ?? amount, { actor }));
-    const dealt = damageRouteHandler ? damageRouteHandler(actor, target, raw) : 0;
+    const dealt = damageRouteHandler ? damageRouteHandler(actor, target, raw, { damageType }) : 0;
     const healed = Math.floor(dealt * ratio);
     if (healed > 0 && actor.stats) {
       actor.stats.hp = Math.min(actor.stats.hpMax, actor.stats.hp + healed);
@@ -251,11 +251,6 @@ const EFFECTS = {
     const wasLit = !!fixture.state.lit;
     fixture.state.lit = !wasLit;
     return { toggled: true, lit: !wasLit, wasLit };
-  },
-  summon({ defId, count, ttlTicks, despawnText }, { actor }) {
-    if (!actor) return { summoned: 0 };
-    const minions = performSummon(actor, { defId, count, ttlTicks, despawnText });
-    return { summoned: minions.length };
   },
   life_drain({ formula, ratio = 0.5 }, { actor, target }) {
     if (!target?.stats || !actor?.stats || target === actor) return { dealt: 0, healed: 0 };

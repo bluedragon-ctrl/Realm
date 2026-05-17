@@ -15,6 +15,14 @@ export const EFFECT_SOURCE = Object.freeze({
 });
 export const WEARABLE_SOURCE_PREFIX = 'wearable:';
 
+// ---------- damage ----------
+// Damage school tags carried by attacks, damage spells, and damage-tick effects. Future
+// content can add resists/affinities keyed on these. `physical` is the implicit default
+// for melee + untyped damage; `magical` is the default for spells. Untagged damage routes
+// resolve to `physical` via DEFAULT_DAMAGE_TYPE.
+export const DAMAGE_TYPES = new Set(['physical', 'magical', 'fire', 'cold', 'holy', 'shadow', 'poison']);
+export const DEFAULT_DAMAGE_TYPE = 'physical';
+
 // ---------- spells ----------
 export const SPELL_TARGETS = new Set(['self', 'friendly', 'hostile', 'hostile_room', 'friendly_room', 'any']);
 

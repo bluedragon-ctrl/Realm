@@ -343,6 +343,10 @@ Ordered by priority within each status. Preparation tasks land before the system
 |---|
 | Player summoning (summon spells / scrolls call temporary NPC helpers that aggro with the caster; reuses the `summon` effect type wired in NPC-summoning) |
 | Pets (persistent companion NPCs: tame, name, level alongside the player, follow between rooms, recall command) |
+| Quest system — slice 1: foundation (`content/quests/*.json` loader; per-player `quests` block in the save with `status` + `objectives` + timestamps; data-driven engine in `src/game/quests.js` that reads defs and subscribes generic handlers to the event bus; objective types `kill <defId>`, `kill_count <defId> <n>`, `room_clear <roomId>`, `pickup_item <defId>`, `deliver_item <defId> to <recipient>`, `enter_room <roomId>`; auto-discover triggers — `enter_room` only at first; `quests` command lists active/complete with progress; toast on objective advance and quest complete; rewards block — XP, gold, item drop; replaces today's hand-coded subscribers in `quests.js` so the trapped miner / matriarch / bat daemon become the first content quests. Foundation already in place: `npc_died` / `player_died` events.) |
+| Quest system — slice 2: notice boards (new fixture type with `quest_rumors: [questId, ...]`; `read board` action surfaces a list of rumors and adds quests with `discovery.type: "read_board"`; plant boards in `village.square` and `riverside`; idempotent on re-read) |
+| Quest system — slice 3: UI panel + NPC offers (new "Quests" right-panel tab next to Spells/Inventory/Gear with active list, objective progress bars, hover-for-description, collapsed completed count; server pushes the list on quest state change via a `sendQuests(actor)` mirror of `sendStats`; NPC defs gain an optional `quest_offers: [questId, ...]` and `rumors: [questId, ...]` and the popover gets a `Talk ▶` submenu that accepts an offer; completion toasts) |
+| Quest system — design call: discovery is auto-track (no `accept` step), with `quest abandon <id>` available to clear noise; rationale — fits the kids-friendly tone and matches how the existing miner content already works |
 | Server events |
 
 ### Deferred
@@ -351,6 +355,6 @@ Ordered by priority within each status. Preparation tasks land before the system
 |---|---|
 | Evasion review under darkness | current pass penalizes attacker ACC only; revisit whether a defender who can't see the attacker should also lose evasion |
 | Day/night cycle | world clock + dusk/dawn; plugs in as another floor contribution gated by `room.outdoor === true` at the same `clampUp` site in `effectiveLight` — wait until exploration content makes outdoor time matter |
-| Quests / dialogue trees | content-heavy, lands once exploration content is real |
+| Dialogue trees | branching NPC conversation with state; lands after the quest system has a few content quests to anchor the shape |
 | Internet-readiness security pass (passwords + hashing, TLS for HTTP/WS, input sanitation, rate limiting, session/auth model) | until exposure beyond LAN is planned — current `data/admins.json` + LAN-only stance is explicit |
 | SQLite migration | until performance pain (cross-player queries, transactions, event log) |

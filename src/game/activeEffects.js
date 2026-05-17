@@ -236,7 +236,7 @@ function fireTick(actor, inst, def) {
   if (spec.type === 'damage' && spec.stat !== 'mp' && damageHandler && typeof inst.casterName === 'string') {
     const caster = world.actorsByName.get(inst.casterName.toLowerCase());
     if (caster && caster.location === actor.location && caster.stats?.hp > 0 && caster !== actor) {
-      damageHandler(caster, actor, spec.amount ?? 1);
+      damageHandler(caster, actor, spec.amount ?? 1, { damageType: spec.damageType });
       return;
     }
   }
