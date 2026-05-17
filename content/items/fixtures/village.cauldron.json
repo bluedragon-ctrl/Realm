@@ -1,5 +1,5 @@
 {
-  "id": "home.cauldron",
+  "id": "village.cauldron",
   "rarity": 1,
   "name": {
     "en": "a small cauldron",
@@ -21,7 +21,7 @@
   "weight": 99,
   "pickable": false,
   "spawn": {
-    "location": "home.shack",
+    "location": "village.herbalist",
     "count": 1
   },
   "exchanges": [

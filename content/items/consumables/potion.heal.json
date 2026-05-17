@@ -19,7 +19,7 @@
   },
   "tags": ["potion", "consumable", "heal"],
   "weight": 1,
-  "spawn": { "location": "home.shack", "count": 1, "respawnTicks": 1000 },
+  "spawn": { "location": "village.herbalist", "count": 1, "respawnTicks": 1000 },
   "use": {
     "en": {
       "no_target": {

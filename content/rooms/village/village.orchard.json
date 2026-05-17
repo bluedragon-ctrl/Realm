@@ -10,12 +10,13 @@
     "cs": "Řady jabloní podél vesnické cesty."
   },
   "long": {
-    "en": "Old apple trees stand in tidy rows on both sides of the road, their branches heavy with red and green fruit. Fallen leaves lie like soft snow in the grass. A low stone wall keeps the trees from leaning over the path. In a sunny corner by the wall a round straw beehive rests on a flat stone, and bees buzz quietly around it. The road runs west into the village square and east toward the cottages on the edge of the village.",
-    "cs": "Po obou stranách cesty stojí v úhledných řadách staré jabloně a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Nízká kamenná zídka brání tomu, aby se stromy nakláněly nad pěšinu. Ve slunném koutě u zídky stojí na plochém kameni kulatý slaměný úl a kolem něj tiše bzučí včely. Cesta vede na západ na náves a na východ k chalupám na okraji vesnice."
+    "en": "Old apple trees stand in tidy rows on both sides of the road, their branches heavy with red and green fruit. Fallen leaves lie like soft snow in the grass. A low stone wall keeps the trees from leaning over the path. In a sunny corner by the wall a round straw beehive rests on a flat stone, and bees buzz quietly around it. The road runs west into the village square and east toward the cottages on the edge of the village. A worn path leads north between the apple trees, toward a small thatched cottage.",
+    "cs": "Po obou stranách cesty stojí v úhledných řadách staré jabloně a větve mají těžké červenými a zelenými plody. Opadlé květy leží v trávě jako měkký sníh. Nízká kamenná zídka brání tomu, aby se stromy nakláněly nad pěšinu. Ve slunném koutě u zídky stojí na plochém kameni kulatý slaměný úl a kolem něj tiše bzučí včely. Cesta vede na západ na náves a na východ k chalupám na okraji vesnice. Mezi jabloněmi vede na sever ušlapaná pěšina k malé chaloupce se slaměnou střechou."
   },
   "exits": {
     "w": "village.square",
-    "e": "village.outskirts"
+    "e": "village.outskirts",
+    "n": "village.cottage"
   },
   "tags": ["outdoor", "village", "safe"]
 }

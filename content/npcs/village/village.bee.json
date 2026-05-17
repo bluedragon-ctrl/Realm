@@ -1,11 +1,12 @@
 {
-  "id": "home.bee",
+  "id": "village.bee",
   "name": { "en": "a bee", "cs": "včela" },
   "nameAcc": { "en": "the bee", "cs": "včelu" },
   "nameDat": { "en": "the bee", "cs": "včele" },
   "nameGen": { "en": "the bee", "cs": "včely" },
   "title": { "en": "bee", "cs": "včela" },
-  "location": "home.garden",
+  "location": "village.garden",
+  "count": 3,
   "short": {
     "en": "A small honeybee buzzes lazily among the flowers.",
     "cs": "Malá včela líně bzučí mezi květy."
@@ -26,6 +27,11 @@
   },
   "respawn": { "ticks": 500 },
   "behaviors": [
+    {
+      "primitive": "wander",
+      "chance": 0.2,
+      "scope": { "region": "village", "tags": ["outdoor"] }
+    },
     {
       "primitive": "attack",
       "name": { "en": "sting", "cs": "bodnutí" },

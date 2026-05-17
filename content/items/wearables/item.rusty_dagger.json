@@ -19,7 +19,7 @@
   },
   "tags": ["weapon"],
   "weight": 1,
-  "spawn": { "location": "home.garden", "count": 1, "respawnTicks": 200 },
+  "spawn": { "location": "village.garden", "count": 1, "respawnTicks": 200 },
   "wearable": {
     "slot": "weapon",
     "damage": "1d4+ATK",

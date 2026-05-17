@@ -10,12 +10,13 @@
     "cs": "Malá kamenná svatyňka u cesty, v záhonu lučních květů."
   },
   "long": {
-    "en": "A simple stone shrine no taller than a child stands at the side of the road in a patch of wildflowers. Bees drift between the blossoms. A wild rose bush leans against the back of the shrine, heavy with red blooms, and a few soft petals have drifted onto the stone. The cobbled road runs back south into the lane, and continues north out of the village toward distant hills.",
-    "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí u cesty v záhonu lučních květů. Mezi květy poletují včely. Za svatyňkou se opírá keř divoké růže, obtěžkaný červenými květy, a pár měkkých okvětních lístků se sneslo na kámen. Dlážděná cesta vede zpátky na jih do uličky a pokračuje na sever z vesnice ven k dalekým kopcím."
+    "en": "A simple stone shrine no taller than a child stands at the side of the road in a patch of wildflowers. Bees drift between the blossoms. A wild rose bush leans against the back of the shrine, heavy with red blooms, and a few soft petals have drifted onto the stone. The cobbled road runs back south into the lane, and continues north out of the village toward distant hills. A narrow path winds east through the wildflowers to a small garden.",
+    "cs": "Prostá kamenná svatyňka, ne vyšší než dítě, stojí u cesty v záhonu lučních květů. Mezi květy poletují včely. Za svatyňkou se opírá keř divoké růže, obtěžkaný červenými květy, a pár měkkých okvětních lístků se sneslo na kámen. Dlážděná cesta vede zpátky na jih do uličky a pokračuje na sever z vesnice ven k dalekým kopcím. Úzká pěšina se vine na východ mezi lučními květy k malé zahradě."
   },
   "exits": {
     "s": "village.lane",
-    "n": "village.north_path"
+    "n": "village.north_path",
+    "e": "village.garden"
   },
   "tags": ["outdoor", "village", "safe"]
 }

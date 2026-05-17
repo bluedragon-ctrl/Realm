@@ -1,5 +1,5 @@
 {
-  "id": "home.dog",
+  "id": "village.dog",
   "name": {
     "en": "a scruffy dog",
     "cs": "ošuntělý pes"
@@ -14,10 +14,10 @@
     "en": "scruffy dog",
     "cs": "ošuntělý pes"
   },
-  "location": "home.yard",
+  "location": "village.square",
   "short": {
-    "en": "A scruffy brown dog sniffs around the yard.",
-    "cs": "Ošuntělý hnědý pes čenichá po dvorku."
+    "en": "A scruffy brown dog sniffs around the square.",
+    "cs": "Ošuntělý hnědý pes čenichá po návsi."
   },
   "long": {
     "en": "A small fluffy dog with one torn ear and an air of tireless curiosity. It pays you cautious attention, deciding moment by moment whether you are worth begging from.",
@@ -34,6 +34,11 @@
   },
   "respawn": { "ticks": 800 },
   "behaviors": [
+    {
+      "primitive": "wander",
+      "chance": 0.15,
+      "scope": { "region": "village", "tags": ["outdoor"] }
+    },
     {
       "primitive": "flee",
       "chance": 1.0,
@@ -76,7 +81,7 @@
       "templates": {
         "en": [
           "sniffs at {target}'s boots curiously.",
-          "trots across the yard to {target} and wags its tail.",
+          "trots across the square to {target} and wags its tail.",
           "looks up at {target} with hopeful eyes.",
           "rests its head against {target}'s leg.",
           "follows {target} for a few steps before losing interest."
@@ -97,17 +102,17 @@
       "lines": {
         "en": [
           "barks loudly at nothing in particular.",
-          "sniffs at the packed earth, tail wagging.",
+          "sniffs at the ground, tail wagging.",
           "scratches behind a torn ear.",
           "trots in a small circle, then settles again.",
-          "lifts its head and stares towards the garden."
+          "lifts its head, listens for something, then settles again."
         ],
         "cs": [
           "hlasitě štěká na něco neviditelného.",
-          "čenichá u udusané hlíny a vrtí ocasem.",
+          "čenichá u země a vrtí ocasem.",
           "drbe se za roztrženým uchem.",
           "udělá malý kroužek a zase si lehne.",
-          "zvedne hlavu a zírá směrem k zahradě."
+          "zvedne hlavu, zaposlouchá se a zase si lehne."
         ]
       }
     }

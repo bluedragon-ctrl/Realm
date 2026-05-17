@@ -14,7 +14,7 @@
     "cs": "Pole končí a začínají vysoké staré stromy. Jejich kořeny trčí ze země a vzduch je tu chladnější, voní kůrou a hlínou. Prašná stezka pokračuje na východ do lesa. Pole leží na západ."
   },
   "exits": {
-    "w": "home.field",
+    "w": "village.crossroad",
     "e": "forest.meadow"
   },
   "tags": ["outdoor", "forest", "border"]

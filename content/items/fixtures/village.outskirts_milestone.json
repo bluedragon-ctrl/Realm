@@ -24,13 +24,13 @@
   "use": {
     "en": {
       "no_target": {
-        "self": "you read the carvings on the milestone. West points to the village square; east is the path through the wheat to the crossroads and home.",
+        "self": "you read the carvings on the milestone. West points to the village square; east is the path through the wheat to the field crossroad, where another road leads on into the forest.",
         "others": "{actor} reads the old carvings on the milestone."
       }
     },
     "cs": {
       "no_target": {
-        "self": "přečteš si nápisy na milníku. Šipka na západ vede na náves; na východ vede pěšina pšenicí k rozcestí a domů.",
+        "self": "přečteš si nápisy na milníku. Šipka na západ vede na náves; na východ vede pěšina pšenicí k polnímu rozcestí, odkud další cesta vede do lesa.",
         "others": "{actor} si přečte staré nápisy na milníku."
       }
     }

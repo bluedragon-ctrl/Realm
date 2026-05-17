@@ -1,11 +1,11 @@
 // Central in-memory world state. Submodules under world/ mutate this object via the
 // helpers exported from sibling files; external code imports from `../world.js` (the barrel).
 
-export const START_ROOM = 'home.yard';
+export const START_ROOM = 'village.cottage';
 
 // Where players reappear after death. Distinct from START_ROOM (which is the room a brand-new
 // character is placed in on first login).
-export const RESPAWN_ROOM = 'home.cottage';
+export const RESPAWN_ROOM = 'village.cottage';
 
 export const world = {
   rooms: new Map(),

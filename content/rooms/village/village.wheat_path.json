@@ -14,7 +14,7 @@
     "cs": "Vysoká zlatá pšenice se po obou stranách otírá o tvá ramena. Dřevěný strašák se slaměným kloboukem stojí na kraji, s prázdnou tváří trochu otočenou na sever — k té starší části pole, kde pšenice roste vyšší a tišší. Vysoko nad tebou zpívají skřivani. Pěšina vede na východ zpět na rozcestí a na západ k vesnici."
   },
   "exits": {
-    "e": "home.field",
+    "e": "village.crossroad",
     "w": "village.outskirts",
     "n": { "to": "village.noon_glade", "hidden": { "dc": 5, "id": "village.noon_wraith_path" } }
   },
