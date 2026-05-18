@@ -1433,7 +1433,9 @@ function popoverSection(text) {
 
 function openTrainPopover(anchorEl, msg) {
   const order = ['attack', 'defense', 'int', 'magicResist', 'accuracy', 'evasion', 'hpMax', 'mpMax'];
-  const ratios = { attack: 1, defense: 1, int: 1, magicResist: 2, accuracy: 1, evasion: 2, hpMax: 5, mpMax: 2 };
+  // Authoritative ratios come from the server (stats msg). Fallback mirrors STAT_RATIOS
+  // in src/game/leveling.js for the case where an old server is connected.
+  const ratios = msg.statRatios ?? { attack: 1, defense: 1, int: 1, magicResist: 3, accuracy: 2, evasion: 3, hpMax: 5, mpMax: 3 };
   const shortNames = {
     attack: 'atk', defense: 'def', int: 'int', magicResist: 'mr',
     accuracy: 'acc', evasion: 'eva', hpMax: 'hp', mpMax: 'mp',

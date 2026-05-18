@@ -33,6 +33,7 @@ function buildWearableOnHitEffects(actor, lang) {
   return out;
 }
 import { xpToNext } from '../xp.js';
+import { STAT_RATIOS } from '../leveling.js';
 import { buildInventory } from './inventory.js';
 import { buildEquipment } from './equipment.js';
 import { buildKnownSpells } from './spells.js';
@@ -61,6 +62,7 @@ export function buildStatsMsg(actor) {
     unspentPoints: actor.record?.unspentPoints ?? 0,
     unspentPointsPhrase: freePointsPhrase(actor.record?.unspentPoints ?? 0, actor.lang),
     allocated: { ...(actor.record?.allocated ?? {}) },
+    statRatios: { ...STAT_RATIOS },
     labels: buildPanelLabels(actor.lang),
     socials: buildSocialButtons(actor.lang),
     inventory: buildInventory(actor),
