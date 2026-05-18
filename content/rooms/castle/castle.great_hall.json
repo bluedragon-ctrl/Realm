@@ -5,6 +5,7 @@
     "cs": "Velký sál"
   },
   "lightBase": "dim",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A long banquet hall with a broken table and faded banners overhead.",
     "cs": "Dlouhý hodovní sál s rozlomeným stolem a vybledlými prapory pod stropem."

@@ -8,6 +8,7 @@ import { addHate, getHate } from './aggro.js';
 import { perceptionFactor } from './perception.js';
 import { setDamageRouteHandler, setCleanseHandler, setCureHandler } from './effects.js';
 import { processSummonDespawn } from './summon.js';
+import { tickEnvironment } from './environment.js';
 import { sendStats } from './messages.js';
 import { pushTargetInfo, describeRoomToAll } from './actions/look.js';
 import { getTick, bumpTick } from './clock.js';
@@ -58,6 +59,52 @@ function checkRequires(actor, requires) {
       const max = actor.stats?.hpMax ?? 0;
       if (max <= 0) return false;
       return (actor.stats.hp / max) <= ratio;
+    }
+    // Fires when at least one player in the NPC's room has the named quest in any state
+    // other than `complete`. Covers both the "never started" case (lets the NPC nudge the
+    // player toward discovery) and the "active" case (lets the NPC remind the player to
+    // finish). Returns false once every nearby player has the quest marked complete, so
+    // the hint goes quiet rather than nagging customers who already cleared it.
+    case 'quest_unfulfilled': {
+      const questId = params.quest;
+      if (!questId || !actor.location) return false;
+      const peers = world.actorsByRoom.get(actor.location);
+      if (!peers) return false;
+      for (const peer of peers) {
+        if (peer.kind !== 'player') continue;
+        const entry = peer.record?.quests?.[questId];
+        if (!entry || entry.status !== 'complete') return true;
+      }
+      return false;
+    }
+    // Fires when at least one player in the NPC's room has the quest active (discovered
+    // but not yet complete). Stricter than quest_unfulfilled — won't fire for players
+    // who haven't yet started the quest. Use for chatter that should only happen mid-quest.
+    case 'quest_active': {
+      const questId = params.quest;
+      if (!questId || !actor.location) return false;
+      const peers = world.actorsByRoom.get(actor.location);
+      if (!peers) return false;
+      for (const peer of peers) {
+        if (peer.kind !== 'player') continue;
+        const entry = peer.record?.quests?.[questId];
+        if (entry && entry.status === 'active') return true;
+      }
+      return false;
+    }
+    // Fires when at least one player in the NPC's room has the quest marked complete.
+    // Use for "thanks again" / "you earned this" lines that should only fire post-quest.
+    case 'quest_complete': {
+      const questId = params.quest;
+      if (!questId || !actor.location) return false;
+      const peers = world.actorsByRoom.get(actor.location);
+      if (!peers) return false;
+      for (const peer of peers) {
+        if (peer.kind !== 'player') continue;
+        const entry = peer.record?.quests?.[questId];
+        if (entry && entry.status === 'complete') return true;
+      }
+      return false;
     }
     default:
       return true;
@@ -205,6 +252,7 @@ function onTick() {
     tickActor(actor);
   }
   maybeRespawnItems();
+  tickEnvironment();
   processSummonDespawn();
   processNpcRespawns();
   processConditionalSpawns();

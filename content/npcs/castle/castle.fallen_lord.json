@@ -34,8 +34,7 @@
     { "defId": "item.amulet_life", "chance": 0.25 },
     { "defId": "potion.heal", "chance": 1.0 },
     { "defId": "potion.heal", "chance": 1.0 },
-    { "defId": "potion.heal", "chance": 1.0 },
-    { "defId": "item.frost_blade", "chance": 0.3 }
+    { "defId": "potion.heal", "chance": 1.0 }
   ],
   "behaviors": [
     {

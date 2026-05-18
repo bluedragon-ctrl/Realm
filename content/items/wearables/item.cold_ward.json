@@ -1,0 +1,26 @@
+{
+  "id": "item.cold_ward",
+  "rarity": 5,
+  "name": {
+    "en": "a cold ward",
+    "cs": "ochranný amulet proti chladu"
+  },
+  "nameAcc": {
+    "en": "the cold ward",
+    "cs": "ochranný amulet proti chladu"
+  },
+  "short": {
+    "en": "A small leather pouch on a cord, warm to the touch and humming faintly.",
+    "cs": "Malý kožený váček na šňůrce, na dotek teplý, slabě hučí."
+  },
+  "long": {
+    "en": "A simple-looking leather pouch on a long cord. Inside is a folded silver leaf, a pinch of pearl dust, a knot of bone flour and an iron pin — all bound with the wizard's mark. Wear it around your neck and the chill of unfriendly places slides off you. It is still warm from the wizard's hands.",
+    "cs": "Obyčejně vypadající kožený váček na dlouhé šňůrce. Uvnitř je složený stříbrný lísteček, špetka perlového prachu, uzlík kostní moučky a železný špendlík — vše spojeno kouzelníkovou značkou. Nos ho na krku a chlad nepřátelských míst po tobě sklouzne. Stále hřeje od kouzelníkových rukou."
+  },
+  "tags": ["ward"],
+  "weight": 0,
+  "wearable": {
+    "slot": "utility"
+  },
+  "wards": ["cold"]
+}

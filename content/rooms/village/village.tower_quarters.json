@@ -9,12 +9,12 @@
     "cs": "Kulatý pokoj, ve kterém někdo opravdu bydlí — krásně neuspořádaný."
   },
   "long": {
-    "en": "The top of the tower is clearly where the wizard actually lives. Books are stacked in precarious towers on every surface. Quills, ink bottles, loose pages, strange ornaments, and half-finished meals sit in a chaos of comfortable clutter. A soft rug covers part of the floor, and a bed piled high with quilts occupies one corner. A large window opens to a breathtaking view of the hills and distant mountains. Despite the mess, there's a peculiar sense of order — everything seems exactly where the wizard left it.",
-    "cs": "Vrchol věže je očividně místo, kde kouzelník opravdu bydlí. Knihy se na každém volném místě tyčí ve vratkých věžičkách. Pera, lahvičky s inkoustem, rozházené listy, podivné ozdoby a nedojezené jídlo leží v útulném nepořádku. Část podlahy pokrývá měkký kobereček a v jednom rohu se krčí postel zasypaná přikrývkami. Velké okno otevírá dechberoucí výhled na kopce a vzdálené hory. Navzdory nepořádku tu panuje zvláštní řád — všechno vypadá přesně tak, kde to kouzelník nechal."
+    "en": "The top of the tower is clearly where the wizard actually lives. Books are stacked in precarious towers on every surface. Quills, ink bottles, loose pages, strange ornaments, and half-finished meals sit in a chaos of comfortable clutter. A soft rug covers part of the floor, and a bed piled high with quilts occupies one corner. A large window opens to a breathtaking view of the hills and distant mountains. Despite the mess, there's a peculiar sense of order — everything seems exactly where the wizard left it. From somewhere above the ceiling there's a faint scratching and the dry whisper of leather wings, hard to place.",
+    "cs": "Vrchol věže je očividně místo, kde kouzelník opravdu bydlí. Knihy se na každém volném místě tyčí ve vratkých věžičkách. Pera, lahvičky s inkoustem, rozházené listy, podivné ozdoby a nedojezené jídlo leží v útulném nepořádku. Část podlahy pokrývá měkký kobereček a v jednom rohu se krčí postel zasypaná přikrývkami. Velké okno otevírá dechberoucí výhled na kopce a vzdálené hory. Navzdory nepořádku tu panuje zvláštní řád — všechno vypadá přesně tak, kde to kouzelník nechal. Odkudsi nad stropem se ozývá slabé škrabání a suchý šepot koženatých křídel, který se nedá přesně umístit."
   },
   "exits": {
     "d": "village.tower_entry",
-    "u": "village.tower_attic"
+    "u": { "to": "village.tower_attic", "hidden": { "dc": 7, "id": "village.tower_attic_stairs" } }
   },
   "tags": ["indoor", "village", "safe"]
 }

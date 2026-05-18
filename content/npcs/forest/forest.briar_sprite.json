@@ -116,6 +116,86 @@
   "behaviors": [
     {
       "primitive": "say",
+      "chance": 0.22,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.bonebloom" },
+      "lines": {
+        "en": [
+          "A bonebloom, traveller — one flower with five pale petals. They grow only where the ground is old and forgotten. Bring me one and I'll bind you a ring that runs your mana deeper.",
+          "Find me a single bonebloom and I'll have a ring for you. The petals know how to hold what the body cannot.",
+          "Bonebloom. One flower. The old gardens behind the castle, where the dirt is forgotten — that is where they bloom.",
+          "Bring me a bonebloom, traveller. A small thing. The ring will be worth the walk."
+        ],
+        "cs": [
+          "Kostiboule, poutníku — jediná květina s pěti bledými lístky. Roste jen tam, kde je půda stará a zapomenutá. Přines mi jednu a uvážu ti prsten, který prohloubí tvou manu.",
+          "Najdi mi jedinou kostiboule a budu pro tebe mít prsten. Lístky umí podržet to, co tělo nedokáže.",
+          "Kostiboule. Jeden květ. Staré zahrady za hradem, kde je půda zapomenutá — tam kvete.",
+          "Přines mi kostiboule, poutníku. Drobnost. Prsten bude stát za tu cestu."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.sprite_honey" },
+      "lines": {
+        "en": [
+          "Five jars of honey, traveller. The brambles bloom for me but the bees keep their share.",
+          "Honey — five jars. The thorns need it to flower again. Bring them and I'll have potions for you.",
+          "Sweet things and sharp things go together. Five jars of honey for the briar.",
+          "I cannot reach the hives myself. Five jars and the bramble blooms once more."
+        ],
+        "cs": [
+          "Pět skleniček medu, poutníku. Trny pro mě kvetou, ale včely si svoje hlídají.",
+          "Med — pět skleniček. Trní potřebuje, aby znovu rozkvetlo. Přines je a budu mít lektvary pro tebe.",
+          "Sladké a ostré patří k sobě. Pět skleniček medu pro trní.",
+          "Sama do úlů nedosáhnu. Pět skleniček a ostružiny znovu rozkvetou."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.2,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.otter_fish" },
+      "lines": {
+        "en": [
+          "The little otter at the river holt trades fair, traveller. Five fish at once and she will surprise you.",
+          "Down the south water lives a brown otter with a pearl in her paws. Bring her fish and you'll see what she keeps in that nest of shells.",
+          "The river otter likes her bargains big. Three fish for a pearl, but five fish — five at once — that is a different conversation.",
+          "Fish, traveller. The otter waits."
+        ],
+        "cs": [
+          "Drobná vydra v doupěti u řeky obchoduje poctivě, poutníku. Pět ryb najednou a překvapí tě.",
+          "Po jižní vodě žije hnědá vydra s perlou v tlapkách. Přines jí ryby a uvidíš, co schovává v hnízdě z mušlí.",
+          "Říční vydra má ráda velké obchody. Tři ryby za perlu, ale pět najednou — pět — to je už jiná řeč.",
+          "Ryby, poutníku. Vydra čeká."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.2,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.matriarch_hunt" },
+      "lines": {
+        "en": [
+          "In the warren below the mine sits an old grey rat — clever, mean, and broad as a small dog. Strike her down and the warren falls quiet.",
+          "The matriarch. The old one. She sees you long before you see her. Bring iron, traveller — and steady hands.",
+          "The whole warren answers to her. Without her, the rats scatter back to where they belong.",
+          "Below the mine, deeper than the kobolds — that's where she nests. The old grey one."
+        ],
+        "cs": [
+          "V doupěti pod dolem sedí stará šedá krysa — chytrá, zlá a široká jako menší pes. Sraz ji a doupě se ztiší.",
+          "Matrona. Stará. Vidí tě dávno před tím, než ty vidíš ji. Vezmi železo, poutníku — a pevné ruce.",
+          "Celé doupě poslouchá ji. Bez ní se krysy rozprchnou tam, kam patří.",
+          "Pod dolem, hlouběji než kobolďáci — tam má hnízdo. Ta stará šedá."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
       "chance": 0.08,
       "cost": 12,
       "lines": {

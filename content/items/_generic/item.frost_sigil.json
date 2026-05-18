@@ -1,0 +1,23 @@
+{
+  "id": "item.frost_sigil",
+  "rarity": 4,
+  "category": "quest",
+  "name": {
+    "en": "a frost sigil",
+    "cs": "mrazivý znak"
+  },
+  "nameAcc": {
+    "en": "the frost sigil",
+    "cs": "mrazivý znak"
+  },
+  "short": {
+    "en": "A small bone disc carved with a single pale rune that breathes cold.",
+    "cs": "Malý kostěný kotouček s jedinou bledou runou, ze které sálá chlad."
+  },
+  "long": {
+    "en": "A flat disc cut from old bone and inlaid with a rune the colour of frozen breath. It is cold even in a warm pocket, and the rune seems to drink the light around it. The skeleton mage carried it on a thong around his neck. The wizard back in the village will know what to do with this.",
+    "cs": "Plochý kotouček vyřezaný ze staré kosti, do něj vsazena runa barvy zmrzlého dechu. I v teplé kapse zůstává studený a runa jako by pila světlo kolem sebe. Kostlivý mág ho nosil na řemínku kolem krku. Kouzelník ve vesnici bude vědět, co s tím."
+  },
+  "tags": ["reagent", "cold"],
+  "weight": 0
+}

@@ -5,6 +5,7 @@
     "cs": "Uschlá zahrada"
   },
   "outdoor": true,
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A small overgrown garden enclosed on all sides by cloister arches.",
     "cs": "Malá zarostlá zahrada, kolem které stojí oblouky křížové chodby."

@@ -89,6 +89,18 @@ export function validateExchanges(host, hostCtx, items, quests) {
   });
 }
 
+export function validateItemQuestRumors(items, quests) {
+  for (const def of items.values()) {
+    if (def.quest_rumors == null) continue;
+    const ctx = `item '${def.id}'`;
+    check(Array.isArray(def.quest_rumors), ctx, `'quest_rumors' must be an array`);
+    for (const qid of def.quest_rumors) {
+      check(typeof qid === 'string' && quests?.has(qid), ctx,
+        `'quest_rumors' references unknown quest '${qid}'`);
+    }
+  }
+}
+
 export function validateAllExchanges(npcs, items, quests) {
   const seenIds = new Map();
   const checkHost = (host, kind) => {

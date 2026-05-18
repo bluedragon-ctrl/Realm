@@ -162,6 +162,134 @@
   "behaviors": [
     {
       "primitive": "say",
+      "chance": 0.2,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.bat_daemon" },
+      "lines": {
+        "en": [
+          "Don't mind the scratching above the ceiling. It's nothing. ... It's not nothing. There's a way up if you look carefully enough.",
+          "Some nights it sounds like a dog up there, and a dog cannot be up there. If you find the stairs, friend, I would be most obliged.",
+          "I keep meaning to investigate the attic and I keep finding other work. Whoever finds the way up first can deal with what's there.",
+          "There is a hatch — or there ought to be a hatch — somewhere in this room. Search for it."
+        ],
+        "cs": [
+          "Nevšímej si toho škrabání nad stropem. Není to nic. ... Není to nic. Cesta nahoru tu je, když se dobře podíváš.",
+          "Některé noci to nahoře zní jako pes, a pes tam nahoře být nemůže. Pokud najdeš schody, příteli, byl bych ti velmi zavázán.",
+          "Pořád se chystám tu půdu prozkoumat a pořád mi to něco překazí. Kdokoli najde cestu nahoru první, ať se s tím vypořádá.",
+          "Někde v tomhle pokoji je poklop — nebo by tam měl být poklop. Hledej."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.3,
+      "cost": 14,
+      "requires": { "type": "quest_active", "quest": "quest.ward_of_cold" },
+      "lines": {
+        "en": [
+          "That sigil — yes! Bone, deep cold, mage's work. Lay it on the table with the rest.",
+          "I will need more than the sigil, friend. A chunk of pure iron from the mine, the kind the kobold smith hoards.",
+          "A pinch of pearl dust as well — grind a river pearl on the stone by the river. Don't lose any in the wind.",
+          "And bone flour — a clean bone, ground fine on that same grindstone. Bring me all four and you will have your ward.",
+          "Iron binds it. Pearl dust catches the cold. Bone flour holds the spell together. The sigil tells it what to fight.",
+          "When you have all four pieces in front of me, I can knot them into something you can wear around your neck."
+        ],
+        "cs": [
+          "Ten znak — ano! Kost, hluboký chlad, mágova práce. Polož ho na stůl k ostatním věcem.",
+          "Budu potřebovat víc než znak, příteli. Kus čistého železa z dolu, takový, jaký si kobold-kovář hromadí.",
+          "A špetku perlového prachu — rozemel říční perlu na kameni u řeky. Ať ti to vítr neodfoukne.",
+          "A kostní moučku — čistou kost, jemně rozemletou na témž brusném kameni. Přines mi všechny čtyři a budeš mít ochranu.",
+          "Železo to sváže. Perlový prach chytí chlad. Kostní moučka drží kouzlo pohromadě. Znak řekne kouzlu, proti čemu má bojovat.",
+          "Až budeš mít všechny čtyři kusy přede mnou, vyrobím ti z nich něco, co si pověsíš na krk."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.3,
+      "cost": 14,
+      "requires": { "type": "quest_active", "quest": "quest.fallen_lord" },
+      "lines": {
+        "en": [
+          "Now you can walk in there. End him, friend. The whole valley will breathe easier.",
+          "Wear the ward at all times under that castle's roof. Without it the cold will gut you in minutes.",
+          "He is half mist now, but he still bleeds. Iron and steady nerves.",
+          "Past the gatehouse, mind. Past the gatehouse the cold turns hungry.",
+          "The deepest tomb. Below the great hall, down the spiral stair, through the iron door. He waits.",
+          "When he falls, take his blade. It is part of why the cold lingers there."
+        ],
+        "cs": [
+          "Teď tam můžeš vejít. Sraz ho, příteli. Celé údolí se nadechne.",
+          "Pod střechou toho hradu nos ochranu pořád. Bez ní tě chlad během chvíle sežere.",
+          "Je už napůl z mlhy, ale pořád krvácí. Železo a pevné nervy.",
+          "Za vrátnicí pozor. Za vrátnicí se chlad mění v hladového.",
+          "Nejhlubší hrobka. Pod velkým sálem, dolů po točitých schodech, skrze železné dveře. Tam čeká.",
+          "Až padne, vezmi mu čepel. Část toho chladu drží ona."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.skeleton_lord" },
+      "lines": {
+        "en": [
+          "The old tower at the edge of the forest — three floors below the door is a tomb, and in that tomb stands what was once a mage. Crowned now. Iron sword across the shoulder. If you mean to end him, take a blade and a steady heart.",
+          "The skeleton lord is no ordinary undead. He was a man once, and a clever one. Spells slide off him — bring iron, not fire.",
+          "Below the cellar of the forest tower lies a crypt, and below the crypt lies a tomb. He is in the tomb. Whoever ends him does the whole forest a kindness.",
+          "Mind the runes on the floor. They flicker when he wakes."
+        ],
+        "cs": [
+          "Stará věž na okraji lesa — tři patra pod prahem je hrobka a v té hrobce stojí ten, kdo býval mágem. Teď je korunovaný. Železný meč přes rameno. Pokud s ním chceš skoncovat, vezmi si čepel a pevné srdce.",
+          "Kostlivý pán není obyčejná nemrtvá bytost. Býval to člověk, a chytrý. Kouzla se po něm svezou — vezmi železo, ne oheň.",
+          "Pod sklepením lesní věže leží krypta a pod kryptou hrobka. On je v hrobce. Kdo s ním skoncuje, prokáže celému lesu laskavost.",
+          "Dej pozor na runy na podlaze. Blikají, když se probudí."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.3,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.bones" },
+      "lines": {
+        "en": [
+          "Bones, you see — five clean ones, ground to flour, are the binding for a shield spell. Bring them to me and I'll teach you the spell proper.",
+          "Five bones, that's all I need. The skeletons in the forest drop them whenever they fall apart.",
+          "Hand me five bones and I'll send you out with a shield-scroll worth more than the asking price downstairs.",
+          "A clean bone is a remarkable thing. Bring five — yes, five — and we have a deal."
+        ],
+        "cs": [
+          "Kosti, víš — pět čistých, rozemletých na mouku, je pojivem pro štítové kouzlo. Přines mi je a naučím tě to kouzlo pořádně.",
+          "Pět kostí, víc nepotřebuju. Kostlivci v lese je upouštějí pokaždé, když se rozsypou.",
+          "Podej mi pět kostí a pošlu tě s štítovým svitkem, který stojí víc než cena dole v krámě.",
+          "Čistá kost je pozoruhodná věc. Přines pět — ano, pět — a máme dohodu."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.noon_wraith" },
+      "lines": {
+        "en": [
+          "That pale woman in the noon glade — she's no ghost, she's something older. Magic resists her plain, but a sharp blade and steady nerves can bring her down.",
+          "I've read what I can on the noon wraith. Spells slide off her like rain off slate — bring her down with iron, not fire.",
+          "If you mean to face the noon wraith, mind the heat. Her gaze burns. Wards and ironwort potions help.",
+          "The noon glade has been her ground since before the village stood. Whoever ends her does this whole valley a kindness."
+        ],
+        "cs": [
+          "Ta bledá žena na polední mýtině — není to duch, je to něco staršího. Kouzla se jí stěží dotknou, ale ostrá čepel a pevné nervy ji srazí.",
+          "Přečetl jsem si, co se dalo, o polednici. Kouzla se po ní svezou jako déšť po břidlici — sraz ji železem, ne ohněm.",
+          "Pokud se chystáš čelit polednici, dej pozor na žár. Její pohled pálí. Pomohou ochranné lektvary a železník.",
+          "Polední mýtina patřila jí dlouho předtím, než tu stála vesnice. Kdo s ní skoncuje, prokáže celému údolí laskavost."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
       "chance": 0.06,
       "cost": 12,
       "lines": {

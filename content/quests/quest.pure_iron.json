@@ -1,0 +1,27 @@
+{
+  "id": "quest.pure_iron",
+  "name": { "en": "Pure Iron for the Smith", "cs": "Čisté železo pro kováře" },
+  "short": {
+    "en": "The smith needs a chunk of pure iron to forge you a fine sword.",
+    "cs": "Kovář potřebuje kus čistého železa, aby ti ukoval pořádný meč."
+  },
+  "long": {
+    "en": "Common ore is too full of slag for a real blade. The smith asks for one chunk of pure iron — kobold smiths in the mine sometimes carry it. Bring him one and he'll forge a sword no nicked blade can match.",
+    "cs": "Běžná ruda má příliš strusky na pořádnou čepel. Kovář žádá jeden kus čistého železa — koboldí kováři v dole ho někdy nosí. Přines mu jeden a on ti ukove meč, kterému se žádná otlučená čepel nevyrovná."
+  },
+  "discovery": { "type": "enter_room", "room": "village.smith" },
+  "objectives": [
+    {
+      "id": "deliver_iron",
+      "type": "deliver_item",
+      "defId": "item.pure_iron_chunk",
+      "recipient": "village.smith",
+      "count": 1,
+      "desc": { "en": "Deliver a chunk of pure iron to the smith.", "cs": "Doruč kus čistého železa kováři." }
+    }
+  ],
+  "rewards": {
+    "xp": 40,
+    "items": ["item.iron_sword_fine"]
+  }
+}

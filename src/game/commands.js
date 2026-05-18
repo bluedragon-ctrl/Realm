@@ -11,6 +11,7 @@ import take from './actions/take.js';
 import drop from './actions/drop.js';
 import inventory from './actions/inventory.js';
 import give from './actions/give.js';
+import deliver from './actions/deliver.js';
 import buy from './actions/buy.js';
 import sell from './actions/sell.js';
 import use from './actions/use.js';
@@ -54,6 +55,7 @@ const COMMANDS = {
   drop,
   inventory, inv: inventory, i: inventory,
   give,
+  deliver,
   buy,
   sell,
   use,

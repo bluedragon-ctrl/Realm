@@ -3,7 +3,7 @@
 import { world, START_ROOM } from './state.js';
 import { spawnAllNpcs } from './npcs.js';
 import { spawnAllItems } from './items.js';
-import { loadRooms, loadAdmins, loadNpcs, loadSocials, loadItems, loadSpells, loadEffects, loadQuests, validateAllExchanges }
+import { loadRooms, loadAdmins, loadNpcs, loadSocials, loadItems, loadSpells, loadEffects, loadQuests, validateAllExchanges, validateItemQuestRumors }
   from '../../persist/contentLoader.js';
 import { playerExists, createPlayer } from '../../persist/players.js';
 
@@ -21,6 +21,7 @@ export async function loadWorld() {
   world.questDefs = await loadQuests(world.rooms, world.npcDefs, world.itemDefs);
   // Exchanges may reference quests via `requires`, so validate after quests load.
   validateAllExchanges(world.npcDefs, world.itemDefs, world.questDefs);
+  validateItemQuestRumors(world.itemDefs, world.questDefs);
   if (!world.rooms.has(START_ROOM)) {
     throw new Error(`start room '${START_ROOM}' not found in content/rooms`);
   }

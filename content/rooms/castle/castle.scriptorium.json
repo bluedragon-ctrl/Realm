@@ -5,6 +5,7 @@
     "cs": "Písárna"
   },
   "lightBase": "dim",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A long narrow room of slanted writing desks and spilled inkpots.",
     "cs": "Dlouhá úzká místnost se šikmými psacími pulty a převrženými kalamáři."

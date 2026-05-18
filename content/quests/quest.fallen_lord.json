@@ -1,0 +1,27 @@
+{
+  "id": "quest.fallen_lord",
+  "name": { "en": "The Fallen Lord", "cs": "Padlý pán" },
+  "short": {
+    "en": "Walk the warded castle to its deepest tomb and end the fallen lord.",
+    "cs": "Projdi chráněným hradem až do nejhlubší hrobky a skoncuj s padlým pánem."
+  },
+  "long": {
+    "en": "With the cold ward warm around your neck the old castle stops biting at your skin. Now you can walk the courtyard, the halls and the spiral stair without the cold sapping your strength. At the bottom of the stair lies the tomb, and in the tomb stands the lord himself — half armour, half mist, sword in hand. He is the oldest thing in this valley still walking, and he will not give up his hall easily. Put him down and the whole valley will breathe easier.",
+    "cs": "S ochranou proti chladu, která ti hřeje na krku, tě starý hrad přestane bít do kůže. Teď můžeš projít nádvořím, sály i točitými schody, aniž by tě chlad vysával. Na konci schodů leží hrobka a v hrobce stojí sám pán — napůl ve zbroji, napůl z mlhy, meč v ruce. Je tou nejstarší věcí v tomto údolí, která ještě chodí, a svůj sál se jen tak nevzdá. Sraz ho a celé údolí se nadechne."
+  },
+  "discovery": { "type": "pickup_item", "defId": "item.cold_ward" },
+  "objectives": [
+    {
+      "id": "kill_lord",
+      "type": "kill",
+      "defId": "castle.fallen_lord",
+      "count": 1,
+      "desc": { "en": "Defeat the fallen lord in the castle tomb.", "cs": "Poraz padlého pána v hradní hrobce." }
+    }
+  ],
+  "rewards": {
+    "xp": 300,
+    "gold": 100,
+    "items": ["item.frost_blade"]
+  }
+}

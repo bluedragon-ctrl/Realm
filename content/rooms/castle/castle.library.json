@@ -5,6 +5,7 @@
     "cs": "Knihovna"
   },
   "lightBase": "dim",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A round chamber walled with collapsed bookshelves and one drifting figure.",
     "cs": "Kulatá komnata se zhroucenými regály a jednou postavou plující vzduchem."

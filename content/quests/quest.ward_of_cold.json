@@ -1,0 +1,51 @@
+{
+  "id": "quest.ward_of_cold",
+  "name": { "en": "The Ward of Cold", "cs": "Ochrana proti chladu" },
+  "short": {
+    "en": "Bring the wizard four reagents — a frost sigil, pure iron, pearl dust, bone flour — and he will craft a ward against the castle's cold.",
+    "cs": "Přines kouzelníkovi čtyři přísady — mrazivý znak, čisté železo, perlový prach a kostní moučku — a vyrobí ti ochranu proti chladu hradu."
+  },
+  "long": {
+    "en": "You pried a small bone disc from around the skeleton mage's neck. It is cold even in your warm hand, and the wizard back in the village will know what it is. He will want more than the sigil: pure iron of the kind the kobold smith hoards in the mine, a pinch of pearl dust ground from a river pearl on the grindstone by the river, and a pouch of bone flour ground from a clean bone. Bring him all four and he will bind you a ward — a small thing you can wear around your neck that will keep the cold of a certain old castle at bay.",
+    "cs": "Vyrval jsi malý kostěný kotouček z krku kostlivého mága. I v teplé dlani zůstává studený, a kouzelník ve vesnici bude vědět, co to je. Bude chtít víc než ten znak: čisté železo, jaké si v dole hromadí kobold-kovář, špetku perlového prachu vyrobeného z říční perly na brusném kameni u řeky, a sáček kostní moučky umleté z čisté kosti. Přines mu všechny čtyři a uváže ti ochranu — drobnost, kterou si pověsíš na krk a která tě uchrání před chladem jednoho starého hradu."
+  },
+  "discovery": { "type": "pickup_item", "defId": "item.frost_sigil" },
+  "objectives": [
+    {
+      "id": "deliver_sigil",
+      "type": "deliver_item",
+      "defId": "item.frost_sigil",
+      "recipient": "village.wizard",
+      "count": 1,
+      "desc": { "en": "Bring the frost sigil to the wizard.", "cs": "Přines mrazivý znak kouzelníkovi." }
+    },
+    {
+      "id": "deliver_iron",
+      "type": "deliver_item",
+      "defId": "item.pure_iron_chunk",
+      "recipient": "village.wizard",
+      "count": 1,
+      "desc": { "en": "Bring a chunk of pure iron to the wizard.", "cs": "Přines kus čistého železa kouzelníkovi." }
+    },
+    {
+      "id": "deliver_pearl_dust",
+      "type": "deliver_item",
+      "defId": "item.pearl_dust",
+      "recipient": "village.wizard",
+      "count": 1,
+      "desc": { "en": "Bring a pinch of pearl dust to the wizard.", "cs": "Přines špetku perlového prachu kouzelníkovi." }
+    },
+    {
+      "id": "deliver_boneflour",
+      "type": "deliver_item",
+      "defId": "item.boneflour",
+      "recipient": "village.wizard",
+      "count": 1,
+      "desc": { "en": "Bring a pouch of bone flour to the wizard.", "cs": "Přines sáček kostní moučky kouzelníkovi." }
+    }
+  ],
+  "rewards": {
+    "xp": 80,
+    "items": ["item.cold_ward"]
+  }
+}

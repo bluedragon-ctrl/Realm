@@ -12,7 +12,7 @@ import { makeSpellValidator } from './validators/spell.js';
 import { validateEffect } from './validators/effect.js';
 import { makeQuestValidator } from './validators/quest.js';
 
-export { validateAllExchanges } from './validators/exchange.js';
+export { validateAllExchanges, validateItemQuestRumors } from './validators/exchange.js';
 
 function assertFilenameMatchesId(kind, def, file) {
   const expected = path.basename(file, '.json');

@@ -1,0 +1,28 @@
+{
+  "id": "quest.bones",
+  "name": { "en": "Bones for the Wizard", "cs": "Kosti pro kouzelníka" },
+  "short": {
+    "en": "The wizard needs five clean bones for his shield-spell binding.",
+    "cs": "Kouzelník potřebuje pět čistých kostí pro vázání štítového kouzla."
+  },
+  "long": {
+    "en": "Ground bone-flour is the binding for a shield spell. The wizard asks for five clean bones — skeletons in the forest drop them when they fall apart. Bring him five and he'll send you off with the spell-scroll itself.",
+    "cs": "Mletá kostěná mouka je pojivem pro štítové kouzlo. Kouzelník žádá pět čistých kostí — kostlivci v lese je upouštějí, když se rozsypou. Přines mu pět a pošle tě se samotným svitkem kouzla."
+  },
+  "discovery": { "type": "enter_room", "room": "village.tower_entry" },
+  "objectives": [
+    {
+      "id": "deliver_bones",
+      "type": "deliver_item",
+      "defId": "item.bone",
+      "recipient": "village.wizard",
+      "count": 5,
+      "desc": { "en": "Deliver 5 bones to the wizard.", "cs": "Doruč 5 kostí kouzelníkovi." }
+    }
+  ],
+  "rewards": {
+    "xp": 35,
+    "gold": 20,
+    "items": ["item.shield_scroll"]
+  }
+}

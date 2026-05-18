@@ -44,7 +44,8 @@
       "id": "innkeeper.sell_rat_tail",
       "flavor": "sell",
       "inputs":  [{ "item": "item.rat_tail", "count": 1 }],
-      "outputs": [{ "gold": 1 }]
+      "outputs": [{ "gold": 1 }],
+      "requires": { "quest": "quest.rat_tails", "status": "complete" }
     },
     {
       "id": "innkeeper.buy_hearty_soup",
@@ -63,30 +64,87 @@
       "flavor": "buy",
       "inputs":  [{ "gold": 2 }],
       "outputs": [{ "item": "item.candle" }]
-    },
-    {
-      "id": "innkeeper.craft_pub_key",
-      "flavor": "craft",
-      "inputs":  [{ "item": "item.rat_tail", "count": 20 }],
-      "outputs": [{ "item": "item.pub_key" }],
-      "xp": 5,
-      "verb": {
-        "en": {
-          "to_target": {
-            "self": "you tip twenty rat tails onto the bar in front of {target}. He counts them with raised eyebrows, sweeps the lot into a sack, and presses a small brass key into your palm. 'You've earned the run of my kitchen, friend.'",
-            "others": "{actor} tips a pile of rat tails onto the bar before {target}, who counts them, sweeps them into a sack, and hands over a small brass key."
-          }
-        },
-        "cs": {
-          "to_target": {
-            "self": "vysypeš dvacet krysích ocásků na pult před {target.acc}. Spočítá je se zdviženým obočím, smete celou hromadu do pytle a vloží ti do dlaně malý mosazný klíč. „Vysloužil sis přístup do mé kuchyně, příteli.“",
-            "others": "{actor} vysype hromadu krysích ocásků na pult před {target.acc}, ten je spočítá, smete do pytle a podá mu malý mosazný klíč."
-          }
-        }
-      }
     }
   ],
   "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.3,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.rat_tails" },
+      "lines": {
+        "en": [
+          "Rats! I can't stand the things. Bring me five tails from the cellar and I'll set you up proper.",
+          "Five rat tails, friend. Five. Cellar's overrun and I'm one cook short.",
+          "Whoever clears those tails earns the run of my kitchen — and a hot bowl of soup besides.",
+          "Five tails. I'd go down there myself if my knees would let me."
+        ],
+        "cs": [
+          "Krysy! Nesnáším je. Přines mi pět ocásků ze sklepa a budu se ti pořádně odměnit.",
+          "Pět krysích ocásků, příteli. Pět. Sklep je plný a kuchaře nemám.",
+          "Kdo mi ocásky přinese, dostane klíč od kuchyně — a navrch teplou polévku.",
+          "Pět ocásků. Sám bych dolů šel, kdyby mi to kolena dovolila."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.22,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.toad_king" },
+      "lines": {
+        "en": [
+          "We haven't drawn water from the village well in years. There's something in the shaft — sat in there since before my hair went grey.",
+          "I carry water all the way from the river, friend. The well's been useless ever since the toad moved in.",
+          "Whoever ends the thing in the well will drink for free in this house until the day they die.",
+          "Folk say it's a giant toad, big as a calf. I'd rather not see it myself."
+        ],
+        "cs": [
+          "Z vesnické studny už roky nečerpáme. Něco je v té šachtě — sedí tam, co jsem ještě neměl šedinu.",
+          "Vodu nosím až od řeky, příteli. Studna je k ničemu, co se tam ropucha usadila.",
+          "Kdokoli skoncuje s tím, co je ve studni, bude u mě pít zdarma do smrti.",
+          "Lidé říkají, že je to obří ropucha, velká jako tele. Sám bych ji raději neviděl."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.bandit" },
+      "lines": {
+        "en": [
+          "There's a goblin camp out on the south road — bandits, all of them. Wagons stopped coming through last week.",
+          "Heard a goblin chief's taken up by the goblin camp. Real bandit, that one. Somebody ought to set him straight.",
+          "Cart drivers won't go south. Bandits at the camp, they say. Bad for business — bad for everyone.",
+          "If a brave traveler put an end to that bandit chief, the whole road would breathe easier."
+        ],
+        "cs": [
+          "Na jižní cestě je skřetí tábor — samí lupiči. Minulý týden přestaly jezdit vozy.",
+          "Slyšel jsem, že u skřetího tábora se usadil náčelník. Pravý lupič. Někdo by ho měl srovnat.",
+          "Vozkové na jih nejezdí. Prý lupiči u tábora. Špatné pro obchod — špatné pro všechny.",
+          "Kdyby nějaký statečný poutník toho lupiče srovnal, celá cesta by se nadechla."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.2,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.fallen_lord" },
+      "lines": {
+        "en": [
+          "Don't go to the old castle unprepared, friend. The cold inside isn't weather — it's something that eats a man from the boots up.",
+          "Travelers come back from that castle white as flour, if they come back at all. The wizard mutters about a ward, whatever that means.",
+          "I had a guest who slept one night by the castle gatehouse and woke in the river two days later, no memory in between. Stay clear unless you have wizardry on your side."
+        ],
+        "cs": [
+          "Do starého hradu nechoď nepřipravený, příteli. Ten chlad uvnitř není počasí — je to něco, co člověka sežere od bot nahoru.",
+          "Poutníci se z toho hradu vrací bledí jako mouka, pokud se vůbec vrátí. Kouzelník něco brouká o ochraně, ať to znamená co chce.",
+          "Jeden host u mě přespal noc u hradní vrátnice a probudil se o dva dny později v řece, bez vzpomínek mezi tím. Zůstaň od toho dál, pokud nemáš na své straně kouzla."
+        ]
+      }
+    },
     {
       "primitive": "say",
       "chance": 0.05,
@@ -96,19 +154,13 @@
           "Welcome, friend! Sit, rest your legs.",
           "Stew today, fresh bread tomorrow.",
           "A quiet day. The way I like it.",
-          "Mind the step on your way out.",
-          "Rats! I can't stand the things. A copper for every tail you bring me — I mean it.",
-          "The cellar's overrun again. Bring me rat tails and I'll pay you.",
-          "Twenty tails and the kitchen's yours, friend — I'll lend you a key. There's a cook-pot in there that's seen finer dishes than most inns ever serve."
+          "Mind the step on your way out."
         ],
         "cs": [
           "Vítej, příteli! Posaď se, odpočiň si.",
           "Dnes guláš, zítra čerstvý chléb.",
           "Klidný den. Tak to mám rád.",
-          "Dej si pozor na schod, až půjdeš ven.",
-          "Krysy! Nesnáším je. Za každý ocásek, co mi přineseš, dám měďák — vážně.",
-          "Sklep je zase plný krys. Přines mi ocásky a zaplatím.",
-          "Dvacet ocásků a kuchyně je tvoje, příteli — půjčím ti klíč. Visí tam kotlík, který vařil lepší jídla, než kdy podává většina hostinců."
+          "Dej si pozor na schod, až půjdeš ven."
         ]
       }
     },

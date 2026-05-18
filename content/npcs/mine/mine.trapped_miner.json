@@ -52,14 +52,18 @@
           "Thank you. I thought I was done for.",
           "There's a bigger one deeper in — the chief. Wears a crown of nails.",
           "I worked these tunnels before the kobolds came. They came up from below.",
-          "Take the key. My grandfather kept it on him always. I don't know what it opens.",
+          "Take the key. It opens a brass-bound chest hidden in a grotto off the village well — my grandfather hid it there a long time ago.",
+          "Mind yourself when you go for the chest. There's a giant toad in the well shaft — big as a calf. The village hasn't drawn water from that well in years.",
+          "I'd have gone for that chest myself but the toad's grown too big for the likes of me.",
           "I'll head for the surface as soon as my legs work again."
         ],
         "cs": [
           "Děkuji. Myslel jsem, že je konec.",
           "Hlouběji je ještě větší — náčelník. Nosí korunu z hřebíků.",
           "Dělal jsem v těchhle štolách dřív, než přišli koboldové. Přišli zezdola.",
-          "Vezmi ten klíč. Můj děd ho nosil pořád u sebe. Nevím, co otevírá.",
+          "Vezmi ten klíč. Otevírá truhličku okovanou mosazí, ukrytou v jeskyňce u vesnické studny — můj děd ji tam dávno schoval.",
+          "Buď opatrný, až půjdeš pro tu truhličku. Ve studniční šachtě je obří ropucha — velká jako tele. Vesnice z té studny už roky nečerpá.",
+          "Sám bych si pro tu truhličku zašel, ale ropucha narostla nad moje síly.",
           "Až mi nohy zase poslechnou, vyrazím nahoru."
         ]
       }

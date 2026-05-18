@@ -1,0 +1,28 @@
+{
+  "id": "quest.rat_tails",
+  "name": { "en": "Rats in the Cellar", "cs": "Krysy ve sklepě" },
+  "short": {
+    "en": "The innkeeper wants five rat tails from the cellar.",
+    "cs": "Hostinský chce pět krysích ocásků ze sklepa."
+  },
+  "long": {
+    "en": "The pub cellar is overrun with rats and the innkeeper can't get to his cook-pot. Bring him five rat tails and he'll lend you the kitchen key and serve you a hot bowl of soup.",
+    "cs": "Sklep hostince je plný krys a hostinský se nedostane ke svému kotlíku. Přines mu pět krysích ocásků a on ti půjčí klíč od kuchyně a uvaří horkou polévku."
+  },
+  "discovery": { "type": "enter_room", "room": "village.pub" },
+  "objectives": [
+    {
+      "id": "deliver_tails",
+      "type": "deliver_item",
+      "defId": "item.rat_tail",
+      "recipient": "village.innkeeper",
+      "count": 5,
+      "desc": { "en": "Deliver 5 rat tails to the innkeeper.", "cs": "Doruč 5 krysích ocásků hostinskému." }
+    }
+  ],
+  "rewards": {
+    "xp": 25,
+    "gold": 30,
+    "items": ["item.pub_key", "item.hearty_soup", "item.hearty_soup"]
+  }
+}

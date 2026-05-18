@@ -1,0 +1,26 @@
+{
+  "id": "quest.noon_wraith",
+  "name": { "en": "The Noon Wraith", "cs": "Polednice" },
+  "short": {
+    "en": "Put an end to the pale woman in the noon glade.",
+    "cs": "Skoncuj s bledou ženou na polední mýtině."
+  },
+  "long": {
+    "en": "The noon wraith has been killing wheat-cutters in the glade since before the village had a road. Spells slide off her, but iron and steady nerves can bring her down. Whoever ends her does the whole valley a kindness.",
+    "cs": "Polednice zabíjí žence na mýtině déle, než tu vede cesta k vesnici. Kouzla se po ní svezou, ale železo a pevné nervy ji srazí. Kdokoli s ní skoncuje, prokáže celému údolí laskavost."
+  },
+  "discovery": { "type": "enter_room", "room": "village.noon_glade" },
+  "objectives": [
+    {
+      "id": "kill_wraith",
+      "type": "kill",
+      "defId": "village.noon_wraith",
+      "count": 1,
+      "desc": { "en": "Defeat the noon wraith.", "cs": "Poraz polednici." }
+    }
+  ],
+  "rewards": {
+    "xp": 100,
+    "gold": 50
+  }
+}

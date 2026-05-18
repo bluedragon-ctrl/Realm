@@ -1,0 +1,22 @@
+{
+  "id": "item.pure_iron_chunk",
+  "rarity": 3,
+  "name": {
+    "en": "a chunk of pure iron",
+    "cs": "kus čistého železa"
+  },
+  "nameAcc": {
+    "en": "the pure iron chunk",
+    "cs": "kus čistého železa"
+  },
+  "short": {
+    "en": "A small, heavy lump of pure iron — no slag, no rust.",
+    "cs": "Malý, těžký kus čistého železa — bez strusky, bez rzi."
+  },
+  "long": {
+    "en": "A finger-sized chunk of iron so dense it surprises you when you lift it. The surface is smooth and silvery, with none of the rust and grit of common ore. The smith would prize a piece like this.",
+    "cs": "Kus železa velký jako prst, tak hutný, že tě překvapí, když ho zvedneš. Povrch je hladký a stříbřitý, bez rzi a hrubého kamene běžné rudy. Kovář by si takový kus vážil."
+  },
+  "tags": ["ore", "trade"],
+  "weight": 2
+}

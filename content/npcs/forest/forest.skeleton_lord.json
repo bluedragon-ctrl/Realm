@@ -1,0 +1,103 @@
+{
+  "id": "forest.skeleton_lord",
+  "name": { "en": "the skeleton lord", "cs": "kostlivý pán" },
+  "nameAcc": { "en": "the skeleton lord", "cs": "kostlivého pána" },
+  "nameDat": { "en": "the skeleton lord", "cs": "kostlivému pánovi" },
+  "nameGen": { "en": "the skeleton lord", "cs": "kostlivého pána" },
+  "title": { "en": "skeleton lord", "cs": "kostlivý pán" },
+  "vision": "nightvision",
+  "location": "forest.tower_tomb",
+  "count": 1,
+  "short": {
+    "en": "A tall skeleton in tattered grey robes stands by the sarcophagus, a long iron sword across its shoulder.",
+    "cs": "Vysoký kostlivec v potrhaném šedém rouchu stojí u sarkofágu, na rameni má dlouhý železný meč."
+  },
+  "long": {
+    "en": "A skeleton head and shoulders taller than a tall man, dressed in the rotted grey robes of an old mage and crowned with a thin band of dark iron. Its long bones are bleached white and its empty eye-sockets hold two cold blue lights that watch you with patient attention. A heavy iron sword rests across one shoulder. Whatever this was in life, it remembers the room it died in — and it does not mean to leave again.",
+    "cs": "Kostlivec o hlavu a ramena vyšší než vysoký muž, oblečený v rozpadlém šedém rouchu starého mága a korunovaný úzkou obroučkou tmavého železa. Dlouhé kosti má vybělené do běla a v prázdných očních důlcích mu hoří dvě chladné modré světélka, která si tě prohlížejí klidnou pozorností. Na rameni mu spočívá těžký železný meč. Ať byl za živa kdokoli, na pokoj, ve kterém zemřel, si pamatuje — a opustit ho nehodlá."
+  },
+  "disposition": "hostile",
+  "aggressive": true,
+  "mood": "angry",
+  "stats": {
+    "hp": 70, "hpMax": 70,
+    "mp": 0, "mpMax": 0,
+    "attack": 5, "defense": 3, "int": 0,
+    "magicResist": 40,
+    "accuracy": 10,
+    "evasion": 5,
+    "spd": 4
+  },
+  "respawn": { "ticks": 1800 },
+  "xp": 90,
+  "goldDrop": { "formula": "3d6+10", "chance": 1.0 },
+  "loot": [
+    { "defId": "item.bone", "chance": 1.0, "count": 5 },
+    { "defId": "item.bone_helmet", "chance": 0.3 },
+    { "defId": "item.bone_staff", "chance": 0.2 }
+  ],
+  "behaviors": [
+    {
+      "primitive": "attack",
+      "name": { "en": "iron sword strike", "cs": "úder železným mečem" },
+      "chance": 1.0,
+      "cost": 16,
+      "damage": "1d8+ATK",
+      "requires": "aggro_target",
+      "templates": {
+        "en": [
+          "{actor} swings the long iron sword down on {target} in a single heavy blow!",
+          "{actor} drives the heavy blade through the air at {target}!",
+          "{actor} steps in close and brings the sword down on {target}!"
+        ],
+        "cs": [
+          "{actor} sekne dlouhým železným mečem dolů na {target.acc} jediným těžkým úderem!",
+          "{actor} prožene těžkou čepel vzduchem proti {target.dat}!",
+          "{actor} přistoupí blíž a dopadne mečem na {target.acc}!"
+        ]
+      }
+    },
+    {
+      "primitive": "summon",
+      "chance": 0.5,
+      "cost": 30,
+      "requires": { "type": "low_hp", "ratio": 0.4 },
+      "spawn": "forest.skeleton",
+      "count": 1,
+      "ttlTicks": 80,
+      "despawnText": {
+        "en": "the summoned skeleton clatters apart and the bones go still.",
+        "cs": "přivolaný kostlivec se s rachotem rozpadne a kosti znehybní."
+      },
+      "templates": {
+        "en": [
+          "{actor} raps the iron sword once against the floor — bones rattle, gather, and stand!",
+          "{actor} speaks a single word in a dead tongue — a skeleton draws itself up from the dust!"
+        ],
+        "cs": [
+          "{actor} jednou udeří železným mečem o podlahu — kosti zachrastí, slezou se a postaví se!",
+          "{actor} promluví jediné slovo v mrtvém jazyce — z prachu se zvedne kostlivec!"
+        ]
+      }
+    },
+    {
+      "primitive": "emote",
+      "chance": 0.06,
+      "cost": 6,
+      "lines": {
+        "en": [
+          "stands perfectly still, watching with two cold blue lights.",
+          "rests the iron sword against the lid of the sarcophagus with a soft clang.",
+          "tips its bone-crowned head as if listening to a name from long ago.",
+          "the runes on the floor pulse once, slowly, around its feet."
+        ],
+        "cs": [
+          "stojí naprosto nehybně a sleduje tě dvěma chladnými modrými světélky.",
+          "opře železný meč o víko sarkofágu s tichým zazvoněním.",
+          "nakloní hlavu korunovanou kostí, jako by naslouchal jménu z dávných dob.",
+          "runy na podlaze kolem jeho nohou jednou pomalu pulzují."
+        ]
+      }
+    }
+  ]
+}

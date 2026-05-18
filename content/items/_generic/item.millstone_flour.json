@@ -1,0 +1,27 @@
+{
+  "id": "item.millstone_flour",
+  "rarity": 2,
+  "name": {
+    "en": "a sack of millstone flour",
+    "cs": "pytel mlýnské mouky"
+  },
+  "nameAcc": {
+    "en": "the sack of millstone flour",
+    "cs": "pytel mlýnské mouky"
+  },
+  "short": {
+    "en": "A heavy linen sack of pale flour, still warm from the millstone.",
+    "cs": "Těžký plátěný pytel bledé mouky, ještě teplý od mlecího kamene."
+  },
+  "long": {
+    "en": "A linen sack tied off with a strip of bark, full of pale flour with the faintly sweet smell of new-ground grain. The lower side of the sack is dusted white. The baker in the village would know exactly what to do with this.",
+    "cs": "Plátěný pytel zavázaný proužkem kůry, plný bledé mouky se slabě sladkou vůní čerstvě umletého zrní. Spodek pytle je obílený. Pekařka ve vesnici by přesně věděla, co s tím."
+  },
+  "tags": ["ingredient", "trade"],
+  "weight": 2,
+  "spawn": {
+    "location": "riverside.abandoned_mill",
+    "count": 1,
+    "respawnTicks": 800
+  }
+}
