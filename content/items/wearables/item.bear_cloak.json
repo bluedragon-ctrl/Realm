@@ -20,7 +20,7 @@
   "tags": ["cloak"],
   "weight": 2,
   "wearable": {
-    "slot": "utility",
+    "slot": "cloak",
     "bonus": { "defense": 1 }
   }
 }
