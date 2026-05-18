@@ -6,7 +6,8 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "build-map": "node build-map.js"
+    "build-map": "node utility/build-map.js",
+    "build-item-audit": "node utility/build-item-audit.js"
   },
   "engines": {
     "node": ">=20"

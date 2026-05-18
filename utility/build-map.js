@@ -1,12 +1,12 @@
 #!/usr/bin/env node
 // Reads content/rooms/*.json, computes a grid layout via BFS, writes map.html.
-// Run: node build-map.js
+// Run: node utility/build-map.js (from repo root) or via utility/build-map.bat
 
 import { readdirSync, readFileSync, writeFileSync } from "fs";
-import { join, dirname } from "path";
+import { join, dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
-const ROOT = dirname(fileURLToPath(import.meta.url));
+const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const ROOMS_DIR = join(ROOT, "content", "rooms");
 const OUT = join(ROOT, "map.html");
 

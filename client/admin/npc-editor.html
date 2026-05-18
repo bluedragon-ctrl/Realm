@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <title>Realm — NPC Editor</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { font: 14px/1.4 system-ui, sans-serif; margin: 0; background: #1d1f23; color: #e7e9ee; }
+    header { background: #2a2d33; padding: 10px 16px; display: flex; gap: 10px; align-items: center; border-bottom: 1px solid #3a3d44; }
+    header h1 { font-size: 16px; margin: 0; }
+    header .spacer { flex: 1; }
+    header input { background: #1d1f23; color: #e7e9ee; border: 1px solid #4a4d54; padding: 4px 8px; border-radius: 4px; }
+    header button { background: #4a6cf7; color: white; border: 0; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+    header button.danger { background: #b94747; }
+    header button:disabled { opacity: 0.4; cursor: not-allowed; }
+    main { display: grid; grid-template-columns: 280px 1fr; height: calc(100vh - 49px); }
+    aside { background: #25272d; border-right: 1px solid #3a3d44; overflow-y: auto; }
+    aside input { width: 100%; background: #1d1f23; color: #e7e9ee; border: 0; border-bottom: 1px solid #3a3d44; padding: 8px 12px; }
+    aside ul { list-style: none; margin: 0; padding: 0; }
+    aside li { padding: 6px 12px; cursor: pointer; border-bottom: 1px solid #2f3138; }
+    aside li:hover { background: #2f3138; }
+    aside li.active { background: #3a3d44; }
+    aside li.dirty::after { content: " ●"; color: #f7c34a; }
+    aside li .meta { color: #8a8d94; font-size: 12px; }
+    section.editor { padding: 16px 24px; overflow-y: auto; }
+    section.editor h2 { font-size: 18px; margin: 0 0 4px; }
+    section.editor h3 { font-size: 14px; margin: 18px 0 8px; color: #a8acb4; text-transform: uppercase; letter-spacing: 0.05em; }
+    .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; margin-bottom: 8px; }
+    .row.full { grid-template-columns: 1fr; }
+    label { display: block; font-size: 12px; color: #a8acb4; margin-bottom: 2px; }
+    input.text, textarea, select { width: 100%; background: #1d1f23; color: #e7e9ee; border: 1px solid #3a3d44; padding: 6px 8px; border-radius: 4px; font: inherit; }
+    textarea { resize: vertical; min-height: 60px; font-family: inherit; }
+    .card { background: #25272d; border: 1px solid #3a3d44; border-radius: 6px; padding: 12px; margin-bottom: 10px; }
+    .card-header { display: flex; gap: 8px; align-items: center; margin-bottom: 8px; }
+    .card-header select { width: auto; }
+    .card-header .freq { display: flex; gap: 6px; align-items: center; }
+    .card-header .freq input[type=range] { width: 100px; }
+    .card-header .freq output { width: 36px; text-align: right; color: #f7c34a; }
+    .card-header button.remove { background: transparent; color: #b94747; border: 1px solid #b94747; padding: 2px 8px; border-radius: 4px; cursor: pointer; margin-left: auto; }
+    .lines-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .lines-grid textarea { min-height: 100px; font-family: ui-monospace, monospace; font-size: 13px; }
+    .add-btn { background: #2f3138; color: #e7e9ee; border: 1px dashed #4a4d54; padding: 6px 12px; border-radius: 4px; cursor: pointer; }
+    .exch-row { display: grid; grid-template-columns: 1fr 110px 1.5fr 1.5fr 60px 30px; gap: 6px; margin-bottom: 6px; align-items: center; }
+    .exch-row input { width: 100%; background: #1d1f23; color: #e7e9ee; border: 1px solid #3a3d44; padding: 4px 6px; border-radius: 4px; font-size: 12px; }
+    .exch-row select { font-size: 12px; padding: 4px; }
+    .exch-row button { background: transparent; color: #b94747; border: 1px solid #b94747; border-radius: 4px; cursor: pointer; padding: 2px 6px; }
+    .exch-row .hint { font-size: 11px; color: #8a8d94; }
+    .warn { background: #4a3a1a; border: 1px solid #806020; padding: 6px 10px; border-radius: 4px; color: #f7c34a; font-size: 12px; margin: 4px 0; }
+    #status-bar { position: fixed; bottom: 12px; right: 16px; background: #2a2d33; border: 1px solid #3a3d44; padding: 8px 12px; border-radius: 4px; max-width: 360px; font-size: 12px; }
+    #status-bar.error { border-color: #b94747; color: #ff9a9a; }
+    #status-bar.ok { border-color: #4a8a4a; color: #9af79a; }
+    a { color: #6c8df7; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>NPC Editor</h1>
+    <label style="margin: 0;">admin name: <input id="admin-name" placeholder="Admin" style="width: 120px;"></label>
+    <span class="spacer"></span>
+    <button id="save-btn" disabled>Save</button>
+    <button id="pr-btn">Open PR with all changes</button>
+  </header>
+  <main>
+    <aside>
+      <input id="filter" placeholder="filter by id or name">
+      <ul id="npc-list"></ul>
+    </aside>
+    <section class="editor" id="editor">
+      <p style="color: #8a8d94;">Enter your admin name above, then pick an NPC from the list.</p>
+    </section>
+  </main>
+  <div id="status-bar" style="display: none;"></div>
+  <script type="module" src="/admin/npc-editor.js"></script>
+</body>
+</html>
