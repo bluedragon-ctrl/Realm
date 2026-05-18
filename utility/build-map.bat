@@ -1,8 +1,8 @@
 @echo off
 setlocal
-cd /d "%~dp0"
+cd /d "%~dp0\.."
 echo Building map...
-node build-map.js
+node utility\build-map.js
 if errorlevel 1 (
     echo Build failed.
     pause

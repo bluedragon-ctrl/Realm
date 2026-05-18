@@ -1,9 +1,9 @@
 #!/usr/bin/env node
 import { readdirSync, readFileSync, writeFileSync } from "fs";
-import { join, dirname } from "path";
+import { join, dirname, resolve } from "path";
 import { fileURLToPath } from "url";
 
-const ROOT      = dirname(fileURLToPath(import.meta.url));
+const ROOT      = resolve(dirname(fileURLToPath(import.meta.url)), "..");
 const ITEMS_DIR = join(ROOT, "content", "items");
 const NPCS_DIR  = join(ROOT, "content", "npcs");
 const OUT       = join(ROOT, "item-audit.html");

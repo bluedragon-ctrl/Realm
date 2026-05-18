@@ -15,6 +15,7 @@ import { emit as emitEvent } from '../game/events.js';
 import { clearPlayerActionQueue } from '../game/playerCombatState.js';
 import { resolveName } from '../game/declension.js';
 import { s, DEFAULT_LANG } from '../i18n.js';
+import { tryHandleAdminRoute } from '../admin/npcEditor.js';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const CLIENT_DIR = path.resolve(__dirname, '../../client');
@@ -130,7 +131,10 @@ async function handleClose(session) {
 }
 
 export function startWsServer(port) {
-  const httpServer = http.createServer((req, res) => { serveStatic(req, res); });
+  const httpServer = http.createServer(async (req, res) => {
+    if (await tryHandleAdminRoute(req, res)) return;
+    serveStatic(req, res);
+  });
   const wss = new WebSocketServer({ server: httpServer });
 
   wss.on('connection', (ws) => {
