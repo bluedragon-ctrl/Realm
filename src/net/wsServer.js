@@ -11,6 +11,7 @@ import { describeRoom, describeRoomToAll } from '../game/actions/look.js';
 import { sendStats } from '../game/messages.js';
 import { serializeInventory } from '../game/items.js';
 import { applyAggressionOnEnter } from '../game/combat.js';
+import { emit as emitEvent } from '../game/events.js';
 import { clearPlayerActionQueue } from '../game/playerCombatState.js';
 import { resolveName } from '../game/declension.js';
 import { s, DEFAULT_LANG } from '../i18n.js';
@@ -90,6 +91,7 @@ async function handleLogin(session, name) {
   }
   describeRoomToAll(actor.location);
   applyAggressionOnEnter(actor, actor.location);
+  emitEvent('room_entered', { actor, room: actor.location });
 }
 
 async function handleClose(session) {

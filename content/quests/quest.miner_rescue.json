@@ -1,0 +1,22 @@
+{
+  "id": "quest.miner_rescue",
+  "name": { "en": "The Trapped Miner", "cs": "Uvězněný horník" },
+  "short": {
+    "en": "Drive the kobolds out of the storeroom and free the miner they tied up.",
+    "cs": "Vyžeň kobolďáky ze skladu a osvoboď horníka, kterého svázali."
+  },
+  "long": {
+    "en": "Deep in the mine, the kobolds have tied a man to a post. Drive them out of the storeroom and he can go home.",
+    "cs": "Hluboko v dole svázali kobolďáci muže k trámu. Vyžeň je ze skladu a on se může vrátit domů."
+  },
+  "discovery": { "type": "enter_room", "room": "mine.store_room" },
+  "objectives": [
+    {
+      "id": "clear",
+      "type": "room_clear",
+      "room": "mine.store_room",
+      "desc": { "en": "Drive every kobold out of the storeroom.", "cs": "Vyžeň všechny kobolďáky ze skladu." }
+    }
+  ],
+  "rewards": { "xp": 30, "gold": 10 }
+}

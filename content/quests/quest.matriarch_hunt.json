@@ -1,0 +1,22 @@
+{
+  "id": "quest.matriarch_hunt",
+  "name": { "en": "The Old Rat Queen", "cs": "Stará krysí královna" },
+  "short": {
+    "en": "Defeat the matriarch who rules the rat warren.",
+    "cs": "Poraz matronu, která vládne krysímu doupěti."
+  },
+  "long": {
+    "en": "An old, clever rat lives at the bottom of the warren, and all the other rats answer to her. Bring her down and the warren will scatter.",
+    "cs": "Na dně doupěte žije stará chytrá krysa a všechny ostatní krysy ji poslouchají. Poraz ji a doupě se rozprchne."
+  },
+  "discovery": { "type": "enter_room", "room": "mine.rat_warren_deep" },
+  "objectives": [
+    {
+      "id": "kill_matriarch",
+      "type": "kill",
+      "defId": "mine.rat_matriarch",
+      "desc": { "en": "Defeat the rat matriarch.", "cs": "Poraz krysí matronu." }
+    }
+  ],
+  "rewards": { "xp": 40, "gold": 15 }
+}

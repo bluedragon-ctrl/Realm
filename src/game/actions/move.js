@@ -9,6 +9,7 @@ import { requireStanding } from '../positionGate.js';
 import { canPerceiveRoom } from '../light.js';
 import { canPerceive } from '../perception.js';
 import { resolveName } from '../declension.js';
+import { emit as emitEvent } from '../events.js';
 
 const DIR_ALIASES = {
   n: 'n', north: 'n',
@@ -132,4 +133,6 @@ export default function move(actor, args) {
   if (actor.kind === 'player' && markRoomVisited(actor, targetId)) {
     awardXp(actor, 2, 'discover_room');
   }
+
+  if (actor.kind === 'player') emitEvent('room_entered', { actor, room: targetId });
 }

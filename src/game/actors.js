@@ -34,6 +34,9 @@ export function makePlayerActor(record, session, isAdmin) {
   delete record.knownWearables;
   record.equipped = normalizeEquipped(record.equipped);
   record.activeEffects = normalizeSavedActiveEffects(record.activeEffects);
+  if (record.quests == null || typeof record.quests !== 'object' || Array.isArray(record.quests)) {
+    record.quests = {};
+  }
   if (typeof record.xp !== 'number') record.xp = 0;
   if (typeof record.level !== 'number') record.level = 1;
   if (typeof record.gold !== 'number' || record.gold < 0) record.gold = 0;

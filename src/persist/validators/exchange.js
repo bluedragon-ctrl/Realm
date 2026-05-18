@@ -1,6 +1,28 @@
 import { check, checkEnum, checkObject, checkArray } from '../validate.js';
 
 const ALLOWED_FLAVORS = new Set(['buy', 'sell', 'craft', 'sink']);
+const ALLOWED_STATUSES = new Set(['active', 'complete']);
+
+function validateRequires(req, ctx, quests) {
+  if (req == null) return;
+  checkObject(req, ctx, 'requires');
+  check(typeof req.quest === 'string' && req.quest.length > 0, ctx,
+    `requires.quest must be a non-empty string`);
+  const questDef = quests?.get(req.quest);
+  check(questDef != null, ctx, `requires references unknown quest '${req.quest}'`);
+  check(req.status == null || req.objective == null, ctx,
+    `requires must specify at most one of 'status' or 'objective'`);
+  if (req.status != null) {
+    checkEnum(req.status, ALLOWED_STATUSES, ctx, 'requires.status');
+  }
+  if (req.objective != null) {
+    check(typeof req.objective === 'string' && req.objective.length > 0, ctx,
+      `requires.objective must be a non-empty string`);
+    const found = questDef.objectives.some(o => o.id === req.objective);
+    check(found, ctx,
+      `requires.objective '${req.objective}' is not an objective on quest '${req.quest}'`);
+  }
+}
 
 function validateExchangeSide(side, ctx, label) {
   checkArray(side, ctx, label);
@@ -23,11 +45,12 @@ function validateExchangeSide(side, ctx, label) {
   });
 }
 
-export function validateExchanges(host, hostCtx, items) {
+export function validateExchanges(host, hostCtx, items, quests) {
   if (host.exchanges == null) return;
   checkArray(host.exchanges, hostCtx, 'exchanges');
   host.exchanges.forEach((entry, i) => {
     const ctx = `${hostCtx} exchanges[${i}]`;
+    validateRequires(entry.requires, ctx, quests);
     checkObject(entry, hostCtx, `exchanges[${i}]`);
     check(typeof entry.id === 'string' && entry.id.length > 0, hostCtx,
       `exchanges[${i}].id must be a non-empty string`);
@@ -66,11 +89,11 @@ export function validateExchanges(host, hostCtx, items) {
   });
 }
 
-export function validateAllExchanges(npcs, items) {
+export function validateAllExchanges(npcs, items, quests) {
   const seenIds = new Map();
   const checkHost = (host, kind) => {
     const ctx = `${kind} '${host.id}'`;
-    validateExchanges(host, ctx, items);
+    validateExchanges(host, ctx, items, quests);
     for (const entry of host.exchanges ?? []) {
       const owner = `${kind}/${host.id}`;
       const prior = seenIds.get(entry.id);

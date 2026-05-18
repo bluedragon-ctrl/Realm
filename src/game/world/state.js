@@ -14,6 +14,7 @@ export const world = {
   itemDefs: new Map(),
   spellDefs: new Map(),
   effectDefs: new Map(),
+  questDefs: new Map(),
   admins: new Set(),
   actorsByName: new Map(),
   actorsByRoom: new Map(),

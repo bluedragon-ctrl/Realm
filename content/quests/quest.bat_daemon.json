@@ -1,0 +1,22 @@
+{
+  "id": "quest.bat_daemon",
+  "name": { "en": "The Bat Daemon", "cs": "Netopýří démon" },
+  "short": {
+    "en": "Use the bat glyph to call the daemon to the tower attic, then banish it.",
+    "cs": "Použij netopýří glyf, abys přivolal démona na půdu věže, a pak ho zažeň."
+  },
+  "long": {
+    "en": "A small dark glyph carries a strange power. It calls the bat daemon to the attic of the old tower. Defeat the daemon and the shadows will recede.",
+    "cs": "Malý tmavý glyf nese podivnou moc. Přivolá netopýřího démona na půdu staré věže. Poraz ho a stíny ustoupí."
+  },
+  "discovery": { "type": "pickup_item", "defId": "item.bat_glyph" },
+  "objectives": [
+    {
+      "id": "kill_daemon",
+      "type": "kill",
+      "defId": "village.bat_daemon",
+      "desc": { "en": "Defeat the bat daemon.", "cs": "Poraz netopýřího démona." }
+    }
+  ],
+  "rewards": { "xp": 50, "gold": 20 }
+}

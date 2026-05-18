@@ -10,6 +10,7 @@ import { makeNpcValidator } from './validators/npc.js';
 import { makeItemValidator, validateItemInteractions } from './validators/item.js';
 import { makeSpellValidator } from './validators/spell.js';
 import { validateEffect } from './validators/effect.js';
+import { makeQuestValidator } from './validators/quest.js';
 
 export { validateAllExchanges } from './validators/exchange.js';
 
@@ -94,6 +95,11 @@ export async function loadItems(knownRooms, knownEffects, knownNpcs) {
 export async function loadSpells(knownEffects, knownNpcs) {
   const validate = makeSpellValidator(knownEffects ?? new Map(), knownNpcs ?? new Map());
   return loadDir('spell', path.resolve('content/spells'), validate);
+}
+
+export async function loadQuests(knownRooms, knownNpcs, knownItems) {
+  const validate = makeQuestValidator(knownRooms, knownNpcs ?? new Map(), knownItems ?? new Map());
+  return loadDir('quest', path.resolve('content/quests'), validate, { missingDirOk: true });
 }
 
 export async function loadEffects() {

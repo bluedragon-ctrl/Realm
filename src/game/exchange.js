@@ -1,4 +1,6 @@
 import { actorsInRoom, itemsInRoom, broadcastToRoom, world, spawnNpc } from './world.js';
+import { isExchangeAvailable } from './exchangeGate.js';
+export { isExchangeAvailable } from './exchangeGate.js';
 import { makeItemInstance, removeFromList } from './items.js';
 import { removeFromInventory } from './inventory.js';
 import { runVerb } from './verbs.js';
@@ -25,22 +27,25 @@ function getExchanges(host) {
   return host.def?.exchanges ?? [];
 }
 
-export function findExchangeById(roomId, id) {
+export function findExchangeById(roomId, id, actor = null) {
   for (const host of hostsInRoom(roomId)) {
     for (const entry of getExchanges(host)) {
-      if (entry.id === id) return { host, entry };
+      if (entry.id !== id) continue;
+      if (!isExchangeAvailable(actor, entry)) continue;
+      return { host, entry };
     }
   }
   return null;
 }
 
-export function findExchanges(roomId, { flavor, inputItem, outputItem } = {}) {
+export function findExchanges(roomId, { flavor, inputItem, outputItem } = {}, actor = null) {
   const out = [];
   for (const host of hostsInRoom(roomId)) {
     for (const entry of getExchanges(host)) {
       if (flavor && entry.flavor !== flavor) continue;
       if (inputItem && !(entry.inputs ?? []).some(x => x.item === inputItem)) continue;
       if (outputItem && !entry.outputs.some(x => x.item === outputItem)) continue;
+      if (!isExchangeAvailable(actor, entry)) continue;
       out.push({ host, entry });
     }
   }
@@ -145,15 +150,24 @@ function broadcastDefault(actor, host, entry, units) {
 }
 
 export function runSinkExchange(actor, host, entry, inst) {
+  if (!isExchangeAvailable(actor, entry)) {
+    actor.session?.send({ kind: 'error', text: s('exchange.not_available', actor.lang) });
+    return false;
+  }
   for (const out of entry.outputs) {
     if (out.gold != null) actor.gold = (actor.gold ?? 0) + out.gold;
   }
   runVerb({ actor, def: entry.verb, targetActor: host, params: { item: inst.def.nameAcc ?? inst.def.name } });
   if (entry.xp && entry.xp > 0) awardXp(actor, entry.xp, 'sink');
   removeFromInventory(actor, inst);
+  return true;
 }
 
 export function runExchange(actor, host, entry, { units = 1 } = {}) {
+  if (!isExchangeAvailable(actor, entry)) {
+    actor.session?.send({ kind: 'error', text: s('exchange.not_available', actor.lang) });
+    return false;
+  }
   const aff = canAfford(actor, entry, units);
   if (!aff.ok) {
     if (aff.missing.gold != null) {

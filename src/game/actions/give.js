@@ -11,6 +11,13 @@ import { resolveActorTarget } from '../targeting.js';
 import { hasForm } from '../verbs.js';
 import { consumeForActor } from './use.js';
 import { requireStanding } from '../positionGate.js';
+import { tryQuestDelivery } from '../quests.js';
+import { isExchangeAvailable } from '../exchangeGate.js';
+
+function availableExchanges(target, actor) {
+  if (!Array.isArray(target.exchanges)) return [];
+  return target.exchanges.filter(e => isExchangeAvailable(actor, e));
+}
 
 function sinkAccepts(entry, def) {
   const filter = entry.accepts;
@@ -43,17 +50,15 @@ function parseCountedItemGive(itemQuery) {
   return { count, itemQuery: parts.slice(1).join(' ') };
 }
 
-function findExchangeForGoldGive(target, amount) {
-  const exchanges = target.exchanges ?? [];
-  return exchanges.filter(e =>
+function findExchangeForGoldGive(target, amount, actor) {
+  return availableExchanges(target, actor).filter(e =>
     e.inputs.length === 1 &&
     e.inputs[0].gold === amount
   );
 }
 
-function findExchangeForItemGive(target, itemDefId, count) {
-  const exchanges = target.exchanges ?? [];
-  return exchanges.filter(e => {
+function findExchangeForItemGive(target, itemDefId, count, actor) {
+  return availableExchanges(target, actor).filter(e => {
     const inp = (e.inputs ?? []).find(x => x.item === itemDefId);
     if (!inp) return false;
     const need = inp.count ?? 1;
@@ -87,7 +92,7 @@ export default function give(actor, args) {
       return;
     }
     if (target.kind === 'npc' && Array.isArray(target.exchanges)) {
-      const matches = findExchangeForGoldGive(target, goldGive.amount);
+      const matches = findExchangeForGoldGive(target, goldGive.amount, actor);
       if (matches.length === 1) {
         runExchange(actor, target, matches[0], { units: 1 });
         return;
@@ -150,11 +155,18 @@ export default function give(actor, args) {
     return;
   }
 
+  // Quest delivery wins over every other give-to-NPC path: a deliver_item objective on an
+  // active quest consumes the instance even if the NPC has an exchange or sink that would
+  // otherwise eat it. Without this precedence a smith who buys ore could swallow a quest
+  // ore meant for delivery, leaving the player stuck. Single-instance only (count === 1) —
+  // multi-give goes through exchanges.
+  if (target.kind === 'npc' && count === 1 && tryQuestDelivery(actor, inst, target)) return;
+
   // Precedence on a friendly NPC: declared exchange (exact match) → sink exchange (catch-all
   // for any item) → consumable-on-NPC (heal/buff potion). Sinks win over consumables on
   // purpose — an NPC that accepts arbitrary gifts should still accept a potion as a gift.
   if (target.kind === 'npc' && Array.isArray(target.exchanges)) {
-    const matches = findExchangeForItemGive(target, inst.defId, count);
+    const matches = findExchangeForItemGive(target, inst.defId, count, actor);
     if (matches.length === 1) {
       runExchange(actor, target, matches[0], { units: 1 });
       return;
@@ -164,7 +176,8 @@ export default function give(actor, args) {
       return;
     }
     if (count === 1) {
-      const sinkEntry = target.exchanges.find(e => e.flavor === 'sink' && sinkAccepts(e, inst.def));
+      const sinkEntry = availableExchanges(target, actor)
+        .find(e => e.flavor === 'sink' && sinkAccepts(e, inst.def));
       if (sinkEntry) {
         runSinkExchange(actor, target, sinkEntry, inst);
         return;
