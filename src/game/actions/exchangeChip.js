@@ -7,7 +7,7 @@ export default function exchangeChip(actor, args) {
     return;
   }
   const id = args[0];
-  const found = findExchangeById(actor.location, id);
+  const found = findExchangeById(actor.location, id, actor);
   if (!found) {
     actor.session.send({ kind: 'error', text: s('use.cant', actor.lang) });
     return;

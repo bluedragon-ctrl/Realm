@@ -17,6 +17,18 @@ const KNOWN = new Set([
   // Fired when a player dies, after action queue is cleared and victim has been placed at
   // RESPAWN_ROOM but before the 5s respawn timer fires.
   'player_died',
+  // ctx: { actor, room }
+  // Fired when a player enters a room (move arrival, login placement). Not fired for NPCs.
+  'room_entered',
+  // ctx: { actor, defId, count, room }
+  // Fired when a player picks up one or more instances of an item from a room. `count` is
+  // 1 for single takes, N for `take all` of one defId. Not fired for NPC inventory transfers.
+  'item_picked_up',
+  // ctx: { giver, recipient, defId, count }
+  // Fired when a player gives an item to an NPC AND a quest deliver_item objective accepted
+  // it. The give path consumes the instance before emitting; this event is only the signal
+  // for quest progress and not a generic "player gave NPC something" hook.
+  'item_given',
 ]);
 
 const handlers = new Map();

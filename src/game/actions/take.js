@@ -8,6 +8,7 @@ import { sourceForActor } from '../sources.js';
 import { resolveName } from '../declension.js';
 import { goldPhrase, isGoldQuery } from '../format.js';
 import { requireStanding } from '../positionGate.js';
+import { emit as emitEvent } from '../events.js';
 
 export default function take(actor, args) {
   const gate = requireStanding(actor);
@@ -79,11 +80,17 @@ export default function take(actor, args) {
     });
     sendStats(actor);
     describeRoomToAll(actor.location);
+    if (actor.kind === 'player') {
+      emitEvent('item_picked_up', { actor, defId: inst.defId, count: matches.length, room: actor.location });
+    }
     return;
   }
 
   removeItemFromRoom(inst, actor.location);
   addToInventory(actor, inst);
+  if (actor.kind === 'player') {
+    emitEvent('item_picked_up', { actor, defId: inst.defId, count: 1, room: actor.location });
+  }
 
   broadcastToRoom(actor.location, (recipient) => {
     const item = resolveName(inst.def, 'acc', recipient.lang);

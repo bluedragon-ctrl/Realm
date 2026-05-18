@@ -8,6 +8,7 @@ import { t, s, dirName } from '../../i18n.js';
 import { canPerceiveRoom } from '../light.js';
 import { canPerceive } from '../perception.js';
 import { canAfford } from '../exchange.js';
+import { isExchangeAvailable } from '../exchangeGate.js';
 import { categoryOf, acceptsFor } from '../itemCategory.js';
 
 function withPositionSuffix(name, position, lang) {
@@ -74,8 +75,10 @@ function countInInventory(actor, defId) {
 }
 
 function serializeExchanges(host, lang, actor) {
-  const list = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
-  if (!Array.isArray(list) || list.length === 0) return null;
+  const raw = host.kind === 'npc' ? host.exchanges : host.def?.exchanges;
+  if (!Array.isArray(raw) || raw.length === 0) return null;
+  const list = raw.filter(e => isExchangeAvailable(actor, e));
+  if (list.length === 0) return null;
   const formatSide = (side, opts = {}) => (side ?? []).map(e => {
     if (e.gold != null) return { kind: 'gold', amount: e.gold };
     const def = world.itemDefs.get(e.item);
@@ -233,7 +236,8 @@ export function describeRoom(actor) {
       existing.count++;
     } else {
       const def = inst.def;
-      const hasExchanges = Array.isArray(def.exchanges) && def.exchanges.length > 0;
+      const hasExchanges = Array.isArray(def.exchanges)
+        && def.exchanges.some(e => isExchangeAvailable(actor, e));
       const isFixture = def.pickable === false;
       itemGroups.set(key, {
         instanceId: inst.instanceId,

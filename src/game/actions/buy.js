@@ -22,7 +22,7 @@ export default function buy(actor, args) {
     return;
   }
   const query = args.join(' ').toLowerCase();
-  const candidates = findExchanges(actor.location, { flavor: 'buy' });
+  const candidates = findExchanges(actor.location, { flavor: 'buy' }, actor);
   if (candidates.length === 0) {
     actor.session.send({ kind: 'error', text: s('shop.no_seller_here', actor.lang) });
     return;

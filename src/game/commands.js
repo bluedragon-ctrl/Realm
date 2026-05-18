@@ -24,6 +24,7 @@ import removeWearable from './actions/remove.js';
 import equipment from './actions/equipment.js';
 import stats from './actions/stats.js';
 import spells from './actions/spells.js';
+import questsCmd from './actions/quests.js';
 import train from './actions/train.js';
 import exchangeChip from './actions/exchangeChip.js';
 import { stand, sit, sleep } from './actions/position.js';
@@ -70,6 +71,7 @@ const COMMANDS = {
   equipment, eq: equipment,
   stats, st: stats,
   spells, sp: spells,
+  quests: questsCmd, quest: questsCmd, qu: questsCmd,
   train, tr: train,
   exchange: exchangeChip,
 };
