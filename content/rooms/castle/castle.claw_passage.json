@@ -5,6 +5,7 @@
     "cs": "Rozdrásaná chodba"
   },
   "lightBase": "dark",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A narrow stone passage gouged with deep parallel scratches along both walls.",
     "cs": "Úzká kamenná chodba podél obou stěn zbrázděná hlubokými rovnoběžnými škrábanci."

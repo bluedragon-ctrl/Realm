@@ -15,6 +15,7 @@ import { runExchange } from '../exchange.js';
 import { EFFECT_SOURCE } from '../contentMeta.js';
 import { applyHealerAggro } from '../combat.js';
 import { requireStanding } from '../positionGate.js';
+import { readQuestBoard } from '../quests.js';
 
 function findItemTarget(actor, query) {
   const fixtures = itemsInRoom(actor.location);
@@ -147,6 +148,11 @@ export default function use(actor, args) {
       return;
     }
     runInteraction(actor, inst, targetItem, interaction);
+    return;
+  }
+
+  if (inst.def.quest_rumors) {
+    readQuestBoard(actor, inst.def.quest_rumors);
     return;
   }
 

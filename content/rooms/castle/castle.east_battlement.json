@@ -5,6 +5,7 @@
     "cs": "Východní cimbuří"
   },
   "outdoor": true,
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A narrow rooftop walkway runs along the castle's east wall.",
     "cs": "Úzká střešní chodba se táhne podél východní hradby."

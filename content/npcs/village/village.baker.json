@@ -65,6 +65,13 @@
       "outputs": [{ "item": "item.flour" }]
     },
     {
+      "id": "baker.sell_millstone_flour",
+      "flavor": "sell",
+      "inputs":  [{ "item": "item.millstone_flour", "count": 1 }],
+      "outputs": [{ "gold": 10 }],
+      "requires": { "quest": "quest.mill_flour", "status": "complete" }
+    },
+    {
       "id": "baker.sell_honey",
       "flavor": "sell",
       "inputs":  [{ "item": "item.honey", "count": 1 }],
@@ -93,6 +100,46 @@
     }
   ],
   "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.mill_flour" },
+      "lines": {
+        "en": [
+          "The old riverside mill — there's still good grain caught in the grindstone, if anyone's brave enough to brave the dust. Bring me a sack of millstone flour and I'll send you home with a pie.",
+          "I'd give my best apron for a sack of millstone flour, dear. The old mill still has some — go see.",
+          "If you go past the mill pool, dear, the door's hanging open. Bring me a flour sack and we have a deal.",
+          "One sack of millstone flour. The grindstone still works, when the wheel catches a turn."
+        ],
+        "cs": [
+          "Starý mlýn u řeky — v mlecím kameni je stále kvalitní obilí, jestli se někdo nebojí prachu. Přines mi pytel mlýnské mouky a pošlu tě domů s koláčem.",
+          "Za pytel mlýnské mouky bych dala i svou nejlepší zástěru, drahoušku. Starý mlýn má ještě nějakou — běž se podívat.",
+          "Pokud půjdeš kolem mlýnské tůně, drahoušku, dveře jsou dokořán. Přines mi pytel mouky a máme dohodu.",
+          "Jeden pytel mlýnské mouky. Mlecí kámen ještě funguje, když kolo chytí otáčku."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.3,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.honey" },
+      "lines": {
+        "en": [
+          "If you've got a jar of honey on you, sweetheart, hand it over — best glaze a pastry can ask for. I'll send you out with a pie of your own.",
+          "I'd kill for a jar of honey right now. The pies want a proper glaze.",
+          "One jar of honey, dear, and you walk out with a hot pie in your hands.",
+          "Bees in the garden are busy — somebody quick on their feet could fetch me a jar."
+        ],
+        "cs": [
+          "Jestli máš u sebe skleničku medu, drahoušku, dej ji sem — nejlepší glazura, jakou si pečivo může přát. Pošlu tě s vlastním koláčem.",
+          "Teď bych za skleničku medu dala všechno. Koláče potřebují pořádnou glazuru.",
+          "Jedna sklenička medu, miláčku, a odejdeš odtud s horkým koláčem v rukou.",
+          "Včely v zahradě teď pilně pracují — někdo hbitý by mi mohl jednu skleničku donést."
+        ]
+      }
+    },
     {
       "primitive": "say",
       "chance": 0.05,

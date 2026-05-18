@@ -1,0 +1,28 @@
+{
+  "id": "quest.bonebloom",
+  "name": { "en": "A Bonebloom for the Sprite", "cs": "Kostiboule pro vílu" },
+  "short": {
+    "en": "The briar sprite wants a single bonebloom flower from the old garden.",
+    "cs": "Trnová víla chce jediný květ kostiboule ze starého sadu."
+  },
+  "long": {
+    "en": "The briar sprite asks for one bonebloom flower — they grow only where the ground is old and forgotten. Bring her one and she'll thread it into a silver ring that runs the well of your mana deeper.",
+    "cs": "Trnová víla žádá jeden květ kostiboule — rostou jen tam, kde je půda stará a zapomenutá. Přines jí jeden a ona ho zasadí do stříbrného prstenu, který prohloubí tvou studnu many."
+  },
+  "discovery": { "type": "enter_room", "room": "forest.briar_path" },
+  "objectives": [
+    {
+      "id": "deliver_bonebloom",
+      "type": "deliver_item",
+      "defId": "item.bonebloom",
+      "recipient": "forest.briar_sprite",
+      "count": 1,
+      "desc": { "en": "Bring a bonebloom flower to the briar sprite.", "cs": "Přines květ kostiboule trnové víle." }
+    }
+  ],
+  "rewards": {
+    "xp": 50,
+    "gold": 20,
+    "items": ["item.ring_bonebloom"]
+  }
+}

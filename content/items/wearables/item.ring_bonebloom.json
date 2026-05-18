@@ -1,0 +1,26 @@
+{
+  "id": "item.ring_bonebloom",
+  "rarity": 3,
+  "name": {
+    "en": "a bonebloom ring",
+    "cs": "prsten kostiboule"
+  },
+  "nameAcc": {
+    "en": "the bonebloom ring",
+    "cs": "prsten kostiboule"
+  },
+  "short": {
+    "en": "A pale silver ring set with a tiny dried bonebloom flower under glass.",
+    "cs": "Bledý stříbrný prsten s drobnou usušenou kostiboulí zalitou pod sklem."
+  },
+  "long": {
+    "en": "A slender silver band with a small bone-coloured flower pressed flat beneath a disk of clear glass. The flower's pale petals seem to hold a light of their own. While you wear the ring, the well of mana inside you feels markedly deeper.",
+    "cs": "Štíhlá stříbrná obroučka s drobnou květinou barvy kosti přitisknutou pod průhledným sklem. Bledé okvětní lístky jakoby si nesly vlastní světlo. Když prsten nosíš, studna many v tobě působí výrazně hlouběji."
+  },
+  "tags": ["ring", "magic"],
+  "weight": 0,
+  "wearable": {
+    "slot": "ring",
+    "bonus": { "mpMax": 5 }
+  }
+}

@@ -32,7 +32,8 @@
   "goldDrop": { "formula": "2d3+2", "chance": 0.9 },
   "loot": [
     { "defId": "item.smith_hammer", "chance": 0.2 },
-    { "defId": "item.smith_apron", "chance": 0.2 }
+    { "defId": "item.smith_apron", "chance": 0.2 },
+    { "defId": "item.pure_iron_chunk", "chance": 0.25 }
   ],
   "behaviors": [
     {

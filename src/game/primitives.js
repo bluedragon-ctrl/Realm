@@ -10,6 +10,7 @@ import { castSpell } from './actions/cast.js';
 import { canPerceive } from './perception.js';
 import { performSummon } from './summon.js';
 import { AOE_SPELL_EFFECT_TYPES } from './contentMeta.js';
+import { emit as emitEvent } from './events.js';
 
 const PRIMITIVES = {
   say(actor, behavior) {
@@ -76,6 +77,11 @@ const PRIMITIVES = {
         text: s('give.you_received', targetPlayer.lang, { item: itemName }),
       });
     }
+
+    // Treat an NPC gift as a player-side acquisition for quest purposes — pickup_item
+    // discovery should fire whether the player grabbed the item off the floor or received
+    // it from a friendly NPC's give_item behavior. Same event shape as the take action.
+    emitEvent('item_picked_up', { actor: targetPlayer, defId: inst.defId, count: 1, room: actor.location });
   },
   attack(actor, behavior) {
     const target = aggroTargetInRoom(actor);

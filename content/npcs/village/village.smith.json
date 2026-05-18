@@ -97,6 +97,7 @@
       "inputs":  [{ "item": "item.bear_skin", "count": 1 }, { "gold": 50 }],
       "outputs": [{ "item": "item.bear_skin_armor" }],
       "xp": 8,
+      "requires": { "quest": "quest.bear_skin", "status": "complete" },
       "verb": {
         "en": {
           "to_target": {
@@ -198,6 +199,46 @@
     }
   ],
   "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.bear_skin" },
+      "lines": {
+        "en": [
+          "A customer's been waiting on bear-hide armour, but I've nothing in stock. Bring me one bear skin and I'll cut you a fine cloak from the trim.",
+          "Bear skin, friend. Just the one. Once I've worked a pelt I can take more from anyone who brings the hide.",
+          "If you fancy a heavy cloak that turns aside a winter wind — and a claw or two — bring me a bear skin.",
+          "One bear pelt. That's all I need to get the armour line moving again."
+        ],
+        "cs": [
+          "Zákazník čeká na zbroj z medvědí kůže, ale já zrovna žádnou nemám. Přines mi jednu kožešinu a z lemu ti ušiju pořádný plášť.",
+          "Medvědí kůži, příteli. Stačí jedna. Jakmile jednu zpracuju, můžu vzít další od každého, kdo si přinese kožešinu.",
+          "Jestli máš zájem o těžký plášť, který zastaví zimní vítr — a tu a tam i dráp — přines mi medvědí kůži.",
+          "Jedna medvědí kožešina. Víc nepotřebuju, abych mohl zbroj zase šít."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.3,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.pure_iron" },
+      "lines": {
+        "en": [
+          "The ore I buy is fine for nails and hinges, but for a real blade I need pure iron — not slag. Bring me one chunk and I'll forge you something proper.",
+          "Pure iron, no slag. One chunk and you walk out of here with a sword that cuts true.",
+          "Kobold smiths down in the mine sometimes hoard the pure stuff. If you can pry a chunk loose, bring it to me.",
+          "One piece of pure iron. That's all I need. I'll do the rest at the anvil."
+        ],
+        "cs": [
+          "Ruda, kterou kupuju, stačí na hřebíky a panty, ale na pořádnou čepel potřebuju čisté železo — žádnou strusku. Přines mi jeden kus a ukovám ti něco poctivého.",
+          "Čisté železo, bez strusky. Jeden kus a odejdeš odtud s mečem, který sekne rovně.",
+          "Koboldí kováři v dole někdy schovávají čisté kusy. Když nějaký vypáčíš, přines ho mně.",
+          "Jeden kus čistého železa. Víc nepotřebuju. Zbytek udělám u kovadliny."
+        ]
+      }
+    },
     {
       "primitive": "say",
       "chance": 0.05,

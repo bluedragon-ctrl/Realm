@@ -35,7 +35,8 @@
     { "defId": "potion.mana", "chance": 1.0 },
     { "defId": "potion.heal", "chance": 0.5 },
     { "defId": "item.bone", "chance": 0.7 },
-    { "defId": "item.archive_key", "chance": 1.0 }
+    { "defId": "item.archive_key", "chance": 1.0 },
+    { "defId": "item.frost_sigil", "chance": 1.0 }
   ],
   "behaviors": [
     {

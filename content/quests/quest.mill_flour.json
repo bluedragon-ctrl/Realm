@@ -1,0 +1,28 @@
+{
+  "id": "quest.mill_flour",
+  "name": { "en": "Flour from the Old Mill", "cs": "Mouka ze starého mlýna" },
+  "short": {
+    "en": "The baker wants a sack of millstone flour from the abandoned riverside mill.",
+    "cs": "Pekařka chce pytel mlýnské mouky z opuštěného mlýna u řeky."
+  },
+  "long": {
+    "en": "The baker remembers when the riverside mill still ran. There's good grain still caught in the grindstone — brave the dust and bring her a sack of millstone flour. Do it once and she'll keep buying flour from you for ten gold a sack.",
+    "cs": "Pekařka si pamatuje časy, kdy mlýn u řeky ještě běžel. V mlecím kameni je stále kvalitní obilí — projdi prachem a přines jí pytel mlýnské mouky. Když to uděláš jednou, bude od tebe mouku kupovat za deset zlatých za pytel."
+  },
+  "discovery": { "type": "enter_room", "room": "village.bakery" },
+  "objectives": [
+    {
+      "id": "deliver_flour",
+      "type": "deliver_item",
+      "defId": "item.millstone_flour",
+      "recipient": "village.baker",
+      "count": 1,
+      "desc": { "en": "Deliver a sack of millstone flour to the baker.", "cs": "Doruč pytel mlýnské mouky pekařce." }
+    }
+  ],
+  "rewards": {
+    "xp": 30,
+    "gold": 15,
+    "items": ["item.pie"]
+  }
+}

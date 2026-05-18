@@ -1,0 +1,27 @@
+{
+  "id": "quest.skeleton_lord",
+  "name": { "en": "The Lord of the Tower", "cs": "Pán věže" },
+  "short": {
+    "en": "Put down the skeleton lord that haunts the tomb beneath the forest tower.",
+    "cs": "Zlomi kostlivého pána, který straší v hrobce pod lesní věží."
+  },
+  "long": {
+    "en": "The ruined tower at the edge of the forest hides a tomb three floors below the door. Something old and crowned waits there with an iron sword across its shoulder. The wizard says it was a mage once — and that whoever ends it will earn the village a long peace.",
+    "cs": "Zřícená věž na okraji lesa skrývá hrobku tři patra pod prahem. Cosi prastarého a korunovaného tam čeká s železným mečem na rameni. Kouzelník říká, že to byl kdysi mág — a kdo s tím skoncuje, získá pro vesnici dlouhý mír."
+  },
+  "discovery": { "type": "enter_room", "room": "forest.tower_entry" },
+  "objectives": [
+    {
+      "id": "kill_lord",
+      "type": "kill",
+      "defId": "forest.skeleton_lord",
+      "count": 1,
+      "desc": { "en": "Defeat the skeleton lord in the tower tomb.", "cs": "Poraz kostlivého pána v hrobce věže." }
+    }
+  ],
+  "rewards": {
+    "xp": 120,
+    "gold": 60,
+    "items": ["item.shield_scroll"]
+  }
+}

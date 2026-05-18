@@ -1,0 +1,26 @@
+{
+  "id": "quest.dog_ball",
+  "name": { "en": "The Dog and the Ball", "cs": "Pes a míček" },
+  "short": {
+    "en": "Give the scruffy dog in the square a leather ball.",
+    "cs": "Dej ošuntělému psu na návsi kožený míček."
+  },
+  "long": {
+    "en": "The scruffy dog watches every passer-by with hopeful eyes. Hand him a ball — even just once — and you'll have made a friend in the square.",
+    "cs": "Ošuntělý pes sleduje každého kolemjdoucího s nadějí v očích. Dej mu míček — i jen jednou — a získáš na návsi přítele."
+  },
+  "discovery": { "type": "enter_room", "room": "village.square" },
+  "objectives": [
+    {
+      "id": "deliver_ball",
+      "type": "deliver_item",
+      "defId": "item.ball",
+      "recipient": "village.dog",
+      "count": 1,
+      "desc": { "en": "Give a leather ball to the scruffy dog.", "cs": "Dej koženy míček ošuntělému psovi." }
+    }
+  ],
+  "rewards": {
+    "xp": 10
+  }
+}

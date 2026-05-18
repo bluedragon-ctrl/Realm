@@ -50,7 +50,7 @@ function ensureRecord(actor) {
   return actor.record.quests;
 }
 
-function discover(actor, def) {
+function discover(actor, def, opts = {}) {
   const quests = ensureRecord(actor);
   if (quests[def.id]) return false;
   const objectives = {};
@@ -62,7 +62,7 @@ function discover(actor, def) {
     completedAt: null,
   };
   actor.dirty = true;
-  if (actor.session) {
+  if (actor.session && !opts.silent) {
     actor.session.send({
       kind: 'system', tone: 'good',
       text: s('quest.discovered', actor.lang, { name: t(def.name, actor.lang) }),
@@ -118,7 +118,12 @@ function grantRewards(actor, def) {
   if (Array.isArray(rewards.items)) {
     for (const itemId of rewards.items) {
       const itemDef = world.itemDefs.get(itemId);
-      if (itemDef) addToInventory(actor, makeItemInstance(itemDef));
+      if (!itemDef) continue;
+      addToInventory(actor, makeItemInstance(itemDef));
+      // Mirror the pickup-from-floor and NPC give_item flows: rewarded items count as a
+      // player-side acquisition so pickup_item discovery can chain quests together (this
+      // is how the cold ward, a reward for ward_of_cold, auto-discovers fallen_lord).
+      emitEvent('item_picked_up', { actor, defId: itemId, count: 1, room: actor.location });
     }
   }
   if (rewards.xp && rewards.xp > 0) {
@@ -252,6 +257,69 @@ onEvent('room_entered', (ctx) => handlePlayerScoped('room_entered', ctx));
 onEvent('item_picked_up', (ctx) => handlePlayerScoped('item_picked_up', ctx));
 onEvent('item_given', (ctx) => handlePlayerScoped('item_given', { actor: ctx.giver, ...ctx }));
 onEvent('npc_died', (ctx) => handleRoomScoped('npc_died', ctx));
+
+// Map of <defId, remaining> for every active deliver_item objective whose recipient is the
+// given NPC. "Remaining" is the count still owed (required - current). If two quests want
+// the same defId delivered to the same NPC, the larger remaining wins — emitting a single
+// item_given event of that size advances both objectives by the full amount, so they finish
+// together. Used by the `deliver` command to compute how many of each item def to consume.
+export function findRemainingDeliveriesFor(actor, target) {
+  const out = new Map();
+  if (!actor || actor.kind !== 'player' || !target || target.kind !== 'npc') return out;
+  const record = actor.record.quests ?? {};
+  for (const def of world.questDefs.values()) {
+    const entry = record[def.id];
+    if (!entry || entry.status !== 'active') continue;
+    for (const objective of def.objectives) {
+      if (objective.type !== 'deliver_item') continue;
+      if (objective.recipient !== target.defId) continue;
+      const required = objective.count ?? 1;
+      const current = entry.objectives[objective.id] ?? 0;
+      if (current >= required) continue;
+      const remaining = required - current;
+      const prev = out.get(objective.defId) ?? 0;
+      if (remaining > prev) out.set(objective.defId, remaining);
+    }
+  }
+  return out;
+}
+
+// Called from the `use` action when the item being used carries a `quest_rumors` array.
+// Renders a single console message listing each rumored quest by name + short description,
+// flagged with status (NEW / in progress n/m / done). Side effect: any rumor the player
+// has not yet discovered is silently discovered here so the board acts as a one-stop
+// quest-board. Silent discovery keeps the console clean — the board display itself shows
+// what's new, so the per-quest "── new quest: X ──" toast would just duplicate it.
+export function readQuestBoard(actor, rumors) {
+  if (!actor || actor.kind !== 'player' || !actor.session) return;
+  if (!Array.isArray(rumors) || rumors.length === 0) return;
+  const lang = actor.lang;
+  const record = ensureRecord(actor);
+  const lines = [];
+  lines.push(s('board.header', lang));
+  lines.push('');
+  for (const questId of rumors) {
+    const def = world.questDefs.get(questId);
+    if (!def) continue;
+    let status;
+    let entry = record[questId];
+    if (!entry) {
+      discover(actor, def, { silent: true });
+      entry = record[questId];
+      status = s('board.status.new', lang);
+    } else if (entry.status === 'complete') {
+      status = s('board.status.complete', lang);
+    } else {
+      const total = def.objectives.length;
+      const done = def.objectives.filter(o => isObjectiveComplete(o, entry.objectives)).length;
+      status = s('board.status.active', lang, { done, total });
+    }
+    lines.push(s('board.entry', lang, { name: t(def.name, lang), status }));
+    lines.push('  ' + t(def.short, lang));
+    lines.push('');
+  }
+  actor.session.send({ kind: 'system', text: lines.join('\n').trimEnd() });
+}
 
 // Called from the give action right before the "npc not interested" fallback. Walks the
 // giver's active quests looking for a deliver_item objective whose `defId`+`recipient` pair

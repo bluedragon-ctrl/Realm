@@ -55,6 +55,12 @@ export const ITEM_CATEGORIES = new Set([
   'key', 'gear', 'reagent', 'tool', 'quest', 'consumable', 'food', 'misc',
 ]);
 
+// ---------- environment ----------
+// Room-level environmental hazards that periodically damage unprotected players. Wearables
+// declare which of these they ward against via a `wards: [...]` tag list. Add new types
+// here (heat for lava, drowning for underwater, miasma for swamp) as content needs them.
+export const ENVIRONMENT_TYPES = new Set(['cold']);
+
 // ---------- positions ----------
 export const POSITIONS = new Set(['stand', 'sit', 'sleep']);
 

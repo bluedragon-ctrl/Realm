@@ -149,6 +149,28 @@
       }
     },
     {
+      "id": "herbalist.craft_heal_potion_berries",
+      "flavor": "craft",
+      "inputs":  [{ "item": "item.red_berries", "count": 5 }],
+      "outputs": [{ "item": "potion.heal" }],
+      "xp": 4,
+      "requires": { "quest": "quest.berries", "status": "complete" },
+      "verb": {
+        "en": {
+          "to_target": {
+            "self": "you hand five handfuls of red berries to {target}. She crushes them in a small wooden bowl, simmers the juice over a low candle, and pours the dark red brew into a glass vial.",
+            "others": "{actor} hands five handfuls of red berries to {target}, who crushes and simmers them into a small healing potion."
+          }
+        },
+        "cs": {
+          "to_target": {
+            "self": "podáš pět hrstí červených bobulí {target.dat}. Rozdrtí je v malé dřevěné misce, šťávu nechá probublávat nad svíčkou a tmavě červený výluh naleje do skleněné lahvičky.",
+            "others": "{actor} podává pět hrstí červených bobulí {target.dat}, která je rozdrtí a uvaří z nich drobný léčivý lektvar."
+          }
+        }
+      }
+    },
+    {
       "id": "herbalist.craft_amulet_troll_heart",
       "flavor": "craft",
       "inputs":  [{ "item": "item.troll_tooth", "count": 1 }, { "item": "item.ironwort", "count": 5 }, { "gold": 30 }],
@@ -171,6 +193,104 @@
     }
   ],
   "behaviors": [
+    {
+      "primitive": "say",
+      "chance": 0.22,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.toad_king" },
+      "lines": {
+        "en": [
+          "I can't use the well water for my brews any more, dear. Hasn't been clean in years. Something settled down there a long time ago.",
+          "If someone could clear whatever's in the well, I could go back to brewing the strong potions. Until then, river water only.",
+          "The old wells used to give the cleanest water in three villages. Then the toad came.",
+          "A giant toad, they say. Big as a calf. I'd pay for the news that it's gone."
+        ],
+        "cs": [
+          "Vodu ze studny už do svých výluhů nemůžu brát, drahoušku. Léta není čistá. Něco se tam dole dávno usadilo.",
+          "Kdyby někdo vyklidil to, co ve studni je, mohla bych se vrátit k silným lektvarům. Než se tak stane, jen říční vodu.",
+          "Stará studna kdysi měla nejčistší vodu ze tří vesnic. Pak přišla ropucha.",
+          "Obří ropucha, prý. Velká jako tele. Zaplatila bych za zprávu, že je pryč."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.2,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.otter_fish" },
+      "lines": {
+        "en": [
+          "Down at the river holt there's a little otter — three fish for a pearl, she trades. Bring her five at once and she gets generous, I'm told.",
+          "If you find yourself at the river, sweetheart, the otter likes her fish. Five at a time is the way to her heart.",
+          "I'd send you down to the otter myself if I had any fish — she pays well in pearls.",
+          "Five river fish to the otter. Plain as that. I'd go if my knees were younger."
+        ],
+        "cs": [
+          "Dole u říčního doupěte žije drobná vydra — tři ryby za perlu, tak to mění. Prý je štědrá, když jí jich přineseš pět najednou.",
+          "Jestli se ocitneš u řeky, drahoušku, vydra má ráda ryby. Pět najednou — tak se k ní dostaneš.",
+          "Sama bych tě k vydře poslala, kdybych měla nějaké ryby — platí dobře v perlách.",
+          "Pět říčních ryb vydře. Jednoduché. Šla bych, kdyby mi kolena dovolila."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.25,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.noon_wraith" },
+      "lines": {
+        "en": [
+          "Don't go to the noon glade unprepared, dear. The pale woman there — she's been killing wheat-cutters for as long as I've been mixing herbs.",
+          "If you mean to face the noon wraith, take ironwort with you. Her gaze burns, but the brew keeps it off your skin a while.",
+          "Whoever takes that wraith down does my apprentices a kindness. I'm tired of mending burnt necks.",
+          "The noon glade. The pale one. Yes — somebody has to stop her, dear. Just not by my fire."
+        ],
+        "cs": [
+          "Nechoď na polední mýtinu nepřipravený, drahoušku. Ta bledá žena tam — zabíjí žence, co si pamatuju.",
+          "Pokud se chystáš čelit polednici, vezmi si s sebou železník. Její pohled pálí, ale výluh ho na chvíli ze tvé kůže odežene.",
+          "Kdokoli polednici srazí, prokáže mým učedníkům službu. Jsem unavená z léčení spálených krků.",
+          "Polední mýtina. Ta bledá. Ano — někdo ji musí zastavit, drahoušku. Jen ne u mého ohniště."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.3,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.berries" },
+      "lines": {
+        "en": [
+          "Red berries, dear — five good handfuls and I can teach you a useful trick with the cauldron.",
+          "The patch in the forest is heavy this season. Bring me five handfuls and I'll show you what they're worth.",
+          "Five handfuls of red berries. The cauldron does the rest, but you have to bring the berries.",
+          "The healing potions on this shelf? They start with red berries. Five and I'll show you the brewing."
+        ],
+        "cs": [
+          "Červené bobule, drahoušku — pět pořádných hrstí a naučím tě s kotlíkem užitečný kousek.",
+          "V lese je letos jejich plný keř. Přines mi pět hrstí a ukážu ti, co to umí.",
+          "Pět hrstí červených bobulí. Zbytek udělá kotlík, ale bobule musíš přinést ty.",
+          "Léčivé lektvary z téhle poličky? Začínají u červených bobulí. Přines pět a ukážu ti, jak se vaří."
+        ]
+      }
+    },
+    {
+      "primitive": "say",
+      "chance": 0.2,
+      "cost": 14,
+      "requires": { "type": "quest_unfulfilled", "quest": "quest.fallen_lord" },
+      "lines": {
+        "en": [
+          "There's a cold that comes off that old castle and no tea I brew will touch it. Go to the wizard if you mean to walk in there.",
+          "Pale flowers grow in that castle's garden — bone-white, hollow stems. I won't pick them. Whatever lives there is in the soil now.",
+          "I had a niece who tried to forage past the gatehouse. We found her three days later by the river, dazed and freezing in the sun. The cold there is not kind."
+        ],
+        "cs": [
+          "Z toho starého hradu jde chlad, který žádný můj čaj neprorazí. Jdi za kouzelníkem, pokud tam chceš vejít.",
+          "Na zahradě toho hradu rostou bledé květiny — bíle jako kost, duté stonky. Nesbírám je. Cokoli tam žije, je už v té půdě.",
+          "Měla jsem neteř, která se tam pokusila zajít na bylinky za vrátnici. Našli jsme ji o tři dny později u řeky, omámenou a mrznoucí v poledním slunci. Chlad tam není laskavý."
+        ]
+      }
+    },
     {
       "primitive": "say",
       "chance": 0.05,

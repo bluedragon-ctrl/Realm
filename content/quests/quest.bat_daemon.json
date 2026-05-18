@@ -1,22 +1,27 @@
 {
   "id": "quest.bat_daemon",
-  "name": { "en": "The Bat Daemon", "cs": "Netopýří démon" },
+  "name": { "en": "The Hidden Attic", "cs": "Skrytá půda" },
   "short": {
-    "en": "Use the bat glyph to call the daemon to the tower attic, then banish it.",
-    "cs": "Použij netopýří glyf, abys přivolal démona na půdu věže, a pak ho zažeň."
+    "en": "Something shadow-wreathed nests in the wizard's attic. Find the stairs up and put it down.",
+    "cs": "Cosi ovinuté stínem hnízdí na kouzelníkově půdě. Najdi schody nahoru a sraz to."
   },
   "long": {
-    "en": "A small dark glyph carries a strange power. It calls the bat daemon to the attic of the old tower. Defeat the daemon and the shadows will recede.",
-    "cs": "Malý tmavý glyf nese podivnou moc. Přivolá netopýřího démona na půdu staré věže. Poraz ho a stíny ustoupí."
+    "en": "Above the wizard's quarters, hidden behind a hatch and a wall of old stonework, lies a cramped attic the wizard never speaks of. Something large and dark has made it a roost. Find the stairs up, defeat the bat daemon, and the tower will breathe easier.",
+    "cs": "Nad kouzelníkovým pokojem, ukrytá za poklopem a starou kamennou zdí, leží stísněná půda, o které kouzelník nemluví. Něco velkého a tmavého si tam udělalo doupě. Najdi schody nahoru, sraz netopýřího démona, a věž se nadechne."
   },
-  "discovery": { "type": "pickup_item", "defId": "item.bat_glyph" },
+  "discovery": { "type": "enter_room", "room": "village.tower_attic" },
   "objectives": [
     {
       "id": "kill_daemon",
       "type": "kill",
       "defId": "village.bat_daemon",
-      "desc": { "en": "Defeat the bat daemon.", "cs": "Poraz netopýřího démona." }
+      "count": 1,
+      "desc": { "en": "Defeat the bat daemon in the tower attic.", "cs": "Poraz netopýřího démona na půdě věže." }
     }
   ],
-  "rewards": { "xp": 50, "gold": 20 }
+  "rewards": {
+    "xp": 60,
+    "gold": 30,
+    "items": ["item.darkness_scroll"]
+  }
 }

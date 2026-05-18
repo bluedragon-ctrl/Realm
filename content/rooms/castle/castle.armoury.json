@@ -5,6 +5,7 @@
     "cs": "Zbrojnice"
   },
   "lightBase": "dim",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A weapon-storage room dominated by a tall figure in tarnished plate.",
     "cs": "Sklad zbraní, kterému vévodí vysoká postava ve zčernalé plátové zbroji."

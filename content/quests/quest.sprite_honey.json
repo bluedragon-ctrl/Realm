@@ -1,0 +1,28 @@
+{
+  "id": "quest.sprite_honey",
+  "name": { "en": "Honey for the Briar Sprite", "cs": "Med pro trnovou vílu" },
+  "short": {
+    "en": "The briar sprite asks for five jars of honey.",
+    "cs": "Trnová víla žádá pět skleniček medu."
+  },
+  "long": {
+    "en": "The briar sprite has a use for honey she will not quite explain — something to do with the bramble bushes blooming again. Bring her five jars and she'll send you off with a pair of useful potions.",
+    "cs": "Trnová víla má pro med využití, které úplně nevysvětluje — má to něco společného s tím, aby ostružiny znovu rozkvetly. Přines jí pět skleniček a pošle tě se dvojicí užitečných lektvarů."
+  },
+  "discovery": { "type": "enter_room", "room": "forest.briar_path" },
+  "objectives": [
+    {
+      "id": "deliver_honey",
+      "type": "deliver_item",
+      "defId": "item.honey",
+      "recipient": "forest.briar_sprite",
+      "count": 5,
+      "desc": { "en": "Deliver 5 jars of honey to the briar sprite.", "cs": "Doruč 5 skleniček medu trnové víle." }
+    }
+  ],
+  "rewards": {
+    "xp": 40,
+    "gold": 20,
+    "items": ["potion.rose_oil", "potion.thorns"]
+  }
+}

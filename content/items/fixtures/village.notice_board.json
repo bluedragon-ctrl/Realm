@@ -1,0 +1,35 @@
+{
+  "id": "village.notice_board",
+  "rarity": 1,
+  "name": {
+    "en": "the notice board",
+    "cs": "vývěska"
+  },
+  "nameAcc": {
+    "en": "the notice board",
+    "cs": "vývěsku"
+  },
+  "short": {
+    "en": "A broad oak notice board, the wood pale, papers pinned along its face.",
+    "cs": "Široká dubová vývěska, dřevo bledé, na líci přibité papíry."
+  },
+  "long": {
+    "en": "A broad oak notice board nailed up beside the well, the wood pale from years of sun and rain. Half a dozen scraps of paper are pinned to its face with iron tacks — some yellowed, some fresh, every one carrying a note from someone who needs something done. Use the board to read what's on offer.",
+    "cs": "Široká dubová vývěska přibitá vedle studny, dřevo zbledlé léty slunce a deště. K líci je železnými cvočky připíchnuto půl tuctu papírků — některé zažloutlé, jiné čerstvé, každý nese vzkaz od někoho, kdo něco potřebuje. Vývěsku použij, abys přečetl, co se nabízí."
+  },
+  "tags": ["fixture"],
+  "weight": 0,
+  "pickable": false,
+  "quest_rumors": [
+    "quest.honey",
+    "quest.miner_rescue",
+    "quest.rat_tails",
+    "quest.mill_flour",
+    "quest.bear_skin",
+    "quest.bandit"
+  ],
+  "spawn": {
+    "location": "village.square",
+    "count": 1
+  }
+}

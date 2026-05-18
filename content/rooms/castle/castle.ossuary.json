@@ -5,6 +5,7 @@
     "cs": "Kostnice"
   },
   "lightBase": "dark",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A low chamber whose walls are stacked floor to ceiling with old bones.",
     "cs": "Nízká komnata, jejíž stěny jsou od podlahy po strop vyrovnány starými kostmi."

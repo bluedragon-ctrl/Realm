@@ -1,0 +1,28 @@
+{
+  "id": "quest.berries",
+  "name": { "en": "Red Berries for the Herbalist", "cs": "Červené bobule pro bylinkářku" },
+  "short": {
+    "en": "The herbalist needs five handfuls of red berries.",
+    "cs": "Bylinkářka potřebuje pět hrstí červených bobulí."
+  },
+  "long": {
+    "en": "Healing potions start with red berries from the forest. Bring the herbalist five handfuls and she'll teach you the brewing trick — and send you off with a pair of regen potions.",
+    "cs": "Léčivé lektvary začínají u červených bobulí z lesa. Přines bylinkářce pět hrstí a naučí tě, jak je vařit — a navíc ti dá dva lektvary regenerace."
+  },
+  "discovery": { "type": "enter_room", "room": "village.herbalist" },
+  "objectives": [
+    {
+      "id": "deliver_berries",
+      "type": "deliver_item",
+      "defId": "item.red_berries",
+      "recipient": "village.herbalist",
+      "count": 5,
+      "desc": { "en": "Deliver 5 handfuls of red berries to the herbalist.", "cs": "Doruč 5 hrstí červených bobulí bylinkářce." }
+    }
+  ],
+  "rewards": {
+    "xp": 25,
+    "gold": 15,
+    "items": ["potion.regen", "potion.regen"]
+  }
+}

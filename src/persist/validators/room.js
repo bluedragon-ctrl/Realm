@@ -1,5 +1,5 @@
 import { check, checkObject, checkPositiveInt, checkEnum } from '../validate.js';
-import { LIGHT_LEVEL_SET } from '../../game/contentMeta.js';
+import { LIGHT_LEVEL_SET, ENVIRONMENT_TYPES } from '../../game/contentMeta.js';
 
 export function validateRoomGraph(rooms) {
   for (const room of rooms.values()) {
@@ -9,6 +9,12 @@ export function validateRoomGraph(rooms) {
     }
     if (room.outdoor != null) {
       check(typeof room.outdoor === 'boolean', ctx, `'outdoor' must be a boolean`);
+    }
+    if (room.environment != null) {
+      checkObject(room.environment, ctx, 'environment');
+      checkEnum(room.environment.type, ENVIRONMENT_TYPES, ctx, 'environment.type');
+      checkPositiveInt(room.environment.damage, ctx, 'environment.damage');
+      checkPositiveInt(room.environment.intervalTicks, ctx, 'environment.intervalTicks');
     }
     const exits = room.exits ?? {};
     const hiddenExits = {};

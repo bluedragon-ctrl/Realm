@@ -2,7 +2,7 @@ import path from 'node:path';
 import {
   check, checkLocalizedText, checkObject, checkArray, checkEnum,
 } from '../validate.js';
-import { WEARABLE_SLOT_SET, ALLOWED_BONUS_KEYS, LIGHT_LEVEL_SET, ITEM_CATEGORIES } from '../../game/contentMeta.js';
+import { WEARABLE_SLOT_SET, ALLOWED_BONUS_KEYS, LIGHT_LEVEL_SET, ITEM_CATEGORIES, ENVIRONMENT_TYPES } from '../../game/contentMeta.js';
 import { checkOptionalNameForms } from './common.js';
 
 export function makeItemValidator(knownRooms, knownEffects) {
@@ -68,6 +68,14 @@ export function makeItemValidator(knownRooms, knownEffects) {
           `wearable.cost is only valid on weapons (slot=weapon)`);
         check(Number.isInteger(def.wearable.cost) && def.wearable.cost > 0, ctx,
           `wearable.cost must be a positive integer`);
+      }
+    }
+    if (def.wards != null) {
+      check(Array.isArray(def.wards), ctx, `'wards' must be an array of environment-type strings`);
+      check(def.wearable != null, ctx, `'wards' is only meaningful on wearable items`);
+      for (const w of def.wards) {
+        check(typeof w === 'string' && ENVIRONMENT_TYPES.has(w), ctx,
+          `wards entry '${w}' must be one of: ${[...ENVIRONMENT_TYPES].join(', ')}`);
       }
     }
     if (def.lightSource != null) {

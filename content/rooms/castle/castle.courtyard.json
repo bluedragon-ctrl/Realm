@@ -5,6 +5,7 @@
     "cs": "Hradní nádvoří"
   },
   "outdoor": true,
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A wide courtyard choked with weeds, with passages leading deeper into the castle.",
     "cs": "Široké nádvoří zarostlé plevelem, s průchody, které vedou hlouběji do hradu."

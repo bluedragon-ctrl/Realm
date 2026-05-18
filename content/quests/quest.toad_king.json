@@ -1,0 +1,26 @@
+{
+  "id": "quest.toad_king",
+  "name": { "en": "The Toad in the Well", "cs": "Ropucha ve studni" },
+  "short": {
+    "en": "The miner warned of a giant toad in the well. Find it and put it down.",
+    "cs": "Horník varoval před obří ropuchou ve studni. Najdi ji a sraz."
+  },
+  "long": {
+    "en": "When the rescued miner pressed the brass key into your palm he told you what it opens — a small chest hidden in a grotto off the village well — and what stands in the way. Something huge and warty has set itself up in the well shaft, and the village has been carrying water from the river for years. Put the toad king down and the way to the grotto is yours.",
+    "cs": "Když ti zachráněný horník vtiskl do dlaně mosazný klíč, řekl ti, co otevírá — drobnou truhličku ukrytou v jeskyňce u vesnické studny — a co stojí v cestě. Cosi obrovského a bradavičnatého se ve studniční šachtě usadilo a vesnice už roky nosí vodu z řeky. Sraz ropušího krále a cesta do jeskyňky je tvoje."
+  },
+  "discovery": { "type": "pickup_item", "defId": "item.green_brass_key" },
+  "objectives": [
+    {
+      "id": "kill_toad_king",
+      "type": "kill",
+      "defId": "village.toad_king",
+      "count": 1,
+      "desc": { "en": "Defeat the toad king at the bottom of the well.", "cs": "Poraz ropušího krále na dně studny." }
+    }
+  ],
+  "rewards": {
+    "xp": 60,
+    "gold": 25
+  }
+}

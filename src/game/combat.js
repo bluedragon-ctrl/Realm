@@ -283,7 +283,7 @@ export function applyDamageWithFeedback(actor, target, amount, opts = {}) {
   const dealt = result?.dealt ?? 0;
 
   const fullyAbsorbed = absorbed > 0 && dealt === 0;
-  if (actor.session) {
+  if (actor?.session) {
     if (fullyAbsorbed) {
       actor.session.send({
         kind: 'system', tone: 'combat',
@@ -303,7 +303,7 @@ export function applyDamageWithFeedback(actor, target, amount, opts = {}) {
       });
     }
   }
-  if (target.session && !fullyAbsorbed) {
+  if (actor && target.session && !fullyAbsorbed) {
     if (!canPerceive(target, actor)) {
       target.session.send({
         kind: 'system',
@@ -326,10 +326,10 @@ export function applyDamageWithFeedback(actor, target, amount, opts = {}) {
   // suppresses hate generation and a barrier-protected ally never holds threat.
   if (!opts.suppressAggro) registerAttackAggro(actor, target, dealt + absorbed);
 
-  if (actor.kind === 'player') sendStats(actor);
+  if (actor?.kind === 'player') sendStats(actor);
   if (target.kind === 'player') sendStats(target);
 
-  if (actor.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
+  if (actor?.kind === 'player' && target.kind === 'npc') pushTargetInfo(actor, target);
 
   if (dealt > 0 && actor && actor !== target && actor.stats?.hp > 0 && target.activeEffects?.length) {
     let reflectAmount = 0;

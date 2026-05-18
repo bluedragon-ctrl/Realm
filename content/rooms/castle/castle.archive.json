@@ -5,6 +5,7 @@
     "cs": "Zapečetěný archiv"
   },
   "lightBase": "dim",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A vaulted stone chamber lined with locked cases and one motionless armoured figure.",
     "cs": "Klenutá kamenná komnata lemovaná zamčenými skříněmi a jednou nehybnou postavou ve zbroji."

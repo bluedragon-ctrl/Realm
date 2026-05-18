@@ -1,0 +1,28 @@
+{
+  "id": "quest.honey",
+  "name": { "en": "Honey for the Baker", "cs": "Med pro pekařku" },
+  "short": {
+    "en": "The baker wants a jar of honey for her pastry glaze.",
+    "cs": "Pekařka chce skleničku medu na glazuru."
+  },
+  "long": {
+    "en": "The baker is out of honey, and her pies won't shine without a proper glaze. Bring her one jar from the bees in the village garden and she'll send you home with a fresh pie.",
+    "cs": "Pekařce došel med a koláče se bez pořádné glazury neblyští. Přines jí jednu skleničku od včel z vesnické zahrady a ona tě domů pošle s čerstvým koláčem."
+  },
+  "discovery": { "type": "enter_room", "room": "village.bakery" },
+  "objectives": [
+    {
+      "id": "deliver_honey",
+      "type": "deliver_item",
+      "defId": "item.honey",
+      "recipient": "village.baker",
+      "count": 1,
+      "desc": { "en": "Deliver a jar of honey to the baker.", "cs": "Doruč skleničku medu pekařce." }
+    }
+  ],
+  "rewards": {
+    "xp": 15,
+    "gold": 10,
+    "items": ["item.pie"]
+  }
+}

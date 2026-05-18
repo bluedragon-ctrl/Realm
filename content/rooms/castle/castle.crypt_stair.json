@@ -5,6 +5,7 @@
     "cs": "Schody do hrobky"
   },
   "lightBase": "dark",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A narrow stone staircase spiralling down to a sealed iron door.",
     "cs": "Úzké kamenné schody, které se točí dolů k zavřeným železným dveřím."

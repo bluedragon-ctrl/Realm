@@ -245,9 +245,9 @@ export function describeRoom(actor) {
         name: t(def.name, lang),
         count: 1,
         pickable: def.pickable !== false,
-        usable: !!def.use,
+        usable: !!(def.use || def.quest_rumors),
         unlocks: !!def.unlocks,
-        interactable: !!(def.use || def.unlocks || hasExchanges),
+        interactable: !!(def.use || def.unlocks || def.quest_rumors || hasExchanges),
         category: categoryOf(def),
         accepts: isFixture ? acceptsFor(def) : undefined,
       });

@@ -10,8 +10,8 @@
   },
   "outdoor": true,
   "long": {
-    "en": "Twin towers once flanked the entrance; now both lean inward, joined by a sagging archway of cracked stone. The portcullis is jammed half-down, its iron bars rust-orange. Old shields hang on the walls, painted devices long since faded. Dry bones lie scattered on the cobbles, and the wind carries a faint, cold smell of rust.",
-    "cs": "Dvě věže kdysi střežily vchod; nyní se obě naklánějí dovnitř, spojené prohnutým obloukem z popraskaného kamene. Padací mříž je zaseknutá v půli, její železné tyče jsou rezavě oranžové. Na zdech visí staré štíty, barvy jejich znaků dávno vybledly. Po dlažbě jsou rozházené suché kosti a vítr přináší slabý, chladný pach rzi."
+    "en": "Twin towers once flanked the entrance; now both lean inward, joined by a sagging archway of cracked stone. The portcullis is jammed half-down, its iron bars rust-orange. Old shields hang on the walls, painted devices long since faded. Dry bones lie scattered on the cobbles. Past the arch the air turns colder and stranger — a cold that is not just weather. You would not want to step in there unprotected.",
+    "cs": "Dvě věže kdysi střežily vchod; nyní se obě naklánějí dovnitř, spojené prohnutým obloukem z popraskaného kamene. Padací mříž je zaseknutá v půli, její železné tyče jsou rezavě oranžové. Na zdech visí staré štíty, barvy jejich znaků dávno vybledly. Po dlažbě jsou rozházené suché kosti. Za obloukem se vzduch mění v chladnější a podivnější — chlad, který není jen počasí. Bez ochrany bys tam vstoupit nechtěl."
   },
   "exits": {
     "w": "forest.broken_road",

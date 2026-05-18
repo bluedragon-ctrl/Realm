@@ -1,0 +1,28 @@
+{
+  "id": "item.iron_sword_fine",
+  "rarity": 4,
+  "name": {
+    "en": "a forged iron sword",
+    "cs": "kovaný železný meč"
+  },
+  "nameAcc": {
+    "en": "the forged iron sword",
+    "cs": "kovaný železný meč"
+  },
+  "short": {
+    "en": "A finely forged iron sword with a bright keen edge.",
+    "cs": "Pečlivě kovaný železný meč se zářivě ostrým ostřím."
+  },
+  "long": {
+    "en": "A long iron sword forged from pure iron, the blade bright and free of nicks. The grip is wrapped in dark leather, and the balance settles into your palm like a friend. The smith pressed it into your hands and said only, 'No slag in this one. Cut true.'",
+    "cs": "Dlouhý železný meč ukutý z čistého železa, čepel zářivá a bez záseků. Rukojeť je ovinutá tmavou kůží a vyvážení sedne v dlani jako starý známý. Kovář ti ho vtiskl do ruky a jen řekl: „V tomhle není kus strusky. Sekni rovně.“"
+  },
+  "tags": ["weapon"],
+  "weight": 3,
+  "wearable": {
+    "slot": "weapon",
+    "damage": "1d8+ATK",
+    "cost": 12,
+    "bonus": { "attack": 3 }
+  }
+}

@@ -1,13 +1,13 @@
 {
   "id": "quest.miner_rescue",
-  "name": { "en": "The Trapped Miner", "cs": "Uvězněný horník" },
+  "name": { "en": "The Missing Miner", "cs": "Ztracený horník" },
   "short": {
-    "en": "Drive the kobolds out of the storeroom and free the miner they tied up.",
-    "cs": "Vyžeň kobolďáky ze skladu a osvoboď horníka, kterého svázali."
+    "en": "A miner who went to dig iron in the abandoned mine has not come back. Find him and free him.",
+    "cs": "Horník, který šel těžit železo do opuštěného dolu, se nevrátil. Najdi ho a osvoboď."
   },
   "long": {
-    "en": "Deep in the mine, the kobolds have tied a man to a post. Drive them out of the storeroom and he can go home.",
-    "cs": "Hluboko v dole svázali kobolďáci muže k trámu. Vyžeň je ze skladu a on se může vrátit domů."
+    "en": "A villager has pinned a note to the board: a miner who walked out to the abandoned mine in search of iron ore has not returned. The kobolds in the storeroom are the obvious suspects. Drive them out and the miner can go home.",
+    "cs": "Někdo z vesnice připíchl na vývěsku vzkaz: horník, který se vydal do opuštěného dolu hledat železnou rudu, se nevrátil. Kobolďáci ve skladu jsou očividní podezřelí. Vyžeň je a horník se může vrátit domů."
   },
   "discovery": { "type": "enter_room", "room": "mine.store_room" },
   "objectives": [

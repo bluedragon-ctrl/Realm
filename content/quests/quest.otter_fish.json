@@ -1,0 +1,34 @@
+{
+  "id": "quest.otter_fish",
+  "name": { "en": "The Otter at the Holt", "cs": "Vydra v doupěti" },
+  "short": {
+    "en": "Find the otter's hidden den along the river — then bring her five fish.",
+    "cs": "Najdi vydřino skryté doupě u řeky — pak jí přines pět ryb."
+  },
+  "long": {
+    "en": "Small five-toed prints lead off the gravel bar and disappear under the bank. The river otter who made them trades three fish for one pearl — and rumor says she gets generous when you bring her five at once. Find her holt and see for yourself.",
+    "cs": "Drobné pětiprsté otisky vedou ze štěrkového nánosu a mizí pod břehem. Říční vydra, která je tam zanechala, mění tři ryby za jednu perlu — a říká se, že je štědrá, když jí jich přineseš pět najednou. Najdi její doupě a uvidíš sám."
+  },
+  "discovery": { "type": "enter_room", "room": "riverside.gravel_bar" },
+  "objectives": [
+    {
+      "id": "find_holt",
+      "type": "enter_room",
+      "room": "riverside.otter_holt",
+      "desc": { "en": "Find the otter's hidden holt.", "cs": "Najdi skryté vydří doupě." }
+    },
+    {
+      "id": "deliver_fish",
+      "type": "deliver_item",
+      "defId": "item.river_fish",
+      "recipient": "riverside.river_otter",
+      "count": 5,
+      "desc": { "en": "Deliver 5 river fish to the otter.", "cs": "Doruč 5 říčních ryb vydře." }
+    }
+  ],
+  "rewards": {
+    "xp": 30,
+    "gold": 15,
+    "items": ["item.pearl"]
+  }
+}

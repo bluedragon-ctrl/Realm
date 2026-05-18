@@ -1,0 +1,28 @@
+{
+  "id": "quest.bear_skin",
+  "name": { "en": "A Bear Skin for the Smith", "cs": "Medvědí kůže pro kováře" },
+  "short": {
+    "en": "Bring the smith a bear skin and he'll cut you a fine cloak from the scraps.",
+    "cs": "Přines kováři medvědí kůži a on ti z přebytků ušije pořádný plášť."
+  },
+  "long": {
+    "en": "The smith has a customer waiting on bear-hide armour but no skin in stock. Bring him a bear pelt and he'll cut the cloak from the trim — and once he's worked one, he'll be happy to forge the heavy armour for anyone who supplies the hide.",
+    "cs": "Kovář má zákazníka, který čeká na zbroj z medvědí kůže, ale žádnou kůži zrovna nemá. Přines mu medvědí kožešinu a on ti z lemu ušije plášť — a jakmile jednu zpracuje, rád ukove i těžkou zbroj komukoli, kdo si přinese vlastní kůži."
+  },
+  "discovery": { "type": "enter_room", "room": "village.smith" },
+  "objectives": [
+    {
+      "id": "deliver_skin",
+      "type": "deliver_item",
+      "defId": "item.bear_skin",
+      "recipient": "village.smith",
+      "count": 1,
+      "desc": { "en": "Deliver a bear skin to the smith.", "cs": "Doruč medvědí kůži kováři." }
+    }
+  ],
+  "rewards": {
+    "xp": 50,
+    "gold": 20,
+    "items": ["item.bear_cloak"]
+  }
+}

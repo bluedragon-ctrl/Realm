@@ -1,0 +1,26 @@
+{
+  "id": "item.bear_cloak",
+  "rarity": 3,
+  "name": {
+    "en": "a bear-fur cloak",
+    "cs": "plášť z medvědí kožešiny"
+  },
+  "nameAcc": {
+    "en": "the bear-fur cloak",
+    "cs": "plášť z medvědí kožešiny"
+  },
+  "short": {
+    "en": "A heavy bear-fur cloak with the head folded back as a hood.",
+    "cs": "Těžký plášť z medvědí kožešiny s hlavou složenou na zádech jako kapuce."
+  },
+  "long": {
+    "en": "A long, heavy cloak cut from a single bear pelt. The fur is dark and dense and the head of the bear has been preserved and folded back to serve as a hood. The smith made it from the skin you brought him — what was left over after the armour, he said, was too good to waste.",
+    "cs": "Dlouhý, těžký plášť ušitý z jediné medvědí kožešiny. Srst je tmavá a hustá a hlava medvěda byla zachována a složena vzad jako kapuce. Kovář ho ušil z kůže, kterou jsi mu přinesl — to, co po zbroji zbylo, prý bylo příliš dobré, aby se to vyhodilo."
+  },
+  "tags": ["cloak"],
+  "weight": 2,
+  "wearable": {
+    "slot": "utility",
+    "bonus": { "defense": 1 }
+  }
+}

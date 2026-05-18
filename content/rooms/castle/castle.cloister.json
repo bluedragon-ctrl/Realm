@@ -5,6 +5,7 @@
     "cs": "Křížová chodba"
   },
   "lightBase": "dim",
+  "environment": { "type": "cold", "damage": 1, "intervalTicks": 6 },
   "short": {
     "en": "A long covered walkway around a small dead garden.",
     "cs": "Dlouhá krytá chodba kolem malé uschlé zahrady."

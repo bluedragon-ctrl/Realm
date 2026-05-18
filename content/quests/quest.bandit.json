@@ -1,0 +1,26 @@
+{
+  "id": "quest.bandit",
+  "name": { "en": "Trouble on the South Road", "cs": "Potíže na jižní cestě" },
+  "short": {
+    "en": "Clear out a bandit from the goblin camp on the south road.",
+    "cs": "Vyřaď lupiče ze skřetího tábora na jižní cestě."
+  },
+  "long": {
+    "en": "Goblin bandits have set up a camp on the south road and the carts have stopped coming through. The innkeeper says someone brave needs to put an end to the trouble — drop just one of them and the road will breathe easier.",
+    "cs": "Skřetí lupiči si postavili tábor na jižní cestě a vozy přestaly projíždět. Hostinský říká, že někdo statečný musí s tím skoncovat — stačí srovnat jednoho z nich a cesta se nadechne."
+  },
+  "discovery": { "type": "enter_room", "room": "village.goblin_camp" },
+  "objectives": [
+    {
+      "id": "kill_bandit",
+      "type": "kill",
+      "defId": "village.goblin_bandit",
+      "count": 1,
+      "desc": { "en": "Defeat a goblin bandit at the south camp.", "cs": "Poraz skřetího lupiče v jižním táboře." }
+    }
+  ],
+  "rewards": {
+    "xp": 40,
+    "gold": 30
+  }
+}
