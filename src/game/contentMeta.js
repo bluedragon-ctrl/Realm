@@ -40,7 +40,7 @@ export const PERCEPTION_KINDS = new Set(['blind', 'nightvision']);
 export const VISION_KINDS = new Set(['normal', 'low_light', 'nightvision', 'blind']);
 
 // ---------- wearables ----------
-export const WEARABLE_SLOTS = ['body', 'head', 'weapon', 'amulet', 'ring', 'utility'];
+export const WEARABLE_SLOTS = ['body', 'cloak', 'head', 'weapon', 'amulet', 'ring', 'utility'];
 export const WEARABLE_SLOT_SET = new Set(WEARABLE_SLOTS);
 
 export const ALLOWED_BONUS_KEYS = new Set([
