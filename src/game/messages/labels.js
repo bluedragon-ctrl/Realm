@@ -101,6 +101,7 @@ export function buildPanelLabels(lang) {
     slotEmpty: s('panel.slot_empty_label', lang),
     slotLabels: {
       body: s('panel.slot_body', lang),
+      cloak: s('panel.slot_cloak', lang),
       head: s('panel.slot_head', lang),
       weapon: s('panel.slot_weapon', lang),
       amulet: s('panel.slot_amulet', lang),
