@@ -94,6 +94,43 @@ function actorDisplay(actor, lang) {
   return resolveName(actor, 'nom', lang);
 }
 
+// Suffix appended to the actor/target's copy of an attack template — the merged
+// "{template} (-N)" / "(-N CRIT)" tag. Observers never see this; they read the bare
+// template. dealt === 0 (barrier full absorb) returns empty — the separate barrier
+// system messages explain that case.
+function damageSuffix(dealt, crit, lang) {
+  if (dealt <= 0) return '';
+  if (crit) return ` (-${dealt} ${s('combat.crit_tag', lang)})`;
+  return ` (-${dealt})`;
+}
+
+// Merged combat narration: collapses the template emote and the per-side hit-feedback
+// system messages into one line per recipient.
+//   - actor / target who can see the attacker: `{template} (-N)` (combat-toned emote).
+//   - observers who can see the attacker: bare `{template}` (plain emote, no number).
+//   - target who can't see the attacker: `combat.hit_by_unseen` (or crit variant) + (-N)
+//     as a system message — same shape as the legacy unseen path, with the amount tagged.
+function broadcastAttackNarration(actor, target, narration, dealt) {
+  const { templates, idx, crit } = narration;
+  broadcastToRoom(actor.location, (recipient) => {
+    const lang = recipient.lang;
+
+    if (recipient === target && !canPerceive(target, actor)) {
+      const baseKey = crit ? 'combat.crit_by_unseen' : 'combat.hit_by_unseen';
+      const tail = dealt > 0 ? ` (-${dealt})` : '';
+      return { kind: 'system', tone: 'bad', text: s(baseKey, lang) + tail };
+    }
+
+    if (recipient !== actor && !canPerceive(recipient, actor)) return null;
+
+    const line = fillPlaceholders(tListAt(templates, lang, idx), { actor, target, lang });
+    const isPrincipal = recipient === actor || recipient === target;
+    const text = isPrincipal ? line + damageSuffix(dealt, crit, lang) : line;
+    const tone = isPrincipal ? 'combat' : undefined;
+    return { kind: 'emote', tone, source: sourceForActor(actor, recipient), text };
+  });
+}
+
 export function executeAttack(actor, action, target) {
   if (!target) return;
   if (target.kind === 'npc' && target.alive === false) return;
@@ -131,17 +168,11 @@ export function executeAttack(actor, action, target) {
     : Math.max(Math.ceil(raw * 0.25), raw - (target.stats.defense ?? 0));
 
   const tmpl = action.templates;
-  if (tmpl) {
-    const idx = pickListIndex(tmpl);
-    broadcastToRoom(actor.location, (recipient) => {
-      if (recipient !== actor && !canPerceive(recipient, actor)) return null;
-      const lang = recipient.lang;
-      const line = fillPlaceholders(tListAt(tmpl, lang, idx), { actor, target, lang });
-      return { kind: 'emote', source: sourceForActor(actor, recipient), text: line };
-    });
-  }
+  const narration = tmpl ? { templates: tmpl, idx: pickListIndex(tmpl), crit } : null;
 
-  if (crit) {
+  // No-template attacks keep the legacy crit triad. Templated attacks fold the crit
+  // indicator into the merged narration suffix (see broadcastAttackNarration).
+  if (!narration && crit) {
     broadcastTriad(actor, target, {
       tone: 'combat',
       self: (lang) => s('combat.you_crit', lang, { target: targetDisplay(target, lang) }),
@@ -154,7 +185,7 @@ export function executeAttack(actor, action, target) {
     });
   }
 
-  applyDamageWithFeedback(actor, target, final, { damageType: action.damageType });
+  applyDamageWithFeedback(actor, target, final, { damageType: action.damageType, narration });
   if (actor.kind === 'player') actor.target = target;
 
   if (action.onHit && target.stats?.hp > 0) {
@@ -283,27 +314,29 @@ export function applyDamageWithFeedback(actor, target, amount, opts = {}) {
   const dealt = result?.dealt ?? 0;
 
   const fullyAbsorbed = absorbed > 0 && dealt === 0;
-  if (actor?.session) {
-    if (fullyAbsorbed) {
-      actor.session.send({
-        kind: 'system', tone: 'combat',
-        text: s('combat.you_hit_barrier', actor.lang, {
-          target: targetDisplay(target, actor.lang),
-          amount: absorbed,
-        }),
-      });
-    } else {
-      actor.session.send({
-        kind: 'system',
-        tone: 'combat',
-        text: s('combat.you_hit', actor.lang, {
-          target: targetDisplay(target, actor.lang),
-          amount: dealt,
-        }),
-      });
-    }
+  const narration = opts.narration;
+
+  // Barrier system messages always fire — barrier is a meaningful, rare state change
+  // worth its own line even when the narration suffix is doing the heavy lifting.
+  if (fullyAbsorbed && actor?.session) {
+    actor.session.send({
+      kind: 'system', tone: 'combat',
+      text: s('combat.you_hit_barrier', actor.lang, {
+        target: targetDisplay(target, actor.lang),
+        amount: absorbed,
+      }),
+    });
+  } else if (!narration && !fullyAbsorbed && actor?.session) {
+    actor.session.send({
+      kind: 'system',
+      tone: 'combat',
+      text: s('combat.you_hit', actor.lang, {
+        target: targetDisplay(target, actor.lang),
+        amount: dealt,
+      }),
+    });
   }
-  if (actor && target.session && !fullyAbsorbed) {
+  if (!narration && actor && target.session && !fullyAbsorbed) {
     if (!canPerceive(target, actor)) {
       target.session.send({
         kind: 'system',
@@ -320,6 +353,10 @@ export function applyDamageWithFeedback(actor, target, amount, opts = {}) {
         }),
       });
     }
+  }
+
+  if (narration && actor) {
+    broadcastAttackNarration(actor, target, narration, dealt);
   }
 
   // Use full attempted swing for aggro, not just HP-dealt. Otherwise barrier secretly

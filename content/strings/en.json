@@ -201,6 +201,7 @@
   "combat.you_crit": "a critical hit on {target}!",
   "combat.target_crit_you": "{actor} lands a critical hit on you!",
   "combat.crit_observed": "{actor} lands a critical hit on {target}!",
+  "combat.crit_tag": "CRIT",
   "combat.target_dies_observed": "{target} crumples and lies still.",
   "combat.you_died": "you have been defeated.",
   "combat.you_respawn": "you wake at home, weakened but alive.",

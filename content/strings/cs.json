@@ -201,6 +201,7 @@
   "combat.you_crit": "kritický zásah na {target}!",
   "combat.target_crit_you": "{actor} na tebe zasadí kritický zásah!",
   "combat.crit_observed": "{actor} zasadí kritický zásah na {target}!",
+  "combat.crit_tag": "KRITICKÝ",
   "combat.target_dies_observed": "{target} se zhroutí a zůstane bez pohybu.",
   "combat.you_died": "tentokrát to nevyšlo.",
   "combat.you_respawn": "probouzíš se doma — slabě, ale naživu.",
