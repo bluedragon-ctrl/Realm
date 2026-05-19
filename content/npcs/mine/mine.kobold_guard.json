@@ -58,7 +58,7 @@
     },
     {
       "primitive": "emote",
-      "chance": 0.04,
+      "chance": 0.01,
       "cost": 6,
       "lines": {
         "en": [

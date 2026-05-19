@@ -162,7 +162,7 @@
   "behaviors": [
     {
       "primitive": "say",
-      "chance": 0.2,
+      "chance": 0.05,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.bat_daemon" },
       "lines": {
@@ -182,7 +182,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.3,
+      "chance": 0.075,
       "cost": 14,
       "requires": { "type": "quest_active", "quest": "quest.ward_of_cold" },
       "lines": {
@@ -206,7 +206,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.3,
+      "chance": 0.075,
       "cost": 14,
       "requires": { "type": "quest_active", "quest": "quest.fallen_lord" },
       "lines": {
@@ -230,7 +230,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.25,
+      "chance": 0.0625,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.skeleton_lord" },
       "lines": {
@@ -250,7 +250,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.3,
+      "chance": 0.075,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.bones" },
       "lines": {
@@ -270,7 +270,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.25,
+      "chance": 0.0625,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.noon_wraith" },
       "lines": {
@@ -290,7 +290,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.06,
+      "chance": 0.015,
       "cost": 12,
       "lines": {
         "en": [
@@ -311,7 +311,7 @@
     },
     {
       "primitive": "emote",
-      "chance": 0.06,
+      "chance": 0.015,
       "cost": 6,
       "lines": {
         "en": [

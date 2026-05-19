@@ -87,7 +87,7 @@
     },
     {
       "primitive": "emote",
-      "chance": 0.1,
+      "chance": 0.025,
       "cost": 6,
       "lines": {
         "en": [
@@ -108,7 +108,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.05,
+      "chance": 0.0125,
       "cost": 12,
       "lines": {
         "en": [

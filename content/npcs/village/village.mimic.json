@@ -45,7 +45,7 @@
   "behaviors": [
     {
       "primitive": "emote",
-      "chance": 0.08,
+      "chance": 0.02,
       "cost": 6,
       "lines": {
         "en": [
@@ -64,7 +64,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.05,
+      "chance": 0.0125,
       "cost": 14,
       "lines": {
         "en": [

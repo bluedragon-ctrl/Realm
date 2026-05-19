@@ -116,7 +116,7 @@
   "behaviors": [
     {
       "primitive": "say",
-      "chance": 0.22,
+      "chance": 0.055,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.bonebloom" },
       "lines": {
@@ -136,7 +136,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.25,
+      "chance": 0.0625,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.sprite_honey" },
       "lines": {
@@ -156,7 +156,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.2,
+      "chance": 0.05,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.otter_fish" },
       "lines": {
@@ -176,7 +176,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.2,
+      "chance": 0.05,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.matriarch_hunt" },
       "lines": {
@@ -196,7 +196,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.08,
+      "chance": 0.02,
       "cost": 12,
       "lines": {
         "en": [
@@ -225,7 +225,7 @@
     },
     {
       "primitive": "emote",
-      "chance": 0.08,
+      "chance": 0.02,
       "cost": 6,
       "lines": {
         "en": [

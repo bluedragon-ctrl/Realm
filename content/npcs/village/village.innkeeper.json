@@ -69,7 +69,7 @@
   "behaviors": [
     {
       "primitive": "say",
-      "chance": 0.3,
+      "chance": 0.075,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.rat_tails" },
       "lines": {
@@ -89,7 +89,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.22,
+      "chance": 0.055,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.toad_king" },
       "lines": {
@@ -109,7 +109,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.25,
+      "chance": 0.0625,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.bandit" },
       "lines": {
@@ -129,7 +129,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.2,
+      "chance": 0.05,
       "cost": 14,
       "requires": { "type": "quest_unfulfilled", "quest": "quest.fallen_lord" },
       "lines": {
@@ -147,7 +147,7 @@
     },
     {
       "primitive": "say",
-      "chance": 0.05,
+      "chance": 0.0125,
       "cost": 12,
       "lines": {
         "en": [
@@ -166,7 +166,7 @@
     },
     {
       "primitive": "emote",
-      "chance": 0.05,
+      "chance": 0.0125,
       "cost": 6,
       "lines": {
         "en": [
